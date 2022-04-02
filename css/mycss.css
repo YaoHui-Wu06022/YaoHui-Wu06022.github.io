@@ -34,44 +34,4 @@
 }
 
 
-#web_bg{
- 
-background: #2BC0E4;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #EAECC6, #2BC0E4);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #EAECC6, #2BC0E4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-}
-.layout_post>#post {
-    /* 以下代表透明度为0.5 可以自行修改*/
-    background: rgba(255,255,255,.4);
-}
-
-/* 所有页面背景 */
-#aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
-    /* 以下代表透明度为0.5 */
-    background: rgba(255,255,255,.5);
-}
-
-/*侧边栏页面*/
-#aside-content>.card-widget  {
-	background: rgba(255,255,255,.3);
-}
-#aside-content>.sticky_layout>.card-widget{
-	background: rgba(255,255,255,.3);
-}
-/*文章页面*/
-.layout>#post{
-	background: rgba(255,255,255,.3);
-}
-/*分类页面*/
-.layout>#page{
-	
-	background: rgba(255,255,255,.3);
-}
-/*时间轴页面*/
-.layout>#archive{
-	background: rgba(255,255,255,.3);
-}
-
-
 
