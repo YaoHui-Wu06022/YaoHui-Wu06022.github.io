@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>数字电路知识点 | YH's Blog</title><meta name="keywords" content="study"><meta name="author" content="落荷"><meta name="copyright" content="落荷"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="学习完数字电路部分知识点有些混乱，总结一下 正逻辑(positive logic)，开关代数的基本概念之一，与门和或门的概念是相对，用1表示高电位，用0表示低电位； 基础门电路 三个基本门，非门也叫反相器 图中均有两种绘图形式，下方的为国内格式    AND Gate 与门 OR Gate 或门 NOT Gate 非门(Inverter)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字电路知识点">
+<meta property="og:url" content="http://example.com/2022/04/02/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="YH&#39;s Blog">
+<meta property="og:description" content="学习完数字电路部分知识点有些混乱，总结一下 正逻辑(positive logic)，开关代数的基本概念之一，与门和或门的概念是相对，用1表示高电位，用0表示低电位； 基础门电路 三个基本门，非门也叫反相器 图中均有两种绘图形式，下方的为国内格式    AND Gate 与门 OR Gate 或门 NOT Gate 非门(Inverter)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2022-04-01T16:19:41.000Z">
+<meta property="article:modified_time" content="2022-04-02T02:17:57.157Z">
+<meta property="article:author" content="落荷">
+<meta property="article:tag" content="study">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/04/02/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E7%9F%A5%E8%AF%86%E7%82%B9/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数字电路知识点',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-02 10:17:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">YH's Blog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数字电路知识点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-01T16:19:41.000Z" title="发表于 2022-04-02 00:19:41">2022-04-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-02T02:17:57.157Z" title="更新于 2022-04-02 10:17:57">2022-04-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数字电路知识点"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>学习完数字电路部分知识点有些混乱，总结一下</p>
+<p><code>正逻辑</code>(positive logic)，开关代数的基本概念之一，与门和或门的概念是相对，用1表示高电位，用0表示低电位；</p>
+<h2 id="基础门电路">基础门电路</h2>
+<p>三个基本门，非门也叫反相器</p>
+<p>图中均有两种绘图形式，下方的为国内格式</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">AND Gate 与门</th>
+<th style="text-align: center;">OR Gate 或门</th>
+<th style="text-align: center;">NOT Gate 非门(Inverter)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315093443504.png" alt="image-20220315093443504" style="zoom: 33%;" /><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315093724372.png" alt="image-20220315093724372" style="zoom: 33%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315093640636.png" alt="image-20220315093640636" style="zoom: 33%;" /><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315093743329.png" alt="image-20220315093743329" style="zoom: 33%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315093843576.png" alt="image-20220315093843576" style="zoom: 33%;" /><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315093900668.png" alt="image-20220315093900668" style="zoom: 33%;" /></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(Z = X·Y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Z = X+Y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Z = X&#39;\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>其他常见的门：<strong>(注意记住咋画)</strong></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">NAND Gate 与非门</th>
+<th style="text-align: center;">NOR Gate 或非门</th>
+<th style="text-align: center;">XOR Gate 异或门</th>
+<th style="text-align: center;">XNOR Gate 同或门</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315102719809.png" alt="image-20220315102719809" style="zoom: 50%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315102820428.png" alt="image-20220315102820428" style="zoom: 50%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315104400166.png" alt="image-20220315104400166" style="zoom: 50%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220315104759295.png" alt="image-20220315104759295" style="zoom: 50%;" /></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(Z=(X \cdot Y)&#39;\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Z=(X+Y)&#39;\)</span></td>
+<td style="text-align: center;">$<span class="math display">\[\begin{align}\mathrm{Z}&amp;=\mathrm{X} \oplus \mathrm{Y}\\\end{align}\]</span> $</td>
+<td style="text-align: center;"><span class="math inline">\(\begin{align}Z =&amp;\operatorname X \odot \operatorname{Y}=(\mathrm{X} \oplus \mathrm{Y})&#39;\\\end{align}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>其中<span class="math inline">\(\mathrm{X} \oplus \mathrm{Y}= X&#39;Y+XY&#39;,\operatorname X \odot \operatorname{Y}=XY+X&#39;Y&#39;\)</span></p>
+<h2 id="组合逻辑设计原理">组合逻辑设计原理</h2>
+<ul>
+<li><p>单变量： <span class="math display">\[
+\begin{array}{lllll}
+\hline \text { (T1) } &amp; X+0=X &amp; (T 1&#39;) &amp; X \cdot 1=X &amp; \text { (自等律) } \\
+\text { (T2) } &amp; \color{red}X+1=1 &amp; (T 2&#39;) &amp; X \cdot 0=0 &amp; ( \text { 0-1律 }) \\
+\text { (T3) } &amp; X+X=X &amp; (T 3&#39;) &amp; X \cdot X=X &amp; \text { (同一律) } \\
+\text { (T4) } &amp; (X)^{\prime}=X &amp; &amp; &amp; \text { (还原律) } \\
+\text { (T5) } &amp; \color{red}X+X^{\prime}=1 &amp; (T 5&#39;) &amp; X \cdot X^{\prime}=0 &amp; \text { (互补律) } \\
+\hline
+\end{array}
+\]</span></p></li>
+<li><p>双变量： <span class="math display">\[
+\begin{array}{lllll}
+\hline 
+(T 8) &amp; X \cdot Y+X \cdot Z=X \cdot(Y+Z) &amp; (T 8&#39;) &amp; \color{red}(X+Y) \cdot(X+Z)=X+Y \cdot Z &amp; (\text { 分配律 }) \\
+(T 9) &amp; \color{red}X+X \cdot Y=X &amp; (T 9&#39;) &amp;\color{red} X \cdot(X+Y)=X &amp; (\text { 吸收律) } \\
+(T 10) &amp; X \cdot Y+X \cdot Y^{\prime}=X &amp; (T 10&#39;) &amp; \color{red}(X+Y) \cdot(X+Y&#39;)=X &amp; (\text { 组合律 }) \\
+(T 11) &amp; X \cdot Y+X^{\prime} \cdot Z+Y \cdot Z=X \cdot Y+X^{\prime} \cdot Z &amp; &amp; &amp; (\text { 添加律 }) \\
+(T 11&#39;) &amp; (X+Y) \cdot\left(X^{\prime}+Z\right) \cdot(Y+Z)=(X+Y) \cdot\left(X^{\prime}+Z\right) &amp; &amp; &amp; \\
+\hline
+\end{array}
+\]</span></p></li>
+<li><p>n变量：<code>德摩根</code> $$</p>
+<span class="math display">\[\begin{array}{lll}
+\hline  
+(T12)   &amp; X+X+\cdots+X=X  &amp; \text {(广义同一律)} \\
+(T12&#39;)  &amp; X\cdot X\cdots X=X  \\
+(T13)   &amp; ({X}_{1} \cdot {X}_{2} \cdot \cdots \cdot {X}_{n})^{\prime}={X}_{1}^{\prime}+{X}_{2}^{\prime}+\cdots+{X}_{n}^{\prime}  &amp; \text{(德摩根定理)}\\
+(T13&#39;)  &amp; ({X}_{1}+{X}_{2}+\cdots+{X}_{n})^{\prime}={X}_{1}^{\prime} \cdot {X}_{2}^{\prime} \cdots \cdots \cdot {X}_{n}^{\prime} \\
+
+\hline
+\end{array}\]</span>
+<p>$$</p></li>
+<li><p>异或同或关系：</p>
+<p>n个异或(同或)门： <span class="math display">\[
+\begin{aligned}
+\mathrm{X}_{1} \oplus \mathrm{X}_{2} \oplus \cdots \oplus \mathrm{X}_{\mathrm{n}}=\left\{\begin{array}{ll}1 &amp; \text { Odd number of } 1 \mathrm{~s} \\ 0 &amp; \text { Even number of } 1 \mathrm{~s}\end{array}\right. 
+\\
+\mathrm{X}_{1} \odot \mathrm{X}_{2} \odot \cdots \odot \mathrm{X}_{\mathrm{n}}=\left\{\begin{array}{ll}
+1 &amp; \text { Even number of } 0 \mathrm{~s} \\
+0 &amp; \text { Odd number of } 0 \mathrm{~s}
+\end{array}\right.
+\end{aligned}
+\]</span> 因果互换关系：<span class="math inline">\(\mathrm{X} \oplus \mathrm{Y}=\mathrm{Z} \rightarrow \mathrm{X} \oplus \mathrm{Z}=\mathrm{Y} \rightarrow \mathrm{Y} \oplus \mathrm{Z}=\mathrm{X}\)</span></p></li>
+<li><p>对偶定理：</p>
+<p>交换所有的<code>0</code>和<code>1</code>以及<code>"+"</code>和<code>"·"</code>，规则对倒</p>
+<p><span class="math inline">\(F^{D}\left(X_{1}, X_{2}, \cdots, X_{n}, 0,1,+, \cdot\right)=F\left(X_{1}, X_{2}, \cdots, X_{n}, 1,0, \cdot,+,\right)\)</span></p></li>
+</ul>
+<h2 id="cmos门电路">CMOS门电路</h2>
+<p>MOS管：<code>n型</code>为高通，<code>p型</code>为低通，对于相同的硅面积，n沟道晶体管的“导通”电阻比p沟道晶体管的要低</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Inverter</strong> 反相器</th>
+<th style="text-align: center;">NAND Gates与非门</th>
+<th style="text-align: center;"><strong>NOR Gates</strong>或非门</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220323112330086.png" alt="image-20220323112330086" style="zoom: 50%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220323112913769.png" alt="image-20220323112913769" style="zoom: 40%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220323112934865.png" alt="image-20220323112934865" style="zoom: 45%;" /></td>
+</tr>
+</tbody>
+</table>
+<p>需要关注的地方在于A，B所连接的<code>n</code>型MOS管为串联还是并联，串联<code>(AB)</code>则导通两个才能导致Z的低电平，并联<code>(A+B)</code>则导通一个导致Z的低电平，对应与门的非和或门的非</p>
+<p>基于等效门电路原理，看电路功能时可以最后在括号外加非</p>
+<h3 id="门电路设计">门电路设计</h3>
+<p>注意分功能来设计，分模块后拼接即可，因为门电路不能直接表示<code>与门</code>或者<code>或门</code>，以下给出总体功能模块：(主要学习的思路还是模块分层)</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>AND Gates</strong>与门</th>
+<th style="text-align: center;"><strong>OR Gates</strong>或门</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220402004723236.png" alt="image-20220402004723236" style="zoom:50%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220402004747060.png" alt="image-20220402004747060" style="zoom:50%;" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="fanin-fanout-扇入扇出">Fanin Fanout 扇入扇出</h2>
+<p>门电路所具有的输入端的数目，称为该逻辑系列的扇入</p>
+<p>一个<code>n</code>输入门就具有<code>n</code>个串联和<code>n</code>个并联晶体管</p>
+<p>串联晶体管“导通”的电阻可加性限制了CMOS门的扇入数；NOR gates ≤ 4 NAND gates ≤ 6</p>
+<h3 id="计算散出数">计算散出数</h3>
+<p>高电平：HIGH - state fanout <span class="math display">\[
+{N}_{\mathrm{H}}=\vert \frac{  {I}_{\mathrm{OHmax} } }{ {I}_{\mathrm{IHmax} } }\vert
+\]</span> 低电平：LOW - state fanout <span class="math display">\[
+{N}_{L}=\vert \frac{ {I}_{\mathrm{OLmax} } }{ {I}_{\mathrm{ILmax} } }\vert 
+\]</span> Overall fanout <span class="math inline">\(N=\min \left({N}_{\mathrm{H}}, {N}_{\mathrm{L}}\right)\)</span></p>
+<p>Excess driving capability 剩余驱动能力：<span class="math inline">\(\left\{\begin{align} &amp;高电平:\quad \vert {I}_{ {O H { m a x } } }\vert -{N}\vert {I}_{ {I H m a x} }\vert \\ &amp;低电平 :\quad \vert {I}_{\mathrm{OLmax} }\vert -{N}\vert {I}_{\text {ILmax } }\vert &amp; \end{align}\right.\)</span></p>
+<h2 id="noise-margins-噪声容限">noise margins 噪声容限</h2>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220324104313904.png" alt="image-20220324104313904" style="zoom: 33%;" /></p>
+<p><span class="math inline">\(V_{NH} = V_{OHmin} – V_{IHmin}\qquad V_{NL} = V_{ILmax} – V_{OLmax}\)</span>，关键在于确认好输入<code>(drive)</code>输出<code>(load)</code></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">落荷</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/04/02/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E7%9F%A5%E8%AF%86%E7%82%B9/">http://example.com/2022/04/02/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E7%9F%A5%E8%AF%86%E7%82%B9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">YH's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/study/">study</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E6%8A%A5%E9%94%99/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">遇到的hexo报错</div></div></a></div><div class="next-post pull-right"><a href="/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于图片求体积的算法</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">落荷</div><div class="author-info__description">good luck is coming</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E9%97%A8%E7%94%B5%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">基础门电路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">组合逻辑设计原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cmos%E9%97%A8%E7%94%B5%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">CMOS门电路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%A8%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.1.</span> <span class="toc-text">门电路设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fanin-fanout-%E6%89%87%E5%85%A5%E6%89%87%E5%87%BA"><span class="toc-number">4.</span> <span class="toc-text">Fanin Fanout 扇入扇出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%95%A3%E5%87%BA%E6%95%B0"><span class="toc-number">4.1.</span> <span class="toc-text">计算散出数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#noise-margins-%E5%99%AA%E5%A3%B0%E5%AE%B9%E9%99%90"><span class="toc-number">5.</span> <span class="toc-text">noise margins 噪声容限</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/02/%E7%94%B5%E7%A3%81%E5%9C%BA%E4%B8%80%E4%BA%8C%E7%AB%A0%E5%A4%8D%E4%B9%A0/" title="电磁场一二章复习"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="电磁场一二章复习"/></a><div class="content"><a class="title" href="/2022/04/02/%E7%94%B5%E7%A3%81%E5%9C%BA%E4%B8%80%E4%BA%8C%E7%AB%A0%E5%A4%8D%E4%B9%A0/" title="电磁场一二章复习">电磁场一二章复习</a><time datetime="2022-04-02T02:20:07.000Z" title="发表于 2022-04-02 10:20:07">2022-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E6%8A%A5%E9%94%99/" title="遇到的hexo报错"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="遇到的hexo报错"/></a><div class="content"><a class="title" href="/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E6%8A%A5%E9%94%99/" title="遇到的hexo报错">遇到的hexo报错</a><time datetime="2022-04-01T17:41:09.000Z" title="发表于 2022-04-02 01:41:09">2022-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/02/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E7%9F%A5%E8%AF%86%E7%82%B9/" title="数字电路知识点"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数字电路知识点"/></a><div class="content"><a class="title" href="/2022/04/02/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E7%9F%A5%E8%AF%86%E7%82%B9/" title="数字电路知识点">数字电路知识点</a><time datetime="2022-04-01T16:19:41.000Z" title="发表于 2022-04-02 00:19:41">2022-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/" title="基于图片求体积的算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于图片求体积的算法"/></a><div class="content"><a class="title" href="/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/" title="基于图片求体积的算法">基于图片求体积的算法</a><time datetime="2022-04-01T06:22:46.000Z" title="发表于 2022-04-01 14:22:46">2022-04-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/31/hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8Afluid%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE/" title="hexo博客的搭建以及fluid主题的配置"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo博客的搭建以及fluid主题的配置"/></a><div class="content"><a class="title" href="/2022/03/31/hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8Afluid%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE/" title="hexo博客的搭建以及fluid主题的配置">hexo博客的搭建以及fluid主题的配置</a><time datetime="2022-03-31T12:37:10.000Z" title="发表于 2022-03-31 20:37:10">2022-03-31</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 落荷</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
