@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220402004747060.png">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220324104313904.png">
 <meta property="article:published_time" content="2022-04-01T16:19:41.000Z">
-<meta property="article:modified_time" content="2022-04-01T17:40:02.360Z">
+<meta property="article:modified_time" content="2022-04-02T02:13:12.217Z">
 <meta property="article:author" content="落荷">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.6k 字
     </span>
   
 
@@ -228,7 +228,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28 分钟
+      31 分钟
     </span>
   
 
@@ -269,7 +269,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年4月2日 凌晨
+                  本文最后更新于：2022年4月2日 上午
                 
               </p>
             
@@ -367,15 +367,14 @@
 \end{array}\]</span>
 <p>$$</p></li>
 <li><p>异或同或关系：</p>
-<p>n个异或(同或)门： $ <em>{1} </em>{2} _{}={</p>
-<span class="math display">\[\begin{array}{ll}1 &amp; \text { Odd number of } 1 \mathrm{~s} \\ 0 &amp; \text { Even number of } 1 \mathrm{~s}\end{array}\]</span>
-<p>. \ <em>{1} </em>{2} _{}={</p>
-<span class="math display">\[\begin{array}{ll}
+<p>n个异或(同或)门： <span class="math display">\[
+ \mathrm{X}_{1} \oplus \mathrm{X}_{2} \oplus \cdots \oplus \mathrm{X}_{\mathrm{n}}=\left\{\begin{array}{ll}1 &amp; \text { Odd number of } 1 \mathrm{~s} \\ 0 &amp; \text { Even number of } 1 \mathrm{~s}\end{array}\right. 
+\\
+\mathrm{X}_{1} \odot \mathrm{X}_{2} \odot \cdots \odot \mathrm{X}_{\mathrm{n}}=\left\{\begin{array}{ll}
 1 &amp; \text { Even number of } 0 \mathrm{~s} \\
 0 &amp; \text { Odd number of } 0 \mathrm{~s}
-\end{array}\]</span>
-<p>.$</p>
-<p>因果互换关系：<span class="math inline">\(\mathrm{X} \oplus \mathrm{Y}=\mathrm{Z} \rightarrow \mathrm{X} \oplus \mathrm{Z}=\mathrm{Y} \rightarrow \mathrm{Y} \oplus \mathrm{Z}=\mathrm{X}\)</span></p></li>
+\end{array}\right.
+\]</span> 因果互换关系：<span class="math inline">\(\mathrm{X} \oplus \mathrm{Y}=\mathrm{Z} \rightarrow \mathrm{X} \oplus \mathrm{Z}=\mathrm{Y} \rightarrow \mathrm{Y} \oplus \mathrm{Z}=\mathrm{X}\)</span></p></li>
 <li><p>对偶定理：</p>
 <p>交换所有的<code>0</code>和<code>1</code>以及<code>"+"</code>和<code>"·"</code>，规则对倒</p>
 <p><span class="math inline">\(F^{D}\left(X_{1}, X_{2}, \cdots, X_{n}, 0,1,+, \cdot\right)=F\left(X_{1}, X_{2}, \cdots, X_{n}, 1,0, \cdot,+,\right)\)</span></p></li>
@@ -392,9 +391,9 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220323112330086.png" srcset="/img/loading.gif" lazyload alt="image-20220323112330086" style="zoom: 40%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220323112330086.png" srcset="/img/loading.gif" lazyload alt="image-20220323112330086" style="zoom: 50%;" /></td>
 <td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220323112913769.png" srcset="/img/loading.gif" lazyload alt="image-20220323112913769" style="zoom: 40%;" /></td>
-<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220323112934865.png" srcset="/img/loading.gif" lazyload alt="image-20220323112934865" style="zoom: 40%;" /></td>
+<td style="text-align: center;"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220323112934865.png" srcset="/img/loading.gif" lazyload alt="image-20220323112934865" style="zoom: 45%;" /></td>
 </tr>
 </tbody>
 </table>
@@ -421,9 +420,11 @@
 <p>一个<code>n</code>输入门就具有<code>n</code>个串联和<code>n</code>个并联晶体管</p>
 <p>串联晶体管“导通”的电阻可加性限制了CMOS门的扇入数；NOR gates ≤ 4 NAND gates ≤ 6</p>
 <h3 id="计算散出数">计算散出数</h3>
-<p>高电平：HIGH - state fanout $_{}=$</p>
-<p>低电平：LOW - state fanout $_{L}=$</p>
-<p>Overall fanout <span class="math inline">\(N=\min \left({N}_{\mathrm{H}}, {N}_{\mathrm{L}}\right)\)</span></p>
+<p>高电平：HIGH - state fanout <span class="math display">\[
+{N}_{\mathrm{H}}=\vert \frac{  {I}_{\mathrm{OHmax} } }{ {I}_{\mathrm{IHmax} } }\vert
+\]</span> 低电平：LOW - state fanout <span class="math display">\[
+{N}_{L}=\vert \frac{ {I}_{\mathrm{OLmax} } }{ {I}_{\mathrm{ILmax} } }\vert 
+\]</span> Overall fanout <span class="math inline">\(N=\min \left({N}_{\mathrm{H}}, {N}_{\mathrm{L}}\right)\)</span></p>
 <p>Excess driving capability 剩余驱动能力：<span class="math inline">\(\left\{\begin{align} &amp;高电平:\quad \vert {I}_{ {O H { m a x } } }\vert -{N}\vert {I}_{ {I H m a x} }\vert \\ &amp;低电平 :\quad \vert {I}_{\mathrm{OLmax} }\vert -{N}\vert {I}_{\text {ILmax } }\vert &amp; \end{align}\right.\)</span></p>
 <h2 id="noise-margins-噪声容限">noise margins 噪声容限</h2>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220324104313904.png" srcset="/img/loading.gif" lazyload alt="image-20220324104313904" style="zoom: 33%;" /></p>
