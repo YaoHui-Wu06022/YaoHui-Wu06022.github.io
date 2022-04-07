@@ -3,7 +3,8 @@
   <entry>
     <title>hexo博客的搭建以及fluid主题的配置</title>
     <url>/2022/03/31/hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8Afluid%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>详细过程具体参考https://zhuanlan.zhihu.com/p/102592286；本文主要记录过程中一些问题</p>
+    <content><![CDATA[<p>详细过程具体参考</p>
+<p>本文主要记录过程中一些问题</p>
 <p>搭建的过程就是三部曲</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean   #清除缓存文件 db.json 和已生成的静态文件 public</span><br><span class="line">hexo g       #生成网站静态文件到默认设置的 public 文件夹(hexo generate 的缩写)</span><br><span class="line">hexo d       #自动生成网站静态文件，并部署到设定的仓库(hexo deploy 的缩写)</span><br></pre></td></tr></table></figure>
 <p>补充：一定用网易UU加速器，省时间还快</p>
@@ -55,46 +56,13 @@
       </categories>
   </entry>
   <entry>
-    <title>基于图片求体积的算法</title>
-    <url>/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>浅记录一下学院数模赛的算法流程</p>
-<h2 id="题目">题目</h2>
-<p>自拟场景和尺寸，在有参照物的情况下，依据图片，建立模型估计以下土堆的立方数</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401142622068.png" alt="image-20220401142622068" style="zoom: 80%;" /></p>
-<h2 id="思路及算法">思路及算法</h2>
-<h3 id="思路">思路</h3>
-<ol type="1">
-<li><p>筛选出需要的土堆和挖掘机部分</p></li>
-<li><p>根据轮廓利用古鲁金定理计算像素体积</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/gulujin.png" alt="gulujin" style="zoom:50%;" /></p></li>
-<li><p>根据挖掘机在图片中的面积以及实际尺寸计算图片和实际长度的转化关系</p></li>
-<li><p>代入计算的土堆像素体积获得实际体积</p></li>
-</ol>
-<p>因为python的<code>opencv</code>只能识别<code>HSV</code>三通道参数，需要根据<code>HSV</code>表来粗筛选土堆和挖掘机</p>
-<p><code>HSV</code>颜色参考：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401143415448.png" alt="image-20220401143415448" style="zoom:50%;" /></p>
-<h3 id="算法">算法</h3>
-<p>封装了一个计算形心相对图片坐标的函数<code>XX</code>，输入为图片，标识名称，HSV高低数组，返回值为形心坐标cx和cy，和轮廓的像素面积，输出二值化图片，红线轮廓图片以及蓝色形心图片</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2022/3/30 14:44</span></span><br><span class="line"><span class="comment"># @Author : YH</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">XX</span>(<span class="params">img,name,low,high</span>):</span><br><span class="line">    img = cv.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">    <span class="comment"># cv.imwrite(&#x27;gaosi.jpg&#x27;,img)</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    提取颜色</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)</span><br><span class="line">    low_hsv = np.array(low)</span><br><span class="line">    high_hsv = np.array(high)</span><br><span class="line">    mask = cv.inRange(hsv, lowerb=low_hsv, upperb=high_hsv)</span><br><span class="line">    <span class="comment"># 展示黑白图</span></span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;HB&quot;,mask)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    <span class="comment"># 保存黑白土堆轮廓</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;HBLK.jpg&quot;</span>, mask)</span><br><span class="line">    contours, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    cv.drawContours(img, contours, -<span class="number">1</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 保存轮廓线图片</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;LK.jpg&quot;</span>,img)</span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;LK&quot;,img)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    areas = []</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">        areas.append(cv.contourArea(contours[c]))</span><br><span class="line">    MAX = areas.index(<span class="built_in">max</span>(areas))   <span class="comment"># 求最大轮廓序号</span></span><br><span class="line">    M = cv.moments(contours[MAX])  <span class="comment"># 求矩</span></span><br><span class="line">    cx = <span class="built_in">int</span>(M[<span class="string">&#x27;m10&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求x坐标</span></span><br><span class="line">    cy = <span class="built_in">int</span>(M[<span class="string">&#x27;m01&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求y坐标</span></span><br><span class="line">    cv.circle(img, (cx, cy), <span class="number">1</span>, (<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>), <span class="number">0</span>)</span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span> + <span class="string">&quot;/&quot;</span> + name + <span class="string">&quot;ZX.jpg&quot;</span>, img)   <span class="comment">#保存形心图片</span></span><br><span class="line">    area = cv.contourArea(contours[MAX])</span><br><span class="line">    <span class="keyword">return</span> cx, cy, area</span><br></pre></td></tr></table></figure>
-<p>土堆计算的主函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    img = cv.imread(<span class="string">&#x27;pic/tudui.jpg&#x27;</span>)</span><br><span class="line">    cx,cy,area = XX(img,name=<span class="string">&quot;tudui&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx,cy,area)</span><br><span class="line">    img1 = img[<span class="number">0</span>:img.shape[<span class="number">0</span>], <span class="number">0</span>:cx]</span><br><span class="line">    cx1,cy1,area1 = XX(img1,name=<span class="string">&quot;tudui1&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx1,cy1,area1)</span><br><span class="line">    V = <span class="number">2</span>*<span class="built_in">abs</span>(cx-cx1)*math.pi*area/<span class="number">2</span>*math.<span class="built_in">pow</span>(<span class="number">0.033082679182000536</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(V)</span><br></pre></td></tr></table></figure>
-<p>其中V计算中<code>math.pow</code>用的是计算获得的像素与实际长度转化关系，这个值准确性有待提高，因为挖掘机的具体参数并未获得，计算过程中没有很好考虑视角造成的长度影响</p>
-<p>卡车计算的额外步骤：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">space = (math.cos(math.pi/<span class="number">3</span>)+math.cos(math.pi/<span class="number">6</span>))*<span class="number">0.84</span>*<span class="number">2.22</span></span><br><span class="line"><span class="comment">#计算像素和实际长度转化关系</span></span><br><span class="line">a = math.sqrt(space/area)</span><br></pre></td></tr></table></figure>
-<p>这个算法只能初步实现分离物体，如果需要更加精细还需要改进</p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-  </entry>
-  <entry>
     <title>三种投影仪的原理和结构</title>
     <url>/2022/04/07/%E4%B8%89%E7%A7%8D%E6%8A%95%E5%BD%B1%E4%BB%AA%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<h1 id="lcddlp激光投影仪">LCD、DLP、激光投影仪</h1>
 <h2 id="lcd">LCD</h2>
 <p>LCD（Liquid Crystal Display：液晶显示器），LCD 技术最早出现于1968年，按照液晶板的片数，LCD 投影机分为单片LCD 投影仪和三片 LCD (3LCD)投影仪。现在的LCD投影机大部分采用3LCD板，单片LCD投影仪已经退出市场。</p>
 <h3 id="单片lcd投影仪工作原理">单片LCD投影仪工作原理</h3>
-<p>参考链接：https://www.bilibili.com/video/BV15U4y1s7SX?share_source=copy_web</p>
+<p>参考链接：</p>
 <p>单片LCD投影仪将LCD面板的背光部分拆去，然后使用大功率的背光源通过聚光镜照射到LCD面板上，由于LCD面板是透光的，画面就会被照射出去，通过前面的聚焦镜及镜头打到屏幕上而成像。</p>
 <p>光路：(前后指光的方向，后面指光进入的面，前面指光出射的面)</p>
 <ul>
@@ -111,8 +79,8 @@
 <h3 id="lcd投影仪工作原理">3LCD投影仪工作原理</h3>
 <p>参考链接：</p>
 <ul>
-<li>结构：https://www.bilibili.com/video/BV1zy4y1h7wj?share_source=copy_web</li>
-<li>色彩组合：https://www.bilibili.com/video/BV1k54y1Y7DC?share_source=copy_web</li>
+<li></li>
+<li></li>
 </ul>
 <p>光路图：</p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3LCD.png" alt="3LCD" style="zoom:50%;" /></p>
@@ -179,7 +147,6 @@
 <p>LCD和DLP都是从发出的光中通过透镜过滤出红、绿、蓝三种光进行成像，但这样光的利用率不到20%；激光投影仪直接用红、绿、蓝三基色激光为光源，不用白光为光源，这大大降低了能耗。</p>
 <p>激光投影技术一般分为两种，一种是单色光，一种是彩色光</p>
 <h3 id="单色激光技术">单色激光技术</h3>
-<p>参考链接：https://www.sohu.com/a/207890224_616364?qq-pf-to=pcqq.group</p>
 <p>蓝色激光的形成是由蓝色Laser Diode所发出的蓝光经过荧光色轮的蓝色(Blue)部分，直接通过，然后经过滤光色轮中透明段，从而形成投影画面所需要的蓝光。</p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="蓝光" style="zoom: 43%;" /></p>
 <p>蓝光经过荧光色轮(Phosphor wheel)的绿色(Green)反射形成绿光，然后再经过滤光色轮(filter wheel)过滤出所需要的绿色光波长，从而形成绿光通过</p>
@@ -217,39 +184,72 @@
 <tbody>
 <tr class="odd">
 <td>使用寿命</td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
+<td><span class="math inline">\(\star\)</span></td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
 </tr>
 <tr class="even">
 <td>亮度</td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\)</span></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
 </tr>
 <tr class="odd">
 <td>色彩</td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\)</span></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
 </tr>
 <tr class="even">
 <td>灵活性</td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
+<td><span class="math inline">\(\star\)</span></td>
 </tr>
 <tr class="odd">
 <td>价格昂贵程度</td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /> <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
-<td><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/0037669E.png" alt="星星" style="zoom:25%;" /></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\)</span></td>
 </tr>
 </tbody>
 </table>
 ]]></content>
       <categories>
         <category>study</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>基于图片求体积的算法</title>
+    <url>/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>浅记录一下学院数模赛的算法流程</p>
+<h2 id="题目">题目</h2>
+<p>自拟场景和尺寸，在有参照物的情况下，依据图片，建立模型估计以下土堆的立方数</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401142622068.png" alt="image-20220401142622068" style="zoom: 80%;" /></p>
+<h2 id="思路及算法">思路及算法</h2>
+<h3 id="思路">思路</h3>
+<ol type="1">
+<li><p>筛选出需要的土堆和挖掘机部分</p></li>
+<li><p>根据轮廓利用古鲁金定理计算像素体积</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/gulujin.png" alt="gulujin" style="zoom:50%;" /></p></li>
+<li><p>根据挖掘机在图片中的面积以及实际尺寸计算图片和实际长度的转化关系</p></li>
+<li><p>代入计算的土堆像素体积获得实际体积</p></li>
+</ol>
+<p>因为python的<code>opencv</code>只能识别<code>HSV</code>三通道参数，需要根据<code>HSV</code>表来粗筛选土堆和挖掘机</p>
+<p><code>HSV</code>颜色参考：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401143415448.png" alt="image-20220401143415448" style="zoom:50%;" /></p>
+<h3 id="算法">算法</h3>
+<p>封装了一个计算形心相对图片坐标的函数<code>XX</code>，输入为图片，标识名称，HSV高低数组，返回值为形心坐标cx和cy，和轮廓的像素面积，输出二值化图片，红线轮廓图片以及蓝色形心图片</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2022/3/30 14:44</span></span><br><span class="line"><span class="comment"># @Author : YH</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">XX</span>(<span class="params">img,name,low,high</span>):</span><br><span class="line">    img = cv.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">    <span class="comment"># cv.imwrite(&#x27;gaosi.jpg&#x27;,img)</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    提取颜色</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)</span><br><span class="line">    low_hsv = np.array(low)</span><br><span class="line">    high_hsv = np.array(high)</span><br><span class="line">    mask = cv.inRange(hsv, lowerb=low_hsv, upperb=high_hsv)</span><br><span class="line">    <span class="comment"># 展示黑白图</span></span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;HB&quot;,mask)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    <span class="comment"># 保存黑白土堆轮廓</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;HBLK.jpg&quot;</span>, mask)</span><br><span class="line">    contours, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    cv.drawContours(img, contours, -<span class="number">1</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 保存轮廓线图片</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;LK.jpg&quot;</span>,img)</span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;LK&quot;,img)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    areas = []</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">        areas.append(cv.contourArea(contours[c]))</span><br><span class="line">    MAX = areas.index(<span class="built_in">max</span>(areas))   <span class="comment"># 求最大轮廓序号</span></span><br><span class="line">    M = cv.moments(contours[MAX])  <span class="comment"># 求矩</span></span><br><span class="line">    cx = <span class="built_in">int</span>(M[<span class="string">&#x27;m10&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求x坐标</span></span><br><span class="line">    cy = <span class="built_in">int</span>(M[<span class="string">&#x27;m01&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求y坐标</span></span><br><span class="line">    cv.circle(img, (cx, cy), <span class="number">1</span>, (<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>), <span class="number">0</span>)</span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span> + <span class="string">&quot;/&quot;</span> + name + <span class="string">&quot;ZX.jpg&quot;</span>, img)   <span class="comment">#保存形心图片</span></span><br><span class="line">    area = cv.contourArea(contours[MAX])</span><br><span class="line">    <span class="keyword">return</span> cx, cy, area</span><br></pre></td></tr></table></figure>
+<p>土堆计算的主函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    img = cv.imread(<span class="string">&#x27;pic/tudui.jpg&#x27;</span>)</span><br><span class="line">    cx,cy,area = XX(img,name=<span class="string">&quot;tudui&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx,cy,area)</span><br><span class="line">    img1 = img[<span class="number">0</span>:img.shape[<span class="number">0</span>], <span class="number">0</span>:cx]</span><br><span class="line">    cx1,cy1,area1 = XX(img1,name=<span class="string">&quot;tudui1&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx1,cy1,area1)</span><br><span class="line">    V = <span class="number">2</span>*<span class="built_in">abs</span>(cx-cx1)*math.pi*area/<span class="number">2</span>*math.<span class="built_in">pow</span>(<span class="number">0.033082679182000536</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(V)</span><br></pre></td></tr></table></figure>
+<p>其中V计算中<code>math.pow</code>用的是计算获得的像素与实际长度转化关系，这个值准确性有待提高，因为挖掘机的具体参数并未获得，计算过程中没有很好考虑视角造成的长度影响</p>
+<p>卡车计算的额外步骤：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">space = (math.cos(math.pi/<span class="number">3</span>)+math.cos(math.pi/<span class="number">6</span>))*<span class="number">0.84</span>*<span class="number">2.22</span></span><br><span class="line"><span class="comment">#计算像素和实际长度转化关系</span></span><br><span class="line">a = math.sqrt(space/area)</span><br></pre></td></tr></table></figure>
+<p>这个算法只能初步实现分离物体，如果需要更加精细还需要改进</p>
+]]></content>
+      <categories>
+        <category>python</category>
       </categories>
   </entry>
   <entry>
