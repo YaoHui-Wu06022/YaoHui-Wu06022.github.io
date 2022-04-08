@@ -1,52 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>基于图片求体积的算法</title>
-    <url>/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>浅记录一下学院数模赛的算法流程</p>
-<h2 id="题目">题目</h2>
-<p>自拟场景和尺寸，在有参照物的情况下，依据图片，建立模型估计以下土堆的立方数</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401142622068.png" alt="image-20220401142622068" style="zoom: 80%;" /></p>
-<h2 id="思路及算法">思路及算法</h2>
-<h3 id="思路">思路</h3>
-<ol type="1">
-<li><p>筛选出需要的土堆和挖掘机部分</p></li>
-<li><p>根据轮廓利用古鲁金定理计算像素体积</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/gulujin.png" alt="gulujin" style="zoom:50%;" /></p></li>
-<li><p>根据挖掘机在图片中的面积以及实际尺寸计算图片和实际长度的转化关系</p></li>
-<li><p>代入计算的土堆像素体积获得实际体积</p></li>
-</ol>
-<p>因为python的<code>opencv</code>只能识别<code>HSV</code>三通道参数，需要根据<code>HSV</code>表来粗筛选土堆和挖掘机</p>
-<p><code>HSV</code>颜色参考：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401143415448.png" alt="image-20220401143415448" style="zoom:50%;" /></p>
-<h3 id="算法">算法</h3>
-<p>封装了一个计算形心相对图片坐标的函数<code>XX</code>，输入为图片，标识名称，HSV高低数组，返回值为形心坐标cx和cy，和轮廓的像素面积，输出二值化图片，红线轮廓图片以及蓝色形心图片</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2022/3/30 14:44</span></span><br><span class="line"><span class="comment"># @Author : YH</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">XX</span>(<span class="params">img,name,low,high</span>):</span><br><span class="line">    img = cv.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">    <span class="comment"># cv.imwrite(&#x27;gaosi.jpg&#x27;,img)</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    提取颜色</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)</span><br><span class="line">    low_hsv = np.array(low)</span><br><span class="line">    high_hsv = np.array(high)</span><br><span class="line">    mask = cv.inRange(hsv, lowerb=low_hsv, upperb=high_hsv)</span><br><span class="line">    <span class="comment"># 展示黑白图</span></span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;HB&quot;,mask)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    <span class="comment"># 保存黑白土堆轮廓</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;HBLK.jpg&quot;</span>, mask)</span><br><span class="line">    contours, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    cv.drawContours(img, contours, -<span class="number">1</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 保存轮廓线图片</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;LK.jpg&quot;</span>,img)</span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;LK&quot;,img)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    areas = []</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">        areas.append(cv.contourArea(contours[c]))</span><br><span class="line">    MAX = areas.index(<span class="built_in">max</span>(areas))   <span class="comment"># 求最大轮廓序号</span></span><br><span class="line">    M = cv.moments(contours[MAX])  <span class="comment"># 求矩</span></span><br><span class="line">    cx = <span class="built_in">int</span>(M[<span class="string">&#x27;m10&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求x坐标</span></span><br><span class="line">    cy = <span class="built_in">int</span>(M[<span class="string">&#x27;m01&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求y坐标</span></span><br><span class="line">    cv.circle(img, (cx, cy), <span class="number">1</span>, (<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>), <span class="number">0</span>)</span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span> + <span class="string">&quot;/&quot;</span> + name + <span class="string">&quot;ZX.jpg&quot;</span>, img)   <span class="comment">#保存形心图片</span></span><br><span class="line">    area = cv.contourArea(contours[MAX])</span><br><span class="line">    <span class="keyword">return</span> cx, cy, area</span><br></pre></td></tr></table></figure>
-<p>土堆计算的主函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    img = cv.imread(<span class="string">&#x27;pic/tudui.jpg&#x27;</span>)</span><br><span class="line">    cx,cy,area = XX(img,name=<span class="string">&quot;tudui&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx,cy,area)</span><br><span class="line">    img1 = img[<span class="number">0</span>:img.shape[<span class="number">0</span>], <span class="number">0</span>:cx]</span><br><span class="line">    cx1,cy1,area1 = XX(img1,name=<span class="string">&quot;tudui1&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx1,cy1,area1)</span><br><span class="line">    V = <span class="number">2</span>*<span class="built_in">abs</span>(cx-cx1)*math.pi*area/<span class="number">2</span>*math.<span class="built_in">pow</span>(<span class="number">0.033082679182000536</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(V)</span><br></pre></td></tr></table></figure>
-<p>其中V计算中<code>math.pow</code>用的是计算获得的像素与实际长度转化关系，这个值准确性有待提高，因为挖掘机的具体参数并未获得，计算过程中没有很好考虑视角造成的长度影响</p>
-<p>卡车计算的额外步骤：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">space = (math.cos(math.pi/<span class="number">3</span>)+math.cos(math.pi/<span class="number">6</span>))*<span class="number">0.84</span>*<span class="number">2.22</span></span><br><span class="line"><span class="comment">#计算像素和实际长度转化关系</span></span><br><span class="line">a = math.sqrt(space/area)</span><br></pre></td></tr></table></figure>
-<p>这个算法只能初步实现分离物体，如果需要更加精细还需要改进</p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>遇到的hexo报错</title>
-    <url>/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<p>22-04-02：</p>
-<p>碰到一个很蠢的报错， <code>type: 'expected variable end'</code> 原因是编写的md文件中有出现相连接的<code>&#123;</code>或<code>&#125;</code>，原因是连续的中括号会与配置文件发生一些冲突，避免编写公式时出现这种情况</p>
-<p>或者是找到语句进行修改：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">&#123;<span class="comment">% raw %&#125;				//敏感内容前加上这个</span></span><br><span class="line">Hello &#123;&#123; sensitive &#125;&#125;	//敏感内容被包装在中间</span><br><span class="line">&#123;<span class="comment">% endraw %&#125;			//敏感内容后加上这个</span></span><br></pre></td></tr></table></figure>
-<p>最简单的应该还是直接加空格了吧</p>
-]]></content>
-      <categories>
-        <category>hexo </category>
-      </categories>
-  </entry>
-  <entry>
     <title>hexo博客的搭建以及fluid主题的配置</title>
     <url>/2022/03/31/hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8Afluid%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>详细过程具体参考</p>
@@ -99,6 +53,217 @@
 ]]></content>
       <categories>
         <category>hexo</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>三种投影仪的原理和结构</title>
+    <url>/2022/04/07/%E4%B8%89%E7%A7%8D%E6%8A%95%E5%BD%B1%E4%BB%AA%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h1>LCD、DLP、激光投影仪</h1>
+<h2 id="LCD">LCD</h2>
+<p>LCD（Liquid Crystal Display：液晶显示器），LCD 技术最早出现于1968年，按照液晶板的片数，LCD 投影机分为单片LCD 投影仪和三片 LCD (3LCD)投影仪。现在的LCD投影机大部分采用3LCD板，单片LCD投影仪已经退出市场。</p>
+<h3 id="单片LCD投影仪工作原理">单片LCD投影仪工作原理</h3>
+<p>参考链接：<a href="https://www.bilibili.com/video/BV15U4y1s7SX?share_source=copy_web">单LCD</a></p>
+<p>单片LCD投影仪将LCD面板的背光部分拆去，然后使用大功率的背光源通过聚光镜照射到LCD面板上，由于LCD面板是透光的，画面就会被照射出去，通过前面的聚焦镜及镜头打到屏幕上而成像。</p>
+<p>光路：(前后指光的方向，后面指光进入的面，前面指光出射的面)</p>
+<ul>
+<li>通过聚光碗(反光碗)让发光角度缩小</li>
+<li>通过菲涅尔透镜(进一步汇聚，变成接近平行的光线)</li>
+<li>通过一块玻璃(后面贴偏光膜，液晶屏的第一层偏光膜，可以隔热)</li>
+<li>通过液晶屏(前面有第二层偏光膜，直接贴在屏幕上)</li>
+<li>通过又一块菲涅尔透镜，可以用环调整角度(梯形校正)</li>
+<li>通过45°反光镜，反射膜在玻璃的前面</li>
+</ul>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171018271.png" alt="单LCD" style="zoom: 25%;" />
+<p>优点：结构简单，成本低</p>
+<p>缺点：分辨率低，亮度低(经过两层偏光膜，液晶屏不是无色透明的)</p>
+<h3 id="3LCD投影仪工作原理">3LCD投影仪工作原理</h3>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1zy4y1h7wj?share_source=copy_web">结构</a></li>
+<li><a href="https://www.bilibili.com/video/BV1k54y1Y7DC?share_source=copy_web">色彩组合</a></li>
+</ul>
+<p>光路图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3LCD.png" alt="3LCD" style="zoom:50%;" />
+<p>从上面的工作原理图可以看出：</p>
+<ul>
+<li>3LCD投影仪是把光源通过分色镜分解成R(红)、G(绿)、B(蓝)三种颜色(光的三原色)</li>
+<li>分别反射后透过3LCD液晶屏</li>
+<li>利用合光棱镜合成光束</li>
+<li>最后再投射到屏幕上</li>
+</ul>
+<p>分色镜镀膜(不同折射率的光学涂层)将不需要的波长被反射，需要的颜色透过</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171506661.png" alt="分色镜" style="zoom:50%;" />
+<p>合光棱镜结构：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171547154.png" alt="image-20220407171547154" style="zoom:50%;" />
+<p>实物图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171615169.png" alt="3LCD实物图" style="zoom: 33%;" />
+<p>光路：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171648007.png" alt="光路" style="zoom: 33%;" />
+<p>镜头有两个环，后面的是变焦环，控制镜头里面镜片的位置，改变焦距，前面是对焦环，改变间距，改变成像最清晰的平面到镜头的距离</p>
+<p>3LCD的核心技术有两家，分别是EPSON和SONY。EPSON的芯片基本上只供自己用，其他品牌主要是跟SONY采购。</p>
+<p>优点：</p>
+<ol>
+<li>光效率高</li>
+<li>全彩成像：红绿蓝三原色独立LCD板，可以分别调整每个彩色通道的亮度对比度，投影效果好</li>
+<li>更清澈，噪点更少，色彩还原也更为精准</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>不耐用易进灰</li>
+<li>亮度衰减快</li>
+<li>黑色层次表现差对比度不高(LCD投影机表现的黑色，看起来总是灰蒙蒙的，阴影部分就显得昏暗而毫无细节。这点非常不适合播放电影一类的视频)</li>
+<li>画面可见像素结构</li>
+<li>寿命短</li>
+</ol>
+<h2 id="DLP">DLP</h2>
+<p>DLP是“Digital Light Processing”的缩写，即为数字光处理，它是基于TI（美国德州仪器）公司开发的数字微镜元件——DMD（Digital Micromirror Device）来完成可视数字信息显示的技术。</p>
+<p>DMD是在半导体芯片上布置一个由微镜片（精密、微型的反射镜）所组成的矩阵，每一个微镜片控制投影画面中的一个像素。微镜片的数量与投影画面的分辨率相符，800×600、1024×768、1280×720和1920 x 1080是一些常见的DMD的尺寸。</p>
+<p>这些微镜片在数字驱动信号的控制下能够迅速改变角度，一旦接收到相应信号，微镜片就会倾斜10°，从而使入射光的反射方向改变。处于投影状态被示为“开”，并随数字信号而倾斜+10°；处于非投影状态被示为“关”，并倾斜-10°；“开”状态下被反射出去的入射光通过投影透镜将影像投影到屏幕上；而“关”状态下反射在微镜片上的入射光被光吸收器吸收。</p>
+<p>微镜片在两种状态间切换的频率是可以变化的，这使得DMD反射出的光线呈现出黑（微镜片处于“关”状态）与白（微镜片处于“开”状态）之间的各种灰度。</p>
+<h3 id="单片DLP投影仪">单片DLP投影仪</h3>
+<p>单片DLP投影仪内部只安装一片DMD芯片，光通由四块反光镜组成一个长方形光线通道，把入射光变成长方形，正好对应DMD芯片上的长方形。颜色是通过在光源与DMD之间安装一个色轮来产生的。色轮通常被分为四个区域：红区、绿区、蓝区和一个用来增加亮度的透明区域(产生白色)(因为透明区域会减弱色彩的饱和度，有时候直接去除)。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/8dca032a057384dd0c2614277d8edfb2_1440w.jpg" alt="img" style="zoom: 67%;" />
+<p>输入信号被转化为RGB数据，数据按顺序写入DMD的SRAM，白光光源通过聚焦透镜聚集焦在色轮上，通过色轮的光线然后成像在DMD的表面。当色轮旋转时，红、绿、蓝光顺序地射在DMD上，当红光射到DMD上时，镜片按照红色信息应该显示的位置和强度倾斜到“开”，绿色和蓝色光及视频信号亦是如此工作。人体视觉系统集中红、绿、蓝信息并看到一个全彩色图像。</p>
+<h3 id="三片DLP投影仪">三片DLP投影仪</h3>
+<p>将白光通过棱镜系统分成三原色。这种方法使用三个DMD，一个DMD对应于一种原色。应用三片DLP投影系统的主要原因是为了增加亮度。通过三片DMD，来自每一原色的光可直接连续地投射到它自己的DMD上，导致更多的光线到达屏幕，给出一个更亮的投影图像。这种高效的三片投影系统被用在超大屏幕和高亮度应用领域。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3DLP.png" alt="3DLP" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3DLP光路图.png" alt="3DLP光路图" style="zoom:50%;" />
+<p>优点：</p>
+<ol>
+<li>图像平滑流畅</li>
+<li>优秀的色深以及对比度</li>
+<li>不会烧屏</li>
+<li>DLP投影机采用封闭式光路，降低了灰尘进入了概率</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>价格相对较为昂贵</li>
+<li>单片式DLP投影机可能会出现“彩虹效应”</li>
+<li>体积大，安装占空间，运输不方便。</li>
+<li>存在风扇噪音</li>
+</ol>
+<h2 id="激光投影仪-LDT">激光投影仪(LDT)</h2>
+<p>激光投影显示技术(LDT)，也称激光投影技术或者激光显示技术，它是以红、绿、蓝(RGB)三基色激光为光源的显示技术，可以最真实地再现客观世界丰富、艳丽的色彩，提供更具震撼的表现力。</p>
+<p>LCD和DLP都是从发出的光中通过透镜过滤出红、绿、蓝三种光进行成像，但这样光的利用率不到20%；激光投影仪直接用红、绿、蓝三基色激光为光源，不用白光为光源，这大大降低了能耗。</p>
+<p>激光投影技术一般分为两种，一种是单色光，一种是彩色光</p>
+<h3 id="单色激光技术">单色激光技术</h3>
+<p><a href="https://www.sohu.com/a/207890224_616364?qq-pf-to=pcqq.group">单色激光</a></p>
+<p>蓝色激光的形成是由蓝色Laser Diode所发出的蓝光经过荧光色轮的蓝色(Blue)部分，直接通过，然后经过滤光色轮中透明段，从而形成投影画面所需要的蓝光。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="蓝光" style="zoom: 43%;" />
+<p>蓝光经过荧光色轮(Phosphor wheel)的绿色(Green)反射形成绿光，然后再经过滤光色轮(filter wheel)过滤出所需要的绿色光波长，从而形成绿光通过</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="绿光" style="zoom: 43%;" />
+<p>同理，蓝色Laser Diode所发出的蓝光经过荧光色轮的黄色（Yellow）反射形成黄光，然后再经过滤光色轮的红色段过滤掉黄光，从而形成只剩下红光通过</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/红光.png" alt="红光" style="zoom:43%;" />
+<p>三色光的拼合部分与3LCD相同不再赘述</p>
+<h3 id="普通双色（蓝光-红光）">普通双色（蓝光+红光）</h3>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/双色激光投影光路示意.png" alt="双色激光投影光路示意" style="zoom: 43%;" />
+<p>虽然激发荧光的光源仍然是蓝色激光，但是产生的黄色光会和另一组蓝色和红色激光混合。多种颜色激光的使用，可以大大提高色彩校正的效率。</p>
+<p>放映机在校色的过程中，会损失相当一部分亮度，导致激光光源的能量，并不能全部应用于投射出的画面。由于采用了额外的红色激光作为补充，在校色的处理过程中，可以更有效率的混合颜色，有效减少校色后的亮度损失。同样的原始光通量，可以得到更高的画面亮度，整机的能效比显著提高。</p>
+<p>优点：</p>
+<ol>
+<li>性能稳定</li>
+<li>亮度高，色彩好</li>
+<li>衰减小</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>缺乏灵活性，体积庞大，且需要搭配抗光硬屏，不好移动</li>
+<li>分类少，发展不成熟</li>
+<li>购买价格贵</li>
+</ol>
+<h2 id="三者的对比">三者的对比</h2>
+<p>综上其实很容易看出激光投影仪是建立在LCD和DLP的结构上进行的综合应用</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>3LCD</th>
+<th>DLP</th>
+<th>LDT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用寿命</td>
+<td>$\star$</td>
+<td>$\star\star$</td>
+<td>$\star\star\star$</td>
+</tr>
+<tr>
+<td>亮度</td>
+<td>$\star\star$</td>
+<td>$\star$</td>
+<td>$\star\star\star$</td>
+</tr>
+<tr>
+<td>色彩</td>
+<td>$\star\star$</td>
+<td>$\star$</td>
+<td>$\star\star\star$</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>$\star\star$</td>
+<td>$\star\star\star$</td>
+<td>$\star$</td>
+</tr>
+<tr>
+<td>价格昂贵程度</td>
+<td>$\star\star\star$</td>
+<td>$\star\star$</td>
+<td>$\star$</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>基于图片求体积的算法</title>
+    <url>/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>浅记录一下学院数模赛的算法流程</p>
+<h2 id="题目">题目</h2>
+<p>自拟场景和尺寸，在有参照物的情况下，依据图片，建立模型估计以下土堆的立方数</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401142622068.png" alt="image-20220401142622068" style="zoom: 80%;" /></p>
+<h2 id="思路及算法">思路及算法</h2>
+<h3 id="思路">思路</h3>
+<ol type="1">
+<li><p>筛选出需要的土堆和挖掘机部分</p></li>
+<li><p>根据轮廓利用古鲁金定理计算像素体积</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/gulujin.png" alt="gulujin" style="zoom:50%;" /></p></li>
+<li><p>根据挖掘机在图片中的面积以及实际尺寸计算图片和实际长度的转化关系</p></li>
+<li><p>代入计算的土堆像素体积获得实际体积</p></li>
+</ol>
+<p>因为python的<code>opencv</code>只能识别<code>HSV</code>三通道参数，需要根据<code>HSV</code>表来粗筛选土堆和挖掘机</p>
+<p><code>HSV</code>颜色参考：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401143415448.png" alt="image-20220401143415448" style="zoom:50%;" /></p>
+<h3 id="算法">算法</h3>
+<p>封装了一个计算形心相对图片坐标的函数<code>XX</code>，输入为图片，标识名称，HSV高低数组，返回值为形心坐标cx和cy，和轮廓的像素面积，输出二值化图片，红线轮廓图片以及蓝色形心图片</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2022/3/30 14:44</span></span><br><span class="line"><span class="comment"># @Author : YH</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">XX</span>(<span class="params">img,name,low,high</span>):</span><br><span class="line">    img = cv.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">    <span class="comment"># cv.imwrite(&#x27;gaosi.jpg&#x27;,img)</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    提取颜色</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)</span><br><span class="line">    low_hsv = np.array(low)</span><br><span class="line">    high_hsv = np.array(high)</span><br><span class="line">    mask = cv.inRange(hsv, lowerb=low_hsv, upperb=high_hsv)</span><br><span class="line">    <span class="comment"># 展示黑白图</span></span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;HB&quot;,mask)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    <span class="comment"># 保存黑白土堆轮廓</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;HBLK.jpg&quot;</span>, mask)</span><br><span class="line">    contours, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    cv.drawContours(img, contours, -<span class="number">1</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 保存轮廓线图片</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;LK.jpg&quot;</span>,img)</span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;LK&quot;,img)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    areas = []</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">        areas.append(cv.contourArea(contours[c]))</span><br><span class="line">    MAX = areas.index(<span class="built_in">max</span>(areas))   <span class="comment"># 求最大轮廓序号</span></span><br><span class="line">    M = cv.moments(contours[MAX])  <span class="comment"># 求矩</span></span><br><span class="line">    cx = <span class="built_in">int</span>(M[<span class="string">&#x27;m10&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求x坐标</span></span><br><span class="line">    cy = <span class="built_in">int</span>(M[<span class="string">&#x27;m01&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求y坐标</span></span><br><span class="line">    cv.circle(img, (cx, cy), <span class="number">1</span>, (<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>), <span class="number">0</span>)</span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span> + <span class="string">&quot;/&quot;</span> + name + <span class="string">&quot;ZX.jpg&quot;</span>, img)   <span class="comment">#保存形心图片</span></span><br><span class="line">    area = cv.contourArea(contours[MAX])</span><br><span class="line">    <span class="keyword">return</span> cx, cy, area</span><br></pre></td></tr></table></figure>
+<p>土堆计算的主函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    img = cv.imread(<span class="string">&#x27;pic/tudui.jpg&#x27;</span>)</span><br><span class="line">    cx,cy,area = XX(img,name=<span class="string">&quot;tudui&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx,cy,area)</span><br><span class="line">    img1 = img[<span class="number">0</span>:img.shape[<span class="number">0</span>], <span class="number">0</span>:cx]</span><br><span class="line">    cx1,cy1,area1 = XX(img1,name=<span class="string">&quot;tudui1&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx1,cy1,area1)</span><br><span class="line">    V = <span class="number">2</span>*<span class="built_in">abs</span>(cx-cx1)*math.pi*area/<span class="number">2</span>*math.<span class="built_in">pow</span>(<span class="number">0.033082679182000536</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(V)</span><br></pre></td></tr></table></figure>
+<p>其中V计算中<code>math.pow</code>用的是计算获得的像素与实际长度转化关系，这个值准确性有待提高，因为挖掘机的具体参数并未获得，计算过程中没有很好考虑视角造成的长度影响</p>
+<p>卡车计算的额外步骤：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">space = (math.cos(math.pi/<span class="number">3</span>)+math.cos(math.pi/<span class="number">6</span>))*<span class="number">0.84</span>*<span class="number">2.22</span></span><br><span class="line"><span class="comment">#计算像素和实际长度转化关系</span></span><br><span class="line">a = math.sqrt(space/area)</span><br></pre></td></tr></table></figure>
+<p>这个算法只能初步实现分离物体，如果需要更加精细还需要改进</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>遇到的hexo报错</title>
+    <url>/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<p>22-04-02：</p>
+<p>碰到一个很蠢的报错， <code>type: 'expected variable end'</code> 原因是编写的md文件中有出现相连接的<code>&#123;</code>或<code>&#125;</code>，原因是连续的中括号会与配置文件发生一些冲突，避免编写公式时出现这种情况</p>
+<p>或者是找到语句进行修改：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">&#123;<span class="comment">% raw %&#125;				//敏感内容前加上这个</span></span><br><span class="line">Hello &#123;&#123; sensitive &#125;&#125;	//敏感内容被包装在中间</span><br><span class="line">&#123;<span class="comment">% endraw %&#125;			//敏感内容后加上这个</span></span><br></pre></td></tr></table></figure>
+<p>最简单的应该还是直接加空格了吧</p>
+]]></content>
+      <categories>
+        <category>hexo </category>
       </categories>
   </entry>
   <entry>
@@ -268,170 +433,6 @@
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220324104313904.png" alt="image-20220324104313904" style="zoom: 33%;" /> <span class="math display">\[
 V_{NH} = V_{OHmin} – V_{IHmin}\qquad V_{NL} = V_{ILmax} – V_{OLmax}
 \]</span> 关键在于确认好输入<code>(drive)</code>输出<code>(load)</code></p>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>三种投影仪的原理和结构</title>
-    <url>/2022/04/07/%E4%B8%89%E7%A7%8D%E6%8A%95%E5%BD%B1%E4%BB%AA%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h1 id="lcddlp激光投影仪">LCD、DLP、激光投影仪</h1>
-<h2 id="lcd">LCD</h2>
-<p>LCD（Liquid Crystal Display：液晶显示器），LCD 技术最早出现于1968年，按照液晶板的片数，LCD 投影机分为单片LCD 投影仪和三片 LCD (3LCD)投影仪。现在的LCD投影机大部分采用3LCD板，单片LCD投影仪已经退出市场。</p>
-<h3 id="单片lcd投影仪工作原理">单片LCD投影仪工作原理</h3>
-<p>参考链接：</p>
-<p>单片LCD投影仪将LCD面板的背光部分拆去，然后使用大功率的背光源通过聚光镜照射到LCD面板上，由于LCD面板是透光的，画面就会被照射出去，通过前面的聚焦镜及镜头打到屏幕上而成像。</p>
-<p>光路：(前后指光的方向，后面指光进入的面，前面指光出射的面)</p>
-<ul>
-<li>通过聚光碗(反光碗)让发光角度缩小</li>
-<li>通过菲涅尔透镜(进一步汇聚，变成接近平行的光线)</li>
-<li>通过一块玻璃(后面贴偏光膜，液晶屏的第一层偏光膜，可以隔热)</li>
-<li>通过液晶屏(前面有第二层偏光膜，直接贴在屏幕上)</li>
-<li>通过又一块菲涅尔透镜，可以用环调整角度(梯形校正)</li>
-<li>通过45°反光镜，反射膜在玻璃的前面</li>
-</ul>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171018271.png" alt="单LCD" style="zoom: 25%;" /></p>
-<p>优点：结构简单，成本低</p>
-<p>缺点：分辨率低，亮度低(经过两层偏光膜，液晶屏不是无色透明的)</p>
-<h3 id="lcd投影仪工作原理">3LCD投影仪工作原理</h3>
-<p>参考链接：</p>
-<ul>
-<li></li>
-<li></li>
-</ul>
-<p>光路图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3LCD.png" alt="3LCD" style="zoom:50%;" /></p>
-<p>从上面的工作原理图可以看出：</p>
-<ul>
-<li>3LCD投影仪是把光源通过分色镜分解成R(红)、G(绿)、B(蓝)三种颜色(光的三原色)</li>
-<li>分别反射后透过3LCD液晶屏</li>
-<li>利用合光棱镜合成光束</li>
-<li>最后再投射到屏幕上</li>
-</ul>
-<p>分色镜镀膜(不同折射率的光学涂层)将不需要的波长被反射，需要的颜色透过</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171506661.png" alt="分色镜" style="zoom:50%;" /></p>
-<p>合光棱镜结构：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171547154.png" alt="image-20220407171547154" style="zoom:50%;" /></p>
-<p>实物图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171615169.png" alt="3LCD实物图" style="zoom: 33%;" /></p>
-<p>光路：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171648007.png" alt="光路" style="zoom: 33%;" /></p>
-<p>镜头有两个环，后面的是变焦环，控制镜头里面镜片的位置，改变焦距，前面是对焦环，改变间距，改变成像最清晰的平面到镜头的距离</p>
-<p>3LCD的核心技术有两家，分别是EPSON和SONY。EPSON的芯片基本上只供自己用，其他品牌主要是跟SONY采购。</p>
-<p>优点：</p>
-<ol type="1">
-<li>光效率高</li>
-<li>全彩成像：红绿蓝三原色独立LCD板，可以分别调整每个彩色通道的亮度对比度，投影效果好</li>
-<li>更清澈，噪点更少，色彩还原也更为精准</li>
-</ol>
-<p>缺点：</p>
-<ol type="1">
-<li>不耐用易进灰</li>
-<li>亮度衰减快</li>
-<li>黑色层次表现差对比度不高(LCD投影机表现的黑色，看起来总是灰蒙蒙的，阴影部分就显得昏暗而毫无细节。这点非常不适合播放电影一类的视频)</li>
-<li>画面可见像素结构</li>
-<li>寿命短</li>
-</ol>
-<h2 id="dlp">DLP</h2>
-<p>DLP是“Digital Light Processing”的缩写，即为数字光处理，它是基于TI（美国德州仪器）公司开发的数字微镜元件——DMD（Digital Micromirror Device）来完成可视数字信息显示的技术。</p>
-<p>DMD是在半导体芯片上布置一个由微镜片（精密、微型的反射镜）所组成的矩阵，每一个微镜片控制投影画面中的一个像素。微镜片的数量与投影画面的分辨率相符，800×600、1024×768、1280×720和1920 x 1080是一些常见的DMD的尺寸。</p>
-<p>这些微镜片在数字驱动信号的控制下能够迅速改变角度，一旦接收到相应信号，微镜片就会倾斜10°，从而使入射光的反射方向改变。处于投影状态被示为“开”，并随数字信号而倾斜+10°；处于非投影状态被示为“关”，并倾斜-10°；“开”状态下被反射出去的入射光通过投影透镜将影像投影到屏幕上；而“关”状态下反射在微镜片上的入射光被光吸收器吸收。</p>
-<p>微镜片在两种状态间切换的频率是可以变化的，这使得DMD反射出的光线呈现出黑（微镜片处于“关”状态）与白（微镜片处于“开”状态）之间的各种灰度。</p>
-<h3 id="单片dlp投影仪">单片DLP投影仪</h3>
-<p>单片DLP投影仪内部只安装一片DMD芯片，光通由四块反光镜组成一个长方形光线通道，把入射光变成长方形，正好对应DMD芯片上的长方形。颜色是通过在光源与DMD之间安装一个色轮来产生的。色轮通常被分为四个区域：红区、绿区、蓝区和一个用来增加亮度的透明区域(产生白色)(因为透明区域会减弱色彩的饱和度，有时候直接去除)。</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/8dca032a057384dd0c2614277d8edfb2_1440w.jpg" alt="img" style="zoom: 67%;" /></p>
-<p>输入信号被转化为RGB数据，数据按顺序写入DMD的SRAM，白光光源通过聚焦透镜聚集焦在色轮上，通过色轮的光线然后成像在DMD的表面。当色轮旋转时，红、绿、蓝光顺序地射在DMD上，当红光射到DMD上时，镜片按照红色信息应该显示的位置和强度倾斜到“开”，绿色和蓝色光及视频信号亦是如此工作。人体视觉系统集中红、绿、蓝信息并看到一个全彩色图像。</p>
-<h3 id="三片dlp投影仪">三片DLP投影仪</h3>
-<p>将白光通过棱镜系统分成三原色。这种方法使用三个DMD，一个DMD对应于一种原色。应用三片DLP投影系统的主要原因是为了增加亮度。通过三片DMD，来自每一原色的光可直接连续地投射到它自己的DMD上，导致更多的光线到达屏幕，给出一个更亮的投影图像。这种高效的三片投影系统被用在超大屏幕和高亮度应用领域。</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3DLP.png" alt="3DLP" style="zoom:50%;" /></p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3DLP光路图.png" alt="3DLP光路图" style="zoom:50%;" /></p>
-<p>优点：</p>
-<ol type="1">
-<li>图像平滑流畅</li>
-<li>优秀的色深以及对比度</li>
-<li>不会烧屏</li>
-<li>DLP投影机采用封闭式光路，降低了灰尘进入了概率</li>
-</ol>
-<p>缺点：</p>
-<ol type="1">
-<li>价格相对较为昂贵</li>
-<li>单片式DLP投影机可能会出现“彩虹效应”</li>
-<li>体积大，安装占空间，运输不方便。</li>
-<li>存在风扇噪音</li>
-</ol>
-<h2 id="激光投影仪ldt">激光投影仪(LDT)</h2>
-<p>激光投影显示技术(LDT)，也称激光投影技术或者激光显示技术，它是以红、绿、蓝(RGB)三基色激光为光源的显示技术，可以最真实地再现客观世界丰富、艳丽的色彩，提供更具震撼的表现力。</p>
-<p>LCD和DLP都是从发出的光中通过透镜过滤出红、绿、蓝三种光进行成像，但这样光的利用率不到20%；激光投影仪直接用红、绿、蓝三基色激光为光源，不用白光为光源，这大大降低了能耗。</p>
-<p>激光投影技术一般分为两种，一种是单色光，一种是彩色光</p>
-<h3 id="单色激光技术">单色激光技术</h3>
-<p>蓝色激光的形成是由蓝色Laser Diode所发出的蓝光经过荧光色轮的蓝色(Blue)部分，直接通过，然后经过滤光色轮中透明段，从而形成投影画面所需要的蓝光。</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="蓝光" style="zoom: 43%;" /></p>
-<p>蓝光经过荧光色轮(Phosphor wheel)的绿色(Green)反射形成绿光，然后再经过滤光色轮(filter wheel)过滤出所需要的绿色光波长，从而形成绿光通过</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="绿光" style="zoom: 43%;" /></p>
-<p>同理，蓝色Laser Diode所发出的蓝光经过荧光色轮的黄色（Yellow）反射形成黄光，然后再经过滤光色轮的红色段过滤掉黄光，从而形成只剩下红光通过</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/红光.png" alt="红光" style="zoom:43%;" /></p>
-<p>三色光的拼合部分与3LCD相同不再赘述</p>
-<h3 id="普通双色蓝光红光">普通双色（蓝光+红光）</h3>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/双色激光投影光路示意.png" alt="双色激光投影光路示意" style="zoom: 43%;" /></p>
-<p>虽然激发荧光的光源仍然是蓝色激光，但是产生的黄色光会和另一组蓝色和红色激光混合。多种颜色激光的使用，可以大大提高色彩校正的效率。</p>
-<p>放映机在校色的过程中，会损失相当一部分亮度，导致激光光源的能量，并不能全部应用于投射出的画面。由于采用了额外的红色激光作为补充，在校色的处理过程中，可以更有效率的混合颜色，有效减少校色后的亮度损失。同样的原始光通量，可以得到更高的画面亮度，整机的能效比显著提高。</p>
-<p>优点：</p>
-<ol type="1">
-<li>性能稳定</li>
-<li>亮度高，色彩好</li>
-<li>衰减小</li>
-</ol>
-<p>缺点：</p>
-<ol type="1">
-<li>缺乏灵活性，体积庞大，且需要搭配抗光硬屏，不好移动</li>
-<li>分类少，发展不成熟</li>
-<li>购买价格贵</li>
-</ol>
-<h2 id="三者的对比">三者的对比</h2>
-<p>综上其实很容易看出激光投影仪是建立在LCD和DLP的结构上进行的综合应用</p>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th>3LCD</th>
-<th>DLP</th>
-<th>LDT</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>使用寿命</td>
-<td><span class="math inline">\(\star\)</span></td>
-<td><span class="math inline">\(\star\star\)</span></td>
-<td><span class="math inline">\(\star\star\star\)</span></td>
-</tr>
-<tr class="even">
-<td>亮度</td>
-<td><span class="math inline">\(\star\star\)</span></td>
-<td><span class="math inline">\(\star\)</span></td>
-<td><span class="math inline">\(\star\star\star\)</span></td>
-</tr>
-<tr class="odd">
-<td>色彩</td>
-<td><span class="math inline">\(\star\star\)</span></td>
-<td><span class="math inline">\(\star\)</span></td>
-<td><span class="math inline">\(\star\star\star\)</span></td>
-</tr>
-<tr class="even">
-<td>灵活性</td>
-<td><span class="math inline">\(\star\star\)</span></td>
-<td><span class="math inline">\(\star\star\star\)</span></td>
-<td><span class="math inline">\(\star\)</span></td>
-</tr>
-<tr class="odd">
-<td>价格昂贵程度</td>
-<td><span class="math inline">\(\star\star\star\)</span></td>
-<td><span class="math inline">\(\star\star\)</span></td>
-<td><span class="math inline">\(\star\)</span></td>
-</tr>
-</tbody>
-</table>
 ]]></content>
       <categories>
         <category>study</category>
