@@ -3,7 +3,7 @@
   <entry>
     <title>hexo博客的搭建以及fluid主题的配置</title>
     <url>/2022/03/31/hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8Afluid%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>详细过程具体参考</p>
+    <content><![CDATA[<p>详细过程具体参考<a href="https://zhuanlan.zhihu.com/p/102592286">知乎链接</a></p>
 <p>本文主要记录过程中一些问题</p>
 <p>搭建的过程就是三部曲</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean   #清除缓存文件 db.json 和已生成的静态文件 public</span><br><span class="line">hexo g       #生成网站静态文件到默认设置的 public 文件夹(hexo generate 的缩写)</span><br><span class="line">hexo d       #自动生成网站静态文件，并部署到设定的仓库(hexo deploy 的缩写)</span><br></pre></td></tr></table></figure>
@@ -56,12 +56,40 @@
       </categories>
   </entry>
   <entry>
+    <title>hexo-butterfly美化过程</title>
+    <url>/2022/04/08/hexo%E7%BE%8E%E5%8C%96%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="全局背景的设置">全局背景的设置</h1>
+<p>参考链接：<a href="https://android99.me/2021/08/10/butterfly-top-image-modify/">https://android99.me/2021/08/10/butterfly-top-image-modify/</a></p>
+<h2 id="设置图片">设置图片</h2>
+<p>修改主题的配置文件 <code>_config.butterfly.yml</code>，编辑 <code>index_img</code>、<code>background</code>、<code>footer_bg</code> 选项，设置网站背景，并将主页顶部图和页脚背景改为透明。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Image (圖片設置)</span></span><br><span class="line"><span class="comment"># --------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The banner image of home page</span></span><br><span class="line"><span class="attr">index_img:</span> <span class="string">transparent</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Beautify/Effect (美化/效果)</span></span><br><span class="line"><span class="comment"># --------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Website Background (設置網站背景)</span></span><br><span class="line"><span class="comment"># can set it to color or image (可設置圖片 或者 顔色)</span></span><br><span class="line"><span class="comment"># The formal of image: url(http://xxxxxx.com/xxx.jpg)</span></span><br><span class="line"><span class="attr">background:</span> <span class="string">url(https://example.com/img/background.jpg)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Footer Background</span></span><br><span class="line"><span class="attr">footer_bg:</span> <span class="string">transparent</span></span><br></pre></td></tr></table></figure>
+<h2 id="引入相关样式">引入相关样式</h2>
+<p>新建一个文件，位于 <code>source/css/modify.styl</code>，并增加以下内容</p>
+<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;nib&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 顶部图</span></span><br><span class="line"><span class="selector-id">#page-header</span></span><br><span class="line">  &amp;, <span class="selector-pseudo">&amp;:before</span></span><br><span class="line">    <span class="attribute">background</span>: transparent <span class="meta">!important</span></span><br><span class="line">  &amp;<span class="selector-class">.post-bg</span>, &amp;<span class="selector-class">.not-home-page</span></span><br><span class="line">    <span class="attribute">height</span>: <span class="number">280px</span> <span class="meta">!important</span></span><br><span class="line">  <span class="selector-id">#post-info</span></span><br><span class="line">    <span class="attribute">bottom</span>: <span class="number">40px</span> <span class="meta">!important</span></span><br><span class="line">  <span class="selector-id">#page-site-info</span></span><br><span class="line">    <span class="attribute">top</span>: <span class="number">140px</span> <span class="meta">!important</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>)</span><br><span class="line">    &amp;.not-home-page</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">200px</span> !important</span><br><span class="line">    #post-info</span><br><span class="line">      bottom: <span class="number">10px</span> !important</span><br><span class="line">    #page-site-info</span><br><span class="line">      top: <span class="number">100px</span> !important</span><br><span class="line"></span><br><span class="line">.top-img</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">250px</span></span><br><span class="line">  margin: -<span class="number">50px</span> -<span class="number">40px</span> <span class="number">50px</span></span><br><span class="line">  border-top-left-radius: inherit</span><br><span class="line">  border-top-right-radius: inherit</span><br><span class="line">  background-position: center center</span><br><span class="line">  background-size: cover</span><br><span class="line">  transition: all <span class="number">0.3s</span></span><br><span class="line"></span><br><span class="line">  @media screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>)</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">230px</span></span><br><span class="line">    margin: -<span class="number">36px</span> -<span class="number">14px</span> <span class="number">36px</span></span><br><span class="line"></span><br><span class="line">  [data-theme=&#x27;dark&#x27;] &amp;</span><br><span class="line">    filter: brightness(<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">// 页脚</span><br><span class="line">#footer:before</span><br><span class="line">  background-color: alpha(#FFF, .<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">  [data-theme=&#x27;dark&#x27;] &amp;</span><br><span class="line">    background-color: alpha(#<span class="number">000</span>, .<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">#footer-wrap, #footer-wrap a</span><br><span class="line">  <span class="attribute">color</span>: #<span class="number">111</span></span><br><span class="line">  transition: unset</span><br><span class="line"></span><br><span class="line">  [data-theme=&#x27;dark&#x27;] &amp;</span><br><span class="line">    <span class="attribute">color</span>: var(--light-grey)</span><br></pre></td></tr></table></figure>
+<p>在主题配置文件 <code>_config.butterfly.yml</code> 的 <code>inject.head</code> 引入样式。<code>modify.styl</code> 会被 Hexo 渲染成 <code>modify.css</code> 文件，所以引入时要写成 <code>modify.css</code></p>
+<h2 id="增加插件脚本">增加插件脚本</h2>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">npm install cheerio</span><br></pre></td></tr></table></figure>
+<p>新建一个文件，位于 <code>scripts/modify.js</code>，并增加以下内容</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在页面插入新顶部图</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">cheerio.Root</span>&#125; $ Root</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">insertTopImg</span>(<span class="params">$</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> header = $(<span class="string">&#x27;#page-header&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (header.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">let</span> background = header.<span class="title function_">css</span>(<span class="string">&#x27;background-image&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!background) <span class="keyword">return</span>;</span><br><span class="line">    $(<span class="string">&#x27;#post, #page, #archive, #tag, #category&#x27;</span>).<span class="title function_">prepend</span>(<span class="string">`&lt;div class=&quot;top-img&quot; style=&quot;background-image: <span class="subst">$&#123;background&#125;</span>;&quot;&gt;&lt;/div&gt;`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;after_render:html&#x27;</span>, <span class="keyword">function</span>(<span class="params">str, data</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> $ = cheerio.<span class="title function_">load</span>(str, &#123;</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="title function_">insertTopImg</span>($);</span><br><span class="line">    <span class="keyword">return</span> $.<span class="title function_">html</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="修改段落样式">修改段落样式</h1>
+<p>Butterfly 在 H1~H6 样式上使用了 <a href="https://fontawesome.com/v5.15/icons?from=io">fontawesome.com</a> 上的图标，引用的是 Unicode 形式</p>
+<p>小风车代码实现：</p>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">小风车样式</button></li><li class="tab"><button type="button" data-href="#test1-2">小风车转起来</button></li><li class="tab"><button type="button" data-href="#test1-3">风车转速</button></li><li class="tab"><button type="button" data-href="#test1-4">风车转动方向</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>在主题配置文件里面改动</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>在<code>blog/source/css/custom.css</code>(自己创建的配置文件) 文件中加入以下代码</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-3"><p>修改上述代码部分，数字越大越快</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-4"><p>修改上述代码部分，-1为逆时针，1为顺时针</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">beautify:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span> <span class="comment"># site/post</span></span><br><span class="line">  <span class="comment"># title-prefix-icon: &#x27;\f0c1&#x27; 原内容</span></span><br><span class="line">  <span class="attr">title-prefix-icon:</span> <span class="string">&#x27;\f863&#x27;</span></span><br><span class="line">  <span class="attr">title-prefix-icon-color:</span> <span class="string">&#x27;#F47466&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>在<code>blog/source/css/custom.css</code>(自己创建的配置文件) 文件中加入以下代码</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 文章页H1-H6图标样式效果 */</span></span><br><span class="line"><span class="comment">/* 转速修改 数字越大越快*/</span></span><br><span class="line"><span class="selector-tag">h1</span><span class="selector-pseudo">::before</span>, <span class="selector-tag">h2</span><span class="selector-pseudo">::before</span>, <span class="selector-tag">h3</span><span class="selector-pseudo">::before</span>, <span class="selector-tag">h4</span><span class="selector-pseudo">::before</span>, <span class="selector-tag">h5</span><span class="selector-pseudo">::before</span>, <span class="selector-tag">h6</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    -webkit-<span class="attribute">animation</span>: ccc <span class="number">1.6s</span> linear infinite ;</span><br><span class="line">    <span class="attribute">animation</span>: ccc <span class="number">1.6s</span> linear infinite ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 转动方向修改，-1为逆时针 */</span></span><br><span class="line"><span class="keyword">@-webkit-keyframes</span> ccc &#123;</span><br><span class="line">    <span class="number">0%</span> &#123;</span><br><span class="line">        -webkit-<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">0deg</span>);</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">0deg</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">to</span> &#123;</span><br><span class="line">        -webkit-<span class="attribute">transform</span>: <span class="built_in">rotate</span>(-<span class="number">1turn</span>);</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">rotate</span>(-<span class="number">1turn</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> ccc &#123;</span><br><span class="line">    <span class="number">0%</span> &#123;</span><br><span class="line">        -webkit-<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">0deg</span>);</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">0deg</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">to</span> &#123;</span><br><span class="line">        -webkit-<span class="attribute">transform</span>: <span class="built_in">rotate</span>(-<span class="number">1turn</span>);</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">rotate</span>(-<span class="number">1turn</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+  </entry>
+  <entry>
     <title>三种投影仪的原理和结构</title>
     <url>/2022/04/07/%E4%B8%89%E7%A7%8D%E6%8A%95%E5%BD%B1%E4%BB%AA%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h1>LCD、DLP、激光投影仪</h1>
-<h2 id="LCD">LCD</h2>
+    <content><![CDATA[<h1 id="lcddlp激光投影仪">LCD、DLP、激光投影仪</h1>
+<h2 id="lcd">LCD</h2>
 <p>LCD（Liquid Crystal Display：液晶显示器），LCD 技术最早出现于1968年，按照液晶板的片数，LCD 投影机分为单片LCD 投影仪和三片 LCD (3LCD)投影仪。现在的LCD投影机大部分采用3LCD板，单片LCD投影仪已经退出市场。</p>
-<h3 id="单片LCD投影仪工作原理">单片LCD投影仪工作原理</h3>
+<h3 id="单片lcd投影仪工作原理">单片LCD投影仪工作原理</h3>
 <p>参考链接：<a href="https://www.bilibili.com/video/BV15U4y1s7SX?share_source=copy_web">单LCD</a></p>
 <p>单片LCD投影仪将LCD面板的背光部分拆去，然后使用大功率的背光源通过聚光镜照射到LCD面板上，由于LCD面板是透光的，画面就会被照射出去，通过前面的聚焦镜及镜头打到屏幕上而成像。</p>
 <p>光路：(前后指光的方向，后面指光进入的面，前面指光出射的面)</p>
@@ -73,17 +101,17 @@
 <li>通过又一块菲涅尔透镜，可以用环调整角度(梯形校正)</li>
 <li>通过45°反光镜，反射膜在玻璃的前面</li>
 </ul>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171018271.png" alt="单LCD" style="zoom: 25%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171018271.png" alt="单LCD" style="zoom: 25%;" /></p>
 <p>优点：结构简单，成本低</p>
 <p>缺点：分辨率低，亮度低(经过两层偏光膜，液晶屏不是无色透明的)</p>
-<h3 id="3LCD投影仪工作原理">3LCD投影仪工作原理</h3>
+<h3 id="lcd投影仪工作原理">3LCD投影仪工作原理</h3>
 <p>参考链接：</p>
 <ul>
 <li><a href="https://www.bilibili.com/video/BV1zy4y1h7wj?share_source=copy_web">结构</a></li>
 <li><a href="https://www.bilibili.com/video/BV1k54y1Y7DC?share_source=copy_web">色彩组合</a></li>
 </ul>
 <p>光路图：</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3LCD.png" alt="3LCD" style="zoom:50%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3LCD.png" alt="3LCD" style="zoom:50%;" /></p>
 <p>从上面的工作原理图可以看出：</p>
 <ul>
 <li>3LCD投影仪是把光源通过分色镜分解成R(红)、G(绿)、B(蓝)三种颜色(光的三原色)</li>
@@ -92,81 +120,81 @@
 <li>最后再投射到屏幕上</li>
 </ul>
 <p>分色镜镀膜(不同折射率的光学涂层)将不需要的波长被反射，需要的颜色透过</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171506661.png" alt="分色镜" style="zoom:50%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171506661.png" alt="分色镜" style="zoom:50%;" /></p>
 <p>合光棱镜结构：</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171547154.png" alt="image-20220407171547154" style="zoom:50%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171547154.png" alt="image-20220407171547154" style="zoom:50%;" /></p>
 <p>实物图：</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171615169.png" alt="3LCD实物图" style="zoom: 33%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171615169.png" alt="3LCD实物图" style="zoom: 33%;" /></p>
 <p>光路：</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171648007.png" alt="光路" style="zoom: 33%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220407171648007.png" alt="光路" style="zoom: 33%;" /></p>
 <p>镜头有两个环，后面的是变焦环，控制镜头里面镜片的位置，改变焦距，前面是对焦环，改变间距，改变成像最清晰的平面到镜头的距离</p>
 <p>3LCD的核心技术有两家，分别是EPSON和SONY。EPSON的芯片基本上只供自己用，其他品牌主要是跟SONY采购。</p>
 <p>优点：</p>
-<ol>
+<ol type="1">
 <li>光效率高</li>
 <li>全彩成像：红绿蓝三原色独立LCD板，可以分别调整每个彩色通道的亮度对比度，投影效果好</li>
 <li>更清澈，噪点更少，色彩还原也更为精准</li>
 </ol>
 <p>缺点：</p>
-<ol>
+<ol type="1">
 <li>不耐用易进灰</li>
 <li>亮度衰减快</li>
 <li>黑色层次表现差对比度不高(LCD投影机表现的黑色，看起来总是灰蒙蒙的，阴影部分就显得昏暗而毫无细节。这点非常不适合播放电影一类的视频)</li>
 <li>画面可见像素结构</li>
 <li>寿命短</li>
 </ol>
-<h2 id="DLP">DLP</h2>
+<h2 id="dlp">DLP</h2>
 <p>DLP是“Digital Light Processing”的缩写，即为数字光处理，它是基于TI（美国德州仪器）公司开发的数字微镜元件——DMD（Digital Micromirror Device）来完成可视数字信息显示的技术。</p>
 <p>DMD是在半导体芯片上布置一个由微镜片（精密、微型的反射镜）所组成的矩阵，每一个微镜片控制投影画面中的一个像素。微镜片的数量与投影画面的分辨率相符，800×600、1024×768、1280×720和1920 x 1080是一些常见的DMD的尺寸。</p>
 <p>这些微镜片在数字驱动信号的控制下能够迅速改变角度，一旦接收到相应信号，微镜片就会倾斜10°，从而使入射光的反射方向改变。处于投影状态被示为“开”，并随数字信号而倾斜+10°；处于非投影状态被示为“关”，并倾斜-10°；“开”状态下被反射出去的入射光通过投影透镜将影像投影到屏幕上；而“关”状态下反射在微镜片上的入射光被光吸收器吸收。</p>
 <p>微镜片在两种状态间切换的频率是可以变化的，这使得DMD反射出的光线呈现出黑（微镜片处于“关”状态）与白（微镜片处于“开”状态）之间的各种灰度。</p>
-<h3 id="单片DLP投影仪">单片DLP投影仪</h3>
+<h3 id="单片dlp投影仪">单片DLP投影仪</h3>
 <p>单片DLP投影仪内部只安装一片DMD芯片，光通由四块反光镜组成一个长方形光线通道，把入射光变成长方形，正好对应DMD芯片上的长方形。颜色是通过在光源与DMD之间安装一个色轮来产生的。色轮通常被分为四个区域：红区、绿区、蓝区和一个用来增加亮度的透明区域(产生白色)(因为透明区域会减弱色彩的饱和度，有时候直接去除)。</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/8dca032a057384dd0c2614277d8edfb2_1440w.jpg" alt="img" style="zoom: 67%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/8dca032a057384dd0c2614277d8edfb2_1440w.jpg" alt="img" style="zoom: 67%;" /></p>
 <p>输入信号被转化为RGB数据，数据按顺序写入DMD的SRAM，白光光源通过聚焦透镜聚集焦在色轮上，通过色轮的光线然后成像在DMD的表面。当色轮旋转时，红、绿、蓝光顺序地射在DMD上，当红光射到DMD上时，镜片按照红色信息应该显示的位置和强度倾斜到“开”，绿色和蓝色光及视频信号亦是如此工作。人体视觉系统集中红、绿、蓝信息并看到一个全彩色图像。</p>
-<h3 id="三片DLP投影仪">三片DLP投影仪</h3>
+<h3 id="三片dlp投影仪">三片DLP投影仪</h3>
 <p>将白光通过棱镜系统分成三原色。这种方法使用三个DMD，一个DMD对应于一种原色。应用三片DLP投影系统的主要原因是为了增加亮度。通过三片DMD，来自每一原色的光可直接连续地投射到它自己的DMD上，导致更多的光线到达屏幕，给出一个更亮的投影图像。这种高效的三片投影系统被用在超大屏幕和高亮度应用领域。</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3DLP.png" alt="3DLP" style="zoom:50%;" />
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3DLP光路图.png" alt="3DLP光路图" style="zoom:50%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3DLP.png" alt="3DLP" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/3DLP光路图.png" alt="3DLP光路图" style="zoom:50%;" /></p>
 <p>优点：</p>
-<ol>
+<ol type="1">
 <li>图像平滑流畅</li>
 <li>优秀的色深以及对比度</li>
 <li>不会烧屏</li>
 <li>DLP投影机采用封闭式光路，降低了灰尘进入了概率</li>
 </ol>
 <p>缺点：</p>
-<ol>
+<ol type="1">
 <li>价格相对较为昂贵</li>
 <li>单片式DLP投影机可能会出现“彩虹效应”</li>
 <li>体积大，安装占空间，运输不方便。</li>
 <li>存在风扇噪音</li>
 </ol>
-<h2 id="激光投影仪-LDT">激光投影仪(LDT)</h2>
+<h2 id="激光投影仪ldt">激光投影仪(LDT)</h2>
 <p>激光投影显示技术(LDT)，也称激光投影技术或者激光显示技术，它是以红、绿、蓝(RGB)三基色激光为光源的显示技术，可以最真实地再现客观世界丰富、艳丽的色彩，提供更具震撼的表现力。</p>
 <p>LCD和DLP都是从发出的光中通过透镜过滤出红、绿、蓝三种光进行成像，但这样光的利用率不到20%；激光投影仪直接用红、绿、蓝三基色激光为光源，不用白光为光源，这大大降低了能耗。</p>
 <p>激光投影技术一般分为两种，一种是单色光，一种是彩色光</p>
 <h3 id="单色激光技术">单色激光技术</h3>
 <p><a href="https://www.sohu.com/a/207890224_616364?qq-pf-to=pcqq.group">单色激光</a></p>
 <p>蓝色激光的形成是由蓝色Laser Diode所发出的蓝光经过荧光色轮的蓝色(Blue)部分，直接通过，然后经过滤光色轮中透明段，从而形成投影画面所需要的蓝光。</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="蓝光" style="zoom: 43%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="蓝光" style="zoom: 43%;" /></p>
 <p>蓝光经过荧光色轮(Phosphor wheel)的绿色(Green)反射形成绿光，然后再经过滤光色轮(filter wheel)过滤出所需要的绿色光波长，从而形成绿光通过</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="绿光" style="zoom: 43%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/蓝光.png" alt="绿光" style="zoom: 43%;" /></p>
 <p>同理，蓝色Laser Diode所发出的蓝光经过荧光色轮的黄色（Yellow）反射形成黄光，然后再经过滤光色轮的红色段过滤掉黄光，从而形成只剩下红光通过</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/红光.png" alt="红光" style="zoom:43%;" />
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/红光.png" alt="红光" style="zoom:43%;" /></p>
 <p>三色光的拼合部分与3LCD相同不再赘述</p>
-<h3 id="普通双色（蓝光-红光）">普通双色（蓝光+红光）</h3>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/双色激光投影光路示意.png" alt="双色激光投影光路示意" style="zoom: 43%;" />
+<h3 id="普通双色蓝光红光">普通双色（蓝光+红光）</h3>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/双色激光投影光路示意.png" alt="双色激光投影光路示意" style="zoom: 43%;" /></p>
 <p>虽然激发荧光的光源仍然是蓝色激光，但是产生的黄色光会和另一组蓝色和红色激光混合。多种颜色激光的使用，可以大大提高色彩校正的效率。</p>
 <p>放映机在校色的过程中，会损失相当一部分亮度，导致激光光源的能量，并不能全部应用于投射出的画面。由于采用了额外的红色激光作为补充，在校色的处理过程中，可以更有效率的混合颜色，有效减少校色后的亮度损失。同样的原始光通量，可以得到更高的画面亮度，整机的能效比显著提高。</p>
 <p>优点：</p>
-<ol>
+<ol type="1">
 <li>性能稳定</li>
 <li>亮度高，色彩好</li>
 <li>衰减小</li>
 </ol>
 <p>缺点：</p>
-<ol>
+<ol type="1">
 <li>缺乏灵活性，体积庞大，且需要搭配抗光硬屏，不好移动</li>
 <li>分类少，发展不成熟</li>
 <li>购买价格贵</li>
@@ -175,7 +203,7 @@
 <p>综上其实很容易看出激光投影仪是建立在LCD和DLP的结构上进行的综合应用</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th></th>
 <th>3LCD</th>
 <th>DLP</th>
@@ -183,35 +211,35 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>使用寿命</td>
-<td>$\star$</td>
-<td>$\star\star$</td>
-<td>$\star\star\star$</td>
+<td><span class="math inline">\(\star\)</span></td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td>亮度</td>
-<td>$\star\star$</td>
-<td>$\star$</td>
-<td>$\star\star\star$</td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\)</span></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>色彩</td>
-<td>$\star\star$</td>
-<td>$\star$</td>
-<td>$\star\star\star$</td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\)</span></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td>灵活性</td>
-<td>$\star\star$</td>
-<td>$\star\star\star$</td>
-<td>$\star$</td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
+<td><span class="math inline">\(\star\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>价格昂贵程度</td>
-<td>$\star\star\star$</td>
-<td>$\star\star$</td>
-<td>$\star$</td>
+<td><span class="math inline">\(\star\star\star\)</span></td>
+<td><span class="math inline">\(\star\star\)</span></td>
+<td><span class="math inline">\(\star\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -251,19 +279,6 @@
 ]]></content>
       <categories>
         <category>python</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>遇到的hexo报错</title>
-    <url>/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<p>22-04-02：</p>
-<p>碰到一个很蠢的报错， <code>type: 'expected variable end'</code> 原因是编写的md文件中有出现相连接的<code>&#123;</code>或<code>&#125;</code>，原因是连续的中括号会与配置文件发生一些冲突，避免编写公式时出现这种情况</p>
-<p>或者是找到语句进行修改：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">&#123;<span class="comment">% raw %&#125;				//敏感内容前加上这个</span></span><br><span class="line">Hello &#123;&#123; sensitive &#125;&#125;	//敏感内容被包装在中间</span><br><span class="line">&#123;<span class="comment">% endraw %&#125;			//敏感内容后加上这个</span></span><br></pre></td></tr></table></figure>
-<p>最简单的应该还是直接加空格了吧</p>
-]]></content>
-      <categories>
-        <category>hexo </category>
       </categories>
   </entry>
   <entry>
@@ -436,6 +451,15 @@ V_{NH} = V_{OHmin} – V_{IHmin}\qquad V_{NL} = V_{ILmax} – V_{OLmax}
 ]]></content>
       <categories>
         <category>study</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>遇到的hexo问题</title>
+    <url>/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<div class="timeline "></div>
+]]></content>
+      <categories>
+        <category>hexo </category>
       </categories>
   </entry>
 </search>
