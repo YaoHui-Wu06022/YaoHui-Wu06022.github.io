@@ -120,12 +120,12 @@
 
 /* 字体 */
 @font-face{
-    font-family: 'KA' ;  /* 自定义字体名称 */
-    src: url('KA.ttf'); /* 引入字体文件的路径 */
+    font-family: 'KeAi' ;  /* 自定义字体名称 */
+    src: url('KeAi.TTF'); /* 引入字体文件的路径 */
   }
   /*应用在body体里，放在第一个，font-family会按顺序使用字体族。如果第一个没找到就会找第二个，以此类推。*/
   body {
-  font-family: KA,-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Lato, Roboto, "PingFang SC", "STZhongsong", "Lantinghei SC", sans-serif
+  font-family: "KeAi", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Lato, Roboto, "PingFang SC", "STZhongsong", "Lantinghei SC", sans-serif
   }
   
 
