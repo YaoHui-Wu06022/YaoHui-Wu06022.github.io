@@ -489,4 +489,34 @@ V_{NH} = V_{OHmin} – V_{IHmin}\qquad V_{NL} = V_{ILmax} – V_{OLmax}
         <category>hexo</category>
       </categories>
   </entry>
+  <entry>
+    <title>about</title>
+    <url>/about/index.html</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>分类</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>友情鏈接</title>
+    <url>/link/index.html</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>music</title>
+    <url>/music/index.html</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>tags</title>
+    <url>/tags/index.html</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
 </search>
