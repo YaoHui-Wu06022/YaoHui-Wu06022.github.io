@@ -1,0 +1,468 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>RC文氏电桥分析 | がんばろう</title><meta name="keywords" content="信号课设"><meta name="author" content="落荷"><meta name="copyright" content="落荷"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="RC文氏电桥分析 设计详细说明：  论文资料整理：   论文中传递函数的推导：    稳定性的简要判断： 劳斯判据：根都在复平面左半平面，系统稳定    K的7种取值下分析： 代码块： 绘制对应零极点图：（lingjidian.m文件） clc%清空命令行clear%从工作区中删除项目、释放系统内存clf%清空当前图窗窗口K&#x3D;11;%可修改放大倍数%可修改参数R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RC文氏电桥分析">
+<meta property="og:url" content="http://yhblogs.cn/2022/01/10/RC%E6%96%87%E6%B0%8F%E7%94%B5%E6%A1%A5%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="RC文氏电桥分析 设计详细说明：  论文资料整理：   论文中传递函数的推导：    稳定性的简要判断： 劳斯判据：根都在复平面左半平面，系统稳定    K的7种取值下分析： 代码块： 绘制对应零极点图：（lingjidian.m文件） clc%清空命令行clear%从工作区中删除项目、释放系统内存clf%清空当前图窗窗口K&#x3D;11;%可修改放大倍数%可修改参数R">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204112315840.png">
+<meta property="article:published_time" content="2022-01-10T14:01:34.000Z">
+<meta property="article:modified_time" content="2022-04-11T15:29:17.510Z">
+<meta property="article:author" content="落荷">
+<meta property="article:tag" content="信号课设">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204112315840.png"><link rel="shortcut icon" href="/img/%E7%8C%AB.png"><link rel="canonical" href="http://yhblogs.cn/2022/01/10/RC%E6%96%87%E6%B0%8F%E7%94%B5%E6%A1%A5%E5%88%86%E6%9E%90/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":150},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RC文氏电桥分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-11 23:29:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_64rbpfx76iq.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-clock/lib/clock.min.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204102117824.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyan"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-icon_pengyouquan"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-lianjie"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204112315840.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">がんばろう</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyan"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-icon_pengyouquan"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-lianjie"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">RC文氏电桥分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-10T14:01:34.000Z" title="发表于 2022-01-10 22:01:34">2022-01-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-11T15:29:17.510Z" title="更新于 2022-04-11 23:29:17">2022-04-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/study/">study</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="RC文氏电桥分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="rc文氏电桥分析">RC文氏电桥分析</h1>
+<p><strong>设计详细说明：</strong></p>
+<ul>
+<li><strong>论文资料整理：</strong></li>
+</ul>
+<ol type="1">
+<li><p>论文中传递函数的推导：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/85727168324e875af15db970f01a4352.png" style="zoom: 67%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/912d64ad20b920edd8cf3d0bcbf0a17a.png" style="zoom:67%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232228897.png" alt="image-20220411232228897" style="zoom: 67%;" /></p></li>
+<li><p>稳定性的简要判断：</p>
+<p>劳斯判据：根都在复平面左半平面，系统稳定</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232403672.png" alt="image-20220411232403672" style="zoom: 67%;" /></p></li>
+</ol>
+<ul>
+<li><p><strong>K的7种取值下分析：</strong></p>
+<p><strong>代码块：</strong></p>
+<p>绘制对应零极点图：（lingjidian.m文件）</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">poles=roots(fenmu);<span class="comment">%求极点</span></span><br><span class="line"></span><br><span class="line">pzmap(sys,<span class="string">&#x27;r&#x27;</span>);<span class="comment">% 零极点分布图显示</span></span><br><span class="line"></span><br><span class="line">绘制时域单位冲击响应函数：（chongjixiangyinghanshu.m文件）</span><br><span class="line"></span><br><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">t=<span class="number">0</span>:<span class="number">6</span>\*<span class="number">1e-6</span>:<span class="number">1e-3</span>; <span class="comment">%控制绘图的时间区间</span></span><br><span class="line"></span><br><span class="line">impulse(fenzi,fenmu,t) <span class="comment">%绘图</span></span><br><span class="line"></span><br><span class="line">title([<span class="string">&#x27;K=&#x27;</span>,num2str(K),<span class="string">&#x27;冲激响应函数&#x27;</span>])</span><br><span class="line"></span><br><span class="line">xlabel(<span class="string">&#x27;时间t&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol type="1">
+<li><p><strong>K&gt;5(取K=11)</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/51ce1427d7fff0c5e1b8fb863fe56a80.png" style="zoom:50%;" /></p>
+<p>零极点为两个不同的正实数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/64f440264560f5d8461e1af3f5e89676.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
+<p>Multisim仿真：（之后不再给出电路图，仅改变大小来改变K）</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/c616ec282526489adcf52dcd495947bf.png" style="zoom:67%;" /></p>
+<p>输出端产生的信号近似等于方波信号：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/1ddd22bf1f1ac209e9dd04e8797cdb74.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=5</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/7cd6066a2e19f6a41e3b67fb62930591.png" style="zoom:50%;" /></p>
+<p>零极点为两个相等的正实数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/357a9b48fb956f9ad49047045d97f36a.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端产生的信号失真不能实现稳定的单一频率的震荡，在 t=0 开始到第一次到达峰值可以看到一段电压呈指数形式增长的曲线。</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/04a46a6bdd804a0c8658e59ed0ec8a6a.png" style="zoom:50%;" /></p></li>
+<li><p><strong>3&lt;K&lt;5（取K=3.5）</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/794f1a5ae68ad392679d6bf8bae144b9.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭且实部大于0的虚数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/462dd56631904484a699202986050ed8.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数增幅振荡上升，无界，系统不稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端产生的信号经过振荡后类似K=5的情况，振荡时间变长：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f3580b560539fc8552e7f8c6c66de8b1.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f1af007816b4d4699fd662e51f5d35bc.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=3</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/bfc1ae0293c0eba703a3855d7a906667.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭的纯虚数，在jw轴上仅通过零极点不能判断系统是否稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/29d54dc5a26597b83848a9bc3b35be67.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数等幅振荡，有界，系统稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个范围内无规则振荡</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2d59fb7e88ed688e83570b1690b33dc0.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/6635c9710804dae9c91a18aab74db792.png" style="zoom:50%;" /></p></li>
+<li><p><strong>1&lt;K&lt;3(取K=2)</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2c3cc19945b0fdaaa04d790c94437b7c.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭且实部小于0的虚数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/26dfeb58edc7b57f8ae54430efb569b8.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数振荡衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个范围内无规则振荡趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/d19d2d95c4a2c05f72f40706a5fe8e38.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/a3fb7941e3b15bb1b706a5e2b43250c7.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=1</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/4d8f50f46dfd4f2521fa53af688471b8.png" style="zoom:50%;" /></p>
+<p>零极点为两个相等的负实数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8ce8f6fc850002f2685b2463b312dde6.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个振荡后趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/249384a69a03b4916ddf32d5712738f5.png" style="zoom:50%;" /></p></li>
+<li><p>K&lt;1</p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/9b7c629effb5dfd55cbcb98e7760b81f.png" style="zoom:50%;" /></p>
+<p>零极点为两个不相等的负实数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/b215c4204bd951fd5c5503549e44c898.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个振荡后趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/130432f65d638b147e4073d659ef173b.png" style="zoom:50%;" /></p></li>
+</ol>
+<ul>
+<li><p><strong>对题目的感想和思考</strong></p>
+<p>并没有找到合适的方法实现K=3处的稳定波形，这是唯一的不足，不知道如何实现稳定</p>
+<p>对于题目的其他认为还是相对合适的，主要要懂得如何使用matlab’的那几个相关函数很好地绘制出冲击响应函数和零极点图；</p></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">落荷</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/2022/01/10/RC%E6%96%87%E6%B0%8F%E7%94%B5%E6%A1%A5%E5%88%86%E6%9E%90/">http://yhblogs.cn/2022/01/10/RC%E6%96%87%E6%B0%8F%E7%94%B5%E6%A1%A5%E5%88%86%E6%9E%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BF%A1%E5%8F%B7%E8%AF%BE%E8%AE%BE/">信号课设</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204112315840.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/10/%E5%9B%9E%E5%A3%B0%E6%B6%88%E9%99%A4%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/"><img class="prev-cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204112315840.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">回声消除系统设计</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/04/%E6%A6%82%E7%8E%87%E8%AE%BA/"><img class="next-cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204112301605.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">概率论</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204102117824.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">落荷</div><div class="author-info__description">good luck is coming</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/YaoHui-Wu06022"><i class="fab fa-github"></i><span>Follow Me By GitHub</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111721328.png" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111721775.png" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天<div class="twopeople"><div class="twopeople"><div class="container"style="height:200px;"><canvas class="illo"width="800"height="800"style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div><script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script><script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script><script id="rendered-js"src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script><style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rc%E6%96%87%E6%B0%8F%E7%94%B5%E6%A1%A5%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">RC文氏电桥分析</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/11/%E8%AF%84%E8%AE%BA%E6%90%AD%E5%BB%BA/" title="评论搭建"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111747397.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="评论搭建"/></a><div class="content"><a class="title" href="/2022/04/11/%E8%AF%84%E8%AE%BA%E6%90%AD%E5%BB%BA/" title="评论搭建">评论搭建</a><time datetime="2022-04-11T01:34:24.000Z" title="发表于 2022-04-11 09:34:24">2022-04-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/08/butterfly%E7%BE%8E%E5%8C%96%E8%BF%87%E7%A8%8B/" title="butterfly美化过程"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204090919359.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="butterfly美化过程"/></a><div class="content"><a class="title" href="/2022/04/08/butterfly%E7%BE%8E%E5%8C%96%E8%BF%87%E7%A8%8B/" title="butterfly美化过程">butterfly美化过程</a><time datetime="2022-04-08T11:11:21.000Z" title="发表于 2022-04-08 19:11:21">2022-04-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/%E4%B8%89%E7%A7%8D%E6%8A%95%E5%BD%B1%E4%BB%AA%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E7%BB%93%E6%9E%84/" title="三种投影仪的原理和结构"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204071700843.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种投影仪的原理和结构"/></a><div class="content"><a class="title" href="/2022/04/07/%E4%B8%89%E7%A7%8D%E6%8A%95%E5%BD%B1%E4%BB%AA%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E7%BB%93%E6%9E%84/" title="三种投影仪的原理和结构">三种投影仪的原理和结构</a><time datetime="2022-04-07T08:48:27.000Z" title="发表于 2022-04-07 16:48:27">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E9%97%AE%E9%A2%98/" title="遇到的hexo问题"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204062108794.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="遇到的hexo问题"/></a><div class="content"><a class="title" href="/2022/04/02/%E9%81%87%E5%88%B0%E7%9A%84hexo%E9%97%AE%E9%A2%98/" title="遇到的hexo问题">遇到的hexo问题</a><time datetime="2022-04-01T17:41:09.000Z" title="发表于 2022-04-02 01:41:09">2022-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/" title="基于图片求体积的算法"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111139612.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于图片求体积的算法"/></a><div class="content"><a class="title" href="/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/" title="基于图片求体积的算法">基于图片求体积的算法</a><time datetime="2022-04-01T06:22:46.000Z" title="发表于 2022-04-01 14:22:46">2022-04-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'hello-cloudbase-5gjsmcvma4e0b650',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'hello-cloudbase-5gjsmcvma4e0b650',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      document.getElementById('twikoo-count').innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="http://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/snowflake.min.js"></script><script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.3/dist/twikoo.all.min.js"></script><div class="aplayer no-destroy" data-id="7368472115" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="/img/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_injector_config();
+  }
+  </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax src="https://unpkg.zhimg.com/hexo-butterfly-clock/lib/clock.min.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

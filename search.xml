@@ -506,9 +506,9 @@ https://blog.justlovesmile.top/posts/15391.html
       </categories>
   </entry>
   <entry>
-    <title>大学物理二</title>
-    <url>/2022/01/12/%E5%9B%9E%E5%A3%B0%E6%B6%88%E9%99%A4%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</url>
-    <content><![CDATA[<h2 id="回声消除系统设计">回声消除系统设计</h2>
+    <title>回声消除系统设计</title>
+    <url>/2022/01/10/%E5%9B%9E%E5%A3%B0%E6%B6%88%E9%99%A4%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<h1 id="回声消除系统设计">回声消除系统设计</h1>
 <p><strong>设计详细说明：</strong></p>
 <p>设计系统在0.2s，0.4s产生回声</p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411231220251.png" alt="image-20220411231220251" style="zoom: 67%;" /></p>
@@ -516,7 +516,7 @@ https://blog.justlovesmile.top/posts/15391.html
 <li><p>Matlab代码：</p>
 <figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear,clc,close all;  </span><br><span class="line"></span><br><span class="line"><span class="comment">% 记录数据  </span></span><br><span class="line">fs=<span class="number">8000</span>; <span class="comment">% 声音采样频率  </span></span><br><span class="line">duration=<span class="number">3</span>; <span class="comment">% 记录时间  </span></span><br><span class="line"><span class="comment">%记录输入声音  </span></span><br><span class="line">myrecording = audiorecorder;  </span><br><span class="line">fprintf(<span class="string">&#x27;Speaking for %d seconds. \\n&#x27;</span>,duration);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;Start speaking.&#x27;</span>)  </span><br><span class="line">recordblocking(myrecording, duration);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;End of Recording.&#x27;</span>);  </span><br><span class="line"><span class="comment">%获得输入信息  </span></span><br><span class="line">x = getaudiodata(myrecording);  </span><br><span class="line"><span class="comment">%存储录音信息  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;luyin.wav&#x27;</span>,x,fs);  </span><br><span class="line"></span><br><span class="line"><span class="comment">%定义冲激响应函数  </span></span><br><span class="line">h=<span class="built_in">zeros</span>(<span class="number">1</span>,<span class="number">5000</span>);  </span><br><span class="line">h(<span class="number">1</span>)=<span class="number">4</span>/<span class="number">5</span>;h(<span class="number">0.2</span>\*fs)=<span class="number">0.6</span>;h(<span class="number">0.4</span>\*fs)=<span class="number">0.4</span>;  </span><br><span class="line"><span class="comment">% 卷积计算  </span></span><br><span class="line">y=conv(x,h);  </span><br><span class="line">k=audioplayer(y,fs);  </span><br><span class="line">play(k); <span class="comment">% 播放回音  </span></span><br><span class="line"><span class="comment">%存储回音  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;huiyin.wav&#x27;</span>,y,fs);  </span><br><span class="line"><span class="comment">%绘图  </span></span><br><span class="line">subplot(<span class="number">311</span>)  </span><br><span class="line"><span class="built_in">plot</span> (x) ;<span class="comment">%绘制原始音  </span></span><br><span class="line">title(<span class="string">&#x27;原始音&#x27;</span>);  </span><br><span class="line">subplot(<span class="number">312</span>)  </span><br><span class="line"><span class="built_in">plot</span> (y);<span class="comment">%绘制回音  </span></span><br><span class="line">title(<span class="string">&#x27;回音&#x27;</span>);  </span><br><span class="line"><span class="comment">%恢复计算  </span></span><br><span class="line">huifu=filter(<span class="number">1</span>, h, y );<span class="comment">%回音卷积1/h恢复初始  </span></span><br><span class="line">subplot(<span class="number">313</span>)  </span><br><span class="line"><span class="built_in">plot</span>(huifu);<span class="comment">%绘制恢复音  </span></span><br><span class="line">pause(<span class="number">5</span>);  </span><br><span class="line">sound(huifu)<span class="comment">%播放恢复音  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;huifu.wav&#x27;</span>,huifu,fs);<span class="comment">%存储恢复音</span></span><br><span class="line"></span><br><span class="line">title(‘恢复音’)</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<p><img src="media/8e4774914e7003ab259ac85478078076.png" style="zoom: 67%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8e4774914e7003ab259ac85478078076.png" style="zoom: 67%;" /></p>
 <p>很容易看出原始音与恢复音的波形相同</p></li>
 </ul>
 ]]></content>
@@ -558,6 +558,122 @@ https://blog.justlovesmile.top/posts/15391.html
       <categories>
         <category>study</category>
       </categories>
+  </entry>
+  <entry>
+    <title>RC文氏电桥分析</title>
+    <url>/2022/01/10/RC%E6%96%87%E6%B0%8F%E7%94%B5%E6%A1%A5%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="rc文氏电桥分析">RC文氏电桥分析</h1>
+<p><strong>设计详细说明：</strong></p>
+<ul>
+<li><strong>论文资料整理：</strong></li>
+</ul>
+<ol type="1">
+<li><p>论文中传递函数的推导：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/85727168324e875af15db970f01a4352.png" style="zoom: 67%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/912d64ad20b920edd8cf3d0bcbf0a17a.png" style="zoom:67%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232228897.png" alt="image-20220411232228897" style="zoom: 67%;" /></p></li>
+<li><p>稳定性的简要判断：</p>
+<p>劳斯判据：根都在复平面左半平面，系统稳定</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232403672.png" alt="image-20220411232403672" style="zoom: 67%;" /></p></li>
+</ol>
+<ul>
+<li><p><strong>K的7种取值下分析：</strong></p>
+<p><strong>代码块：</strong></p>
+<p>绘制对应零极点图：（lingjidian.m文件）</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">poles=roots(fenmu);<span class="comment">%求极点</span></span><br><span class="line"></span><br><span class="line">pzmap(sys,<span class="string">&#x27;r&#x27;</span>);<span class="comment">% 零极点分布图显示</span></span><br><span class="line"></span><br><span class="line">绘制时域单位冲击响应函数：（chongjixiangyinghanshu.m文件）</span><br><span class="line"></span><br><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">t=<span class="number">0</span>:<span class="number">6</span>\*<span class="number">1e-6</span>:<span class="number">1e-3</span>; <span class="comment">%控制绘图的时间区间</span></span><br><span class="line"></span><br><span class="line">impulse(fenzi,fenmu,t) <span class="comment">%绘图</span></span><br><span class="line"></span><br><span class="line">title([<span class="string">&#x27;K=&#x27;</span>,num2str(K),<span class="string">&#x27;冲激响应函数&#x27;</span>])</span><br><span class="line"></span><br><span class="line">xlabel(<span class="string">&#x27;时间t&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol type="1">
+<li><p><strong>K&gt;5(取K=11)</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/51ce1427d7fff0c5e1b8fb863fe56a80.png" style="zoom:50%;" /></p>
+<p>零极点为两个不同的正实数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/64f440264560f5d8461e1af3f5e89676.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
+<p>Multisim仿真：（之后不再给出电路图，仅改变大小来改变K）</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/c616ec282526489adcf52dcd495947bf.png" style="zoom:67%;" /></p>
+<p>输出端产生的信号近似等于方波信号：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/1ddd22bf1f1ac209e9dd04e8797cdb74.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=5</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/7cd6066a2e19f6a41e3b67fb62930591.png" style="zoom:50%;" /></p>
+<p>零极点为两个相等的正实数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/357a9b48fb956f9ad49047045d97f36a.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端产生的信号失真不能实现稳定的单一频率的震荡，在 t=0 开始到第一次到达峰值可以看到一段电压呈指数形式增长的曲线。</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/04a46a6bdd804a0c8658e59ed0ec8a6a.png" style="zoom:50%;" /></p></li>
+<li><p><strong>3&lt;K&lt;5（取K=3.5）</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/794f1a5ae68ad392679d6bf8bae144b9.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭且实部大于0的虚数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/462dd56631904484a699202986050ed8.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数增幅振荡上升，无界，系统不稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端产生的信号经过振荡后类似K=5的情况，振荡时间变长：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f3580b560539fc8552e7f8c6c66de8b1.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f1af007816b4d4699fd662e51f5d35bc.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=3</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/bfc1ae0293c0eba703a3855d7a906667.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭的纯虚数，在jw轴上仅通过零极点不能判断系统是否稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/29d54dc5a26597b83848a9bc3b35be67.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数等幅振荡，有界，系统稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个范围内无规则振荡</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2d59fb7e88ed688e83570b1690b33dc0.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/6635c9710804dae9c91a18aab74db792.png" style="zoom:50%;" /></p></li>
+<li><p><strong>1&lt;K&lt;3(取K=2)</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2c3cc19945b0fdaaa04d790c94437b7c.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭且实部小于0的虚数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/26dfeb58edc7b57f8ae54430efb569b8.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数振荡衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个范围内无规则振荡趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/d19d2d95c4a2c05f72f40706a5fe8e38.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/a3fb7941e3b15bb1b706a5e2b43250c7.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=1</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/4d8f50f46dfd4f2521fa53af688471b8.png" style="zoom:50%;" /></p>
+<p>零极点为两个相等的负实数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8ce8f6fc850002f2685b2463b312dde6.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个振荡后趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/249384a69a03b4916ddf32d5712738f5.png" style="zoom:50%;" /></p></li>
+<li><p>K&lt;1</p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/9b7c629effb5dfd55cbcb98e7760b81f.png" style="zoom:50%;" /></p>
+<p>零极点为两个不相等的负实数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/b215c4204bd951fd5c5503549e44c898.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个振荡后趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/130432f65d638b147e4073d659ef173b.png" style="zoom:50%;" /></p></li>
+</ol>
+<ul>
+<li><p><strong>对题目的感想和思考</strong></p>
+<p>并没有找到合适的方法实现K=3处的稳定波形，这是唯一的不足，不知道如何实现稳定</p>
+<p>对于题目的其他认为还是相对合适的，主要要懂得如何使用matlab’的那几个相关函数很好地绘制出冲击响应函数和零极点图；</p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>信号课设</tag>
+      </tags>
   </entry>
   <entry>
     <title>about</title>
