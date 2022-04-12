@@ -113,7 +113,7 @@
         <category>study</category>
       </categories>
       <tags>
-        <tag>信号课设</tag>
+        <tag>📡信号课设</tag>
       </tags>
   </entry>
   <entry>
@@ -237,7 +237,7 @@ https://blog.justlovesmile.top/posts/15391.html
 <div class="tabs" id="ali"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#ali-1">导航栏举例：</button></li><li class="tab"><button type="button" data-href="#ali-2">社交符号举例</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="ali-1"><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="string">首页:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-shouye</span></span><br><span class="line">  <span class="string">时间轴:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-rili</span></span><br><span class="line">  <span class="string">标签:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-biaoqian</span></span><br><span class="line">  <span class="comment"># 分类: /categories/ || fas fa-folder-open</span></span><br><span class="line">  <span class="comment"># 清单||fa fa-heartbeat||hide:</span></span><br><span class="line">  <span class="comment">#   音乐: /music/ || fas fa-music</span></span><br><span class="line">  <span class="string">留言板:</span> <span class="string">/comments/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-liuyan</span></span><br><span class="line">  <span class="string">朋友圈:</span> <span class="string">/link/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-icon_pengyouquan</span></span><br><span class="line">  <span class="string">关于:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-lianjie</span></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="ali-2"><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">social:</span></span><br><span class="line">  <span class="attr">iconfont icon-QQ :</span> <span class="string">https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111721328.png</span> <span class="string">||</span> <span class="string">QQ</span></span><br><span class="line">  <span class="attr">iconfont icon-weixin:</span> <span class="string">https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111721775.png</span> <span class="string">||</span> <span class="string">微信</span></span><br><span class="line">  <span class="attr">iconfont icon-bilibili:</span> <span class="string">https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0</span> <span class="string">||</span> <span class="string">bilibili</span></span><br><span class="line">  <span class="attr">iconfont icon-GitHub:</span> <span class="string">https://github.com/YaoHui-Wu06022</span> <span class="string">||</span> <span class="string">Github</span></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
 ]]></content>
       <tags>
-        <tag>butterfly</tag>
+        <tag>📁butterfly</tag>
       </tags>
   </entry>
   <entry>
@@ -292,7 +292,7 @@ https://blog.justlovesmile.top/posts/15391.html
 <p>​</p>
 ]]></content>
       <tags>
-        <tag>hexo</tag>
+        <tag>📁hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -314,7 +314,7 @@ https://blog.justlovesmile.top/posts/15391.html
         <category>study</category>
       </categories>
       <tags>
-        <tag>信号课设</tag>
+        <tag>📡信号课设</tag>
       </tags>
   </entry>
   <entry>
@@ -347,7 +347,7 @@ https://blog.justlovesmile.top/posts/15391.html
 <p>这个算法只能初步实现分离物体，如果需要更加精细还需要改进</p>
 ]]></content>
       <tags>
-        <tag>python</tag>
+        <tag>⌨️python</tag>
       </tags>
   </entry>
   <entry>
@@ -365,6 +365,9 @@ https://blog.justlovesmile.top/posts/15391.html
       <categories>
         <category>study</category>
       </categories>
+      <tags>
+        <tag>📖课程笔记</tag>
+      </tags>
   </entry>
   <entry>
     <title>三种投影仪的原理和结构</title>
@@ -531,7 +534,7 @@ https://blog.justlovesmile.top/posts/15391.html
         <category>study</category>
       </categories>
       <tags>
-        <tag>应用光学</tag>
+        <tag>📸应用光学</tag>
       </tags>
   </entry>
   <entry>
@@ -549,10 +552,13 @@ https://blog.justlovesmile.top/posts/15391.html
       <categories>
         <category>study</category>
       </categories>
+      <tags>
+        <tag>📖课程笔记</tag>
+      </tags>
   </entry>
   <entry>
     <title>大物实验</title>
-    <url>/2021/01/12/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C/</url>
+    <url>/2022/01/12/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C/</url>
     <content><![CDATA[
 
 	<div class="row">
@@ -565,6 +571,9 @@ https://blog.justlovesmile.top/posts/15391.html
       <categories>
         <category>study</category>
       </categories>
+      <tags>
+        <tag>📖课程笔记</tag>
+      </tags>
   </entry>
   <entry>
     <title>概率论</title>
@@ -581,6 +590,9 @@ https://blog.justlovesmile.top/posts/15391.html
       <categories>
         <category>study</category>
       </categories>
+      <tags>
+        <tag>📖课程笔记</tag>
+      </tags>
   </entry>
   <entry>
     <title>评论搭建</title>
@@ -645,7 +657,7 @@ https://blog.justlovesmile.top/posts/15391.html
 <p>到这里就全部完成啦，评论时的头像是根据邮箱的头像来显示的，修改要去对应的邮箱修改</p>
 ]]></content>
       <tags>
-        <tag>butterfly</tag>
+        <tag>📁butterfly</tag>
       </tags>
   </entry>
   <entry>
@@ -672,7 +684,7 @@ https://blog.justlovesmile.top/posts/15391.html
 </div></div></div>
 ]]></content>
       <tags>
-        <tag>hexo</tag>
+        <tag>📁hexo</tag>
       </tags>
   </entry>
   <entry>
