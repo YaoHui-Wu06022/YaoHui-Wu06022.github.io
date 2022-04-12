@@ -1,1 +1,1 @@
-{% pdf 博客域名filetest.pdf %}
+{% pdf /file/.pdf %}
