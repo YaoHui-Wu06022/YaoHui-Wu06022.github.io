@@ -1,122 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>RC文氏电桥分析</title>
-    <url>/2022/01/10/RC%E6%96%87%E6%B0%8F%E7%94%B5%E6%A1%A5%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="rc文氏电桥分析">RC文氏电桥分析</h1>
-<p><strong>设计详细说明：</strong></p>
-<ul>
-<li><strong>论文资料整理：</strong></li>
-</ul>
-<ol type="1">
-<li><p>论文中传递函数的推导：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/85727168324e875af15db970f01a4352.png" style="zoom: 67%;" /></p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/912d64ad20b920edd8cf3d0bcbf0a17a.png" style="zoom:67%;" /></p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232228897.png" alt="image-20220411232228897" style="zoom: 67%;" /></p></li>
-<li><p>稳定性的简要判断：</p>
-<p>劳斯判据：根都在复平面左半平面，系统稳定</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232403672.png" alt="image-20220411232403672" style="zoom: 67%;" /></p></li>
-</ol>
-<ul>
-<li><p><strong>K的7种取值下分析：</strong></p>
-<p><strong>代码块：</strong></p>
-<p>绘制对应零极点图：（lingjidian.m文件）</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">poles=roots(fenmu);<span class="comment">%求极点</span></span><br><span class="line"></span><br><span class="line">pzmap(sys,<span class="string">&#x27;r&#x27;</span>);<span class="comment">% 零极点分布图显示</span></span><br><span class="line"></span><br><span class="line">绘制时域单位冲击响应函数：（chongjixiangyinghanshu.m文件）</span><br><span class="line"></span><br><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">t=<span class="number">0</span>:<span class="number">6</span>\*<span class="number">1e-6</span>:<span class="number">1e-3</span>; <span class="comment">%控制绘图的时间区间</span></span><br><span class="line"></span><br><span class="line">impulse(fenzi,fenmu,t) <span class="comment">%绘图</span></span><br><span class="line"></span><br><span class="line">title([<span class="string">&#x27;K=&#x27;</span>,num2str(K),<span class="string">&#x27;冲激响应函数&#x27;</span>])</span><br><span class="line"></span><br><span class="line">xlabel(<span class="string">&#x27;时间t&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol type="1">
-<li><p><strong>K&gt;5(取K=11)</strong></p>
-<p>Matlab结果：</p>
-<p>零极点图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/51ce1427d7fff0c5e1b8fb863fe56a80.png" style="zoom:50%;" /></p>
-<p>零极点为两个不同的正实数，收敛域不过jw轴，系统不稳定</p>
-<p>冲激响应函数：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/64f440264560f5d8461e1af3f5e89676.png" style="zoom:50%;" /></p>
-<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
-<p>Multisim仿真：（之后不再给出电路图，仅改变大小来改变K）</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/c616ec282526489adcf52dcd495947bf.png" style="zoom:67%;" /></p>
-<p>输出端产生的信号近似等于方波信号：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/1ddd22bf1f1ac209e9dd04e8797cdb74.png" style="zoom:50%;" /></p></li>
-<li><p><strong>K=5</strong></p>
-<p>Matlab结果：</p>
-<p>零极点图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/7cd6066a2e19f6a41e3b67fb62930591.png" style="zoom:50%;" /></p>
-<p>零极点为两个相等的正实数，收敛域不过jw轴，系统不稳定</p>
-<p>冲激响应函数：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/357a9b48fb956f9ad49047045d97f36a.png" style="zoom:50%;" /></p>
-<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
-<p>Multisim仿真：</p>
-<p>输出端产生的信号失真不能实现稳定的单一频率的震荡，在 t=0 开始到第一次到达峰值可以看到一段电压呈指数形式增长的曲线。</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/04a46a6bdd804a0c8658e59ed0ec8a6a.png" style="zoom:50%;" /></p></li>
-<li><p><strong>3&lt;K&lt;5（取K=3.5）</strong></p>
-<p>Matlab结果：</p>
-<p>零极点图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/794f1a5ae68ad392679d6bf8bae144b9.png" style="zoom:50%;" /></p>
-<p>零极点为两个共轭且实部大于0的虚数，收敛域不过jw轴，系统不稳定</p>
-<p>冲激响应函数：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/462dd56631904484a699202986050ed8.png" style="zoom:50%;" /></p>
-<p>可知冲激响应函数增幅振荡上升，无界，系统不稳定</p>
-<p>Multisim仿真：</p>
-<p>输出端产生的信号经过振荡后类似K=5的情况，振荡时间变长：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f3580b560539fc8552e7f8c6c66de8b1.png" style="zoom:50%;" /></p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f1af007816b4d4699fd662e51f5d35bc.png" style="zoom:50%;" /></p></li>
-<li><p><strong>K=3</strong></p>
-<p>Matlab结果：</p>
-<p>零极点图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/bfc1ae0293c0eba703a3855d7a906667.png" style="zoom:50%;" /></p>
-<p>零极点为两个共轭的纯虚数，在jw轴上仅通过零极点不能判断系统是否稳定</p>
-<p>冲激响应函数：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/29d54dc5a26597b83848a9bc3b35be67.png" style="zoom:50%;" /></p>
-<p>可知冲激响应函数等幅振荡，有界，系统稳定</p>
-<p>Multisim仿真：</p>
-<p>输出端的信号在一个范围内无规则振荡</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2d59fb7e88ed688e83570b1690b33dc0.png" style="zoom:50%;" /></p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/6635c9710804dae9c91a18aab74db792.png" style="zoom:50%;" /></p></li>
-<li><p><strong>1&lt;K&lt;3(取K=2)</strong></p>
-<p>Matlab结果：</p>
-<p>零极点图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2c3cc19945b0fdaaa04d790c94437b7c.png" style="zoom:50%;" /></p>
-<p>零极点为两个共轭且实部小于0的虚数，收敛域过jw轴，可判断收敛</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/26dfeb58edc7b57f8ae54430efb569b8.png" style="zoom:50%;" /></p>
-<p>可知冲激响应函数振荡衰减，有界，系统稳定，趋于0</p>
-<p>Multisim仿真：</p>
-<p>输出端的信号在一个范围内无规则振荡趋于0</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/d19d2d95c4a2c05f72f40706a5fe8e38.png" style="zoom:50%;" /></p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/a3fb7941e3b15bb1b706a5e2b43250c7.png" style="zoom:50%;" /></p></li>
-<li><p><strong>K=1</strong></p>
-<p>Matlab结果：</p>
-<p>零极点图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/4d8f50f46dfd4f2521fa53af688471b8.png" style="zoom:50%;" /></p>
-<p>零极点为两个相等的负实数，收敛域过jw轴，可判断收敛</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8ce8f6fc850002f2685b2463b312dde6.png" style="zoom:50%;" /></p>
-<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
-<p>Multisim仿真：</p>
-<p>输出端的信号在一个振荡后趋于0</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/249384a69a03b4916ddf32d5712738f5.png" style="zoom:50%;" /></p></li>
-<li><p>K&lt;1</p>
-<p>Matlab结果：</p>
-<p>零极点图：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/9b7c629effb5dfd55cbcb98e7760b81f.png" style="zoom:50%;" /></p>
-<p>零极点为两个不相等的负实数，收敛域过jw轴，可判断收敛</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/b215c4204bd951fd5c5503549e44c898.png" style="zoom:50%;" /></p>
-<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
-<p>Multisim仿真：</p>
-<p>输出端的信号在一个振荡后趋于0</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/130432f65d638b147e4073d659ef173b.png" style="zoom:50%;" /></p></li>
-</ol>
-<ul>
-<li><p><strong>对题目的感想和思考</strong></p>
-<p>并没有找到合适的方法实现K=3处的稳定波形，这是唯一的不足，不知道如何实现稳定</p>
-<p>对于题目的其他认为还是相对合适的，主要要懂得如何使用matlab’的那几个相关函数很好地绘制出冲击响应函数和零极点图；</p></li>
-</ul>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>📡信号课设</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>butterfly美化过程</title>
     <url>/2022/04/08/butterfly%E7%BE%8E%E5%8C%96%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="全局背景的设置">全局背景的设置</h1>
@@ -237,77 +121,116 @@ https://blog.justlovesmile.top/posts/15391.html
 <div class="tabs" id="ali"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#ali-1">导航栏举例：</button></li><li class="tab"><button type="button" data-href="#ali-2">社交符号举例</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="ali-1"><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="string">首页:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-shouye</span></span><br><span class="line">  <span class="string">时间轴:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-rili</span></span><br><span class="line">  <span class="string">标签:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-biaoqian</span></span><br><span class="line">  <span class="comment"># 分类: /categories/ || fas fa-folder-open</span></span><br><span class="line">  <span class="comment"># 清单||fa fa-heartbeat||hide:</span></span><br><span class="line">  <span class="comment">#   音乐: /music/ || fas fa-music</span></span><br><span class="line">  <span class="string">留言板:</span> <span class="string">/comments/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-liuyan</span></span><br><span class="line">  <span class="string">朋友圈:</span> <span class="string">/link/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-icon_pengyouquan</span></span><br><span class="line">  <span class="string">关于:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">iconfont</span> <span class="string">icon-lianjie</span></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="ali-2"><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">social:</span></span><br><span class="line">  <span class="attr">iconfont icon-QQ :</span> <span class="string">https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111721328.png</span> <span class="string">||</span> <span class="string">QQ</span></span><br><span class="line">  <span class="attr">iconfont icon-weixin:</span> <span class="string">https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111721775.png</span> <span class="string">||</span> <span class="string">微信</span></span><br><span class="line">  <span class="attr">iconfont icon-bilibili:</span> <span class="string">https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0</span> <span class="string">||</span> <span class="string">bilibili</span></span><br><span class="line">  <span class="attr">iconfont icon-GitHub:</span> <span class="string">https://github.com/YaoHui-Wu06022</span> <span class="string">||</span> <span class="string">Github</span></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
 ]]></content>
       <tags>
-        <tag>📁butterfly</tag>
+        <tag>🦋butterfly</tag>
       </tags>
   </entry>
   <entry>
-    <title>hexo博客的搭建以及fluid主题的配置</title>
-    <url>/2022/03/31/hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8Afluid%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>详细过程具体参考<a href="https://zhuanlan.zhihu.com/p/102592286">知乎链接</a></p>
-<p>本文主要记录过程中一些问题</p>
-<p>搭建的过程就是三部曲</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean   #清除缓存文件 db.json 和已生成的静态文件 public</span><br><span class="line">hexo g       #生成网站静态文件到默认设置的 public 文件夹(hexo generate 的缩写)</span><br><span class="line">hexo d       #自动生成网站静态文件，并部署到设定的仓库(hexo deploy 的缩写)</span><br></pre></td></tr></table></figure>
-<p>补充：一定用网易UU加速器，省时间还快</p>
-<h2 id="绑定github">绑定GitHub</h2>
-<p>ssh密匙指令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cd ~/.ssh </span><br><span class="line">$ ls</span><br><span class="line">$ cat id_rsa.pub</span><br></pre></td></tr></table></figure>
-<p>绑定过程中不要频繁使用科学上网工具，绑定过程中会跳出登录页面，及时输入用户名和密码避免超时报错</p>
-<p>过程中没有进行仓库的绑定，以后需要了再考虑</p>
-<h2 id="安装node.js和hexo">安装node.js和Hexo</h2>
-<p>需要重新设置路径：</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> prefix &quot;D:\nodejs\node_global&quot;</span><br><span class="line">npm config <span class="built_in">set</span> cache &quot;D:\nodejs\node_cache&quot;</span><br></pre></td></tr></table></figure>
-<p>设置完之后需要到系统的环境变量中添加路径</p>
-<ol type="1">
-<li>新建一个变量名为“NODE_PATH”，值为“D:_global_modules”</li>
-<li>编辑用户变量里的Path，将相应npm的路径改为："D:_global"，原来在C盘</li>
-<li>在完成hexo init后还需增加一个"<strong><code>D:\blog\blog\node_modules\hexo\bin</code></strong>"否则hexo 显示无命令</li>
-</ol>
-<p>在 cmd 命令下执行 <code>npm install webpack -g</code> 在 "D:_global_modules"会生成一个文件夹</p>
-<p>在D盘创建Blog文件夹后，网上大多是直接Git打开下载hexo，然后直接hexo init但这样其实会报错显示没有hexo</p>
-<p>解决方法：在Blog文件夹中用行控制台，输入<strong><code>npx hexo init blog</code></strong></p>
-<p>之后正常操作就行</p>
-<h2 id="设置fluid主题">设置fluid主题</h2>
-<p>主要参考还得看官方：<a href="https://hexo.fluid-dev.com/docs/start/#安装主题">开始使用 | Hexo Fluid 用户手册</a></p>
-<p>个人觉得用npm下载主题的方法不如直接下载压缩包解压到相应位置方便，解压到 Hexo 博客目录中的 <code>themes</code> 目录，并将解压出的文件夹重命名为 <code>fluid</code>。</p>
-<p>在博客目录下创建 <code>_config.fluid.yml</code>，将主题的 <code>config.yml</code> 内容复制进去。</p>
-<p>修改主题：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">fluid</span>  <span class="comment"># 指定主题</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span>  <span class="comment"># 指定语言，会影响主题显示的语言，按需修改</span></span><br></pre></td></tr></table></figure>
-<p>接下来的修改在<code>_config.fluid.yml</code>即可，一定要用vscode看！！！太容易眼花</p>
-<h2 id="快速修饰">快速修饰</h2>
-<p>在主题配置 <code>_config.yml</code> 中找到 <code>custom_js</code> 或者 <code>custom_css</code>，修改如下</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_js:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js</span> <span class="comment"># 动态彩带</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/runtime.min.js # 运行时间</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Ribbon.min.js # 静态彩带</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicLine.min.js # 动态黑色线条</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/snowflake.min.js</span> <span class="comment"># 小雪花飘落</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js #樱花飘落</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js</span> <span class="comment"># 鼠标跟随小星星</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/containsWord.min.js # 鼠标点击出字</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js</span> <span class="comment">#鼠标点击出爱心</span></span><br><span class="line"></span><br><span class="line"><span class="attr">custom_css:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css</span> <span class="comment"># 滚动条颜色</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css # 头部打字机颜色效果渐变</span></span><br></pre></td></tr></table></figure>
-<p>去掉#就可以用了</p>
-<p>鼠标样式还没修改，等有空了再补上</p>
-<h2 id="背景和图标网站">背景和图标网站</h2>
-<p>方便自己以后修饰时候查找：</p>
-<p>图标：</p>
-<ul>
-<li><a href="https://www.aigei.com/icon/class?detailTab=file">图标下载,ICON(PNG/ICO/SVG/矢量)</a></li>
-</ul>
-<p>壁纸：</p>
-<ul>
-<li><a href="https://www.beiwangshan.com/tools/wp/">电脑壁纸 - 北忘山的壁纸</a></li>
-<li><a href="https://wallhaven.cc/">Awesome Wallpapers - wallhaven.cc</a></li>
-</ul>
-<p>​</p>
-]]></content>
-      <tags>
-        <tag>📁hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>回声消除系统设计</title>
-    <url>/2022/01/10/%E5%9B%9E%E5%A3%B0%E6%B6%88%E9%99%A4%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</url>
-    <content><![CDATA[<h1 id="回声消除系统设计">回声消除系统设计</h1>
+    <title>RC文氏电桥分析</title>
+    <url>/2022/01/10/RC%E6%96%87%E6%B0%8F%E7%94%B5%E6%A1%A5%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="rc文氏电桥分析">RC文氏电桥分析</h1>
 <p><strong>设计详细说明：</strong></p>
-<p>设计系统在0.2s，0.4s产生回声</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411231220251.png" alt="image-20220411231220251" style="zoom: 67%;" /></p>
 <ul>
-<li><p>Matlab代码：</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear,clc,close all;  </span><br><span class="line"></span><br><span class="line"><span class="comment">% 记录数据  </span></span><br><span class="line">fs=<span class="number">8000</span>; <span class="comment">% 声音采样频率  </span></span><br><span class="line">duration=<span class="number">3</span>; <span class="comment">% 记录时间  </span></span><br><span class="line"><span class="comment">%记录输入声音  </span></span><br><span class="line">myrecording = audiorecorder;  </span><br><span class="line">fprintf(<span class="string">&#x27;Speaking for %d seconds. \\n&#x27;</span>,duration);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;Start speaking.&#x27;</span>)  </span><br><span class="line">recordblocking(myrecording, duration);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;End of Recording.&#x27;</span>);  </span><br><span class="line"><span class="comment">%获得输入信息  </span></span><br><span class="line">x = getaudiodata(myrecording);  </span><br><span class="line"><span class="comment">%存储录音信息  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;luyin.wav&#x27;</span>,x,fs);  </span><br><span class="line"></span><br><span class="line"><span class="comment">%定义冲激响应函数  </span></span><br><span class="line">h=<span class="built_in">zeros</span>(<span class="number">1</span>,<span class="number">5000</span>);  </span><br><span class="line">h(<span class="number">1</span>)=<span class="number">4</span>/<span class="number">5</span>;h(<span class="number">0.2</span>\*fs)=<span class="number">0.6</span>;h(<span class="number">0.4</span>\*fs)=<span class="number">0.4</span>;  </span><br><span class="line"><span class="comment">% 卷积计算  </span></span><br><span class="line">y=conv(x,h);  </span><br><span class="line">k=audioplayer(y,fs);  </span><br><span class="line">play(k); <span class="comment">% 播放回音  </span></span><br><span class="line"><span class="comment">%存储回音  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;huiyin.wav&#x27;</span>,y,fs);  </span><br><span class="line"><span class="comment">%绘图  </span></span><br><span class="line">subplot(<span class="number">311</span>)  </span><br><span class="line"><span class="built_in">plot</span> (x) ;<span class="comment">%绘制原始音  </span></span><br><span class="line">title(<span class="string">&#x27;原始音&#x27;</span>);  </span><br><span class="line">subplot(<span class="number">312</span>)  </span><br><span class="line"><span class="built_in">plot</span> (y);<span class="comment">%绘制回音  </span></span><br><span class="line">title(<span class="string">&#x27;回音&#x27;</span>);  </span><br><span class="line"><span class="comment">%恢复计算  </span></span><br><span class="line">huifu=filter(<span class="number">1</span>, h, y );<span class="comment">%回音卷积1/h恢复初始  </span></span><br><span class="line">subplot(<span class="number">313</span>)  </span><br><span class="line"><span class="built_in">plot</span>(huifu);<span class="comment">%绘制恢复音  </span></span><br><span class="line">pause(<span class="number">5</span>);  </span><br><span class="line">sound(huifu)<span class="comment">%播放恢复音  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;huifu.wav&#x27;</span>,huifu,fs);<span class="comment">%存储恢复音</span></span><br><span class="line"></span><br><span class="line">title(‘恢复音’)</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8e4774914e7003ab259ac85478078076.png" style="zoom: 67%;" /></p>
-<p>很容易看出原始音与恢复音的波形相同</p></li>
+<li><strong>论文资料整理：</strong></li>
+</ul>
+<ol type="1">
+<li><p>论文中传递函数的推导：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/85727168324e875af15db970f01a4352.png" style="zoom: 67%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/912d64ad20b920edd8cf3d0bcbf0a17a.png" style="zoom:67%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232228897.png" alt="image-20220411232228897" style="zoom: 67%;" /></p></li>
+<li><p>稳定性的简要判断：</p>
+<p>劳斯判据：根都在复平面左半平面，系统稳定</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232403672.png" alt="image-20220411232403672" style="zoom: 67%;" /></p></li>
+</ol>
+<ul>
+<li><p><strong>K的7种取值下分析：</strong></p>
+<p><strong>代码块：</strong></p>
+<p>绘制对应零极点图：（lingjidian.m文件）</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">poles=roots(fenmu);<span class="comment">%求极点</span></span><br><span class="line"></span><br><span class="line">pzmap(sys,<span class="string">&#x27;r&#x27;</span>);<span class="comment">% 零极点分布图显示</span></span><br><span class="line"></span><br><span class="line">绘制时域单位冲击响应函数：（chongjixiangyinghanshu.m文件）</span><br><span class="line"></span><br><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">t=<span class="number">0</span>:<span class="number">6</span>\*<span class="number">1e-6</span>:<span class="number">1e-3</span>; <span class="comment">%控制绘图的时间区间</span></span><br><span class="line"></span><br><span class="line">impulse(fenzi,fenmu,t) <span class="comment">%绘图</span></span><br><span class="line"></span><br><span class="line">title([<span class="string">&#x27;K=&#x27;</span>,num2str(K),<span class="string">&#x27;冲激响应函数&#x27;</span>])</span><br><span class="line"></span><br><span class="line">xlabel(<span class="string">&#x27;时间t&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol type="1">
+<li><p><strong>K&gt;5(取K=11)</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/51ce1427d7fff0c5e1b8fb863fe56a80.png" style="zoom:50%;" /></p>
+<p>零极点为两个不同的正实数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/64f440264560f5d8461e1af3f5e89676.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
+<p>Multisim仿真：（之后不再给出电路图，仅改变大小来改变K）</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/c616ec282526489adcf52dcd495947bf.png" style="zoom:67%;" /></p>
+<p>输出端产生的信号近似等于方波信号：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/1ddd22bf1f1ac209e9dd04e8797cdb74.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=5</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/7cd6066a2e19f6a41e3b67fb62930591.png" style="zoom:50%;" /></p>
+<p>零极点为两个相等的正实数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/357a9b48fb956f9ad49047045d97f36a.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端产生的信号失真不能实现稳定的单一频率的震荡，在 t=0 开始到第一次到达峰值可以看到一段电压呈指数形式增长的曲线。</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/04a46a6bdd804a0c8658e59ed0ec8a6a.png" style="zoom:50%;" /></p></li>
+<li><p><strong>3&lt;K&lt;5（取K=3.5）</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/794f1a5ae68ad392679d6bf8bae144b9.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭且实部大于0的虚数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/462dd56631904484a699202986050ed8.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数增幅振荡上升，无界，系统不稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端产生的信号经过振荡后类似K=5的情况，振荡时间变长：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f3580b560539fc8552e7f8c6c66de8b1.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f1af007816b4d4699fd662e51f5d35bc.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=3</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/bfc1ae0293c0eba703a3855d7a906667.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭的纯虚数，在jw轴上仅通过零极点不能判断系统是否稳定</p>
+<p>冲激响应函数：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/29d54dc5a26597b83848a9bc3b35be67.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数等幅振荡，有界，系统稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个范围内无规则振荡</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2d59fb7e88ed688e83570b1690b33dc0.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/6635c9710804dae9c91a18aab74db792.png" style="zoom:50%;" /></p></li>
+<li><p><strong>1&lt;K&lt;3(取K=2)</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2c3cc19945b0fdaaa04d790c94437b7c.png" style="zoom:50%;" /></p>
+<p>零极点为两个共轭且实部小于0的虚数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/26dfeb58edc7b57f8ae54430efb569b8.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数振荡衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个范围内无规则振荡趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/d19d2d95c4a2c05f72f40706a5fe8e38.png" style="zoom:50%;" /></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/a3fb7941e3b15bb1b706a5e2b43250c7.png" style="zoom:50%;" /></p></li>
+<li><p><strong>K=1</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/4d8f50f46dfd4f2521fa53af688471b8.png" style="zoom:50%;" /></p>
+<p>零极点为两个相等的负实数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8ce8f6fc850002f2685b2463b312dde6.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个振荡后趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/249384a69a03b4916ddf32d5712738f5.png" style="zoom:50%;" /></p></li>
+<li><p>K&lt;1</p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/9b7c629effb5dfd55cbcb98e7760b81f.png" style="zoom:50%;" /></p>
+<p>零极点为两个不相等的负实数，收敛域过jw轴，可判断收敛</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/b215c4204bd951fd5c5503549e44c898.png" style="zoom:50%;" /></p>
+<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个振荡后趋于0</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/130432f65d638b147e4073d659ef173b.png" style="zoom:50%;" /></p></li>
+</ol>
+<ul>
+<li><p><strong>对题目的感想和思考</strong></p>
+<p>并没有找到合适的方法实现K=3处的稳定波形，这是唯一的不足，不知道如何实现稳定</p>
+<p>对于题目的其他认为还是相对合适的，主要要懂得如何使用matlab’的那几个相关函数很好地绘制出冲击响应函数和零极点图；</p></li>
 </ul>
 ]]></content>
       <categories>
@@ -315,58 +238,6 @@ https://blog.justlovesmile.top/posts/15391.html
       </categories>
       <tags>
         <tag>📡信号课设</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于图片求体积的算法</title>
-    <url>/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>浅记录一下学院数模赛的算法流程</p>
-<h2 id="题目">题目</h2>
-<p>自拟场景和尺寸，在有参照物的情况下，依据图片，建立模型估计以下土堆的立方数</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401142622068.png" alt="image-20220401142622068" style="zoom: 80%;" /></p>
-<h2 id="思路及算法">思路及算法</h2>
-<h3 id="思路">思路</h3>
-<ol type="1">
-<li><p>筛选出需要的土堆和挖掘机部分</p></li>
-<li><p>根据轮廓利用古鲁金定理计算像素体积</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/gulujin.png" alt="gulujin" style="zoom:50%;" /></p></li>
-<li><p>根据挖掘机在图片中的面积以及实际尺寸计算图片和实际长度的转化关系</p></li>
-<li><p>代入计算的土堆像素体积获得实际体积</p></li>
-</ol>
-<p>因为python的<code>opencv</code>只能识别<code>HSV</code>三通道参数，需要根据<code>HSV</code>表来粗筛选土堆和挖掘机</p>
-<p><code>HSV</code>颜色参考：</p>
-<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401143415448.png" alt="image-20220401143415448" style="zoom:50%;" /></p>
-<h3 id="算法">算法</h3>
-<p>封装了一个计算形心相对图片坐标的函数<code>XX</code>，输入为图片，标识名称，HSV高低数组，返回值为形心坐标cx和cy，和轮廓的像素面积，输出二值化图片，红线轮廓图片以及蓝色形心图片</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2022/3/30 14:44</span></span><br><span class="line"><span class="comment"># @Author : YH</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">XX</span>(<span class="params">img,name,low,high</span>):</span><br><span class="line">    img = cv.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">    <span class="comment"># cv.imwrite(&#x27;gaosi.jpg&#x27;,img)</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    提取颜色</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)</span><br><span class="line">    low_hsv = np.array(low)</span><br><span class="line">    high_hsv = np.array(high)</span><br><span class="line">    mask = cv.inRange(hsv, lowerb=low_hsv, upperb=high_hsv)</span><br><span class="line">    <span class="comment"># 展示黑白图</span></span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;HB&quot;,mask)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    <span class="comment"># 保存黑白土堆轮廓</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;HBLK.jpg&quot;</span>, mask)</span><br><span class="line">    contours, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    cv.drawContours(img, contours, -<span class="number">1</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 保存轮廓线图片</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;LK.jpg&quot;</span>,img)</span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;LK&quot;,img)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    areas = []</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">        areas.append(cv.contourArea(contours[c]))</span><br><span class="line">    MAX = areas.index(<span class="built_in">max</span>(areas))   <span class="comment"># 求最大轮廓序号</span></span><br><span class="line">    M = cv.moments(contours[MAX])  <span class="comment"># 求矩</span></span><br><span class="line">    cx = <span class="built_in">int</span>(M[<span class="string">&#x27;m10&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求x坐标</span></span><br><span class="line">    cy = <span class="built_in">int</span>(M[<span class="string">&#x27;m01&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求y坐标</span></span><br><span class="line">    cv.circle(img, (cx, cy), <span class="number">1</span>, (<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>), <span class="number">0</span>)</span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span> + <span class="string">&quot;/&quot;</span> + name + <span class="string">&quot;ZX.jpg&quot;</span>, img)   <span class="comment">#保存形心图片</span></span><br><span class="line">    area = cv.contourArea(contours[MAX])</span><br><span class="line">    <span class="keyword">return</span> cx, cy, area</span><br></pre></td></tr></table></figure>
-<p>土堆计算的主函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    img = cv.imread(<span class="string">&#x27;pic/tudui.jpg&#x27;</span>)</span><br><span class="line">    cx,cy,area = XX(img,name=<span class="string">&quot;tudui&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx,cy,area)</span><br><span class="line">    img1 = img[<span class="number">0</span>:img.shape[<span class="number">0</span>], <span class="number">0</span>:cx]</span><br><span class="line">    cx1,cy1,area1 = XX(img1,name=<span class="string">&quot;tudui1&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx1,cy1,area1)</span><br><span class="line">    V = <span class="number">2</span>*<span class="built_in">abs</span>(cx-cx1)*math.pi*area/<span class="number">2</span>*math.<span class="built_in">pow</span>(<span class="number">0.033082679182000536</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(V)</span><br></pre></td></tr></table></figure>
-<p>其中V计算中<code>math.pow</code>用的是计算获得的像素与实际长度转化关系，这个值准确性有待提高，因为挖掘机的具体参数并未获得，计算过程中没有很好考虑视角造成的长度影响</p>
-<p>卡车计算的额外步骤：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">space = (math.cos(math.pi/<span class="number">3</span>)+math.cos(math.pi/<span class="number">6</span>))*<span class="number">0.84</span>*<span class="number">2.22</span></span><br><span class="line"><span class="comment">#计算像素和实际长度转化关系</span></span><br><span class="line">a = math.sqrt(space/area)</span><br></pre></td></tr></table></figure>
-<p>这个算法只能初步实现分离物体，如果需要更加精细还需要改进</p>
-]]></content>
-      <tags>
-        <tag>⌨️python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>大学物理一</title>
-    <url>/2021/07/01/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E4%B8%80/</url>
-    <content><![CDATA[
-
-	<div class="row">
-    <embed src="/file/大学物理一.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>📖课程笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -538,31 +409,89 @@ https://blog.justlovesmile.top/posts/15391.html
       </tags>
   </entry>
   <entry>
-    <title>大学物理二</title>
-    <url>/2022/01/12/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E4%BA%8C/</url>
-    <content><![CDATA[
-
-	<div class="row">
-    <embed src="/file/大学物理二.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-
+    <title>hexo博客的搭建以及fluid主题的配置</title>
+    <url>/2022/03/31/hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8Afluid%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>详细过程具体参考<a href="https://zhuanlan.zhihu.com/p/102592286">知乎链接</a></p>
+<p>本文主要记录过程中一些问题</p>
+<p>搭建的过程就是三部曲</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean   #清除缓存文件 db.json 和已生成的静态文件 public</span><br><span class="line">hexo g       #生成网站静态文件到默认设置的 public 文件夹(hexo generate 的缩写)</span><br><span class="line">hexo d       #自动生成网站静态文件，并部署到设定的仓库(hexo deploy 的缩写)</span><br></pre></td></tr></table></figure>
+<p>补充：一定用网易UU加速器，省时间还快</p>
+<h2 id="绑定github">绑定GitHub</h2>
+<p>ssh密匙指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cd ~/.ssh </span><br><span class="line">$ ls</span><br><span class="line">$ cat id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>绑定过程中不要频繁使用科学上网工具，绑定过程中会跳出登录页面，及时输入用户名和密码避免超时报错</p>
+<p>过程中没有进行仓库的绑定，以后需要了再考虑</p>
+<h2 id="安装node.js和hexo">安装node.js和Hexo</h2>
+<p>需要重新设置路径：</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> prefix &quot;D:\nodejs\node_global&quot;</span><br><span class="line">npm config <span class="built_in">set</span> cache &quot;D:\nodejs\node_cache&quot;</span><br></pre></td></tr></table></figure>
+<p>设置完之后需要到系统的环境变量中添加路径</p>
+<ol type="1">
+<li>新建一个变量名为“NODE_PATH”，值为“D:_global_modules”</li>
+<li>编辑用户变量里的Path，将相应npm的路径改为："D:_global"，原来在C盘</li>
+<li>在完成hexo init后还需增加一个"<strong><code>D:\blog\blog\node_modules\hexo\bin</code></strong>"否则hexo 显示无命令</li>
+</ol>
+<p>在 cmd 命令下执行 <code>npm install webpack -g</code> 在 "D:_global_modules"会生成一个文件夹</p>
+<p>在D盘创建Blog文件夹后，网上大多是直接Git打开下载hexo，然后直接hexo init但这样其实会报错显示没有hexo</p>
+<p>解决方法：在Blog文件夹中用行控制台，输入<strong><code>npx hexo init blog</code></strong></p>
+<p>之后正常操作就行</p>
+<h2 id="设置fluid主题">设置fluid主题</h2>
+<p>主要参考还得看官方：<a href="https://hexo.fluid-dev.com/docs/start/#安装主题">开始使用 | Hexo Fluid 用户手册</a></p>
+<p>个人觉得用npm下载主题的方法不如直接下载压缩包解压到相应位置方便，解压到 Hexo 博客目录中的 <code>themes</code> 目录，并将解压出的文件夹重命名为 <code>fluid</code>。</p>
+<p>在博客目录下创建 <code>_config.fluid.yml</code>，将主题的 <code>config.yml</code> 内容复制进去。</p>
+<p>修改主题：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">fluid</span>  <span class="comment"># 指定主题</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span>  <span class="comment"># 指定语言，会影响主题显示的语言，按需修改</span></span><br></pre></td></tr></table></figure>
+<p>接下来的修改在<code>_config.fluid.yml</code>即可，一定要用vscode看！！！太容易眼花</p>
+<h2 id="快速修饰">快速修饰</h2>
+<p>在主题配置 <code>_config.yml</code> 中找到 <code>custom_js</code> 或者 <code>custom_css</code>，修改如下</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_js:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js</span> <span class="comment"># 动态彩带</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/runtime.min.js # 运行时间</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Ribbon.min.js # 静态彩带</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicLine.min.js # 动态黑色线条</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/snowflake.min.js</span> <span class="comment"># 小雪花飘落</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js #樱花飘落</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js</span> <span class="comment"># 鼠标跟随小星星</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/containsWord.min.js # 鼠标点击出字</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js</span> <span class="comment">#鼠标点击出爱心</span></span><br><span class="line"></span><br><span class="line"><span class="attr">custom_css:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css</span> <span class="comment"># 滚动条颜色</span></span><br><span class="line">  <span class="comment"># - //cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css # 头部打字机颜色效果渐变</span></span><br></pre></td></tr></table></figure>
+<p>去掉#就可以用了</p>
+<p>鼠标样式还没修改，等有空了再补上</p>
+<h2 id="背景和图标网站">背景和图标网站</h2>
+<p>方便自己以后修饰时候查找：</p>
+<p>图标：</p>
+<ul>
+<li><a href="https://www.aigei.com/icon/class?detailTab=file">图标下载,ICON(PNG/ICO/SVG/矢量)</a></li>
+</ul>
+<p>壁纸：</p>
+<ul>
+<li><a href="https://www.beiwangshan.com/tools/wp/">电脑壁纸 - 北忘山的壁纸</a></li>
+<li><a href="https://wallhaven.cc/">Awesome Wallpapers - wallhaven.cc</a></li>
+</ul>
+<p>​</p>
+]]></content>
+      <tags>
+        <tag>📁hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>回声消除系统设计</title>
+    <url>/2022/01/10/%E5%9B%9E%E5%A3%B0%E6%B6%88%E9%99%A4%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<h1 id="回声消除系统设计">回声消除系统设计</h1>
+<p><strong>设计详细说明：</strong></p>
+<p>设计系统在0.2s，0.4s产生回声</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411231220251.png" alt="image-20220411231220251" style="zoom: 67%;" /></p>
+<ul>
+<li><p>Matlab代码：</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear,clc,close all;  </span><br><span class="line"></span><br><span class="line"><span class="comment">% 记录数据  </span></span><br><span class="line">fs=<span class="number">8000</span>; <span class="comment">% 声音采样频率  </span></span><br><span class="line">duration=<span class="number">3</span>; <span class="comment">% 记录时间  </span></span><br><span class="line"><span class="comment">%记录输入声音  </span></span><br><span class="line">myrecording = audiorecorder;  </span><br><span class="line">fprintf(<span class="string">&#x27;Speaking for %d seconds. \\n&#x27;</span>,duration);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;Start speaking.&#x27;</span>)  </span><br><span class="line">recordblocking(myrecording, duration);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;End of Recording.&#x27;</span>);  </span><br><span class="line"><span class="comment">%获得输入信息  </span></span><br><span class="line">x = getaudiodata(myrecording);  </span><br><span class="line"><span class="comment">%存储录音信息  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;luyin.wav&#x27;</span>,x,fs);  </span><br><span class="line"></span><br><span class="line"><span class="comment">%定义冲激响应函数  </span></span><br><span class="line">h=<span class="built_in">zeros</span>(<span class="number">1</span>,<span class="number">5000</span>);  </span><br><span class="line">h(<span class="number">1</span>)=<span class="number">4</span>/<span class="number">5</span>;h(<span class="number">0.2</span>\*fs)=<span class="number">0.6</span>;h(<span class="number">0.4</span>\*fs)=<span class="number">0.4</span>;  </span><br><span class="line"><span class="comment">% 卷积计算  </span></span><br><span class="line">y=conv(x,h);  </span><br><span class="line">k=audioplayer(y,fs);  </span><br><span class="line">play(k); <span class="comment">% 播放回音  </span></span><br><span class="line"><span class="comment">%存储回音  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;huiyin.wav&#x27;</span>,y,fs);  </span><br><span class="line"><span class="comment">%绘图  </span></span><br><span class="line">subplot(<span class="number">311</span>)  </span><br><span class="line"><span class="built_in">plot</span> (x) ;<span class="comment">%绘制原始音  </span></span><br><span class="line">title(<span class="string">&#x27;原始音&#x27;</span>);  </span><br><span class="line">subplot(<span class="number">312</span>)  </span><br><span class="line"><span class="built_in">plot</span> (y);<span class="comment">%绘制回音  </span></span><br><span class="line">title(<span class="string">&#x27;回音&#x27;</span>);  </span><br><span class="line"><span class="comment">%恢复计算  </span></span><br><span class="line">huifu=filter(<span class="number">1</span>, h, y );<span class="comment">%回音卷积1/h恢复初始  </span></span><br><span class="line">subplot(<span class="number">313</span>)  </span><br><span class="line"><span class="built_in">plot</span>(huifu);<span class="comment">%绘制恢复音  </span></span><br><span class="line">pause(<span class="number">5</span>);  </span><br><span class="line">sound(huifu)<span class="comment">%播放恢复音  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;huifu.wav&#x27;</span>,huifu,fs);<span class="comment">%存储恢复音</span></span><br><span class="line"></span><br><span class="line">title(‘恢复音’)</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8e4774914e7003ab259ac85478078076.png" style="zoom: 67%;" /></p>
+<p>很容易看出原始音与恢复音的波形相同</p></li>
+</ul>
 ]]></content>
       <categories>
         <category>study</category>
       </categories>
       <tags>
-        <tag>📖课程笔记</tag>
+        <tag>📡信号课设</tag>
       </tags>
   </entry>
   <entry>
-    <title>大物实验</title>
-    <url>/2022/01/12/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C/</url>
+    <title>大学物理一</title>
+    <url>/2021/07/01/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E4%B8%80/</url>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/大学实验.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="/file/大学物理一.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -582,6 +511,25 @@ https://blog.justlovesmile.top/posts/15391.html
 
 	<div class="row">
     <embed src="/file/概率论.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📖课程笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大物实验</title>
+    <url>/2022/01/12/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C/</url>
+    <content><![CDATA[
+
+	<div class="row">
+    <embed src="/file/大学实验.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -657,7 +605,59 @@ https://blog.justlovesmile.top/posts/15391.html
 <p>到这里就全部完成啦，评论时的头像是根据邮箱的头像来显示的，修改要去对应的邮箱修改</p>
 ]]></content>
       <tags>
-        <tag>📁butterfly</tag>
+        <tag>🦋butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于图片求体积的算法</title>
+    <url>/2022/04/01/%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%89%87%E6%B1%82%E4%BD%93%E7%A7%AF%E7%9A%84%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>浅记录一下学院数模赛的算法流程</p>
+<h2 id="题目">题目</h2>
+<p>自拟场景和尺寸，在有参照物的情况下，依据图片，建立模型估计以下土堆的立方数</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401142622068.png" alt="image-20220401142622068" style="zoom: 80%;" /></p>
+<h2 id="思路及算法">思路及算法</h2>
+<h3 id="思路">思路</h3>
+<ol type="1">
+<li><p>筛选出需要的土堆和挖掘机部分</p></li>
+<li><p>根据轮廓利用古鲁金定理计算像素体积</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/gulujin.png" alt="gulujin" style="zoom:50%;" /></p></li>
+<li><p>根据挖掘机在图片中的面积以及实际尺寸计算图片和实际长度的转化关系</p></li>
+<li><p>代入计算的土堆像素体积获得实际体积</p></li>
+</ol>
+<p>因为python的<code>opencv</code>只能识别<code>HSV</code>三通道参数，需要根据<code>HSV</code>表来粗筛选土堆和挖掘机</p>
+<p><code>HSV</code>颜色参考：</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220401143415448.png" alt="image-20220401143415448" style="zoom:50%;" /></p>
+<h3 id="算法">算法</h3>
+<p>封装了一个计算形心相对图片坐标的函数<code>XX</code>，输入为图片，标识名称，HSV高低数组，返回值为形心坐标cx和cy，和轮廓的像素面积，输出二值化图片，红线轮廓图片以及蓝色形心图片</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2022/3/30 14:44</span></span><br><span class="line"><span class="comment"># @Author : YH</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">XX</span>(<span class="params">img,name,low,high</span>):</span><br><span class="line">    img = cv.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">    <span class="comment"># cv.imwrite(&#x27;gaosi.jpg&#x27;,img)</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    提取颜色</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)</span><br><span class="line">    low_hsv = np.array(low)</span><br><span class="line">    high_hsv = np.array(high)</span><br><span class="line">    mask = cv.inRange(hsv, lowerb=low_hsv, upperb=high_hsv)</span><br><span class="line">    <span class="comment"># 展示黑白图</span></span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;HB&quot;,mask)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    <span class="comment"># 保存黑白土堆轮廓</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;HBLK.jpg&quot;</span>, mask)</span><br><span class="line">    contours, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    cv.drawContours(img, contours, -<span class="number">1</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 保存轮廓线图片</span></span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span>+<span class="string">&quot;/&quot;</span>+name+<span class="string">&quot;LK.jpg&quot;</span>,img)</span><br><span class="line">    <span class="comment"># cv.imshow(name+&quot;LK&quot;,img)</span></span><br><span class="line">    <span class="comment"># cv.waitKey(0)</span></span><br><span class="line">    <span class="comment"># cv.destroyAllWindows()</span></span><br><span class="line">    areas = []</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">        areas.append(cv.contourArea(contours[c]))</span><br><span class="line">    MAX = areas.index(<span class="built_in">max</span>(areas))   <span class="comment"># 求最大轮廓序号</span></span><br><span class="line">    M = cv.moments(contours[MAX])  <span class="comment"># 求矩</span></span><br><span class="line">    cx = <span class="built_in">int</span>(M[<span class="string">&#x27;m10&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求x坐标</span></span><br><span class="line">    cy = <span class="built_in">int</span>(M[<span class="string">&#x27;m01&#x27;</span>] / M[<span class="string">&#x27;m00&#x27;</span>])  <span class="comment"># 求y坐标</span></span><br><span class="line">    cv.circle(img, (cx, cy), <span class="number">1</span>, (<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>), <span class="number">0</span>)</span><br><span class="line">    cv.imwrite(<span class="string">&quot;./pic&quot;</span> + <span class="string">&quot;/&quot;</span> + name + <span class="string">&quot;ZX.jpg&quot;</span>, img)   <span class="comment">#保存形心图片</span></span><br><span class="line">    area = cv.contourArea(contours[MAX])</span><br><span class="line">    <span class="keyword">return</span> cx, cy, area</span><br></pre></td></tr></table></figure>
+<p>土堆计算的主函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    img = cv.imread(<span class="string">&#x27;pic/tudui.jpg&#x27;</span>)</span><br><span class="line">    cx,cy,area = XX(img,name=<span class="string">&quot;tudui&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx,cy,area)</span><br><span class="line">    img1 = img[<span class="number">0</span>:img.shape[<span class="number">0</span>], <span class="number">0</span>:cx]</span><br><span class="line">    cx1,cy1,area1 = XX(img1,name=<span class="string">&quot;tudui1&quot;</span>,low=[<span class="number">78</span>, <span class="number">40</span>, <span class="number">120</span>],high=[<span class="number">100</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    <span class="built_in">print</span>(cx1,cy1,area1)</span><br><span class="line">    V = <span class="number">2</span>*<span class="built_in">abs</span>(cx-cx1)*math.pi*area/<span class="number">2</span>*math.<span class="built_in">pow</span>(<span class="number">0.033082679182000536</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(V)</span><br></pre></td></tr></table></figure>
+<p>其中V计算中<code>math.pow</code>用的是计算获得的像素与实际长度转化关系，这个值准确性有待提高，因为挖掘机的具体参数并未获得，计算过程中没有很好考虑视角造成的长度影响</p>
+<p>卡车计算的额外步骤：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">space = (math.cos(math.pi/<span class="number">3</span>)+math.cos(math.pi/<span class="number">6</span>))*<span class="number">0.84</span>*<span class="number">2.22</span></span><br><span class="line"><span class="comment">#计算像素和实际长度转化关系</span></span><br><span class="line">a = math.sqrt(space/area)</span><br></pre></td></tr></table></figure>
+<p>这个算法只能初步实现分离物体，如果需要更加精细还需要改进</p>
+]]></content>
+      <tags>
+        <tag>⌨️python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大学物理二</title>
+    <url>/2022/01/12/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E4%BA%8C/</url>
+    <content><![CDATA[
+
+	<div class="row">
+    <embed src="/file/大学物理二.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📖课程笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -694,26 +694,26 @@ https://blog.justlovesmile.top/posts/15391.html
 ]]></content>
   </entry>
   <entry>
-    <title>分类</title>
-    <url>/categories/index.html</url>
-    <content><![CDATA[
-]]></content>
-  </entry>
-  <entry>
     <title>朋友圈</title>
     <url>/link/index.html</url>
     <content><![CDATA[
 ]]></content>
   </entry>
   <entry>
-    <title>music</title>
-    <url>/music/index.html</url>
+    <title>分类</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[
 ]]></content>
   </entry>
   <entry>
     <title>标签</title>
     <url>/tags/index.html</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>music</title>
+    <url>/music/index.html</url>
     <content><![CDATA[
 ]]></content>
   </entry>
