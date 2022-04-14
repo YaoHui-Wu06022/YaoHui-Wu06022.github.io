@@ -794,6 +794,161 @@ https://blog.justlovesmile.top/posts/15391.html
       </tags>
   </entry>
   <entry>
+    <title>3.5GHz微带天线设计与分析</title>
+    <url>/2022/04/12/%E7%94%B5%E7%A3%81%E5%9C%BA%E8%AF%BE%E8%AE%BE/</url>
+    <content><![CDATA[<h1>3.5GHz微带天线设计与分析</h1>
+<p>安装主要的软件<code>ANSYS Electronics Suite</code>安装了一整天真的要命，然后才发现自己真的呆，官网有<a href="https://www.ansys.com/academic/students/ansys-electronics-desktop-student">学生的免费版</a>，完全没必要去破解。</p>
+<h2 id="介绍">介绍</h2>
+<p>微带贴片制造简单，成本低，可以很方便地调整频率、极化、模式、阻抗等参数。</p>
+<p>主要特点：效率低、耐受功率低、高Q值，频带很窄。</p>
+<p>微带天线典型使用频率为1-100GHz。</p>
+<p>结构：由很薄($t\ll\lambda_0$)的金属贴片以高度$h$放置在距离接地平面上得到，$h\ll\lambda_0$，通常$0.003\lambda_0\le h\le 0.005\lambda_0$，微带贴片天线和坐标系的结构图如下图所示：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/电磁场1.png" alt="电磁场1" style="zoom:50%;" />
+<p>微带贴片这样设计是为了在贴片的侧射方向有最大的辐射，选择不同的贴片组形状还可以实现不同方向的端射辐射，例如矩形、椭圆、三角形等。对于矩形贴片，贴片长度 L 一般取1/3到1/2的波长，贴片和地平面之间被介电常数为$\varepsilon_r$介质隔开</p>
+<h2 id="工作原理">工作原理</h2>
+<p>微带天线的辐射机理实际上是<code>高频的电磁泄露</code>。一个微波电路如果不是被导体封闭，不连续处就会产生电磁辐射。例如微带电路的开路端，由于结构尺寸的突变、弯折等不连续处也会产生电磁辐射。频率低时，这部分的电尺寸很小，电磁辐射很少；随着频率增加，电尺寸增加，泄露增多。经过特殊设计，使其工作在谐振状态，辐射显著增强，辐射效率大大提高，成为有效的天线。</p>
+<p>分析微带天线的方法主要有传输线(transmission-line)模型、谐振腔(cavite)模型、全波(full-wave)模型即矩量法、有限元法等。我们采取的是<code>传输线模型</code>。</p>
+<h3 id="传输线模型">传输线模型</h3>
+<p>传输线模型是最早出现的，但精度不高，也不是通用模型。这一方法<code>仅适合矩形贴片微带天线</code>。矩形贴片天线可以视为两个缝隙组成，每条缝宽度为W，高度为h，两条缝隙由长度为L，传输阻抗为$Z_c$的平板传输线隔开</p>
+<h4 id="边缘效应">边缘效应</h4>
+<p>一个如下图(a)的传输线，当宽度远大于介质厚度$(W\gg h)$时，或者介质的介电常数远大于1时，电场集中在传输线和接地平面中。而事实上，在传输线的两侧还存在一定的边缘电场，一部分在空气中传播，一部分在传输线边缘传播，使得电场分布的尺寸比传输线的尺寸略大。因此引入一个有效介电常数$\varepsilon_{eff}$来考虑边缘和传输线中的电场传播，将图(b)的情况等效为图©</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/电磁场2.png" alt="电磁场2" style="zoom: 80%;" />
+<p>在低频的有效介电常数可以表示为：<br>
+$$<br>
+\varepsilon_{e f f}=\frac{\varepsilon_{r}+1}{2}+\frac{\varepsilon_{r}-1}{2}\left[1+12 \frac{h}{W}\right]^{-1 / 2}, \quad W / h&gt;1<br>
+$$</p>
+<h3 id="馈电方式">馈电方式</h3>
+<p>微带天线由好几种馈电形式，比较流行的有四类：微带线、同轴线探头、耦合馈电，其中耦合馈电包括孔径耦合和接近耦合，本文的设计采用<code>同轴线馈电</code>的方式。</p>
+<p>在微波应用中通常是使用50欧姆的标准阻抗，因此需要确定馈点的位置使天线的输入阻抗等于50欧姆。对于path_antenna来讲，传输的模式主要是TM10模，</p>
+<blockquote>
+<p>TM模（TM mode）是指在波导中，磁场的纵向分量为零，而电场的纵向分量不为零的传播模式</p>
+</blockquote>
+<p>TM10模在W方向(也就是垂直于传播的方向)上面变化几乎为0，所以W方向任何一个点都无所谓，但为了避免激发TM1n模式，在 W 方向上馈点的位置一般取在中心点，即取$y_f=0$，所以主要计算的是L方向的坐标。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414090328077.png" alt="馈电" style="zoom: 50%;" />
+<p>在L方向上电场有λ/2之间的变化，从中心点到两侧，阻抗逐渐变大，输入阻抗等于50Ω时的馈点位置可以由下式计算：<br>
+$$<br>
+\begin{gathered}<br>
+x_{\mathrm{f}}=\frac{L}{2 \sqrt{\xi_{\mathrm{re}}(L)}} \<br>
+\xi_{\mathrm{re}}(L)=\frac{\varepsilon_{\mathrm{r}}+1}{2}+\frac{\varepsilon_{\mathrm{r}}-1}{2}\left(1+12 \frac{h}{L}\right)^{-1 / 2}<br>
+\end{gathered}<br>
+$$</p>
+<h3 id="边界条件">边界条件</h3>
+<p>辐射边界条件是自由空间的近似，这种近似的精确程度取决于波的传播方向和辐射边界的角度，以及辐射源和边界之间的距离</p>
+<p>在仿真中选择的是<code>Radiation</code>边界，这种边界有以下特性：</p>
+<blockquote>
+<p>计算天线等强辐射问题时，距离辐射体应当至少λ/4</p>
+<p>对于弱辐射问题，仅考虑辐射损耗，不关心远场时，可以小于λ/4；</p>
+<p>辐射边界条件的吸收性能与入射角相关，入射角大于40 度时，吸收效果明显降低；</p>
+</blockquote>
+<h3 id="参考地">参考地</h3>
+<p>上述分析都是基于参考地平面是无限大的基础上的，然而实际设计中，参考地都是有限面积的，理论分析证明了当参考地平面比微带贴片大出<code>6h</code>的距离时，计算结果就可以达到足够的准确，因此设计中参考地的长度$L_{GND}$和宽度$ W_{GND}$只需满足以下两式即可，即：<br>
+$$<br>
+\begin{gathered}<br>
+L_{\mathrm{GND}} \geqslant L+6 h \<br>
+W_{\mathrm{GND}} \geqslant W+6 h<br>
+\end{gathered}<br>
+$$</p>
+<h2 id="设计过程">设计过程</h2>
+<p>采用介电常数$\varepsilon_r$为4.2，中心工作频率(谐振频率)$f_r$为3.5GHz，介质厚度$h$为3mm的辐射体数据，然后要求解矩形贴片的尺寸$W$和$L$，参考地尺寸以及馈线位置$(x_f,y_f)$</p>
+<ol>
+<li>
+<p>为了有效产生辐射，实际中的经验将W设置为：<br>
+$$<br>
+W=\frac{1}{2 f_{r} \sqrt{\mu_{0} \varepsilon_{0}}} \sqrt{\frac{2}{\varepsilon_{r}+1}}=\frac{c}{2 f_{r}} \sqrt{\frac{2}{\varepsilon_{r}+1}}<br>
+$$</p>
+</li>
+<li>
+<p>计算有效介电常数$\varepsilon_{eff}$：<br>
+$$<br>
+\varepsilon_{e f f}=\frac{\varepsilon_{r}+1}{2}+\frac{\varepsilon_{r}-1}{2}\left[1+12 \frac{h}{W}\right]^{-1 / 2}, \quad W / h&gt;1<br>
+$$</p>
+</li>
+<li>
+<p>由于边缘效应，微带传输天线的电尺寸要比实际尺寸大，对于E面沿着L方向的电场分布被拉长了$\Delta L$(又叫等效辐射缝隙)：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/delta L.png" alt="delta L" style="zoom:40%;" />
+$$
+\Delta L=0.412 h\frac{\left(\varepsilon_{e f f}+0.3\right)\left(\frac{W}{h}+0.264\right)}{\left(\varepsilon_{e f f}-0.258\right)\left(\frac{W}{h}+0.8\right)}
+$$
+</li>
+<li>
+<p>由谐振频率估算实际的长度L：<br>
+$$<br>
+L=\frac{c}{2 f_{r }\sqrt{\varepsilon_{e f f}}}-2 \Delta L<br>
+$$<br>
+通常贴片的长度$L$大约为0.47-0.49倍的介质波长$\lambda_d$，介电常数越低的介质，边缘效应越明显，需要的贴片长度更短。</p>
+</li>
+<li>
+<p>计算GND 的大小<br>
+$$<br>
+L_g=L+6h\qquad W_g=W+6h<br>
+$$</p>
+</li>
+<li>
+<p>计算馈线的位置，<br>
+$$<br>
+\begin{gathered}<br>
+x_{\mathrm{f}}=\frac{L}{2 \sqrt{\xi_{\mathrm{re}}(L)}} \<br>
+\xi_{\mathrm{re}}(L)=\frac{\varepsilon_{\mathrm{r}}+1}{2}+\frac{\varepsilon_{\mathrm{r}}-1}{2}\left(1+12 \frac{h}{L}\right)^{-1 / 2}<br>
+\end{gathered}<br>
+$$<br>
+计算完成后我们会得到一个参数表格，长度单位均为mm，1GHz=$10^9$HZ，该频率的波长约为85.714mm</p>
+<table>
+<thead>
+<tr>
+<th>介电常数$\varepsilon_r$</th>
+<th>4.2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中心工作频率(谐振频率)$f_r$</td>
+<td>3.5GHz</td>
+</tr>
+<tr>
+<td>有效介电常数$\varepsilon_{eff}$</td>
+<td>3.6427</td>
+</tr>
+<tr>
+<td>贴片宽度W</td>
+<td>26.5789</td>
+</tr>
+<tr>
+<td>贴片长度L</td>
+<td>19.7351</td>
+</tr>
+<tr>
+<td>贴片高度h</td>
+<td>3</td>
+</tr>
+<tr>
+<td>GND宽度Wg</td>
+<td>44.5789</td>
+</tr>
+<tr>
+<td>GND长度Lg</td>
+<td>37.7351</td>
+</tr>
+<tr>
+<td>馈电位置$(x_f,y_f)$</td>
+<td>(5.2356，0)</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h2 id="仿真">仿真</h2>
+<p>选择材料为<code>FR4_epoxy</code></p>
+<p>仿真的时候没有考虑到贴片的厚度，虽然对结果的影响不是很大，厚度要根据实际情况另外考虑</p>
+<p>边界条件大于1/4个波长</p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>🧲电磁场</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>about</title>
     <url>/about/index.html</url>
     <content><![CDATA[
