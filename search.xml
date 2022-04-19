@@ -703,6 +703,41 @@ https://blog.justlovesmile.top/posts/15391.html
       </tags>
   </entry>
   <entry>
+    <title>工程类软件安装</title>
+    <url>/2022/04/19/%E5%B7%A5%E7%A8%8B%E7%B1%BB%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="visio-studio-pro">Visio Studio Pro</h2>
+<p><a href="https://visualstudio.microsoft.com/zh-hans/downloads/">下载地址</a></p>
+<p>修改一些安装选项</p>
+<blockquote>
+<p>(主要还是用来写<code>c++</code>，python还是用<code>pycharm</code>)</p>
+</blockquote>
+<p>安装可参考链接：</p>
+<div class="tag link"><a class="link-card" title="Visual Studio 2022安装教程" href="https://yueliusu.blog.csdn.net/article/details/122332082"><div class="left"><img src="https://blog.csdn.net/favicon.ico"/></div><div class="right"><p class="text">Visual Studio 2022安装教程</p><p class="url">https://yueliusu.blog.csdn.net/article/details/122332082</p></div></a></div>
+<h3 id="注册码">注册码</h3>
+<p>重点来了，白嫖才是王道</p>
+<ul>
+<li><strong>Pro:</strong> TD244-P4NB7-YQ6XK-Y8MMM-YWV2J</li>
+<li><strong>Enterprise:</strong> VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
+</ul>
+<h2 id="qt">QT</h2>
+<p>首先官网注册QT账号，这个就不用多说了，注意查看密码格式</p>
+<p>点击<a href="http://mirrors.ustc.edu.cn/qtproject/official_releases/online_installers/">科大镜像</a>进行安装</p>
+<p>下载好了直接打开，剩余步骤参考以下链接</p>
+<div class="tag link"><a class="link-card" title="QT5.15.2在线安装教程" href="https://blog.csdn.net/Qi_1337/article/details/121249717"><div class="left"><img src="https://blog.csdn.net/favicon.ico"/></div><div class="right"><p class="text">QT5.15.2在线安装教程</p><p class="url">https://blog.csdn.net/Qi_1337/article/details/121249717</p></div></a></div>
+<h2 id="solidworks-2022">SOLIDWORKS 2022</h2>
+<p><a href="https://pan.baidu.com/s/1yu0qRcoQaGjbx81LoCYKdg?pwd=7tff">百度网盘链接</a> 提取码: 7tff</p>
+<p>内有公众号二维码，根据教程就行，主要提一下自己遇到的问题</p>
+<ol type="1">
+<li>要断网，不然安装过程会报错</li>
+<li>如果SQL serve 报错，尝试重新安装几次，直接退出安装程序重开就行，注意要修改三个安装位置</li>
+<li>除了<code>SOLIDWORKS 2022</code>这个桌面图标，其他都可以删了</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>🏭工程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>about</title>
     <url>/about/index.html</url>
     <content><![CDATA[
