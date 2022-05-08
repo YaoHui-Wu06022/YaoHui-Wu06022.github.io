@@ -23,7 +23,12 @@
 <p>先放一张投影光刻机的简易原理图：（网图）</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220504152822583.png" alt="简易工作原理图" style="zoom: 67%;" />
 <p>物镜的主要作用是把掩膜版上的电路图按比例缩小，再被激光映射的硅片上，并且物镜还要补偿各种光学误差。技术难度就在于物镜的设计难度大，精度的要求高。</p>
-<h3 id="物镜结构的发展">物镜结构的发展</h3>
+<p>投影光刻物镜采用的准分子激光光源具有很强的时间相干性，但光源在空间上具有扩展性，即照明光源的“有效光源”是一个面光源，此时掩膜上的照明光是来自多个方向的平面波的叠加，这种照明方式成为部分相干照明。图中照明出瞳表示<br>
+照明系统，物镜光瞳、入瞳和出瞳表示投影光刻物镜</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220508161020439.png" alt="image-20220508161020439" style="zoom:50%;" />
+<p>有效光源上每个光源点都对应一束以一定角度入射到掩膜面上的平面波，不同的光源点对应平面波的角度不同，在掩膜处形成近场衍射分布，各级衍射光经过入瞳面到达出瞳面时，其振幅、相位和偏振态受到物镜影响而发生变化，导致出瞳面处各级衍射光的传播方向发生改变，出射的各衍射级次光波在像面上相干叠加，得到该光源的相干成像</p>
+<h3 id="物镜结构">物镜结构</h3>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220504113755361.png" alt="紫外物镜口径与NA发展趋势  " style="zoom:50%;" />
 <p><b>球面</b>：</p>
 <p>随着 NA 的增加，场曲的校正更加的困难，E. Glatzel 提出了一种“腰肚”结构的方法来减小场曲，系统的结构依次为正组，负组，正组，负组，正组，这时镜头的特点是边缘光线的轨迹形成了 2 个“腰”，所以该种系统结构通常称为“双腰”，这种结构自 1987 年后就一直采用至今。</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220504164001694.png" alt="双腰结构" style="zoom:80%;" />
@@ -34,18 +39,18 @@
 <hr>
 <p>现在市场上193nm光刻机主要为浸入步进式投影光刻机（步进式指可以连续曝光），主流的浸没式投影物镜均采用折反式结构，NA达到惊人的1.35，而水的折射率是1.44左右，这基本上是当前浸液条件下的极限。如果想进一步提高NA，只能研究新的光学材料和浸没液体，但进展有限</p>
 <p>折返式设计有同轴两反射镜系统和离轴三反射镜系统两种（以下简称同轴式和离轴式，也可叫单轴或多轴）</p>
-<h3 id="同轴折返式光刻物镜">同轴折返式光刻物镜</h3>
+<mark class="hl-label orange">同轴折返式光刻物镜</mark> 
 <p>该结构主要包括折射镜组、反射镜组和数值孔径组（即折射物镜组2）</p>
 <p>折射镜组和反射镜组的主要功能是平衡系统像差，数值孔径组将中间像传承到像面上并保证较大的数值孔径和较小的远心度。其中反射镜组由２个反射镜组成，且光轴与折射镜组相同。反射镜组之间的成像光束近似平行，使反射镜组两端的两个中间像比例接近１∶１，有助于校正像差。</p>
 <blockquote>
 <p>远心度：横向位置偏移=d变化× tanθ，远心度越小，对准精度越高</p>
 </blockquote>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220504161908004.png" alt="image-20220504161908004" style="zoom:67%;" />
-<h3 id="离轴折返式光刻物镜">离轴折返式光刻物镜</h3>
+<mark class="hl-label orange">离轴折返式光刻物镜</mark> 
 <p>该结构包含３个反射镜，其中２个是平面反射镜，１个是凹面反射镜</p>
 <p>反射镜组的光轴与折射镜组的光轴垂直。系统内部包含２个中间像。该结构的最大特点是使用了Schumann中继结构，即在光瞳附近用了一片凹面反射镜和一个负透镜组。该子系统的放大率接近１，并且接近光瞳，所以不会附加非对称性像差。负透镜组与凹面反射镜组合使用可以很大程度上矫正场曲，并在一定程度上降低色差。选择曲率适当的反射镜和凹透镜组有利于降低中间像的像差，进而降低整个光刻物镜的像差 。</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220504170312791.png" alt="image-20220504170312791" style="zoom: 67%;" />
-<h3 id="总结">总结</h3>
+<hr>
 <p>总的来说同轴方案的NA值大于离轴方案，但代价就是元件的加工难度更高，离轴方案的机械结构更复杂。同轴方案具有唯一的光轴，结构较为紧凑，离轴方案具有水平和垂直两个光轴，对机械设计和装调提出了更多挑战，而且由于反射镜位于光瞳附近，这意味着较小的反射镜倾斜就会引起较大的像面倾斜。综上所述，无论是机械结构的复杂度还是装配技术的难度，离轴方案都要比同轴方案高得多，离轴方案的另一个缺点是它对折射式光刻物镜所用的掩模板没有继承性。</p>
 <h2 id="Q3光学系统参数的选择">Q3光学系统参数的选择</h2>
 <blockquote>
@@ -73,8 +78,30 @@
 <h3 id="光刻机投影物镜发展">光刻机投影物镜发展</h3>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220504175742675.png" alt="光刻机投影物镜发展表" style="zoom:80%;" />
 <h2 id="Q4像差">Q4像差</h2>
+<blockquote>
+<p>分析主要像差</p>
+</blockquote>
+<p>常见像差：慧差，像散，场曲，畸变，色差</p>
+<p>常见像差的消除主要是在物镜结构上</p>
+<p>主要像差有热像差，波像差，偏振像差</p>
+<h3 id="波像差">波像差</h3>
+<p>投影物镜的波像差在过去已经得到了显著降低，20世纪八十年代投影物镜的波像差RMS值只有λ/20，现在最新的浸没投影光刻物镜，波像差RMS值已经降低到了λ/400，也就是0.5nm左右，这里就不再叙述</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220508153153699.png"  style="zoom:50%;" />
+<h3 id="热像差">热像差</h3>
+<p>热像差的产生原理：</p>
 <p>光刻机工作时激光持续照射投影物镜，热量在投影物镜内部大量累积，镜片局部温度明显变化，导致镜片材料折射率和面形随之发生变化，进而增大投影物镜的像差，由投影物镜热效应导致的像差称为热像差，是影响光刻机成像质量的主要因素之一。</p>
-<p>中科院上海光学精密机械研究所对光刻机投影物镜热效应模型及热像差预测技术进行了研究，在热效应快速仿真模型、热效应严格模型，以及基于热效应经验模型的热像差在线预测技术方面取得进展</p>
+<p>产生的热像差主要通过光学轴向移动、力变形镜技术、温控变形镜等技术进行补偿。</p>
+<p>中科院上海光学精密机械研究所对光刻机投影物镜热效应模型及热像差预测技术进行了研究，在热效应快速仿真模型、热效应严格模型，以及基于热效应经验模型的热像差在线预测技术方面取得进展，建立了一种投影物镜热效应快速仿真模型热像差仿真精度(Rs2)优于0.99。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220508161239857.png"  style="zoom: 67%;" />
+<h3 id="偏振像差">偏振像差</h3>
+<p>偏振像差的定义：</p>
+<p>随着投影物镜NA的不断增大，照明光的偏振态对物镜成像的影响不能忽略，需要用偏振照明技术来提高分辨率。但照明系统不能生成理想的偏振照明模式，且光线在经过投影物镜后，由于膜系的影响，材料双折射的影响、表面散射的影响等因素，会使入射光线的偏振态会发生改变，这种偏振态的改变就是偏振像差。</p>
+<p>偏振像差的对光线偏振态的改变主要有两类效应：延迟和衰减</p>
+<p>大部分材料因在深紫外波段吸收率太大而无法使用。在深紫外波段，结晶材料 CaF2 以其足够良好的透射性和低应力双折射而成为投影光刻物镜的镜片制造材料。CaF2 的固有晶体结构导致了它的本征双折射，双折射最直接的影响就是光传播时两个正交偏振态之间会有光程差，即位相改变不同，产生延迟。延迟会导致投影物镜的空间成像对比度下降，降低刻线质量</p>
+<p>修正方法：</p>
+<p>组合法：将不同晶向特定方位角的 CaF2 镜片组合，利用各个组合 CaF2 镜片互相补偿部分双折射的方法</p>
+<p>缺点：当系统 CaF2 镜片较少时，或系统要求晶向单一时，补偿效果会受到限制。其次，组合法所选的方位角是一些特定值如 45°、60°，对于一个复杂的系统来说，这些角度的补偿效果很可能不是最优。</p>
+<p>旋转法：原理是最优化算法，找到每个CaF2最佳的旋转角度，获得最小的延迟</p>
 <hr>
 <p>参考文献：</p>
 <p>[1]张德福,李显凌,芮大为,李朋志,东立剑,张建国.193nm投影光刻物镜光机系统关键技术研究进展[J].中国科学:技术科学,2017,47(06):565-581</p>
@@ -601,6 +628,22 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
       </tags>
   </entry>
   <entry>
+    <title>一些唠叨</title>
+    <url>/2022/05/07/%E6%97%A5%E8%AE%B0/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="11cbb68caf0753b3243f08e452a23cf3a4c2a7e1fb48fab7a0296a11a4743696">14d476ddf32f83037ff874eee2b3f7f350506914051fde6e8888b8d77a8b0e7c724111c0e1bb18f89e84a3038e63ea244cdbafd5008bafb093b93ef7e4e80bc417775941d2234dc98fe34cc40eef747582a11b7fea0597a0b1befc9145acf2e17ee228980b4e49a62d3a0800f8acf48a252e59173a8e5507a83f0f6e3b464807521faa6773670b91d9a50255b6564c8e032ea4c29e7bff49d5c3e93a3b17c648ba5b6b73a56f5ee12218f578719175c640e567737e6438ef434ef0155c2e7fd809eb0d28fc85ee74dbd10dbd64336fd2c9142ad61aa3aa61eda34ce9aa3900f408c66c5671836b8a2360927d6e9db81f5f9d998dbaa65b4413ffe9c055aa575fad8069c52f5ed31fc3069aa68674a4da6e23bf277650232a9b3e38e658cf602e9a37100c7dce42e6a74416ea774853aabb6506accfb5c73fc84daffdb133dcaed2a1179a1388181cd19db21ce799969a571321019b5bd6dd5c32ab3c88483c2283d5faae4acc1ef07fc3c7ff7be4324e1fab00d812cd42dc27a6955e3c0d29f6a95efd06eb7eab614718ec466916fa3f9a792731718499cc76f75f16b2b3dea2decdd4202cd72efb0447b9e4f4a6c3edd87265de5d6c0fa8f16570acb2de2e15812e7878f1be94fa6ccc2bd82420a1849dc39769d47796e6ba7cda581e1e941abe41cd909903e1f0ffffb1e3a59f3f342c5913711e84eaa35dd3046ceb36407e7f0de9a53e584b1cf60184e5ac35ba494e8778b90061b308f8da6f606191b51c1b5dc62ae1f6b5dc3b8483e8466973f31698e81598ebccf6bb325030ec0adef898000eabcfc4b58380c2306be31010a66d40d282a7a56ac0fb143b137807bc4f525a498fed4e195051e38f03893d304639f1c500d8b8eb88a21df19ea7dd00d84eebc5344a3995b7a8e826027b65ba3616efd2aacb8c6ea3cb81cd46867d8d08a144034209d6f7a2c695cc4d0e458eea320327361a1dbb954390d8e6e7dd55abc7847088a00ef994347ed44c68873fff512f88c73cc71cb6c79ae272af884a52e989a272cd741e55109e44e875389621b89a7a32b4d4d1a191c11722f1abd315a80c7c63d380b3cf69d6f2f07b6e9667d07b5a8f1f26fb43309bd481d7eaccd060c2c732b5e70d2ced10c1b46634ad91</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">私人文章，不对外开放，请理解</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+  </entry>
+  <entry>
     <title>概率论</title>
     <url>/2022/01/04/%E6%A6%82%E7%8E%87%E8%AE%BA/</url>
     <content><![CDATA[
@@ -628,7 +671,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
       <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">私人文章，不对外开放，请理解</span>
       </label>
     </div>
   </div>
@@ -765,7 +808,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
       <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">私人文章，不对外开放，请理解</span>
       </label>
     </div>
   </div>
@@ -787,7 +830,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
       <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">私人文章，不对外开放，请理解</span>
       </label>
     </div>
   </div>
