@@ -97,9 +97,15 @@
 <p>偏振像差的定义：</p>
 <p>随着投影物镜NA的不断增大，照明光的偏振态对物镜成像的影响不能忽略，需要用偏振照明技术来提高分辨率。但照明系统不能生成理想的偏振照明模式，且光线在经过投影物镜后，由于膜系的影响，材料双折射的影响、表面散射的影响等因素，会使入射光线的偏振态会发生改变，这种偏振态的改变就是偏振像差。</p>
 <p>偏振像差的对光线偏振态的改变主要有两类效应：延迟和衰减</p>
-<p>大部分材料因在深紫外波段吸收率太大而无法使用。在深紫外波段，结晶材料 CaF2 以其足够良好的透射性和低应力双折射而成为投影光刻物镜的镜片制造材料。CaF2 的固有晶体结构导致了它的本征双折射，双折射最直接的影响就是光传播时两个正交偏振态之间会有光程差，即位相改变不同，产生延迟。延迟会导致投影物镜的空间成像对比度下降，降低刻线质量</p>
+<blockquote>
+<p>材料双折射：<br>
+大部分材料因在深紫外波段吸收率太大而无法使用，在深紫外波段，结晶材料 CaF2 以其足够良好的透射性和低应力双折射而成为投影光刻物镜的镜片制造材料。CaF2 的固有晶体结构导致了它的本征双折射，双折射最直接的影响就是光传播时两个正交偏振态之间会有光程差，即位相改变不同，产生延迟。</p>
+</blockquote>
 <p>修正方法：</p>
 <p>组合法：将不同晶向特定方位角的 CaF2 镜片组合，利用各个组合 CaF2 镜片互相补偿部分双折射的方法</p>
+<p>组合方位角 0°和方位角45°的 CaF2 镜片，得到近似切向圆分布的延迟</p>
+<p>组合方位角 0°和方位角 60°的 CaF2镜片，得到近似径向圆分布的延迟</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220508163926760.png" alt="image-20220508163926760" style="zoom:67%;" />
 <p>缺点：当系统 CaF2 镜片较少时，或系统要求晶向单一时，补偿效果会受到限制。其次，组合法所选的方位角是一些特定值如 45°、60°，对于一个复杂的系统来说，这些角度的补偿效果很可能不是最优。</p>
 <p>旋转法：原理是最优化算法，找到每个CaF2最佳的旋转角度，获得最小的延迟</p>
 <hr>
@@ -107,6 +113,8 @@
 <p>[1]张德福,李显凌,芮大为,李朋志,东立剑,张建国.193nm投影光刻物镜光机系统关键技术研究进展[J].中国科学:技术科学,2017,47(06):565-581</p>
 <p>[2]徐明飞. 高数值孔径投影光刻物镜的光学设计[D].中国科学院研究生院(长春光学精密机械与物理研究所),2015.</p>
 <p>[3]尚红波. 浸没光刻投影物镜光学设计与像差补偿研究[D].中国科学院大学(中国科学院长春光学精密机械与物理研究所),2021.DOI:10.27522/d.cnki.gkcgs.2021.000007.</p>
+<p>[4]周泽龙. 投影光刻物镜偏振像差研究[D]. 中国科学院大学 (中国科学院长春光学精密机械与物理研究所), 2018.</p>
+<p>[5]Zhu B, Li S, Mao Y, et al. Fast thermal aberration model for lithographic projection lenses[J]. Optics Express, 2019, 27(23): 34038-34049.</p>
 ]]></content>
       <categories>
         <category>study</category>
@@ -535,6 +543,127 @@
       </tags>
   </entry>
   <entry>
+    <title>外挂标签</title>
+    <url>/2022/05/09/%E5%A4%96%E6%8C%82%E6%A0%87%E7%AD%BE/</url>
+    <content><![CDATA[<p>本文章转载自[糖果屋](<a href="https://akilar.top/page/2/">Akilarの糖果屋 - Akilar.top</a>)</p>
+<div class="tag link"><a class="link-card" title="基于Butterfly的外挂标签引入" href="https://akilar.top/posts/615e2dec/"><div class="left"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png"/></div><div class="right"><p class="text">基于Butterfly的外挂标签引入</p><p class="url">https://akilar.top/posts/615e2dec/</p></div></a></div>
+<h2 id="插件安装">插件安装</h2>
+<ol>
+<li>安装插件,在博客根目录<code>[Blogroot]</code>下打开终端，运行以下指令：</li>
+</ol>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-butterfly-tag-plugins-plus --save</span><br></pre></td></tr></table></figure>
+<p>考虑到hexo自带的markdown渲染插件<code>hexo-renderer-marked</code>与外挂标签语法的兼容性较差，建议您将其替换成<a href="https://www.npmjs.com/package/hexo-renderer-kramed">hexo-renderer-kramed</a></p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>添加配置信息，以下为写法示例<br>
+在站点配置文件<code>_config.yml</code>或者主题配置文件<code>_config.butterfly.yml</code>中添加</li>
+</ol>
+  <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># tag-plugins-plus</span></span><br><span class="line"><span class="comment"># see https://akilar.top/posts/615e2dec/</span></span><br><span class="line"><span class="attr">tag_plugins:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># 开关</span></span><br><span class="line">  <span class="attr">priority:</span> <span class="number">5</span> <span class="comment">#过滤器优先权</span></span><br><span class="line">  <span class="attr">issues:</span> <span class="literal">false</span> <span class="comment">#issues标签依赖注入开关</span></span><br><span class="line">  <span class="attr">link:</span></span><br><span class="line">    <span class="attr">placeholder:</span> <span class="string">/img/link.png</span> <span class="comment">#link_card标签默认的图标图片</span></span><br><span class="line">  <span class="attr">CDN:</span></span><br><span class="line">    <span class="attr">anima:</span> <span class="string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css</span> <span class="comment">#动画标签anima的依赖</span></span><br><span class="line">    <span class="attr">jquery:</span> <span class="string">https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js</span> <span class="comment">#issues标签依赖</span></span><br><span class="line">    <span class="attr">issues:</span> <span class="string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js</span> <span class="comment">#issues标签依赖</span></span><br><span class="line">    <span class="attr">iconfont:</span> <span class="string">//at.alicdn.com/t/font_2032782_8d5kxvn09md.js</span> <span class="comment">#参看https://akilar.top/posts/d2ebecef/</span></span><br><span class="line">    <span class="attr">carousel:</span> <span class="string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js</span></span><br><span class="line">    <span class="attr">tag_plugins_css:</span> <span class="string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>参数释义</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">备选值/类型</th>
+<th style="text-align:left">释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">enable</td>
+<td style="text-align:left">true/false</td>
+<td style="text-align:left">【必选】控制开关</td>
+</tr>
+<tr>
+<td style="text-align:left">priority</td>
+<td style="text-align:left">number</td>
+<td style="text-align:left">【可选】过滤器优先级，数值越小，执行越早，默认为10，选填</td>
+</tr>
+<tr>
+<td style="text-align:left">issues</td>
+<td style="text-align:left">true/false</td>
+<td style="text-align:left">【可选】issues标签控制开关，默认为false</td>
+</tr>
+<tr>
+<td style="text-align:left">link.placeholder</td>
+<td style="text-align:left">【必选】link卡片外挂标签的默认图标</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">CDN.anima</td>
+<td style="text-align:left">URL</td>
+<td style="text-align:left">【可选】动画标签anima的依赖</td>
+</tr>
+<tr>
+<td style="text-align:left">CDN.jquery</td>
+<td style="text-align:left">URL</td>
+<td style="text-align:left">【可选】issues标签依赖</td>
+</tr>
+<tr>
+<td style="text-align:left">CDN.issues</td>
+<td style="text-align:left">URL</td>
+<td style="text-align:left">【可选】issues标签依赖</td>
+</tr>
+<tr>
+<td style="text-align:left">CDN.iconfont</td>
+<td style="text-align:left">URL</td>
+<td style="text-align:left">【可选】iconfont标签symbol样式引入，如果不想引入，则设为false</td>
+</tr>
+<tr>
+<td style="text-align:left">CDN.carousel</td>
+<td style="text-align:left">URL</td>
+<td style="text-align:left">【可选】carousel旋转相册标签鼠标拖动依赖，如果不想引入则设为false</td>
+</tr>
+<tr>
+<td style="text-align:left">CDN.tag_plugins_css</td>
+<td style="text-align:left">URL</td>
+<td style="text-align:left">【可选】外挂标签样式的CSS依赖，为避免CDN缓存延迟，建议将@latest改为具体版本号</td>
+</tr>
+</tbody>
+</table>
+<h2 id="链接卡片-link">链接卡片 link</h2>
+<div class="tabs" id="link"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#link-1">标签语法</button></li><li class="tab active"><button type="button" data-href="#link-2">样式预览</button></li><li class="tab"><button type="button" data-href="#link-3">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="link-1"><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% link 标题, 链接, 图片链接（可选） %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="link-2"><div class="tag link"><a class="link-card" title="糖果屋教程贴" href="https://akilar.top/posts/615e2dec/"><div class="left"><img src="https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.ico"/></div><div class="right"><p class="text">糖果屋教程贴</p><p class="url">https://akilar.top/posts/615e2dec/</p></div></a></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="link-3"><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% link 糖果屋教程贴, https://akilar.top/posts/615e2dec/, https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.ico %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="注释-notation">注释 notation</h2>
+<div class="tabs" id="notation"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#notation-1">标签语法</button></li><li class="tab"><button type="button" data-href="#notation-2">参数配置</button></li><li class="tab active"><button type="button" data-href="#notation-3">样式预览</button></li><li class="tab"><button type="button" data-href="#notation-4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="notation-1"><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% nota [label] , [text] %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="notation-2"><p><code>label</code>: 注释词汇<br>
+<code>text</code>: 悬停显示的注解内容</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="notation-3"><p><span class='nota' data-nota='可以看到注解内容出现在顶栏'>把鼠标移动到我上面试试</span></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="notation-4"><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% nota 把鼠标移动到我上面试试 ,可以看到注解内容出现在顶栏 %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="气泡注释-bubble">气泡注释 bubble</h2>
+<div class="tabs" id="bubble"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#bubble-1">标签语法</button></li><li class="tab"><button type="button" data-href="#bubble-2">参数配置</button></li><li class="tab active"><button type="button" data-href="#bubble-3">样式预览</button></li><li class="tab"><button type="button" data-href="#bubble-4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="bubble-1"><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% bubble [content] , [notation] ,[background-color] %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="bubble-2"><p><code>content</code>: 注释词汇<br>
+<code>notation</code>: 悬停显示的注解内容<br>
+<code>background-color</code>: 可选，气泡背景色。默认为“#71a4e3”</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="bubble-3"><p>最近我学到了不少新玩意儿（虽然对很多大佬来说这些已经是旧技术了），比如 CSS 的<span class="bubble-content">兄弟相邻选择器</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#71a4e3;">例如 h1 + p {margin-top:50px;}</span></span>，<span class="bubble-content">flex 布局</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#ec5830;"> Flex 是 Flexible Box 的缩写，意为弹性布局 "，用来为盒状模型提供最大的灵活性"</span></span>，<span class="bubble-content">transform 变换</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#1db675;"> transform 属性向元素应用 2D 或 3D 转换。该属性允许我们对元素进行旋转、缩放、移动或倾斜。</span></span>，animation 的<span class="bubble-content">贝塞尔速度曲线</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#de4489;">贝塞尔曲线 (Bézier curve)，又称贝兹曲线或贝济埃曲线，是应用于二维图形应用程序的数学曲线。一般的矢量图形软件通过它来精确画出曲线，贝兹曲线由线段与节点组成，节点是可拖动的支点，线段像可伸缩的皮筋</span></span>写法，还有今天刚看到的<span class="bubble-content"> clip-path</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#868fd7;">clip-path 属性使用裁剪方式创建元素的可显示区域。区域内的部分显示，区域外的隐藏。</span></span>属性。这些对我来说很新颖的概念狠狠的冲击着我以前积累起来的设计思路。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="bubble-4"><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">最近我学到了不少新玩意儿（虽然对很多大佬来说这些已经是旧技术了），比如CSS的&#123;% bubble 兄弟相邻选择器,&quot;例如 h1 + p &#123;margin-top:50px;&#125;&quot; %&#125;，&#123;% bubble flex布局,&quot;Flex 是 Flexible Box 的缩写，意为&quot;弹性布局&quot;，用来为盒状模型提供最大的灵活性&quot;,&quot;#ec5830&quot; %&#125;，&#123;% bubble transform变换,&quot;transform 属性向元素应用 2D 或 3D 转换。该属性允许我们对元素进行旋转、缩放、移动或倾斜。&quot;,&quot;#1db675&quot; %&#125;，animation的&#123;% bubble 贝塞尔速度曲线,&quot;贝塞尔曲线(Bézier curve)，又称贝兹曲线或贝济埃曲线，是应用于二维图形应用程序的数学曲线。一般的矢量图形软件通过它来精确画出曲线，贝兹曲线由线段与节点组成，节点是可拖动的支点，线段像可伸缩的皮筋&quot;,&quot;#de4489&quot; %&#125;写法，还有今天刚看到的&#123;% bubble clip-path,&quot;clip-path属性使用裁剪方式创建元素的可显示区域。区域内的部分显示，区域外的隐藏。&quot;,&quot;#868fd7&quot; %&#125;属性。这些对我来说很新颖的概念狠狠的冲击着我以前积累起来的设计思路。</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="引用文献-reference">引用文献 reference</h2>
+<div class="tabs" id="bubble"><ul class="nav-tabs"><li class="tab"><button type="button" data-href="#bubble-1">标签语法</button></li><li class="tab"><button type="button" data-href="#bubble-2">参数配置</button></li><li class="tab active"><button type="button" data-href="#bubble-3">样式预览</button></li><li class="tab"><button type="button" data-href="#bubble-4">示例源码</button></li></ul><div class="tab-contents"><div class="tab-item-content" id="bubble-1"><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% referto [id] , [literature] %&#125;</span><br><span class="line">&#123;% referfrom [id] , [literature] , [url] %&#125;</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="bubble-2"><div class="tip ban"><p>考虑到锚点跳转的特性，不建议您将引用出处标签referfrom写在常隐外挂标签(如folding、tab、hideToggle)中，这样能有效避免跳转失败。</p>
+</div>
+<ol>
+<li>
+<p>referto 引用上标<br>
+<code>id</code>: 上标序号内容，需与referfrom标签的id对应才能实现跳转<br>
+<code>literature</code>: 引用的参考文献名称</p>
+</li>
+<li>
+<p>referfrom 引用出处<br>
+<code>id</code>: 序号内容，需与referto标签的id对应才能实现跳转<br>
+<code>literature</code>: 引用的参考文献名称<br>
+<code>url</code>: 引用的参考文献链接，可省略</p>
+</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content active" id="bubble-3"><p>Akilarの糖果屋(akilar.top)是一个私人性质的博客<span class="hidden-anchor" id="referto_[1]"></span><sup class="reference"><a href="#referfrom_[1]" data-pjax-state="">[1]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">Akilarの糖果屋群聊简介</span><span class="reference-title">参考资料</span></span></span>，从各类教程至生活点滴，无话不谈。建群的目的是提供一个闲聊的场所。博客采用Hexo框架<span class="hidden-anchor" id="referto_[2]"></span><sup class="reference"><a href="#referfrom_[2]" data-pjax-state="">[2]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">Hexo中文文档</span><span class="reference-title">参考资料</span></span></span>，Butterfly主题<span class="hidden-anchor" id="referto_[3]"></span><sup class="reference"><a href="#referfrom_[3]" data-pjax-state="">[3]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">Butterfly 安装文档(一) 快速开始</span><span class="reference-title">参考资料</span></span></span></p>
+<p>本项目参考了Volantis<span class="hidden-anchor" id="referto_[4]"></span><sup class="reference"><a href="#referfrom_[4]" data-pjax-state="">[4]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">hexo-theme-volantis 标签插件</span><span class="reference-title">参考资料</span></span></span>的标签样式。引入<code>[tag].js</code>，并针对<code>butterfly</code>主题修改了相应的<code>[tag].styl</code>。在此鸣谢<code>Volantis</code>主题众开发者。<br>主要参考内容包括各个volantis的内置标签插件文档<span class="hidden-anchor" id="referto_[5]"></span><sup class="reference"><a href="#referfrom_[5]" data-pjax-state="">[5]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">Volantis文档:内置标签插件</span><span class="reference-title">参考资料</span></span></span><br>Butterfly主题的各个衍生魔改<span class="hidden-anchor" id="referto_[6]"></span><sup class="reference"><a href="#referfrom_[6]" data-pjax-state="">[6]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">Butterfly 安装文档:标签外挂（Tag Plugins</span><span class="reference-title">参考资料</span></span></span><span class="hidden-anchor" id="referto_[7]"></span><sup class="reference"><a href="#referfrom_[7]" data-pjax-state="">[7]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">小弋の生活馆全样式预览</span><span class="reference-title">参考资料</span></span></span><span class="hidden-anchor" id="referto_[8]"></span><sup class="reference"><a href="#referfrom_[8]" data-pjax-state="">[8]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">l-lin-font-awesome-animation</span><span class="reference-title">参考资料</span></span></span><span class="hidden-anchor" id="referto_[9]"></span><sup class="reference"><a href="#referfrom_[9]" data-pjax-state="">[9]</a></sup><span class="reference-bubble"><span class="reference-item"><span class="reference-literature">小康的butterfly主题使用文档</span><span class="reference-title">参考资料</span></span></span></p>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[1]"></span><a class="reference-anchor" href="#referto_[1]">[1]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://jq.qq.com/?_wv=1027&k=pGLB2C0N">Akilarの糖果屋群聊简介</a></div>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[2]"></span><a class="reference-anchor" href="#referto_[2]">[2]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://hexo.io/zh-cn/docs/">Hexo中文文档</a></div>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[3]"></span><a class="reference-anchor" href="#referto_[3]">[3]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安装文档(一) 快速开始</a></div>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[4]"></span><a class="reference-anchor" href="#referto_[4]">[4]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://volantis.js.org/v5/tag-plugins/">hexo-theme-volantis 标签插件</a></div>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[5]"></span><a class="reference-anchor" href="#referto_[5]">[5]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://volantis.js.org/tag-plugins/">Volantis文档:内置标签插件</a></div>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[6]"></span><a class="reference-anchor" href="#referto_[6]">[6]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://butterfly.js.org/posts/4aa8abbe/#%E6%A8%99%E7%B1%A4%E5%A4%96%E6%8E%9B%EF%BC%88Tag-Plugins%EF%BC%89">Butterfly 安装文档:标签外挂（Tag Plugins</a></div>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[7]"></span><a class="reference-anchor" href="#referto_[7]">[7]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://lovelijunyi.gitee.io/posts/c898.html">小弋の生活馆全样式预览</a></div>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[8]"></span><a class="reference-anchor" href="#referto_[8]">[8]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://github.com/l-lin/font-awesome-animation">l-lin-font-awesome-animation</a></div>
+<div class="reference-source"><span class="hidden-anchor" id="referfrom_[9]"></span><a class="reference-anchor" href="#referto_[9]">[9]<div class="reference-anchor-up fa-solid fa-angles-up"></div></a><a class="reference-link" href="https://www.antmoe.com/posts/3b43914f/">小康的butterfly主题使用文档</a></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="bubble-4"><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Akilarの糖果屋(akilar.top)是一个私人性质的博客&#123;% referto &#x27;[1]&#x27;,&#x27;Akilarの糖果屋群聊简介&#x27; %&#125;，从各类教程至生活点滴，无话不谈。建群的目的是提供一个闲聊的场所。博客采用Hexo框架&#123;% referto &#x27;[2]&#x27;,&#x27;Hexo中文文档&#x27; %&#125;，Butterfly主题&#123;% referto &#x27;[3]&#x27;,&#x27;Butterfly 安装文档(一) 快速开始&#x27; %&#125;</span><br><span class="line"></span><br><span class="line">本项目参考了Volantis&#123;% referto &#x27;[4]&#x27;,&#x27;hexo-theme-volantis 标签插件&#x27; %&#125;的标签样式。引入<span class="code">`[tag].js`</span>，并针对<span class="code">`butterfly`</span>主题修改了相应的<span class="code">`[tag].styl`</span>。在此鸣谢<span class="code">`Volantis`</span>主题众开发者。</span><br><span class="line">主要参考内容包括各个volantis的内置标签插件文档&#123;% referto &#x27;[5]&#x27;,&#x27;Volantis文档:内置标签插件&#x27; %&#125;</span><br><span class="line">Butterfly主题的各个衍生魔改&#123;% referto &#x27;[6]&#x27;,&#x27;Butterfly 安装文档:标签外挂（Tag Plugins&#x27; %&#125;&#123;% referto &#x27;[7]&#x27;,&#x27;小弋の生活馆全样式预览&#x27; %&#125;&#123;% referto &#x27;[8]&#x27;,&#x27;l-lin-font-awesome-animation&#x27; %&#125;&#123;% referto &#x27;[9]&#x27;,&#x27;小康的butterfly主题使用文档&#x27; %&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;% referfrom &#x27;[1]&#x27;,&#x27;Akilarの糖果屋群聊简介&#x27;,&#x27;https://jq.qq.com/?<span class="emphasis">_wv=1027&amp;k=pGLB2C0N&#x27; %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% referfrom &#x27;[2]&#x27;,&#x27;Hexo中文文档&#x27;,&#x27;https://hexo.io/zh-cn/docs/&#x27; %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% referfrom &#x27;[3]&#x27;,&#x27;Butterfly 安装文档(一) 快速开始&#x27;,&#x27;https://butterfly.js.org/posts/21cfbf15/&#x27; %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% referfrom &#x27;[4]&#x27;,&#x27;hexo-theme-volantis 标签插件&#x27;,&#x27;https://volantis.js.org/v5/tag-plugins/&#x27; %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% referfrom &#x27;[5]&#x27;,&#x27;Volantis文档:内置标签插件&#x27;,&#x27;https://volantis.js.org/tag-plugins/&#x27; %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% referfrom &#x27;[6]&#x27;,&#x27;Butterfly 安装文档:标签外挂（Tag Plugins&#x27;,&#x27;https://butterfly.js.org/posts/4aa8abbe/#%E6%A8%99%E7%B1%A4%E5%A4%96%E6%8E%9B%EF%BC%88Tag-Plugins%EF%BC%89&#x27; %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% referfrom &#x27;[7]&#x27;,&#x27;小弋の生活馆全样式预览&#x27;,&#x27;https://lovelijunyi.gitee.io/posts/c898.html&#x27; %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% referfrom &#x27;[8]&#x27;,&#x27;l-lin-font-awesome-animation&#x27;,&#x27;https://github.com/l-lin/font-awesome-animation&#x27; %&#125;</span></span><br><span class="line"><span class="emphasis">&#123;% referfrom &#x27;[9]&#x27;,&#x27;小康的butterfly主题使用文档&#x27;,&#x27;https://www.antmoe.com/posts/3b43914f/&#x27; %&#125;</span></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+]]></content>
+      <tags>
+        <tag>🦋butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>大学物理一</title>
     <url>/2021/07/01/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E4%B8%80/</url>
     <content><![CDATA[
@@ -601,6 +730,7 @@
 </blockquote>
 <p>安装可参考链接：</p>
 <div class="tag link"><a class="link-card" title="Visual Studio 2022安装教程" href="https://yueliusu.blog.csdn.net/article/details/122332082"><div class="left"><img src="https://blog.csdn.net/favicon.ico"/></div><div class="right"><p class="text">Visual Studio 2022安装教程</p><p class="url">https://yueliusu.blog.csdn.net/article/details/122332082</p></div></a></div>
+<p>透明需要的插件：Dark Transparency Theme 和 ClaudiaIDE</p>
 <h3 id="注册码">注册码</h3>
 <p>重点来了，白嫖才是王道</p>
 <ul>
