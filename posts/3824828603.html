@@ -1,0 +1,611 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>3.5GHz微带天线设计与分析 | がんばろう</title><meta name="keywords" content="🧲电磁场"><meta name="author" content="落荷"><meta name="copyright" content="落荷"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="安装主要的软件ANSYS Electronics Suite安装了一整天真的要命，然后才发现自己真的呆，官网有学生的免费版，完全没必要去破解。 介绍 微带贴片制造简单，成本低，可以很方便地调整频率、极化、模式、阻抗等参数。 主要特点：效率低、耐受功率低、高Q值，频带很窄。 微带天线典型使用频率为1-100GHz。 结构：由很薄($t\ll\lambda_0$)的金属贴片以高度$h$放置在距离接地平">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.5GHz微带天线设计与分析">
+<meta property="og:url" content="http://yhblogs.cn/posts/3824828603.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="安装主要的软件ANSYS Electronics Suite安装了一整天真的要命，然后才发现自己真的呆，官网有学生的免费版，完全没必要去破解。 介绍 微带贴片制造简单，成本低，可以很方便地调整频率、极化、模式、阻抗等参数。 主要特点：效率低、耐受功率低、高Q值，频带很窄。 微带天线典型使用频率为1-100GHz。 结构：由很薄($t\ll\lambda_0$)的金属贴片以高度$h$放置在距离接地平">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204142210051.png">
+<meta property="article:published_time" content="2022-04-12T21:13:26.000Z">
+<meta property="article:modified_time" content="2022-05-17T00:49:44.371Z">
+<meta property="article:author" content="落荷">
+<meta property="article:tag" content="🧲电磁场">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204142210051.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/3824828603"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":150},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '3.5GHz微带天线设计与分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-17 00:49:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_64rbpfx76iq.css"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-clock/lib/clock.min.css" /><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@1.0.17/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204102117824.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyan"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-icon_pengyouquan"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-lianjie"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204142210051.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">がんばろう</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyan"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-icon_pengyouquan"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-lianjie"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">3.5GHz微带天线设计与分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-12T21:13:26.000Z" title="发表于 2022-04-12 21:13:26">2022-04-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-17T00:49:44.371Z" title="更新于 2022-05-17 00:49:44">2022-05-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/study/">study</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="3.5GHz微带天线设计与分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>安装主要的软件<code>ANSYS Electronics Suite</code>安装了一整天真的要命，然后才发现自己真的呆，官网有<a target="_blank" rel="noopener" href="https://www.ansys.com/academic/students/ansys-electronics-desktop-student">学生的免费版</a>，完全没必要去破解。</p>
+<h2 id="介绍">介绍</h2>
+<p>微带贴片制造简单，成本低，可以很方便地调整频率、极化、模式、阻抗等参数。</p>
+<p>主要特点：效率低、耐受功率低、高Q值，频带很窄。</p>
+<p>微带天线典型使用频率为1-100GHz。</p>
+<p>结构：由很薄($t\ll\lambda_0$)的金属贴片以高度$h$放置在距离接地平面上得到，$h\ll\lambda_0$，通常$0.003\lambda_0\le h\le 0.005\lambda_0$，微带贴片天线和坐标系的结构图如下图所示：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/电磁场1.png" alt="电磁场1" style="zoom:50%;" />
+<p>微带贴片这样设计是为了在贴片的侧射方向有最大的辐射，选择不同的贴片组形状还可以实现不同方向的端射辐射，例如矩形、椭圆、三角形等。对于矩形贴片，贴片长度 L 一般取1/3到1/2的波长，贴片和地平面之间被介电常数为$\varepsilon_r$介质隔开</p>
+<h2 id="工作原理">工作原理</h2>
+<p>微带天线的辐射机理实际上是高频的电磁泄露。一个微波电路如果不是被导体封闭，不连续处就会产生电磁辐射。例如微带电路的开路端，由于结构尺寸的突变、弯折等不连续处也会产生电磁辐射。频率低时，这部分的电尺寸很小，电磁辐射很少；随着频率增加，电尺寸增加，泄露增多。经过特殊设计，使其工作在谐振状态，辐射显著增强，辐射效率大大提高，成为有效的天线。</p>
+<p>分析微带天线的方法主要有传输线(transmission-line)模型、谐振腔(cavite)模型、全波(full-wave)模型即矩量法、有限元法等。我们采取的是<b>传输线模型</b>。</p>
+<h3 id="传输线模型">传输线模型</h3>
+<p>传输线模型是最早出现的，但精度不高，也不是通用模型。这一方法<b>仅适合矩形贴片微带天线</b>。矩形贴片天线可以视为两个缝隙组成，每条缝宽度为W，高度为h，两条缝隙由长度为L，传输阻抗为$Z_c$的平板传输线隔开</p>
+<h4 id="边缘效应">边缘效应</h4>
+<p>一个如下图(a)的传输线，当宽度远大于介质厚度$(W\gg h)$时，或者介质的介电常数远大于1时，电场集中在传输线和接地平面中。而事实上，在传输线的两侧还存在一定的边缘电场，一部分在空气中传播，一部分在传输线边缘传播，使得电场分布的尺寸比传输线的尺寸略大。因此引入一个有效介电常数$\varepsilon_{eff}$来考虑边缘和传输线中的电场传播，将图(b)的情况等效为图©</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/电磁场2.png" alt="电磁场2" style="zoom: 80%;" />
+<p>在低频的有效介电常数可以表示为：<br>
+$$<br>
+\varepsilon_{e f f}=\frac{\varepsilon_{r}+1}{2}+\frac{\varepsilon_{r}-1}{2}\left[1+12 \frac{h}{W}\right]^{-1 / 2}, \quad W / h&gt;1<br>
+$$</p>
+<h3 id="馈电方式">馈电方式</h3>
+<p>微带天线由好几种馈电形式，比较流行的有四类：微带线、同轴线探头、耦合馈电，其中耦合馈电包括孔径耦合和接近耦合，本文的设计采用<b>同轴线馈电</b>的方式。</p>
+<p>在微波应用中通常是使用50欧姆的标准阻抗，因此需要确定馈点的位置使天线的输入阻抗等于50欧姆。对于path_antenna来讲，传输的模式主要是TM10模，</p>
+<blockquote>
+<p>TM模（TM mode）是指在波导中，磁场的纵向分量为零，而电场的纵向分量不为零的传播模式</p>
+</blockquote>
+<p>TM10模在W方向(也就是垂直于传播的方向)上面变化几乎为0，所以W方向任何一个点都无所谓，但为了避免激发TM1n模式，在 W 方向上馈点的位置一般取在中心点，即取$y_f=0$，所以主要计算的是L方向的坐标。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414090328077.png" alt="馈电" style="zoom: 50%;" />
+<p>在L方向上电场有λ/2之间的变化，从中心点到两侧，阻抗逐渐变大，输入阻抗等于50Ω时的馈点位置可以由下式计算：<br>
+$$<br>
+\begin{gathered}<br>
+x_{\mathrm{f}}=\frac{L}{2 \sqrt{\xi_{\mathrm{re}}(L)}} \<br>
+\xi_{\mathrm{re}}(L)=\frac{\varepsilon_{\mathrm{r}}+1}{2}+\frac{\varepsilon_{\mathrm{r}}-1}{2}\left(1+12 \frac{h}{L}\right)^{-1 / 2}<br>
+\end{gathered}<br>
+$$</p>
+<h3 id="边界条件">边界条件</h3>
+<p>辐射边界条件是自由空间的近似，这种近似的精确程度取决于波的传播方向和辐射边界的角度，以及辐射源和边界之间的距离</p>
+<p>在仿真中选择的是<code>Radiation</code>边界，这种边界有以下特性：</p>
+<blockquote>
+<p>计算天线等强辐射问题时，距离辐射体应当至少λ/4</p>
+<p>对于弱辐射问题，仅考虑辐射损耗，不关心远场时，可以小于λ/4；</p>
+<p>辐射边界条件的吸收性能与入射角相关，入射角大于40 度时，吸收效果明显降低；</p>
+</blockquote>
+<h3 id="参考地">参考地</h3>
+<p>上述分析都是基于参考地平面是无限大的基础上的，然而实际设计中，参考地都是有限面积的，理论分析证明了当参考地平面比微带贴片大出<code>6h</code>的距离时，计算结果就可以达到足够的准确，因此设计中参考地的长度$L_{GND}$和宽度$ W_{GND}$只需满足以下两式即可，即：<br>
+$$<br>
+\begin{gathered}<br>
+L_{\mathrm{GND}} \geqslant L+6 h \<br>
+W_{\mathrm{GND}} \geqslant W+6 h<br>
+\end{gathered}<br>
+$$</p>
+<h2 id="设计过程">设计过程</h2>
+<p>采用介电常数$\varepsilon_r$为4.2，中心工作频率(谐振频率)$f_r$为3.5GHz，介质厚度$h$为3mm的辐射体数据，然后要求解矩形贴片的尺寸$W$和$L$，参考地尺寸以及馈线位置$(x_f,y_f)$</p>
+<ol>
+<li>
+<p>为了有效产生辐射，实际中的经验将W设置为：<br>
+$$<br>
+W=\frac{1}{2 f_{r} \sqrt{\mu_{0} \varepsilon_{0}}} \sqrt{\frac{2}{\varepsilon_{r}+1}}=\frac{c}{2 f_{r}} \sqrt{\frac{2}{\varepsilon_{r}+1}}<br>
+$$</p>
+</li>
+<li>
+<p>计算有效介电常数$\varepsilon_{eff}$：<br>
+$$<br>
+\varepsilon_{e f f}=\frac{\varepsilon_{r}+1}{2}+\frac{\varepsilon_{r}-1}{2}\left[1+12 \frac{h}{W}\right]^{-1 / 2}, \quad W / h&gt;1<br>
+$$</p>
+</li>
+<li>
+<p>由于边缘效应，微带传输天线的电尺寸要比实际尺寸大，对于E面沿着L方向的电场分布被拉长了$\Delta L$(又叫等效辐射缝隙)：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220425163032665.png" alt="image-20220425163032665" style="zoom: 50%;" />
+$$
+\Delta L=0.412 h\frac{\left(\varepsilon_{e f f}+0.3\right)\left(\frac{W}{h}+0.264\right)}{\left(\varepsilon_{e f f}-0.258\right)\left(\frac{W}{h}+0.8\right)}
+$$
+</li>
+<li>
+<p>由谐振频率估算实际的长度L：<br>
+$$<br>
+L=\frac{c}{2 f_{r }\sqrt{\varepsilon_{e f f}}}-2 \Delta L<br>
+$$<br>
+通常贴片的长度$L$大约为0.47-0.49倍的介质波长$\lambda_d$，介电常数越低的介质，边缘效应越明显，需要的贴片长度更短。</p>
+</li>
+<li>
+<p>计算GND 的大小<br>
+$$<br>
+L_g=L+6h\qquad W_g=W+6h<br>
+$$</p>
+</li>
+<li>
+<p>计算馈线的位置，<br>
+$$<br>
+\begin{gathered}<br>
+x_{\mathrm{f}}=\frac{L}{2 \sqrt{\xi_{\mathrm{re}}(L)}} \<br>
+\xi_{\mathrm{re}}(L)=\frac{\varepsilon_{\mathrm{r}}+1}{2}+\frac{\varepsilon_{\mathrm{r}}-1}{2}\left(1+12 \frac{h}{L}\right)^{-1 / 2}<br>
+\end{gathered}<br>
+$$<br>
+计算完成后我们会得到一个参数表格，长度单位均为mm，1GHz=$10^9$HZ，该频率的波长约为85.714mm，因为在仿真中是用x作为W的方向，所以馈电位置中$x_f=0$</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>介电常数$ \varepsilon_r$</td>
+<td>4.2</td>
+</tr>
+<tr>
+<td>中心工作频率(谐振频率)$f_r$</td>
+<td>3.5GHz</td>
+</tr>
+<tr>
+<td>有效介电常数$\varepsilon_{eff}$</td>
+<td>3.64</td>
+</tr>
+<tr>
+<td>贴片宽度W</td>
+<td>26.58</td>
+</tr>
+<tr>
+<td>贴片长度L</td>
+<td>19.74</td>
+</tr>
+<tr>
+<td>贴片高度h</td>
+<td>3</td>
+</tr>
+<tr>
+<td>GND宽度Wg</td>
+<td>44.58</td>
+</tr>
+<tr>
+<td>GND长度Lg</td>
+<td>37.74</td>
+</tr>
+<tr>
+<td>馈电位置$(x_f,y_f)$</td>
+<td>(0,5.24)</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h2 id="仿真思路">仿真思路</h2>
+<p>使用hfss进行参数化建模</p>
+<p>根据path_antenna的结构我们需要建立的工程变量如下:</p>
+<blockquote>
+<p>Path_W=26.58mm</p>
+<p>Path_L=19.74mm</p>
+<p>Sub_H=3mm</p>
+<p>Wg=44.58mm</p>
+<p>Lg= 37.74mm</p>
+<p>xf=0mm</p>
+<p>yf=5.24mm</p>
+</blockquote>
+<p>求解类型为模式求解模式</p>
+<p>​              HFSS-&gt;solution type-&gt;model</p>
+<p>端口选择激励</p>
+<p>​              Lumped port</p>
+<p>​              Path and GND-&gt;perfect E</p>
+<p>​              Air_BOX-&gt;radiuation</p>
+<p>求解频率和扫频</p>
+<p>​              3.5GHz 20 0.02</p>
+<p>​              Fast 2.5G-4.5G 0.01</p>
+<p>参考教程：</p>
+<div class="tabs" id="link"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#link-1">综述</button></li><li class="tab"><button type="button" data-href="#link-2">理论文章</button></li><li class="tab"><button type="button" data-href="#link-3">视频介绍</button></li><li class="tab"><button type="button" data-href="#link-4">仿真结果查看</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="link-1"><div class="tag link"><a class="link-card" title="天线理论与设计笔记4--(缝隙天线、微带贴片天线)" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/269157318"><div class="left"><img src="https://static.zhihu.com/heifetz/favicon.ico"/></div><div class="right"><p class="text">天线理论与设计笔记4--(缝隙天线、微带贴片天线)</p><p class="url">https://zhuanlan.zhihu.com/p/269157318</p></div></a></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="link-2"><div class="tag link"><a class="link-card" title="3.5G_path_antenna计算与建模分析" target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv4741086?spm_id_from=333.999.0.0"><div class="left"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204141806361.png"/></div><div class="right"><p class="text">3.5G_path_antenna计算与建模分析</p><p class="url">https://www.bilibili.com/read/cv4741086?spm_id_from=333.999.0.0</p></div></a></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="link-3"><div class="tag link"><a class="link-card" title="3.5G_path_antenna计算与建模分析视频" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1L7411j79F?spm_id_from=333.999.0.0"><div class="left"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204141806361.png"/></div><div class="right"><p class="text">3.5G_path_antenna计算与建模分析视频</p><p class="url">https://www.bilibili.com/video/BV1L7411j79F?spm_id_from=333.999.0.0</p></div></a></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="link-4"><div class="tag link"><a class="link-card" title="仿真结果查看" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44115643/article/details/120515685"><div class="left"><img src="https://blog.csdn.net/favicon.ico"/></div><div class="right"><p class="text">仿真结果查看</p><p class="url">https://blog.csdn.net/weixin_44115643/article/details/120515685</p></div></a></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="仿真步骤">仿真步骤</h2>
+<ol>
+<li>
+<p>创建一个新的HFSS工程</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414132647600.png" alt="image-20220414132647600" style="zoom: 33%;" />
+<p>右击新的工程选择<code>solution type</code>，修改<code>Model</code>为<code>Teminal</code></p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414132839241.png" alt="image-20220414132839241" style="zoom:50%;" />
+</li>
+<li>
+<p>增加变量，右击新工程选择<code>Design Properties</code>，输入之前计算的量</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414224532988.png" alt="image-20220414224532988" style="zoom: 33%;" />
+</li>
+<li>
+<p>创建PCB板，创建一个<b>长方体</b>，修改材料为<code>FR4_epoxy</code> ，记得修改系统里面这个材料的介电常数为<code>4.2</code>，之后修改位置</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414134229333.png" alt="image-20220414134229333" style="zoom: 50%;" />
+</li>
+<li>
+<p>创建微带贴片，创建一个<b>矩形</b></p>
+<blockquote>
+<p>仿真的时候没有考虑到贴片的厚度，虽然对结果的影响不是很大，厚度要根据实际情况另外考虑</p>
+</blockquote>
+<p>修改位置</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414134551842.png" alt="image-20220414134551842" style="zoom: 50%;" />
+</li>
+<li>
+<p>创建参考地，创建一个<code>矩形</code>，修改位置：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414135031220.png" alt="image-20220414135031220" style="zoom: 50%;" />
+</li>
+<li>
+<p>因为在软件中矩形是不能分配属性的，但它们又都是理想导体，所以只能为它们分配边界条件，选中刚刚创建的两个矩形右键</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414135340515.png" alt="image-20220414135340515" style="zoom: 50%;" />
+</li>
+<li>
+<p>开始布线！创建一个圆柱体，修改材料为<code>pec</code>，之后修改位置</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414135944035.png" alt="image-20220414135944035" style="zoom: 50%;" />
+</li>
+<li>
+<p>给GND和轴线创建一个端口port，创建一个圆形，修改位置</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414140323459.png" alt="image-20220414140323459" style="zoom: 50%;" />
+</li>
+<li>
+<p>连接GND和端口port，同时选中端口和GND，点击<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414140625504.png" alt="image-20220414140625504">进行连接</p>
+</li>
+<li>
+<p>在<code>solution type</code>，修改<code>Teminal</code>为<code>Model</code></p>
+<blockquote>
+<p>其实两个模式都可以求解，但因为参考地的面积较大，<code>Teminal</code>模式求解地一定不能太大</p>
+</blockquote>
+</li>
+<li>
+<p>给端口port创建一个极点</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414140803537.png" alt="image-20220414140803537" style="zoom: 50%;" />
+<p>点击下一步后改<code>None</code>为<code>newline</code>，方向为GND指向馈线，其他全部默认</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414173410750.png" alt="image-20220414173410750" style="zoom: 50%;" />
+</li>
+<li>
+<p>设置辐射边界，边界需要满足大于1/4个波长，然后把它的z全部改为1000，然后设置辐射边界条件</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414173640457.png" alt="image-20220414173640457" style="zoom: 67%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414174002386.png" alt="image-20220414174002386" style="zoom: 50%;" />
+</li>
+<li>
+<p>设置求解</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414174110272.png" alt="image-20220414174110272" style="zoom: 50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414174328080.png" alt="image-20220414174328080" style="zoom: 50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414174252562.png" alt="image-20220414174252562" style="zoom: 50%;" />
+</li>
+<li>
+<p>设置完成后可以开始分析了！按<code>analyse all</code>后等待跑完要先右击result查看solution data，最后一次的数据需要小于我们的设定值</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414174755721.png"  style="zoom: 33%;" />
+<p>右击<code>result</code>点击</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414174857333.png" alt="image-20220414174857333" style="zoom:67%;" />
+</li>
+<li>
+<p>参数的选择</p>
+<div class="tabs" id="canshu"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#canshu-1">初始参数</button></li><li class="tab"><button type="button" data-href="#canshu-2">扫贴片L图</button></li><li class="tab"><button type="button" data-href="#canshu-3">修改参数后的S图</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="canshu-1"><p>初始参数的<b>回波损耗</b>（RL）图：</p>
+<blockquote>
+<p>回波损耗即<code>Return Loss</code>，缩写为RL，S11=-RL，插入损耗即<code> Insertion Loss</code>，IL，S21=-IL</p>
+<p>它是反射系数绝对值的倒数，以分贝值表示。回波损耗的值在0dB的到无穷大之间，在移动通信系统中，一般要求回波损耗大于14dB</p>
+<p>回波损耗越大说明反射回来的越少，所以对于我们设计的天线需要回波损耗绝对值(一般来说都是负数)越大越好</p>
+</blockquote>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/初始.png" alt="初始" style="zoom:50%;" />
+<p>中心频率和我们一开始3.5GHz的目标差的有点多，需要进行修改，右击<code>optimetrice</code>-&gt;<code>add</code>-&gt;<code>parameter</code>，对贴片的长度L进行扫描，因为现在是偏小所以要把L调小才能让中心频率上升，选择在18mm到20mm之间</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="canshu-2"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ图片20220414190045.png"  style="zoom: 50%;" />
+<p>接近3.5GHz了但还没完全接近，再在18.8mm到19.0mm进行扫描</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414191042465.png"  style="zoom:50%;" />
+<p>最终确定合适的path_L为18.9mm</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="canshu-3"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ图片20220414191213.png" alt="QQ图片20220414191213" style="zoom:50%;" />
+<p>中心频率达到3.5GHz，RL也达到一个绝对值较大值</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+</li>
+</ol>
+<h2 id="仿真结果">仿真结果</h2>
+<div class="tabs" id="pic"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#pic-1">绘制仿真结构图</button></li><li class="tab"><button type="button" data-href="#pic-2">阻抗</button></li><li class="tab"><button type="button" data-href="#pic-3">S11图</button></li><li class="tab"><button type="button" data-href="#pic-4">驻波比图</button></li><li class="tab"><button type="button" data-href="#pic-5">Smith图</button></li><li class="tab"><button type="button" data-href="#pic-6">截面增益</button></li><li class="tab"><button type="button" data-href="#pic-7">三维增益</button></li><li class="tab"><button type="button" data-href="#pic-8">天线性能参数</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="pic-1"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414204844575.png" alt="image-20220414204844575" style="zoom: 33%;" /><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="pic-2"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220425202538787.png" alt="image-20220425202538787" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220425202814342.png" alt="image-20220425202814342" style="zoom:50%;" />
+<p>匹配我们的需求50Ω</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="pic-3"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ图片20220414191213.png" alt="QQ图片20220414191213" style="zoom:50%;" /><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="pic-4"><p><strong>驻波比</strong>（VSWR）：它是行波系数的倒数，其值在1到无穷大之间。驻波比为1，表示完全匹配；驻波比为无穷大表示全反射，完全失配。在移动通信系统中，一般要求驻波比小于1.5，但实际应用中VSWR应小于1.2。过大的驻波比会减小基站的覆盖并造成系统内干扰加大，影响基站的服务性能。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/VSWR.png" alt="VSWR" style="zoom: 50%;" />
+<p>图中可知3.5GHz时VSWR仅1.0931，驻波比显示匹配较好</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="pic-5"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/Smith图.png" alt="Smith图" style="zoom:50%;" />
+<p>这里显示的是归一化阻抗，可以看出，实部出现了不匹配的情况。若是要达到完美的匹配，阻抗的实部和虚部必须很接近0，应该要达到10的-2次方级别（即0.01），询问过老师这个其实不是非常重要，主要还是看S11图</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="pic-6"><p>两条曲线分别为XZ和YZ平面的</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/截面增益.png" alt="截面增益" style="zoom:50%;" /><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="pic-7"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/3维增益.png" alt="3维增益" style="zoom:50%;" />
+<p>三维辐射场可以看出在正Z方向有最大的辐射增益，-Z方向增益就比较低，那么要求在安装天线的时候，要把正面对着要接收的电磁波方向，不能把背面朝外，否则接收不到信号</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="pic-8"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/参数.png" alt="参数" style="zoom:50%;" /><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">落荷</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/3824828603.html">http://yhblogs.cn/posts/3824828603.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%A7%B2%E7%94%B5%E7%A3%81%E5%9C%BA/">🧲电磁场</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204142210051.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1518495338.html"><img class="prev-cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204072003312.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">工程类软件安装</div></div></a></div><div class="next-post pull-right"><a href="/posts/800961490.html"><img class="next-cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111747397.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">评论搭建</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204102117824.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">落荷</div><div class="author-info__description">good luck is coming</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/YaoHui-Wu06022"><i class="fab fa-github"></i><span>Follow Me By GitHub</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111721328.png" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204111721775.png" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不忘初心，砥砺前行<div class="twopeople"><div class="twopeople"><div class="container"style="height:200px;"><canvas class="illo"width="800"height="800"style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div><script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script><script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script><script id="rendered-js"src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script><style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E7%BA%BF%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">传输线模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%B9%E7%BC%98%E6%95%88%E5%BA%94"><span class="toc-number">2.1.1.</span> <span class="toc-text">边缘效应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%88%E7%94%B5%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">馈电方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">边界条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0"><span class="toc-number">2.4.</span> <span class="toc-text">参考地</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">设计过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E6%80%9D%E8%B7%AF"><span class="toc-number">4.</span> <span class="toc-text">仿真思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E6%AD%A5%E9%AA%A4"><span class="toc-number">5.</span> <span class="toc-text">仿真步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E7%BB%93%E6%9E%9C"><span class="toc-number">6.</span> <span class="toc-text">仿真结果</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/121645966.html" title="C++Primer第五版习题答案详解(一)"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202205121006634.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++Primer第五版习题答案详解(一)"/></a><div class="content"><a class="title" href="/posts/121645966.html" title="C++Primer第五版习题答案详解(一)">C++Primer第五版习题答案详解(一)</a><time datetime="2022-05-15T14:57:24.000Z" title="发表于 2022-05-15 14:57:24">2022-05-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/121645965.html" title="C++Primer第五版习题答案目录"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202205121006634.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++Primer第五版习题答案目录"/></a><div class="content"><a class="title" href="/posts/121645965.html" title="C++Primer第五版习题答案目录">C++Primer第五版习题答案目录</a><time datetime="2022-05-12T10:00:51.000Z" title="发表于 2022-05-12 10:00:51">2022-05-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/799695709.html" title="外挂标签"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202205091642808.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="外挂标签"/></a><div class="content"><a class="title" href="/posts/799695709.html" title="外挂标签">外挂标签</a><time datetime="2022-05-09T14:25:10.000Z" title="发表于 2022-05-09 14:25:10">2022-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/443809664.html" title="一些唠叨"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202205071900482.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些唠叨"/></a><div class="content"><a class="title" href="/posts/443809664.html" title="一些唠叨">一些唠叨</a><time datetime="2022-05-07T18:58:54.000Z" title="发表于 2022-05-07 18:58:54">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3629474477.html" title="193nm波长光刻机粗认识"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blog/202204291140880.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="193nm波长光刻机粗认识"/></a><div class="content"><a class="title" href="/posts/3629474477.html" title="193nm波长光刻机粗认识">193nm波长光刻机粗认识</a><time datetime="2022-04-29T11:32:57.000Z" title="发表于 2022-04-29 11:32:57">2022-04-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'hello-cloudbase-5gjsmcvma4e0b650',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'hello-cloudbase-5gjsmcvma4e0b650',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      document.getElementById('twikoo-count').innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.3/dist/twikoo.all.min.js"></script><div class="aplayer no-destroy" data-id="7368472115" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script async src="//at.alicdn.com/t/font_2264842_3izu8i5eoc2.js"></script><script src="/js/sun_moon.js" async></script<script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show","#web_bg",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="/img/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_injector_config();
+  }
+  </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax src="https://unpkg.zhimg.com/hexo-butterfly-clock/lib/clock.min.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
