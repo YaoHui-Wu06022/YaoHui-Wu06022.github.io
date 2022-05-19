@@ -249,8 +249,44 @@
 <p>靠右的const是顶层const，靠左的是底层const（针对指针的判断）</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">(a) <span class="type">const</span> <span class="type">int</span> v2 = <span class="number">0</span>; <span class="type">int</span> v1 = v2;          <span class="comment">// v2是顶层const</span></span><br><span class="line">(b) <span class="type">int</span> *p1 = &amp;v1, &amp;r1 = v1;                <span class="comment">// 非const,&amp;ri为引用</span></span><br><span class="line">(c) <span class="type">const</span> <span class="type">int</span> *p2 = &amp;v2, *<span class="type">const</span> p3 = &amp;i, &amp;r2 = v2;  <span class="comment">// p2是底层const，p3最左是底层，p3前面是顶层const， r2是底层const</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>顶层const可以进行赋值操作，但底层const有限制，拷入拷出的对象也必须具有相同的底层const</p>
+<p>顶层const可以进行赋值操作，但底层const有限制，拷入拷出的对象也必须具有相同的底层const，或者两个数据类型可以转换，一般来说非常量可以转换成常量，反之不行；</p>
 </blockquote>
+<p>练习2.31</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">(a) r1 = v2;        <span class="comment">// 合法，引用改变值</span></span><br><span class="line">(b) p1 = p2; p2 = p1;   <span class="comment">// 不合法，p2是底层const，赋值对象必须同样有底层const才行，p2 = p1合法</span></span><br><span class="line">(c) p1 = p3; p2 = p3;   <span class="comment">// 不合法，p3是底层const， p2 = p3合法。</span></span><br></pre></td></tr></table></figure>
+<p>练习2.32</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> null = <span class="number">0</span>, *p = null;           </span><br><span class="line"><span class="comment">// int *p不能用int型来初始化。 应为 int null = 0, *p = &amp;null / int *p = nullptr</span></span><br></pre></td></tr></table></figure>
+<p>练习2.33</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">(a) a = <span class="number">42</span>; b = <span class="number">42</span>; c = <span class="number">42</span>;         <span class="comment">// a, b, c的值均为42</span></span><br><span class="line">(b) d = <span class="number">42</span>; e = <span class="number">42</span>; g = <span class="number">42</span>;     <span class="comment">// d:error, d为int*类型</span></span><br><span class="line">                                <span class="comment">// e:error, e为const int*类型</span></span><br><span class="line">                                <span class="comment">// g:error, g为const int类型，不能再赋值</span></span><br></pre></td></tr></table></figure>
+<p>练习2.34</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>, &amp; r = i;</span><br><span class="line">	<span class="keyword">auto</span> a = r;</span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> ci = i, &amp; cr = ci;</span><br><span class="line">	<span class="keyword">auto</span> b = ci;</span><br><span class="line">	<span class="keyword">auto</span> c = cr;</span><br><span class="line">	<span class="keyword">auto</span> d = &amp;i;</span><br><span class="line">	<span class="keyword">auto</span> e = &amp;ci;</span><br><span class="line">	<span class="keyword">auto</span> &amp;g = ci;</span><br><span class="line">	a = <span class="number">42</span>;</span><br><span class="line">	b = <span class="number">42</span>;</span><br><span class="line">	c = <span class="number">42</span>;</span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; b &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; *d &lt;&lt; *e &lt;&lt; g &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>练习2.35</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> i = <span class="number">42</span>；       <span class="comment">// i为const int类型</span></span><br><span class="line"><span class="keyword">auto</span> j = i;             <span class="comment">// j为int类型</span></span><br><span class="line"><span class="keyword">auto</span> &amp;k = i;            <span class="comment">// k为const int&amp; 类型</span></span><br><span class="line"><span class="keyword">auto</span> *p = &amp;i;            <span class="comment">// p为const int* 类型</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> j2 = i, &amp;k2 = i; <span class="comment">// j2为const int类型，k2为const int&amp; 类型。</span></span><br></pre></td></tr></table></figure>
+<p>练习2.36</p>
+<p>decltype((variable))（注意是双层括号）的结果永远是引用</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">3</span>, b = <span class="number">4</span>;      <span class="comment">//</span></span><br><span class="line"><span class="keyword">decltype</span>(a) c = a;     <span class="comment">// c为int类型，a为c的初值</span></span><br><span class="line"><span class="keyword">decltype</span>((b)) d = a;       <span class="comment">// d为int&amp; 类型，是a的引用</span></span><br><span class="line">++c;               <span class="comment">// ++c之后的值为4；不影响a值</span></span><br><span class="line">++d;               <span class="comment">// ++d之后的值为4；影响a值，a变为4</span></span><br></pre></td></tr></table></figure>
+<p>练习2.37</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">3</span>, b = <span class="number">4</span>;       <span class="comment">// a, b均为int</span></span><br><span class="line"><span class="keyword">decltype</span> (a) c = a;     <span class="comment">// c为int</span></span><br><span class="line"><span class="keyword">decltype</span> (a = b) d = a; <span class="comment">// d为int&amp;，是a的引用，(a = b)不影响a值，并没有实际操作</span></span><br></pre></td></tr></table></figure>
+<p>练习2.38</p>
+<p>相同点：都通过已知变量或表达式的类型来指定类型，如：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">2</span>； <span class="keyword">auto</span> j = i; <span class="keyword">decltype</span>(i) j = i; <span class="comment">//两者相同	</span></span><br></pre></td></tr></table></figure>
+<p>不同点：auto会忽略顶层const，但decltype不会；auto定义变量必须有初始值，但decltyple不一定；</p>
+<p>如果使用引用类型，auto会识别为其所指对象的类型，decltype则会识别为引用的类型；</p>
+<p>decltype(())双括号的差别，直接识别为引用类型；</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>, &amp;r = i;</span><br><span class="line"><span class="comment">// same</span></span><br><span class="line"><span class="keyword">auto</span> a = i;</span><br><span class="line"><span class="keyword">decltype</span>(i) b = i;</span><br><span class="line"><span class="comment">// different</span></span><br><span class="line"><span class="keyword">auto</span> c = r;</span><br><span class="line"><span class="keyword">decltype</span>(r) d = i;</span><br></pre></td></tr></table></figure>
+<p>练习2.40</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Sales_data</span></span><br><span class="line">&#123;</span><br><span class="line">    std::string bookNo;</span><br><span class="line">    <span class="type">unsigned</span> units_sold = <span class="number">0</span>;</span><br><span class="line">    <span class="type">double</span> revenue = <span class="number">0.0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>练习2.41,2.42</p>
+<span class='nota' data-nota='发挥自己的想象力吧'>参考答案</span>
+]]></content>
+      <tags>
+        <tag>👨‍💻C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++Primer第五版习题答案详解(三)</title>
+    <url>/posts/121314153.html</url>
+    <content><![CDATA[<p><a href="/posts/121314150">答案目录</a></p>
+<h2 id="第3章-字符串、向量和数组">第3章 字符串、向量和数组</h2>
 ]]></content>
       <tags>
         <tag>👨‍💻C++</tag>
@@ -268,6 +304,7 @@
 <ul>
 <li><a href="/posts/121314151">第1章 开始</a></li>
 <li><a href="/posts/121314152">第2章 变量和基本类型</a></li>
+<li><a href="/posts/121314153">第3章 字符串、向量和数组</a></li>
 </ul>
 ]]></content>
       <tags>
