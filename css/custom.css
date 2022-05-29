@@ -120,13 +120,19 @@
 
 /* 字体 */
 @font-face{
+  font-family:'KeAi' ;  /* 字体名自定义即可 */
+  src:url('../fonts/KeAi.ttf'); /* 字体文件路径 */
+  /* font-display : swap; */
+}
+
+@font-face{
   font-family:'Coca' ;  /* 字体名自定义即可 */
-  src:url('../fonts/Coca.ttf'); /* 字体文件路径 */
+  src:url('../fonts/Coca.TTF'); /* 字体文件路径 */
   /* font-display : swap; */
 }
 
 body {
-  font-family: 'Coca', sans-serif;
+  font-family: 'Coca','KeAi', sans-serif;
 }
   
 
