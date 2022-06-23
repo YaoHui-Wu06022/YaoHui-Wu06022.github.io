@@ -1144,6 +1144,28 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
       </tags>
   </entry>
   <entry>
+    <title>数字逻辑设计及应用</title>
+    <url>/posts/508586316.html</url>
+    <content><![CDATA[<blockquote>
+<p>因为是英文答题和英文题目，所以带的英文有点多</p>
+</blockquote>
+
+
+	<div class="row">
+    <embed src="/file/数字逻辑设计及应用.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📖课程笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>私人日记</title>
     <url>/posts/3073024705.html</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -1198,6 +1220,35 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
       </categories>
       <tags>
         <tag>📡信号课设</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电磁场与波</title>
+    <url>/posts/761263898.html</url>
+    <content><![CDATA[<p>这份笔记是在学习完整本书之后没有按照课本顺序按自己的归纳顺序书写的，课时笔记见第二份pdf</p>
+
+
+	<div class="row">
+    <embed src="/file/电磁场.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+<hr>
+
+
+	<div class="row">
+    <embed src="/file/电磁场k.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📖课程笔记</tag>
       </tags>
   </entry>
   <entry>
