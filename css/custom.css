@@ -90,32 +90,57 @@
 
 
 
-/*透明*/
-#aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
+/* 透明 */
+/* 日间模式 */
+[data-theme="light"] #aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
     /* 以下代表透明度为0.5 */
     background: rgba(255,255,255,.6);
 }
 /*侧边栏页面*/
-#aside-content>.card-widget  {
+[data-theme="light"] #aside-content>.card-widget  {
     background: rgba(255,255,255,.6);
 }
-#aside-content>.sticky_layout>.card-widget{
+[data-theme="light"] #aside-content>.sticky_layout>.card-widget{
     background: rgba(255,255,255,.6);
 }
 /*文章页面*/
-.layout>#post{
-    background: rgba(255,255,255,.9);
+[data-theme="light"] .layout>#post{
+    background: rgba(255,255,255,.8);
 }
 /*分类页面*/
-.layout>#page{
+[data-theme="light"] .layout>#page{
     
     background: rgba(255,255,255,.6);
 }
 /*时间轴页面*/
-.layout>#archive{
+[data-theme="light"] .layout>#archive{
     background: rgba(255,255,255,.6);
 }
-
+/* 夜间模式 */
+[data-theme="dark"] #aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
+  /* 以下代表透明度为0.5 */
+  background: rgba(25,25,25,.6);
+}
+/*侧边栏页面*/
+[data-theme="dark"] #aside-content>.card-widget  {
+  background: rgba(25,25,25,.6);
+}
+[data-theme="dark"] #aside-content>.sticky_layout>.card-widget{
+  background: rgba(25,25,25,.6);
+}
+/*文章页面*/
+[data-theme="dark"] .layout>#post{
+  background: rgba(25,25,25,.8);
+}
+/*分类页面*/
+[data-theme="dark"] .layout>#page{
+  
+  background: rgba(25,25,25,.6);
+}
+/*时间轴页面*/
+[data-theme="dark"] .layout>#archive{
+  background: rgba(25,25,25,.6);
+}
 
 @font-face{
   font-family:'Coca' ;  /* 字体名自定义即可 */
@@ -258,4 +283,105 @@ i:hover{
 /* 悬停菜单栏时的鼠标指针 */
 #nav .site-page:hover{
       cursor: url('https://npm.elemecdn.com/akilar-candyassets/cur/hf.cur'),auto;
+}
+
+/* 暗色适配 */
+/* aplayer暗色模式适配 */
+[data-theme="dark"] .aplayer {
+  background: #000;
+  color: #fff;
+}
+[data-theme="dark"] .aplayer .aplayer-info .aplayer-music .aplayer-author {
+  color: #ddd;
+}
+[data-theme="dark"] .aplayer .aplayer-list ol li.aplayer-list-light {
+  background: #505050;
+}
+[data-theme="dark"] .aplayer .aplayer-list ol li .aplayer-list-author {
+  color: #aaa;
+}
+[data-theme="dark"] .aplayer .aplayer-list ol li .aplayer-list-index {
+  color: #cfcfcf;
+}
+[data-theme="dark"] .aplayer .aplayer-lrc:after {
+  background: linear-gradient(180deg, hsl(0deg 0% 0% / 0%) 0, hsl(0deg 0% 0% / 80%));
+}
+[data-theme="dark"] .aplayer .aplayer-lrc:before {
+  background: linear-gradient(180deg, #000 0, hsl(0deg 0% 0% / 0%));
+}
+[data-theme="dark"] .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path{
+  fill: #fff;
+}
+[data-theme="dark"] .aplayer .aplayer-lrc p{
+  color: #fff;
+}
+[data-theme="dark"] .aplayer .aplayer-list ol li{
+  border-top: 1px solid #2e2e2e;
+}
+[data-theme="dark"] .aplayer.aplayer-withlist .aplayer-info{
+  border-bottom: 1px solid #404040;
+}
+[data-theme="dark"] .aplayer .aplayer-list ol li:hover{
+  background: #444;
+}
+/* Note亮暗色适配 */
+.note.default.flat{
+  background: #7771;
+}
+.note.primary.flat{
+  background: #6f42c111;
+}
+.note.success.flat{
+  background: #5cb85c11;
+}
+.note.info.flat{
+  background: #428bca11;
+}
+.note.warning.flat{
+  background: #f0ad4e11;
+}
+.note.danger.flat{
+  background: #d9534f11;
+}
+.note.flat{
+  color: var(--font-color);
+}
+/* Tag-hide亮暗色适配 */
+.hide-toggle>.hide-button{
+  background: #7772;
+  color: var(--font-color);
+}
+.hide-toggle{
+  border: 1px solid var(--tab-border-color);
+}
+/* 好康的链接暗色适配 */
+#article-container a.link-card{
+  background: var(--global-bg) !important;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%) !important;
+  color: var(--font-color) !important;
+}
+#article-container a.link-card:hover{
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%) !important;
+}
+#article-container a.link-card p.url{
+  color: var(--font-color) !important;
+}
+[data-theme=dark] .note{
+  filter: none;
+}
+/* 进度条暗色适配 */
+[data-theme="dark"] .progress{
+  filter: brightness(.7);
+}
+/* mathjax暗色适配 */
+[data-theme="dark"] .CtxtMenu_Menu{
+  background-color: black;
+  color: white;
+}
+[data-theme="dark"] .CtxtMenu_Info{
+  background-color: #333;
+  color: white;
+}
+[data-theme="dark"] .CtxtMenu_InfoContent{
+  background-color: #222;
 }
