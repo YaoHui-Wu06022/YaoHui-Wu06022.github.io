@@ -92,7 +92,7 @@
 
 /* 透明 */
 /* 日间模式 */
-[data-theme="light"] #aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
+#aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
     /* 以下代表透明度为0.5 */
     background: rgba(255,255,255,.6);
 }
@@ -117,10 +117,6 @@
     background: rgba(255,255,255,.6);
 }
 /* 夜间模式 */
-[data-theme="dark"] #aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
-  /* 以下代表透明度为0.5 */
-  background: rgba(25,25,25,.6);
-}
 /*侧边栏页面*/
 [data-theme="dark"] #aside-content>.card-widget  {
   background: rgba(25,25,25,.6);
