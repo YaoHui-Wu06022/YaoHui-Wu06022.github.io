@@ -751,22 +751,6 @@ using std::end;</p>
       </tags>
   </entry>
   <entry>
-    <title>Qt5开发及实例代码</title>
-    <url>/posts/1234560.html</url>
-    <content><![CDATA[<h1>Qt5开发及实例代码</h1>
-<p>本帖记录我学习Qt的过程，用的是《Qt5开发及实例》第四版；</p>
-<p><a href="/posts/1234560">答案目录</a></p>
-<p>编译器：Visual Studio Professional 2022，排版Markdown语法</p>
-<hr>
-<ul>
-<li><a href="/posts/1234561">第1章 Qt概述</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>👨‍💻QT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RC文氏电桥分析</title>
     <url>/posts/696065812.html</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
