@@ -897,6 +897,15 @@ using std::end;</p>
       </tags>
   </entry>
   <entry>
+    <title>Latex常用语法格式</title>
+    <url>/posts/4168930607.html</url>
+    <content><![CDATA[<p>写论文总会碰到一些记不起来的latex语法，在这里浅记一下方便自己找</p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+  </entry>
+  <entry>
     <title>pyqt5简单实践</title>
     <url>/posts/3865533702.html</url>
     <content><![CDATA[<h2 id="创建窗口">创建窗口</h2>
