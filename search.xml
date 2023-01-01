@@ -897,23 +897,6 @@ using std::end;</p>
       </tags>
   </entry>
   <entry>
-    <title>Latex常用语法格式</title>
-    <url>/posts/4168930607.html</url>
-    <content><![CDATA[<p>写论文总会碰到一些记不起来的latex语法，在这里浅记一下方便自己找</p>
-<h2 id="图片">图片</h2>
-<p>单张图片：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;figure&#125;[H] </span><br><span class="line">    <span class="keyword">\centering</span>		 </span><br><span class="line">    <span class="keyword">\includegraphics</span>[width=<span class="keyword">\textwidth</span>]&#123;&#125;<span class="comment">% 文件位置</span></span><br><span class="line">    <span class="keyword">\caption</span>&#123;<span class="keyword">\centering</span> &#125; <span class="comment">% 标题</span></span><br><span class="line">    <span class="keyword">\label</span>&#123;&#125; <span class="comment">% 标签</span></span><br><span class="line"> <span class="keyword">\end</span>&#123;figure&#125; </span><br></pre></td></tr></table></figure>
-<h2 id="伪代码">伪代码</h2>
-<p>前面需要引入包：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\usepackage</span>&#123;algorithm&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;algpseudocode&#125;</span><br><span class="line"><span class="keyword">\usepackage</span>&#123;amsmath&#125;</span><br><span class="line"><span class="comment">% 以下两个中文论文用</span></span><br><span class="line"><span class="keyword">\renewcommand</span>&#123;<span class="keyword">\algorithmicrequire</span>&#125;&#123;<span class="keyword">\textbf</span>&#123;输入:&#125;&#125;</span><br><span class="line"><span class="keyword">\renewcommand</span>&#123;<span class="keyword">\algorithmicensure</span>&#125;&#123;<span class="keyword">\textbf</span>&#123;输出:&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>遗传算法例子：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;algorithm&#125;[H]</span><br><span class="line">    <span class="keyword">\caption</span>&#123; Architecture of Genetic Algorithm&#125;</span><br><span class="line">    <span class="keyword">\begin</span>&#123;algorithmic&#125;[1]</span><br><span class="line">    		<span class="keyword">\Require</span></span><br><span class="line">    		<span class="keyword">\Ensure</span></span><br><span class="line">        <span class="keyword">\State</span> Initialization: generate an initial population of individuals</span><br><span class="line">        <span class="keyword">\State</span> Evaluate the fitness value of all the individuals in the current population</span><br><span class="line">        <span class="keyword">\If</span> &#123;the stopping condition is not met&#125;</span><br><span class="line">        <span class="keyword">\State</span> Selection: Select a mating pool from the current population</span><br><span class="line">        <span class="keyword">\State</span> Reproduction: Perform crossover and mutation to generate a new population to replace 				  the old population</span><br><span class="line">        <span class="keyword">\State</span> Evaluate the fitness value of all the individuals in the current population</span><br><span class="line">        <span class="keyword">\EndIf</span></span><br><span class="line">    <span class="keyword">\end</span>&#123;algorithmic&#125;</span><br><span class="line"><span class="keyword">\end</span>&#123;algorithm&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-  </entry>
-  <entry>
     <title>pyqt5简单实践</title>
     <url>/posts/3865533702.html</url>
     <content><![CDATA[<h2 id="创建窗口">创建窗口</h2>
