@@ -8427,7 +8427,7 @@ mjx-container[display],
   border-radius: 5px !important;
 }
 [data-theme="dark"] #web_bg {
-  background: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071512540.webp);
+  background: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202302271109000.webp);
   background-attachment: local;
   background-position: center;
   -webkit-background-size: cover;
@@ -8437,7 +8437,7 @@ mjx-container[display],
 }
 @media screen and (max-width: 800px) {
   #web_bg {
-    background: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071512088.webp) !important;
+    background: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202302271108376.webp) !important;
     background-attachment: local !important;
     background-position: center !important;
     -webkit-background-size: cover !important;
@@ -8446,7 +8446,7 @@ mjx-container[display],
     background-repeat: no-repeat !important;
   }
   [data-theme="dark"] #web_bg {
-    background: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071512889.webp) !important;
+    background: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202302271108071.jpg) !important;
     background-attachment: local !important;
     background-position: center !important;
     -webkit-background-size: cover !important;
