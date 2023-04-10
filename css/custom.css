@@ -138,14 +138,14 @@
   background: rgba(25,25,25,.6);
 }
 
-@font-face{
-  font-family:'Coca' ;  /* 字体名自定义即可 */
-  src:url('../fonts/Coca.TTF'); /* 字体文件路径 */
+/* @font-face{ */
+  /* font-family:'Coca' ;  字体名自定义即可 */
+  /* src:url('../fonts/Coca.TTF'); 字体文件路径 */
   /* font-display : swap; */
-}
+/* } */
 
 body {
-  font-family: sans-serif, 'Coca';
+  font-family: sans-serif;
 }
   
 
