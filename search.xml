@@ -757,7 +757,7 @@ using std::end;</p>
 
 
 	<div class="row">
-    <embed src="/file/RC文氏电桥分析.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/RC文氏电桥分析.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1341,7 +1341,7 @@ using std::end;</p>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/固体半导体物理.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/固体半导体物理.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1531,7 +1531,7 @@ using std::end;</p>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/大学物理一.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/大学物理一.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1550,7 +1550,7 @@ using std::end;</p>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/大学物理二.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/大学物理二.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1568,7 +1568,7 @@ using std::end;</p>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/大物实验.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/大物实验.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1645,7 +1645,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
 
 
 	<div class="row">
-    <embed src="/file/应光.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/应光.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1667,7 +1667,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
 
 
 	<div class="row">
-    <embed src="/file/数字逻辑设计及应用.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/数字逻辑设计及应用.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1702,7 +1702,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/概率论.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/概率论.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1719,7 +1719,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <title>正弦信号调制和解调</title>
     <url>/posts/2781577970.html</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="156340a910618a82344c373da5576b6151ec708c3f76ed2ea9d7a3deda8fb161">c6edd953b26c9aed6989fa669cb2a4b04cc33d38fd610590856ef60c8f4d2d235df944ee80e6b6214335c52c18fe39370b8e925d4390e752cdf7c7603b69d49544bb2104bb9882a87b010bc4cf04a139a460054b964ba14717859207486aec0f76818c100b4a69a1cddb9e3c83a31a1825e004dddf3ebbf439ee766cbff1fe2682576a6bcf42bba797a3f1173481b33b196acbf796fa748caa47b4219203be01718c6ca940c5fa675015d59ae51976f97d1d0aaf6c2c432158d285b91d281f90fd3ca3f11a613f3d1373a06d5ad53ade</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="bace696708d3e1627742e2a6eea639759a351dedfba48325b78444017f7fab74">c6edd953b26c9aed6989fa669cb2a4b04cc33d38fd610590856ef60c8f4d2d235df944ee80e6b6214335c52c18fe39370b8e925d4390e752cdf7c7603b69d49544bb2104bb9882a87b010bc4cf04a139a460054b964ba14717859207486aec0f4e5dbe40e7e54a27d4bf4a136bf73d3fb70b8d412c6ad758089a72c9b01202454f169449fa70a49d065310caf2c88a51ee07bc686899ecbff01bc50796762558bbfe295f176bed91928abf080d8a10fdca1bc2796ae6dc3efca552b6d0485295e5790117a01194d608b532c4f449dce0a7437a61bd094f768ff0e81e10fbbc6b322be254eef982a29fd021630de443d8f19456ec81a87b642318fd75c89a93d5</script>
   <div class="hbe hbe-content">
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
@@ -1743,7 +1743,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/激光.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/激光.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1762,7 +1762,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/物理光学.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/物理光学.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1781,7 +1781,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/电分.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/电分.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1801,7 +1801,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
 
 
 	<div class="row">
-    <embed src="/file/电磁场.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/电磁场.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1810,7 +1810,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
 
 
 	<div class="row">
-    <embed src="/file/电磁场k.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/电磁场k.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -2138,7 +2138,7 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
     <content><![CDATA[
 
 	<div class="row">
-    <embed src="/file/开卷纸.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/开卷纸.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
