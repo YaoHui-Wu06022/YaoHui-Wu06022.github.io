@@ -3251,7 +3251,7 @@ $$<br>
 <p>由于现在大部分国内航班移动到天府机场了，所以首先还是写去天府的路线</p>
 <div class="tabs" id="2"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#2-1">路线1(高德路线修改)</button></li><li class="tab"><button type="button" data-href="#2-2">路线2(个人觉得最优)</button></li><li class="tab"><button type="button" data-href="#2-3">路线3(打车路线)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="2-1"><p>有轨电车蓉2号线（成都西站方向）到成都西站——地铁9号线（金融城东方向）到孵化园站——地铁18号线（天府机场北方向）到天府机场1号2号航站楼</p>
 <p>优缺点：全程约用时<span class='p blue'>2小时</span>，约13元。由于有轨电车第一班合作路站为6:30，所以<b>建议10:00之前的飞机请不要选择这个路线</b>。高德推荐的路线是有轨电车在联工下车，在黄田坝换乘9号线，在这里换乘不是很好的选择，不如在成都西站换乘。</p>
-<p><span class='nota' data-nota='可以去体验一下'>9号线是无人驾驶地铁，可以在首末车厢以司机位看地铁运行</span>。18号线注意是两种终点站（西博城和天府机场北），请选择前往天府机场北方向的。18号线同时也存在快线慢线，<b>一般快线等不到，选择慢线即可</b>。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="2-2"><p>打车到黄田坝地铁站——地铁9号线（金融城东方向）到孵化园——地铁18号线（天府机场北方向）到天府机场1号2号航站楼。</p>
+<p><span class='nota' data-nota='可以去体验一下'>9号线是无人驾驶地铁，可以在首末车厢以司机位看地铁运行</span>。18号线注意是两种终点站（兴隆站和天府机场北），请选择前往天府机场北方向的。18号线同时也存在快线慢线，<b>一般快线等不到，选择慢线即可</b>（快线现在仅从成都南站和天府机场出发）</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="2-2"><p>打车到黄田坝地铁站——地铁9号线（金融城东方向）到孵化园——地铁18号线（天府机场北方向）到天府机场1号2号航站楼。</p>
 <p>优缺点：适合那些坐有轨电车头晕的or飞机稍微早一点的。9号线黄田坝第一班6:10，地铁耗时约<span class='p blue'>1h15min</span>，所以飞机早于8:40的请不要选择这方案。约20元路费（最好和朋友一起走），总时长在<span class='p blue'>1小时30分钟左右</span></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="2-3"><p>选择1：打车到火车南站——地铁18号线（天府机场北方向）到天府机场1号2号航站楼。</p>
 <p>优缺点：打车打到一半能稍微省点路费，火车南站第一班地铁为6:00，地铁用时约50分钟。飞机早于8点的就不要考虑这个方案了</p>
 <p>选择2：直接打车到天府机场</p>
@@ -3262,10 +3262,9 @@ $$<br>
 <p>优缺点：很快，<span class='p blue'>半个小时</span>就到了，路费约60块钱，如果不想操心或者飞机太早了可以选择采用此方式（拼车便宜！）</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
 <h3 id="目的地清水河">目的地清水河</h3>
 <h4 id="成都东站→清水河校区">成都东站→清水河校区</h4>
-<div class="tabs" id="4"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#4-1">路线1</button></li><li class="tab"><button type="button" data-href="#4-2">路线2(个人认为最优)</button></li><li class="tab"><button type="button" data-href="#4-3">路线3</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="4-1"><p>地铁2号线（犀浦方向）到中医大省医院——地铁4号线（万盛方向）到成都西站——有轨电车蓉2号线（郫县西站/红展东路方向）到<b>合作路站</b></p>
+<div class="tabs" id="4"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#4-1">路线1</button></li><li class="tab"><button type="button" data-href="#4-2">路线2(个人认为最优)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="4-1"><p>地铁2号线（犀浦方向）到中医大省医院——地铁4号线（万盛方向）到成都西站——有轨电车蓉2号线（郫县西站/红展东路方向）到<b>合作路站</b></p>
 <p>优缺点：全长约<span class='p blue'>75分钟</span>，7元钱。同样的同层换乘，省点换乘时间。有轨电车最后一班为<span class='p cyan'>21:40</span>，建议20:50之后到达的动车不要选择此路线。要非常注意<span class='nota' data-nota='真的是阴间设定，不能在电子科大站下车'>有轨电车别在电子科大站下</span>，要不然就离宿舍区很远。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="4-2"><p>地铁2号线（犀浦方向）到犀浦——打车到电子科技大学西门</p>
-<p>优缺点：<span class='p red'>对于新生较友好</span>，在犀浦站有接站人员。但是<b>开学阶段在犀浦容易打到黑车</b>，要慎重一点，约15元左右（最好还是高德打车）</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="4-3"><p>地铁2号线（犀浦方向）到犀浦——地铁6号线（望丛祠方向）到红高路——公交301路/P18路/205路/771路到电子科大清水河校区西校门站</p>
-<p>优缺点：301路公交车最晚到23:20分，基本可以满足坐地铁能够都衔接上公交。全程用时较短，花费9元。这条线路其实也挺麻烦的，但是出现在新生的入学手册上</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<p>优缺点：<span class='p red'>对于新生较友好</span>，在犀浦站有接站人员。但是<b>开学阶段在犀浦容易打到黑车</b>，要慎重一点，约15元左右（最好还是高德打车）</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
 <h4 id="天府机场→清水河校区">天府机场→清水河校区</h4>
 <p>无特殊变化，和去天府机场相同，参考  清水河校区→天府机场</p>
 <div class="tabs" id="5"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#5-1">路线1</button></li><li class="tab"><button type="button" data-href="#5-2">路线2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="5-1"><p>地铁18号线（火车南站方向）到孵化园——地铁9号线（黄田坝方向）到成都西站——有轨电车蓉2号线（郫县西站/红展东路方向）到合作路站</p>
@@ -3276,10 +3275,18 @@ $$<br>
 <p>优缺点：同清水河校区→双流机场路线1，如果<b>晚上太晚的话可选择到黄田坝打车回学校</b></p>
 <h3 id="动车学生票优惠实现">动车学生票优惠实现</h3>
 <p>拿录取通知书是可以购买七五折学生票的，可以选择在线下凭借录取通知书买或者在12306 app上买票，在12306 app买票时，<b>需将自己的身份改为学生</b>。在进站的时候，<span class='p cyan'>请走人工通道（因为机器你刷不开），检票时也需走人工通道</span>。</p>
-<p>大约在国庆后进行学生资质认证，<b>凭借学生证和身份证在火车站的自助取票机上完成资质认证即可</b>（这一步也可在回家前认证也行）</p>
+<p>学生资质认证：</p>
+<ul>
+<li>
+<p><b>凭借学生证和身份证在火车站的自助取票机上完成资质认证即可</b>（这一步也可在回家前认证也行）</p>
 <blockquote>
-<p>所以第一次去使用学生优惠要提前一点去搞</p>
+<p>如果采用线下方式使用学生优惠要提前一点去搞</p>
 </blockquote>
+</li>
+<li>
+<p>2023年开始可以使用线上认证了，公众号链接：<a href="https://mp.weixin.qq.com/s?__biz=MjM5NTc3MTgwMA==&amp;mid=2651228622&amp;idx=1&amp;sn=45fc1b0599977bca1c5576da32965f78&amp;chksm=bd014d398a76c42f3e9b385ff1d0d4a4279169a288a68f4edc9e70887c7cd3ffe4c25612ee3c&amp;mpshare=1&amp;scene=23&amp;srcid=0605ZOZIzPiAutnMp9UMNizO&amp;sharer_sharetime=1685947601207&amp;sharer_shareid=75318f14d93c3dc27b3afa03db4658e1#rd">学生优惠资质可以在！线！核！验！啦</a></p>
+</li>
+</ul>
 <p>认证后一年有4次优惠机会，<span class="bubble-content">一般是寒暑假回家返校用 </span><span class="bubble-notation"><span class="bubble-item" style="background-color:#de4489;"> 当然，你要是经常要去哪个城市也是可以的哦 </span></span>，只不过反正一年是4次机会</p>
 <p>注意事项</p>
 <ol>
@@ -3319,7 +3326,7 @@ $$<br>
 <h3 id="地铁出发">地铁出发</h3>
 <p>最近的就是红高路地铁站，但过去也不方便，还是选有轨吧</p>
 <p>成都地铁与公交是有9折优惠的，需要提前下载天府通app。</p>
-<span class='p red'>使用支付宝的乘车码没有优惠的</span>。在某些重污染天气时，会短时公交免费与地铁8折优惠。
+<span class='p red'>使用支付宝的乘车码没有优惠的</span>。在某些重污染天气时，会短时公交免费与地铁8折优惠。（好像每月5号也有）
 <p>天府通app的余额可以有两种方式，一种是使用微信or支付宝往里面充钱，每次充的只能是十的倍数，第二种是绑定支付宝或者微信的免密支付，这种支付同样享受9折优惠，且使用支付宝支付的话，支付宝的蚂蚁森林也会积累对应能量的（公交80g，地铁52g）</p>
 <h2 id="学校环境篇">学校环境篇</h2>
 <p>这篇仅限刚入校快速融入校园用，看完这个变老油条几乎不咋可能，顶多就是少走点弯路</p>
@@ -3331,7 +3338,7 @@ $$<br>
 <p>南门：学校的主校门，无有轨电车站台。南门对面有许多饭店，如盐都干锅王等。学校的标志大石头就在这里，从这里进校门能看到学校的主楼。</p>
 <p>西二门：平时使用率最高的校门，有轨电车站台（合信路站）。西二门是<b>离龙湖时代天街最近的门</b>，所以平时出去聚餐啥的在这个门集结的人是最多的。</p>
 <p>西门：<span class='p red'>放假or进城里面玩使用率最高的校门</span>，有轨电车站台（合作路站）。这个校门是离宿舍区最近的门，进校报到大概率就从这个门进来了。</p>
-<p>西北门：准确来说是校医院门，之前是可以从这个校门出校的，但是现在由于疫情防控，这个门一直处于关闭状态。</p>
+<p>西北门：准确来说是校医院门，疫情防控期间关闭，现在疫情过去，这个门日常还是开放的。</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogpic/1.webp" alt="1" style="zoom: 80%;" />
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogpic/2.webp" alt="2" style="zoom:67%;" />
 <h3 id="品学楼">品学楼</h3>
@@ -3443,7 +3450,7 @@ $$<br>
 <p>组团开门时间约早上6点多，关门时间为晚23:00，在23:00到开门前，<b>进/出组团会被视为晚归/晚出</b>（阿姨会让你登记，辅导员那里是会看见的）</p>
 <p>选宿舍是在开学前，大家可以在班群里面找找聊得来的人一起选（一定要选好，不然到时候吵架啥的很麻烦，最好生活作息能差不多）</p>
 <p>宿舍是可以自己进行一些小装饰的，比如贴个壁纸啥的，或者直接二刺猿</p>
-<p>图中为清水河校区的宿舍分布图。一般来说，靠近组团内侧的房间号为双数，靠近外侧的组团号为单数，可根据此图判断哪边为阳面，哪面是阴面</p>
+<p>清水河校区的宿舍分布图：</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogpic/18.webp" alt="18" style="zoom:67%;" />
 <h3 id="寝室相关">寝室相关</h3>
 <p>每周四中午需要进行宿舍大扫除，周四下午56节课后学校会组织检查卫生，宿舍卫生评定有特/一/二/三等奖，<span class='nota' data-nota='我太难了，我没拿过'>能拿奖的话基本上整个宿舍的洗衣液都不用愁了</span></p>
@@ -3489,9 +3496,13 @@ $$<br>
 <p>打印机打印：在微信搜索“流海云印”，提前把文件发到文件传输助手，然后在小程序选择对应的文件，支付之后，在打印机上使用扫码or用文件码打印即可。</p>
 <h3 id="快递">快递</h3>
 <p>快递点均位于商业街。</p>
-<p>商业街1楼：自行车棚菜鸟驿站（凭菜鸟app的身份码取件）</p>
-<p>商业街2楼：商业街2楼菜鸟驿站与邮政快递（凭菜鸟app身份码取件）</p>
-<p>商业街3楼：京东快递（凭手机尾号后四位）与顺丰快递（凭取件码取件）</p>
+<p>商业街1楼：菜鸟驿站（凭菜鸟app的身份码取件）与京东快递（在菜鸟驿站的后面）（凭手机尾号取件）</p>
+<p>商业街2楼：邮政快递（似乎是身份码取件）</p>
+<p>商业街3楼：顺丰快递（凭取件码取件）</p>
+<h3 id="商业街">商业街</h3>
+<p>2023年暑假更新：</p>
+<p>商业街目前一楼饮食有爱达乐、瑞幸、书亦、一只酸奶牛、蜜雪冰城，还有众多店铺，如果比较多人去的话可能选择干锅最优</p>
+<p>二楼的零食有鸣很nice，东西都很便宜，十指艺是学校里面剪发相对还行的</p>
 <h3 id="校园一卡通">校园一卡通</h3>
 <p>众所周知，校园一卡通有很多种用法，常见的有饭堂与超市的刷卡消费，宿舍热水消费，刷组团门禁，图书馆入馆借书还书等。</p>
 <p>但是一卡通有时候也有一种另类的用法，比如：拿卡翘宿舍门……</p>
@@ -3500,11 +3511,10 @@ $$<br>
 <p>支付宝：搜电子科技大学——进入生活号——右下角的电子校园卡。</p>
 <p>微信：<a href="https://mp.weixin.qq.com/s/54GCX19EJde8NXRPqXFNcQ">https://mp.weixin.qq.com/s/54GCX19EJde8NXRPqXFNcQ</a> （参考这个教程绑定）</p>
 <h3 id="单车？共享单车？电动车">单车？共享单车？电动车</h3>
-<p>学校里共享单车以哈啰单车巨多，共享电动车有两种牌子。</p>
-<p>刚上大学可以考虑买个单车，优缺点就是可以自己选配置，四年下来的话可能更便宜一点，车坏了得自己修，车在哪停就得在哪个地方骑（这个其实挺麻烦的）</p>
-<p>也可以自己买个电动车，优缺点就是可以带人（懂的都懂），但是得自己找充电桩充电(有素质不好的人你刚插上电就被拔了，直接mmp)</p>
+<p>学校里共享单车以哈啰单车巨多，共享电动车一般就是小绿车。</p>
+<p>刚上大学可以考虑买个单车，优点就是可以自己选配置，四年下来的话可能更便宜一点，缺点就是车坏了得自己修，车在哪停就得在哪个地方骑（这个其实挺麻烦的）</p>
+<p>也可以自己买个电动车，优点就是可以带人（懂的都懂），缺点就是得自己找充电桩充电(有素质不好的人你刚插上电就被拔了，直接mmp)，但是电动车保值，四年算下来不亏</p>
 <p>共享单车的话，优缺点就是大约每月10多块钱，想用车在哪都可以，<b>校外也可以</b>，但是在<b>上下课高峰期经常是找不到车</b>。</p>
-<p>还有一种就是校园里面的小白车，一般的起始站是八组团下的校园超市，1块钱一次，如果班级要搬书的话，可以提前联系包车，当然按照行李箱占用的座位数进行收费。</p>
 <h3 id="记得带伞">记得带伞</h3>
 <p>这节为什么单独拿出来说呢？dddd</p>
 <p>成都天气多变，往往会出现早上还晴空万里，下午就狂风暴雨，所以随身带把伞是必需的。</p>
@@ -3643,7 +3653,7 @@ $$<br>
 <ol>
 <li>
 <p>土豆</p>
-<p>年年排队，日日排队，不过好<strong>吃</strong>是确实有点好吃，糖醋麻辣不错</p>
+<p>年年排队，日日排队，不过好吃是确实有点好吃，糖醋麻辣不错</p>
 </li>
 <li>
 <p>苕皮豆干</p>
