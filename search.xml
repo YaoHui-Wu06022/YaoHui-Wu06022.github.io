@@ -1944,12 +1944,44 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
 </li>
 </ul>
 <h2 id="文档类">文档类</h2>
+<p>这里面的软件下载链接似乎都是我的百度网盘分享，可别把我举办了(bushi)</p>
+<ul>
+<li>
+<p>office</p>
 <p>看个人喜好，我喜欢用offic，WPS没咋用过，虽然office是付费软件，但是可以破解啊</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/Fuxi/image-20230815175135028.png" alt="image-20230815175135028" style="zoom:50%;" />
 <p>通过这个软件可以下载安装office全家桶，Word，Excel，PowerPoint(就是PPT)</p>
 <p>然后安装完激活就行，版本可能不是最新的，我破解完的是2016，但这个版本高低其实差别也不太大</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/Fuxi/image-20230815175239946.png" alt="image-20230815175239946" style="zoom: 50%;" />
 <p>下载链接: <a href="https://pan.baidu.com/s/1Uv1b4vyH3ULlPlbC82gYBQ?pwd=z8vy">https://pan.baidu.com/s/1Uv1b4vyH3ULlPlbC82gYBQ?pwd=z8vy</a> 提取码: z8vy</p>
+</li>
+<li>
+<p>福昕pdf</p>
+<p>完全舍弃wps以后肯定要遇到pdf的打开问题，福昕pdf是目前大部分人认为的最好用的pdf编译器</p>
+<p>下载链接：<a href="https://pan.baidu.com/s/1Dwjl8BwA2pe991e0RXxlvg?pwd=apfc">https://pan.baidu.com/s/1Dwjl8BwA2pe991e0RXxlvg?pwd=apfc</a> 提取码: apfc</p>
+</li>
+<li>
+<p>Nanazip</p>
+<p>压缩包其实用啥都差不多，WinRAR、7z等也行，但我还是喜欢window商店下的这个</p>
+</li>
+<li>
+<p>typora</p>
+<p>markdown的一个很好用的编译器，但是正版要收费，目前我还是用的破解版</p>
+<p>这个编译器集成了多种语言，包括latex，html等，兼容代码块等功能，适合写笔记</p>
+<p>你目前所看到的网页也是用这个编译器写的(.md文件)</p>
+<p>下载链接: <a href="https://pan.baidu.com/s/1aqBMoAYiVIev8EhtLuZclQ?pwd=xnpp">https://pan.baidu.com/s/1aqBMoAYiVIev8EhtLuZclQ?pwd=xnpp</a> 提取码: xnpp</p>
+</li>
+<li>
+<p>vscode + latex</p>
+<p>把它归到文档这一类是因为我的vscode只给配了latex，所以我平常用它也只是写比较规范的东西，比如数模论文</p>
+<p>这个环境的配置还是移步百度吧，比较复杂，如果你不想这么玩，简单点的话直接移步下面的overleaf</p>
+</li>
+<li>
+<p>overleaf</p>
+<p>网页版latex，还可以支持共享合作写论文(目前没用过)，而且它的latex版本还是比较高的，用vscode配的话可能以后会碰到一些版本问题</p>
+<p><a href="https://www.overleaf.com/">Overleaf, Online LaTeX Editor</a></p>
+</li>
+</ul>
 <h2 id="工具类">工具类</h2>
 <ul>
 <li>
@@ -1958,8 +1990,48 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
 <p>甚至还可以实现贴图，方便你对照</p>
 <p>下载链接：<a href="https://zh.snipaste.com/">Snipaste - 截图 + 贴图</a></p>
 </li>
+<li>
+<p>Outlook</p>
+<p>有些时候不想打开一些文件但是想看一下它的内容，用上这个就很方便了，下载了它以后点击一个文件按上空格就有它的简单信息，图片一类的还有缩略图查看</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/Fuxi/image-20230911110813547.png" alt="image-20230911110813547" style="zoom: 67%;" />
+<p>这个是在微软商城Microsoft Store里搜索下载</p>
+</li>
+<li>
+<p>mathtype</p>
+<p>写数学公式的必要工具，虽然office有内置的数学公式编译器，但是写出来的公式感觉还是不太好看</p>
+<p>这个软件里面也集成了latex语言，所以可以一举两得</p>
+<p>我用的还是6版本的，7版本我电脑打开有些卡顿</p>
+<blockquote>
+<p>这个安装过程可能会有一些bug，如果你的office和mathtype都安装在默认c盘位置应该不容易出错</p>
+<p>不然你需要花点时间去处理文件位置</p>
+</blockquote>
+<p>下载完以后每个月删除注册表就可以无限使用了</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/Fuxi/image-20230911104759082.png" alt="image-20230911104759082" style="zoom:50%;" />
+</li>
+<li>
+<p>copytranslator</p>
+<p>英文翻译软件，可以实现边看边翻译，算是一个比较好的英文文献阅读工具吧</p>
+<p>主要是监听你的剪贴板进行翻译，翻译源是可以选择的，也有deepl的翻译源，但是不知道为什么经常用不了</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/Fuxi/image-20230911105447565.png" alt="image-20230911105447565" style="zoom: 67%;" />
+<p>下载链接：<a href="https://copytranslator.github.io/">CopyTranslator</a></p>
+</li>
+<li>
+<p>deepl</p>
+<p>科研翻译大部分人认为最准确的软件，也有copytranslator的监听功能，但我使用体验不是很好，感觉没copytranslator便捷</p>
+<p>一般都是一起使用，对照翻译</p>
+<p><a href="https://www.deepl.com/zh/translator">DeepL翻译：全世界最准确的翻译</a></p>
+</li>
+<li>
+<p>TopMost</p>
+<p>一个置顶窗口的软件，可以下一个时钟软件，然后把它置顶，主要用在抢票等环节，读秒</p>
+<p>下载链接：<a href="https://www.sordum.org/9182/window-topmost-control-v1-3/">Window TopMost Control v1.3 (sordum.org)</a></p>
+</li>
 </ul>
 <h2 id="插件类">插件类</h2>
+<p>插件下载在<a href="https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=zh-CN">Microsoft Edge 加载项</a></p>
+<blockquote>
+<p>我已经抛弃谷歌浏览器了</p>
+</blockquote>
 <ul>
 <li>
 <p>Tampermonkey油猴插件</p>
@@ -1968,13 +2040,12 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
 <blockquote>
 <p>别人写的很细我就不写了（不是我懒）</p>
 </blockquote>
-<p>目前我的油猴里面只有用这么几个，百度网盘下载比较好使，可以不用冲会员高速下载，需要配合idm使用</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/Fuxi/image-20230815174417628.png" alt="image-20230815174417628" style="zoom: 33%;" />
+<p>目前油猴里百度网盘下载比较好使，可以不用冲会员高速下载，需要配合idm使用</p>
 </li>
 <li>
 <p>一些别的插件</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/Fuxi/Snipaste_2023-08-15_17-42-51.png" alt="Snipaste_2023-08-15_17-42-51" style="zoom:50%;" />
-<p>目前我经常用的也就这些，IDM是配合百度网盘下载使用的</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/Fuxi/image-20230911103628725.png" alt="image-20230911103628725" style="zoom: 67%;" />
+<p>Super Vedio Speed Controller 可以实现网课的16倍速播放</p>
 </li>
 <li>
 <p>IDM</p>
