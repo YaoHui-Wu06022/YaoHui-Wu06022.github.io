@@ -751,6 +751,153 @@ using std::end;</p>
       </tags>
   </entry>
   <entry>
+    <title>RC文氏电桥分析</title>
+    <url>/posts/696065812.html</url>
+    <content><![CDATA[<h1>RC文氏电桥分析</h1>
+
+
+	<div class="row">
+    <embed src="https://cdn.jsdelivr.net/gh/YaoHui-Wu06022/CDN/pdf/RC文氏电桥分析.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+<p><strong>设计详细说明：</strong></p>
+<ul>
+<li><strong>论文资料整理：</strong></li>
+</ul>
+<ol>
+<li>
+<p>论文中传递函数的推导：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/85727168324e875af15db970f01a4352.png" style="zoom: 67%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/912d64ad20b920edd8cf3d0bcbf0a17a.png" style="zoom:67%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232228897.png" alt="image-20220411232228897" style="zoom: 67%;" />
+</li>
+<li>
+<p>稳定性的简要判断：</p>
+<p>劳斯判据：根都在复平面左半平面，系统稳定</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411232403672.png" alt="image-20220411232403672" style="zoom: 67%;" />
+</li>
+</ol>
+<ul>
+<li>
+<p><strong>K的7种取值下分析：</strong></p>
+<p><strong>代码块：</strong></p>
+<p>绘制对应零极点图：（lingjidian.m文件）</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">poles=roots(fenmu);<span class="comment">%求极点</span></span><br><span class="line"></span><br><span class="line">pzmap(sys,<span class="string">&#x27;r&#x27;</span>);<span class="comment">% 零极点分布图显示</span></span><br><span class="line"></span><br><span class="line">绘制时域单位冲击响应函数：（chongjixiangyinghanshu.m文件）</span><br><span class="line"></span><br><span class="line">clc<span class="comment">%清空命令行</span></span><br><span class="line"></span><br><span class="line">clear<span class="comment">%从工作区中删除项目、释放系统内存</span></span><br><span class="line"></span><br><span class="line">clf<span class="comment">%清空当前图窗窗口</span></span><br><span class="line"></span><br><span class="line">K=<span class="number">11</span>;<span class="comment">%可修改放大倍数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%可修改参数</span></span><br><span class="line"></span><br><span class="line">R=<span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line">C=<span class="number">1e-8</span>;</span><br><span class="line"></span><br><span class="line">RC=R\*C;</span><br><span class="line"></span><br><span class="line">fenzi=[K <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">fenmu=[RC <span class="number">3</span>-K <span class="number">1</span>/RC];</span><br><span class="line"></span><br><span class="line">sys=tf(fenzi,fenmu);<span class="comment">%构成传递函数</span></span><br><span class="line"></span><br><span class="line">t=<span class="number">0</span>:<span class="number">6</span>\*<span class="number">1e-6</span>:<span class="number">1e-3</span>; <span class="comment">%控制绘图的时间区间</span></span><br><span class="line"></span><br><span class="line">impulse(fenzi,fenmu,t) <span class="comment">%绘图</span></span><br><span class="line"></span><br><span class="line">title([<span class="string">&#x27;K=&#x27;</span>,num2str(K),<span class="string">&#x27;冲激响应函数&#x27;</span>])</span><br><span class="line"></span><br><span class="line">xlabel(<span class="string">&#x27;时间t&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>
+<p><strong>K&gt;5(取K=11)</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/51ce1427d7fff0c5e1b8fb863fe56a80.png" style="zoom:50%;" />
+<p>零极点为两个不同的正实数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/64f440264560f5d8461e1af3f5e89676.png" style="zoom:50%;" />
+<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
+<p>Multisim仿真：（之后不再给出电路图，仅改变大小来改变K）</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/c616ec282526489adcf52dcd495947bf.png" style="zoom:67%;" />
+<p>输出端产生的信号近似等于方波信号：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/1ddd22bf1f1ac209e9dd04e8797cdb74.png" style="zoom:50%;" />
+</li>
+<li>
+<p><strong>K=5</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/7cd6066a2e19f6a41e3b67fb62930591.png" style="zoom:50%;" />
+<p>零极点为两个相等的正实数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/357a9b48fb956f9ad49047045d97f36a.png" style="zoom:50%;" />
+<p>可知冲激响应函数单调上升，无界，系统不稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端产生的信号失真不能实现稳定的单一频率的震荡，在 t=0<br>
+开始到第一次到达峰值可以看到一段电压呈指数形式增长的曲线。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/04a46a6bdd804a0c8658e59ed0ec8a6a.png" style="zoom:50%;" />
+</li>
+<li>
+<p><strong>3&lt;K&lt;5（取K=3.5）</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/794f1a5ae68ad392679d6bf8bae144b9.png" style="zoom:50%;" />
+<p>零极点为两个共轭且实部大于0的虚数，收敛域不过jw轴，系统不稳定</p>
+<p>冲激响应函数：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/462dd56631904484a699202986050ed8.png" style="zoom:50%;" />
+<p>可知冲激响应函数增幅振荡上升，无界，系统不稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端产生的信号经过振荡后类似K=5的情况，振荡时间变长：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f3580b560539fc8552e7f8c6c66de8b1.png" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/f1af007816b4d4699fd662e51f5d35bc.png" style="zoom:50%;" />
+</li>
+<li>
+<p><strong>K=3</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/bfc1ae0293c0eba703a3855d7a906667.png" style="zoom:50%;" />
+<p>零极点为两个共轭的纯虚数，在jw轴上仅通过零极点不能判断系统是否稳定</p>
+<p>冲激响应函数：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/29d54dc5a26597b83848a9bc3b35be67.png" style="zoom:50%;" />
+<p>可知冲激响应函数等幅振荡，有界，系统稳定</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个范围内无规则振荡</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2d59fb7e88ed688e83570b1690b33dc0.png" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/6635c9710804dae9c91a18aab74db792.png" style="zoom:50%;" />
+</li>
+<li>
+<p><strong>1&lt;K&lt;3(取K=2)</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/2c3cc19945b0fdaaa04d790c94437b7c.png" style="zoom:50%;" />
+<p>零极点为两个共轭且实部小于0的虚数，收敛域过jw轴，可判断收敛</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/26dfeb58edc7b57f8ae54430efb569b8.png" style="zoom:50%;" />
+<p>可知冲激响应函数振荡衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个范围内无规则振荡趋于0</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/d19d2d95c4a2c05f72f40706a5fe8e38.png" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/a3fb7941e3b15bb1b706a5e2b43250c7.png" style="zoom:50%;" />
+</li>
+<li>
+<p><strong>K=1</strong></p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/4d8f50f46dfd4f2521fa53af688471b8.png" style="zoom:50%;" />
+<p>零极点为两个相等的负实数，收敛域过jw轴，可判断收敛</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8ce8f6fc850002f2685b2463b312dde6.png" style="zoom:50%;" />
+<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个振荡后趋于0</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/249384a69a03b4916ddf32d5712738f5.png" style="zoom:50%;" />
+</li>
+<li>
+<p>K&lt;1</p>
+<p>Matlab结果：</p>
+<p>零极点图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/9b7c629effb5dfd55cbcb98e7760b81f.png" style="zoom:50%;" />
+<p>零极点为两个不相等的负实数，收敛域过jw轴，可判断收敛</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/b215c4204bd951fd5c5503549e44c898.png" style="zoom:50%;" />
+<p>可知冲激响应函数非振荡衰减但也是衰减，有界，系统稳定，趋于0</p>
+<p>Multisim仿真：</p>
+<p>输出端的信号在一个振荡后趋于0</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/130432f65d638b147e4073d659ef173b.png" style="zoom:50%;" />
+</li>
+</ol>
+<ul>
+<li>
+<p><strong>对题目的感想和思考</strong></p>
+<p>并没有找到合适的方法实现K=3处的稳定波形，这是唯一的不足，不知道如何实现稳定</p>
+<p>对于题目的其他认为还是相对合适的，主要要懂得如何使用matlab’的那几个相关函数很好地绘制出冲击响应函数和零极点图；</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📡信号课设</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>butterfly美化过程</title>
     <url>/posts/3435245376.html</url>
     <content><![CDATA[<h1>全局背景的设置</h1>
@@ -1104,6 +1251,14 @@ using std::end;</p>
       </tags>
   </entry>
   <entry>
+    <title>乐山一日特种兵</title>
+    <url>/posts/1317525552.html</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>🧳旅行</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>保研的一路</title>
     <url>/posts/4013913837.html</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -1169,6 +1324,76 @@ using std::end;</p>
 ]]></content>
       <tags>
         <tag>🧳旅行</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>周期方波信号分解</title>
+    <url>/posts/3903647133.html</url>
+    <content><![CDATA[<h1>周期方波信号分解</h1>
+<p>pdf里面的代码：</p>
+<div class="tabs" id="m"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#m-1">KHz.m</button></li><li class="tab"><button type="button" data-href="#m-2">最终代码</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="m-1"><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="built_in">figure</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">5</span></span><br><span class="line">    si=tf([<span class="number">1000</span>*<span class="built_in">i</span> <span class="number">0</span>],[<span class="number">1</span> <span class="number">1000</span>*<span class="built_in">i</span> ((<span class="number">2</span>*<span class="built_in">i</span>*<span class="built_in">pi</span>*(<span class="number">10</span>^<span class="number">4</span>))^<span class="number">2</span>)]);</span><br><span class="line">    bode(si);</span><br><span class="line">    <span class="built_in">hold</span> on</span><br><span class="line">    str&#123;<span class="built_in">i</span>&#125; = [ num2str(<span class="number">10</span>*<span class="built_in">i</span>) <span class="string">&#x27;KHz&#x27;</span>];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">legend</span>(str);</span><br><span class="line"></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="m-2"><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clc,clear</span><br><span class="line"><span class="comment">%设置参数</span></span><br><span class="line">R=<span class="number">10</span>;</span><br><span class="line">L=<span class="number">10</span>*<span class="number">10</span>^(<span class="number">-3</span>);</span><br><span class="line">C=<span class="number">25.33</span>*<span class="number">10</span>^(<span class="number">-9</span>);</span><br><span class="line"><span class="comment">%固定的输入频率、角频率</span></span><br><span class="line">f=<span class="number">10</span>^<span class="number">4</span>;</span><br><span class="line">w0=<span class="number">2</span>*<span class="built_in">pi</span>*f;</span><br><span class="line"><span class="comment">%设置时间</span></span><br><span class="line">t = <span class="number">0</span>:<span class="number">1</span>/(<span class="number">10</span>^<span class="number">4</span>*f):<span class="number">1</span>/f;</span><br><span class="line"><span class="comment">%设置分割数</span></span><br><span class="line">k=<span class="number">1</span>:<span class="number">2</span>:<span class="number">1001</span>;</span><br><span class="line"><span class="comment">%sin前的系数</span></span><br><span class="line">Ak=<span class="number">4.</span>/(<span class="built_in">pi</span>*k);</span><br><span class="line"><span class="comment">%sin·分量</span></span><br><span class="line">Bk=<span class="built_in">sin</span>(w0*k&#x27;*t);</span><br><span class="line"><span class="comment">%输入U</span></span><br><span class="line">U=Ak*Bk;</span><br><span class="line"><span class="built_in">plot</span>(t,U);</span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"><span class="comment">%滤波器处理函数</span></span><br><span class="line">Hjw=<span class="number">1.</span>/(<span class="number">1</span>+<span class="number">1</span><span class="built_in">j</span>*(L*w0.*k./R - <span class="number">1.</span>/(C*R*w0.*k)));</span><br><span class="line"><span class="comment">%输出UR,这里加角度是因为不是用atan分母的角，而是直接用angle得到角</span></span><br><span class="line">Hs=<span class="built_in">abs</span>(Hjw)&#x27;.*<span class="built_in">sin</span>(w0*k&#x27;*t+<span class="built_in">angle</span>(Hjw)&#x27;);</span><br><span class="line">UR=Ak*Hs;</span><br><span class="line"><span class="built_in">plot</span>(t, UR);</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">&#x27;输入方波波形&#x27;</span>,<span class="string">&#x27;10KHz滤波器&#x27;</span>)</span><br><span class="line">axis([<span class="number">0</span> <span class="number">1</span>/f -<span class="built_in">inf</span> <span class="built_in">inf</span>])</span><br><span class="line"></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+
+	<div class="row">
+    <embed src="/file/周期方波信号分解.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📡信号课设</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>回声消除系统设计</title>
+    <url>/posts/842063440.html</url>
+    <content><![CDATA[<h1>回声消除系统设计</h1>
+<p><strong>设计详细说明：</strong></p>
+<p>设计系统在0.2s，0.4s产生回声</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220411231220251.png" alt="image-20220411231220251" style="zoom: 67%;" />
+<ul>
+<li>
+<p>Matlab代码：</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear,clc,close all;  </span><br><span class="line"></span><br><span class="line"><span class="comment">% 记录数据  </span></span><br><span class="line">fs=<span class="number">8000</span>; <span class="comment">% 声音采样频率  </span></span><br><span class="line">duration=<span class="number">3</span>; <span class="comment">% 记录时间  </span></span><br><span class="line"><span class="comment">%记录输入声音  </span></span><br><span class="line">myrecording = audiorecorder;  </span><br><span class="line">fprintf(<span class="string">&#x27;Speaking for %d seconds. \\n&#x27;</span>,duration);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;Start speaking.&#x27;</span>)  </span><br><span class="line">recordblocking(myrecording, duration);  </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;End of Recording.&#x27;</span>);  </span><br><span class="line"><span class="comment">%获得输入信息  </span></span><br><span class="line">x = getaudiodata(myrecording);  </span><br><span class="line"><span class="comment">%存储录音信息  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;luyin.wav&#x27;</span>,x,fs);  </span><br><span class="line"></span><br><span class="line"><span class="comment">%定义冲激响应函数  </span></span><br><span class="line">h=<span class="built_in">zeros</span>(<span class="number">1</span>,<span class="number">5000</span>);  </span><br><span class="line">h(<span class="number">1</span>)=<span class="number">4</span>/<span class="number">5</span>;h(<span class="number">0.2</span>\*fs)=<span class="number">0.6</span>;h(<span class="number">0.4</span>\*fs)=<span class="number">0.4</span>;  </span><br><span class="line"><span class="comment">% 卷积计算  </span></span><br><span class="line">y=conv(x,h);  </span><br><span class="line">k=audioplayer(y,fs);  </span><br><span class="line">play(k); <span class="comment">% 播放回音  </span></span><br><span class="line"><span class="comment">%存储回音  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;huiyin.wav&#x27;</span>,y,fs);  </span><br><span class="line"><span class="comment">%绘图  </span></span><br><span class="line">subplot(<span class="number">311</span>)  </span><br><span class="line"><span class="built_in">plot</span> (x) ;<span class="comment">%绘制原始音  </span></span><br><span class="line">title(<span class="string">&#x27;原始音&#x27;</span>);  </span><br><span class="line">subplot(<span class="number">312</span>)  </span><br><span class="line"><span class="built_in">plot</span> (y);<span class="comment">%绘制回音  </span></span><br><span class="line">title(<span class="string">&#x27;回音&#x27;</span>);  </span><br><span class="line"><span class="comment">%恢复计算  </span></span><br><span class="line">huifu=filter(<span class="number">1</span>, h, y );<span class="comment">%回音卷积1/h恢复初始  </span></span><br><span class="line">subplot(<span class="number">313</span>)  </span><br><span class="line"><span class="built_in">plot</span>(huifu);<span class="comment">%绘制恢复音  </span></span><br><span class="line">pause(<span class="number">5</span>);  </span><br><span class="line">sound(huifu)<span class="comment">%播放恢复音  </span></span><br><span class="line">audiowrite(<span class="string">&#x27;huifu.wav&#x27;</span>,huifu,fs);<span class="comment">%存储恢复音</span></span><br><span class="line"></span><br><span class="line">title(‘恢复音’)</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/8e4774914e7003ab259ac85478078076.png" style="zoom: 67%;" />
+<p>很容易看出原始音与恢复音的波形相同</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📡信号课设</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>回声系统设计</title>
+    <url>/posts/1545941666.html</url>
+    <content><![CDATA[<h1>回声系统设计</h1>
+<blockquote>
+<p>这是信号课设内容的第一个，因为当时是用word写的，公式并不能直接生成latex格式，所以有些公式多的直接采用pdf格式上传了，尽量把代码另外粘贴出来了(<s>绝不是因为我懒</s>)，主要的都是matlab语言</p>
+</blockquote>
+<div class="tabs" id="m"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#m-1">系统卷积conv_.m</button></li><li class="tab"><button type="button" data-href="#m-2">手写卷积my_conv.m</button></li><li class="tab"><button type="button" data-href="#m-3">delta函数</button></li><li class="tab"><button type="button" data-href="#m-4">回音录音代码</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="m-1"><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">h=[<span class="number">1</span> <span class="number">0.5</span>  <span class="number">0</span> <span class="number">0.6</span>];<span class="comment">%单位冲激响应</span></span><br><span class="line">x=[<span class="number">1</span> <span class="number">2</span> <span class="number">-1</span> ];<span class="comment">%输入信号</span></span><br><span class="line">y=conv(h,x);<span class="comment">%利用conv()卷积函数</span></span><br><span class="line">n=<span class="number">0</span>:<span class="number">1</span>:<span class="built_in">length</span>(y)<span class="number">-1</span>;<span class="comment">%n从0开始</span></span><br><span class="line">stem(n,y,<span class="string">&#x27;filled&#x27;</span>,<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="m-2"><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = [<span class="number">1</span> <span class="number">2</span> <span class="number">-1</span>];<span class="comment">%输入信号</span></span><br><span class="line">h = [<span class="number">1</span> <span class="number">0.5</span> <span class="number">0</span> <span class="number">0.6</span>];<span class="comment">%冲激响应函数</span></span><br><span class="line">x0 = [ x,<span class="built_in">zeros</span>(<span class="number">1</span>,<span class="built_in">length</span>(h)<span class="number">-1</span>)];</span><br><span class="line">h0 = [<span class="built_in">zeros</span>(<span class="number">1</span>,<span class="built_in">length</span>(x)<span class="number">-1</span>), flip(h)];<span class="comment">%给两个矩阵补0到同维度才可以利用矩阵的计算方法，响应函数矩阵将其顺序倒置</span></span><br><span class="line">n = <span class="built_in">length</span>(x0) ;<span class="comment">%计算得到的输出信号长度</span></span><br><span class="line">n0 = <span class="number">0</span>:<span class="number">1</span>:n<span class="number">-1</span>;<span class="comment">%绘图时n从0开始</span></span><br><span class="line">y = <span class="built_in">zeros</span>(<span class="number">1</span>,n);<span class="comment">%建立存储结果的矩阵</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n<span class="comment">%迭代计算</span></span><br><span class="line"></span><br><span class="line">y(<span class="built_in">i</span>) = sum( x0(<span class="number">1</span>:<span class="built_in">i</span>).*h0(<span class="keyword">end</span>-<span class="built_in">i</span>+<span class="number">1</span>:<span class="keyword">end</span>));</span><br><span class="line"><span class="comment">%让x[k]和h[n-k]有非零重叠部分累乘累加存入y[ni]</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">stem(n0,y,<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="m-3"><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span> = <span class="title">delta</span> <span class="params">(t)</span></span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> =<span class="number">1</span> : <span class="built_in">length</span>(t)</span><br><span class="line">        <span class="keyword">if</span> t(<span class="built_in">i</span>) == <span class="number">0</span></span><br><span class="line">				<span class="comment">%t=0时为1其余为0 </span></span><br><span class="line">             y(<span class="built_in">i</span>) = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           y(<span class="built_in">i</span>) =<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="m-4"><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear,clc,close all;</span><br><span class="line"><span class="comment">% 1, 记录数据</span></span><br><span class="line">fs=<span class="number">8000</span>; <span class="comment">% 声音频率</span></span><br><span class="line">duration=<span class="number">3</span>; <span class="comment">% 记录时间</span></span><br><span class="line"><span class="comment">%记录输入声音</span></span><br><span class="line">myrecording = audiorecorder;</span><br><span class="line">fprintf(<span class="string">&#x27;Speaking for %d seconds. \n&#x27;</span>,duration);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;Start speaking.&#x27;</span>)</span><br><span class="line">recordblocking(myrecording, duration); </span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;End of Recording.&#x27;</span>);</span><br><span class="line">x = getaudiodata(myrecording);</span><br><span class="line"> </span><br><span class="line"><span class="comment">%存储录音信息</span></span><br><span class="line">filename0=<span class="string">&#x27;chushiyin2.wav&#x27;</span>;</span><br><span class="line">audiowrite(filename0,x,fs);</span><br><span class="line"> </span><br><span class="line"><span class="comment">% n的长度</span></span><br><span class="line">n=<span class="built_in">length</span>(x);</span><br><span class="line">duration=n/fs;</span><br><span class="line"> </span><br><span class="line"><span class="comment">% 定义冲激响应函数h（t）</span></span><br><span class="line">t=[<span class="number">0</span>:<span class="number">1</span>/fs:duration]&#x27;;</span><br><span class="line">h = <span class="number">1</span>*delta(t<span class="number">-0.2</span>) + <span class="number">0.8</span>*delta(t<span class="number">-0.4</span>) + <span class="number">0.6</span>*delta(t<span class="number">-0.6</span>) + ...</span><br><span class="line">    <span class="number">0.4</span>*delta(t<span class="number">-0.8</span>) + <span class="number">0.2</span>*delta(t<span class="number">-1.0</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">% 卷积计算</span></span><br><span class="line">y=conv(x,h);</span><br><span class="line">k=audioplayer(y,fs);</span><br><span class="line">play(k); <span class="comment">% 播放回音</span></span><br><span class="line"><span class="comment">%存储回音</span></span><br><span class="line">filename = <span class="string">&#x27;huiyin2.wav&#x27;</span>; </span><br><span class="line">audiowrite(filename,y,fs);</span><br><span class="line"> <span class="comment">%绘图</span></span><br><span class="line">subplot(<span class="number">211</span>);</span><br><span class="line"><span class="built_in">plot</span> (x) ;<span class="comment">%绘制原始音</span></span><br><span class="line">title(<span class="string">&#x27;原始音&#x27;</span>);</span><br><span class="line">subplot(<span class="number">212</span>);</span><br><span class="line"><span class="built_in">plot</span> (y);<span class="comment">%绘制回音</span></span><br><span class="line">title(<span class="string">&#x27;回音&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+
+	<div class="row">
+    <embed src="/file/回声系统设计.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📡信号课设</tag>
       </tags>
   </entry>
   <entry>
@@ -1762,6 +1987,78 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
       </categories>
       <tags>
         <tag>📖课程笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>正弦信号调制和解调</title>
+    <url>/posts/2781577970.html</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="bace696708d3e1627742e2a6eea639759a351dedfba48325b78444017f7fab74">c6edd953b26c9aed6989fa669cb2a4b04cc33d38fd610590856ef60c8f4d2d235df944ee80e6b6214335c52c18fe39370b8e925d4390e752cdf7c7603b69d49544bb2104bb9882a87b010bc4cf04a139a460054b964ba14717859207486aec0f4e5dbe40e7e54a27d4bf4a136bf73d3fb70b8d412c6ad758089a72c9b01202454f169449fa70a49d065310caf2c88a51ee07bc686899ecbff01bc50796762558bbfe295f176bed91928abf080d8a10fdca1bc2796ae6dc3efca552b6d0485295e5790117a01194d608b532c4f449dce0a7437a61bd094f768ff0e81e10fbbc6b322be254eef982a29fd021630de443d8f19456ec81a87b642318fd75c89a93d5</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">私人文章，不对外开放，请理解</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📡信号课设</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深圳中转之旅</title>
+    <url>/posts/1895378745.html</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>开学但福州长乐飞成都的机票太贵了，鼠鼠只能去深圳坐飞机（它便宜的实在太多了）</p>
+<p>七个人都是福建的，所以可以列车上碰头</p>
+<p>21号福建出发，动车D3249，下午15:05到达深圳北/动车D2361，下午15:11到达深圳北</p>
+<p>住宿：福田区清风·荣盛创投大厦（loft）[在华强北附近]</p>
+<p>loft是三房四床，除了只有一个卫生间其它都还不错，人均每晚71，这个价格在深圳还算ok</p>
+<p>loft附近吃的：(没安排时间去吃)</p>
+<p>阿叔牛杂（园岭地铁站）[步行20min左右]</p>
+<p>老味道粉面店[很近，有点网红的感觉]</p>
+<h2 id="行程安排">行程安排</h2>
+<p><strong>21号：</strong></p>
+<p>到深圳北后坐地铁到民宿入住，低估了深圳北的人流量，最后到民宿休整后五点才出门</p>
+<p>出门坐地铁去深圳湾公园，但是不巧那天天气不咋地，没有看见日落</p>
+<p>时间充足可以全程浏览，天气好应该景色很好</p>
+<p>深圳湾公园路线：</p>
+<p>深圳湾公园地铁站D2口→（[左转]竹林小道→椰子林[会绕一圈]）→[右转]海边步道→白鹭坡书吧→keep集合点→小沙山→火炬广场→无忧广场→人才公园西北门→深圳湾万象城</p>
+<p>From  <a href="https://www.xiaohongshu.com/explore/65b5bcd900000000110026d0?source=webshare">小时攻略6 | 深圳湾公园看海鸥，地铁出行！</a></p>
+<p>中间建议骑行，有点小远，我们是在海边走了一会就打车去深圳湾万象城那边了，吃完饭再去逛的人才公园</p>
+<p>晚饭：米仓食堂（深圳湾万象城B139D）</p>
+<p>招牌金枪鱼牛油果拌饭(偏单人份)；寿喜烧；</p>
+<blockquote>
+<p>我们去太晚了，金枪有牛油果拌饭已经没了，就点了些其他的，感觉偏贵</p>
+</blockquote>
+<p>人才公园我们从西北门进的，逛了一大圈最后地铁回loft</p>
+<p><strong>22号：</strong></p>
+<p>由于第一天走太多了，第二天就把行程一删再删，结果就是太少了；</p>
+<p>直接早午饭合并去吃早茶，<font color='DarkViolet'>工作日11点前有8.8折</font>，如果要去吃要早点排队，11点前付款都有优惠</p>
+<p>我们去的繁楼(华强北店)，味道不错，人均80左右，没有雷点，虾饺皇太好吃了</p>
+<p>但是加菜可能会很慢，因为后面人会越来越多</p>
+<p>吃完后直接步行去华强北，2F 3F还可以逛逛，东西也没有太便宜，得靠自己掂量一下，我们在那买了60块钱的卡拉OK，感觉性价比很好</p>
+<p>下午直接去逛蛇口老街，有点决策失误了，刚吃完早茶吃不下小吃，太早往那边走了，导致直接大中午走海边</p>
+<p>个人觉得合适的修正路线：</p>
+<p>早茶后去南头古城附近逛逛，然后</p>
+<p>plan1 导航去海上世界，那边是商业区，穿过去到海上世界艺术中心，在那里可以看海和日落(前提是天气好)，看完日落去蛇口老街那边吃晚饭</p>
+<p>晚饭：蛇口德记烧腊饭店(烧鹅)</p>
+<p>味道还可以，我们点少了，最后靠吃炒粉吃饱的</p>
+<p>plan 2(未走过) 导航去前海石公园/欢乐港湾(这里有摩天轮)，这边日落应该也不错</p>
+<p><strong>23号：</strong></p>
+<p>订的下午四点半的机票，但是loft 12:00就要退房了，所以很早就出门了，但是碰上了飞机晚点QAQ</p>
+<p>最后11点才到学校，鼠鼠第二天还要去乐山</p>
+<h2 id="结语">结语</h2>
+<p>深圳这个地方去看看就好，不是一个旅游城市，去吃早茶和粤菜可以去潮汕或者广州，看的玩的也是广州多一些，去深圳一般是去香港顺便逛逛的，但是这次没有时间安排去香港，只是路过，下次有机会再去吧</p>
+]]></content>
+      <tags>
+        <tag>🧳旅行</tag>
       </tags>
   </entry>
   <entry>
@@ -2422,6 +2719,58 @@ VHF9H-NXBBB-638P6-6JHCY-88JWH</li>
       </categories>
       <tags>
         <tag>📖课程笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>音频采样效果</title>
+    <url>/posts/3859632160.html</url>
+    <content><![CDATA[<h1>音频采样效果</h1>
+<p><strong>设计详细说明：</strong></p>
+<ul>
+<li>Matlab代码：</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Fs = <span class="number">44100</span>; <span class="comment">%设置特定的采样率为44100Hz（生活中常见的采样频率）</span></span><br><span class="line"></span><br><span class="line">nBits=<span class="number">16</span>;</span><br><span class="line"></span><br><span class="line">nChannels=<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">Duration=<span class="number">2</span>;<span class="comment">%设置采样时间</span></span><br><span class="line"></span><br><span class="line">recorder = audiorecorder(Fs,nBits,nChannels); <span class="comment">% 调用电脑麦克风，开始声音录制</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;strat speaking:&#x27;</span>);</span><br><span class="line"></span><br><span class="line">recordblocking(recorder,Duration); <span class="comment">% 录制duration s的声音信号</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;stop speaking&#x27;</span>);</span><br><span class="line"></span><br><span class="line">myrecording = getaudiodata(recorder); <span class="comment">%getaudiodata--读取声音信号信息</span></span><br><span class="line"></span><br><span class="line">audiowrite(<span class="string">&#x27;test1.wav&#x27;</span>,myrecording,<span class="number">44100</span>);</span><br><span class="line"></span><br><span class="line">test1 = audioinfo(<span class="string">&#x27;test1.wav&#x27;</span>);</span><br><span class="line"></span><br><span class="line">audiowrite(<span class="string">&#x27;test2.wav&#x27;</span>,myrecording,<span class="number">22050</span>);</span><br><span class="line"></span><br><span class="line">test2 = audioinfo(<span class="string">&#x27;test2.wav&#x27;</span>);</span><br><span class="line"></span><br><span class="line">audiowrite(<span class="string">&#x27;test3.wav&#x27;</span>,myrecording,<span class="number">88200</span>);</span><br><span class="line"></span><br><span class="line">test3 = audioinfo(<span class="string">&#x27;test3.wav&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=[<span class="number">0.5</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">sound(myrecording,<span class="number">44100</span>\*<span class="built_in">i</span>) <span class="comment">% 播放时采样率设置为44100\*i</span></span><br><span class="line"></span><br><span class="line">pause(Duration/<span class="built_in">i</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%sound(myrecording,44100) % 播放时采样率设置为录制时相同</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%sound(myrecording,22050) % 播放时采样率设置为录制时的一半</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%sound(myrecording,88200) % 播放时采样率设置为录制时的二倍</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 数据可视化代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%test1</span></span><br><span class="line"></span><br><span class="line">[y1,f1] = audioread(<span class="string">&#x27;test1.wav&#x27;</span>);</span><br><span class="line"></span><br><span class="line">t1 = <span class="number">0</span>:seconds(<span class="number">1</span>/f1):seconds(test1.Duration);</span><br><span class="line"></span><br><span class="line">t1 = t1(<span class="number">1</span>:<span class="keyword">end</span><span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">plot</span>(t1,y1)</span><br><span class="line"></span><br><span class="line"><span class="comment">%title(&#x27;采样频率相同&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%test2</span></span><br><span class="line"></span><br><span class="line">[y2,f2] = audioread(<span class="string">&#x27;test2.wav&#x27;</span>);</span><br><span class="line"></span><br><span class="line">t2 = <span class="number">0</span>:seconds(<span class="number">1</span>/f2):seconds(test2.Duration);</span><br><span class="line"></span><br><span class="line">t2 = t2(<span class="number">1</span>:<span class="keyword">end</span><span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">plot</span>(t2,y2)</span><br><span class="line"></span><br><span class="line"><span class="comment">%title(&#x27;采样频率变为“一半”&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%test3</span></span><br><span class="line"></span><br><span class="line">[y3,f3] = audioread(<span class="string">&#x27;test3.wav&#x27;</span>);</span><br><span class="line"></span><br><span class="line">t3 = <span class="number">0</span>:seconds(<span class="number">1</span>/f3):seconds(test3.Duration);</span><br><span class="line"></span><br><span class="line">t3 = t3(<span class="number">1</span>:<span class="keyword">end</span><span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">plot</span>(t3,y3)</span><br><span class="line"></span><br><span class="line"><span class="comment">%title(&#x27;采样频率变为“二倍”&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">legend</span>(<span class="string">&#x27;采样频率变为“二倍”&#x27;</span>,<span class="string">&#x27;采样频率变为“一半”&#x27;</span>,<span class="string">&#x27;采样频率相同&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"></span><br><span class="line">title(<span class="string">&#x27;不同采样率下的波形图&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>结果：</li>
+</ul>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/typora/202206011722189.png" style="zoom:50%;" />
+<p>另一张图是luyin2.m文件生成的，只更换了画图部分不具体阐述</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/typora/202206011723241.png" style="zoom:50%;" />
+<ul>
+<li>
+<p>现象分析</p>
+<p>选取的Fs=44100Hz，FsH为2Fs=88200Hz，FsL=0.5Fs=22050Hz，</p>
+<p>根据matlab 得到的声音可以知道</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>当播放时采样率设置为录制时的一半时，声音文件的音频长度变为源文件二倍，且声音更加低沉</p>
+</li>
+<li>
+<p>当播放时采样率设置为录制时的二倍时，声音文件的音频长度变为源文件一半，且声音更加尖锐</p>
+</li>
+<li>
+<p>观察三个音频文件的时域波形，发现波形完全一致</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>综上可得：</p>
+<p>录制和播放采样率关系对于录制的音频文件内容并没有影响，影响的是音频文件的时长，换句话说改变音频文件播播放的速度</p>
+</li>
+<li>
+<p>原理阐述与思考：</p>
+<p>声音文件录制时，以特定的采样率录制音频文件，而在声音信号播放时，相当于在已有音频文件的基础上进行二次采样，由于声音文件的内容是固定的，即音频文件样本数目是固定的，当我们以之前一半的采样率进行二次采样时，相当于每秒钟采集到的样本数目是减半的</p>
+<p>因此，如果采集同样大小的音频样本，所需要的时间变为之前两倍，但是由于音频内容未发生改变，所以仅仅改变的是音频文件的播放速度，实现0.5倍速播放或者2倍速播放。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>📡信号课设</tag>
       </tags>
   </entry>
   <entry>
