@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>C++Primer第五版习题答案详解(四) | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="答案目录 第4章 表达式 练习4.1 105 练习4.2 (a) 可改为 *(vec.begin()) (b)可改为 (*vec.begin()+1) 练习4.4 12345int main(){	cout << 12/3*4+5*15+24%4/2 << endl;	// 91} 练习4.5 1234cout << -30 * 3 + 21">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++Primer第五版习题答案详解(四)">
+<meta property="og:url" content="http://yhblogs.cn/posts/121314154.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="答案目录 第4章 表达式 练习4.1 105 练习4.2 (a) 可改为 *(vec.begin()) (b)可改为 (*vec.begin()+1) 练习4.4 12345int main(){	cout << 12/3*4+5*15+24%4/2 << endl;	// 91} 练习4.5 1234cout << -30 * 3 + 21">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp">
+<meta property="article:published_time" content="2022-06-28T20:35:57.000Z">
+<meta property="article:modified_time" content="2024-12-21T15:40:33.064Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="👨‍💻C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/121314154.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++Primer第五版习题答案详解(四)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-21 15:40:33'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">C++Primer第五版习题答案详解(四)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-28T20:35:57.000Z" title="发表于 2022-06-28 20:35:57">2022-06-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-21T15:40:33.064Z" title="更新于 2024-12-21 15:40:33">2024-12-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++Primer第五版习题答案详解(四)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p><a href="/posts/121314150">答案目录</a></p>
+<h2 id="第4章-表达式">第4章 表达式</h2>
+<p>练习4.1</p>
+<p>105</p>
+<p>练习4.2</p>
+<p>(a) 可改为 *(vec.begin())</p>
+<p>(b)可改为 (*vec.begin()+1)</p>
+<p>练习4.4</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cout &lt;&lt; <span class="number">12</span>/<span class="number">3</span>*<span class="number">4</span>+<span class="number">5</span>*<span class="number">15</span>+<span class="number">24</span>%<span class="number">4</span>/<span class="number">2</span> &lt;&lt; endl;</span><br><span class="line">	<span class="comment">// 91</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.5</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; <span class="number">-30</span> * <span class="number">3</span> + <span class="number">21</span> / <span class="number">5</span> &lt;&lt; endl;<span class="comment">// -86</span></span><br><span class="line">cout &lt;&lt; <span class="number">-30</span> + <span class="number">3</span> * <span class="number">21</span> / <span class="number">5</span> &lt;&lt; endl;<span class="comment">// -18</span></span><br><span class="line">cout &lt;&lt; <span class="number">30</span> / <span class="number">3</span> * <span class="number">21</span> % <span class="number">5</span> &lt;&lt; endl;<span class="comment">// 0</span></span><br><span class="line">cout &lt;&lt; <span class="number">-30</span> / <span class="number">3</span> * <span class="number">21</span> % <span class="number">4</span> &lt;&lt; endl;<span class="comment">// -2</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.6</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (a % <span class="number">2</span>)</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; <span class="string">" is odd"</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; <span class="string">" is even"</span> &lt;&lt; endl;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.7</p>
+<p>溢出：当计算结果超出该类型所能表示的范围就会产生溢出</p>
+<p>练习4.8</p>
+<p>相等运算符先求值，逻辑与、逻辑或运算优先级相同，按照从左到右的顺序求值</p>
+<p>练习4.9</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span> *cp = <span class="string">"Hello World"</span>;</span><br><span class="line"><span class="keyword">if</span> (cp &amp;&amp; *cp); </span><br><span class="line"> <span class="comment">// cp是一个地址，不为0。再取*cp的值，为一个字符串，不为0.最后两者相与，值为真。</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.10</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> a;</span><br><span class="line">	<span class="keyword">while</span> ((cin &gt;&gt; a) &amp;&amp; (a != <span class="number">42</span>))</span><br><span class="line">	{</span><br><span class="line">	}</span><br><span class="line">	cout &lt;&lt; <span class="string">"input the 42,stop"</span> &lt;&lt; endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.11</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((a&gt;b) &amp;&amp; (b&gt;c) &amp;&amp; (c&gt;d))</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.12</p>
+<p>i != (j&lt;k)	先判断j&lt;k，i为得到的布尔值取反</p>
+<p>练习4.13</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d = i = <span class="number">3.5</span>;          <span class="comment">// i = 3, d = 3; i = 3.5, 将3.5隐式转化为整型。</span></span><br><span class="line">i = d = <span class="number">3.5</span>;         <span class="comment">// d = 3.5, i = 3.4.14</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.14</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="number">42</span> = i)            <span class="comment">//报错，不能对常量42赋值。</span></span><br><span class="line"><span class="keyword">if</span> (i = <span class="number">42</span>)            <span class="comment">// 将42赋值给i，if条件为真。</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.15</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//dval = ival = pi = 0;</span></span><br><span class="line">  <span class="comment">// pi存的是地址，给pi赋值为0，即要访问地址为0的内存？</span></span><br><span class="line"><span class="comment">// 应改为：</span></span><br><span class="line">  dval = ival = *pi = <span class="number">0</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.16</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (p = <span class="built_in">getPtr</span>()!= <span class="number">0</span>)		        <span class="comment">// 可能会先判断!=, 再把结果赋值给p，改为if ((p = getPtr()) != 0)</span></span><br><span class="line"><span class="keyword">if</span> (i = <span class="number">1024</span>)                    <span class="comment">// 会把1024赋值给i，再进行判断，改为if (i == 1024)</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.17</p>
+<p>前置的递增运算符：先算后用，后置的递增运算符：先用后算。递减相同</p>
+<p>练习4.18</p>
+<p>会先向后移动一个元素，再输出移动后的值。输出范围为第二个元素到最后一个元素的下一个元素。由于最后一个元素的下一个元素未知，所以会访问到未知内存</p>
+<p>练习4.19</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ptr != <span class="number">0</span> &amp;&amp; *ptr++;        <span class="comment">//判断ptr是否为空，并且ptr指向的值是否为0；</span></span><br><span class="line">ival ++ &amp;&amp; ival;                <span class="comment">// 判断ival及ival++是否为空。运算的顺序为，先计算++，在进行&amp;&amp;</span></span><br><span class="line">vec[ival++] &lt;= vec[ival];    <span class="comment">// 运算顺序未知，比如ival = 1，编译器有可能先算vec[ival++]，得到ival=2，再计算vec[ival]，这样就得不到预期结果。因此改成vec[ival+1] &lt;= vec[ival];</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.20</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*iter++;                    <span class="comment">// 合法，先对iter+1，再返回iter初始值的副本，再对该副本进行解引用</span></span><br><span class="line">(*iter)++;                  <span class="comment">//  不合法，不能对string类型进行++操作。</span></span><br><span class="line">*iter.<span class="built_in">empty</span>();           <span class="comment">// 不合法，不能对指针指向的值判空。可改为(*iter).empty();</span></span><br><span class="line">iter-&gt;<span class="built_in">empty</span>();          <span class="comment">// 合法</span></span><br><span class="line">++*iter;                    <span class="comment">// 不合法，先求*iter，在进行++操作，不能对string类型做++操作，可改为 *（++iter）；</span></span><br><span class="line">iter++-&gt;<span class="built_in">empty</span>();      <span class="comment">//合法，++和-&gt;的优先级一样，所以遵循自左向右结合，先算iter++的值，返回iter初始值的副本，再进行empty()判断。iter-&gt;empty等价于(*iter).empty</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.21</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; ivec = { <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> };</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; iter : ivec) {</span><br><span class="line">        iter = (iter % <span class="number">2</span> == <span class="number">1</span>) ? iter * <span class="number">2</span> : iter;</span><br><span class="line">        cout &lt;&lt; iter &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.22</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="type">int</span> grade;</span><br><span class="line">    string finalgrade;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (cin &gt;&gt; grade)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">// approach 1</span></span><br><span class="line">        finalgrade = (grade &gt; <span class="number">90</span>) ? <span class="string">"high pass"</span> : ((grade &lt; <span class="number">60</span>) ? <span class="string">"fail"</span> : ((grade &lt; <span class="number">75</span>) ? <span class="string">"low pass"</span> : <span class="string">"pass"</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// approch 2    </span></span><br><span class="line">        <span class="keyword">if</span> (grade &gt; <span class="number">90</span>)</span><br><span class="line">        {</span><br><span class="line">            finalgrade = <span class="string">"hign pass"</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (grade &lt; <span class="number">60</span>)</span><br><span class="line">        {</span><br><span class="line">            finalgrade = <span class="string">"fail"</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (grade &lt; <span class="number">75</span>)</span><br><span class="line">        {</span><br><span class="line">            finalgrade = <span class="string">"low pass"</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        {</span><br><span class="line">            finalgrade = <span class="string">"pass"</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        cout &lt;&lt; finalgrade &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.23</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string s = <span class="string">"word"</span>;</span><br><span class="line"><span class="comment">//    string p1 = s + s[s.size()-1] == 's' ? "" : "s";</span></span><br><span class="line"><span class="comment">//  条件语句优先级较低，要给其加括号。</span></span><br><span class="line">string p1 = s + (s[s.<span class="built_in">size</span>()<span class="number">-1</span>] == <span class="string">'s'</span> ? <span class="string">""</span> : <span class="string">"s"</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.25</p>
+<table>
+<thead>
+<tr>
+<th>&lt;&lt;</th>
+<th>二进制左移运算符，左操作数的值向左移动右操作数指定的位数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;&gt;</td>
+<td>二进制右移运算符，左操作数的值向右移动右操作数指定的位数</td>
+</tr>
+</tbody>
+</table>
+<p>q =0000 0000 0000 0000 0000 0000 0111 0001</p>
+<p>~q = 1111 1111 1111 1111 1111 1111 1000 1110</p>
+<p>(~q) &lt;&lt; 6 = 1111 1111 1111 1111 1110 0011 1000 0000</p>
+<p>练习4.26</p>
+<p>因为老师学生有31个，所使用的类型最少需要有32位，但是在某些机器上，unsigned int 可能就不是32位了</p>
+<p>练习4.27</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">long</span> ul1 = <span class="number">3</span>, ul2 = <span class="number">7</span>;</span><br><span class="line">cout &lt;&lt; (ul1 &amp; ul2) &lt;&lt; endl;            <span class="comment">// 0011 &amp; 0111 = 0011 = 3</span></span><br><span class="line">cout &lt;&lt; (ul1 | ul2) &lt;&lt; endl;            <span class="comment">// 0011 | 0111 = 0111 = 7</span></span><br><span class="line">cout &lt;&lt; (ul1 &amp;&amp; ul2) &lt;&lt; endl;           <span class="comment">// 3 &amp;&amp; 7 = 1</span></span><br><span class="line">cout &lt;&lt; (ul1 || ul2) &lt;&lt; endl;<span class="number">4.28</span>       <span class="comment">// 3 || 7 = 1</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.28</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">int</span>) &lt;&lt; endl;                <span class="comment">// 4</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">char</span>) &lt;&lt; endl;               <span class="comment">// 1</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">short</span>) &lt;&lt; endl;              <span class="comment">// 2</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">long</span>) &lt;&lt; endl;               <span class="comment">// 4</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">float</span>) &lt;&lt; endl;              <span class="comment">// 4</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">double</span>) &lt;&lt; endl;             <span class="comment">// 8</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">long</span> <span class="type">double</span>) &lt;&lt; endl;        <span class="comment">// 8</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">long</span> <span class="type">long</span>) &lt;&lt; endl;          <span class="comment">// 8</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.29</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> x[<span class="number">10</span>]; <span class="type">int</span>* p = x;</span><br><span class="line">	cout &lt;&lt; <span class="built_in">sizeof</span>(x) / <span class="built_in">sizeof</span>(*x) &lt;&lt; endl;		<span class="comment">// 10, sizeof(x) = 10*4, sizeof(*x) = 4;</span></span><br><span class="line">	cout &lt;&lt; <span class="built_in">sizeof</span>(p) / <span class="built_in">sizeof</span>(*p) &lt;&lt; endl;		<span class="comment">// 2, sizeof(p)的含义：p是一个int *类型，因此得出的大小应该是指针的大小。</span></span><br><span class="line">  <span class="comment">// sizeof(*p)的含义：*p已经对p解引用了，*p实际就是int类型，因此sizeof(*p)得到的是一个int型的大小。</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.30</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sizeof</span> x +  y;                <span class="comment">// sizeof(x) +  y; </span></span><br><span class="line"><span class="keyword">sizeof</span> p-&gt;mem[i];             <span class="comment">// sizeof (p-&gt;mem[i]); </span></span><br><span class="line"><span class="keyword">sizeof</span> a &lt; b;                 <span class="comment">// sizeof (a) &lt; b;   </span></span><br><span class="line"><span class="function"><span class="keyword">sizeof</span> <span class="title">f</span><span class="params">()</span></span>;                   <span class="comment">// sizeof (f()); </span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.31</p>
+<p>在for循环中使用前置版本和后置版本都能得到相同的结果。这里使用前置版本的原因，就是4.5节中的建议所述：“前置版本的递增运算符避免了不必要的工作，它把值加1后直接返回改变了运算对象。与之相比，后置版本需要将原始值存储下来以便于返回这个未修改的内容，如果我们不需要修改前的值，那么后置版本的操作就是一种浪费。”</p>
+<p>练习4.32</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> size = <span class="number">5</span>;</span><br><span class="line">  <span class="type">int</span> ia[size] = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> *ptr = ia, ix = <span class="number">0</span>; ix != size &amp;&amp; ptr != ia+size; ++ix, ++ptr)</span><br><span class="line">  {   </span><br><span class="line">      <span class="comment">/* ... */</span></span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<p>循环遍历ia数组。ix和ptr的作用相同，一个使用下标遍历，一个使用指针遍历</p>
+<p>练习4.33</p>
+<p>因为逗号表达式的优先级最低，按照预期，如果someValue为真，冒号后面的语句不会再执行了，但实际上，编译器会认为冒号后面的–x属于三目运算符中的语句，而–y属于一个单独的语句。也就是（ someValue ? ++x, ++y : --x）, --y；</p>
+<p>因此，如果someValue为真，则执行++x，++y，–y，最后得到的结果是y本身。如果someValue为假，则执行–x，–y，最终的结果是–y的值</p>
+<p>练习4.34</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>名称</th>
+<th>类型</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bool</td>
+<td>flag</td>
+<td>char</td>
+<td>cval</td>
+</tr>
+<tr>
+<td>short</td>
+<td>sval</td>
+<td>unsignedshort</td>
+<td>usval</td>
+</tr>
+<tr>
+<td>int</td>
+<td>ival</td>
+<td>unsigned int</td>
+<td>uival</td>
+</tr>
+<tr>
+<td>long</td>
+<td>lval</td>
+<td>unsigned long</td>
+<td>ulval</td>
+</tr>
+<tr>
+<td>float</td>
+<td>fval</td>
+<td>double</td>
+<td>dval</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (fval)                  <span class="comment">// float类型转化为bool类型</span></span><br><span class="line">dval = fval + ival;        <span class="comment">// int先转化为float，然后赋值给dval时再转化为double类型</span></span><br><span class="line">dval + ival * cval;        <span class="comment">// char先转化为int，然后int转化为double</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.35</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> cval;</span><br><span class="line"><span class="type">int</span> ival;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> ui;</span><br><span class="line"><span class="type">float</span> fval;</span><br><span class="line"><span class="type">double</span> dval;</span><br><span class="line"></span><br><span class="line">cval = <span class="string">'a'</span> + <span class="number">3</span>;                        <span class="comment">// ‘a’先转化为int进行计算，得到的结果再转化为char</span></span><br><span class="line">fval = ui - ival * <span class="number">1.0</span>;                <span class="comment">//  ival先转化为double，ui也转化为double，double再截为float</span></span><br><span class="line">dval = ui * fval;                      <span class="comment">// unsigned int先提升为float，float再转为double</span></span><br><span class="line">cval = ival + fval + dval;             <span class="comment">// ival先转为float，float再转为double，最后double转为char</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.36</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i *= <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt; (d);</span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.37</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i;</span><br><span class="line"><span class="type">double</span> d;</span><br><span class="line"><span class="type">const</span> string *ps;</span><br><span class="line"><span class="type">char</span> *pc;</span><br><span class="line"><span class="type">void</span> *pv;</span><br><span class="line"></span><br><span class="line">pv = (<span class="type">void</span> *)ps;            <span class="comment">// pv = const_cast&lt;string *&gt;(ps); 去除底层const属性。</span></span><br><span class="line">i = <span class="built_in">int</span>(*pc);               <span class="comment">// i = static_cast&lt;int&gt;(*pc);</span></span><br><span class="line">pv = &amp;d;                    <span class="comment">// pv = static_cast&lt;void *&gt;(&amp;d);</span></span><br><span class="line">pc = (<span class="type">char</span> *)pv;            <span class="comment">// pc = reinterpret_cast&lt;char *&gt; (pv);</span></span><br></pre></td></tr></tbody></table></figure>
+<p>练习4.38</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> slope = <span class="built_in">static_cast</span>&lt;<span class="type">double</span>&gt;(j/i);</span><br><span class="line"><span class="comment">//将j/i的结果转化为double类型，再赋值给slope</span></span><br></pre></td></tr></tbody></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/121314154.html">http://yhblogs.cn/posts/121314154.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%91%A8%E2%80%8D%F0%9F%92%BBC/">👨‍💻C++</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/121314155.html" title="C++Primer第五版习题答案详解(五)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C++Primer第五版习题答案详解(五)</div></div></a></div><div class="next-post pull-right"><a href="/posts/2075520377.html" title="量子力学开卷纸"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202207242016620.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">量子力学开卷纸</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/121314151.html" title="C++Primer第五版习题答案详解(一)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-15</div><div class="title">C++Primer第五版习题答案详解(一)</div></div></a></div><div><a href="/posts/121314152.html" title="C++Primer第五版习题答案详解(二)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-17</div><div class="title">C++Primer第五版习题答案详解(二)</div></div></a></div><div><a href="/posts/121314153.html" title="C++Primer第五版习题答案详解(三)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-19</div><div class="title">C++Primer第五版习题答案详解(三)</div></div></a></div><div><a href="/posts/121314155.html" title="C++Primer第五版习题答案详解(五)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-09</div><div class="title">C++Primer第五版习题答案详解(五)</div></div></a></div><div><a href="/posts/121314156.html" title="C++Primer第五版习题答案详解(六)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-16</div><div class="title">C++Primer第五版习题答案详解(六)</div></div></a></div><div><a href="/posts/121314157.html" title="C++Primer第五版习题答案详解(七)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-23</div><div class="title">C++Primer第五版习题答案详解(七)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC4%E7%AB%A0-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">第4章 表达式</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2024 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
