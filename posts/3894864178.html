@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ROS实操 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CMakeList.txt 文件中的基本配置不再赘述 代码模板c++ 模板 12345678910#include &quot;ros/ros.h&quot;int main(int argc, char *argv[]){    setlocale(LC_ALL,&quot;&quot;);    ros::init(argc,argv,&quot;&quot;);    ros::N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS实操">
+<meta property="og:url" content="http://yhblogs.cn/posts/3894864178.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="CMakeList.txt 文件中的基本配置不再赘述 代码模板c++ 模板 12345678910#include &quot;ros/ros.h&quot;int main(int argc, char *argv[]){    setlocale(LC_ALL,&quot;&quot;);    ros::init(argc,argv,&quot;&quot;);    ros::N">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5g22q5_1920x1080_compressed.png">
+<meta property="article:published_time" content="2025-05-23T20:45:57.000Z">
+<meta property="article:modified_time" content="2025-06-10T08:29:39.411Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🤖ROS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5g22q5_1920x1080_compressed.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/3894864178.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ROS实操',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-10 08:29:39'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">ROS实操</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-05-23T20:45:57.000Z" title="发表于 2025-05-23 20:45:57">2025-05-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ROS实操"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>CMakeList.txt 文件中的基本配置不再赘述</p>
+<h2 id="代码模板"><a href="#代码模板" class="headerlink" title="代码模板"></a>代码模板</h2><p>c++ 模板</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"ros/ros.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">setlocale</span>(LC_ALL,<span class="string">""</span>);</span><br><span class="line">    ros::<span class="built_in">init</span>(argc,argv,<span class="string">""</span>);</span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>python 模板</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">	rospy.init_node(<span class="string">""</span>)</span><br><span class="line">    </span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="ROS通信机制"><a href="#ROS通信机制" class="headerlink" title="ROS通信机制"></a>ROS通信机制</h2><p>先创建一个启动乌龟界面的launch文件</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line">    &lt;!-- 乌龟GUI --&gt;</span><br><span class="line">    &lt;node pkg="turtlesim" type="turtlesim_node" name="turtle1" output = "screen"/&gt;</span><br><span class="line">    &lt;!-- 键盘控制 --&gt;</span><br><span class="line">    &lt;node pkg="turtlesim" type="turtle_teleop_key" name="turtle_key" output = "screen" /&gt;</span><br><span class="line">&lt;/launch&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="实操1-话题发布"><a href="#实操1-话题发布" class="headerlink" title="实操1 话题发布"></a>实操1 话题发布</h3><p>需求描述：编码实现乌龟运动控制，让小乌龟做圆周运动</p>
+<p>实现分析：</p>
+<ol>
+<li>乌龟运动控制实现，关键节点有两个，一个是乌龟运动显示节点 turtlesim_node，另一个是控制节点，二者是订阅发布模式实现通信的，乌龟运动显示节点直接调用即可，运动控制节点之前是使用的 turtle_teleop_key 通过键盘控制，现在需要自定义控制节点</li>
+<li>控制节点自实现时，首先需要了解控制节点与显示节点通信使用的话题与消息，可以使用ros命令结合计算图来获取</li>
+<li>了解了话题与消息之后，通过 C++ 或 Python 编写运动控制节点，通过指定的话题，按照一定的逻辑发布消息即可</li>
+</ol>
+<p>实现流程：</p>
+<ol>
+<li>通过计算图结合ros命令获取话题与消息信息</li>
+<li>编码实现运动控制节点</li>
+<li>启动 roscore、turtlesim_node 以及自定义的控制节点，查看运行结果</li>
+</ol>
+<h4 id="话题与消息获取"><a href="#话题与消息获取" class="headerlink" title="话题与消息获取"></a>话题与消息获取</h4><p>先启动键盘控制乌龟运动案例</p>
+<ol>
+<li><p>话题获取</p>
+<p>通过 rostopic 列出话题</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic list</span><br></pre></td></tr></tbody></table></figure>
+
+<p>或者通过计算图查看话题，启动计算图</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rqt_graph</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20250523203511067.png" alt="image-20250523203511067" style="zoom: 67%;">
+
+<p>-&gt; /turtle1/cmd_vel 传递运动指令</p>
+</li>
+<li><p>消息获取</p>
+<p>获取消息类型：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rostopic type /turtle1/cmd_vel</span><br><span class="line">// rostopic info /turtle1/cmd_vel</span><br></pre></td></tr></tbody></table></figure>
+
+<p>info 命令下也显示type</p>
+<p>type: geometry_msgs/Twist</p>
+</li>
+<li><p>获取消息格式</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosmsg info geometry_msgs/Twist</span><br></pre></td></tr></tbody></table></figure>
+
+<p>输出: </p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">geometry_msgs/Vector3 linear</span><br><span class="line">  float64 x</span><br><span class="line">  float64 y</span><br><span class="line">  float64 z</span><br><span class="line">geometry_msgs/Vector3 angular</span><br><span class="line">  float64 x</span><br><span class="line">  float64 y</span><br><span class="line">  float64 z</span><br></pre></td></tr></tbody></table></figure>
+
+<p>inear(线速度) ：xyz分别对应在x、y和z方向上的速度(单位是 m/s)</p>
+<p>angular(角速度)：xyz分别对应x轴上的翻滚roll、y轴上pitch和z轴上偏航yaw的速度(单位是rad/s)</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/欧拉角1.webp" alt="欧拉角1" style="zoom: 67%;">
+
+<blockquote>
+<p>弧度：单位弧度定义为圆弧长度等于半径时的圆心角</p>
+<p>在ros中顺时针弧度为 - ，逆时针为 +，值的范围在[-π,π]</p>
+</blockquote>
+</li>
+</ol>
+<p>于是可以通过直接发布指令做到简单实现</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic pub -r 10 /turtle1/cmd_vel [TAB补齐]</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="实现发布节点"><a href="#实现发布节点" class="headerlink" title="实现发布节点"></a>实现发布节点</h4><p>创建功能包需要依赖的功能包: roscpp rospy std_msgs geometry_msgs(封装坐标)</p>
+<p><strong>c++</strong></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	topic(已知: /turtle1/cmd_vel)</span></span><br><span class="line"><span class="comment">    消息类型(已知: geometry_msgs/Twist)</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    实现流程:</span></span><br><span class="line"><span class="comment">        1.包含头文件</span></span><br><span class="line"><span class="comment">        2.初始化 ROS 节点</span></span><br><span class="line"><span class="comment">        3.创建节点句柄</span></span><br><span class="line"><span class="comment">        4.创建发布者对象</span></span><br><span class="line"><span class="comment">        5.发布逻辑</span></span><br><span class="line"><span class="comment">        6.spinOnce()</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"ros/ros.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"geometry_msgs/Twist.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    ros::<span class="built_in">init</span>(argc,argv,<span class="string">"circle_control"</span>);</span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line">    ros::Publisher pub = nh.<span class="built_in">advertise</span>&lt;geometry_msgs::Twist&gt;(<span class="string">"/turtle1/cmd_vel"</span>,<span class="number">1000</span>);</span><br><span class="line">    geometry_msgs::Twist msg;</span><br><span class="line"></span><br><span class="line">    msg.linear.x = <span class="number">1.0</span>;</span><br><span class="line">    msg.linear.y = <span class="number">1.0</span>;</span><br><span class="line">    msg.linear.z = <span class="number">0.0</span>;</span><br><span class="line">    msg.angular.x = <span class="number">0.0</span>;</span><br><span class="line">    msg.angular.y = <span class="number">0.0</span>;</span><br><span class="line">    msg.angular.z = <span class="number">1.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">ros::Rate <span class="title">rate</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">    <span class="keyword">while</span>(ros::<span class="built_in">ok</span>())</span><br><span class="line">    {</span><br><span class="line">        pub.<span class="built_in">publish</span>(msg);</span><br><span class="line">        rate.<span class="built_in">sleep</span>();</span><br><span class="line">        ros::<span class="built_in">spinOnce</span>();</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>python</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> geometry_msgs.msg <span class="keyword">import</span> Twist</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">    rospy.init_node(<span class="string">"circle_control_p"</span>)</span><br><span class="line">    pub = rospy.Publisher(<span class="string">"/turtle1/cmd_vel"</span>,Twist,queue_size=<span class="number">1000</span>)</span><br><span class="line">    rate = rospy.Rate(<span class="number">10</span>)</span><br><span class="line">    msg = Twist()  // 注意这里要()</span><br><span class="line"></span><br><span class="line">    msg.linear.x = <span class="number">1.0</span></span><br><span class="line">    msg.linear.y = <span class="number">0.0</span></span><br><span class="line">    msg.linear.z = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">    msg.angular.x = <span class="number">0.0</span></span><br><span class="line">    msg.angular.y = <span class="number">0.0</span></span><br><span class="line">    msg.angular.z = <span class="number">1.0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> rospy.is_shutdown():</span><br><span class="line">        pub.publish(msg)</span><br><span class="line">        rate.sleep</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="实操2-话题订阅"><a href="#实操2-话题订阅" class="headerlink" title="实操2 话题订阅"></a>实操2 话题订阅</h3><p>需求描述：turtlesim中的乌龟显示节点，会发布当前乌龟的位姿(窗体中乌龟的坐标以及朝向)，要求控制乌龟运动，并时时打印当前乌龟的位姿</p>
+<p>实现分析：</p>
+<ol>
+<li>首先，需要启动乌龟显示以及运动控制节点并控制乌龟运动</li>
+<li>要通过ROS命令，来获取乌龟位姿发布的话题以及消息</li>
+<li>编写订阅节点，订阅并打印乌龟的位姿</li>
+</ol>
+<p>实现流程:</p>
+<ol>
+<li>通过ros命令获取话题与消息信息</li>
+<li>编码实现位姿获取节点</li>
+<li>启动 roscore、turtlesim_node 、控制节点以及位姿订阅节点，控制乌龟运动并输出乌龟的位姿</li>
+</ol>
+<h4 id="话题与消息获取-1"><a href="#话题与消息获取-1" class="headerlink" title="话题与消息获取"></a>话题与消息获取</h4><p>先启动键盘控制乌龟运动案例</p>
+<ol>
+<li><p>话题获取</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic list</span><br></pre></td></tr></tbody></table></figure>
+
+<p>-&gt; /turtle1/pose  存储乌龟位置</p>
+</li>
+<li><p>获取消息类型</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic info  /turtle1/pose</span><br></pre></td></tr></tbody></table></figure>
+
+<p>-&gt; type: turtlesim/Pose</p>
+</li>
+<li><p>获取消息格式</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosmsg info turtlesim/Pose</span><br></pre></td></tr></tbody></table></figure>
+
+<p>响应结果：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">float32 x</span><br><span class="line">float32 y</span><br><span class="line">float32 theta</span><br><span class="line">float32 linear_velocity</span><br><span class="line">float32 angular_velocity</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<h4 id="实现订阅节点"><a href="#实现订阅节点" class="headerlink" title="实现订阅节点"></a>实现订阅节点</h4><p>需要增添功能包turtlesim</p>
+<p>在package.xml中增添</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>turtlesim<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>sturtlesim<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>在CMakeLsit.txt中增添</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">find_package(catkin REQUIRED COMPONENTS</span><br><span class="line">  geometry_msgs</span><br><span class="line">  roscpp</span><br><span class="line">  rospy</span><br><span class="line">  std_msgs</span><br><span class="line">  turtlesim //增添包</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>c++</strong></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    话题名称 /turtle1/pose</span></span><br><span class="line"><span class="comment">    消息类型 turtlesim/Pose</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    实现流程:</span></span><br><span class="line"><span class="comment">        1.包含头文件</span></span><br><span class="line"><span class="comment">        2.初始化 ROS 节点</span></span><br><span class="line"><span class="comment">        3.创建 ROS 句柄</span></span><br><span class="line"><span class="comment">        4.创建订阅者对象</span></span><br><span class="line"><span class="comment">        5.回调函数处理订阅的数据</span></span><br><span class="line"><span class="comment">        6.spin</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"ros/ros.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"turtlesim/Pose.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">doPose</span><span class="params">(<span class="type">const</span> turtlesim::Pose::ConstPtr &amp;pose)</span></span>{</span><br><span class="line">    <span class="built_in">ROS_INFO</span>(<span class="string">"乌龟的位姿信息: \n坐标(%.2f,%.2f)\n朝向(%.2f)\n线速度:%.2f\n角速度:%.2f"</span>,</span><br><span class="line">    pose-&gt;x,pose-&gt;y,pose-&gt;theta,pose-&gt;linear_velocity,pose-&gt;angular_velocity);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">setlocale</span>(LC_ALL,<span class="string">""</span>);</span><br><span class="line">    ros::<span class="built_in">init</span>(argc,argv,<span class="string">"sub_pose"</span>);</span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line">    ros::Subscriber sub = nh.<span class="built_in">subscribe</span>(<span class="string">"/turtle1/pose"</span>,<span class="number">1000</span>,doPose);</span><br><span class="line">    ros::<span class="built_in">spin</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>python</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> turtlesim.msg <span class="keyword">import</span> Pose</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">doPose</span>(<span class="params">pose</span>):</span><br><span class="line">    rospy.loginfo(<span class="string">"乌龟的位姿信息: \n坐标(%.2f,%.2f)\n朝向(%.2f)\n线速度:%.2f\n角速度:%.2f"</span>,</span><br><span class="line">                pose.x,pose.y,pose.theta,pose.linear_velocity,pose.angular_velocity)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    rospy.init_node(<span class="string">"sub_pose_p"</span>)</span><br><span class="line">    sub = rospy.Subscriber(<span class="string">"/turtle1/pose"</span>,Pose,doPose,queue_size=<span class="number">1000</span>)</span><br><span class="line">    rospy.spin()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>代码中容易错误的地方：话题名是/turtle1/pose ，注意这个1</p>
+<h3 id="实操3-服务调用"><a href="#实操3-服务调用" class="headerlink" title="实操3 服务调用"></a>实操3 服务调用</h3><p>需求描述：编码实现向 turtlesim 发送请求，在乌龟显示节点的窗体指定位置生成一乌龟，这是一个服务请求操作</p>
+<p>实现分析:</p>
+<ol>
+<li>首先，需要启动乌龟显示节点</li>
+<li>要通过ROS命令，来获取乌龟生成服务的服务名称以及服务消息类型</li>
+<li>编写服务请求节点，生成新的乌龟</li>
+</ol>
+<p>实现流程:</p>
+<ol>
+<li>通过ros命令获取服务与服务消息信息</li>
+<li>编码实现服务请求节点</li>
+<li>启动 roscore、turtlesim_node 、乌龟生成节点，生成新的乌龟</li>
+</ol>
+<h4 id="服务名称与服务消息获取"><a href="#服务名称与服务消息获取" class="headerlink" title="服务名称与服务消息获取"></a>服务名称与服务消息获取</h4><ol>
+<li><p>获取话题</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice list</span><br></pre></td></tr></tbody></table></figure>
+
+<p>-&gt; /spawn</p>
+</li>
+<li><p>获取服务消息类型</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice info /spawn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>type: turtlesim/Spawn</p>
+<p>Args: x y theta name</p>
+</li>
+<li><p>获取服务消息格式</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rossrv info turtlesim/Spawn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>响应结果:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float32 x</span><br><span class="line">float32 y</span><br><span class="line">float32 theta</span><br><span class="line">string name</span><br><span class="line">---</span><br><span class="line">string name</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<p>也可以简单实现增添乌龟</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice call /spawn [TAB补齐]</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>c++</strong></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    服务话题 /spawn</span></span><br><span class="line"><span class="comment">    服务消息类型 turtlesim/Spawn</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    实现流程:</span></span><br><span class="line"><span class="comment">        1.包含头文件</span></span><br><span class="line"><span class="comment">          需要包含 turtlesim 包下资源，注意在 package.xml 配置</span></span><br><span class="line"><span class="comment">        2.初始化 ros 节点</span></span><br><span class="line"><span class="comment">        3.创建 ros 句柄</span></span><br><span class="line"><span class="comment">        4.创建 service 客户端</span></span><br><span class="line"><span class="comment">        5.等待服务启动</span></span><br><span class="line"><span class="comment">        6.发送请求</span></span><br><span class="line"><span class="comment">        7.处理响应</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"ros/ros.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"turtlesim/Spawn.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">setlocale</span>(LC_ALL,<span class="string">""</span>);</span><br><span class="line">    ros::<span class="built_in">init</span>(argc,argv,<span class="string">"service_call"</span>);</span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line">    ros::ServiceClient client = nh.<span class="built_in">serviceClient</span>&lt;turtlesim::Spawn&gt;(<span class="string">"/spawn"</span>);</span><br><span class="line">    turtlesim::Spawn spawn;</span><br><span class="line">    spawn.request.x = <span class="number">1.0</span>;</span><br><span class="line">    spawn.request.y = <span class="number">4.0</span>;</span><br><span class="line">    spawn.request.theta = <span class="number">1.57</span>;</span><br><span class="line">    spawn.request.name = <span class="string">"turtlec"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ros::service::waitForService("/spawn");</span></span><br><span class="line">    client.<span class="built_in">waitForExistence</span>();</span><br><span class="line">    <span class="type">bool</span> flag = client.<span class="built_in">call</span>(spawn);</span><br><span class="line">    <span class="comment">// 7.处理响应结果</span></span><br><span class="line">    <span class="keyword">if</span> (flag)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">ROS_INFO</span>(<span class="string">"新的乌龟生成,名字:%s"</span>,spawn.response.name.<span class="built_in">c_str</span>());</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="built_in">ROS_INFO</span>(<span class="string">"乌龟生成失败！！！"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>python</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> turtlesim.srv <span class="keyword">import</span> Spawn,SpawnRequest,SpawnResponse </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">	</span><br><span class="line">    rospy.init_node(<span class="string">"service_call_p"</span>)</span><br><span class="line">    client = rospy.ServiceProxy(<span class="string">"/spawn"</span>,Spawn)</span><br><span class="line">    request = SpawnRequest()</span><br><span class="line">    request.x = <span class="number">4.0</span></span><br><span class="line">    request.y = <span class="number">1.0</span></span><br><span class="line">    request.theta = <span class="number">1.57</span></span><br><span class="line">    request.name = <span class="string">"turtlep"</span></span><br><span class="line">    client.wait_for_service()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = client.call(request)</span><br><span class="line">        rospy.loginfo(<span class="string">"乌龟创建成功!，叫:%s"</span>,response.name)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        rospy.loginfo(<span class="string">"服务调用失败"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可能会出现因为重复命名的异常</p>
+<h3 id="实操4-参数设置"><a href="#实操4-参数设置" class="headerlink" title="实操4 参数设置"></a>实操4 参数设置</h3><p>需求描述: 修改turtlesim乌龟显示节点窗体的背景色，已知背景色是通过参数服务器的方式以 rgb 方式设置的</p>
+<p>实现分析:</p>
+<ol>
+<li>首先，需要启动乌龟显示节点[注意这里不启动launch文件]</li>
+<li>要通过ROS命令，来获取参数服务器中设置背景色的参数</li>
+<li>编写参数设置节点，修改参数服务器中的参数值</li>
+</ol>
+<p>实现流程:</p>
+<ol>
+<li>通过ros命令获取参数</li>
+<li>编码实现服参数设置节点</li>
+<li>启动 roscore、turtlesim_node 与参数设置节点，查看运行结果</li>
+</ol>
+<h4 id="参数名获取"><a href="#参数名获取" class="headerlink" title="参数名获取"></a>参数名获取</h4><p>获取参数列表：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosparam list</span><br></pre></td></tr></tbody></table></figure>
+
+<p>响应结果：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/turtle1/background_b</span><br><span class="line">/turtle1/background_g</span><br><span class="line">/turtle1/background_r</span><br><span class="line">/turtlesim/background_b</span><br><span class="line">/turtlesim/background_g</span><br><span class="line">/turtlesim/background_r</span><br></pre></td></tr></tbody></table></figure>
+
+<p>方式1：命令行实现</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rosparam set /turtlesim/background_r 自定义数值</span><br><span class="line">rosparam set /turtlesim/background_g 自定义数值</span><br><span class="line">rosparam set /turtlesim/background_b 自定义数值</span><br></pre></td></tr></tbody></table></figure>
+
+<p>修改相关参数后，重启 turtlesim_node 节点，背景色就会发生改变了</p>
+<p>方式2：代码</p>
+<p><strong>c++</strong></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"ros/ros.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">setlocale</span>(LC_ALL,<span class="string">""</span>);</span><br><span class="line">    ros::<span class="built_in">init</span>(argc,argv,<span class="string">"color"</span>);</span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line">    nh.<span class="built_in">setParam</span>(<span class="string">"/turtlesim/background_r"</span>,<span class="number">0</span>);</span><br><span class="line">    nh.<span class="built_in">setParam</span>(<span class="string">"/turtlesim/background_g"</span>,<span class="number">0</span>);</span><br><span class="line">    nh.<span class="built_in">setParam</span>(<span class="string">"/turtlesim/background_b"</span>,<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ros::NodeHandle nh("turtlesim"); //加上命名空间</span></span><br><span class="line">	<span class="comment">// nh.setParam("background_r",0);</span></span><br><span class="line">    <span class="comment">// nh.setParam("background_g",0);</span></span><br><span class="line">    <span class="comment">// nh.setParam("background_b",0);</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>python</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    rospy.init_node(<span class="string">"color_p"</span>)</span><br><span class="line">    rospy.set_param(<span class="string">"/turtlesim/background_r"</span>,<span class="number">255</span>)</span><br><span class="line">    rospy.set_param(<span class="string">"/turtlesim/background_g"</span>,<span class="number">255</span>)</span><br><span class="line">    rospy.set_param(<span class="string">"/turtlesim/background_b"</span>,<span class="number">255</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="TF坐标变换"><a href="#TF坐标变换" class="headerlink" title="TF坐标变换"></a>TF坐标变换</h2><p>需求描述：程序启动之初产生两只乌龟，中间的乌龟(A) 和 左下乌龟(B)，B 会自动运行至A的位置，并且键盘控制时，只是控制 A 的运动，但是 B 可以跟随 A 运行</p>
+<p>实现分析：</p>
+<p>乌龟跟随实现的核心，是乌龟A和B都要发布相对世界坐标系的坐标信息，然后，订阅到该信息需要转换获取A相对于B坐标系的信息，最后，再生成速度信息，并控制B运动。</p>
+<ol>
+<li>启动乌龟显示节点</li>
+<li>在乌龟显示窗体中生成一只新的乌龟(需要使用服务)</li>
+<li>编写两只乌龟发布坐标信息的节点</li>
+<li>编写订阅节点订阅坐标信息并生成新的相对关系生成速度信息</li>
+</ol>
+<p>实现流程：</p>
+<ol>
+<li>新建功能包，添加依赖</li>
+<li>编写服务客户端，用于生成一只新的乌龟</li>
+<li>编写发布方，发布两只乌龟的坐标信息</li>
+<li>编写订阅方，订阅两只乌龟信息，生成速度信息并发布</li>
+<li>运行</li>
+</ol>
+<p>创建第二只乌龟需要使用rosservice，话题使用的是 spawn</p>
+<p>位置信息通过话题 /乌龟名称/pose 来获取的</p>
+<p>创建功能包依赖于 tf2、tf2_ros、tf2_geometry_msgs、roscpp rospy std_msgs geometry_msgs、turtlesim</p>
+<p><strong>服务客户端(生成乌龟)</strong></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"ros/ros.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"turtlesim/Spawn.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">setlocale</span>(LC_ALL,<span class="string">""</span>);</span><br><span class="line">    ros::<span class="built_in">init</span>(argc,argv,<span class="string">"turtle_new"</span>);</span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line">    <span class="comment">// 创建客户端</span></span><br><span class="line">    ros::ServiceClient client = nh.<span class="built_in">serviceClient</span>&lt;turtlesim::Spawn&gt;(<span class="string">"/spawn"</span>);</span><br><span class="line">    <span class="comment">// 请求内容</span></span><br><span class="line">    turtlesim::Spawn spawn;</span><br><span class="line">    spawn.request.x = <span class="number">1</span>;</span><br><span class="line">    spawn.request.y = <span class="number">3</span>;</span><br><span class="line">    spawn.request.theta = <span class="number">1.57</span>;</span><br><span class="line">    spawn.request.name = <span class="string">"turtle2"</span>;</span><br><span class="line">    <span class="comment">// 等待服务器启动</span></span><br><span class="line">    client.<span class="built_in">waitForExistence</span>();</span><br><span class="line">    <span class="comment">// call 发送请求,flag反应结果</span></span><br><span class="line">    <span class="type">bool</span> flag = client.<span class="built_in">call</span>(spawn);</span><br><span class="line">    <span class="keyword">if</span>(flag)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">ROS_INFO</span>(<span class="string">"新的乌龟生成,名称:%s"</span>,spawn.response.name.<span class="built_in">c_str</span>());</span><br><span class="line">    }<span class="keyword">else</span> {</span><br><span class="line">        <span class="built_in">ROS_INFO</span>(<span class="string">"乌龟生成失败！！！"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>发布方(发布两只乌龟的坐标信息)</strong></p>
+<ul>
+<li>该节点需要启动两次</li>
+<li>每次启动时都需要传入乌龟节点名称(第一次是 turtle1 第二次是 turtle2)</li>
+</ul>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"ros/ros.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"turtlesim/Pose.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"tf2_ros/transform_broadcaster.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"geometry_msgs/TransformStamped.h"</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"tf2/LinearMath/Quaternion.h"</span> </span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">    发布方：需要订阅乌龟的位姿信息，转换成相对于窗体的坐标关系，并发布</span></span><br><span class="line"><span class="comment">    准 备</span></span><br><span class="line"><span class="comment">        话题：/turtle1/pose</span></span><br><span class="line"><span class="comment">        消息：/turtlesim/Pose</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明传入的变量</span></span><br><span class="line">std::string turtle_name;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">doPose</span><span class="params">(<span class="type">const</span> turtlesim::Pose::ConstPtr&amp; pose)</span></span>{</span><br><span class="line">    <span class="comment">// 获取位姿信息，转换成坐标系相对关系(核心),并发布</span></span><br><span class="line">    <span class="comment">// 创建发布对象</span></span><br><span class="line">    <span class="comment">// tf2_ros::TransformBroadcaster pub; 如果这么写每次处理都要创建一个新的发布对象</span></span><br><span class="line">    <span class="type">static</span> tf2_ros::TransformBroadcaster pub; <span class="comment">// 静态发布对象</span></span><br><span class="line">    <span class="comment">// 处理发布数据</span></span><br><span class="line">    geometry_msgs::TransformStamped tfs;</span><br><span class="line">    tfs.header.frame_id = <span class="string">"world"</span>;</span><br><span class="line">    tfs.header.stamp = ros::Time::<span class="built_in">now</span>();</span><br><span class="line">    <span class="comment">// tfs.child_frame_id 动态传入</span></span><br><span class="line">    tfs.child_frame_id = turtle_name;</span><br><span class="line">    <span class="comment">// 从乌龟位姿信息获取坐标</span></span><br><span class="line">    tfs.transform.translation.x = pose-&gt;x;</span><br><span class="line">    tfs.transform.translation.y = pose-&gt;y;</span><br><span class="line">    tfs.transform.translation.z = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 坐标系四元数</span></span><br><span class="line">    <span class="comment">// pose 信息中只有偏航yaw -&gt; theta,二维没有翻滚roll,俯仰pitch</span></span><br><span class="line">    <span class="comment">// 欧拉角为 (0,0,theta)</span></span><br><span class="line">    tf2::Quaternion qtn;</span><br><span class="line">    qtn.<span class="built_in">setRPY</span>(<span class="number">0</span>,<span class="number">0</span>,pose-&gt;theta);</span><br><span class="line">    tfs.transform.rotation.x = qtn.<span class="built_in">getX</span>();</span><br><span class="line">    tfs.transform.rotation.y = qtn.<span class="built_in">getY</span>();</span><br><span class="line">    tfs.transform.rotation.z = qtn.<span class="built_in">getZ</span>();</span><br><span class="line">    tfs.transform.rotation.w = qtn.<span class="built_in">getW</span>();</span><br><span class="line">    <span class="comment">// 发布</span></span><br><span class="line">    pub.<span class="built_in">sendTransform</span>(tfs);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">setlocale</span>(LC_ALL,<span class="string">""</span>);</span><br><span class="line">    ros::<span class="built_in">init</span>(argc,argv,<span class="string">"dynamic_pub"</span>);</span><br><span class="line">    <span class="comment">// 解析argc传入的参数</span></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">ROS_ERROR</span>(<span class="string">"请传入一个参数"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    }<span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        turtle_name = argv[<span class="number">1</span>];</span><br><span class="line">        <span class="built_in">ROS_INFO</span>(<span class="string">"乌龟 %s 坐标发送启动"</span>,turtle_name.<span class="built_in">c_str</span>());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line">    <span class="comment">// 创建订阅对象,订阅话题动态传入</span></span><br><span class="line">    ros::Subscriber sub = nh.<span class="built_in">subscribe</span>(turtle_name + <span class="string">"/pose"</span>,<span class="number">100</span>,doPose);</span><br><span class="line">    ros::<span class="built_in">spin</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>订阅方(解析坐标信息并生成速度信息)</strong></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"ros/ros.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"tf2_ros/transform_listener.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"tf2_ros/buffer.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"geometry_msgs/PointStamped.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"tf2_geometry_msgs/tf2_geometry_msgs.h"</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"geometry_msgs/TransformStamped.h"</span> <span class="comment">// buffer.lookupTransform 返回值类型</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"geometry_msgs/Twist.h"</span> <span class="comment">//速度信息</span></span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">    订阅方实现：</span></span><br><span class="line"><span class="comment">        1. 计算turtle1相对turtle2的关系</span></span><br><span class="line"><span class="comment">        2. 计算线速度和角速度发布</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">setlocale</span>(LC_ALL,<span class="string">""</span>);</span><br><span class="line">    ros::<span class="built_in">init</span>(argc,argv,<span class="string">"control"</span>);</span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line">    tf2_ros::Buffer buffer;</span><br><span class="line">    <span class="function">tf2_ros::TransformListener <span class="title">listener</span><span class="params">(buffer)</span></span>; <span class="comment">// 不能删监听器</span></span><br><span class="line">    <span class="comment">// 创建发布对象</span></span><br><span class="line">    ros::Publisher pub = nh.<span class="built_in">advertise</span>&lt;geometry_msgs::Twist&gt;(<span class="string">"/turtle2/cmd_vel"</span>,<span class="number">100</span>);</span><br><span class="line">    <span class="function">ros::Rate <span class="title">rate</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (ros::<span class="built_in">ok</span>()){</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        {</span><br><span class="line">            <span class="comment">// 参数1父级坐标系,参数2子坐标系,参数3ros::Time(0) 取间隔最小的两个时间戳进行计算</span></span><br><span class="line">            geometry_msgs::TransformStamped tfs = buffer.<span class="built_in">lookupTransform</span>(<span class="string">"turtle2"</span>,<span class="string">"turtle1"</span>,ros::<span class="built_in">Time</span>(<span class="number">0</span>));</span><br><span class="line">            <span class="comment">// ROS_INFO("%s 相对 %s 的偏移量:(%.2f,%.2f,%.2f)",</span></span><br><span class="line">            <span class="comment">//         tfs.child_frame_id.c_str(),</span></span><br><span class="line">            <span class="comment">//         tfs.header.frame_id.c_str(),</span></span><br><span class="line">            <span class="comment">//         tfs.transform.translation.x,</span></span><br><span class="line">            <span class="comment">//         tfs.transform.translation.y,</span></span><br><span class="line">            <span class="comment">//         tfs.transform.translation.z</span></span><br><span class="line">            <span class="comment">//     );</span></span><br><span class="line">            geometry_msgs::Twist twist;</span><br><span class="line">            <span class="comment">// 2D只需要配置角速度z和线速度x</span></span><br><span class="line">            <span class="comment">// x = 系数*\sqrt{(y^2+x^2)}</span></span><br><span class="line">            <span class="comment">// z = 系数*arctan(y/x)</span></span><br><span class="line">            twist.linear.x = <span class="number">0.5</span> * <span class="built_in">sqrt</span>(<span class="built_in">pow</span>(tfs.transform.translation.x,<span class="number">2</span>)+<span class="built_in">pow</span>(tfs.transform.translation.y,<span class="number">2</span>));</span><br><span class="line">            twist.angular.z = <span class="number">0.5</span> * <span class="built_in">atan2</span>(tfs.transform.translation.y,tfs.transform.translation.x);</span><br><span class="line">            <span class="comment">// 发布</span></span><br><span class="line">            pub.<span class="built_in">publish</span>(twist);</span><br><span class="line">            </span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">catch</span>(<span class="type">const</span> std::exception&amp; e)</span><br><span class="line">        {</span><br><span class="line">            <span class="built_in">ROS_INFO</span>(<span class="string">"错误提示:%s"</span>,e.<span class="built_in">what</span>());</span><br><span class="line">        }</span><br><span class="line">        rate.<span class="built_in">sleep</span>();</span><br><span class="line">        ros::<span class="built_in">spinOnce</span>(); </span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>运行</strong></p>
+<p>使用launch文件</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line">    &lt;!-- 1. 启动乌龟GUI节点 --&gt;</span><br><span class="line">    &lt;node pkg="turtlesim" type="turtlesim_node" name="turtle1" output="screen" /&gt;</span><br><span class="line">    &lt;node pkg="turtlesim" type="turtle_teleop_key" name="key" output="screen" /&gt;</span><br><span class="line">    &lt;!-- 2. 生成新乌龟节点 --&gt;</span><br><span class="line">    &lt;node pkg="tf04_test" type="new_turtle" name="turtle2" output="screen"/&gt;</span><br><span class="line">    &lt;!-- 3. 设置两个乌龟相对于世界坐标的发布 --&gt;</span><br><span class="line">    &lt;node pkg="tf04_test" type="dynamic_pub" name="pub1" args="turtle1" output="screen"/&gt;</span><br><span class="line">    &lt;node pkg="tf04_test" type="dynamic_pub" name="pub2" args="turtle2" output="screen"/&gt;</span><br><span class="line">    &lt;!-- 4. 订阅两只乌龟相对于世界坐标系的信息,并转化为turtle1相对于turtle2的坐标关系</span><br><span class="line">            再生成速度信息 --&gt;</span><br><span class="line">    &lt;node pkg="tf04_test" type="control" name="control" output="screen"/&gt;</span><br><span class="line">&lt;/launch&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/3894864178.html">http://yhblogs.cn/posts/3894864178.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%A4%96ROS/">🤖ROS</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5g22q5_1920x1080_compressed.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3254549402.html" title="ROS机器人系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-1q83qg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ROS机器人系统</div></div></a></div><div class="next-post pull-right"><a href="/posts/626062709.html" title="ROS基础知识"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/ros-logo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ROS基础知识</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/626062709.html" title="ROS基础知识"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/ros-logo.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-19</div><div class="title">ROS基础知识</div></div></a></div><div><a href="/posts/3254549402.html" title="ROS机器人系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-1q83qg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-10</div><div class="title">ROS机器人系统</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">代码模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ROS%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">ROS通信机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%93%8D1-%E8%AF%9D%E9%A2%98%E5%8F%91%E5%B8%83"><span class="toc-number">2.1.</span> <span class="toc-text">实操1 话题发布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%9D%E9%A2%98%E4%B8%8E%E6%B6%88%E6%81%AF%E8%8E%B7%E5%8F%96"><span class="toc-number">2.1.1.</span> <span class="toc-text">话题与消息获取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8F%91%E5%B8%83%E8%8A%82%E7%82%B9"><span class="toc-number">2.1.2.</span> <span class="toc-text">实现发布节点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%93%8D2-%E8%AF%9D%E9%A2%98%E8%AE%A2%E9%98%85"><span class="toc-number">2.2.</span> <span class="toc-text">实操2 话题订阅</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%9D%E9%A2%98%E4%B8%8E%E6%B6%88%E6%81%AF%E8%8E%B7%E5%8F%96-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">话题与消息获取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E8%AE%A2%E9%98%85%E8%8A%82%E7%82%B9"><span class="toc-number">2.2.2.</span> <span class="toc-text">实现订阅节点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%93%8D3-%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">实操3 服务调用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%90%8D%E7%A7%B0%E4%B8%8E%E6%9C%8D%E5%8A%A1%E6%B6%88%E6%81%AF%E8%8E%B7%E5%8F%96"><span class="toc-number">2.3.1.</span> <span class="toc-text">服务名称与服务消息获取</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%93%8D4-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.4.</span> <span class="toc-text">实操4 参数设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%90%8D%E8%8E%B7%E5%8F%96"><span class="toc-number">2.4.1.</span> <span class="toc-text">参数名获取</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TF%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-number">3.</span> <span class="toc-text">TF坐标变换</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2025 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
