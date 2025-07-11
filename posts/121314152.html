@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>C++Primer第五版习题答案详解(二) | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="答案目录 第2章 变量和基本类型练习2.1  int最小尺寸为16位, 2个字节; long最小尺寸为32位, 4个字节; long long最小尺寸为64位, 8个字节; short最小尺寸为16位, 2个字节;  带符号类型可以表示整数、负数和0, 无符号类型仅能表示大于等于0的值且所有比特都用来存储值;  float和double都是浮点类型, float最小尺寸为6位有效数字, doubl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++Primer第五版习题答案详解(二)">
+<meta property="og:url" content="http://yhblogs.cn/posts/121314152.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="答案目录 第2章 变量和基本类型练习2.1  int最小尺寸为16位, 2个字节; long最小尺寸为32位, 4个字节; long long最小尺寸为64位, 8个字节; short最小尺寸为16位, 2个字节;  带符号类型可以表示整数、负数和0, 无符号类型仅能表示大于等于0的值且所有比特都用来存储值;  float和double都是浮点类型, float最小尺寸为6位有效数字, doubl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp">
+<meta property="article:published_time" content="2022-05-17T21:54:12.000Z">
+<meta property="article:modified_time" content="2025-07-11T07:28:06.519Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="👨‍💻C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/121314152.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++Primer第五版习题答案详解(二)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-11 07:28:06'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">C++Primer第五版习题答案详解(二)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2022-05-17T21:54:12.000Z" title="发表于 2022-05-17 21:54:12">2022-05-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++Primer第五版习题答案详解(二)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p><a href="/posts/121314150">答案目录</a></p>
+<h2 id="第2章-变量和基本类型"><a href="#第2章-变量和基本类型" class="headerlink" title="第2章 变量和基本类型"></a>第2章 变量和基本类型</h2><p>练习2.1 </p>
+<p>int最小尺寸为16位, 2个字节; long最小尺寸为32位, 4个字节; long long最小尺寸为64位, 8个字节; short最小尺寸为16位, 2个字节; </p>
+<p>带符号类型可以表示整数、负数和0, 无符号类型仅能表示大于等于0的值且所有比特都用来存储值; </p>
+<p>float和double都是浮点类型, float最小尺寸为6位有效数字, double为10位; </p>
+<p>练习2.2</p>
+<p>利率：unsigned double; 本金和付款：unsigned float</p>
+<p>利率一般小数位数较多, 且没有负数; 本金和付款小数位数少, 也没有负数; unsigned可以节约字节数</p>
+<p>练习2.3</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">unsigned</span> u = <span class="number">10</span>, u2 = <span class="number">42</span>;</span><br><span class="line">	std::cout &lt;&lt; u - u2 &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这一段产生逸出, 输出结果为4294967264, 无符号数相减可以得到0; </p>
+<blockquote>
+<p>假设int占32位, unsigned类型中 -1 对应4294967295	2的32次方为4294967296</p>
+</blockquote>
+<p>练习2.5</p>
+<p>(a) ‘a’ 字符字面值, L’a’ 宽字符字面值, 类型是wchar_t, “a” 字符串字面值, L”a” 宽字符字符串字面值; </p>
+<p>(b)10 十进制, 10u 无符号整型, 10L 长整型, 10uL 无符号长整型, 012 八进制, 0xC 十六进制; </p>
+<p>(c)3.14 浮点数, 3.14f 单精度浮点型字面值, 类型是float, 3.14L 扩展精度浮点型字面值, 类型是long double; </p>
+<p>(d)10 十进制, 10u 无符号整型, 10. 浮点型, 10e-2 浮点型字面值; </p>
+<p>练习2.6</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> month = <span class="number">9</span>, day = <span class="number">7</span>;    <span class="comment">//定义的month和day均为10进制</span></span><br><span class="line"><span class="type">int</span> month = <span class="number">0</span>9, day = <span class="number">07</span>;  <span class="comment">// 定义的month和day为八进制，month会报错，因为09超出范围了</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.7</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(a)<span class="string">"who goes with F\145rgus?\012"</span>   </span><br><span class="line">    <span class="comment">// \145表示小写字母“e”， \012表示换行符。 输出：who goes with Fergus?</span></span><br><span class="line">(b) <span class="number">3.14e1L</span>   <span class="comment">// 表示扩展的浮点型，类型是long double</span></span><br><span class="line">(c) <span class="number">1024</span>f     <span class="comment">// 单精度浮点型字面值，类型是float</span></span><br><span class="line">(d) <span class="number">3.14L</span>     <span class="comment">// 表示扩展的浮点型，类型是long double</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>在泛化的转义序列中\141为a，\101为A</p>
+<p>练习2.8</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	std::cout &lt;&lt; <span class="string">"2\115\12"</span> &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">"2\t\115\n"</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.9</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(a) std::cin &gt;&gt; <span class="type">int</span> input_value          <span class="comment">// 错误，不能在输入输出语句中定义变量。</span></span><br><span class="line">(b) <span class="type">int</span> i = { <span class="number">3.14</span> };                <span class="comment">// 错误，在初始化列表中使用浮点型初始化int变量可能会丢失数据，编译器会拒绝执行</span></span><br><span class="line">(c) <span class="type">double</span> salary = wage = <span class="number">9999.99</span>;      <span class="comment">// wage未定义，如果wage定义了，则该语句可以正常执行，最终wage和salary相等(从右到左)</span></span><br><span class="line">(d) <span class="type">int</span> i = <span class="number">3.14</span>;        <span class="comment">// 警告，有隐式转化，i值为3。</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.10</p>
+<p>报错，未知的初始值</p>
+<p>练习2.11</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="keyword">extern</span> <span class="type">int</span> ix = <span class="number">1024</span>;    <span class="comment">// 定义 （任何包含了显式初始化的声明即成为定义）</span></span><br><span class="line">(b) <span class="type">int</span> iy;      <span class="comment">// 声明并定义 （想声明而不定义，就在变量名前家extern）</span></span><br><span class="line">(c) <span class="keyword">extern</span> <span class="type">int</span> iz;       <span class="comment">// 声明</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.12</p>
+<p>变量名只能包含字母、数字、下划线，且不能和关键词等重复，不能以数字开头</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="type">int</span> doube = <span class="number">3.14</span>;    <span class="comment">//非法，double为关键字，不能作为变量名</span></span><br><span class="line">(b) <span class="type">int</span> _;       <span class="comment">//合法</span></span><br><span class="line">(c) <span class="type">int</span> <span class="keyword">catch</span><span class="number">-22</span>;        <span class="comment">//非法，变量名只能包含字母、数字、下划线</span></span><br><span class="line">（<span class="number">4</span>）<span class="type">int</span> <span class="number">1</span>_or_2 = <span class="number">1</span>;      <span class="comment">//非法，不能以数字开头</span></span><br><span class="line">（<span class="number">5</span>）<span class="type">double</span> Double = <span class="number">3.14</span>;    <span class="comment">//合法</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.13</p>
+<p>j = 100</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> i = <span class="number">100</span>;</span><br><span class="line">	<span class="type">int</span> j = i;</span><br><span class="line">	std::cout &lt;&lt; j &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.14</p>
+<p>合法，输出100 45</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> i = <span class="number">100</span>, sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i != <span class="number">10</span>; ++i)</span><br><span class="line">		sum += i;</span><br><span class="line">	std::cout &lt;&lt; i &lt;&lt; <span class="string">" "</span> &lt;&lt; sum &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.15</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="type">int</span> ival = <span class="number">1.01</span>;     <span class="comment">//用float初始化int，不合法，会有警告</span></span><br><span class="line">(b) <span class="type">int</span> &amp;rval1 = <span class="number">1.01</span>;   <span class="comment">//非法，引用的初始值必须是一个对象</span></span><br><span class="line">(c) <span class="type">int</span> &amp;rval2 = ival;   <span class="comment">//合法</span></span><br><span class="line">(d) <span class="type">int</span> &amp;rval3;      <span class="comment">//非法，引用必须被初始化。</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.16</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>, &amp;rl = i;</span><br><span class="line"><span class="type">double</span> d = <span class="number">0</span>, &amp;r2 = d;</span><br><span class="line"></span><br><span class="line">(a) r2 = <span class="number">3.14159</span>; <span class="comment">//合法,d的值也变为3.14159</span></span><br><span class="line">(b) r2 = r1; <span class="comment">//合法，但隐式转化</span></span><br><span class="line">(c) i = r2; <span class="comment">//合法，但隐式转化</span></span><br><span class="line">(d) r1 = d; <span class="comment">//合法，但隐式转化</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.17</p>
+<p>10 10</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> i, &amp; ri = i;</span><br><span class="line">	i = <span class="number">5</span>;</span><br><span class="line">	ri = <span class="number">10</span>;</span><br><span class="line">	std::cout &lt;&lt; i &lt;&lt; <span class="string">" "</span> &lt;&lt; ri &lt;&lt; std::endl;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.19</p>
+<p>（1）引用在定义时必须初始化，而指针可不初始化；</p>
+<p>（2）引用在其生命周期内，只能指向一个对象，而指针可以先后指向不同的对象</p>
+<p>（3）指针本身就是一个对象，允许对指针进行赋值和拷贝</p>
+<p>练习2.20</p>
+<p>让i值变为i平方</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> i = <span class="number">42</span>;</span><br><span class="line">	<span class="type">int</span>* pi = &amp;i;</span><br><span class="line">	*pi = *pi * *pi;</span><br><span class="line">	std::cout &lt;&lt; *pi &lt;&lt; std::endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.21</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="type">double</span>* dp = &amp;i;     <span class="comment">//非法，不能用int型的变量初始化doube指针</span></span><br><span class="line">(b) <span class="type">int</span>* ip = i;     <span class="comment">//非法， 不能用int值初始化指针</span></span><br><span class="line">(c) <span class="type">int</span>* p = &amp;i;     <span class="comment">//合法</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.22</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (p) <span class="comment">//如果地址不为0</span></span><br><span class="line"><span class="keyword">if</span> (*p) <span class="comment">//如果所指的值为真,*p值非0</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.23</p>
+<p>不行，如果你把指针理解为一个信封上的地址，那么没有任何手段能保证你填写的地址必然有人住。(别人的回答)</p>
+<p>类比于有这个东西和是不是我要的东西；</p>
+<p>练习2.24</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="type">void</span> *p = &amp;i;   <span class="comment">//因为void指针类型可以存放任意对象的地址  </span></span><br><span class="line"><span class="type">long</span> *lp = &amp;i;  <span class="comment">//但是long指针，就只能存放long对象的地址</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.25</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="type">int</span>* ip, i, &amp;r = i;     <span class="comment">// ip 为int指针类型，i为int型，r为引用类型，初始化为i。</span></span><br><span class="line">(b) <span class="type">int</span> i, *p =<span class="number">0</span>;       <span class="comment">// i为int型， p为int指针类型，初始化为0，并未指向任何对象</span></span><br><span class="line">(c) <span class="type">int</span>* ip, ip2;       <span class="comment">// ip为int指针类型，ip2为int型，未定义初始值</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.26</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="type">const</span> <span class="type">int</span> buf;       <span class="comment">// 不合法，声明一个const常量的同时必须初始化</span></span><br><span class="line">(b) <span class="type">int</span> cnt = <span class="number">0</span>;     <span class="comment">// 合法，声明并初始化一个int变量</span></span><br><span class="line">(c) <span class="type">const</span> <span class="type">int</span> sz = cnt;  <span class="comment">// 合法，声明一个int const常量，并初始化。</span></span><br><span class="line">(d) ++cnt; ++sz;        <span class="comment">// 不合法，sz为常量，不能进行++操作。</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.27</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="type">int</span> i = <span class="number">-1</span>, &amp;r = <span class="number">0</span>;      <span class="comment">// 不合法， r为引用，初始化只能指向一个对象。</span></span><br><span class="line">(b) <span class="type">int</span> *<span class="type">const</span> p2 = &amp;i2;     <span class="comment">// 合法，定义一个int型的常量指针，初始化为i2的地址，之后指针的值不能再改变</span></span><br><span class="line">(c) <span class="type">const</span> <span class="type">int</span> i = <span class="number">-1</span>, &amp;r = <span class="number">0</span>;        <span class="comment">// 合法， r为引用，const int &amp;r = 0; 是合法的</span></span><br><span class="line">(d) <span class="type">const</span> <span class="type">int</span>* <span class="type">const</span> p3 = &amp;i2;       <span class="comment">// 合法，p3的值不能改变，*p3也不能改变</span></span><br><span class="line">(e) <span class="type">const</span> <span class="type">int</span>* p1 = &amp;i2;     <span class="comment">// 合法，指针常量，p1指向的值不能被改变</span></span><br><span class="line">(f) <span class="type">const</span> <span class="type">int</span>&amp; <span class="type">const</span> r2;     <span class="comment">// 不合法，引用不能是const</span></span><br><span class="line">(g) <span class="type">const</span> <span class="type">int</span> i2 = i, &amp;r = i;        <span class="comment">// 合法</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.28</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="type">int</span> i, *<span class="type">const</span> cp;       <span class="comment">// 不合法，定义const类型指针要初始化，cp</span></span><br><span class="line">(b) <span class="type">int</span> *p1, *<span class="type">const</span> p2;     <span class="comment">// 不合法，同上，p2应该初始化。</span></span><br><span class="line">(c) <span class="type">const</span> <span class="type">int</span> ic, &amp;r = ic;      <span class="comment">// 不合法，ic为const类型，必须要初始化</span></span><br><span class="line">(d) <span class="type">const</span> <span class="type">int</span> *<span class="type">const</span> p3;        <span class="comment">// 不合法，p3需要初始化 </span></span><br><span class="line">(e) <span class="type">const</span> <span class="type">int</span> *p;           <span class="comment">// 合法，指向是常量，但指针的值可变</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.29</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(a) i = ic;         <span class="comment">// 合法</span></span><br><span class="line">(b) p1 = p3;            <span class="comment">// 不合法，int* 不能用const int* 初始化</span></span><br><span class="line">(c) p1 = &amp;ic;           <span class="comment">// 不合法，p1是一个普通指针，不能指向const int类型的值。</span></span><br><span class="line">(d) p3 = &amp;ic;           <span class="comment">// 不合法，p3的值和p3指向的值都不能改变</span></span><br><span class="line">(e) p2 = p1;            <span class="comment">// 不合法，p2的值不能被改变</span></span><br><span class="line">(f) ic = *p3;           <span class="comment">// 不合法，ic是常量，不能被改变</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.30</p>
+<p>靠右的const是顶层const，靠左的是底层const（针对指针的判断）</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(a) <span class="type">const</span> <span class="type">int</span> v2 = <span class="number">0</span>; <span class="type">int</span> v1 = v2;          <span class="comment">// v2是顶层const</span></span><br><span class="line">(b) <span class="type">int</span> *p1 = &amp;v1, &amp;r1 = v1;                <span class="comment">// 非const,&amp;ri为引用</span></span><br><span class="line">(c) <span class="type">const</span> <span class="type">int</span> *p2 = &amp;v2, *<span class="type">const</span> p3 = &amp;i, &amp;r2 = v2;  <span class="comment">// p2是底层const，p3最左是底层，p3前面是顶层const， r2是底层const</span></span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>顶层const可以进行赋值操作，但底层const有限制，拷入拷出的对象也必须具有相同的底层const，或者两个数据类型可以转换，一般来说非常量可以转换成常量，反之不行；</p>
+</blockquote>
+<p>练习2.31</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(a) r1 = v2;        <span class="comment">// 合法，引用改变值</span></span><br><span class="line">(b) p1 = p2; p2 = p1;   <span class="comment">// 不合法，p2是底层const，赋值对象必须同样有底层const才行，p2 = p1合法</span></span><br><span class="line">(c) p1 = p3; p2 = p3;   <span class="comment">// 不合法，p3是底层const， p2 = p3合法。</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.32</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> null = <span class="number">0</span>, *p = null;           </span><br><span class="line"><span class="comment">// int *p不能用int型来初始化。 应为 int null = 0, *p = &amp;null / int *p = nullptr</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.33</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(a) a = <span class="number">42</span>; b = <span class="number">42</span>; c = <span class="number">42</span>;         <span class="comment">// a, b, c的值均为42</span></span><br><span class="line">(b) d = <span class="number">42</span>; e = <span class="number">42</span>; g = <span class="number">42</span>;     <span class="comment">// d:error, d为int*类型</span></span><br><span class="line">                                <span class="comment">// e:error, e为const int*类型</span></span><br><span class="line">                                <span class="comment">// g:error, g为const int类型，不能再赋值</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.34</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>, &amp; r = i;</span><br><span class="line">	<span class="keyword">auto</span> a = r;</span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> ci = i, &amp; cr = ci;</span><br><span class="line">	<span class="keyword">auto</span> b = ci;</span><br><span class="line">	<span class="keyword">auto</span> c = cr;</span><br><span class="line">	<span class="keyword">auto</span> d = &amp;i;</span><br><span class="line">	<span class="keyword">auto</span> e = &amp;ci;</span><br><span class="line">	<span class="keyword">auto</span> &amp;g = ci;</span><br><span class="line">	a = <span class="number">42</span>;</span><br><span class="line">	b = <span class="number">42</span>;</span><br><span class="line">	c = <span class="number">42</span>;</span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; b &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; *d &lt;&lt; *e &lt;&lt; g &lt;&lt; std::endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.35</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> i = <span class="number">42</span>；       <span class="comment">// i为const int类型</span></span><br><span class="line"><span class="keyword">auto</span> j = i;             <span class="comment">// j为int类型</span></span><br><span class="line"><span class="keyword">auto</span> &amp;k = i;            <span class="comment">// k为const int&amp; 类型</span></span><br><span class="line"><span class="keyword">auto</span> *p = &amp;i;            <span class="comment">// p为const int* 类型</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> j2 = i, &amp;k2 = i; <span class="comment">// j2为const int类型，k2为const int&amp; 类型。</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.36</p>
+<p>decltype((variable))（注意是双层括号）的结果永远是引用</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">3</span>, b = <span class="number">4</span>;      <span class="comment">//</span></span><br><span class="line"><span class="keyword">decltype</span>(a) c = a;     <span class="comment">// c为int类型，a为c的初值</span></span><br><span class="line"><span class="keyword">decltype</span>((b)) d = a;       <span class="comment">// d为int&amp; 类型，是a的引用</span></span><br><span class="line">++c;               <span class="comment">// ++c之后的值为4；不影响a值</span></span><br><span class="line">++d;               <span class="comment">// ++d之后的值为4；影响a值，a变为4</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.37</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">3</span>, b = <span class="number">4</span>;       <span class="comment">// a, b均为int</span></span><br><span class="line"><span class="keyword">decltype</span> (a) c = a;     <span class="comment">// c为int</span></span><br><span class="line"><span class="keyword">decltype</span> (a = b) d = a; <span class="comment">// d为int&amp;，是a的引用，(a = b)不影响a值，并没有实际操作</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.38</p>
+<p>相同点：都通过已知变量或表达式的类型来指定类型，如：</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">2</span>； <span class="keyword">auto</span> j = i; <span class="keyword">decltype</span>(i) j = i; <span class="comment">//两者相同	</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>不同点：auto会忽略顶层const，但decltype不会；auto定义变量必须有初始值，但decltyple不一定；</p>
+<p>如果使用引用类型，auto会识别为其所指对象的类型，decltype则会识别为引用的类型；</p>
+<p>decltype(())双括号的差别，直接识别为引用类型；</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>, &amp;r = i;</span><br><span class="line"><span class="comment">// same</span></span><br><span class="line"><span class="keyword">auto</span> a = i;</span><br><span class="line"><span class="keyword">decltype</span>(i) b = i;</span><br><span class="line"><span class="comment">// different</span></span><br><span class="line"><span class="keyword">auto</span> c = r;</span><br><span class="line"><span class="keyword">decltype</span>(r) d = i;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.40</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Sales_data</span></span><br><span class="line">{</span><br><span class="line">    std::string bookNo;</span><br><span class="line">    <span class="type">unsigned</span> units_sold = <span class="number">0</span>;</span><br><span class="line">    <span class="type">double</span> revenue = <span class="number">0.0</span>;</span><br><span class="line">};</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>练习2.41,2.42</p>
+<p>{ % hideInline 发挥自己的想象力吧, 参考答案 % }</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/121314152.html">http://yhblogs.cn/posts/121314152.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%91%A8%E2%80%8D%F0%9F%92%BBC/">👨‍💻C++</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/121314153.html" title="C++Primer第五版习题答案详解(三)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C++Primer第五版习题答案详解(三)</div></div></a></div><div class="next-post pull-right"><a href="/posts/121314151.html" title="C++Primer第五版习题答案详解(一)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C++Primer第五版习题答案详解(一)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2604276937.html" title="C++类与对象"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-zywe5j_1920x1080_compressed.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-03</div><div class="title">C++类与对象</div></div></a></div><div><a href="/posts/121314151.html" title="C++Primer第五版习题答案详解(一)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-15</div><div class="title">C++Primer第五版习题答案详解(一)</div></div></a></div><div><a href="/posts/121314153.html" title="C++Primer第五版习题答案详解(三)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-19</div><div class="title">C++Primer第五版习题答案详解(三)</div></div></a></div><div><a href="/posts/121314154.html" title="C++Primer第五版习题答案详解(四)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">C++Primer第五版习题答案详解(四)</div></div></a></div><div><a href="/posts/121314155.html" title="C++Primer第五版习题答案详解(五)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-09</div><div class="title">C++Primer第五版习题答案详解(五)</div></div></a></div><div><a href="/posts/121314156.html" title="C++Primer第五版习题答案详解(六)"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071522890.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-16</div><div class="title">C++Primer第五版习题答案详解(六)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">第2章 变量和基本类型</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2025 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
