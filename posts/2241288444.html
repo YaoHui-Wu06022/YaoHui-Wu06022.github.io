@@ -1,0 +1,1290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>C++理论学习 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C基础排序排序次数 = 数组size - 1 比较次数 = 数组size - 1 - 排序轮次 在数值上相同 定义交换函数 123456template <typename T>void Swap(T &amp;a, T &amp;b) {    T temp = a;    a = b;    b = temp;}  冒泡法：  重复遍历数组，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++理论学习">
+<meta property="og:url" content="http://yhblogs.cn/posts/2241288444.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="C基础排序排序次数 = 数组size - 1 比较次数 = 数组size - 1 - 排序轮次 在数值上相同 定义交换函数 123456template <typename T>void Swap(T &amp;a, T &amp;b) {    T temp = a;    a = b;    b = temp;}  冒泡法：  重复遍历数组，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5yd6d5.png">
+<meta property="article:published_time" content="2025-07-20T12:45:57.000Z">
+<meta property="article:modified_time" content="2025-07-31T12:48:00.772Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="👨‍💻C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5yd6d5.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/2241288444.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++理论学习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-31 12:48:00'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">C++理论学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-07-20T12:45:57.000Z" title="发表于 2025-07-20 12:45:57">2025-07-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">10.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>40分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++理论学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="C基础"><a href="#C基础" class="headerlink" title="C基础"></a>C基础</h2><h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>排序次数 = 数组size - 1</p>
+<p>比较次数 = 数组size - 1 - 排序轮次</p>
+<p>在数值上相同</p>
+<p>定义交换函数</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Swap</span><span class="params">(T &amp;a, T &amp;b)</span> </span>{</span><br><span class="line">    T temp = a;</span><br><span class="line">    a = b;</span><br><span class="line">    b = temp;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>冒泡法：</p>
+<ul>
+<li>重复遍历数组，比较相邻元素</li>
+<li>如果顺序错误（前 &gt; 后），则交换它们</li>
+<li>每轮遍历将最大元素”冒泡”到正确位置</li>
+</ul>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MSort</span><span class="params">(T arr[], <span class="type">const</span> <span class="keyword">auto</span> len)</span> </span>{</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) {</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; len - i - <span class="number">1</span>; j++) {</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) {</span><br><span class="line">                <span class="built_in">Swap</span>(arr[j], arr[j + <span class="number">1</span>]);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>选择法：</p>
+<ul>
+<li><p>每次从未排序部分选出最大/小元素</p>
+</li>
+<li><p>将其放到已排序序列的末尾</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">XSort</span><span class="params">(T arr[], <span class="type">const</span> <span class="keyword">auto</span> len)</span> </span>{</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len<span class="number">-1</span>; i++) {</span><br><span class="line">        <span class="type">int</span> min = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i<span class="number">+1</span>; j &lt; len; j++)</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &lt; arr[min])</span><br><span class="line">                min = j;</span><br><span class="line">        <span class="keyword">if</span> (min!=i)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i], arr[min]);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p>空指针NULL不能访问</p>
+<p>常量指针<code>const int * p = &amp;a</code> </p>
+<p>指针的指向(地址)可以改，但指针指向的值不可修改</p>
+<p>指针常量<code>int * const p = &amp;a</code></p>
+<p>指针的指向(地址)不可以改，但指针指向的值可以改</p>
+<p><code>const int * const p = &amp;a</code></p>
+<p>指针的指向(地址)不可以改，指针指向的值也不可修改</p>
+<p>无论什么指针都占四个字节</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>数据类型 &amp;别名 = 原名</p>
+<blockquote>
+<p>别名可以和原名相同</p>
+</blockquote>
+<p>对引用的操作会直接作用于原变量</p>
+<p>通过引用参数产生的效果同按地址传递是一样的，引用的语法更清楚简单</p>
+<p>引用很容易与指针混淆，它们之间有三个主要的不同：</p>
+<ul>
+<li>不存在空引用，引用必须连接到一块合法的内存</li>
+<li>一旦引用被初始化为一个对象，就不能被指向到另一个对象；指针可以在任何时候指向到另一个对象</li>
+<li><font color="Violetred">引用必须在创建时被初始化</font>，指针可以在任何时间被初始化。</li>
+<li>引用的对象必须是一个变量，而指针必须是一个地址</li>
+</ul>
+<p>引用的本质是一个<strong>指针常量</strong></p>
+<h3 id="程序内存"><a href="#程序内存" class="headerlink" title="程序内存"></a>程序内存</h3><p>c++ 在程序运行之前分为全局区和代码区</p>
+<p>全局区的数据在程序结束后由操作系统释放</p>
+<p>不在全局区的数据：</p>
+<ul>
+<li>局部变量</li>
+<li>const修饰的局部变量(局部常量)</li>
+</ul>
+<p>全局区的数据：</p>
+<ul>
+<li>全局变量</li>
+<li>静态变量(static 关键字)</li>
+<li>常量(const修饰的全局常量和字符串常量)</li>
+</ul>
+<p>栈区：</p>
+<p>由编译器自动分配释放，存放函数的参数值，局部变量等，在函数内部声明的所有变量都将占用栈内存</p>
+<blockquote>
+<p>如果想保留需要加上static关键字放入全局区</p>
+</blockquote>
+<p>注意事项：不要返回局部变量的地址，栈区开辟的数据由编译器动释放</p>
+<p>堆区：</p>
+<p>这是程序中未使用的内存，在程序运行时可用于动态分配内存</p>
+<p>在C++中主要利用new在堆区开辟内存，在程序结束最好delete释放内存</p>
+<p>空类占1字节的内存</p>
+<h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><p>伪随机数：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="literal">nullptr</span>));</span><br><span class="line">	<span class="built_in">rand</span>()%<span class="number">100</span> <span class="comment">// 0-99</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>真随机数产生：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span>  <span class="comment">// C++11 随机数库</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="comment">// 1. 创建真随机种子源（基于硬件熵）</span></span><br><span class="line">    std::random_device rd;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 选择高质量的随机引擎（Mersenne Twister）</span></span><br><span class="line">    <span class="function">std::mt19937 <span class="title">gen</span><span class="params">(rd())</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3. 定义随机数分布（例如：0-99的均匀分布）</span></span><br><span class="line">    <span class="function">std::uniform_int_distribution&lt;<span class="type">int</span>&gt; <span class="title">dist</span><span class="params">(<span class="number">0</span>, <span class="number">99</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 3. 定义浮点随机数分布（60.0 - 100.0）</span></span><br><span class="line">    <span class="comment">//std::uniform_real_distribution&lt;double&gt; dist(60.0, 100.0);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 生成随机数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i) {</span><br><span class="line">        std::cout &lt;&lt; <span class="built_in">dist</span>(gen) &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><p>C++面向对象的三大特性为：<font color="Violetred">封装、继承、多态</font></p>
+<p>定义一个类需要使用关键字 <code>class</code>，然后指定类的名称</p>
+<p>类的主体包含在一对花括号中，主体包含类的成员变量和成员函数</p>
+<p>类可以被看作是一种模板，可以用来创建具有相同属性和行为的多个对象</p>
+<p>声明类的对象，就像声明基本类型的变量一样，格式为：&lt;类名&gt; &lt;对象名表&gt;</p>
+<blockquote>
+<p>空对象也占用1个字节空间，是为了区分空对象占用内存的位置</p>
+</blockquote>
+<p>定义类的过程就是对问题进行抽象和封装的过程</p>
+<p>一般形式为： </p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class 类名{</span><br><span class="line">	public：</span><br><span class="line">		&lt;公有数据和函数&gt;</span><br><span class="line">	protected：</span><br><span class="line">		&lt;保护数据和函数&gt;</span><br><span class="line">	private：</span><br><span class="line">		&lt;私有数据和函数&gt;</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+
+<p>对象公共数据成员的访问方式：</p>
+<ol>
+<li><p>圆点访问方式</p>
+<p>对象名.成员名 或 (*指向对象的指针).成员名</p>
+</li>
+<li><p>指针访问方式</p>
+<p>对象指针变量名-&gt;成员名 或 (&amp;对象名)-&gt;成员名</p>
+</li>
+</ol>
+<blockquote>
+<p>struct和class的区别：struct默认权限为公共，class默认权限为私有</p>
+</blockquote>
+<p>一般来说会将类单独写到头文件中，在主函数中include</p>
+<p>在类的.h文件中将类的内容复制过去，但是具体实现删去，只保留语句和函数，分号结尾；</p>
+<p>在类的.cpp文件中定义那些函数，这时候不需要再用Class框起来，而且在函数前带上<code>类名::</code>声明函数的所属(以成员函数的形式)</p>
+<h3 id="类的访问权限"><a href="#类的访问权限" class="headerlink" title="类的访问权限"></a>类的访问权限</h3><p>类成员的访问限制是通过在类主体内部对各个区域标记<code>public、private、protected</code>来指定的</p>
+<p>默认情况下，类的所有成员都是私有的，如果没有使用任何访问修饰符，类的成员将被假定为私有成员</p>
+<p>实际操作中<font color="Violetred">一般会在私有区域定义数据，在公有区域定义相关的函数</font>，以便在类的外部也可以调用这些函数</p>
+<p>类的公有部分(<code>public</code>)只暴露必要的接口，私有部分(<code>private</code>)隐藏具体实现</p>
+<ul>
+<li><p>public(公共)成员在类的外部是可访问的，可以不使用任何成员函数来设置和获取公有变量的值</p>
+</li>
+<li><p>private(私有)成员变量或函数在类的外部是不可访问的，只有类和友元函数可以访问私有成员，不能被派生类访问</p>
+<blockquote>
+<p>儿子不可以访问父亲的私有内容</p>
+</blockquote>
+</li>
+<li><p>protected(受保护)成员变量或函数与私有成员十分相似，但protected成员在派生类(即子类)中是可访问的</p>
+<blockquote>
+<p>儿子可以访问父亲的保护内容</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>类的构造函数是类的一种特殊的成员函数，它会在每次创建类的新对象时执行</p>
+<p>在顺序上，类内子类先构造</p>
+<p><font color="Violetred">构造函数的名称与类的名称是完全相同的</font>，并且不会返回任何类型，也不会返回 void</p>
+<p>一般构造函数分为默认构造函数(没有任何参数也没有任何内容)，有参构造函数，拷贝构造函数(一般用来复制类)</p>
+<blockquote>
+<p>如果提供了有参构造函数，编译器不再提供默认构造函数，但仍然提供拷贝构造函数</p>
+<p>如果提供了拷贝构造函数，就不再提供其它普通构造函数</p>
+</blockquote>
+<p>初始化列表：构造函数(): 属性1(值1), 属性2(值2)…{}</p>
+<p>C++中拷贝构造函数调用时机通常有三种情况：</p>
+<ul>
+<li>使用一个已经创建完毕的对象来初始化一个新对象</li>
+<li>值传递的方式给函数参数传值</li>
+<li>以值方式返回局部对象</li>
+</ul>
+<p>浅拷贝：简单的赋值拷贝操作(<code>=</code>操作) -&gt; 带来的问题是内存的重复释放</p>
+<blockquote>
+<p>先进后出，释放的时候拷贝的析构函数已经把new出来的区域delete，但是原类释放析构函数又delete相同区域，报错</p>
+</blockquote>
+<p>深拷贝：在堆区重新申请空间，进行拷贝操作</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">const</span> <span class="type">int</span> age, <span class="type">const</span> <span class="type">int</span> height) {</span><br><span class="line">        <span class="keyword">this</span>-&gt;age = age;</span><br><span class="line">        <span class="keyword">this</span>-&gt;height = <span class="keyword">new</span> <span class="built_in">int</span>(height);</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">const</span> Person &amp;p) {</span><br><span class="line">        <span class="keyword">this</span>-&gt;age = p.age;</span><br><span class="line">        <span class="keyword">this</span>-&gt;height = <span class="keyword">new</span> <span class="built_in">int</span>(*p.height);</span><br><span class="line">    }</span><br><span class="line">    <span class="type">int</span> age{};</span><br><span class="line">    <span class="type">int</span> *height{};</span><br><span class="line">    ~<span class="built_in">Person</span>() {</span><br><span class="line">        <span class="keyword">delete</span> <span class="keyword">this</span>-&gt;height;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><p>类的析构函数是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行；在顺序上，类内子类后析构，与构造顺序相反</p>
+<blockquote>
+<p>同理父子类，先构造父类然后子类，析构时先子类后父类</p>
+</blockquote>
+<p>析构函数的名称与类的名称是完全相同的，只是在前面加了个波浪号（~）作为前缀，它不会返回任何值，也不能带有任何参数，默认析构函数没有任何内容</p>
+<p>析构函数的主要作用是将堆区开辟的数据做释放操作</p>
+<h3 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h3><p>类的成员函数是指那些把定义和原型写在类定义内部的函数，就像类定义中的其他变量一样</p>
+<p>可以在类的外部使用范围解析运算符 :: 定义该函数</p>
+<p>成员变量和成员函数是分开存储的，只有非静态成员变量内存上属于类的对象</p>
+<h3 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h3><p>this指针是一个特殊的指针，它指向当前对象的实例，每一个对象都能通过 this指针来访问自己的地址</p>
+<p>this是一个隐藏的指针，可以在类的成员函数中使用，它可以用来指向调用对象</p>
+<p>使用 this 指针来引用当前对象的成员变量 value，并将传入的值赋给它，这样可以明确地告诉编译器想要访问当前对象的成员变量，而不是函数参数或局部变量</p>
+<p>this指针的用途：</p>
+<ul>
+<li><p>当形参和成员变量同名时，可用this指针来区分</p>
+</li>
+<li><p>在类的非静态成员函数中返回对象本身，可使用return *this</p>
+<blockquote>
+<p>return *this 这种情况下如果要返回本体需要函数的返回类型为类的引用</p>
+<p>如果是函数类型不是引用相当于拷贝类对象，函数的效果无法叠加！</p>
+</blockquote>
+</li>
+</ul>
+<p>类允许空指针，但是如果空指针传入后调用类对象(this)，程序会崩溃</p>
+<h3 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h3><p>可以使用 static 关键字来把类成员定义为静态的</p>
+<p>当声明类的成员为静态时，这意味着无论创建多少个类的对象，静态成员都只有一个副本，静态成员在类的所有对象中是共享的</p>
+<p>静态成员需要类内声明，但类外初始化操作</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> m_A;</span><br><span class="line">};</span><br><span class="line"><span class="type">int</span> Base::m_A = <span class="number">10</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>静态成员函数即使在类对象不存在的情况下也能被调用，只要使用类名加范围解析运算符 <strong>::</strong> 就可以访问</p>
+<p><strong>静态成员函数与普通成员函数的区别：</strong></p>
+<ul>
+<li>静态成员函数没有 this 指针，只能访问静态成员（包括静态成员变量和静态成员函数）</li>
+<li>普通成员函数有 this 指针，可以访问类中的任意成员；而静态成员函数没有 this 指针</li>
+</ul>
+<h3 id="const修饰"><a href="#const修饰" class="headerlink" title="const修饰"></a>const修饰</h3><p>在对象前加const变为常对象，只能调用常函数</p>
+<p>常函数是在函数定义完的括号后加上const</p>
+<p>常函数不可修改成员属性</p>
+<h3 id="友元函数"><a href="#友元函数" class="headerlink" title="友元函数"></a>友元函数</h3><p>在类内定义时在前加上friend(不写具体内容)，友元有权访问类的所有私有（private）成员和保护（protected）成员</p>
+<p>友元的三种实现：</p>
+<ul>
+<li><p>全局函数做友元</p>
+<p>尽管友元函数的原型有在类的定义中出现过，但是友元函数并不是成员函数</p>
+</li>
+<li><p>类做友元</p>
+</li>
+<li><p>成员函数做友元</p>
+</li>
+</ul>
+<p>如果出现定义类内类的情况，最好用上指针，这样可以使用前向声明，不用完整定义</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Building</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Goodgay</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Goodgay</span>();</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">visit1</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">visit2</span><span class="params">()</span></span>;</span><br><span class="line">    ~<span class="built_in">Goodgay</span>();</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Building *building;</span><br><span class="line">};</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Building</span>{</span><br><span class="line">    <span class="comment">// friend class Goodgay;</span></span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="type">void</span> <span class="title">Goodgay::visit2</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Building</span>();</span><br><span class="line">    string kitchen;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string bedroom;</span><br><span class="line">};</span><br><span class="line">Building::<span class="built_in">Building</span>() {</span><br><span class="line">    <span class="keyword">this</span>-&gt;kitchen = <span class="string">"kitchen"</span>;</span><br><span class="line">    <span class="keyword">this</span>-&gt;bedroom = <span class="string">"bedroom"</span>;</span><br><span class="line">}</span><br><span class="line">Goodgay::<span class="built_in">Goodgay</span>() {</span><br><span class="line">    building = <span class="keyword">new</span> <span class="built_in">Building</span>();</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Goodgay::visit1</span><span class="params">()</span> </span>{</span><br><span class="line">    cout &lt;&lt;<span class="string">"GoodGay is visiting "</span> &lt;&lt;building-&gt;kitchen &lt;&lt; endl;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Goodgay::visit2</span><span class="params">()</span> </span>{</span><br><span class="line">    cout &lt;&lt; <span class="string">"GoodGay is visiting "</span> &lt;&lt; building-&gt;bedroom &lt;&lt; endl;</span><br><span class="line">}</span><br><span class="line">Goodgay::~<span class="built_in">Goodgay</span>() {</span><br><span class="line">    <span class="keyword">delete</span> building;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    Goodgay g;</span><br><span class="line">    g.<span class="built_in">visit1</span>();</span><br><span class="line">    g.<span class="built_in">visit2</span>();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><p>有public, protected, private三种继承方式，它们相应地改变了基类成员的访问属性</p>
+<table>
+<thead>
+<tr>
+<th>继承方式</th>
+<th>public 成员</th>
+<th>protected 成员</th>
+<th>private 成员</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public 继承</td>
+<td>public</td>
+<td>protected</td>
+<td>private</td>
+</tr>
+<tr>
+<td>protected 继承</td>
+<td>protected</td>
+<td>protected</td>
+<td>private</td>
+</tr>
+<tr>
+<td>private 继承</td>
+<td>private</td>
+<td>private</td>
+<td>private</td>
+</tr>
+</tbody></table>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> : <span class="keyword">public</span> Animal {}; <span class="comment">// 语法</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>但无论哪种继承方式，下面两点都没有改变：</p>
+<ul>
+<li>private 成员只能被本类成员和友元访问，不能被派生类访问</li>
+<li>protected 成员可以被派生类访问</li>
+</ul>
+<p>父类中所有非静态成员属性都会被子类继承下去，私有成员是被编译器给隐藏了，因此访问不到，但是被继承下去了</p>
+<p>如果出现类内对象同名的情况，需要加作用域，同理静态成员</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s.m_A; <span class="comment">// 子类成员</span></span><br><span class="line">s.Base::m_A;	<span class="comment">// 父类成员</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Son::m_A; <span class="comment">//静态直接调用</span></span><br><span class="line">Son::Base::m_A; </span><br></pre></td></tr></tbody></table></figure>
+
+<p>多继承：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class &lt;派生类名&gt;:&lt;继承方式1&gt;&lt;基类名1&gt;,&lt;继承方式2&gt;&lt;基类名2&gt;,…</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果出现菱形继承，需要在继承时加上virtual变为虚继承，父类称为虚基类</p>
+<h2 id="类的多态"><a href="#类的多态" class="headerlink" title="类的多态"></a>类的多态</h2><p>当类之间存在层次结构，并且类之间是通过继承关联时，就会用到多态</p>
+<p>多态分为两类</p>
+<ul>
+<li>静态多态：函数重载和运算符重载属于静态多态，复用函数名</li>
+<li>动态多态：派生类和虚函数实现运行时多态</li>
+</ul>
+<p>静态多态和动态多态区别：</p>
+<ul>
+<li>静态多态的函数地址早绑定－编译阶段确定函数地址</li>
+<li>动态多态的函数地址晚绑定－运行阶段确定通数地址</li>
+</ul>
+<p>虚函数：</p>
+<ul>
+<li>在基类中声明一个函数为虚函数，使用关键字<code>virtual</code></li>
+<li>派生类可以重写这个虚函数</li>
+<li>调用虚函数时，会根据对象的实际类型来决定调用哪个版本的函数</li>
+</ul>
+<p>纯虚函数：</p>
+<ul>
+<li>一个包含纯虚函数的类被称为抽象类，它不能被直接实例化</li>
+<li>纯虚函数没有函数体，声明时使用<code>= 0</code></li>
+<li>它强制派生类提供具体的实现</li>
+</ul>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BaseCalculator</span>{</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">float</span> <span class="title">getResult</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="type">float</span> in_Num1;</span><br><span class="line">    <span class="type">float</span> in_Num2;</span><br><span class="line">};</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Add</span>: <span class="keyword">public</span> BaseCalculator {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">float</span> <span class="title">getResult</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> in_Num1 + in_Num2;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Substract</span>: <span class="keyword">public</span> BaseCalculator {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">float</span> <span class="title">getResult</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> in_Num1 - in_Num2;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Multiply</span>: <span class="keyword">public</span> BaseCalculator {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">float</span> <span class="title">getResult</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> in_Num1 * in_Num2;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Divide</span>: <span class="keyword">public</span> BaseCalculator {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">float</span> <span class="title">getResult</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> in_Num1 / in_Num2;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test01</span><span class="params">()</span> </span>{</span><br><span class="line">    BaseCalculator *base = <span class="keyword">new</span> Add;</span><br><span class="line">    base-&gt;in_Num1 = <span class="number">10</span>;</span><br><span class="line">    base-&gt;in_Num2 = <span class="number">20</span>;</span><br><span class="line">    cout &lt;&lt; base-&gt;<span class="built_in">getResult</span>() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">delete</span> base;</span><br><span class="line">    base = <span class="keyword">new</span> Substract;</span><br><span class="line">    base-&gt;in_Num1 = <span class="number">10</span>;</span><br><span class="line">    base-&gt;in_Num2 = <span class="number">20</span>;</span><br><span class="line">    cout &lt;&lt; base-&gt;<span class="built_in">getResult</span>() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">delete</span> base;</span><br><span class="line">    base = <span class="keyword">new</span> Multiply;</span><br><span class="line">    base-&gt;in_Num1 = <span class="number">10</span>;</span><br><span class="line">    base-&gt;in_Num2 = <span class="number">20</span>;</span><br><span class="line">    cout &lt;&lt; base-&gt;<span class="built_in">getResult</span>() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">delete</span> base;</span><br><span class="line">    base = <span class="keyword">new</span> Divide;</span><br><span class="line">    base-&gt;in_Num1 = <span class="number">10</span>;</span><br><span class="line">    base-&gt;in_Num2 = <span class="number">20</span>;</span><br><span class="line">    cout &lt;&lt; base-&gt;<span class="built_in">getResult</span>() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">delete</span> base;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="built_in">test01</span>();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>多态满足条件：</p>
+<ul>
+<li>有继承关系</li>
+<li>子类重写父类中的虚函数</li>
+</ul>
+<p>多态使用条件：父类指针或引用指向子类对象</p>
+<p>使用virtual后产生一个虚函数指针vfptr</p>
+<p>c++开发提倡用多态，方便拓展和修复功能</p>
+<p>虚析构：</p>
+<ol>
+<li>虚析构或纯虚析构就是用来解决通过父类指针释放子类对象</li>
+<li>如果子类中没有堆区数据，可以不写为虚析构或纯虚析构</li>
+<li>拥有纯虚析构函数的类也属于抽象类</li>
+</ol>
+<h2 id="重载运算符"><a href="#重载运算符" class="headerlink" title="重载运算符"></a>重载运算符</h2><p>在同一个作用域内，可以声明几个功能类似的同名函数，但是这些同名函数的形式参数（指参数的个数、类型或者顺序）必须不同</p>
+<p>最主要就是区分输入的参数能够唯一地满足某个函数</p>
+<p>函数名是由关键字 operator 和其后要重载的运算符符号构成的</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Box <span class="keyword">operator</span>+(<span class="type">const</span> Box&amp;); <span class="comment">// 成员函数</span></span><br><span class="line">Box <span class="keyword">operator</span>+(<span class="type">const</span> Box&amp;, <span class="type">const</span> Box&amp;); <span class="comment">// 全局函数</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以重载多种，输入不同类型</p>
+<p><strong>左移右移运算符</strong></p>
+<p>对于一个类，不能写为成员函数去重载，会出现一些问题</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> {</span><br><span class="line">    <span class="keyword">friend</span> ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp;, <span class="type">const</span> Person &amp;); <span class="comment">// 避免无法访问私有内容</span></span><br><span class="line">    string name = <span class="string">"张三"</span>;</span><br><span class="line">    <span class="type">int</span> age = <span class="number">12</span>;</span><br><span class="line">};</span><br><span class="line"><span class="comment">// 这里返回ostream &amp;是为了避免后续追加内容报错，链式规则，返回void就无法再加内容</span></span><br><span class="line">ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; cout, <span class="type">const</span> Person&amp; person) {</span><br><span class="line">    cout &lt;&lt; <span class="string">"name:"</span> &lt;&lt;person.name &lt;&lt; <span class="string">"\tage:"</span> &lt;&lt; person.age;</span><br><span class="line">    <span class="keyword">return</span> cout;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    Person person;</span><br><span class="line">    cout &lt;&lt; person &lt;&lt; endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>递增递减运算符</strong></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Myint</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> num = <span class="number">0</span>;</span><br><span class="line">    Myint&amp; <span class="keyword">operator</span>++() {</span><br><span class="line">        num++;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    }</span><br><span class="line">    Myint <span class="keyword">operator</span>++(<span class="type">int</span>) {</span><br><span class="line">        Myint temp = *<span class="keyword">this</span>;</span><br><span class="line">        num++;</span><br><span class="line">        <span class="keyword">return</span> temp;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+
+<p>对于前++和后++区别在于在参数框中加入占位符int，只能int</p>
+<p>而且对于前++使用&amp;引用，后++使用值返回</p>
+<p><strong>赋值运算符</strong></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">int</span> age);</span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">const</span> Person&amp; p);</span><br><span class="line">    Person&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Person &amp;p);</span><br><span class="line">    ~<span class="built_in">Person</span>();</span><br><span class="line">    <span class="type">int</span> *age;</span><br><span class="line">};</span><br><span class="line">Person&amp; Person::<span class="keyword">operator</span>=(<span class="type">const</span> Person &amp;p) {</span><br><span class="line">    <span class="comment">// 要先判断自身堆区有无内容</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;age != <span class="literal">nullptr</span>) {</span><br><span class="line">        <span class="keyword">delete</span> <span class="keyword">this</span>-&gt;age;</span><br><span class="line">    }</span><br><span class="line">    age = <span class="keyword">new</span> <span class="built_in">int</span> (*p.age);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>为了像原来等号可以连等，需要重载时返回引用</p>
+<p>为了避免默认拷贝函数的影响，需要定义拷贝函数，避免浅拷贝</p>
+<h3 id="函数调用运算符"><a href="#函数调用运算符" class="headerlink" title="函数调用运算符"></a>函数调用运算符</h3><p>重载函数调用操作符()的类，其对象常称为函数对象</p>
+<p>行为和函数调用类似，称为仿函数</p>
+<p>仿函数的优势是非常灵活，没有固定写法</p>
+<p><font color="Violetred">类后面直接带()称为匿名函数对象</font>，适用于只需要一下的结果</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Print</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> string&amp; test)</span> <span class="type">const</span> </span>{</span><br><span class="line">        cout &lt;&lt; test &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Add</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; x, <span class="type">const</span> <span class="type">int</span>&amp; y)</span> <span class="type">const</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> x + y;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Compare</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> v&gt;<span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    Print myprint;</span><br><span class="line">    <span class="built_in">myprint</span>(<span class="string">"hello world"</span>);</span><br><span class="line">    cout &lt;&lt; <span class="built_in">Add</span>()(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt;endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>函数对象在使用时，可以像普通函数那样调用，可以有参数，可以有返回值</li>
+<li>函数对象超出普通函数的概念，函数对象可以有自己的状态</li>
+<li>函数对象也可以作为参数传递，比如修改关联式容器的compare规则</li>
+</ul>
+<p>返回bool类型的仿函数称为谓词，<font color="Violetred">谓词不应修改元素</font></p>
+<p>如果operator()接受一个参数，那么叫做一元谓词</p>
+<p>如果operator()接受两个参数，那么叫做二元谓词</p>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><p>iostream 标准库，它提供了 cin 和 cout 方法分别用于从标准输入读取流和向标准输出写入流</p>
+<p>从文件读取流和向文件写入流需要用到 C++ 中另一个标准库 fstream</p>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ofstream</td>
+<td align="left">该数据类型表示输出文件流，用于创建文件并向文件写入信息</td>
+</tr>
+<tr>
+<td align="left">ifstream</td>
+<td align="left">该数据类型表示输入文件流，用于从文件读取信息</td>
+</tr>
+<tr>
+<td align="left">fstream</td>
+<td align="left">该数据类型通常表示文件流，且同时具有 ofstream 和 ifstream 两种功能</td>
+</tr>
+</tbody></table>
+<p>输出文件流过程：</p>
+<ol>
+<li>创建流对象：ofstream ofs;</li>
+<li>打开文件：ofs.open(“文件路径”,打开方式);</li>
+<li>写数据：ofs &lt;&lt; “写入的数据”;</li>
+<li>关闭文件：ofs.close();</li>
+</ol>
+<p>open函数</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, ios::openmode mode)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">模式标志</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ios::app</td>
+<td align="left">追加模式，所有写入都追加到文件末尾</td>
+</tr>
+<tr>
+<td align="left">ios::ate</td>
+<td align="left">文件打开后定位到文件末尾</td>
+</tr>
+<tr>
+<td align="left">ios::in</td>
+<td align="left">打开文件用于读取</td>
+</tr>
+<tr>
+<td align="left">ios::out</td>
+<td align="left">打开文件用于写入</td>
+</tr>
+<tr>
+<td align="left">ios::trunc</td>
+<td align="left">如果该文件已经存在，先删除再创建</td>
+</tr>
+<tr>
+<td align="left">ios::binary</td>
+<td align="left">二进制模式</td>
+</tr>
+</tbody></table>
+<p>可以把以上两种或两种以上的模式结合使用</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ofstream outfile;</span><br><span class="line">outfile.<span class="built_in">open</span>(<span class="string">"file.dat"</span>, ios::out | ios::trunc );</span><br></pre></td></tr></tbody></table></figure>
+
+<p>输入文件流过程：</p>
+<ol>
+<li><p>创建流对象：ifstream ifs;</p>
+</li>
+<li><p>打开文件并判断文件是否打开成功</p>
+<p>ifs.open(“文件路径”,打开方式);</p>
+<p>if(!ifs.is_open()) ：文件不存在</p>
+<p>char ch; ifs &gt;&gt; ch; if (ifs.eof()) ：判断文件是否为空</p>
+</li>
+<li><p>读数据：四种方式读取</p>
+</li>
+<li><p>关闭文件：ifs.close();</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = {<span class="number">0</span>};</span><br><span class="line"><span class="comment">// 方法1:</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">while (ifs&gt;&gt;buf) </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; buf &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// 方法2:</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">while (ifs.getline(buf, sizeof(buf)))</span></span><br><span class="line"><span class="comment">    cout &lt;&lt; buf &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// 方法3:</span></span><br><span class="line"><span class="comment">/*string str;</span></span><br><span class="line"><span class="comment">while (getline(ifs, str)) </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; str &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// 方法4:</span></span><br><span class="line"><span class="comment">/*char ch;</span></span><br><span class="line"><span class="comment">while ((ch = ifs.get())!= EOF) </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; ch;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">ifs.<span class="built_in">close</span>();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>二进制方式：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">char</span> name[<span class="number">64</span>];</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">};</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test01</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="function">ofstream <span class="title">ofs</span><span class="params">(<span class="string">"person.txt"</span>, ios::out | ios::binary)</span></span>;</span><br><span class="line">    Person p = {<span class="string">"张三"</span>, <span class="number">18</span>};</span><br><span class="line">    ofs.<span class="built_in">write</span>((<span class="type">const</span> <span class="type">char</span>*)&amp;p, <span class="built_in">sizeof</span>(Person));</span><br><span class="line">    ofs.<span class="built_in">close</span>();</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test02</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="function">ifstream <span class="title">ifs</span><span class="params">(<span class="string">"person.txt"</span>, ios::in | ios::binary)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (!ifs.<span class="built_in">is_open</span>()) {</span><br><span class="line">        cerr &lt;&lt; <span class="string">"Can't open person.txt"</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    Person p{};</span><br><span class="line">    ifs.<span class="built_in">read</span>((<span class="type">char</span>*)&amp;p, <span class="built_in">sizeof</span>(Person));</span><br><span class="line">    cout &lt;&lt; p.name &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; p.age &lt;&lt; endl;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="built_in">test01</span>();</span><br><span class="line">    <span class="built_in">test02</span>();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>主要为STL服务</p>
+<p>模板的特点：</p>
+<ul>
+<li>模板不可以直接使用，它只是一个框架</li>
+<li>模板的通用并不是万能的</li>
+</ul>
+<h3 id="函数模板语法"><a href="#函数模板语法" class="headerlink" title="函数模板语法"></a>函数模板语法</h3><p>使用模板时必须确定出通用数据类型T，并且能够推导出一致的类型</p>
+<p>T是一个通用的数据类型，通常用大写字母表示</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">ret-type func-<span class="built_in">name</span>(parameter list)</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>template → 声明创建模板</li>
+<li>typename → 表面其后面的符号是一种数据类型，可以用class代替</li>
+</ul>
+<p>使用函数模板有两种方式：自动类型推导、显式指定类型</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">func</span>&lt;<span class="type">int</span>&gt;() <span class="comment">// 显式指定</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>普通函数与函数模板区别：</p>
+<ul>
+<li>普通函数调用时可以发生自动类型转换（隐式类型转换）</li>
+<li>函数模板调用时，如果利用自动类型推导，不会发生隐式类型转换</li>
+<li>如果利用显示指定类型的方式，可以发生隐式类型转换</li>
+</ul>
+<p>如果函数复杂尽量显式指定类型</p>
+<p>普通函数与函数模板的调用规则：</p>
+<ol>
+<li>如果函数模板和普通函数都可以调用，优先调用普通函数</li>
+<li>可以通过空模板参数列表强制调用函数模板 <code>func&lt;&gt;()</code></li>
+<li>函数模板可以发生函数重载</li>
+<li>如果函数模板可以产生更好的匹配，优先调用函数模板</li>
+</ol>
+<p>所以如果已经有函数模板尽量不要写同名的普通函数</p>
+<p>如果碰到不通用的类型，需要写专门针对某个类型的模板</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt; ret-type func-<span class="built_in">name</span>(parameter list) </span><br></pre></td></tr></tbody></table></figure>
+
+<p>在这个示例中两种解决方案，一种重载运算符(对于复杂函数来说不现实)，另一种就是写专门的模板</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">const</span> string &amp;name, <span class="type">const</span> <span class="type">int</span> age) {</span><br><span class="line">        <span class="keyword">this</span>-&gt;name = name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;age = age;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">/*bool operator==(const Person&amp; person) const {</span></span><br><span class="line"><span class="comment">        if (this-&gt;name == person.name&amp;&amp;this-&gt;age == person.age) {</span></span><br><span class="line"><span class="comment">            return true;</span></span><br><span class="line"><span class="comment">        }</span></span><br><span class="line"><span class="comment">        return false;</span></span><br><span class="line"><span class="comment">    }*/</span></span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">};</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">equal</span><span class="params">(T &amp;a, T &amp;b)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (a == b)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">}</span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="function"><span class="type">bool</span> <span class="title">equal</span><span class="params">(Person &amp;a, Person &amp;b)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (a.name == b.name &amp;&amp; a.age==b.age)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="function">Person <span class="title">p1</span><span class="params">(<span class="string">"Ben"</span>,<span class="number">10</span>)</span></span>;</span><br><span class="line">    <span class="function">Person <span class="title">p2</span><span class="params">(<span class="string">"Ben"</span>,<span class="number">20</span>)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">equal</span>(p1,p2))</span><br><span class="line">        cout &lt;&lt; <span class="string">"equal"</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        cout &lt;&lt; <span class="string">"not equal"</span> &lt;&lt; endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="类模板语法"><a href="#类模板语法" class="headerlink" title="类模板语法"></a>类模板语法</h3><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">type</span>&gt; </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">class</span>-name {</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">NameType</span>, <span class="keyword">class</span> <span class="title class_">AgeType</span> = <span class="type">int</span>&gt;</span><br><span class="line"><span class="keyword">class</span> Person {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(NameType name, AgeType age) {</span><br><span class="line">        <span class="keyword">this</span>-&gt;name = name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;age = age;</span><br><span class="line">    }</span><br><span class="line">    NameType name;</span><br><span class="line">    AgeType age;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="function">Person&lt;string&gt; <span class="title">p</span><span class="params">(<span class="string">"ben"</span>,<span class="number">11</span>)</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>类模板与函数模板区别主要有两点：</p>
+<ol>
+<li>类模板没有自动类型推导的使用方式，只能显式指定</li>
+<li>类模板在模板参数列表中可以有默认参数</li>
+</ol>
+<p>类模板的成员函数只有在调用的时候才会去创建</p>
+<p>通过类模板创建的对象向函数传参时建议直接指定传入的类型</p>
+<p>当类模板碰到继承时，需要注意一下几点：</p>
+<ul>
+<li><p>当子类继承的父类是一个类模板时，子类在声明的时候，要指定出父类中T的类型</p>
+</li>
+<li><p>如果不指定，编译器无法给子类分配内存</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> {</span><br><span class="line">    T data;</span><br><span class="line">};</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Son</span> : <span class="keyword">public</span> Base&lt;<span class="type">int</span>&gt;{</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>如果想灵活指定出父类中T的类型，子类也需变为类模板</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> {</span><br><span class="line">    T data;</span><br><span class="line">};</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>,<span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Son</span> : <span class="keyword">public</span> Base&lt;T2&gt;{</span><br><span class="line">    T1 obj;</span><br><span class="line">};</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    Son&lt;<span class="type">int</span>,<span class="type">char</span>&gt; s1{};</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<p>构造函数的类外实现：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(T1 name,T2 age);</span><br><span class="line">    T1 name;</span><br><span class="line">    T2 age;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">display</span><span class="params">()</span></span>;</span><br><span class="line">};</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line">Person&lt;T1, T2&gt;::<span class="built_in">Person</span>(T1 name, T2 age) {</span><br><span class="line">    <span class="keyword">this</span>-&gt;name = name;</span><br><span class="line">    <span class="keyword">this</span>-&gt;age = age;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>成员函数的类外实现：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="type">void</span> Person&lt;T1, T2&gt;::<span class="built_in">display</span>() {</span><br><span class="line">    cout &lt;&lt; <span class="keyword">this</span>-&gt;name &lt;&lt; <span class="string">" "</span> &lt;&lt; <span class="keyword">this</span>-&gt;age &lt;&lt; endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>类模板中成员函数类外实现时，需要加上模板参数列表&lt;T1,T2,…&gt;</p>
+<p>如果把类模板写成头文件，使用时会发生错误，解决方案：</p>
+<ol>
+<li>把导入的.h头文件改为导入.cpp文件</li>
+<li>把两个文件写成一个文件，.h文件后缀改为.hpp，不需要.cpp文件</li>
+</ol>
+<p>全局函数的实现：</p>
+<blockquote>
+<p>建议采用类内实现，简单</p>
+</blockquote>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> {</span><br><span class="line">    <span class="comment">// 全局函数类内实现</span></span><br><span class="line">    <span class="comment">// friend void display(Person&lt;T1,T2&gt; p) {</span></span><br><span class="line">    <span class="comment">//     cout &lt;&lt; p.name &lt;&lt; endl;</span></span><br><span class="line">    <span class="comment">//     cout &lt;&lt; p.age;</span></span><br><span class="line">    <span class="comment">// }</span></span><br><span class="line">    <span class="comment">// 全局函数类外实现,需要加空模板参数列表</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="type">void</span> display&lt;&gt;(Person&lt;T1,T2&gt; p);</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(T1 name,T2 age);</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    T1 name;</span><br><span class="line">    T2 age;</span><br><span class="line">};</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line">Person&lt;T1, T2&gt;::<span class="built_in">Person</span>(T1 name, T2 age) {</span><br><span class="line">    <span class="keyword">this</span>-&gt;name = name;</span><br><span class="line">    <span class="keyword">this</span>-&gt;age = age;</span><br><span class="line">}</span><br><span class="line"><span class="comment">// 全局函数类外实现</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T1, <span class="keyword">class</span> T2&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">display</span><span class="params">(Person&lt;T1,T2&gt; p)</span> </span>{</span><br><span class="line">    cout &lt;&lt; p.name &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; p.age;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    Person&lt;string,<span class="type">int</span>&gt;<span class="built_in">p1</span>(<span class="string">"tom"</span>,<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">display</span>(p1);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果在friend void display&lt;&gt;(Person&lt;T1,T2&gt; p)这里不加&lt;&gt; 会被编译器解释为声明一个普通函数的友元，使用&lt;&gt;明确告诉编译器这是针对模板实例的友元声明</p>
+<h2 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h2><p>标准模板库（Standard Template Library，STL）</p>
+<p>STL几乎所有代码都采用了模板</p>
+<p>STL 分为多个组件，包括<font color="Violetred">容器、算法、迭代器</font>、函数对象和适配器等</p>
+<p>容器和算法通过迭代器无缝连接</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>容器(Containers)</td>
+<td>各种数据结构，包括向量(vector)、链表(list)、队列(queue)、栈(stack)、集合(set)、映射(map)等，用于存放数据</td>
+</tr>
+<tr>
+<td>算法(Algorithms)</td>
+<td>各种常见算法，如sort, find, copy, move, for_each等</td>
+</tr>
+<tr>
+<td>迭代器(iterators)</td>
+<td>用于遍历容器中的元素，允许以统一的方式访问容器中的元素</td>
+</tr>
+</tbody></table>
+<p>容器分为序列式容器和关联式容器两种：</p>
+<ul>
+<li><p>序列式容器：强调值的排序，序列式容器中的每个元素均有固定的位置</p>
+</li>
+<li><p>关联式容器：二叉树结构，各元素之间没有严格的物理上的顺序关系</p>
+<blockquote>
+<p>举例，一个数组13542，序列式容器内就是13542，在关联式容器内是12345</p>
+</blockquote>
+</li>
+</ul>
+<p>容器的构造函数：</p>
+<p>构造函数：(以vector为例)</p>
+<ul>
+<li>vector<code>&lt;T&gt;</code> v;  采用模板，默认构造函数</li>
+<li>vector(v.begin(), v.end());    将[begin,end)区间中的元素拷贝给本身</li>
+<li>vector(const vector &amp;vec);    拷贝构造函数</li>
+</ul>
+<p>算法分为：质变算法和非质变算法</p>
+<ul>
+<li>质变算法：运算过程中会更改区间内的元素的内容。例如拷贝，替换，删除等等</li>
+<li>非质变算法：是指运算过程中不会更改区间内的元素内容，例如查找、计数、遍历、寻找极值等等</li>
+</ul>
+<h3 id="序列式容器"><a href="#序列式容器" class="headerlink" title="序列式容器"></a>序列式容器</h3><h4 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h4><p>vector 是一种序列容器，用于存储动态大小的数组，允许用户在容器的末尾快速地添加或删除元素</p>
+<p>vector与普通数组区别：</p>
+<ul>
+<li><p>数组是静态空间，而vector可以动态扩展</p>
+</li>
+<li><p>动态扩展：并不是在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间</p>
+<blockquote>
+<p>如果一开始大概知道要开辟多少空间，可以.reserve(num)预留容量，避免频繁分配内存</p>
+</blockquote>
+</li>
+</ul>
+<p>需要包含头文件 <code>&lt;vector&gt;</code></p>
+<p>常用操作：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push_back(elem);</td>
+<td>在末尾添加一个元素</td>
+</tr>
+<tr>
+<td>pop_back();</td>
+<td>删除末尾元素</td>
+</tr>
+<tr>
+<td>front();</td>
+<td>返回容器中第一个元素</td>
+</tr>
+<tr>
+<td>back();</td>
+<td>返回容器中最后一个元素</td>
+</tr>
+<tr>
+<td>swap(vec);</td>
+<td>互换两个容器</td>
+</tr>
+<tr>
+<td>capacity();</td>
+<td>返回容器容量</td>
+</tr>
+<tr>
+<td>empty();</td>
+<td>判断是否为空</td>
+</tr>
+<tr>
+<td>size();</td>
+<td>返回容器中存储元素个数</td>
+</tr>
+<tr>
+<td>resize(int num, (elem));</td>
+<td>size变为num，变多填充默认/(elem)值<br>变小则超出部分删除，<font color="Violetred">容量不变</font></td>
+</tr>
+<tr>
+<td>insert(pos, (count), ele);</td>
+<td>指向位置插入(count个)ele</td>
+</tr>
+<tr>
+<td>erase(pos);</td>
+<td>删除指向位置的元素</td>
+</tr>
+<tr>
+<td>erase(start, end);</td>
+<td>删除区间内的元素</td>
+</tr>
+<tr>
+<td>clear();</td>
+<td>删除容器内元素</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>vector容器capacity比size大(自适应)，但在resize后capacity不变，为了节省内存，c++11之前可以自交换，c++11以上建议使用shrink_to_fit()</p>
+</blockquote>
+<p>起始迭代器，指向容器中第一个元素</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;T&gt; v;</span><br><span class="line">vector&lt;T&gt;::iterator itBegin = v.<span class="built_in">begin</span>();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>结束迭代器，指向容器中最后一个元素的下一个位置</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;T&gt;::iterator itEnd = v.<span class="built_in">end</span>();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>几种遍历方式：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">// 第一种遍历</span></span><br><span class="line"><span class="keyword">while</span> (itBegin != itEnd) {</span><br><span class="line">       cout &lt;&lt; *itBegin &lt;&lt; endl;</span><br><span class="line">       ++itBegin;</span><br><span class="line">   }</span><br><span class="line">   <span class="comment">// 第二种遍历</span></span><br><span class="line">   <span class="keyword">for</span> (vector&lt;T&gt;::iterator it = v.<span class="built_in">begin</span>(); it != v.<span class="built_in">end</span>(); ++it) {</span><br><span class="line">       <span class="comment">// (*it)的类型就是vector&lt;&gt;内的类型</span></span><br><span class="line">       cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">   }</span><br><span class="line">   <span class="comment">// 第三种遍历</span></span><br><span class="line">   for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), [](T i){cout &lt;&lt; i &lt;&lt; endl;});</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在写的过程中像<code>vector&lt;T&gt;::iterator</code>这种可以auto</p>
+<p><font color="Violetred">注意(*it)的类型就是&lt;&gt;内的类型</font></p>
+<h4 id="deque"><a href="#deque" class="headerlink" title="deque"></a>deque</h4><p>双端数组：允许在两端进行高效的插入和删除操作，适用于需要频繁插入和删除元素的场景</p>
+<p>deque与vector区别:</p>
+<ul>
+<li>vector对于头部的插入删除效率低，数据量越大，效率越低</li>
+<li>deque相对而言，对头部的插入删除速度回比vector快</li>
+<li>vector访问元素时的速度会比deque快，这和两者内部实现有关</li>
+</ul>
+<p>deque的构造和赋值操作和vector基本一样</p>
+<p>插入删除增加头部操作，其它和vector相同</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push_front(elem);</td>
+<td>在头部添加一个元素</td>
+</tr>
+<tr>
+<td>pop_front();</td>
+<td>删除容器第一个元素</td>
+</tr>
+</tbody></table>
+<h4 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h4><p>堆栈是一种后进先出的数据结构，默认基于deque</p>
+<p>非常适合于需要”最后添加的元素最先被移除”的场景</p>
+<p>栈的元素是线性排列的，但只允许在一端(栈顶)进行添加和移除操作，另一端是封闭的(栈底)</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Data_stack.svg" alt="Data_stack" style="zoom: 67%;">
+
+<blockquote>
+<p>实例：子弹射出；挤地铁</p>
+</blockquote>
+<p>只能访问栈顶元素，<font color="Violetred">因此栈不允许有遍历的行为</font></p>
+<p>常用操作：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push()</td>
+<td>在栈顶添加一个元素(入栈)</td>
+</tr>
+<tr>
+<td>pop()</td>
+<td>移除栈顶元素(出栈)</td>
+</tr>
+<tr>
+<td>top()</td>
+<td>返回栈顶元素的引用，但不移除它</td>
+</tr>
+<tr>
+<td>empty()</td>
+<td>检查栈是否为空</td>
+</tr>
+<tr>
+<td>size()</td>
+<td>返回栈中元素的数量</td>
+</tr>
+</tbody></table>
+<h4 id="queue"><a href="#queue" class="headerlink" title="queue"></a>queue</h4><p>队列是一种先进先出的数据结构</p>
+<p>它遵循以下规则：</p>
+<ul>
+<li>元素只能从队尾添加</li>
+<li>元素只能从队首移除</li>
+</ul>
+<blockquote>
+<p>实例：排队买东西</p>
+</blockquote>
+<p>只有队头和队尾可以访问，<font color="Violetred">因此不允许有遍历行为</font></p>
+<p>常用操作：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push()</td>
+<td>在队尾添加一个元素</td>
+</tr>
+<tr>
+<td>pop()</td>
+<td>移除队首元素</td>
+</tr>
+<tr>
+<td>front()</td>
+<td>返回队首元素的引用</td>
+</tr>
+<tr>
+<td>back()</td>
+<td>返回队尾元素的引用</td>
+</tr>
+<tr>
+<td>empty()</td>
+<td>检查队列是否为空</td>
+</tr>
+<tr>
+<td>size()</td>
+<td>返回队列中的元素数量</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>emplace可以替代push;</p>
+<p>push()先产生一个副本，然后将该副本移动到容器中；</p>
+<p>emplace()直接在内存上构造对象，省去移动的过程</p>
+<p>emplace(args)    args: 用于构造新元素的参数</p>
+</blockquote>
+<h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><p>list 是一种序列容器</p>
+<p>允许在容器的任意位置快速插入和删除元素</p>
+<p>单向链表：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Singly-linked-list.svg" alt="Singly-linked-list" style="zoom: 80%;">
+
+<p>包含两个域，一个信息域和一个指针域</p>
+<p>第一个部分保存关于节点的信息，第二个部分存储下一个节点的地址，单向链表只可向一个方向遍历</p>
+<p>双向链表：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Doubly-linked-list.svg" alt="Doubly-linked-list" style="zoom:80%;">
+
+<p>双向链表中不仅有指向后一个节点的指针，还有指向前一个节点的指针</p>
+<p>由于链表的存储方式并不是连续的内存空间，迭代器只支持前移和后移，属于双向迭代器(支持++与–，不支持+n)</p>
+<p>常用操作：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push_back(const T&amp; val)</td>
+<td>在链表末尾添加元素</td>
+</tr>
+<tr>
+<td>push_front(const T&amp; val)</td>
+<td>在链表头部添加元素</td>
+</tr>
+<tr>
+<td>pop_back()</td>
+<td>删除链表末尾的元素</td>
+</tr>
+<tr>
+<td>pop_front()</td>
+<td>删除链表头部的元素</td>
+</tr>
+<tr>
+<td>front()</td>
+<td>返回链表第一个元素</td>
+</tr>
+<tr>
+<td>back()</td>
+<td>返回链表最后一个元素</td>
+</tr>
+<tr>
+<td>empty()</td>
+<td>检查链表是否为空</td>
+</tr>
+<tr>
+<td>size()</td>
+<td>返回链表中的元素数量</td>
+</tr>
+<tr>
+<td>remove(const T&amp; val)</td>
+<td>删除所有等于指定值的元素</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>反转链表</td>
+</tr>
+<tr>
+<td><font color="Violetred">merge</font>(list&amp; other)</td>
+<td>合并另一个链表(置于链头)</td>
+</tr>
+<tr>
+<td><font color="Violetred">sort()</font></td>
+<td>排序链表</td>
+</tr>
+</tbody></table>
+<p>对list来说，merge和sort需要使用自己的成员函数</p>
+<h4 id="序列容器对比"><a href="#序列容器对比" class="headerlink" title="序列容器对比"></a>序列容器对比</h4><p><strong>对比复杂度：</strong></p>
+<table>
+<thead>
+<tr>
+<th>容器</th>
+<th>随机访问</th>
+<th>头部操作</th>
+<th>尾部操作</th>
+<th>中间操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vector</td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>O(1)*</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>deque</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>stack</td>
+<td>不支持</td>
+<td>-</td>
+<td>O(1)</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>queue</td>
+<td>不支持</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>list</td>
+<td>不支持</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+</tbody></table>
+<p>验证迭代器支持随机访问的方法：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = container.<span class="built_in">begin</span>();</span><br><span class="line">it = it + n;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果不报错代表支持随机访问</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">it++;</span><br><span class="line">it--;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果不报错代表属于双向迭代器</p>
+<p><strong>优缺点：</strong></p>
+<table>
+<thead>
+<tr>
+<th>容器</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vector</td>
+<td>随机访问高效<br>尾部操作快</td>
+<td>中间/头部操作慢<br>扩容成本高</td>
+</tr>
+<tr>
+<td>deque</td>
+<td>双端操作高效<br>扩容时无需拷贝全部元素</td>
+<td>中间操作慢<br>内存非完全连续</td>
+</tr>
+<tr>
+<td>stack</td>
+<td>专为LIFO(后进先出)设计</td>
+<td>仅能访问栈顶元素<br>不支持遍历/随机访问</td>
+</tr>
+<tr>
+<td>queue</td>
+<td>专为FIFO(先进先出)设计</td>
+<td>仅能访问首尾元素<br>不支持遍历/随机访问</td>
+</tr>
+<tr>
+<td>list</td>
+<td>任意位置操作高效<br>无扩容开销</td>
+<td>访问元素需遍历<br>内存开销大</td>
+</tr>
+</tbody></table>
+<ul>
+<li>需随机访问 + 尾部操作 → vector</li>
+<li>需高效头尾操作 + 随机访问 → deque</li>
+<li>需频繁任意位置插入/删除 → list</li>
+</ul>
+<p>vector和list是最常用的容器</p>
+<h3 id="关联式容器"><a href="#关联式容器" class="headerlink" title="关联式容器"></a>关联式容器</h3><h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4><p>set是一种关联容器，它存储了一组唯一的元素，所有元素在插入时自动被排序(默认小→大)，底层结构是用二叉树实现</p>
+<p>set容器中存储的元素类型必须满足以下条件：</p>
+<ul>
+<li>元素类型必须可以比较大小</li>
+<li>元素类型必须可以被复制和赋值</li>
+</ul>
+<p>常用操作：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>insert()</td>
+<td>插入一个元素</td>
+</tr>
+<tr>
+<td>erase()</td>
+<td>删除一个元素</td>
+</tr>
+<tr>
+<td>empty()</td>
+<td>检查容器是否为空</td>
+</tr>
+<tr>
+<td>size()</td>
+<td>返回容器中元素的数量</td>
+</tr>
+</tbody></table>
+<p>在set中元素不允许重复插入，但multiset允许重复插入</p>
+<p>如果我需要创建set是从大到小排序的，需要在创建时再输入一个比较类，比如<code>greater&lt;T&gt;()</code></p>
+<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><p>map是一种关联容器，所有元素都是键值对(pair)</p>
+<p>在创建pair对象时，必须提供两个类型名，两个类型不必相同</p>
+<p>pair中第一个元素为key(键值)起到索引作用，第二个元素为value(实值)</p>
+<p>map的指针指向first和second分别对应pair的两个值</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;T1, T2&gt; p = <span class="built_in">make_pair</span>(T1 val, T2 val);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>所有元素都会根据元素的<font color="Violetred">键值自动排序</font></p>
+<blockquote>
+<p>所以在创建时要关注最后排序的是什么</p>
+</blockquote>
+<p>可以通过key值快速找到value值</p>
+<p>map不允许容器有重复的key值，multimap允许</p>
+<p>map的sort和set类似，不再重复</p>
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><p>string和char *区别：</p>
+<ul>
+<li>char *是—个指针</li>
+<li>string是一个类，类内部封装了<code>char*</code>，是一个char*型的容器</li>
+</ul>
+<p>构造函数：</p>
+<ul>
+<li>string();    创建一个空的字符串</li>
+<li>string(const char* s);    使用字符串s初始化</li>
+<li>string(const string&amp; str);    拷贝str</li>
+<li>string(int n, char c):    使用n个字符c初始化</li>
+</ul>
+<p>常用操作：</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>size()</td>
+<td>返回字符串的长度(字符数) [同length()函数]</td>
+</tr>
+<tr>
+<td>empty()</td>
+<td>判断字符串是否为空</td>
+</tr>
+<tr>
+<td>operator[]</td>
+<td>访问字符串中指定位置的字符</td>
+</tr>
+<tr>
+<td>substr()</td>
+<td>返回从pos开始的length长度字符串<br>(常配合find使用)<br>string sub = str.substr(pos, length);</td>
+</tr>
+<tr>
+<td>find()/rfind()</td>
+<td>查找子字符串在字符串中的位置(正方向/从末尾)<br>str.find(“sub”)</td>
+</tr>
+<tr>
+<td>replace()</td>
+<td>替换字符串中的部分内容<br>str.replace(pos, length, “new_substring”);</td>
+</tr>
+<tr>
+<td>insert()</td>
+<td>在指定位置插入内容</td>
+</tr>
+<tr>
+<td>erase()</td>
+<td>删除指定位置指定长度的字符</td>
+</tr>
+<tr>
+<td>compare()</td>
+<td>比较两个字符串，相等返回0<br>std::cout &lt;&lt; (str.empty() ? “Yes” : “No”);</td>
+</tr>
+</tbody></table>
+<h3 id="内建函数对象"><a href="#内建函数对象" class="headerlink" title="内建函数对象"></a>内建函数对象</h3><p>函数对象是那些重载了 <code>operator()</code> 的对象，它们可以像普通函数一样被调用</p>
+<p><code>&lt;functional&gt;</code> 头文件提供了一些函数对象</p>
+<p>主要分为算术仿函数、关系仿函数、逻辑仿函数</p>
+<h4 id="算术仿函数"><a href="#算术仿函数" class="headerlink" title="算术仿函数"></a>算术仿函数</h4><p>实现四则运算</p>
+<p>其中negate是一元运算，其他都是二元运算</p>
+<ul>
+<li>plus<code>&lt;T&gt;</code>  加法仿函数</li>
+<li>minus<code>&lt;T&gt;</code>  减法仿函数</li>
+<li>multiplies<code>&lt;T&gt;</code>  乘法仿函数</li>
+<li>divides<code>&lt;T&gt;</code>  除法仿函数</li>
+<li>modulus<code>&lt;T&gt;</code>  取模%仿函数(只能整型(int,long,char))</li>
+<li>negate<code>&lt;T&gt;</code>  取反仿函数</li>
+</ul>
+<p>使用举例：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plus&lt;<span class="type">int</span>&gt; p;</span><br><span class="line">cout &lt;&lt; <span class="built_in">p</span>(<span class="number">10</span>,<span class="number">20</span>) &lt;&lt; endl;</span><br><span class="line"><span class="comment">// 类模板需要先实例化对象才能用，所以要多一个()</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">plus</span>&lt;<span class="type">int</span>&gt;()(<span class="number">10</span>,<span class="number">20</span>) &lt;&lt; endl;</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="关系仿函数"><a href="#关系仿函数" class="headerlink" title="关系仿函数"></a>关系仿函数</h4><ul>
+<li>greater<code>&lt;T&gt;</code>  return a &gt; b</li>
+<li>less<code>&lt;T&gt;</code>  return a &lt; b</li>
+</ul>
+<p>使用举例：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sort</span>(iterator beg, iterator end, <span class="built_in">greater</span>&lt;<span class="type">int</span>&gt;());</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="逻辑仿函数"><a href="#逻辑仿函数" class="headerlink" title="逻辑仿函数"></a>逻辑仿函数</h4><ul>
+<li><p>logical_not    return !a    属于一元谓词</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">std::<span class="built_in">transform</span>(</span><br><span class="line">       input.<span class="built_in">begin</span>(), </span><br><span class="line">       input.<span class="built_in">end</span>(),</span><br><span class="line">       output.<span class="built_in">begin</span>(),</span><br><span class="line">       std::<span class="built_in">logical_not</span>&lt;<span class="type">bool</span>&gt;()  </span><br><span class="line">   );</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h3 id="常用算法"><a href="#常用算法" class="headerlink" title="常用算法"></a>常用算法</h3><p>算法主要由由头文件<code>&lt;algorithm&gt;, &lt;functional&gt;, &lt;numeric&gt;</code>组成</p>
+<ul>
+<li>algorithm是所有STL头文件中最大的一个，范围涉及到比较、交换、查找、遍历操作、复制、修改等等</li>
+<li>numeric体积很小，只包括几个在序列上面进行简单数学运算的模板函数</li>
+<li>functional定义了一些模板类用以声明函数对象</li>
+</ul>
+<h4 id="遍历算法"><a href="#遍历算法" class="headerlink" title="遍历算法"></a>遍历算法</h4><ul>
+<li><p>for_each  遍历容器</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::for_each(iterator beg, iterator end, _func())</span><br><span class="line">std::for_each(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), [](T i){cout &lt;&lt; i &lt;&lt; endl;}); <span class="comment">// 遍历显示</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>transform  搬运容器到另一个容器</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Transform</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> (v<span class="number">+10</span>);</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; v;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; v2;</span><br><span class="line">v<span class="number">2.</span><span class="built_in">resize</span>(v.<span class="built_in">size</span>()); <span class="comment">// 必须要提前开辟空间，不然程序崩溃</span></span><br><span class="line"><span class="built_in">transform</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), v<span class="number">2.</span><span class="built_in">begin</span>(), <span class="built_in">Transform</span>());</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="查找算法"><a href="#查找算法" class="headerlink" title="查找算法"></a>查找算法</h4><ul>
+<li><p>find  在容器中查找与给定值匹配的第一个元素</p>
+<p>如果找到 it 将指向匹配的元素；否则 it 将等于 container.end()</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = <span class="built_in">find</span>(iterator beg, iterator end, value)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果是自定义类，需要重载==</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">const</span> T &amp; <span class="keyword">class</span>-name){</span><br><span class="line">    <span class="keyword">if</span>(x==x&amp;&amp;y==y&amp;&amp;...)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>find_if  根据bool型仿函数(也叫谓词)的条件返回第一个满足的迭代器位置</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = <span class="built_in">find_if</span>(iterator beg, iterator end, _Pred())</span><br></pre></td></tr></tbody></table></figure>
+
+<p>谓词举例：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Compare</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> v&gt;<span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>adjacent_find  在容器中寻找相邻重复元素，返回前一个的迭代器位置</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = <span class="built_in">adjacent_find</span>(iterator beg, iterator end);</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>binary_search  查找指定的元素，查到返回true否则false</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">binary_search</span><span class="params">(iterator beg,iterator end,value)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p><font color="Violetred">在无序序列中不可用</font> 使用前先sort</p>
+</li>
+<li><p>count  查找元素个数，自定义类需要重载==</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">count</span>(iterator beg, iterator end, value);</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>count_if  查找满足bool型仿函数的条件的元素个数</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n = <span class="built_in">count_if</span>(iterator beg, iterator end, _Pred());</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h4><ul>
+<li><p>sort  对容器内的元素进行排序</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sort</span>(iterator beg, iterator end, _Pred());</span><br></pre></td></tr></tbody></table></figure>
+
+<p>谓词非必须，默认less(也就是升序)</p>
+<p>降序：</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sort</span>(iterator beg, iterator end, <span class="built_in">greater</span>&lt;T&gt;());</span><br></pre></td></tr></tbody></table></figure>
+
+<p><font color="Violetred">对于支持随机访问的迭代器的容器(vector,deque)，都可以用sort算法直接进行排序</font></p>
+<p>如果是自定义类的排序，需要补充一个比较函数(list的sort同理)</p>
+</li>
+<li><p>random_shuffle  对指定范围内的元素随机调整次序</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">random_shuffle</span>(iterator beg, iterator end);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这个随机和rand一样是伪随机，如果需要每次结果不一样需要加上随机种子<code>srand(time(nullptr));</code></p>
+<blockquote>
+<p>random_shuffle已被弃用，用shuffle取代</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shuffle</span>(iterator beg, iterator end,</span><br><span class="line">            <span class="built_in">mt19937</span>(<span class="built_in">random_device</span>()()));</span><br></pre></td></tr></tbody></table></figure></blockquote>
+</li>
+<li><p>merge  将两个容器的元素合并存储到另一个容器</p>
+<p>注意，两个容器必须有序(同升/同降)</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">merge</span>(iterator beg1, iterator end1, iterator beg2, iterator end2, iterator dest);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>dest是目标容器开始迭代器，合并后还是一个有序容器</p>
+<p><strong>注意</strong>：和transform相同，在合并前需要给目标容器开辟一定的空间，否则程序崩溃</p>
+</li>
+<li><p>reverse  对容器内元素进行反转，颠倒其顺序</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">reverse</span>(iterator beg, iterator end);</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="拷贝替换"><a href="#拷贝替换" class="headerlink" title="拷贝替换"></a>拷贝替换</h4><ul>
+<li><p>copy  容器内指定范围的元素拷贝到另一容器中</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">copy</span>(iterator beg, iterator end, iterator dest);</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>replace  将容器内指定范围的元素修改为新元素</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">replace</span>(iterator beg, iterator end, oldvalue, newvalue);</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>replace_if  将区间内满足条件的元素，替换成指定元素</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">replace_if</span>(iterator beg, iterator end, _Pred(), newvalue);</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>swap  互换两个同种类型的容器</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">swap</span>(container c1, container c2);</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="算术生成算法"><a href="#算术生成算法" class="headerlink" title="算术生成算法"></a>算术生成算法</h4><p>属于小型算法，需要包含<code>&lt;numeric&gt;</code></p>
+<ul>
+<li><p>accumulate  计算容器内累加和</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">accumulate</span>(iterator beg, iterator end, init_val)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>min_element和 max_element 用于找到区间内的最大值和最小值</p>
+</li>
+<li><p>inner_product  计算两个容器中对应元素乘积的总和</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">inner_product</span>(iterator beg1, iterator end1, iterator beg2, iterator end2, init_val)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>adjacent_difference  计算容器中相邻元素的差值，并将结果存储在另一个容器中</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">adjacent_difference</span>(iterator beg, iterator end, iterator dest);</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>fill  向容器中填充指定元素</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fill</span>(iterator beg, iterator end, val)</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="集合算法"><a href="#集合算法" class="headerlink" title="集合算法"></a>集合算法</h4><p>以下算法都要求容器有序</p>
+<ul>
+<li><p>set_intersection  计算两个容器的交集，返回交集的结束迭代器位置</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dest.<span class="built_in">resize</span>(<span class="built_in">min</span>(container<span class="number">1.</span><span class="built_in">size</span>(),container<span class="number">2.</span><span class="built_in">size</span>()));</span><br><span class="line"><span class="keyword">auto</span> itend = <span class="built_in">set_intersection</span>(iterator beg1, iterator end1, iterator beg2, iterator end2, iterator dest);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>开辟目标容器时size设为两个容器size 的较小值</p>
+</li>
+<li><p>set_union  计算两个容器的并集，返回并集的结束迭代器位置</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dest.<span class="built_in">resize</span>(container<span class="number">1.</span><span class="built_in">size</span>() + container<span class="number">2.</span><span class="built_in">size</span>());</span><br><span class="line"><span class="keyword">auto</span> itend = <span class="built_in">set_union</span>(iterator beg1, iterator end1, iterator beg2, iterator end2, iterator dest);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>开辟目标容器时size设为两个容器size 的和</p>
+</li>
+<li><p>set_difference  计算两个容器的差集，返回差集的结束迭代器位置</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dest.<span class="built_in">resize</span>(<span class="built_in">max</span>(container<span class="number">1.</span><span class="built_in">size</span>(),container<span class="number">2.</span><span class="built_in">size</span>()));</span><br><span class="line"><span class="keyword">auto</span> itend = <span class="built_in">set_difference</span>(iterator beg1, iterator end1, iterator beg2, iterator end2, iterator dest);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>谁在前就是找后一个没有的元素</p>
+<p>开辟目标容器时size设为两个容器size 的较大值</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/2241288444.html">http://yhblogs.cn/posts/2241288444.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%91%A8%E2%80%8D%F0%9F%92%BBC/">👨‍💻C++</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5yd6d5.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2426107671.html" title="C++职工管理系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-zywe5j_1920x1080_compressed.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C++职工管理系统</div></div></a></div><div class="next-post pull-right"><a href="/posts/3894864178.html" title="ROS2理论"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5g22q5_1920x1080_compressed.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ROS2理论</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/603975454.html" title="C++演讲比赛管理系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-je5r8y.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-31</div><div class="title">C++演讲比赛管理系统</div></div></a></div><div><a href="/posts/2426107671.html" title="C++职工管理系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-zywe5j_1920x1080_compressed.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-28</div><div class="title">C++职工管理系统</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">C基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88"><span class="toc-number">1.2.</span> <span class="toc-text">指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%86%85%E5%AD%98"><span class="toc-number">1.4.</span> <span class="toc-text">程序内存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">随机数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.</span> <span class="toc-text">类和对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90"><span class="toc-number">3.1.</span> <span class="toc-text">类的访问权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-number">3.2.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">3.4.</span> <span class="toc-text">成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#this%E6%8C%87%E9%92%88"><span class="toc-number">3.5.</span> <span class="toc-text">this指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98"><span class="toc-number">3.6.</span> <span class="toc-text">静态成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const%E4%BF%AE%E9%A5%B0"><span class="toc-number">3.7.</span> <span class="toc-text">const修饰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0"><span class="toc-number">3.8.</span> <span class="toc-text">友元函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="toc-number">4.</span> <span class="toc-text">类的继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%A4%9A%E6%80%81"><span class="toc-number">5.</span> <span class="toc-text">类的多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">6.</span> <span class="toc-text">重载运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">6.1.</span> <span class="toc-text">函数调用运算符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">7.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-number">8.</span> <span class="toc-text">模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95"><span class="toc-number">8.1.</span> <span class="toc-text">函数模板语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95"><span class="toc-number">8.2.</span> <span class="toc-text">类模板语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STL"><span class="toc-number">9.</span> <span class="toc-text">STL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-number">9.1.</span> <span class="toc-text">序列式容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vector"><span class="toc-number">9.1.1.</span> <span class="toc-text">vector</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#deque"><span class="toc-number">9.1.2.</span> <span class="toc-text">deque</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stack"><span class="toc-number">9.1.3.</span> <span class="toc-text">stack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#queue"><span class="toc-number">9.1.4.</span> <span class="toc-text">queue</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#list"><span class="toc-number">9.1.5.</span> <span class="toc-text">list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%AE%B9%E5%99%A8%E5%AF%B9%E6%AF%94"><span class="toc-number">9.1.6.</span> <span class="toc-text">序列容器对比</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-number">9.2.</span> <span class="toc-text">关联式容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#set"><span class="toc-number">9.2.1.</span> <span class="toc-text">set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#map"><span class="toc-number">9.2.2.</span> <span class="toc-text">map</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string"><span class="toc-number">9.3.</span> <span class="toc-text">string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%BB%BA%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1"><span class="toc-number">9.4.</span> <span class="toc-text">内建函数对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E4%BB%BF%E5%87%BD%E6%95%B0"><span class="toc-number">9.4.1.</span> <span class="toc-text">算术仿函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E4%BB%BF%E5%87%BD%E6%95%B0"><span class="toc-number">9.4.2.</span> <span class="toc-text">关系仿函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E4%BB%BF%E5%87%BD%E6%95%B0"><span class="toc-number">9.4.3.</span> <span class="toc-text">逻辑仿函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95"><span class="toc-number">9.5.</span> <span class="toc-text">常用算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95"><span class="toc-number">9.5.1.</span> <span class="toc-text">遍历算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95"><span class="toc-number">9.5.2.</span> <span class="toc-text">查找算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="toc-number">9.5.3.</span> <span class="toc-text">排序算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%9B%BF%E6%8D%A2"><span class="toc-number">9.5.4.</span> <span class="toc-text">拷贝替换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E7%94%9F%E6%88%90%E7%AE%97%E6%B3%95"><span class="toc-number">9.5.5.</span> <span class="toc-text">算术生成算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E7%AE%97%E6%B3%95"><span class="toc-number">9.5.6.</span> <span class="toc-text">集合算法</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2025 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
