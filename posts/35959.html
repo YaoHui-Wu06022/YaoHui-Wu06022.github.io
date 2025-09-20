@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>python信号处理 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="scipyScipy 是基于 Numpy 的科学计算库，用于数学、科学、工程学等领域 包含的模块有最优化、线性代数、积分、插值、特殊函数、快速傅里叶变换、信号处理和图像处理、常微分方程求解和其他科学与工程中常用的计算 优化算法常见的优化函数有：  minimize: 适用于无约束或带约束的函数优化 least_squares: 最小二乘问题 curve_fit: 用于拟合数据 fmin、fminb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python信号处理">
+<meta property="og:url" content="http://yhblogs.cn/posts/35959.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="scipyScipy 是基于 Numpy 的科学计算库，用于数学、科学、工程学等领域 包含的模块有最优化、线性代数、积分、插值、特殊函数、快速傅里叶变换、信号处理和图像处理、常微分方程求解和其他科学与工程中常用的计算 优化算法常见的优化函数有：  minimize: 适用于无约束或带约束的函数优化 least_squares: 最小二乘问题 curve_fit: 用于拟合数据 fmin、fminb">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-pokg2e.webp">
+<meta property="article:published_time" content="2025-09-18T13:04:57.000Z">
+<meta property="article:modified_time" content="2025-09-20T14:51:57.616Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="⌨️python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-pokg2e.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/35959.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'python信号处理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-20 14:51:57'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">python信号处理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-09-18T13:04:57.000Z" title="发表于 2025-09-18 13:04:57">2025-09-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="python信号处理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="scipy"><a href="#scipy" class="headerlink" title="scipy"></a>scipy</h2><p>Scipy 是基于 Numpy 的科学计算库，用于数学、科学、工程学等领域</p>
+<p>包含的模块有最优化、线性代数、积分、插值、特殊函数、快速傅里叶变换、信号处理和图像处理、常微分方程求解和其他科学与工程中常用的计算</p>
+<h3 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h3><p>常见的优化函数有：</p>
+<ul>
+<li><code>minimize</code>: 适用于无约束或带约束的函数优化</li>
+<li><code>least_squares</code>: 最小二乘问题</li>
+<li><code>curve_fit</code>: 用于拟合数据</li>
+<li><code>fmin</code>、<code>fminbound</code>、<code>basinhopping</code> 等全局优化方法</li>
+</ul>
+<h4 id="无约束优化"><a href="#无约束优化" class="headerlink" title="无约束优化"></a>无约束优化</h4><p>无约束优化问题就是只需要最小化一个函数，无需考虑变量的取值范围</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> minimize</span><br><span class="line"><span class="comment"># 定义一个简单的目标函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">objective</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> (x - <span class="number">3</span>)**<span class="number">2</span> + <span class="number">4</span></span><br><span class="line"><span class="comment"># 初始猜测</span></span><br><span class="line">x0 = [<span class="number">0</span>]</span><br><span class="line"><span class="comment"># 使用默认的 Nelder-Mead 算法进行优化</span></span><br><span class="line"><span class="comment"># 可以通过参数 method 来选择不同的算法</span></span><br><span class="line">result = minimize(objective, x0, method = <span class="string">"Nelder-Mead"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"最小值点: <span class="subst">{result.x}</span>, 最小值: <span class="subst">{result.fun}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="约束优化"><a href="#约束优化" class="headerlink" title="约束优化"></a>约束优化</h4><p><strong>边界约束</strong>:</p>
+<p>通过bounds指定参数的取值范围</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义目标函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">objective</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> (x - <span class="number">3</span>)**<span class="number">2</span> + <span class="number">4</span></span><br><span class="line"><span class="comment"># 边界约束：x 在 0 和 5 之间</span></span><br><span class="line">bounds = [(<span class="number">0</span>, <span class="number">5</span>)]</span><br><span class="line"><span class="comment"># 初始猜测</span></span><br><span class="line">x0 = [<span class="number">0</span>]</span><br><span class="line"><span class="comment"># 使用 L-BFGS-B 算法进行优化</span></span><br><span class="line">result = minimize(objective, x0, bounds=bounds, method=<span class="string">'L-BFGS-B'</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"最小值点: <span class="subst">{result.x}</span>, 最小值: <span class="subst">{result.fun}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>线性约束/非线性约束</strong>:</p>
+<p>通过 <code>constraints</code> 参数可以添加线性或非线性约束</p>
+<p><code>type</code>：指定约束的类型，可以是 <code>'eq'</code>(等式约束)或者 <code>'ineq'</code>(不等式约束)</p>
+<p><code>fun</code>：该函数接受优化变量，对于不等式约束，最好采用lambda表达式容易表示范围，true返回</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义目标函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">objective</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x[<span class="number">0</span>]**<span class="number">2</span>+x[<span class="number">1</span>]**<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 约束条件: x[0] + x[1] &gt;= 1 (线性)</span></span><br><span class="line">constraints = [{<span class="string">'type'</span>: <span class="string">'ineq'</span>, <span class="string">'fun'</span>: <span class="keyword">lambda</span> x: x[<span class="number">0</span>] + x[<span class="number">1</span>] - <span class="number">1</span>}]</span><br><span class="line"><span class="comment"># 约束条件: x[0]^2 + x[1]^2 &gt;= 1 (非线性)</span></span><br><span class="line"><span class="comment"># constraints = [{'type': 'ineq', 'fun': lambda x: x[0]**2 + x[1]**2 -1}]</span></span><br><span class="line"><span class="comment"># 初始猜测</span></span><br><span class="line">x0 = [<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 SLSQP (Sequential Least Squares Quadratic Programming) 方法</span></span><br><span class="line">result = minimize(objective, x0, constraints=constraints, method=<span class="string">'SLSQP'</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"最小值点: <span class="subst">{result.x}</span>, 最小值: <span class="subst">{result.fun}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="最小二乘法优化"><a href="#最小二乘法优化" class="headerlink" title="最小二乘法优化"></a>最小二乘法优化</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> least_squares</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模拟一些数据</span></span><br><span class="line">rng = np.random.default_rng(<span class="number">42</span>)</span><br><span class="line">x_data = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">100</span>)</span><br><span class="line">y_data = <span class="number">2</span> * x_data + <span class="number">1</span> + <span class="number">0.5</span>*rng.normal(<span class="number">0</span>, <span class="number">1</span>, x_data.size)  <span class="comment"># y = 2x + 1 + noise</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义拟合函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">model</span>(<span class="params">params, x</span>):</span><br><span class="line">    <span class="keyword">return</span> params[<span class="number">0</span>] * x + params[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义残差函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">residuals</span>(<span class="params">params, x, y</span>):</span><br><span class="line">    <span class="keyword">return</span> model(params, x) - y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始猜测</span></span><br><span class="line">initial_guess = [<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># 使用最小二乘法进行拟合</span></span><br><span class="line">result = least_squares(residuals, initial_guess, args=(x_data, y_data))</span><br><span class="line"><span class="comment"># 输出拟合结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"拟合参数: <span class="subst">{result.x}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="曲线拟合"><a href="#曲线拟合" class="headerlink" title="曲线拟合"></a>曲线拟合</h4><p><code>curve_fit</code> 不仅可以拟合线性函数，还可以用于拟合各种类型的函数模型，例如：</p>
+<ul>
+<li>二次函数：<code>y = ax^2 + bx + c</code></li>
+<li>指数函数：<code>y = a * exp(bx)</code></li>
+<li>高斯分布：<code>y = a * exp(-(x-b)^2 / (2 * c^2))</code></li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> curve_fit</span><br><span class="line"><span class="comment"># 定义拟合函数：二次函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">quadratic_func</span>(<span class="params">x, a, b, c</span>):</span><br><span class="line">    <span class="keyword">return</span> a * x**<span class="number">2</span> + b * x + c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成模拟数据</span></span><br><span class="line">rng = np.random.default_rng(<span class="number">42</span>)</span><br><span class="line">xdata = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">100</span>)</span><br><span class="line">ydata = <span class="number">1.5</span> * xdata**<span class="number">2</span> - <span class="number">2.5</span> * xdata + <span class="number">4.0</span> + <span class="number">0.5</span>*rng.normal(<span class="number">0</span>, <span class="number">1</span>, size=xdata.size)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 curve_fit 进行拟合</span></span><br><span class="line">popt, pcov = curve_fit(quadratic_func, xdata, ydata)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拟合结果</span></span><br><span class="line">a_fit, b_fit, c_fit = popt</span><br><span class="line"><span class="comment"># 输出拟合参数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"拟合的参数：a = <span class="subst">{a_fit:<span class="number">.2</span>f}</span>, b = <span class="subst">{b_fit:<span class="number">.2</span>f}</span>, c = <span class="subst">{c_fit:<span class="number">.2</span>f}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p>正弦波表达：<br>$$<br>x(t) = A\cdot \sin (2\pi ft+\phi)<br>$$<br>添加高斯白噪声：noise_signal = signal + noise, 其中noise$\sim N(0,\sigma^2) $</p>
+<h4 id="快速傅里叶变换"><a href="#快速傅里叶变换" class="headerlink" title="快速傅里叶变换"></a>快速傅里叶变换</h4><p>scipy的<code>fft</code>模块提供了高效的傅里叶变换计算，支持一维和多维数据的傅里叶变换</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> fft</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fft.fftfreq(n,d)</span><br><span class="line"><span class="comment"># n为信号长度，d为采样间隔，返回对应傅里叶变换的频率轴</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>一维傅里叶变换(FFT)</strong>：<code>fft.fft()</code> and <code>fft.ifft()</code></p>
+<p>SciPy/NumPy默认的 <code>fft.fft()</code> 只是做了求和，没有除以<code>N</code>，所以计算出来的会比实际幅值大N倍，如果只取正幅度部分，需要乘上2/N做归一化，归一化是为了保证数值物理意义正确</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> fft</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个示例信号</span></span><br><span class="line">t = np.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">500</span>)  <span class="comment"># 500个采样点，时间从0到1秒</span></span><br><span class="line">signal = np.sin(<span class="number">2</span> * np.pi * <span class="number">50</span> * t) + <span class="number">0.5</span> * np.sin(<span class="number">2</span> * np.pi * <span class="number">120</span> * t)  <span class="comment"># 50Hz和120Hz的正弦波叠加</span></span><br><span class="line">N = <span class="built_in">len</span>(signal)</span><br><span class="line"><span class="comment"># 计算傅里叶变换</span></span><br><span class="line">fft_signal = fft.fft(signal)</span><br><span class="line"><span class="comment"># 获取频率轴</span></span><br><span class="line">frequencies = fft.fftfreq(<span class="built_in">len</span>(signal), t[<span class="number">1</span>] - t[<span class="number">0</span>])[:N//<span class="number">2</span>]</span><br><span class="line"><span class="comment"># 计算归一化幅度谱</span></span><br><span class="line">magnitude = <span class="number">2</span>/N * np.<span class="built_in">abs</span>(fft_signal[:N//<span class="number">2</span>])</span><br><span class="line"><span class="comment"># 计算逆傅里叶变换</span></span><br><span class="line">reconstructed_signal = fft.ifft(fft_signal)</span><br><span class="line"><span class="comment"># 绘制幅度谱</span></span><br><span class="line">fig, (ax1,ax2) = plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">ax1.plot(</span><br><span class="line">    frequencies, magnitude,</span><br><span class="line">    color=<span class="string">"blue"</span>,</span><br><span class="line">    linewidth=<span class="number">2</span>,</span><br><span class="line">    label=<span class="string">"Signal Frequency"</span></span><br><span class="line">)</span><br><span class="line">ax1.set_xlabel(<span class="string">"Frequency [Hz]"</span>,family = <span class="string">"serif"</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">"Magnitude"</span>,family = <span class="string">"serif"</span>)</span><br><span class="line">ax1.set_title(<span class="string">"Magnitude Spectrum"</span>,family = <span class="string">"serif"</span>)</span><br><span class="line"></span><br><span class="line">ax2.plot(</span><br><span class="line">    t, np.real(reconstructed_signal),</span><br><span class="line">    color=<span class="string">"red"</span>,</span><br><span class="line">    linewidth=<span class="number">2</span>,</span><br><span class="line">    label=<span class="string">"Reconstructed Signal"</span></span><br><span class="line">)</span><br><span class="line">ax2.set_xlabel(<span class="string">"Time (ms)"</span>,family = <span class="string">"serif"</span>)</span><br><span class="line">ax2.set_ylabel(<span class="string">"Amplitude"</span>,family = <span class="string">"serif"</span>)</span><br><span class="line">ax2.set_title(<span class="string">"Reconstructed Signal"</span>,family = <span class="string">"serif"</span>)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()  <span class="comment"># 自动调整布局，避免标题/标签重叠</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>二维傅里叶</strong>：</p>
+<p>在图像处理分析中大部分人不选择归一化，因为主要目的是「看结构而不是看数值」</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个二维信号（例如图像）</span></span><br><span class="line">image = np.random.random((<span class="number">256</span>, <span class="number">256</span>))  <span class="comment"># 256x256的随机图像</span></span><br><span class="line"><span class="comment"># 对二维信号进行傅里叶变换</span></span><br><span class="line">fft_image = fft.fft2(image)</span><br><span class="line"><span class="comment"># 移动频率成分，使得零频率部分位于中心</span></span><br><span class="line">fft_image_shifted = fft.fftshift(fft_image)</span><br><span class="line"><span class="comment"># 计算幅度谱(Magnitude Spectrum)</span></span><br><span class="line">magnitude_spectrum = np.<span class="built_in">abs</span>(fft_image_shifted) <span class="comment"># 未归一化</span></span><br><span class="line"><span class="comment"># 计算幅度谱的对数，便于显示</span></span><br><span class="line">log_magnitude_spectrum = np.log(magnitude_spectrum + <span class="number">1</span>)</span><br><span class="line"><span class="comment"># 可视化频谱</span></span><br><span class="line">plt.figure(figsize=(<span class="number">6</span>, <span class="number">6</span>))</span><br><span class="line">plt.imshow(log_magnitude_spectrum, cmap=<span class="string">'gray'</span>)</span><br><span class="line">plt.title(<span class="string">"Magnitude Spectrum (Log Scale)"</span>)</span><br><span class="line">plt.colorbar()</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>归一化场景分析：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>是否需要归一化</th>
+<th>原因 / 目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>频谱图展示（图像/信号）</td>
+<td>不需要</td>
+<td>只看频率分布，不关心绝对幅度<br>未归一化+log 更直观</td>
+</tr>
+<tr>
+<td>信号幅值恢复</td>
+<td>需要</td>
+<td>FFT默认放大N倍，必须除以N才能得到真实幅度</td>
+</tr>
+<tr>
+<td>功率/能量分析</td>
+<td>需要</td>
+<td>保证时域能量与频域能量一致</td>
+</tr>
+<tr>
+<td>不同大小数据比较</td>
+<td>需要</td>
+<td>不归一化时，频谱幅度与数据点数成正比，无法比较</td>
+</tr>
+<tr>
+<td>滤波器设计/频域运算</td>
+<td>需要</td>
+<td>滤波器幅值必须落在理论范围内，否则滤波结果能量失真</td>
+</tr>
+<tr>
+<td>相对幅值比较</td>
+<td>不需要</td>
+<td>比值不受N影响，归一化与否结果一致</td>
+</tr>
+<tr>
+<td>逆变换恢复图像/信号</td>
+<td>看情况</td>
+<td>如果正向和逆向保持一致就不必管；如果只做正向归一化，需要注意逆变换对应的系数</td>
+</tr>
+</tbody></table>
+<h4 id="滤波器设计"><a href="#滤波器设计" class="headerlink" title="滤波器设计"></a>滤波器设计</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> signal</span><br></pre></td></tr></tbody></table></figure>
+
+<p>以巴特沃斯滤波器的函数举例，各个滤波器之间的参数设置基本一致</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">butter(N, Wn, btype=<span class="string">'low'</span>, analog=<span class="literal">False</span>, output=<span class="string">'ba'</span>, fs=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li><code>N</code>：滤波器阶数，阶数越高，滤波越陡峭</li>
+<li><code>Wn</code>：截止频率，是一个长度为2的序列，单个或区间上下限</li>
+<li><code>btype</code>：滤波器类型，包括低通滤波器(low)、高通滤波器(high)、带通滤波器(band)、带阻滤波器(bandstop)，默认为low</li>
+<li><code> analog</code>：默认返回一个数字滤波器，如果为True则返回一个模拟滤波器</li>
+<li><code>output</code>：输出，默认<code>'ba'</code>，可选<code>zpk</code>和<code>sos</code></li>
+<li><code>fs</code>：系统的采样频率，如果不提供会报错</li>
+</ul>
+<p>也可以写成：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">butter(N, Wn/fs, btype=<span class="string">'low'</span>, analog=<span class="literal">False</span>, output=<span class="string">'ba'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>IIR滤波器</strong>：</p>
+<p>巴特沃斯滤波器：常见的滤波器，它的特点是保持平滑的频率响应，没有波动，适用于那些要求频率响应平稳的应用</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> signal</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">fs = <span class="number">500</span>  <span class="comment"># 采样频率 500Hz</span></span><br><span class="line">lowcut = <span class="number">100.0</span>  <span class="comment"># 截止频率 100Hz</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用巴特沃斯滤波器设计一个4阶低通滤波器</span></span><br><span class="line">b, a = signal.butter(<span class="number">4</span>, lowcut, btype=<span class="string">'low'</span>, fs=fs)</span><br><span class="line"><span class="comment"># 打印滤波器系数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"滤波器系数 b: <span class="subst">{b}</span>"</span>) <span class="comment"># 滤波器的分子系数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"滤波器系数 a: <span class="subst">{a}</span>"</span>) <span class="comment"># 滤波器的分母系数</span></span><br><span class="line"><span class="comment"># 计算频率响应</span></span><br><span class="line"><span class="comment"># worN: 频率点的数量</span></span><br><span class="line"><span class="comment"># freqz 会在 [0, π](即0到Nyquist 频率)区间内均匀地计算 worN 个频率点</span></span><br><span class="line">w, h = signal.freqz(b, a, worN=<span class="number">2000</span>, fs=fs)</span><br><span class="line"><span class="comment"># 绘制滤波器频率响应</span></span><br><span class="line">plt.plot(w, <span class="built_in">abs</span>(h), <span class="string">'b'</span>)</span><br><span class="line">plt.title(<span class="string">'巴特沃斯低通滤波器频率响应'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'频率 [Hz]'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'幅度'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>切比雪夫滤波器：能够提供更陡峭的频率响应，但它会引入波动(波纹)，可以用于需要锐利频率选择的场景</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用切比雪夫I型滤波器设计一个4阶低通滤波器</span></span><br><span class="line">rp = <span class="number">1</span>  <span class="comment"># 通带最大波纹(dB)</span></span><br><span class="line">lowcut = <span class="number">100.0</span>  <span class="comment"># 截止频率 100Hz</span></span><br><span class="line">b, a = signal.cheby1(<span class="number">4</span>, rp, lowcut, fs=fs)</span><br><span class="line"><span class="comment"># 计算频率响应</span></span><br><span class="line">w, h = signal.freqz(b, a, worN=<span class="number">2000</span>, fs=fs)</span><br><span class="line"><span class="comment"># 绘制滤波器频率响应</span></span><br><span class="line">plt.plot(w, <span class="built_in">abs</span>(h), <span class="string">'r'</span>)</span><br><span class="line">plt.title(<span class="string">'切比雪夫I型低通滤波器频率响应'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'频率 [Hz]'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'幅度'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>二阶陷波和谐振滤波器：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fs = <span class="number">500</span></span><br><span class="line">f0 = <span class="number">100</span></span><br><span class="line">Q = <span class="number">30</span></span><br><span class="line">b_notch, a_notch = signal.iirnotch(f0, Q, fs=fs)   <span class="comment"># 直接传f0,需要品质因子</span></span><br><span class="line">b_peak, a_peak = signal.iirpeak(f0, Q, fs=fs)</span><br><span class="line"><span class="comment"># 计算频率响应</span></span><br><span class="line">w1, h1 = signal.freqz(b_notch, a_notch, worN=<span class="number">2000</span>, fs=fs)</span><br><span class="line">w2, h2 = signal.freqz(b_peak, a_peak, worN=<span class="number">2000</span>, fs=fs)</span><br><span class="line"><span class="comment"># 绘制滤波器频率响应</span></span><br><span class="line">plt.subplot(<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">plt.plot(w1, <span class="built_in">abs</span>(h1), <span class="string">'r'</span>)</span><br><span class="line">plt.subplot(<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">plt.plot(w2, <span class="built_in">abs</span>(h2), <span class="string">'g'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>FIR 滤波器</strong>：</p>
+<p>可以通过选择不同的窗函数来实现低通、高通等滤波效果</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用窗函数法设计一个低通FIR滤波器</span></span><br><span class="line">numtaps = <span class="number">101</span>  <span class="comment"># 滤波器的长度（系数个数）</span></span><br><span class="line">b = signal.firwin(numtaps, lowcut, pass_zero=<span class="literal">True</span>, fs=fs)</span><br><span class="line"><span class="comment"># 计算频率响应</span></span><br><span class="line">w, h = signal.freqz(b, worN=<span class="number">2000</span>, fs=fs)</span><br><span class="line"><span class="comment"># 绘制滤波器频率响应</span></span><br><span class="line">plt.plot(w, <span class="built_in">abs</span>(h), <span class="string">'g'</span>)</span><br><span class="line">plt.title(<span class="string">'FIR低通滤波器频率响应'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'频率 [Hz]'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'幅度'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="滤波操作"><a href="#滤波操作" class="headerlink" title="滤波操作"></a>滤波操作</h4><p>主要常见的两个函数：</p>
+<p><code>scipy.signal.lfilter</code>：使用递归公式对输入信号进行滤波</p>
+<p><code>scipy.signal.filtfilt</code>：对信号进行零相位滤波，即滤波操作前后都进行一次</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">filtered = signal.lfilter(b, a, noise_signal)</span><br><span class="line">filtered = signal.filtfilt(b, a, noise_signal)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th><code>lfilter</code></th>
+<th><code>filtfilt</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>滤波方向</td>
+<td>单向滤波（从前到后）</td>
+<td>双向滤波（从前到后 + 从后到前）</td>
+</tr>
+<tr>
+<td>相位延迟</td>
+<td>引入相位延迟（有延迟）</td>
+<td>无相位延迟（零相位）</td>
+</tr>
+<tr>
+<td>输出信号</td>
+<td>会有信号的末尾和开始部分的失真</td>
+<td>保持原始信号的时域特性，不会有失真</td>
+</tr>
+<tr>
+<td>计算性能</td>
+<td>计算速度较快，适用于实时信号处理</td>
+<td>需要更多计算，适用于离线处理，较慢</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>实时滤波，延迟容忍的应用</td>
+<td>高精度滤波，要求保持信号时域特性</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">生成信号(1 kHz + 2 Khz + 50 Hz + 噪声)，进行FFT分析，</span></span><br><span class="line"><span class="string">应用带阻(50 Hz)+ 巴特沃斯低通(1.5kHz)滤波，</span></span><br><span class="line"><span class="string">绘制并保存结果</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> scipy.signal <span class="keyword">as</span> signal</span><br><span class="line"><span class="keyword">import</span> scipy.fft <span class="keyword">as</span> fft</span><br><span class="line"></span><br><span class="line">rng = np.random.default_rng(<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">TimeAndFFT_plot</span>(<span class="params">t_seg, sig, fs, sign</span>):</span><br><span class="line">    N = <span class="built_in">len</span>(sig)</span><br><span class="line">    seg_len = <span class="built_in">len</span>(t_seg)</span><br><span class="line">    yf = fft.fft(sig)</span><br><span class="line">    freq = fft.fftfreq(N, <span class="number">1</span>/fs)</span><br><span class="line">    magnitude = np.<span class="built_in">abs</span>(yf)/N</span><br><span class="line">    fig, (ax1,ax2) = plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">    ax1.plot(t_seg, sig[:seg_len], <span class="string">'r--'</span>)</span><br><span class="line">    ax1.set_title(sign+<span class="string">" time-domain"</span>)</span><br><span class="line">    ax1.set_xlabel(<span class="string">"Time (s)"</span>)</span><br><span class="line">    ax1.set_ylabel(<span class="string">"Amplitude"</span>)</span><br><span class="line">    ax1.grid()</span><br><span class="line"></span><br><span class="line">    ax2.plot(freq, magnitude, <span class="string">'g'</span>)</span><br><span class="line">    ax2.set_title(sign+<span class="string">" FFT"</span>)</span><br><span class="line">    ax2.set_xlabel(<span class="string">"Frequency (Hz)"</span>)</span><br><span class="line">    ax2.set_ylabel(<span class="string">"Magnitude"</span>)</span><br><span class="line">    ax2.set_xlim(<span class="number">0</span>,<span class="number">2200</span>)</span><br><span class="line">    ax2.grid()</span><br><span class="line">    plt.tight_layout()</span><br><span class="line">    fig_path = os.path.join(OUTPUT_DIR, sign+<span class="string">".png"</span>)</span><br><span class="line">    plt.savefig(fig_path)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># ---------- Configuration ----------</span></span><br><span class="line">    OUTPUT_DIR = <span class="string">"res"</span></span><br><span class="line">    os.makedirs(OUTPUT_DIR, exist_ok=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    fs = <span class="number">10000</span>           <span class="comment"># Sampling frequency (Hz)</span></span><br><span class="line">    duration = <span class="number">1</span>         <span class="comment"># Duration (s)</span></span><br><span class="line">    t = np.linspace(<span class="number">0</span>, duration, duration * fs, endpoint=<span class="literal">False</span>)  <span class="comment"># time</span></span><br><span class="line">    N = <span class="built_in">len</span>(t)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Signal components</span></span><br><span class="line">    f = <span class="number">1000</span>             <span class="comment"># main (Hz)</span></span><br><span class="line">    f_inter = <span class="number">50</span>         <span class="comment"># interference(Hz)</span></span><br><span class="line">    amp1 = <span class="number">0.7</span></span><br><span class="line">    amp2 = <span class="number">0.6</span></span><br><span class="line">    amp_inter = <span class="number">0.5</span></span><br><span class="line">    rand_std = <span class="number">0.5</span></span><br><span class="line">    <span class="comment"># Filter components</span></span><br><span class="line">    lowcut = <span class="number">1500</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------- Generate signals ----------</span></span><br><span class="line">    signal_clean = amp1*np.sin(<span class="number">2</span>*np.pi*f*t) + amp2*np.sin(<span class="number">2</span>*np.pi*<span class="number">2</span>*f*t)+amp_inter*np.sin(<span class="number">2</span>*np.pi*f_inter*t)</span><br><span class="line">    noise = <span class="number">0.2</span>*rng.normal(<span class="number">0</span>, rand_std, N)</span><br><span class="line">    signal_noise = signal_clean + noise</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 用于时域可视化的短时段（前0.01秒）</span></span><br><span class="line">    seg_len = <span class="built_in">int</span>(<span class="number">0.01</span>*fs)</span><br><span class="line">    t_seg = t[:seg_len]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------- Plot time-domain and FFT ---------</span></span><br><span class="line">    TimeAndFFT_plot(t_seg, signal_clean, fs, <span class="string">"clean"</span>)</span><br><span class="line">    TimeAndFFT_plot(t_seg, signal_noise, fs, <span class="string">"noise"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------- Design filters ---------</span></span><br><span class="line">    b_lp, a_lp = signal.butter(<span class="number">4</span>, lowcut, btype=<span class="string">'low'</span>, fs=fs) <span class="comment"># 低通滤波器</span></span><br><span class="line">    f0 = <span class="number">50.0</span></span><br><span class="line">    w0 = f0/(fs/<span class="number">2</span>)</span><br><span class="line">    Q = <span class="number">30</span>  <span class="comment"># 数字陷波滤波器品质因数</span></span><br><span class="line">    b_notch, a_notch = signal.iirnotch(w0,Q)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------- Apply filters using filtfilt (zero-phase) ---------</span></span><br><span class="line">    sig_lp = signal.filtfilt(b_lp, a_lp, signal_noise)</span><br><span class="line">    sig_notch = signal.filtfilt(b_notch, a_notch, signal_noise)</span><br><span class="line">    sig_lp_notch = signal.filtfilt(b_notch, a_notch, sig_lp)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------- Plot time-domain and FFT ---------</span></span><br><span class="line">    TimeAndFFT_plot(t_seg, sig_lp, fs, <span class="string">"lowpass"</span>)</span><br><span class="line">    TimeAndFFT_plot(t_seg, sig_notch, fs, <span class="string">"notch"</span>)</span><br><span class="line">    TimeAndFFT_plot(t_seg, sig_lp_notch, fs, <span class="string">"lowpass+notch"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------- Save sample arrays ----------</span></span><br><span class="line">    np.savez(os.path.join(OUTPUT_DIR, <span class="string">"signal_clean.npz"</span>),t=t,</span><br><span class="line">             signal_clean=signal_clean, signal_noise=signal_noise,</span><br><span class="line">             sig_filtered=sig_lp_notch, fs=fs)</span><br></pre></td></tr></tbody></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/35959.html">http://yhblogs.cn/posts/35959.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E2%8C%A8%EF%B8%8Fpython/">⌨️python</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-pokg2e.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/22050.html" title="光电探测器基础"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">光电探测器基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3865533702.html" title="pyqt5简单实践"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071521231.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-28</div><div class="title">pyqt5简单实践</div></div></a></div><div><a href="/posts/60233.html" title="python基础"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Python-Logo.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-13</div><div class="title">python基础</div></div></a></div><div><a href="/posts/641887854.html" title="基于图片求体积的算法"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071528374.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-01</div><div class="title">基于图片求体积的算法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scipy"><span class="toc-number">1.</span> <span class="toc-text">scipy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96"><span class="toc-number">1.1.1.</span> <span class="toc-text">无约束优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96"><span class="toc-number">1.1.2.</span> <span class="toc-text">约束优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E4%BC%98%E5%8C%96"><span class="toc-number">1.1.3.</span> <span class="toc-text">最小二乘法优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B2%E7%BA%BF%E6%8B%9F%E5%90%88"><span class="toc-number">1.1.4.</span> <span class="toc-text">曲线拟合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">信号处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">1.2.1.</span> <span class="toc-text">快速傅里叶变换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.2.</span> <span class="toc-text">滤波器设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.3.</span> <span class="toc-text">滤波操作</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2025 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
