@@ -1,0 +1,528 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>光电探测器基础 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="PN结需要满足两个假设：  玻尔兹曼分布，每一个半导体区域都是非简并半导体； 完全电离，忽略温度对PN结的影响  PN结的基本结构P型半导体：主要载流子是空穴（通过掺入受主杂质，如硼） N型半导体：主要载流子是电子（通过掺入施主杂质，如磷） PN结是由P型半导体和N型半导体紧密结合而形成的半导体结，分隔p区和n区的交界面为冶金结   耗尽层在结区附近，由于电子和空穴相互扩散并复合，N区留下正电荷，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="光电探测器基础">
+<meta property="og:url" content="http://yhblogs.cn/posts/22050.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="PN结需要满足两个假设：  玻尔兹曼分布，每一个半导体区域都是非简并半导体； 完全电离，忽略温度对PN结的影响  PN结的基本结构P型半导体：主要载流子是空穴（通过掺入受主杂质，如硼） N型半导体：主要载流子是电子（通过掺入施主杂质，如磷） PN结是由P型半导体和N型半导体紧密结合而形成的半导体结，分隔p区和n区的交界面为冶金结   耗尽层在结区附近，由于电子和空穴相互扩散并复合，N区留下正电荷，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp">
+<meta property="article:published_time" content="2025-09-15T10:04:57.000Z">
+<meta property="article:modified_time" content="2025-10-04T07:58:00.061Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🥼半导体">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/22050.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '光电探测器基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-10-04 07:58:00'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">光电探测器基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-09-15T10:04:57.000Z" title="发表于 2025-09-15 10:04:57">2025-09-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="光电探测器基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="PN结"><a href="#PN结" class="headerlink" title="PN结"></a>PN结</h2><p>需要满足两个假设：</p>
+<ul>
+<li>玻尔兹曼分布，每一个半导体区域都是非简并半导体；</li>
+<li>完全电离，忽略温度对PN结的影响</li>
+</ul>
+<h3 id="PN结的基本结构"><a href="#PN结的基本结构" class="headerlink" title="PN结的基本结构"></a>PN结的基本结构</h3><p><strong>P型半导体</strong>：主要载流子是空穴（通过掺入受主杂质，如硼）</p>
+<p><strong>N型半导体</strong>：主要载流子是电子（通过掺入施主杂质，如磷）</p>
+<p>PN结是由P型半导体和N型半导体紧密结合而形成的半导体结，分隔p区和n区的交界面为冶金结</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-09-14_20-20-59.webp" alt="Snipaste_2025-09-14_20-20-59" style="zoom:80%;">
+
+<h3 id="耗尽层"><a href="#耗尽层" class="headerlink" title="耗尽层"></a>耗尽层</h3><p>在结区附近，由于电子和空穴相互扩散并复合，N区留下正电荷，P区留下负电荷，形成一个几乎没有自由载流子的“耗尽层”</p>
+<p>假设均匀掺杂并且空间电荷区在边缘处快速截断</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-09-14_21-00-31.webp" alt="Snipaste_2025-09-14_21-00-31" style="zoom:67%;">
+
+<p>在空间电荷区的电荷密度则可以表示为：<br>$$<br>\begin{aligned}&amp;\rho (x)=-qN_a,\quad -x_p&lt;x&lt;0\<br>&amp;\rho (x)=qN_d,\quad 0&lt;x&lt;x_n<br>\end{aligned}<br>$$<br>根据电荷守恒需要满足 $N_ax_p = N_dx_n$ </p>
+<p>空间电荷区宽度$W=x_p+x_n$，结合泊松方程可以得到结果：<br>$$<br>W=[\frac{2\varepsilon_sV_{bi}}{q}[ \frac{N_a+N_d}{N_aN_d} ]]^{1/2}<br>$$</p>
+<h3 id="内建电势"><a href="#内建电势" class="headerlink" title="内建电势"></a>内建电势</h3><p>假设PN结两端没有外加电场，那么整个半导体系统的费米能级应该处处相同，但是p区和n区内导带和价带的位置随着费米能级的变化而变化，所以空间电荷区内的导带和价带会发生弯曲</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-09-14_20-25-25.webp" alt="Snipaste_2025-09-14_20-25-25" style="zoom:80%;">
+
+<p>n区的电子在进入p区的过程中会遇到一个势垒，阻碍电子继续扩散，<font color="Violetred">扩散与漂移达到平衡后</font>留下的电势差称为内建电势差，记为$V_{bi}$<br>$$<br>V_{bi} = |\phi_{Fp}|+|\phi_{Fn}|<br>$$<br>n区电子浓度可以表示为：<br>$$<br>n_0 = N_c\exp[\frac{-(E_c-E_F)}{kT}] = n_i\exp[\frac{E_F-E_{Fi}}{kT}]<br>$$<br>在完全电离的情况下平衡电子浓度（多数载流子浓度）几乎等于施主浓度 $n_0=N_d$</p>
+<p>解得<br>$$<br>E_F-E_{Fi}= {kT}\ln \frac{N_d}{n_i}<br>$$<br>同理<br>$$<br>E_{Fi}-E_F={kT}\ln\frac{N_a}{n_i}<br>$$<br>$\Delta E = qV$，所以PN的内建电势差大小为<br>$$<br>V_{bi}=\frac{kT}{q}\ln(\frac{N_aN_d}{n_i^2})<br>$$</p>
+<h3 id="外加电势"><a href="#外加电势" class="headerlink" title="外加电势"></a>外加电势</h3><p>在已有的内建电势基础上，如果在PN结两端增加一个电压值会导致不同的行为</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-09-14_21-16-21.webp" alt="Snipaste_2025-09-14_21-16-21" style="zoom: 67%;">
+
+<p>如果将正极与n区连接(反偏)，那么外加电场与内建电场的方向相同，这导致扩散运动更加受限，因此PN结内几乎没有电荷的流动，耗尽层的厚度增大</p>
+<p>如果将正极与p区连接(正偏)，那么外加电场与内建电场的方向相反，减弱了内建电场的阻碍作用，使得扩散运动加剧，因此有电荷流动的区域更多了，耗尽层的厚度减小</p>
+<h3 id="电流"><a href="#电流" class="headerlink" title="电流"></a>电流</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>漂移电流</th>
+<th>扩散电流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成因(驱动力)</td>
+<td>外电场或内建电场</td>
+<td>浓度梯度</td>
+</tr>
+<tr>
+<td>物理本质</td>
+<td>受力定向移动</td>
+<td>随机运动的统计结果</td>
+</tr>
+<tr>
+<td>方向</td>
+<td>电子p→n</td>
+<td>电子n→p</td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>反向偏压下的二极管电流</td>
+<td>正向偏压下的二极管电流</td>
+</tr>
+<tr>
+<td>与欧姆定律关系</td>
+<td>遵循欧姆定律</td>
+<td>不遵循欧姆定律</td>
+</tr>
+</tbody></table>
+<p>漂移电流(与外加电场关系密切)：<br>$$<br>J_{drift}=qn\mu_nE+qp\mu_pE<br>$$<br>其中$\mu_n,\mu_p$为电子/空穴的迁移率</p>
+<p>扩散电流(与PN结属性相关)：(电子带负电正，负号抵消，空穴需要带负号)<br>$$<br>J_{diff}=qD_n\frac{dn}{dx}-qD_p\frac{dp}{dx}<br>$$<br>其中$D_n,D_p$为电子/空穴的扩散系数，$\frac{dn}{dx}/\frac{dp}{dx}$代表浓度梯度</p>
+<p><strong>正向偏置下</strong>：外加的正向电压会削弱内建电场，这使得多数载流子的扩散变得更加容易，扩散电流急剧增加，并成为总电流的主要部分；漂移电流基本保持不变（因为它取决于少数载流子的数量），此时PN结的电流主要是<strong>扩散电流</strong></p>
+<p><strong>反向偏置</strong>：外加的反向电压会增强内建电场，这极大地阻碍了多数载流子的扩散，使得扩散电流变得微不足道，电流主要由少数载流子在增强的电场下的漂移运动构成。此时PN结的电流主要是<strong>漂移电流</strong>，但这个电流非常小，也被称为反向饱和电流$I_0$</p>
+<h3 id="光照下的PN结"><a href="#光照下的PN结" class="headerlink" title="光照下的PN结"></a>光照下的PN结</h3><p>当一个结暴露在光线下时，当光子能量 $h\nu&gt;E_g$ 时，PN结中的价带电子会被激发到导带，产生 电子–空穴对</p>
+<p>如果电子–空穴对出现在耗尽层或靠近耗尽层的区域，就会被内建电场（或外加反向偏置电场）迅速分离，电子拉向n区，空穴拉向p区，这些分离的载流子流向外电路，就形成了光电流$I_{ph}$</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202509142209.webp" alt="202509142209" style="zoom: 50%;">
+
+<p>一般情况下，光电流与入射光强成正比：<br>$$<br>I_{ph} = q\eta\frac{P_{opt}}{h\nu}<br>$$</p>
+<ul>
+<li><p>$\eta $: 量子效率(有效分离的电子–空穴对与吸收光子数之比)</p>
+</li>
+<li><p>$P_{opt}$: 入射光功率</p>
+</li>
+</ul>
+<p>光电流的方向与<font color="Violetred">二极管正向电流相反</font>，因此在二极管方程中：<br>$$<br>I = I_0(e^{qV/kT}-1)-I_{ph}<br>$$<br>在反向偏置下使用最常见，此时外电场加宽耗尽层，载流子更容易被分离，光电流更大，响应更灵敏</p>
+<p>反偏电压增大可以使耗尽区更宽，载流子能在耗尽区内被电场迅速抽取，减少复合、提高量子效率，但也会导致暗电流增大，噪声增多</p>
+<h3 id="PIN光电二极管"><a href="#PIN光电二极管" class="headerlink" title="PIN光电二极管"></a>PIN光电二极管</h3><p>PIN光电二极管是一种结构较传统PN光电二极管有所改进的光电探测器</p>
+<p>为了克服PN结的局限，PIN二极管在PN结之间增加了一个几乎未掺杂的本征层(I层)</p>
+<p>主要优势在于响应速度快、灵敏度高和暗电流低</p>
+<ul>
+<li>响应速度快：I层没有掺杂，电场分布比较均匀，能迅速将光生电子–空穴对加速漂移到电极</li>
+<li>灵敏度高：I层加宽了耗尽区，光子有更大几率在耗尽层内被吸收，提高了量子效率</li>
+<li>暗电流低：I层杂质和缺陷少，热激发产生的载流子少</li>
+</ul>
+<h3 id="APD雪崩光电二极管"><a href="#APD雪崩光电二极管" class="headerlink" title="APD雪崩光电二极管"></a>APD雪崩光电二极管</h3><p>PIN光电二极管已经解决了PN结的问题（耗尽层窄、响应慢），具备高速和高量子效率，但PIN没有“内部增益”，产生的光电流直接取决于光功率</p>
+<p>在弱光检测（比如远距离光纤通信）中，信号电流可能非常微弱，需要额外的电子放大器，噪声就会成为限制</p>
+<p>APD在PIN的基础上，在结区加很强的反向偏置电压（几十伏到几百伏）</p>
+<p>光子进入耗尽层，产生电子-空穴对，在强电场作用下，电子和空穴被加速，动能大到足以在碰撞中再电离硅原子，产生新的电子-空穴对。新产生的载流子又被加速，继续产生二次电离。这个过程像“雪崩”一样连锁放大，因此称为<strong>雪崩倍增效应</strong></p>
+<p>优点：</p>
+<ul>
+<li>更高灵敏度：由于有内部雪崩增益，能探测更微弱的光信号</li>
+<li>信噪比提升：在前端直接放大光信号，减轻后级电路负担</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>响应速度下降：倍增过程需要时间，APD带宽一般比PIN低一些</li>
+<li>倍增噪声：高电场下热激发载流子也会被倍增 → 噪声上升</li>
+</ul>
+<p>对比PIN和APD：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>PIN 光电二极管</th>
+<th>APD 雪崩光电二极管</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内部增益</td>
+<td>无</td>
+<td>有（10~1000倍）</td>
+</tr>
+<tr>
+<td>工作偏压</td>
+<td>低（几伏）</td>
+<td>高（几十~几百伏）</td>
+</tr>
+<tr>
+<td>灵敏度</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>响应速度</td>
+<td>高速</td>
+<td>稍低于PIN（雪崩倍增需时间）</td>
+</tr>
+<tr>
+<td>噪声</td>
+<td>低</td>
+<td>较高（倍增过程有噪声）</td>
+</tr>
+<tr>
+<td>应用</td>
+<td>一般光检测、光通信</td>
+<td>长距离光纤通信，高灵敏度探测，激光雷达</td>
+</tr>
+</tbody></table>
+<h2 id="光电探测器的性能指标"><a href="#光电探测器的性能指标" class="headerlink" title="光电探测器的性能指标"></a>光电探测器的性能指标</h2><h3 id="响应度R"><a href="#响应度R" class="headerlink" title="响应度R"></a>响应度R</h3><p>定义：单位入射光功率下输出电流或电压的大小，单位(A/W)</p>
+<p>常用电流响应度：<br>$$<br>R = \frac{I_{ph}}{P_{opt}} = \eta\frac{q}{h\nu} \approx \eta \frac{\lambda}{1240}[A/W]<br>$$<br>$h$：普朗克常数 ($6.62607015 × 10^{-34} J\cdot s$)  </p>
+<p>$q$：元电荷 ($1.6\times 10^{-19}C$)</p>
+<p>$\lambda$：<font color="Violetred">以nm为单位</font>，所以上下项均$\times 10^9$<br>$$<br>\frac{q}{hc} = 3\cdot10^{8}\cdot\frac{6.62607015\cdot10^{-34}}{1.6\cdot10^{-19}}\approx 1.24\times 10^{-6}<br>$$<br>响应度越高，说明探测器将光转换为电流的能力越强，灵敏度越高</p>
+<h3 id="量子效率-eta"><a href="#量子效率-eta" class="headerlink" title="量子效率$\eta$"></a>量子效率$\eta$</h3><p>定义：入射到探测器上的光子数与最终产生的电子-空穴对（即参与形成光电流的载流子）数量之比，无单位</p>
+<p>量子效率越高，表明器件内部的光电转换机制越有效，材料对光的吸收和载流子的收集成效越好</p>
+<p>典型硅光电二极管的$\eta \sim 70%\sim 90%$</p>
+<h3 id="暗电流"><a href="#暗电流" class="headerlink" title="暗电流"></a>暗电流</h3><p>定义：在无光照时，给探测器施加反向偏压时流过的微小电流，主要由热激发或缺陷引起的反向电流，通常在$pA$或$nA$量级</p>
+<p><font color="Violetred">暗电流是主要噪声源</font>，会限制弱光探测灵敏度，它对温度非常敏感，温度升高，暗电流会显著增大</p>
+<h3 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h3><p>响应时间：从光信号到电信号的延迟（$ns$或$\mu s$级）</p>
+<ul>
+<li>上升时间(Rise Time,$\tau_r$)：指光信号阶跃输入时，输出信号从峰值的10%上升到90%所需的时间</li>
+<li>下降时间(Fall Time,$\tau_f$)：指输出信号从峰值的90%下降到10%所需的时间</li>
+</ul>
+<p>响应时间越短，探测器对快速光脉冲的反应就越快</p>
+<h3 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h3><p>带宽BW($\Delta f$)：指探测器的响应度下降到其最大值的$\sqrt 2$(约70.7%，即-3dB)时的调制频率</p>
+<p>带宽越大，探测器能够处理的信号频率就越高，适合高速光通信、激光雷达等应用</p>
+<p>常用经验公式：<br>$$<br>BW = \frac{0.35}{\tau_r}<br>$$</p>
+<h3 id="噪声等效功率NEP"><a href="#噪声等效功率NEP" class="headerlink" title="噪声等效功率NEP"></a>噪声等效功率NEP</h3><p>NEP是衡量探测器探测微弱光信号能力的极限指标，直接关联到探测器的信噪比</p>
+<p>定义：使输出信噪比 = 1 时所需的最小光功率<br>$$<br>NEP_{spec} =\frac{I_{noise,spec}}{R}[W/\sqrt{Hz}]<br>$$</p>
+<blockquote>
+<p>spec 代表已经归一化到单位谱</p>
+</blockquote>
+<p>单位中的$\sqrt{Hz}$是因为噪声与测量带宽的平方根成正比</p>
+<p>NEP值越小，说明探测器探测微弱光信号的能力越强，性能越好</p>
+<h4 id="常见噪声"><a href="#常见噪声" class="headerlink" title="常见噪声"></a>常见噪声</h4><p><strong>散粒噪声</strong>(Shot noise)：这是一种基本的量子噪声，由光生电流和暗电流中的载流子在通过PN结时产生的随机波动引起<br>$$<br>i_{shot,spec}^2 =2q(I_{ph}+I_{dark}) \qquad  i^2_{shot} = 2q(I_{ph}+I_{dark})\Delta f<br>$$<br><font color="Violetred">若信号很弱常把光电流忽略，用暗电流近似</font></p>
+<p><strong>热噪声</strong>(Johnson noise或Thermal noise)：来源于探测器和负载电阻$R_L$，其值与电阻和温度有关<br>$$<br>i_{th,spec}^2 = \frac{4kT}{R_L}<br>$$<br><strong>1/f噪声</strong>(Flicker Noise)：这种噪声在低频时非常显著，其功率谱密度与频率成反比</p>
+<p>总噪声电流(均方根值)：（<font color="Violetred">在很多情况下只考虑散粒噪声，忽略其它项</font>）<br>$$<br>I_{noise,spec} = \sqrt{i_{shot,spec}^2 +i_{th,spec}^2+i^2_{1/f} }<br>$$</p>
+<h3 id="比探测率-D"><a href="#比探测率-D" class="headerlink" title="比探测率$D^*$"></a>比探测率$D^*$</h3><p>比探测率(读作 “D-star”)是为了更方便地比较不同尺寸、不同带宽的探测器的性能而提出的一个标准化指标</p>
+<p>定义：是NEP的倒数，并进行了面积和带宽的归一化处理，使得不同探测器之间的性能比较更加公平和直观，表征探测器在噪声限制下对弱信号的探测能力<br>$$<br>D^* = \frac{\sqrt{A\cdot \Delta f}}{NEP}=\frac{\sqrt{A}}{NEP_{spec}}[cm\cdot \sqrt {Hz}/W]<br>$$<br>$A$是探测器的有效感光面积，$\Delta f$是测量带宽</p>
+<p>$D^*$越大，探测弱信号的能力越强</p>
+<h3 id="信噪比SNR"><a href="#信噪比SNR" class="headerlink" title="信噪比SNR"></a>信噪比SNR</h3><p>表达式：<br>$$<br>SNR = \frac{I_{ph}}{I_{noise}}<br>$$<br><strong>弱光区域</strong>($RP_{opt}\ll I_{dark}$)</p>
+<p>噪声主要由暗流决定：<br>$$<br>{SNR}\approx\frac{RP_{opt}}{\sqrt{2qI_{dark}\Delta f}}\propto P_{opt}<br>$$<br>SNR随光功率线性增长</p>
+<p><strong>强光区域</strong>($RP_{opt}\gg I_{dark}$)</p>
+<p>噪声主要来自光生电流自身的散粒噪声：<br>$$<br>{SNR}\approx\frac{RP_{opt}}{\sqrt{2qRP_{opt}\Delta f}}=\sqrt{\frac{RP_{opt}}{2q\Delta f}}<br>$$<br>SNR随光功率平方根增长</p>
+<ul>
+<li>弱光时，加大光功率能显著提升SNR；</li>
+<li>光功率越来越强后，SNR仍然增加，但增速减缓（从线性变成开方关系）</li>
+</ul>
+<p>工程上只要保证SNR足够（&gt;20dB(&gt;100)），过分追求极大值没有意义，还可能带来问题</p>
+<h3 id="总结表格"><a href="#总结表格" class="headerlink" title="总结表格"></a>总结表格</h3><table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>英文</th>
+<th>单位</th>
+<th>值越..越好</th>
+<th>简单描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>响应度</td>
+<td>Responsivity($R$)</td>
+<td>$A/W$</td>
+<td>↑</td>
+<td>光电转换的宏观效率</td>
+</tr>
+<tr>
+<td>量子效率</td>
+<td>Quantum Efficiency($\eta $)</td>
+<td>无</td>
+<td>↑</td>
+<td>光电转换的微观效率</td>
+</tr>
+<tr>
+<td>暗电流</td>
+<td>Dark Current($I_d$)</td>
+<td>$A$</td>
+<td>↓</td>
+<td>无光时的噪声</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>Bandwidth(BW)</td>
+<td>$Hz$</td>
+<td>↑</td>
+<td>能处理的信号最高频率范围</td>
+</tr>
+<tr>
+<td>噪声等效功率</td>
+<td>NEP</td>
+<td>$W/\sqrt{Hz}$</td>
+<td>↓</td>
+<td>能探测到信号的最小光功率</td>
+</tr>
+<tr>
+<td>比探测率</td>
+<td>Detectivity($D^*$)</td>
+<td>$cm\cdot \sqrt {Hz}/W$</td>
+<td>↑</td>
+<td>标准化的探测能力</td>
+</tr>
+</tbody></table>
+<h3 id="性能计算"><a href="#性能计算" class="headerlink" title="性能计算"></a>性能计算</h3><p>以滨松光子的S1226-5BK硅光电二极管为例</p>
+<p>参数表如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>受光面</td>
+<td>$2.4 \times  2.4 mm$</td>
+</tr>
+<tr>
+<td>反向电压（最大值）</td>
+<td>$5V$</td>
+</tr>
+<tr>
+<td>光谱响应范围</td>
+<td>$320\sim 1000nm$</td>
+</tr>
+<tr>
+<td>最大灵敏度波长（典型值）</td>
+<td>$720nm$</td>
+</tr>
+<tr>
+<td>感光灵敏度(响应度)（典型值）</td>
+<td>$0.36A/W$</td>
+</tr>
+<tr>
+<td>暗电流（最大值）</td>
+<td>$5pA$</td>
+</tr>
+<tr>
+<td>上升时间（典型值）</td>
+<td>$0.5 \mu s$</td>
+</tr>
+<tr>
+<td>噪声等效功率（典型值）</td>
+<td>$2.5\times10^{-15} W/Hz^{1/2}$</td>
+</tr>
+</tbody></table>
+<p>有效接收面$A = 2.4^2 = 5.76mm^2=0.0576cm^2$</p>
+<p>量子效率：(720nm处)<br>$$<br>\eta = \frac{1240R}{\lambda}=1240\times 0.36/720 = 62%<br>$$</p>
+<p>带宽(利用经验公式)<br>$$<br>BW\approx\frac{0.35}{\tau_r} = 7\times 10^5 Hz =700 k H z<br>$$<br>计算比探测率<br>$$<br>D^* = \frac{\sqrt{A}}{NEP_{spec}} \approx 9.6\times 10^{13}cm\cdot \sqrt {Hz}/W<br>$$<br>带宽$\Delta f = 700kHz$,对应最小可检测光电流<br>$$<br>I_{ph,min}  = R\cdot NEP_{spec}\cdot \sqrt{\Delta f} \approx 7.53\times 10^{-13}A(0.753pA)<br>$$<br>给定入射功率($P=1\mu W$)<br>$$<br>I_{ph} = 0.36 \mu A\qquad I_{noise} =\sqrt{2q(I_{ph}+I_{dark})\cdot \Delta f}<br>$$<br>信噪比SNR<br>$$<br>SNR = I_{ph}/I_{noise} = 1267<br>$$</p>
+<h4 id="matlab计算"><a href="#matlab计算" class="headerlink" title="matlab计算"></a>matlab计算</h4><figure class="highlight matlab"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">clc,clear</span><br><span class="line"><span class="comment">%% 基本参数</span></span><br><span class="line">l = <span class="number">2.4</span>;             <span class="comment">% 长(mm)</span></span><br><span class="line">m = <span class="number">2.4</span>;             <span class="comment">% 宽(mm)</span></span><br><span class="line">A = l*m*<span class="number">1e-2</span>;        <span class="comment">% 面积(cm^2)</span></span><br><span class="line">lambda = <span class="number">720</span>;        <span class="comment">% 波长(nm)</span></span><br><span class="line">R = <span class="number">0.36</span>;            <span class="comment">% 响应度(R)(A/W)</span></span><br><span class="line">Idarkm = <span class="number">5e-12</span>;      <span class="comment">% 暗电流(A)</span></span><br><span class="line">NEP_spec = <span class="number">2.5e-15</span>;  <span class="comment">% 典型值噪声等效功率</span></span><br><span class="line">q = <span class="number">1.6e-19</span>;         <span class="comment">% 元电荷(C)</span></span><br><span class="line">tau_r = <span class="number">0.5e-6</span>;      <span class="comment">% 上升时间(s)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 性能计算</span></span><br><span class="line">eta = <span class="number">1240</span>*R/lambda;            <span class="comment">% 量子效率</span></span><br><span class="line">BW = <span class="number">0.35</span>/tau_r;                <span class="comment">% 带宽(Hz)</span></span><br><span class="line">D_star = <span class="built_in">sqrt</span>(A)/NEP_spec;      <span class="comment">% 比探测率 </span></span><br><span class="line">I_phmin = R*NEP_spec*<span class="built_in">sqrt</span>(BW);  <span class="comment">% 最小可检测光电流</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 具体计算</span></span><br><span class="line">P = <span class="built_in">logspace</span>(<span class="number">-9</span>,<span class="number">-6</span>,<span class="number">100</span>);         <span class="comment">% 入射功率(W)</span></span><br><span class="line">Iph = R*P;                       <span class="comment">% 光电流大小</span></span><br><span class="line">ishotm = <span class="built_in">sqrt</span>(<span class="number">2</span>*q*(Idarkm+Iph)); <span class="comment">% 散粒噪声谱</span></span><br><span class="line">Inoise = ishotm*<span class="built_in">sqrt</span>(BW);        <span class="comment">% 噪声电流</span></span><br><span class="line">SNR = Iph./Inoise;</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 输出</span></span><br><span class="line">fprintf(<span class="string">"-----性能输出-----\n"</span>);</span><br><span class="line">fprintf(<span class="string">"量子效率:%.2f%%\n"</span>,eta*<span class="number">100</span>);</span><br><span class="line">fprintf(<span class="string">"带宽:%.2fkHz\n"</span>,BW/<span class="number">1000</span>);</span><br><span class="line">fprintf(<span class="string">"比探测率:%.2ecm·Hz^1/2/W\n"</span>,D_star);</span><br><span class="line">fprintf(<span class="string">"最小可检测光电流:%.2fpA\n"</span>,I_phmin*<span class="number">1e12</span>);</span><br><span class="line"><span class="comment">% 单点</span></span><br><span class="line"><span class="comment">% fprintf("-----计算输出-----\n");</span></span><br><span class="line"><span class="comment">% fprintf("光功率大小:%.2eW\n",P);</span></span><br><span class="line"><span class="comment">% fprintf("光电流大小:%.2eA\n",Iph);</span></span><br><span class="line"><span class="comment">% fprintf("信噪比:%.3e\n",SNR);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 绘图</span></span><br><span class="line"><span class="built_in">figure</span>;</span><br><span class="line">loglog(P,SNR,<span class="string">'LineWidth'</span>,<span class="number">2</span>);</span><br><span class="line">grid on;</span><br><span class="line">xlabel(<span class="string">'光功率 P (W)'</span>);</span><br><span class="line">ylabel(<span class="string">'SNR'</span>);</span><br><span class="line">title(<span class="string">'SNR-光功率'</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="不同材料比对"><a href="#不同材料比对" class="headerlink" title="不同材料比对"></a>不同材料比对</h3><p>以硅光电探测器(Si PD)和石墨烯光电探测器(Graphene PD)为例，对比响应速度、波长范围、暗电流、量子效率、工艺以及成本</p>
+<p><strong>响应速度</strong></p>
+<p>硅光电探测器响应速度通常较快，但受到载流子在材料中传输时间的限制，通常在ns到ps量级，高速PIN二极管可到10–100GHz带宽</p>
+<p>石墨烯是零带隙、超高迁移率材料，使得石墨烯光电探测器响应速度极快，可达ps甚至fs量级，理论上带宽可到太赫兹(THz)量级，实验上已超过100GHz</p>
+<p><strong>波长响应范围</strong></p>
+<p>硅是一种间接带隙半导体，$E_g\approx 1.12eV$，主要对可见光和近红外光(波长约320nm~1100nm)敏感</p>
+<p>石墨烯是零带隙材料，理论上全波段响应(UV–可见光–IR–太赫兹)，具有超宽的光谱响应范围，这是其最大的优势之一</p>
+<p><strong>暗电流</strong></p>
+<p>硅光电探测器的暗电流通常较低，在微弱光照下也能提供清晰的信号，适合高灵敏应用</p>
+<p>石墨烯载流子很容易被热激发(零带隙)，暗电流通常较高，噪声大，是其在实际应用中面临的主要挑战之一</p>
+<p><strong>量子效率</strong>：</p>
+<p>硅光电探测器在可见波段量子效率高(60%-90%)</p>
+<p>单层石墨烯对光吸收率仅~2.3%，量子效率低，需要与光学谐振腔/波导耦合才能提升</p>
+<p><strong>工艺成熟度</strong>：</p>
+<p>硅基CMOS工艺极其成熟，成本低，可靠性高，可批量生产</p>
+<p>石墨烯材料生长和转移工艺不成熟，器件一致性差，良率低</p>
+<p><strong>成本</strong>：</p>
+<p>硅器件制造成本极低，且与现有硅工艺完全兼容</p>
+<p>石墨烯探测器制备复杂(CVD生长、转移等)，目前成本高，不适合大规模商业化</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>硅 (Silicon)</th>
+<th>石墨烯 (Graphene)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>响应速度</td>
+<td>ns~ps</td>
+<td>ps~fs</td>
+</tr>
+<tr>
+<td>波长范围</td>
+<td>320nm~1100nm(可见光和近红外)</td>
+<td>极宽(UV–可见–IR–THz)</td>
+</tr>
+<tr>
+<td>暗电流</td>
+<td>极低(pA–nA)</td>
+<td>较高(μA–mA)，噪声大</td>
+</tr>
+<tr>
+<td>量子效率</td>
+<td>可见波段高</td>
+<td>低，需要光学谐振腔/波导耦合</td>
+</tr>
+<tr>
+<td>工艺成熟度</td>
+<td>极其成熟，成本低</td>
+<td>工艺尚不成熟，一致性差</td>
+</tr>
+<tr>
+<td>主要应用</td>
+<td>消费电子、太阳能电池、传统光通信</td>
+<td>高速光通信、宽带光谱探测、前沿科学研究</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/22050.html">http://yhblogs.cn/posts/22050.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%A5%BC%E5%8D%8A%E5%AF%BC%E4%BD%93/">🥼半导体</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/35959.html" title="python信号处理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-pokg2e.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">python信号处理</div></div></a></div><div class="next-post pull-right"><a href="/posts/60233.html" title="python基础"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Python-Logo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3769378865.html" title="微纳米加工及应用"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/DALL·E_2024-09-13_14.39.53_-_In_a_warm,_soft_anime_art_style,_a_peaceful_seaside_at_low_tide_is_depicted._A_young_person,_possibly_a_child,_is_standing_by_the_water's_edge_with_a_.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-14</div><div class="title">微纳米加工及应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PN%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">PN结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PN%E7%BB%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">PN结的基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%97%E5%B0%BD%E5%B1%82"><span class="toc-number">1.2.</span> <span class="toc-text">耗尽层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%BB%BA%E7%94%B5%E5%8A%BF"><span class="toc-number">1.3.</span> <span class="toc-text">内建电势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E5%8A%A0%E7%94%B5%E5%8A%BF"><span class="toc-number">1.4.</span> <span class="toc-text">外加电势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%B5%81"><span class="toc-number">1.5.</span> <span class="toc-text">电流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E7%85%A7%E4%B8%8B%E7%9A%84PN%E7%BB%93"><span class="toc-number">1.6.</span> <span class="toc-text">光照下的PN结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PIN%E5%85%89%E7%94%B5%E4%BA%8C%E6%9E%81%E7%AE%A1"><span class="toc-number">1.7.</span> <span class="toc-text">PIN光电二极管</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#APD%E9%9B%AA%E5%B4%A9%E5%85%89%E7%94%B5%E4%BA%8C%E6%9E%81%E7%AE%A1"><span class="toc-number">1.8.</span> <span class="toc-text">APD雪崩光电二极管</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E7%94%B5%E6%8E%A2%E6%B5%8B%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">光电探测器的性能指标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BA%A6R"><span class="toc-number">2.1.</span> <span class="toc-text">响应度R</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8F%E5%AD%90%E6%95%88%E7%8E%87-eta"><span class="toc-number">2.2.</span> <span class="toc-text">量子效率$\eta$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%97%E7%94%B5%E6%B5%81"><span class="toc-number">2.3.</span> <span class="toc-text">暗电流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="toc-number">2.4.</span> <span class="toc-text">响应时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A6%E5%AE%BD"><span class="toc-number">2.5.</span> <span class="toc-text">带宽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E7%AD%89%E6%95%88%E5%8A%9F%E7%8E%87NEP"><span class="toc-number">2.6.</span> <span class="toc-text">噪声等效功率NEP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%99%AA%E5%A3%B0"><span class="toc-number">2.6.1.</span> <span class="toc-text">常见噪声</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E6%8E%A2%E6%B5%8B%E7%8E%87-D"><span class="toc-number">2.7.</span> <span class="toc-text">比探测率$D^*$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%99%AA%E6%AF%94SNR"><span class="toc-number">2.8.</span> <span class="toc-text">信噪比SNR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8%E6%A0%BC"><span class="toc-number">2.9.</span> <span class="toc-text">总结表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97"><span class="toc-number">2.10.</span> <span class="toc-text">性能计算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#matlab%E8%AE%A1%E7%AE%97"><span class="toc-number">2.10.1.</span> <span class="toc-text">matlab计算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E6%9D%90%E6%96%99%E6%AF%94%E5%AF%B9"><span class="toc-number">2.11.</span> <span class="toc-text">不同材料比对</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2025 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
