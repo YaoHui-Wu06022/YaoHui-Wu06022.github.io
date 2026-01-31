@@ -1,0 +1,1217 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>python基础 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基本数据类型Python3的六个标准数据类型中：  不可变数据：Number(数字)、String(字符串)、Tuple(元组) 可变数据：List(列表)、Dictionary(字典)、Set(集合)  不可变指的是创建后内存内容不能再被修改，只能创建新的对象来修改 数字NumberPython 支持三种不同的数值类型：  整型(int)，Python3整型是没有限制大小的，可以当作 Long">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础">
+<meta property="og:url" content="http://yhblogs.cn/posts/60233.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="基本数据类型Python3的六个标准数据类型中：  不可变数据：Number(数字)、String(字符串)、Tuple(元组) 可变数据：List(列表)、Dictionary(字典)、Set(集合)  不可变指的是创建后内存内容不能再被修改，只能创建新的对象来修改 数字NumberPython 支持三种不同的数值类型：  整型(int)，Python3整型是没有限制大小的，可以当作 Long">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Python-Logo.png">
+<meta property="article:published_time" content="2025-09-13T12:04:57.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.722Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="⌨️python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Python-Logo.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/60233.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'python基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">python基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-09-13T12:04:57.000Z" title="发表于 2025-09-13 12:04:57">2025-09-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>29分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="python基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>Python3的六个标准数据类型中：</p>
+<ul>
+<li>不可变数据：Number(数字)、String(字符串)、Tuple(元组)</li>
+<li>可变数据：List(列表)、Dictionary(字典)、Set(集合)</li>
+</ul>
+<p>不可变指的是创建后内存内容不能再被修改，只能创建新的对象来修改</p>
+<h3 id="数字Number"><a href="#数字Number" class="headerlink" title="数字Number"></a>数字Number</h3><p>Python 支持三种不同的数值类型：</p>
+<ul>
+<li>整型(int)，Python3整型是没有限制大小的，可以当作 Long 类型使用，布尔(bool)是整型的子类型</li>
+<li>浮点型(float)</li>
+<li>复数(complex)，可以用<code>a+bj</code>,或者<code>complex(a,b)</code>表示，复数的实部a和虚部b都是浮点型</li>
+</ul>
+<p>数据类型的转换只需要将数据类型作为函数名即可</p>
+<p>在混合计算时会把整型转换成为浮点数，<code>+</code>,<code>-</code>,<code>*</code>和<code>/</code>和其它语言里一样</p>
+<p>数值的除法包含两个运算符：<code>/</code>返回一个浮点数，<code>//</code>返回一个整数(但不一定是int，和分子分母的数据类型有关)</p>
+<p>数学常量：<code>pi</code> and <code>e</code> </p>
+<h3 id="字符串String"><a href="#字符串String" class="headerlink" title="字符串String"></a>字符串String</h3><p>用单引号<code>'</code>或双引号<code>"</code>括起来，同时使用反斜杠<code>\</code>转义特殊字符，<font color="Violetred">注意字符串不可变</font></p>
+<p>字符串的切片：变量[头下标:尾下标]，索引值以0为开始值，-1为从末尾的开始位置</p>
+<p>可以用<code>+</code>运算符连接在一起，用<code>*</code>运算符重复</p>
+<p><strong>格式化</strong>推荐用<code>f-string</code>(python3.6之后)</p>
+<p>以<strong>f</strong>开头，后面跟着字符串，字符串中的表达式用大括号 {} 包起来，它会将变量或表达式计算后的值替换进去</p>
+<p>用这种方式就不用再去判断使用<code>%s</code>还是<code>%d</code></p>
+<h3 id="列表List"><a href="#列表List" class="headerlink" title="列表List"></a>列表List</h3><p>列表是Python中使用最频繁的数据类型，写在方括号<code>[]</code>之间，元素用逗号隔开</p>
+<p>和字符串一样有索引和切片，不同的是<font color="Violetred">列表中的元素是可以改变的</font></p>
+<p>常用方法：(部分和c++类似)</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>len(list)</code></td>
+<td>列表元素个数</td>
+</tr>
+<tr>
+<td><code>list.count(obj)</code></td>
+<td>统计某个元素在列表中出现的次数</td>
+</tr>
+<tr>
+<td><code>list.index(obj)</code></td>
+<td>从列表中找出某个值第一个匹配项的索引位置</td>
+</tr>
+<tr>
+<td><code>list.append(obj)</code></td>
+<td>在列表末尾添加新的对象</td>
+</tr>
+<tr>
+<td><code>	list.insert(index, obj)</code></td>
+<td>将对象插入列表</td>
+</tr>
+<tr>
+<td><code>list.extend(seq)</code></td>
+<td>在列表末尾一次性追加另一个序列中的多个值</td>
+</tr>
+<tr>
+<td><code>list.pop([index=-1])</code></td>
+<td>移除列表中的一个元素(默认最后一个)，并且返回该元素的值</td>
+</tr>
+<tr>
+<td><code>list.remove(obj)</code></td>
+<td>移除列表中某个值的第一个匹配项</td>
+</tr>
+<tr>
+<td><code>list.sort(reverse=False)</code></td>
+<td>对原列表进行排序</td>
+</tr>
+<tr>
+<td><code>list.reverse()</code></td>
+<td>反向列表中元素</td>
+</tr>
+</tbody></table>
+<p>输出小技巧：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">matrix = [</span><br><span class="line">    [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>],</span><br><span class="line">    [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">]</span><br><span class="line"><span class="comment"># 直接打印（默认输出）</span></span><br><span class="line"><span class="built_in">print</span>(matrix)</span><br><span class="line"><span class="comment"># 美化输出（去除逗号和方括号）</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> matrix:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">' '</span>.join(<span class="built_in">str</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> row))</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="元组Tuple"><a href="#元组Tuple" class="headerlink" title="元组Tuple"></a>元组Tuple</h3><p>与列表类似，不同之处在于元组的元素不能修改，写在小括号<code>()</code>里，元素之间用逗号隔开</p>
+<p>和列表一样有索引和切片，<font color="Violetred">不同之处在于元组的元素不能修改，且数据类型可以不同</font></p>
+<p>元组中的元素值不允许删除，但可以使用<code>del</code>语句来删除整个元组</p>
+<p>常用方法：(方法极少)</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>len(tuple)</code></td>
+<td>计算元组元素个数</td>
+</tr>
+<tr>
+<td><code>max(tuple)</code>/<code>min(tuple)</code></td>
+<td>返回元组中元素最大/最小值</td>
+</tr>
+</tbody></table>
+<h3 id="集合Set"><a href="#集合Set" class="headerlink" title="集合Set"></a>集合Set</h3><p>集合(Set)是一个无序、可变、不重复的元素集合，使用大括号<code>{}</code>表示，元素之间用逗号分隔</p>
+<blockquote>
+<p>3.7+中含存储顺序，但逻辑仍无序</p>
+</blockquote>
+<p>可以进行交集、并集、差集等常见的集合操作(<code>&amp;</code>,<code>|</code>,<code>-</code>)</p>
+<p><font color="Violetred">创建一个空集合必须用<code>set()</code>而不是<code>{ }</code></font>，因为<code>{ }</code>是用来创建一个空字典</p>
+<p>常用方法：(类比c++ set)</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>set.add(x)</code></td>
+<td>为集合添加元素</td>
+</tr>
+<tr>
+<td><code>set.remove(x)</code></td>
+<td>从集合移除元素</td>
+</tr>
+<tr>
+<td><code>set.pop()</code></td>
+<td>随机移除元素</td>
+</tr>
+<tr>
+<td><code>set.clear()</code></td>
+<td>移除集合中的所有元素</td>
+</tr>
+<tr>
+<td><code>len(set)</code></td>
+<td>计算集合元素个数</td>
+</tr>
+</tbody></table>
+<p>适合用于去重、快速查找、集合关系运算</p>
+<h3 id="字典Dictionary"><a href="#字典Dictionary" class="headerlink" title="字典Dictionary"></a>字典Dictionary</h3><p>字典是一种映射类型，用<code>{ }</code>标识，是一个<font color="Violetred">无序的键(key):值(value)的集合</font></p>
+<blockquote>
+<p>3.7+默认保持插入顺序</p>
+</blockquote>
+<p>键(key)必须使用不可变类型，且<font color="Violetred">在同一个字典中，键(key)必须是唯一的</font></p>
+<p>常用方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>dict.keys()</code></td>
+<td>返回键的视图对象</td>
+</tr>
+<tr>
+<td><code>dict.values()</code></td>
+<td>返回值的视图对象</td>
+</tr>
+<tr>
+<td><code>dict.items()</code></td>
+<td>以列表返回视图对象</td>
+</tr>
+<tr>
+<td><code>dict.update(dict2)</code></td>
+<td>把字典dict2的键/值对更新到dict里</td>
+</tr>
+<tr>
+<td><code>dict.pop(key)</code></td>
+<td>删除字典key所对应的值，返回被删除的值</td>
+</tr>
+<tr>
+<td><code>dict.get(key, default=None)</code></td>
+<td>返回指定键的值，如果不存在返回default设置的值</td>
+</tr>
+</tbody></table>
+<h3 id="四大容器对比"><a href="#四大容器对比" class="headerlink" title="四大容器对比"></a>四大容器对比</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>列表 list</th>
+<th>元组 tuple</th>
+<th>集合 set</th>
+<th>字典 dict</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定义方式</td>
+<td><code>[]</code> 或 <code>list()</code></td>
+<td><code>()</code> 或 <code>tuple()</code></td>
+<td><code>{}</code> 或 <code>set()</code></td>
+<td><code>{key: value}</code> 或 <code>dict()</code></td>
+</tr>
+<tr>
+<td>是否有序</td>
+<td>有序</td>
+<td>有序</td>
+<td>无序</td>
+<td>有序</td>
+</tr>
+<tr>
+<td>是否可变</td>
+<td>可变</td>
+<td>不可变</td>
+<td>可变</td>
+<td>可变</td>
+</tr>
+<tr>
+<td>元素是否可重复</td>
+<td>允许重复</td>
+<td>允许重复</td>
+<td>自动去重</td>
+<td>键(key)唯一，值(value)可重复</td>
+</tr>
+<tr>
+<td>索引访问</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>通过 key 访问 value</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>存放有序数据，可修改</td>
+<td>固定数据，保护不被修改</td>
+<td>去重、集合运算、快速查找</td>
+<td>存放键值对，快速查找映射关系</td>
+</tr>
+</tbody></table>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br></pre></td></tr></tbody></table></figure>
+
+<p>pathlib是对os的一个改进库，建议从os慢慢转变为pathlib</p>
+<p>在MacOS和Linux系统下，路径默认使用的都是<code>正斜杠/</code>，在Windows系统下，正反斜杠都可以表示路径分隔符，默认的是<code>反斜杠\</code>，由于反斜杠本身属于转义符，这可能会导致使用反斜杠表示的路径在编码时无法被正确识别。最好就是全部用正斜杆<code>/</code>，避免出问题</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><table>
+<thead>
+<tr>
+<th>功能</th>
+<th><code>os</code>/<code>os.path</code> 写法</th>
+<th><code>pathlib</code> 写法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>获取当前工作目录</td>
+<td><code>os.getcwd()</code></td>
+<td><code>Path.cwd()</code></td>
+</tr>
+<tr>
+<td>递归创建单层目录</td>
+<td><code>os.makedirs(path, exist_ok=True)</code></td>
+<td><code>Path(path).mkdir(parents=True, exist_ok=True)</code></td>
+</tr>
+<tr>
+<td>删除空目录</td>
+<td><code>os.rmdir(path)</code></td>
+<td><code>Path(path).rmdir()</code></td>
+</tr>
+</tbody></table>
+<p><code>os.removedirs(path)</code>：递归删除空目录，从最深层的子目录开始删除，直到遇到一个非空目录或者抛出错误为止；</p>
+<h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><table>
+<thead>
+<tr>
+<th>功能</th>
+<th><code>os</code> / <code>os.path</code> 写法</th>
+<th><code>pathlib</code> 写法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>拼接路径</td>
+<td><code>os.path.join(path1,path2)</code></td>
+<td><code>Path(path1) / path2</code></td>
+</tr>
+<tr>
+<td>文件名(不含扩展名)</td>
+<td>(很麻烦)</td>
+<td><code>Path(path).stem</code></td>
+</tr>
+<tr>
+<td>文件名(含扩展名)</td>
+<td><code>os.path.basename(path)</code></td>
+<td><code>Path(path).name</code></td>
+</tr>
+<tr>
+<td>取扩展名</td>
+<td><code>os.path.splitext(path)[1]</code></td>
+<td><code>Path(path).suffix</code></td>
+</tr>
+<tr>
+<td>取目录名</td>
+<td><code>os.path.dirname(path)</code></td>
+<td><code>Path(path).parent</code></td>
+</tr>
+<tr>
+<td>检查是否存在</td>
+<td><code>os.path.exists(path)</code></td>
+<td><code>Path(path).exists()</code></td>
+</tr>
+<tr>
+<td>删除文件</td>
+<td><code>os.remove(path)</code></td>
+<td><code>Path(path).unlink()</code></td>
+</tr>
+</tbody></table>
+<h3 id="遍历目录"><a href="#遍历目录" class="headerlink" title="遍历目录"></a><font color="Violetred">遍历目录</font></h3><p><code>os.listdir</code>列出某个目录下的文件和文件夹名(不递归)，只返回名字(不带路径)，需要<code>os.path.join</code>拼接绝对/相对路径</p>
+<p><code>Path.iterdir()</code>结合了<code>os.listdir</code> + <code>os.path.join</code> </p>
+<p>计算文件夹下所有csv文件的平均值：(两种写法的区别只在循环开始部分)</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_average</span>(<span class="params">folder</span>):</span><br><span class="line">    xs = <span class="literal">None</span>        <span class="comment"># 存放 x 轴</span></span><br><span class="line">    ys_list = []     <span class="comment"># 存放所有文件的第二列</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> name <span class="keyword">in</span> os.listdir(folder):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> name.endswith(<span class="string">".csv"</span>):</span><br><span class="line">            <span class="keyword">continue</span>  <span class="comment"># 只处理 CSV 文件</span></span><br><span class="line">        path = os.path.join(folder, name)</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    for path in Path(folder).iterdir():</span></span><br><span class="line"><span class="string">    	if path.suffix != ".csv":   # 扩展名检查</span></span><br><span class="line"><span class="string">        	continue</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 读入两列数据</span></span><br><span class="line">            data = np.loadtxt(path, delimiter=<span class="string">","</span>)</span><br><span class="line">            x = data[:, <span class="number">0</span>]</span><br><span class="line">            y = data[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> xs <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                xs = x</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 检查 x 轴是否一致</span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> np.allclose(xs, x):</span><br><span class="line">                    <span class="keyword">raise</span> ValueError(<span class="string">f"x轴不一致: <span class="subst">{path}</span>"</span>)</span><br><span class="line"></span><br><span class="line">            ys_list.append(y)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"Loaded <span class="subst">{path}</span>, <span class="subst">{<span class="built_in">len</span>(y)}</span> points"</span>)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"Skip <span class="subst">{path}</span>: <span class="subst">{e}</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> ys_list:</span><br><span class="line">        <span class="keyword">raise</span> RuntimeError(<span class="string">"没有找到有效的 CSV 文件"</span>)</span><br><span class="line">	<span class="comment"># 转为numpy</span></span><br><span class="line">    ys = np.array(ys_list)</span><br><span class="line">    ys_avg = np.average(ys, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> xs, ys_avg</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="递归遍历"><a href="#递归遍历" class="headerlink" title="递归遍历"></a>递归遍历</h3><p>递归式的遍历，遍历指定目录及其子目录中的所有文件和目录</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.walk(top, topdown=<span class="literal">True</span>, onerror=<span class="literal">None</span>, followlinks=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_average_walk</span>(<span class="params">folder</span>):</span><br><span class="line">    xs = <span class="literal">None</span></span><br><span class="line">    ys_list = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> dirpath, _, filenames <span class="keyword">in</span> os.walk(folder):</span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> filenames:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> name.endswith(<span class="string">".csv"</span>):</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            path = os.path.join(dirpath, name) <span class="comment"># 重新拼接文件路径</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    folder = Path(folder) # 需要转一下，不然用不了rglob</span></span><br><span class="line"><span class="string">    for path in folder.rglob("*.csv"): </span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                data = np.loadtxt(path, delimiter=<span class="string">","</span>)</span><br><span class="line">                x = data[:, <span class="number">0</span>]</span><br><span class="line">                y = data[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> xs <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    xs = x</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">not</span> np.allclose(xs, x):</span><br><span class="line">                        <span class="keyword">raise</span> ValueError(<span class="string">f"x轴不一致: <span class="subst">{path}</span>"</span>)</span><br><span class="line"></span><br><span class="line">                ys_list.append(y)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f"Loaded <span class="subst">{path}</span>, <span class="subst">{<span class="built_in">len</span>(y)}</span> points"</span>)</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f"Skip <span class="subst">{path}</span>: <span class="subst">{e}</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> ys_list:</span><br><span class="line">        <span class="keyword">raise</span> RuntimeError(<span class="string">"没有找到有效的 CSV 文件"</span>)</span><br><span class="line"></span><br><span class="line">    ys = np.array(ys_list)</span><br><span class="line">    ys_avg = np.average(ys, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> xs, ys_avg</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="创建和生成"><a href="#创建和生成" class="headerlink" title="创建和生成"></a>创建和生成</h3><h4 id="array函数"><a href="#array函数" class="headerlink" title="array函数"></a>array函数</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.array(<span class="built_in">object</span>, dtype = <span class="literal">None</span>, copy = <span class="literal">True</span>, order = <span class="literal">None</span>, ndmin = <span class="number">0</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>object</code></td>
+<td align="left">数组或嵌套的数列<code>list</code></td>
+</tr>
+<tr>
+<td align="left"><code>dtype</code></td>
+<td align="left">数组元素的数据类型，可选，一般不用自己指定</td>
+</tr>
+<tr>
+<td align="left"><code>copy</code></td>
+<td align="left">对象是否需要复制，可选</td>
+</tr>
+<tr>
+<td align="left"><code>order</code></td>
+<td align="left">创建数组的样式，C为行方向，F为列方向，A为任意方向(默认)</td>
+</tr>
+<tr>
+<td align="left"><code>ndmin</code></td>
+<td align="left">指定生成数组的最小维度</td>
+</tr>
+</tbody></table>
+<p>传入复数数组：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = np.array([[<span class="number">1</span>+<span class="number">2j</span>,<span class="number">2</span>+<span class="number">3j</span>],[<span class="number">3</span>+<span class="number">4j</span>,<span class="number">4</span>+<span class="number">5j</span>]], dtype= np.complex64)</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="arange函数"><a href="#arange函数" class="headerlink" title="arange函数"></a>arange函数</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.arange(start, stop, step, dtype)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>start</code></td>
+<td align="left">起始值，默认为<code>0</code></td>
+</tr>
+<tr>
+<td align="left"><code>stop</code></td>
+<td align="left">终止值(不包含)</td>
+</tr>
+<tr>
+<td align="left"><code>step</code></td>
+<td align="left">步长，默认为<code>1</code></td>
+</tr>
+</tbody></table>
+<h4 id="linspace函数"><a href="#linspace函数" class="headerlink" title="linspace函数"></a>linspace函数</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.linspace(start, stop, num=<span class="number">50</span>, endpoint=<span class="literal">True</span>, retstep=<span class="literal">False</span>, dtype=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>start</code></td>
+<td align="left">序列的起始值</td>
+</tr>
+<tr>
+<td align="left"><code>stop</code></td>
+<td align="left">序列的终止值，如果<code>endpoint</code>为<code>True</code>，该值包含于数列中</td>
+</tr>
+<tr>
+<td align="left"><code>num</code></td>
+<td align="left">要生成的等步长的样本数量，默认为<code>50</code></td>
+</tr>
+<tr>
+<td align="left"><code>endpoint</code></td>
+<td align="left">该值为<code>True</code>时，数列中包含<code>stop</code>值，默认<code>True</code></td>
+</tr>
+<tr>
+<td align="left"><code>retstep</code></td>
+<td align="left">该值为<code>True</code>时，生成的数组中会显示间距，反之不显示</td>
+</tr>
+</tbody></table>
+<h4 id="logspace函数"><a href="#logspace函数" class="headerlink" title="logspace函数"></a>logspace函数</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.logspace(start, stop, num=<span class="number">50</span>, endpoint=<span class="literal">True</span>, base=<span class="number">10.0</span>, dtype=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>start</code></td>
+<td align="left">起始值：<code>base ** start</code></td>
+</tr>
+<tr>
+<td align="left"><code>stop</code></td>
+<td align="left">终止值：<code>base ** stop</code>，如果<code>endpoint</code>为<code>True</code>，该值包含于数列中</td>
+</tr>
+<tr>
+<td align="left"><code>num</code></td>
+<td align="left">要生成的等步长的样本数量，默认为<code>50</code></td>
+</tr>
+<tr>
+<td align="left"><code>endpoint</code></td>
+<td align="left">该值为<code>True</code> 时，数列中中包含<code>stop</code>值，默认是True</td>
+</tr>
+<tr>
+<td align="left"><code>base</code></td>
+<td align="left">对数<code>log</code>的底数</td>
+</tr>
+</tbody></table>
+<h4 id="ones-zeros函数"><a href="#ones-zeros函数" class="headerlink" title="ones/zeros函数"></a>ones/zeros函数</h4><p>创建出来的 array 默认是 float 类型</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.ones(shape, dtype = <span class="literal">None</span>, order = <span class="string">'C'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.zeros(shape, dtype = <span class="literal">None</span>, order = <span class="string">'C'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>shape</code></td>
+<td align="left">数组形状</td>
+</tr>
+<tr>
+<td align="left"><code>order</code></td>
+<td align="left">‘C’行数组，或者’F’用于 FORTRAN 的列数组</td>
+</tr>
+</tbody></table>
+<h4 id="random函数"><a href="#random函数" class="headerlink" title="random函数"></a>random函数</h4><p>最重要的API，经常用于随机生成训练或测试数据，神经网路初始化等</p>
+<p>推荐使用新的方式生成，rng 是个 Generator，可用于生成各种分布</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rng = np.random.default_rng(<span class="number">42</span>)  <span class="comment"># Generator(PCG64) at 0x27C7981F900</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>rng的size都有<code>()</code>，np.random的不是</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>np.random</code></th>
+<th><code>rng</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-1 连续均匀分布</td>
+<td><code>np.random.rand(3,4)</code><br><code>np.random.random((3,4))</code></td>
+<td><code>rng.random((3,4))</code></td>
+</tr>
+<tr>
+<td>指定上下界连续均匀分布</td>
+<td><code>np.random.uniform(-1,1,(2,3))</code></td>
+<td><code>rng.uniform(-1,1,(2,3))</code></td>
+</tr>
+<tr>
+<td>指定上下界随机整数</td>
+<td><code>np.random.randint(0,10,(2,3))</code></td>
+<td><code>rng.integers(0,10,(2,3))</code></td>
+</tr>
+<tr>
+<td>标准正态分布(0,1)</td>
+<td><code>np.random.randn(2,4)</code></td>
+<td><code>rng.standard_normal((2,4))</code></td>
+</tr>
+<tr>
+<td>正态分布</td>
+<td><code>np.random.normal(0,1,(3,5))</code></td>
+<td><code>rng.normal(0,1,(3,5))</code></td>
+</tr>
+</tbody></table>
+<p>常用用的就是2个分布：均匀分布和正态(高斯)分布</p>
+<h3 id="数组属性"><a href="#数组属性" class="headerlink" title="数组属性"></a>数组属性</h3><p>一维数组的秩为1，二维数组的秩为2</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>arr.ndim</code></td>
+<td align="left">数组的秩(rank)，即数组的维度数量或轴的数量</td>
+</tr>
+<tr>
+<td align="left"><code>arr.shape</code></td>
+<td align="left">数组的维度，表示数组在每个轴上的大小</td>
+</tr>
+<tr>
+<td align="left"><code>arr.size</code></td>
+<td align="left">数组中元素的总个数，等于 <code>np.shape</code> 中各个轴上大小的乘积</td>
+</tr>
+<tr>
+<td align="left"><code>arr.dtype</code></td>
+<td align="left">数组中元素的数据类型</td>
+</tr>
+<tr>
+<td align="left"><code>arr.itemsize</code></td>
+<td align="left">数组中每个元素的大小，以字节为单位</td>
+</tr>
+<tr>
+<td align="left"><code>arr.real</code></td>
+<td align="left">数组中每个元素的实部(如果元素类型为复数)</td>
+</tr>
+<tr>
+<td align="left"><code>arr.imag</code></td>
+<td align="left">数组中每个元素的虚部(如果元素类型为复数)</td>
+</tr>
+</tbody></table>
+<h3 id="统计函数"><a href="#统计函数" class="headerlink" title="统计函数"></a>统计函数</h3><p><strong>最值</strong>：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="built_in">max</span>(axis=<span class="number">0</span>, keepdims=<span class="literal">True</span>) <span class="comment"># min同理</span></span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>axis</code></td>
+<td>0为列，1为行，默认为全部</td>
+</tr>
+<tr>
+<td><code>keepdims</code></td>
+<td>是否保持原有维度，默认<code>False</code></td>
+</tr>
+</tbody></table>
+<p>这个需要特别注意下，很多深度学习模型中都需要保持原有的维度进行后续计算</p>
+<p><font color="Violetred">在统计函数这块<code>axis</code>,<code>keepdims</code>用法都是一样的</font></p>
+<p>另一种写法(少用)：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.amax(arr)</span><br><span class="line">np.amin(arr)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>分位数</strong>：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.median(arr) <span class="comment"># 中位数</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.quantile(arr, q, axis) </span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([[<span class="number">10</span>, <span class="number">7</span>, <span class="number">4</span>], [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]])</span><br><span class="line"><span class="comment"># 75% 的分位数，就是 a 里排序之后的中位数</span></span><br><span class="line"><span class="built_in">print</span> (np.percentile(a, <span class="number">75</span>))</span><br><span class="line"><span class="comment"># 6.25 75%*(6-1)=3.75 锁定索引3和4两个数 4+0.75*(7-4)=6.25</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>平均求和标准差</strong></p>
+<p>使用最多的是「平均值」</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">np.average(arr) <span class="comment"># 平均值</span></span><br><span class="line">np.<span class="built_in">sum</span>(arr)     <span class="comment"># 和</span></span><br><span class="line">np.std(arr)     <span class="comment"># 标准差</span></span><br><span class="line">np.var(arr)     <span class="comment"># 方差</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.cumsum(arr)  <span class="comment"># 累加</span></span><br><span class="line">np.cumprod(arr) <span class="comment"># 累乘</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>元素出现次数</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.bincount(arr)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>返回不同元素出现的次数</p>
+<h3 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h3><p>这小节里面的API使用非常高频，尤其是扩展1维度的 <code>expand_dims</code> 和去除1维度的 <code>squeeze</code>，在很多神经网络架构常见</p>
+<h4 id="修改数组形状"><a href="#修改数组形状" class="headerlink" title="修改数组形状"></a>修改数组形状</h4><p>reshape会生成一个新的array，但resize不会</p>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>reshape()</code></td>
+<td align="left">原数组形状不变</td>
+</tr>
+<tr>
+<td align="left"><code>resize()</code></td>
+<td align="left">会改变原数组形状</td>
+</tr>
+<tr>
+<td align="left"><code>ravel()</code></td>
+<td align="left">将多维数组展平</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr.reshape(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>) </span><br><span class="line">arr1 = arr.reshape(<span class="number">4</span>,-<span class="number">1</span>)  <span class="comment"># 可以用-1让编译器自动计算，resize不行</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><font color="Violetred">reshape元素数量必须与原array一致</font></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># arr1.resize(3,2)       # 报错，数组内元素数量多</span></span><br><span class="line">arr1copy = np.copy(arr1) <span class="comment"># 可以copy再resize来截断</span></span><br><span class="line">arr1copy.resize(<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line">arr1.shape  <span class="comment"># arr1的数组shape不变 (4,3)</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将 refcheck 设为 False ，可以让resize超出部分设为0</span></span><br><span class="line"><span class="comment"># 注意，这种方法不能对切片出来的数据使用，会提示报错</span></span><br><span class="line">arr2 = np.copy(arr1)</span><br><span class="line">arr2.resize(<span class="number">4</span>,<span class="number">4</span>,refcheck=<span class="literal">False</span>) <span class="comment"># 多的部分全部为0</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="修改数组维度"><a href="#修改数组维度" class="headerlink" title="修改数组维度"></a>修改数组维度</h4><p><font color="Violetred">注意：无论是扩展还是缩减，无论是扩展还是缩减，多或少的 shape 都是 1</font></p>
+<p>扩充维度不能跳跃</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rng = np.random.default_rng(<span class="number">42</span>)</span><br><span class="line">arr = rng.integers(<span class="number">1</span>,<span class="number">100</span>,(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">expanded = np.expand_dims(arr, axis=(<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line"><span class="comment"># expanded.shape → (3,1,4,1,1)</span></span><br><span class="line"><span class="comment"># axis 先在1插入，变成(3,1,4) 再在axis=3插入，变成(3,1,4,1) 最后再插</span></span><br><span class="line"><span class="comment"># expanded = np.expand_dims(arr, axis=(1, 3, 8)) # 报错</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>squeeze</code>时如果指定维度，则该维度<code>shape</code>必须是 1</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># np.squeeze(expanded, axis=0) # 报错</span></span><br><span class="line">np.squeeze(expanded, axis=<span class="number">1</span>) <span class="comment"># (3,4,1,1)</span></span><br><span class="line"><span class="comment"># 去除所有维度为 1 的</span></span><br><span class="line">np.squeeze(expanded) <span class="comment"># (3,4)</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="反序"><a href="#反序" class="headerlink" title="反序"></a>反序</h4><p>如果对一个字符串或数组进行反序，一般会利用<code>reversed</code>，或者利用<code>list</code>的索引，这就是numpy中array的反序方式</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr</span><br><span class="line"><span class="comment"># [[ 9 77 65 44]</span></span><br><span class="line"><span class="comment">#  [43 86  9 70]</span></span><br><span class="line"><span class="comment">#  [20 10 53 97]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr[::-<span class="number">1</span>] <span class="comment"># 默认行反序</span></span><br><span class="line"><span class="comment"># [[20 10 53 97]</span></span><br><span class="line"><span class="comment">#  [43 86  9 70]</span></span><br><span class="line"><span class="comment">#  [ 9 77 65 44]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按行反转(上下翻转)</span></span><br><span class="line">arr[::-<span class="number">1</span>, :]</span><br><span class="line"><span class="comment"># [[20 10 53 97]</span></span><br><span class="line"><span class="comment">#  [43 86  9 70]</span></span><br><span class="line"><span class="comment">#  [ 9 77 65 44]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按列反转(左右翻转)</span></span><br><span class="line">arr[:, ::-<span class="number">1</span>]</span><br><span class="line"><span class="comment"># [[44 65 77  9]</span></span><br><span class="line"><span class="comment">#  [70  9 86 43]</span></span><br><span class="line"><span class="comment">#  [97 53 10 20]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同时行列反转</span></span><br><span class="line">arr[::-<span class="number">1</span>, ::-<span class="number">1</span>]</span><br><span class="line"><span class="comment"># [[97 53 10 20]</span></span><br><span class="line"><span class="comment">#  [70  9 86 43]</span></span><br><span class="line"><span class="comment">#  [44 65 77  9]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="转置"><a href="#转置" class="headerlink" title="转置"></a>转置</h4><p>通俗理解就是把数组放倒，shape反转，行变成列，列成为行</p>
+<p>建议二维矩阵用 <code>arr.T</code>(会快很多)，超过二维的张量可以用 <code>np.transpose</code>，会更加灵活些</p>
+<p><font color="Violetred">注意：一维数组转置还是自己，不会反转</font></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">arr.T</span><br><span class="line"><span class="comment"># [[ 9 43 20]</span></span><br><span class="line"><span class="comment">#  [77 86 10]</span></span><br><span class="line"><span class="comment">#  [65  9 53]</span></span><br><span class="line"><span class="comment">#  [44 70 97]]</span></span><br><span class="line">arr.reshape(<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>).T.shape <span class="comment"># 输出 (4,3,1,1)</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># np.transpose可以指定 axes，不指定时和T一样</span></span><br><span class="line">np.transpose(arr.reshape(<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>), axes=(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>)).shape</span><br><span class="line"><span class="comment"># 输出 (1,3,1,4)</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h4><p>本小节严格来说只有两个API：<code>np.concatenate</code> 和 <code>np.stack</code></p>
+<p>前者是拼接，后者是堆叠(会增加一个维度)，都可以指定维度</p>
+<p><font color="Violetred"><code>vstack</code>和<code>hstack</code>虽然看起来是<code>stack</code>，但他俩本质还是<code>concatenate</code></font> </p>
+<p><code>vstack</code>等价于 axis=0，<code>hstack</code>等价于axis=1，建议只用<code>concatenate</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rng = np.random.default_rng(<span class="number">42</span>)</span><br><span class="line">arr1 = rng.random((<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">arr2 = rng.random((<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">np.concatenate(arr1, arr2)  <span class="comment"># 默认沿axis=0(列)连接</span></span><br><span class="line">np.concatenate((arr1, arr2), axis=<span class="number">1</span>)  <span class="comment"># 沿行连接</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 堆叠，默认根据 axis=0 进行</span></span><br><span class="line">np.stack((arr1, arr2))  <span class="comment"># 增加维度，shape(2,2,3)</span></span><br><span class="line"><span class="comment"># [[[0.77395605 0.43887844 0.85859792]</span></span><br><span class="line"><span class="comment">#  [0.69736803 0.09417735 0.97562235]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [[0.7611397  0.78606431 0.12811363]</span></span><br><span class="line"><span class="comment">#  [0.45038594 0.37079802 0.92676499]]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 堆叠，根据 axis=2</span></span><br><span class="line">np.stack((arr1, arr2), axis=<span class="number">2</span>) <span class="comment"># shape为(2,3,2)</span></span><br><span class="line"><span class="comment"># [[[0.77395605 0.7611397 ]</span></span><br><span class="line"><span class="comment">#  [0.43887844 0.78606431]</span></span><br><span class="line"><span class="comment">#  [0.85859792 0.12811363]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [[0.69736803 0.45038594]</span></span><br><span class="line"><span class="comment">#  [0.09417735 0.37079802]</span></span><br><span class="line"><span class="comment">#  [0.97562235 0.92676499]]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="切片和索引"><a href="#切片和索引" class="headerlink" title="切片和索引"></a>切片和索引</h3><p>切片和索引是通过对已有 array 进行操作而得到想要的「部分」元素的行为过程</p>
+<p>把处理按维度分开，不处理的维度统一用<code>:</code>替代，也有用<code>...</code>表示的，但是<code>:</code>更多</p>
+<p><font color="Violetred">索引支持负数，即从后往前索引</font></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr[:<span class="number">3</span>, <span class="number">1</span>:<span class="number">3</span>]       <span class="comment"># 0-3行，1-3列</span></span><br><span class="line">arr[<span class="number">1</span>:<span class="number">4</span>:<span class="number">2</span>, <span class="number">0</span>:<span class="number">3</span>:<span class="number">2</span>]  <span class="comment"># 也可以start:stop:step来多选</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="筛选和过滤"><a href="#筛选和过滤" class="headerlink" title="筛选和过滤"></a>筛选和过滤</h3><p>主要包括以下内容：</p>
+<ul>
+<li>条件筛选</li>
+<li>提取(按条件)</li>
+<li>抽样(按分布)</li>
+<li>最大最小 index(特殊值)</li>
+</ul>
+<p>这几个内容都很重要，使用的也非常高频，条件筛选经常用于 <code>Mask</code> 或异常值处理，提取则常用于结果过滤，抽样常用在数据生成(比如负样本抽样)，最大最小 <code>index</code> 则常见于机器学习模型预测结果判定中(根据最大概率所在的 index 决定结果属于哪一类)</p>
+<h4 id="条件筛选"><a href="#条件筛选" class="headerlink" title="条件筛选"></a>条件筛选</h4><p>核心 API 是 <code>np.where</code>，返回输入数组中满足给定条件的元素的索引(元组)</p>
+<p>需要注意的是：<code>where</code>分别返回各维度的<code>index</code>，赋值的是「不满足」条件的，类似三元表达式</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.where(arr&gt;<span class="number">50</span>, arr, -<span class="number">1</span>)  <span class="comment"># 将&lt;=50的赋值为-1</span></span><br><span class="line"><span class="comment"># arr&gt;50 ? arr : -1</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="提取"><a href="#提取" class="headerlink" title="提取"></a>提取</h4><p><code>np.extract() </code>函数根据某个条件从数组中抽取元素，返回满条件的元素</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.extract(condition, arr)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>提取和唯一值返回的都是一维向量</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.unique(arr) <span class="comment"># 提取唯一值，也是一种提取</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="抽样"><a href="#抽样" class="headerlink" title="抽样"></a>抽样</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.random.choice(a, size=<span class="literal">None</span>, replace=<span class="literal">True</span>, p=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>a</code></td>
+<td>如果是整数表示从<code>np.arange(a)</code> 里抽取元素<br>如果是一维数组直接从数组里抽取</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>抽取结果的形状(默认是返回一个数)，也可以是元组</td>
+</tr>
+<tr>
+<td><code>replace</code></td>
+<td><code>True</code>(默认)有放回抽样，元素可重复<br><code>False</code>则不放回，元素不重复</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>每个元素被选中的概率，和必须为1，默认均匀分布</td>
+</tr>
+</tbody></table>
+<p>如果<code>replace=False</code>，那么 <code>size</code> 不能大于元素总数</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.random.choice(<span class="number">1000</span>,<span class="number">50</span>,replace=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="最值索引"><a href="#最值索引" class="headerlink" title="最值索引"></a>最值索引</h4><p>主要是<code>np.argmax/argmin</code>这两个函数</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.argmax(arr, axis=<span class="literal">None</span>)</span><br><span class="line">np.argmin(arr, axis=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>None</code>(默认)把数组展平成一维，再找最大/最小值的位置，<code>axis=0</code>沿列方向，<code>axis=1</code>沿行方向</p>
+<p><code>np.argsort()</code> 函数返回的是数组值从小到大的索引值</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.argsort(arr, axis=-<span class="number">1</span>,kind=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>axis</code>默认-1，即最后一个轴，如果设置为None则会先展平为一维再排序</p>
+<p><code>kind</code>是排序算法，可选</p>
+<table>
+<thead>
+<tr>
+<th align="left">种类</th>
+<th align="left">速度</th>
+<th align="left">最坏情况</th>
+<th align="left">工作空间</th>
+<th align="left">稳定性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>'quicksort'</code>(快速排序)(默认)</td>
+<td align="left">1</td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left">0</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left"><code>'mergesort'</code>(归并排序)</td>
+<td align="left">2</td>
+<td align="left"><code>O(n*log(n))</code></td>
+<td align="left">~n/2</td>
+<td align="left"><font color="Violetred">是</font></td>
+</tr>
+<tr>
+<td align="left"><code>'heapsort'</code>(堆排序)</td>
+<td align="left">3</td>
+<td align="left"><code>O(n*log(n))</code></td>
+<td align="left">0</td>
+<td align="left">否</td>
+</tr>
+</tbody></table>
+<h3 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h3><h4 id="算术"><a href="#算术" class="headerlink" title="算术"></a>算术</h4><p>所有的算术函数均可直接运用于array，<code>+-*/</code>四则运算，<code>**</code>平方以及开方</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>numpy模块</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>绝对值</td>
+<td><code>np.abs(x)</code> / <code>np.fabs(x)</code></td>
+</tr>
+<tr>
+<td>四舍五入</td>
+<td><code>np.round(x, n)</code></td>
+</tr>
+<tr>
+<td>取整</td>
+<td><code>np.ceil(x)</code>(向上)/<code>np.floor(x)</code>(向下)</td>
+</tr>
+<tr>
+<td>对数</td>
+<td><code>np.log(x)</code> <code>np.log10(x)</code> <code>np.log2(x)</code></td>
+</tr>
+<tr>
+<td>取余</td>
+<td><code>np.mod(x, y)</code> <code>y</code>可以是数组，不同被除数</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.minimum(arr, num) <span class="comment"># 超过num的都置为num</span></span><br><span class="line">np.maximum(arr, num) <span class="comment"># 小于num的都置于num</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h4><p>广播(Broadcast)是numpy对不同形状(shape)的数组进行数值计算的方式</p>
+<p>当运算中的2个数组的形状不同时，将自动触发广播机制</p>
+<p>广播规则：</p>
+<ul>
+<li>如果两个数组的维度不相同，那么小维度数组的形状将会在最左边补1</li>
+<li>如果两个数组的形状在任何一个维度上都不匹配，那么数组的形状会沿着维度为1的维度拓展以匹配另外一个数组形状</li>
+<li>如果两个数组的形状在任何一个维度上都不匹配并且没有任何一个维度等于1，那么会引发异常</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]])   <span class="comment"># shape (1,3) → shape(2,3)</span></span><br><span class="line">b = np.array([[<span class="number">10</span>], [<span class="number">20</span>]])  <span class="comment"># shape (2,1) → shape(2,3)</span></span><br><span class="line"><span class="built_in">print</span>(a + b)</span><br><span class="line"><span class="comment"># [[11 12 13]</span></span><br><span class="line"><span class="comment">#  [21 22 23]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>不能广播的情况：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])     <span class="comment"># shape (3,)</span></span><br><span class="line">b = np.array([<span class="number">1</span>, <span class="number">2</span>])        <span class="comment"># shape (2,)</span></span><br><span class="line"><span class="built_in">print</span>(a + b)   <span class="comment"># 报错，因为维度匹配了但既不相等也不为1 → 无法广播</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h4><p><code>dot</code> 和 <code>matmul</code> 在高维度时表现不同</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.dot(a, b)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.matmul(a, b)   <span class="comment"># 等价于 a @ b</span></span><br><span class="line"><span class="comment"># 写矩阵运算时推荐用 `@`，代码更直观</span></span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th><code>np.dot</code></th>
+<th><code>np.matmul</code>(或 <code>@</code>)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1D·1D</td>
+<td>向量内积(标量)</td>
+<td>向量内积(标量)</td>
+</tr>
+<tr>
+<td>2D·2D</td>
+<td>矩阵乘法</td>
+<td>矩阵乘法</td>
+</tr>
+<tr>
+<td>2D·1D</td>
+<td>矩阵 × 向量 → 1D</td>
+<td>矩阵 × 向量 → 1D</td>
+</tr>
+<tr>
+<td>1D·2D</td>
+<td>向量 × 矩阵 → 1D</td>
+<td>向量 × 矩阵 → 1D</td>
+</tr>
+<tr>
+<td>高维数组</td>
+<td>只在最后两维做点积</td>
+<td>支持批量矩阵乘法</td>
+</tr>
+</tbody></table>
+<p>Hadamard乘积(逐元素相乘)：直接使用<code>*</code></p>
+<p>常用线性代数方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>np.linalg.det(arr)</code></td>
+<td>计算行列式</td>
+</tr>
+<tr>
+<td><code>np.linalg.inv(arr)</code></td>
+<td>求逆矩阵(前提行列式&gt;0)</td>
+</tr>
+<tr>
+<td><code>np.linalg.eig(arr)</code></td>
+<td>求特征值和特征向量</td>
+</tr>
+<tr>
+<td><code>np.linalg.solve(A,b)</code></td>
+<td>求方程Ax=b</td>
+</tr>
+</tbody></table>
+<h3 id="从文件读取"><a href="#从文件读取" class="headerlink" title="从文件读取"></a>从文件读取</h3><table>
+<thead>
+<tr>
+<th>加载常用数据格式</th>
+<th>保存数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>np.loadtxt()</code></td>
+<td><code>np.savetxt()</code></td>
+</tr>
+<tr>
+<td><code>np.fromstring()</code></td>
+<td><code>np.save()</code>, <code>np.savez()</code>, <code>np.savez_compressed()</code></td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.loadtxt(fname, dtype=<span class="literal">None</span>, delimiter=<span class="string">","</span>, comments=<span class="string">"#"</span>, skiprows=<span class="number">1</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>fname</code></td>
+<td align="left">文件的路径</td>
+</tr>
+<tr>
+<td align="left"><code>delimiter</code></td>
+<td align="left">指定数据在文件中的分隔符，在CSV文件中通常是逗号</td>
+</tr>
+<tr>
+<td align="left"><code>skiprows</code></td>
+<td align="left">指示 <code>loadtxt</code> 函数跳过文件前n行</td>
+</tr>
+<tr>
+<td align="left"><code>comment</code></td>
+<td align="left">如果行的开头为<code>"#"</code>则跳过</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.fromstring(s, dtype, count=-<span class="number">1</span>, sep=<span class="string">','</span>)  <span class="comment"># 把字符串转换成一维数组</span></span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>s</code></td>
+<td align="left">输入的字符串</td>
+</tr>
+<tr>
+<td align="left"><code>delimiter</code></td>
+<td align="left">指定数据在文件中的分隔符，在CSV文件中通常是逗号</td>
+</tr>
+<tr>
+<td align="left"><code>count</code></td>
+<td align="left">需要读取的元素数量，默认为-1，表示读取字符串中的所有元素</td>
+</tr>
+<tr>
+<td align="left"><code>sep</code></td>
+<td align="left">字符串中元素之间的分隔符，在CSV文件中通常是逗号</td>
+</tr>
+</tbody></table>
+<h3 id="保存为文件"><a href="#保存为文件" class="headerlink" title="保存为文件"></a>保存为文件</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.savetxt(fname, arr, fmt=<span class="string">'%s'</span>, delimiter=<span class="string">','</span>, newline=<span class="string">'\n'</span>, header=<span class="string">''</span>, footer=<span class="string">''</span>, comments=<span class="string">'# '</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>fname</code></td>
+<td align="left">文件的路径</td>
+</tr>
+<tr>
+<td align="left"><code>arr</code></td>
+<td align="left">要存储的阵列数据</td>
+</tr>
+<tr>
+<td align="left"><code>fmt</code></td>
+<td align="left">要存储的数据格式，默认<code>%.18e</code>(科学记数法)</td>
+</tr>
+<tr>
+<td align="left"><code>delimiter</code></td>
+<td align="left">加载分隔符，默认是空格</td>
+</tr>
+<tr>
+<td align="left"><code>newline</code></td>
+<td align="left">行分隔符，默认换行符</td>
+</tr>
+<tr>
+<td align="left"><code>header</code></td>
+<td align="left">开头字符串(存储为csv文件时可以生成标题)</td>
+</tr>
+<tr>
+<td align="left"><code>footer</code></td>
+<td align="left">结尾字符串</td>
+</tr>
+<tr>
+<td align="left"><code>comments</code></td>
+<td align="left">文中的注释</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">row_string = <span class="string">"20131, 10, 67, 20132, 11, 88, 20133, 12, 98, 20134, 8, 100, 20135, 9, 75, 20136, 12, 78"</span></span><br><span class="line">data = np.fromstring(row_string, sep=<span class="string">","</span>)</span><br><span class="line">data = data.reshape(<span class="number">6</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment"># 保存数据</span></span><br><span class="line">np.savetxt(<span class="string">"save_data.csv"</span>, data, delimiter=<span class="string">","</span>, fmt=<span class="string">'%s'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>np.save()</code>保存一个array → <code>.npy</code></p>
+<p><code>np.savez()</code>保存多个array(同<code>np.savez_compressed()</code>) → <code>.npz</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.savez(file，kwd1=arr1, kwd2=arr2)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">train_data = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">test_data = np.array([<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>])</span><br><span class="line">np.savez(<span class="string">"save_data_02.npz"</span>, train=train_data, test=test_data)</span><br><span class="line"><span class="comment"># np.savez_compressed("save_data.npz", train=train_data, test=test_data)</span></span><br><span class="line">npz_data = np.load(<span class="string">"save_data_02.npz"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"train:"</span>, npz_data[<span class="string">"train"</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"test:"</span>, npz_data[<span class="string">"test"</span>])</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="matplotlib"><a href="#matplotlib" class="headerlink" title="matplotlib"></a>matplotlib</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其用法和matlab极其相似</p>
+<p>一个完整的matplotlib图像通常会包括以下四个部分：</p>
+<ul>
+<li><code>Figure</code>：用来容纳所有绘图元素，可以包含多个<code>Axes</code>，可以设置画布大小、分辨率等</li>
+<li><code>Axes</code>：实际绘制数据的区域，一个<code>Figure</code>可以包含多个<code>Axes</code>，包含坐标轴、标题、标签等</li>
+<li><code>Axis</code>：Axes的下属层级，用于处理坐标轴、刻度、标签范围</li>
+<li><code>Artist</code>：图表中的元素：线条、点、文字、图例等</li>
+</ul>
+<p>matplotlib提供了两种最常用的绘图接口：</p>
+<ol>
+<li><p><font color="Violetred">显式创建figure和axes</font>，直接操作Figure和Axes对象，更灵活可控，也被称为OO模式</p>
+</li>
+<li><p>依赖pyplot自动创建figure和axes，写法和matlab完全一致</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.plot()</span><br><span class="line">plt.title()</span><br><span class="line">plt.xlabel()</span><br><span class="line">plt.ylabel()</span><br><span class="line">plt.legend([])</span><br><span class="line">plt.suptitle() <span class="comment"># 加大标题</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>常见属性</th>
+<th>设置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>颜色<code>color</code></td>
+<td>r g b c m y k w</td>
+</tr>
+<tr>
+<td>线型<code>linestyle</code></td>
+<td><code>'-'</code>, <code>'--'</code>, <code>'-.'</code>, <code>''</code>(只画点)</td>
+</tr>
+<tr>
+<td>线宽<code>linewidth</code></td>
+<td>一般2</td>
+</tr>
+<tr>
+<td>标记<code>marker</code></td>
+<td><code>'o'</code>, <code>'s'</code>, <code>'D'</code>, <code>'*'</code>, <code>'+'</code>, <code>'x'</code></td>
+</tr>
+<tr>
+<td>透明度<code>alpha</code></td>
+<td>看情况</td>
+</tr>
+<tr>
+<td>文本字号、粗细、字体</td>
+<td><code>fontsize</code>、<code>fontweight</code>、<code>family</code></td>
+</tr>
+</tbody></table>
+<p>字体族主要有：</p>
+<ul>
+<li>serif：Times New Roman，主要论文</li>
+<li>sans-serif：Arial</li>
+<li>monospace：Courier New，主要代码</li>
+<li>cursive(手写体/花体)</li>
+<li>fantasy(装饰体)</li>
+</ul>
+<p>解决中文乱码问题：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.rcParams[<span class="string">'font.sans-serif'</span>] = [<span class="string">'SimHei'</span>, <span class="string">'Microsoft YaHei'</span>, <span class="string">'KaiTi'</span>, <span class="string">'SimSun'</span>]  <span class="comment"># 设置常用中文字体</span></span><br><span class="line">plt.rcParams[<span class="string">'axes.unicode_minus'</span>] = <span class="literal">False</span>  <span class="comment"># 正常显示负号</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="OO模式"><a href="#OO模式" class="headerlink" title="OO模式"></a>OO模式</h3><p>进入OO模式的方法：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots()  <span class="comment"># OO 接口，创建 Figure 和 Axes</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Axes(子图)常用操作：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ax.set_title(<span class="string">"Title"</span>)  <span class="comment"># 设置标题</span></span><br><span class="line">ax.set_xlabel(<span class="string">"X"</span>)     <span class="comment"># x轴标签</span></span><br><span class="line">ax.set_ylabel(<span class="string">"Y"</span>)     <span class="comment"># y轴标签</span></span><br><span class="line">ax.grid(<span class="literal">True</span>)          <span class="comment"># 显示网格</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Axis(坐标轴)常用操作：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ax.set_xlim(low, high)  <span class="comment"># x 轴范围</span></span><br><span class="line">ax.set_ylim(low, high)  <span class="comment"># y 轴范围</span></span><br><span class="line">ax.set_xticks([<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>])  <span class="comment"># 指定 x 轴刻度</span></span><br><span class="line">ax.set_yticks([-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>])           <span class="comment"># 指定 y 轴刻度</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Artist有两种类型：<code>primitives</code> 和<code>containers</code></p>
+<p><code>primitive</code>是最基础的绘图对象，用于具体显示数据和形状</p>
+<table>
+<thead>
+<tr>
+<th>Artist 类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Line2D</strong></td>
+<td>折线、曲线、散点图</td>
+</tr>
+<tr>
+<td><strong>Text</strong></td>
+<td>文字、标签、标题</td>
+</tr>
+<tr>
+<td><strong>Patch</strong></td>
+<td>各种二维形状：矩形、圆、多边形、柱状、扇形(饼图)等</td>
+</tr>
+<tr>
+<td><strong>Collection</strong></td>
+<td>一组类似元素，如散点图点集合、柱状图柱子集合等</td>
+</tr>
+</tbody></table>
+<h3 id="Line2D"><a href="#Line2D" class="headerlink" title="Line2D"></a>Line2D</h3><h4 id="线绘制"><a href="#线绘制" class="headerlink" title="线绘制"></a>线绘制</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">2</span>*np.pi, <span class="number">100</span>)</span><br><span class="line">y1= np.sin(x)</span><br><span class="line">y2 = np.cos(x)</span><br><span class="line">fig, ax = plt.subplots()  <span class="comment"># fig=画布, ax=子图坐标系</span></span><br><span class="line">ax.plot(</span><br><span class="line">    x, y1,</span><br><span class="line">    color=<span class="string">'blue'</span>, linestyle=<span class="string">'-'</span>, linewidth=<span class="number">2</span>,</span><br><span class="line">    marker=<span class="string">'o'</span>, markersize=<span class="number">4</span>,</span><br><span class="line">    label=<span class="string">'sin(x)'</span> <span class="comment"># 图例标签</span></span><br><span class="line">)</span><br><span class="line">ax.plot(</span><br><span class="line">    x, y2,</span><br><span class="line">    color=<span class="string">'red'</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">2</span>,</span><br><span class="line">    marker=<span class="string">'s'</span>, markersize=<span class="number">4</span>,</span><br><span class="line">    label=<span class="string">'cos(x)'</span></span><br><span class="line">)</span><br><span class="line">ax.set_title(<span class="string">"Sine and Cosine Functions"</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">"x"</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">"y"</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax.grid(<span class="literal">True</span>)</span><br><span class="line">ax.legend(loc=<span class="string">'upper right'</span>) <span class="comment"># 图例放在右上角</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="多子图subplot"><a href="#多子图subplot" class="headerlink" title="多子图subplot"></a>多子图subplot</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">100</span>)</span><br><span class="line">y1 = np.sin(x)</span><br><span class="line">y2 = np.cos(x)</span><br><span class="line"><span class="comment"># 创建两个子图坐标系</span></span><br><span class="line">fig, (ax1, ax2) = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">ax1.plot(</span><br><span class="line">    x, y1,</span><br><span class="line">    color=<span class="string">'blue'</span>, linestyle=<span class="string">'-'</span>, linewidth=<span class="number">2</span>,</span><br><span class="line">    marker=<span class="string">'o'</span>, markersize=<span class="number">4</span>,</span><br><span class="line">    label=<span class="string">'sin(x)'</span></span><br><span class="line">)</span><br><span class="line">ax1.set_title(<span class="string">"Sine Function"</span>)</span><br><span class="line">ax1.set_xlabel(<span class="string">"x"</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">"y"</span>)</span><br><span class="line">ax1.grid(<span class="literal">True</span>)</span><br><span class="line">ax1.legend(loc=<span class="string">'upper right'</span>)</span><br><span class="line"></span><br><span class="line">ax2.plot(</span><br><span class="line">    x, y2,</span><br><span class="line">    color=<span class="string">'red'</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">2</span>,</span><br><span class="line">    marker=<span class="string">'s'</span>, markersize=<span class="number">4</span>,</span><br><span class="line">    label=<span class="string">'cos(x)'</span></span><br><span class="line">)</span><br><span class="line">ax2.set_title(<span class="string">"Cosine Function"</span>)</span><br><span class="line">ax2.set_xlabel(<span class="string">"x"</span>)</span><br><span class="line">ax2.set_ylabel(<span class="string">"y"</span>)</span><br><span class="line">ax2.grid(<span class="literal">True</span>)</span><br><span class="line">ax2.legend(loc=<span class="string">'upper right'</span>)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()  <span class="comment"># 自动调整布局，避免标题/标签重叠</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="散点图scatter"><a href="#散点图scatter" class="headerlink" title="散点图scatter"></a>散点图scatter</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">rng = np.random.default_rng(<span class="number">42</span>)</span><br><span class="line">x = rng.random(<span class="number">50</span>) * <span class="number">10</span> <span class="comment"># 50个[0,10)随机数</span></span><br><span class="line">y = <span class="number">2</span> * x + rng.standard_normal(<span class="number">50</span>) * <span class="number">2</span>  <span class="comment"># 带点噪声的直线</span></span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line"><span class="comment"># 绘制散点图</span></span><br><span class="line">sc = ax.scatter(</span><br><span class="line">    x, y,</span><br><span class="line">    s=<span class="number">80</span>,                <span class="comment"># 点大小，也可以根据值</span></span><br><span class="line">    c=x,                 <span class="comment"># 按x的值映射颜色</span></span><br><span class="line">    cmap=<span class="string">"viridis"</span>,      <span class="comment"># 颜色映射</span></span><br><span class="line">    alpha=<span class="number">0.8</span>,           <span class="comment"># 透明度</span></span><br><span class="line">    edgecolor=<span class="string">"black"</span>    <span class="comment"># 边框颜色</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 添加颜色条</span></span><br><span class="line">fig.colorbar(sc, ax=ax, label=<span class="string">"X value"</span>)</span><br><span class="line"><span class="comment"># 设置标题和坐标轴</span></span><br><span class="line">ax.set_title(<span class="string">"Scatter Plot Example"</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">"X"</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">"Y"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Patch"><a href="#Patch" class="headerlink" title="Patch"></a>Patch</h3><p>在实际中最常见的矩形图是<code>hist直方图</code>和<code>bar条形图</code></p>
+<p>二者的区别：</p>
+<ul>
+<li><p><code>hist</code>：输入一堆数据，Matplotlib 自动分箱并统计</p>
+</li>
+<li><p><code>bar</code>：自己提供类别 + 数值，Matplotlib 直接画出来</p>
+</li>
+</ul>
+<h4 id="直方图hist"><a href="#直方图hist" class="headerlink" title="直方图hist"></a>直方图hist</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">rng = np.random.RandomState(<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成数据(正态分布)</span></span><br><span class="line">data = rng.normal(loc=<span class="number">0</span>, scale=<span class="number">1</span>, size=<span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line"><span class="comment"># 返回每个区间里的频数，分箱的边界以及每个柱子对应的矩形对象</span></span><br><span class="line">counts, bin_edges, patches = ax.hist(</span><br><span class="line">    data,</span><br><span class="line">    bins=<span class="number">40</span>,              <span class="comment"># 分箱数量</span></span><br><span class="line">    <span class="comment"># color='skyblue',    # 填充色，如果不后续填充</span></span><br><span class="line">    edgecolor=<span class="string">'black'</span>,    <span class="comment"># 边框色</span></span><br><span class="line">    alpha=<span class="number">0.7</span>,            <span class="comment"># 透明度</span></span><br><span class="line">    density=<span class="literal">False</span>,        <span class="comment"># 是否显示密度(False=频数)</span></span><br><span class="line">    label=<span class="string">'Data'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历每个柱子，根据区间位置设置颜色</span></span><br><span class="line"><span class="keyword">for</span> count, edge_left, edge_right, patch <span class="keyword">in</span> <span class="built_in">zip</span>(counts, bin_edges[:-<span class="number">1</span>], bin_edges[<span class="number">1</span>:], patches):</span><br><span class="line">    <span class="comment"># 区间中心点</span></span><br><span class="line">    center = <span class="number">0.5</span> * (edge_left + edge_right)</span><br><span class="line">    <span class="keyword">if</span> center &gt;= <span class="number">0</span>:   <span class="comment"># 如果区间中心 &gt;= 0 → 染红</span></span><br><span class="line">        patch.set_facecolor(<span class="string">'red'</span>)</span><br><span class="line">    <span class="keyword">else</span>:             <span class="comment"># 如果区间中心 &lt; 0 → 染蓝</span></span><br><span class="line">        patch.set_facecolor(<span class="string">'blue'</span>)</span><br><span class="line"></span><br><span class="line">ax.set_title(<span class="string">"Histogram Example"</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">"Value"</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">"Frequency"</span>)</span><br><span class="line">ax.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="条形图bar"><a href="#条形图bar" class="headerlink" title="条形图bar"></a>条形图bar</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类别与数值</span></span><br><span class="line">categories = [<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>]</span><br><span class="line">values = [<span class="number">23</span>, <span class="number">17</span>, <span class="number">35</span>, <span class="number">29</span>]</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line">bars = ax.bar(</span><br><span class="line">    x=np.arange(<span class="built_in">len</span>(categories)),  <span class="comment"># 类别位置 (0,1,2,3)</span></span><br><span class="line">    height=values,                 <span class="comment"># 对应的数值</span></span><br><span class="line">    color=<span class="string">"orangered"</span>, edgecolor=<span class="string">"black"</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 设置刻度标签</span></span><br><span class="line">ax.set_xticks(np.arange(<span class="built_in">len</span>(categories)))</span><br><span class="line">ax.set_xticklabels(categories)</span><br><span class="line"><span class="comment"># 添加标题与标签</span></span><br><span class="line">ax.set_title(<span class="string">"Bar Chart Example"</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">"Category"</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">"Value"</span>)</span><br><span class="line"><span class="comment"># 在柱子上标注数值</span></span><br><span class="line"><span class="keyword">for</span> bar <span class="keyword">in</span> bars:</span><br><span class="line">    height = bar.get_height()</span><br><span class="line">    ax.text(bar.get_x() + bar.get_width()/<span class="number">2</span>, height,</span><br><span class="line">            <span class="string">f"<span class="subst">{height}</span>"</span>, ha=<span class="string">'center'</span>, va=<span class="string">'bottom'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="饼图pie"><a href="#饼图pie" class="headerlink" title="饼图pie"></a>饼图pie</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">sizes = [<span class="number">25</span>, <span class="number">30</span>, <span class="number">20</span>, <span class="number">25</span>]</span><br><span class="line">labels = [<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>]</span><br><span class="line">colors = [<span class="string">"skyblue"</span>, <span class="string">"orange"</span>, <span class="string">"lightgreen"</span>, <span class="string">"pink"</span>]</span><br><span class="line">explode = [<span class="number">0</span>, <span class="number">0.1</span>, <span class="number">0</span>, <span class="number">0</span>]  <span class="comment"># 突出 B</span></span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">6</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># 画饼图</span></span><br><span class="line">ax.pie(</span><br><span class="line">    x=sizes,             <span class="comment"># 每个扇区的数值(自动归一化为百分比)</span></span><br><span class="line">    labels=labels,       <span class="comment"># 扇区对应的类别标签</span></span><br><span class="line">    colors=colors,       <span class="comment"># 每个扇区的颜色</span></span><br><span class="line">    explode=explode,     <span class="comment"># 控制扇区“突出”效果</span></span><br><span class="line">    autopct=<span class="string">"%1.1f%%"</span>,   <span class="comment"># 显示百分比</span></span><br><span class="line">    startangle=<span class="number">90</span>,       <span class="comment"># 从90度开始绘制</span></span><br><span class="line">    shadow=<span class="literal">True</span>          <span class="comment"># 添加阴影</span></span><br><span class="line">)</span><br><span class="line">ax.set_title(<span class="string">"Pie Chart Example"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/60233.html">http://yhblogs.cn/posts/60233.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E2%8C%A8%EF%B8%8Fpython/">⌨️python</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Python-Logo.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/22050.html" title="光电探测器基础"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">光电探测器基础</div></div></a></div><div class="next-post pull-right"><a href="/posts/1123.html" title="linux学习"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/hero-image.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">linux学习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/30698.html" title="BERT_Pytorch"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7jjyd9_2560x1440.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-09</div><div class="title">BERT_Pytorch</div></div></a></div><div><a href="/posts/31208.html" title="FunRec 推荐系统_精排模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1) (1).png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-18</div><div class="title">FunRec 推荐系统_精排模型</div></div></a></div><div><a href="/posts/24333.html" title="FunRec推荐系统_召回模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-vpp725_1280x720_(1).webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-14</div><div class="title">FunRec推荐系统_召回模型</div></div></a></div><div><a href="/posts/58676.html" title="Leetcode100记录"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-9ozdyx_1280x720.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="title">Leetcode100记录</div></div></a></div><div><a href="/posts/22642.html" title="windows安装ROCm"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/ROCm_logo.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-10</div><div class="title">windows安装ROCm</div></div></a></div><div><a href="/posts/3865533702.html" title="pyqt5简单实践"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071521231.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-28</div><div class="title">pyqt5简单实践</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97Number"><span class="toc-number">1.1.</span> <span class="toc-text">数字Number</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2String"><span class="toc-number">1.2.</span> <span class="toc-text">字符串String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%A1%A8List"><span class="toc-number">1.3.</span> <span class="toc-text">列表List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E7%BB%84Tuple"><span class="toc-number">1.4.</span> <span class="toc-text">元组Tuple</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88Set"><span class="toc-number">1.5.</span> <span class="toc-text">集合Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8Dictionary"><span class="toc-number">1.6.</span> <span class="toc-text">字典Dictionary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E5%A4%A7%E5%AE%B9%E5%99%A8%E5%AF%B9%E6%AF%94"><span class="toc-number">1.7.</span> <span class="toc-text">四大容器对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">2.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84"><span class="toc-number">2.2.</span> <span class="toc-text">路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E7%9B%AE%E5%BD%95"><span class="toc-number">2.3.</span> <span class="toc-text">遍历目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="toc-number">2.4.</span> <span class="toc-text">递归遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#numpy"><span class="toc-number">3.</span> <span class="toc-text">numpy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E7%94%9F%E6%88%90"><span class="toc-number">3.1.</span> <span class="toc-text">创建和生成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#array%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.1.</span> <span class="toc-text">array函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#arange%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.2.</span> <span class="toc-text">arange函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linspace%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.3.</span> <span class="toc-text">linspace函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#logspace%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.4.</span> <span class="toc-text">logspace函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ones-zeros%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.5.</span> <span class="toc-text">ones/zeros函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#random%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.6.</span> <span class="toc-text">random函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%B1%9E%E6%80%A7"><span class="toc-number">3.2.</span> <span class="toc-text">数组属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E5%87%BD%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">统计函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C"><span class="toc-number">3.4.</span> <span class="toc-text">数组操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84%E5%BD%A2%E7%8A%B6"><span class="toc-number">3.4.1.</span> <span class="toc-text">修改数组形状</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84%E7%BB%B4%E5%BA%A6"><span class="toc-number">3.4.2.</span> <span class="toc-text">修改数组维度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F"><span class="toc-number">3.4.3.</span> <span class="toc-text">反序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AC%E7%BD%AE"><span class="toc-number">3.4.4.</span> <span class="toc-text">转置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%BC%E6%8E%A5"><span class="toc-number">3.4.5.</span> <span class="toc-text">拼接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E7%89%87%E5%92%8C%E7%B4%A2%E5%BC%95"><span class="toc-number">3.5.</span> <span class="toc-text">切片和索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%9B%E9%80%89%E5%92%8C%E8%BF%87%E6%BB%A4"><span class="toc-number">3.6.</span> <span class="toc-text">筛选和过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89"><span class="toc-number">3.6.1.</span> <span class="toc-text">条件筛选</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E5%8F%96"><span class="toc-number">3.6.2.</span> <span class="toc-text">提取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%BD%E6%A0%B7"><span class="toc-number">3.6.3.</span> <span class="toc-text">抽样</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%80%BC%E7%B4%A2%E5%BC%95"><span class="toc-number">3.6.4.</span> <span class="toc-text">最值索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97"><span class="toc-number">3.7.</span> <span class="toc-text">矩阵运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF"><span class="toc-number">3.7.1.</span> <span class="toc-text">算术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD"><span class="toc-number">3.7.2.</span> <span class="toc-text">广播</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5"><span class="toc-number">3.7.3.</span> <span class="toc-text">矩阵</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96"><span class="toc-number">3.8.</span> <span class="toc-text">从文件读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E4%B8%BA%E6%96%87%E4%BB%B6"><span class="toc-number">3.9.</span> <span class="toc-text">保存为文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#matplotlib"><span class="toc-number">4.</span> <span class="toc-text">matplotlib</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OO%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">OO模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Line2D"><span class="toc-number">4.2.</span> <span class="toc-text">Line2D</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%BB%98%E5%88%B6"><span class="toc-number">4.2.1.</span> <span class="toc-text">线绘制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%AD%90%E5%9B%BEsubplot"><span class="toc-number">4.2.2.</span> <span class="toc-text">多子图subplot</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BEscatter"><span class="toc-number">4.2.3.</span> <span class="toc-text">散点图scatter</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch"><span class="toc-number">4.3.</span> <span class="toc-text">Patch</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BEhist"><span class="toc-number">4.3.1.</span> <span class="toc-text">直方图hist</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E5%BD%A2%E5%9B%BEbar"><span class="toc-number">4.3.2.</span> <span class="toc-text">条形图bar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A5%BC%E5%9B%BEpie"><span class="toc-number">4.3.3.</span> <span class="toc-text">饼图pie</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

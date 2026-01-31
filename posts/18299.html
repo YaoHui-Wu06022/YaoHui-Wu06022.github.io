@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>复合理论 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="$R_{SRH}$是Shockley-Read-Hall复合速率，是硅基半导体的主要复合机制，这种复合过程涉及半导体禁带隙中的陷阱$$R_{SRH}=\frac{np-n_i^2}{\tau_p(n+n_1)+\tau_n(p+p_1)}$$其中$n_i$是本征载流子浓度(未掺杂半导体中的载流子浓度)，$\tau_n$和$\tau_p$是载流子寿命，$n_1$和$p_1$是陷阱能级对应的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="复合理论">
+<meta property="og:url" content="http://yhblogs.cn/posts/18299.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="$R_{SRH}$是Shockley-Read-Hall复合速率，是硅基半导体的主要复合机制，这种复合过程涉及半导体禁带隙中的陷阱$$R_{SRH}=\frac{np-n_i^2}{\tau_p(n+n_1)+\tau_n(p+p_1)}$$其中$n_i$是本征载流子浓度(未掺杂半导体中的载流子浓度)，$\tau_n$和$\tau_p$是载流子寿命，$n_1$和$p_1$是陷阱能级对应的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqx7ol_1280x720.webp">
+<meta property="article:published_time" content="2025-10-09T10:04:57.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.724Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🥼半导体">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqx7ol_1280x720.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/18299.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '复合理论',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">复合理论</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-10-09T10:04:57.000Z" title="发表于 2025-10-09 10:04:57">2025-10-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="复合理论"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>$R_{SRH}$是<code>Shockley-Read-Hall</code>复合速率，是硅基半导体的主要复合机制，这种复合过程涉及半导体禁带隙中的陷阱<br>$$<br>R_{SRH}=\frac{np-n_i^2}{\tau_p(n+n_1)+\tau_n(p+p_1)}<br>$$<br>其中$n_i$是本征载流子浓度(未掺杂半导体中的载流子浓度)，$\tau_n$和$\tau_p$是载流子寿命，$n_1$和$p_1$是陷阱能级对应的载流子浓度</p>
+<p>如果陷阱能级位于带隙的中间(模型中假设是这种情况)，那么$n_1$和$p_1$等于$n_i$，这时候分母最小，复合效率最高，所以“中间态陷阱”是最容易引起复合的，这是材料缺陷最致命的原因之一</p>
+<p>如果陷阱能级靠近导带或价带，则对应的一种载流子更容易被捕获，但另一种更难，从而降低整体复合率</p>
+<p><font color="Violetred">SRH公式在平衡状态、小注入、大注入或陷阱能级对称时会简化</font></p>
+<h2 id="平衡状态"><a href="#平衡状态" class="headerlink" title="平衡状态"></a>平衡状态</h2><p>此时载流子浓度为其平衡浓度，$n=n_0,p=p_0,n_0p_0=n_i^2$，分子为0，$R_{SRH}=0$，即复合率等于产生率，系统处于热平衡</p>
+<h2 id="小注入"><a href="#小注入" class="headerlink" title="小注入"></a>小注入</h2><p><strong>非平衡载流子远小于多数载流子</strong></p>
+<p>n型半导体为例，$n_0\approx N_D,p_0=n_i^2/n_0$ 且 $\Delta n=\Delta p \ll n_0$，总浓度$n=n_0+\Delta n \approx n_0 ,p=p_0+\Delta p $</p>
+<p>分子：$n p-n_i^2 \approx n_0\left(p_0+\Delta p\right)-n_i^2=\left(n_0 p_0-n_i^2\right)+n_0 \Delta p=n_0 \Delta p$</p>
+<p>分母：$n \approx n_0$ 是多数载流子浓度，$n\gg p, n_1, p_1$，分母中$\tau_p\left(n+n_1\right)$ 项将起主导作用，因此分母近似为$\tau_p n \approx \tau_p n_0$<br>$$<br>R_{S R H} \approx \frac{n_0 \Delta p}{\tau_p n_0}=\frac{\Delta p}{\tau_p}<br>$$</p>
+<p>p型半导体同理<br>$$<br>R_{SRH}\approx \frac{\Delta n}{\tau _n}<br>$$<br>物理意义：在小注入时，复合速率由过剩少数载流子的浓度和少数载流子寿命决定，复合过程的瓶颈在于捕获稀有的少数载流子，一旦少数载流子被陷阱捕获，周围有大量的多数载流子可以迅速完成复合</p>
+<h2 id="大注入"><a href="#大注入" class="headerlink" title="大注入"></a>大注入</h2><p><strong>非平衡载流子浓度超过了背景掺杂浓度</strong></p>
+<p>n型半导体为例，$\Delta n=\Delta p \gg n_0$ 且 $\Delta n=\Delta p \gg p_0$，总浓度$n=n_0+\Delta n \approx \Delta n, p=p_0+\Delta p \approx \Delta p=\Delta n$</p>
+<p>分子：$n p-n_i^2 \approx(\Delta n)(\Delta p)-n_i^2 \approx(\Delta n)^2$ (高注入下 $\Delta n \gg n_i$ )</p>
+<p>分母：$\tau_p\left(n+n_1\right)+\tau_n\left(p+p_1\right) \approx \tau_p(\Delta n)+\tau_n(\Delta p)$，由于 $\Delta n=\Delta p$ ，分母变为 $\left(\tau_p+\tau_n\right) \Delta n$<br>$$<br>R_{S R H} \approx \frac{(\Delta n)^2}{\left(\tau_p+\tau_n\right) \Delta n}=\frac{\Delta n}{\tau_p+\tau_n}<br>$$</p>
+<p>物理意义：在大注入下，电子和空穴的浓度都很大且近似相等，复合过程不再受限于某一种少数载流子，而是同时取决于电子和空穴的捕获过程，此时有效的复合寿命变成了$\tau_{e f f}=\tau_p+ \tau_n$</p>
+<h2 id="陷阱能级对称"><a href="#陷阱能级对称" class="headerlink" title="陷阱能级对称"></a>陷阱能级对称</h2><p>最有效的复合中心通常是对称的，陷阱能级位于禁带中央，即 $E_t=E_i$</p>
+<p>陷阱对电子和空穴的俘获能力相同，即俘获寿命相等 $\tau_n=\tau_p=\tau_0$</p>
+<p>当 $E_t=E_i$ 时有 $n_1=n_i e^{\left(E_t-E_i\right) / k T}=n_i$ 和 $p_1=n_i e^{\left(E_i-E_t\right) / k T}=n_i$</p>
+<p>将这些条件代入完整公式</p>
+<p>$$<br>R_{S R H}=\frac{n p-n_i^2}{\tau_0\left(n+n_i\right)+\tau_0\left(p+n_i\right)}=\frac{n p-n_i^2}{\tau_0\left(n+p+2 n_i\right)}<br>$$</p>
+<p>物理意义：这个简化的公式清晰地表明，复合率不仅取决于偏离平衡的程度(分子)，还与总的载流子浓度(分母中的 $n+p$ )有关<br>最重要的推论：位于禁带中央($E_t=E_i$)的陷阱是最有效的复合中心，因为对于给定的注入水平(即固定的 $n p$ 乘积)，分母中的 $n+p$ 项在 $n=p$ 时有最小值，而 $n_1$ 和 $p_1$ 在 $E_t=E_i$ 时也最小(等于$n_i$)，这使得整个分母最小化，从而得到最大的复合速率</p>
+<p>这就是为什么像金Au 、铜Cu这样的杂质在硅中是寿命杀手，因为它们会在硅的禁带中央附近引入深能级陷阱</p>
+<h2 id="总结表格"><a href="#总结表格" class="headerlink" title="总结表格"></a>总结表格</h2><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>物理条件</th>
+<th>简化公式</th>
+<th>关键物理意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>热平衡</td>
+<td>无外部激励, $n=n_0,p=p_0$</td>
+<td>$R_{SRH}=0$</td>
+<td>复合与生成速率相等，净速率为零</td>
+</tr>
+<tr>
+<td>低注入 (n型)</td>
+<td>$\Delta p≪n_0$</td>
+<td>$R_{SRH}\approx\Delta p/\tau_p$</td>
+<td>复合由少数载流子（空穴）决定</td>
+</tr>
+<tr>
+<td>低注入 (p型)</td>
+<td>$\Delta n≪p_0$</td>
+<td>$R_{SRH}\approx\Delta n/\tau_n$</td>
+<td>复合由少数载流子（电子）决定</td>
+</tr>
+<tr>
+<td>高注入</td>
+<td>$\Delta n=\Delta p\gg n_0,p_0$</td>
+<td>$R_{SRH}\approx\Delta n/(\tau_n+\tau_p)$</td>
+<td>复合由电子和空穴共同决定，有效寿命为两者之和</td>
+</tr>
+<tr>
+<td>对称陷阱</td>
+<td>$E_t=E_i,\tau_n=\tau_p=\tau_0$</td>
+<td>$R_{SRH}=\frac{n p-n_i^2}{\tau_0\left(n+p+2 n_i\right)}$</td>
+<td>禁带中央的陷阱是最高效的复合中心</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/18299.html">http://yhblogs.cn/posts/18299.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%A5%BC%E5%8D%8A%E5%AF%BC%E4%BD%93/">🥼半导体</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqx7ol_1280x720.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/31974.html" title="深度学习引言"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqxqv7_1280x720 (1).webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深度学习引言</div></div></a></div><div class="next-post pull-right"><a href="/posts/59657.html" title="COMSOL光电器件仿真"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qrz9wl_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">COMSOL光电器件仿真</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/59657.html" title="COMSOL光电器件仿真"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qrz9wl_1280x720.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-08</div><div class="title">COMSOL光电器件仿真</div></div></a></div><div><a href="/posts/22050.html" title="光电探测器基础"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="title">光电探测器基础</div></div></a></div><div><a href="/posts/3769378865.html" title="微纳米加工及应用"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/DALL·E_2024-09-13_14.39.53_-_In_a_warm,_soft_anime_art_style,_a_peaceful_seaside_at_low_tide_is_depicted._A_young_person,_possibly_a_child,_is_standing_by_the_water's_edge_with_a_.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-14</div><div class="title">微纳米加工及应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E7%8A%B6%E6%80%81"><span class="toc-number">1.</span> <span class="toc-text">平衡状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E6%B3%A8%E5%85%A5"><span class="toc-number">2.</span> <span class="toc-text">小注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%B3%A8%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">大注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%B7%E9%98%B1%E8%83%BD%E7%BA%A7%E5%AF%B9%E7%A7%B0"><span class="toc-number">4.</span> <span class="toc-text">陷阱能级对称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8%E6%A0%BC"><span class="toc-number">5.</span> <span class="toc-text">总结表格</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

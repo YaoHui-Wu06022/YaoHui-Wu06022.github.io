@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>音频采样效果 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="音频采样效果设计详细说明：  Matlab代码：  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919">
+<meta property="og:type" content="article">
+<meta property="og:title" content="音频采样效果">
+<meta property="og:url" content="http://yhblogs.cn/posts/3859632160.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="音频采样效果设计详细说明：  Matlab代码：  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518920.webp">
+<meta property="article:published_time" content="2022-01-10T21:01:34.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.728Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="📡信号课设">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518920.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/3859632160.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '音频采样效果',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">音频采样效果</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2022-01-10T21:01:34.000Z" title="发表于 2022-01-10 21:01:34">2022-01-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/study/">study</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">788</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="音频采样效果"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="音频采样效果"><a href="#音频采样效果" class="headerlink" title="音频采样效果"></a>音频采样效果</h1><p><strong>设计详细说明：</strong></p>
+<ul>
+<li>Matlab代码：</li>
+</ul>
+<figure class="highlight matlab"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">Fs = <span class="number">44100</span>; <span class="comment">%设置特定的采样率为44100Hz（生活中常见的采样频率）</span></span><br><span class="line"></span><br><span class="line">nBits=<span class="number">16</span>;</span><br><span class="line"></span><br><span class="line">nChannels=<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">Duration=<span class="number">2</span>;<span class="comment">%设置采样时间</span></span><br><span class="line"></span><br><span class="line">recorder = audiorecorder(Fs,nBits,nChannels); <span class="comment">% 调用电脑麦克风，开始声音录制</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">'strat speaking:'</span>);</span><br><span class="line"></span><br><span class="line">recordblocking(recorder,Duration); <span class="comment">% 录制duration s的声音信号</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">'stop speaking'</span>);</span><br><span class="line"></span><br><span class="line">myrecording = getaudiodata(recorder); <span class="comment">%getaudiodata--读取声音信号信息</span></span><br><span class="line"></span><br><span class="line">audiowrite(<span class="string">'test1.wav'</span>,myrecording,<span class="number">44100</span>);</span><br><span class="line"></span><br><span class="line">test1 = audioinfo(<span class="string">'test1.wav'</span>);</span><br><span class="line"></span><br><span class="line">audiowrite(<span class="string">'test2.wav'</span>,myrecording,<span class="number">22050</span>);</span><br><span class="line"></span><br><span class="line">test2 = audioinfo(<span class="string">'test2.wav'</span>);</span><br><span class="line"></span><br><span class="line">audiowrite(<span class="string">'test3.wav'</span>,myrecording,<span class="number">88200</span>);</span><br><span class="line"></span><br><span class="line">test3 = audioinfo(<span class="string">'test3.wav'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=[<span class="number">0.5</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">sound(myrecording,<span class="number">44100</span>\*<span class="built_in">i</span>) <span class="comment">% 播放时采样率设置为44100\*i</span></span><br><span class="line"></span><br><span class="line">pause(Duration/<span class="built_in">i</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%sound(myrecording,44100) % 播放时采样率设置为录制时相同</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%sound(myrecording,22050) % 播放时采样率设置为录制时的一半</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%sound(myrecording,88200) % 播放时采样率设置为录制时的二倍</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 数据可视化代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%test1</span></span><br><span class="line"></span><br><span class="line">[y1,f1] = audioread(<span class="string">'test1.wav'</span>);</span><br><span class="line"></span><br><span class="line">t1 = <span class="number">0</span>:seconds(<span class="number">1</span>/f1):seconds(test1.Duration);</span><br><span class="line"></span><br><span class="line">t1 = t1(<span class="number">1</span>:<span class="keyword">end</span><span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">plot</span>(t1,y1)</span><br><span class="line"></span><br><span class="line"><span class="comment">%title('采样频率相同')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%test2</span></span><br><span class="line"></span><br><span class="line">[y2,f2] = audioread(<span class="string">'test2.wav'</span>);</span><br><span class="line"></span><br><span class="line">t2 = <span class="number">0</span>:seconds(<span class="number">1</span>/f2):seconds(test2.Duration);</span><br><span class="line"></span><br><span class="line">t2 = t2(<span class="number">1</span>:<span class="keyword">end</span><span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">plot</span>(t2,y2)</span><br><span class="line"></span><br><span class="line"><span class="comment">%title('采样频率变为“一半”')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%test3</span></span><br><span class="line"></span><br><span class="line">[y3,f3] = audioread(<span class="string">'test3.wav'</span>);</span><br><span class="line"></span><br><span class="line">t3 = <span class="number">0</span>:seconds(<span class="number">1</span>/f3):seconds(test3.Duration);</span><br><span class="line"></span><br><span class="line">t3 = t3(<span class="number">1</span>:<span class="keyword">end</span><span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">plot</span>(t3,y3)</span><br><span class="line"></span><br><span class="line"><span class="comment">%title('采样频率变为“二倍”')</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'采样频率变为“二倍”'</span>,<span class="string">'采样频率变为“一半”'</span>,<span class="string">'采样频率相同'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"></span><br><span class="line">title(<span class="string">'不同采样率下的波形图'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>结果：</li>
+</ul>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/typora/202206011722189.png" style="zoom:50%;">
+
+<p>另一张图是luyin2.m文件生成的，只更换了画图部分不具体阐述</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/typora/202206011723241.png" style="zoom:50%;">
+
+<ul>
+<li><p>现象分析</p>
+<p>选取的Fs=44100Hz，FsH为2Fs=88200Hz，FsL=0.5Fs=22050Hz，</p>
+<p>根据matlab 得到的声音可以知道</p>
+</li>
+</ul>
+<ol>
+<li><p>当播放时采样率设置为录制时的一半时，声音文件的音频长度变为源文件二倍，且声音更加低沉</p>
+</li>
+<li><p>当播放时采样率设置为录制时的二倍时，声音文件的音频长度变为源文件一半，且声音更加尖锐</p>
+</li>
+<li><p>观察三个音频文件的时域波形，发现波形完全一致</p>
+</li>
+</ol>
+<ul>
+<li><p>综上可得：</p>
+<p>录制和播放采样率关系对于录制的音频文件内容并没有影响，影响的是音频文件的时长，换句话说改变音频文件播播放的速度</p>
+</li>
+<li><p>原理阐述与思考：</p>
+<p>声音文件录制时，以特定的采样率录制音频文件，而在声音信号播放时，相当于在已有音频文件的基础上进行二次采样，由于声音文件的内容是固定的，即音频文件样本数目是固定的，当我们以之前一半的采样率进行二次采样时，相当于每秒钟采集到的样本数目是减半的</p>
+<p>因此，如果采集同样大小的音频样本，所需要的时间变为之前两倍，但是由于音频内容未发生改变，所以仅仅改变的是音频文件的播放速度，实现0.5倍速播放或者2倍速播放。</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/3859632160.html">http://yhblogs.cn/posts/3859632160.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%93%A1%E4%BF%A1%E5%8F%B7%E8%AF%BE%E8%AE%BE/">📡信号课设</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518920.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/696065812.html" title="RC文氏电桥分析"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518921.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">RC文氏电桥分析</div></div></a></div><div class="next-post pull-right"><a href="/posts/2781577970.html" title="正弦信号调制和解调"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518917.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">正弦信号调制和解调</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/696065812.html" title="RC文氏电桥分析"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518921.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-10</div><div class="title">RC文氏电桥分析</div></div></a></div><div><a href="/posts/3903647133.html" title="周期方波信号分解"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518916.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-10</div><div class="title">周期方波信号分解</div></div></a></div><div><a href="/posts/842063440.html" title="回声消除系统设计"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518918.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-10</div><div class="title">回声消除系统设计</div></div></a></div><div><a href="/posts/1545941666.html" title="回声系统设计"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518919.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-10</div><div class="title">回声系统设计</div></div></a></div><div><a href="/posts/2781577970.html" title="正弦信号调制和解调"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071518917.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-10</div><div class="title">正弦信号调制和解调</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9F%B3%E9%A2%91%E9%87%87%E6%A0%B7%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">音频采样效果</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

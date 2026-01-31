@@ -1,0 +1,882 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>多层感知机 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="从这里开始真正的深度网络，最简单的深度网络称为多层感知机 多层感知机由多层神经元组成，每一层与它的上一层相连，从中接收输入；同时每一层也与它的下一层相连，影响当前层的神经元 多层感知机隐藏层在线性神经网络中讲到仿射变换，它是一种带有偏置项的线性变换 softmax回归通过单个仿射变换将输入直接映射到输出，然后进行softmax操作，标签通过仿射变换后确实与输入数据相关，但是仿射变换中的线性是一个很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多层感知机">
+<meta property="og:url" content="http://yhblogs.cn/posts/9999.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="从这里开始真正的深度网络，最简单的深度网络称为多层感知机 多层感知机由多层神经元组成，每一层与它的上一层相连，从中接收输入；同时每一层也与它的下一层相连，影响当前层的神经元 多层感知机隐藏层在线性神经网络中讲到仿射变换，它是一种带有偏置项的线性变换 softmax回归通过单个仿射变换将输入直接映射到输出，然后进行softmax操作，标签通过仿射变换后确实与输入数据相关，但是仿射变换中的线性是一个很">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21yzzx_1280x720.webp">
+<meta property="article:published_time" content="2025-10-17T10:30:57.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.724Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="⌨️python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21yzzx_1280x720.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/9999.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '多层感知机',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">多层感知机</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-10-17T10:30:57.000Z" title="发表于 2025-10-17 10:30:57">2025-10-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">15.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>59分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="多层感知机"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>从这里开始真正的深度网络，<font color="DarkViolet">最简单的深度网络称为多层感知机</font></p>
+<p>多层感知机由多层神经元组成，每一层与它的上一层相连，从中接收输入；同时每一层也与它的下一层相连，影响当前层的神经元</p>
+<h2 id="多层感知机"><a href="#多层感知机" class="headerlink" title="多层感知机"></a>多层感知机</h2><h3 id="隐藏层"><a href="#隐藏层" class="headerlink" title="隐藏层"></a>隐藏层</h3><p>在线性神经网络中讲到仿射变换，它是一种带有偏置项的线性变换</p>
+<p>softmax回归通过单个仿射变换将输入直接映射到输出，然后进行softmax操作，标签通过仿射变换后确实与输入数据相关，但是<font color="DarkViolet">仿射变换中的线性是一个很强的假设</font></p>
+<h4 id="线性模型的误差"><a href="#线性模型的误差" class="headerlink" title="线性模型的误差"></a>线性模型的误差</h4><p>线性意味着单调假设，任何特征的增大都会导致模型输出的增大，但这并不是在所有情况下都对</p>
+<p>比如虽然收入与还款概率存在单调性，但它们不是线性相关的，处理这类问题的一种方法是使用对数进行预处理，使线性更合理</p>
+<p>如何对猫和狗的图像进行分类呢？对线性模型的依赖对应于一个隐含的假设，即区分猫和狗的唯一要求是评估单个像素的强度，但是在一个倒置图像后依然保留类别的世界里，这种方法就会失败</p>
+<p>在图像中，单个像素的意义几乎为零，像素的重要性取决于上下文——它周围像素的取值</p>
+<p>如果能手动构造出一种新的特征表示，比如边缘特征、角点特征、梯度方向、颜色分布……，在这些“高级特征”上再用一个线性模型，就会表现很好，但我们并不知道怎么手工设计出这种完美的表示</p>
+<p><font color="Violetred">对于深度神经网络，它不依赖人工设计特征，而是通过数据自动学习特征表示，也就是隐藏层</font></p>
+<h4 id="隐藏层的加入"><a href="#隐藏层的加入" class="headerlink" title="隐藏层的加入"></a>隐藏层的加入</h4><p>可以通过在网络中加入一个或多个隐藏层来克服线性模型的限制，使其能处理更普遍的函数关系类型</p>
+<p>最简单的方法是将许多全连接层堆叠在一起，每一层都输出到上面的层，直到生成最后的输出</p>
+<p>可以把前$L-1$层看作表示，把最后一层看作线性预测器，这种架构通常称为<strong>多层感知机(multilayer perceptron)</strong>，通常缩写为MLP</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/mlp.jpg" alt="mlp" style="zoom:80%;">
+
+<p>这个多层感知机有4个输入，3个输出，其隐藏层包含5个隐藏单元，输入层不涉及计算，所以这个多层感知机中的层数为2，同样是全连接层</p>
+<p>因为全连接层的复杂度，即使在不改变输入或输出大小的情况下，可能在参数节约和模型有效性之间进行权衡</p>
+<h4 id="从线性到非线性"><a href="#从线性到非线性" class="headerlink" title="从线性到非线性"></a>从线性到非线性</h4><p>通过矩阵$\mathbf X \in \mathbb{R}^{n \times d}$来表示$n$个样本的小批量，其中每个样本具有$d$个输入特征</p>
+<p>对于具有$h$个隐藏单元的单隐藏层多层感知机，用$\mathbf{H} \in \mathbb{R}^{n \times h}$表示隐藏层的输出，称为<strong>隐藏层变量(hidden-layer variable)</strong></p>
+<p>因为隐藏层和输出层都是全连接的，有隐藏层权重$\mathbf{W}^{(1)} \in \mathbb{R}^{d \times h}$和隐藏层偏置$\mathbf{b}^{(1)} \in \mathbb{R}^{1 \times h}$以及输出层权重$\mathbf{W}^{(2)} \in \mathbb{R}^{h \times q}$和输出层偏置$\mathbf{b}^{(2)} \in \mathbb{R}^{1 \times q}$，输出$\mathbf{O} \in \mathbb{R}^{n \times q}$<br>$$<br>\begin{split}\begin{aligned}<br>    \mathbf{H} &amp; = \mathbf{X} \mathbf{W}^{(1)} + \mathbf{b}^{(1)}, \\<br>    \mathbf{O} &amp; = \mathbf{H}\mathbf{W}^{(2)} + \mathbf{b}^{(2)}<br>\end{aligned}\end{split}<br>$$<br>在添加隐藏层之后，模型现在需要跟踪和更新额外的参数，但从这个模型上看并没有得到好处</p>
+<p>因为对于任意权重值只需合并隐藏层，便可产生具有参数$\mathbf{W} = \mathbf{W}^{(1)}\mathbf{W}^{(2)}$和$\mathbf{b} = \mathbf{b}^{(1)} \mathbf{W}^{(2)} + \mathbf{b}^{(2)}$的等价单层模型<br>$$<br>\mathbf{O} = (\mathbf{X} \mathbf{W}^{(1)} + \mathbf{b}^{(1)})\mathbf{W}^{(2)} + \mathbf{b}^{(2)} = \mathbf{X} \mathbf{W}^{(1)}\mathbf{W}^{(2)} + \mathbf{b}^{(1)} \mathbf{W}^{(2)} + \mathbf{b}^{(2)} = \mathbf{X} \mathbf{W} + \mathbf{b}.<br>$$<br>为了发挥多层架构的潜力还需要一个额外的关键要素：在仿射变换之后对每个隐藏单元应用非线性的<strong>激活函数(activation function)</strong></p>
+<p>激活函数的输出$\sigma(\cdot)$被称为<strong>活性值(activations)</strong></p>
+<p>加入激活函数就不可能再将多层感知机退化成线性模型<br>$$<br>\begin{split}\begin{aligned}<br>    \mathbf{H} &amp; = \sigma(\mathbf{X} \mathbf{W}^{(1)} + \mathbf{b}^{(1)}), \\<br>    \mathbf{O} &amp; = \mathbf{H}\mathbf{W}^{(2)} + \mathbf{b}^{(2)}<br>\end{aligned}\end{split}<br>$$<br>出于记号习惯的考量，定义非线性函数也以按行的方式作用于其输入，即一次计算一个样本</p>
+<p>大多数激活函数都是<font color="DarkViolet">按元素计算，也就是说每个元素独立变换</font>；但像 softmax这样的激活函数，还会按行归一化，也就是每个样本(行)内部的元素彼此关联</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例</th>
+<th>是否行内相关</th>
+<th>输出含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按元素</td>
+<td>ReLU, Sigmoid, Tanh</td>
+<td>❌ 否</td>
+<td>非线性特征变换</td>
+</tr>
+<tr>
+<td>按行</td>
+<td>Softmax</td>
+<td>✅ 是</td>
+<td>概率归一化，类别竞争</td>
+</tr>
+</tbody></table>
+<p>为了构建更通用的多层感知机，可以继续堆叠这样的隐藏层，比如$\mathbf{H}^{(1)} = \sigma_1(\mathbf{X} \mathbf{W}^{(1)} + \mathbf{b}^{(1)})$，$\mathbf{H}^{(2)} = \sigma_2(\mathbf{H}^{(1)} \mathbf{W}^{(2)} + \mathbf{b}^{(2)})$，通过使用更深的网络，可以更容易地逼近许多函数</p>
+<h3 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h3><p>**激活函数(activation function)**通过计算加权和并加上偏置来确定神经元是否应该被激活，大多数激活函数都是非线性的</p>
+<h4 id="ReLU函数"><a href="#ReLU函数" class="headerlink" title="ReLU函数"></a>ReLU函数</h4><p><font color="DarkViolet">最受欢迎的激活函数</font>是<strong>修正线性单元(Rectified linear unit，ReLU)</strong>，因为它实现简单，同时在各种预测任务中表现良好</p>
+<p>ReLU提供了一种非常简单的非线性变换，给定元素$x$，ReLU函数被定义为该元素与0的最大值<br>$$<br>\operatorname{ReLU}(x) = \max(x, 0).<br>$$<br>ReLU函数通过将相应的活性值设为0，仅保留正元素并丢弃所有负元素</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = torch.arange(-<span class="number">8.0</span>, <span class="number">8.0</span>, <span class="number">0.1</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">y = torch.relu(x)</span><br><span class="line">plt.figure(figsize=(<span class="number">5</span>,<span class="number">2.5</span>))</span><br><span class="line">plt.plot(x.detach(), y.detach())</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'relu(x)'</span>)</span><br><span class="line">plt.grid()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019161724987.png" alt="image-20251019161724987" style="zoom:80%;">
+
+<p>当输入为负时导数为0，而当输入为正时导数为1，当输入值等于0时ReLU函数不可导，默认使用左侧的导数，即输入0时导数为0</p>
+<p>绘制其导数</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">y.<span class="built_in">sum</span>().backward(retain_graph=<span class="literal">True</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">5</span>,<span class="number">2.5</span>))</span><br><span class="line">plt.plot(x.detach(), x.grad)</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'grad of relu'</span>)</span><br><span class="line">plt.grid()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019161941635.png" alt="image-20251019161941635" style="zoom:80%;">
+
+<p>使用ReLU的原因是，它求导表现得特别好：要么让参数消失，要么让参数通过</p>
+<p>这使得优化表现得更好，并且ReLU减轻了困扰以往神经网络的梯度消失问题</p>
+<p>ReLU函数有许多变体，包括**参数化ReLU(Parameterized ReLU，pReLU)**函数</p>
+<p>该变体为ReLU添加了一个线性项，因此即使参数是负的，某些信息仍然可以通过<br>$$<br>\operatorname{pReLU}(x) = \max(0, x) + \alpha \min(0, x).<br>$$</p>
+<h4 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h4><p>对于一个定义域在$\mathbb{R}$中的输入，sigmoid函数将输入变换为区间(0, 1)上的输出</p>
+<p>因此，sigmoid通常称为<strong>挤压函数(squashing function)</strong><br>$$<br>\operatorname{sigmoid}(x) = \frac{1}{1 + \exp(-x)}.<br>$$<br><font color="Violetred">当想要将输出视作二元分类问题的概率时，sigmoid仍然被广泛用作输出单元上的激活函数 </font>(sigmoid可以视为softmax的特例)</p>
+<p>但sigmoid在隐藏层中已经较少使用，它在大部分时候被更简单、更容易训练的ReLU所取代</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">y = torch.sigmoid(x)</span><br><span class="line">plt.plot(x.detach(), y.detach())</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'sigmoid(x)'</span>)</span><br><span class="line">plt.grid()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019162110077.png" alt="image-20251019162110077" style="zoom:80%;">
+
+<p>当输入接近0时，sigmoid函数接近线性变换</p>
+<p>sigmoid函数的导数为<br>$$<br>\frac{d}{dx} \operatorname{sigmoid}(x) = \frac{\exp(-x)}{(1 + \exp(-x))^2} = \operatorname{sigmoid}(x)\left(1-\operatorname{sigmoid}(x)\right).<br>$$<br>当输入为0时，sigmoid函数的导数达到最大值0.25，而输入在任一方向上越远离0点时，导数越接近0</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x.grad.zero_()</span><br><span class="line">y.<span class="built_in">sum</span>().backward(retain_graph=<span class="literal">True</span>) <span class="comment"># 不加retain_graph自动释放计算图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">5</span>,<span class="number">2.5</span>))</span><br><span class="line">plt.plot(x.detach(), x.grad)</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'grad of sigmoid'</span>)</span><br><span class="line">plt.grid()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019162150568.png" alt="image-20251019162150568" style="zoom:80%;">
+
+<h4 id="tanh函数"><a href="#tanh函数" class="headerlink" title="tanh函数"></a>tanh函数</h4><p>与sigmoid函数类似，tanh(双曲正切)函数也能将其输入压缩转换到区间(-1, 1)上<br>$$<br>\operatorname{tanh}(x) = \frac{1 - \exp(-2x)}{1 + \exp(-2x)}<br>$$<br>当输入在0附近时，tanh函数接近线性变换</p>
+<p>函数的形状类似于sigmoid函数，不同的是tanh函数关于坐标系原点中心对称</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">y = torch.tanh(x)</span><br><span class="line">plt.figure(figsize=(<span class="number">5</span>,<span class="number">2.5</span>))</span><br><span class="line">plt.plot(x.detach(), y.detach())</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'tanh(x)'</span>)</span><br><span class="line">plt.grid()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019162438781.png" alt="image-20251019162438781" style="zoom:80%;">
+
+<p>tanh函数的导数<br>$$<br>\frac{d}{dx} \operatorname{tanh}(x) = 1 - \operatorname{tanh}^2(x).<br>$$<br>tanh函数的导数和sigmoid类似，接近0时代最大值为1</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x.grad.zero_()</span><br><span class="line">y.<span class="built_in">sum</span>().backward(retain_graph=<span class="literal">True</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">5</span>,<span class="number">2.5</span>))</span><br><span class="line">plt.plot(x.detach(), x.grad)</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'grad of tanh'</span>)</span><br><span class="line">plt.grid()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019162509297.png" alt="image-20251019162509297" style="zoom:80%;">
+
+<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><p>如果一个非线性激活函数不是按样本逐元素地应用，而是对整个小批量(batch)一起应用，会出现什么问题？</p>
+<p>激活函数是对每个神经元输出进行<strong>非线性变换</strong>，应该逐样本、逐元素独立地工作</p>
+<p>如果批量处理激活函数输出不再只取决于当前样本，而依赖于整个batch，这意味着模型对单个样本的预测结果会受到 batch 中其他样本的影响，就会导致样本之间互相干扰，打破独立性，造成梯度传播混乱，最终使模型难以收敛甚至失效</p>
+<h2 id="多层感知机的底层实现"><a href="#多层感知机的底层实现" class="headerlink" title="多层感知机的底层实现"></a>多层感知机的底层实现</h2><p>为了与之前softmax回归获得的结果进行比较，将继续使用Fashion-MNIST图像分类数据集</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">256</span></span><br><span class="line">train_iter, test_iter = load_data_fashion_mnist(batch_size)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="初始化模型参数"><a href="#初始化模型参数" class="headerlink" title="初始化模型参数"></a>初始化模型参数</h3><p>将每个图像视为具有784个输入特征和10个类的简单分类数据集，将实现一个具有单隐藏层的多层感知机，它包含256个隐藏单元，可以将这两个变量都视为超参数</p>
+<p>通常选择2的若干次幂作为层的宽度，因为内存在硬件中的分配和寻址方式，这么做往往可以在计算上更高效</p>
+<p>对于每一层都要记录一个权重矩阵和一个偏置向量，要为损失关于这些参数的梯度分配内存</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">num_inputs, num_outputs, num_hiddens = <span class="number">784</span>, <span class="number">10</span>, <span class="number">256</span></span><br><span class="line"><span class="comment"># nn.Parameter 内部初始化定义requires_grad = True</span></span><br><span class="line">W1 = nn.Parameter(torch.randn(num_inputs, num_hiddens)* <span class="number">0.01</span>)</span><br><span class="line">b1 = nn.Parameter(torch.zeros(num_hiddens))</span><br><span class="line">W2 = nn.Parameter(torch.randn(num_hiddens, num_outputs)* <span class="number">0.01</span>)</span><br><span class="line">b2 = nn.Parameter(torch.zeros(num_outputs))</span><br><span class="line">params = [W1, b1, W2, b2]</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="激活函数-1"><a href="#激活函数-1" class="headerlink" title="激活函数"></a>激活函数</h3><p>将实现ReLU激活函数，而不是直接调用内置的<code>relu</code>函数</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">relu</span>(<span class="params">X</span>):</span><br><span class="line">    a = torch.zeros_like(X)</span><br><span class="line">    <span class="keyword">return</span> torch.<span class="built_in">max</span>(X, a)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>因为忽略了空间结构，所以使用<code>reshape</code>将每个二维图像转换为一个长度为<code>num_inputs</code>的向量</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">net</span>(<span class="params">X</span>):</span><br><span class="line">    X = X.reshape((-<span class="number">1</span>, num_inputs))</span><br><span class="line">    H = relu(X@W1 + b1)</span><br><span class="line">    <span class="keyword">return</span> (H@W2 + b2)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>已经从零实现过softmax函数，在这里直接使用高级API中的内置函数来计算softmax和交叉熵损失</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.CrossEntropyLoss(reduction=<span class="string">'none'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>多层感知机的训练过程与softmax回归的训练过程完全相同</p>
+<p>直接调用<code>train_ch3</code>函数，将迭代周期数设置为10，并将学习率设置为0.1</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num_epochs, lr = <span class="number">10</span>, <span class="number">0.1</span></span><br><span class="line">updater = torch.optim.SGD(params, lr=lr)</span><br><span class="line">train_ch3(net, train_iter, test_iter, loss, num_epochs, updater)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Epoch  1/10: loss=1.0399, train_acc=0.634, test_acc=0.748</span><br><span class="line">Epoch  2/10: loss=0.6006, train_acc=0.791, test_acc=0.778</span><br><span class="line">Epoch  3/10: loss=0.5200, train_acc=0.819, test_acc=0.800</span><br><span class="line">Epoch  4/10: loss=0.4787, train_acc=0.833, test_acc=0.820</span><br><span class="line">Epoch  5/10: loss=0.4508, train_acc=0.842, test_acc=0.820</span><br><span class="line">Epoch  6/10: loss=0.4326, train_acc=0.848, test_acc=0.826</span><br><span class="line">Epoch  7/10: loss=0.4177, train_acc=0.853, test_acc=0.844</span><br><span class="line">Epoch  8/10: loss=0.4036, train_acc=0.858, test_acc=0.828</span><br><span class="line">Epoch  9/10: loss=0.3905, train_acc=0.863, test_acc=0.842</span><br><span class="line">Epoch 10/10: loss=0.3838, train_acc=0.866, test_acc=0.852</span><br><span class="line">Final loss 0.384, train acc 0.866, test acc 0.852</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019163412393.png" alt="image-20251019163412393" style="zoom:80%;">
+
+<p>为了对学习到的模型进行评估，将在一些测试数据上应用这个模型</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">predict_ch3(net, test_iter)</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510171334.webp" alt="202510171334" style="zoom: 80%;">
+
+<p>测试结果是一样的</p>
+<h3 id="思考题-1"><a href="#思考题-1" class="headerlink" title="思考题"></a>思考题</h3><p>改变 <code>num_hiddens</code> 会影响什么？</p>
+<ul>
+<li>太小：模型容量不足(underfitting) → 学不出复杂特征</li>
+<li>适中：模型能恰好捕捉数据规律</li>
+<li>太大：模型容量过大(overfitting) → 训练集精度高但测试集差</li>
+</ul>
+<p>隐藏层层数增加对结果有什么影响？</p>
+<p>增加特征层级抽象能力，但可能会出现过拟合的情况</p>
+<h2 id="多层感知机的简洁实现"><a href="#多层感知机的简洁实现" class="headerlink" title="多层感知机的简洁实现"></a>多层感知机的简洁实现</h2><h3 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h3><p>与softmax回归实现相比，唯一的区别是添加了2个全连接层</p>
+<p>第一层是隐藏层，它包含256个隐藏单元，并使用了ReLU激活函数，第二层是输出层</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">net = nn.Sequential(</span><br><span class="line">    nn.Flatten(),</span><br><span class="line">    nn.Linear(num_inputs, num_hiddens),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Linear(num_hiddens, num_outputs))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_weights</span>(<span class="params">m</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span>(m) == nn.Linear:</span><br><span class="line">        nn.init.normal_(m.weight, std = <span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line">net.apply(init_weights)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这种模块化设计能够将与模型架构有关的内容独立出来</p>
+<h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">batch_size, lr, num_epochs = <span class="number">256</span>, <span class="number">0.1</span>, <span class="number">10</span></span><br><span class="line">loss = nn.CrossEntropyLoss(reduction=<span class="string">'none'</span>)</span><br><span class="line">trainer = torch.optim.SGD(net.parameters(), lr=lr)</span><br><span class="line"></span><br><span class="line">train_iter, test_iter = load_data_fashion_mnist(batch_size)</span><br><span class="line">train_ch3(net, train_iter, test_iter, loss, num_epochs, trainer)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Epoch  1/10: loss=1.0426, train_acc=0.637, test_acc=0.718</span><br><span class="line">Epoch  2/10: loss=0.5948, train_acc=0.791, test_acc=0.795</span><br><span class="line">Epoch  3/10: loss=0.5213, train_acc=0.817, test_acc=0.814</span><br><span class="line">Epoch  4/10: loss=0.4817, train_acc=0.830, test_acc=0.814</span><br><span class="line">Epoch  5/10: loss=0.4511, train_acc=0.841, test_acc=0.827</span><br><span class="line">Epoch  6/10: loss=0.4327, train_acc=0.848, test_acc=0.821</span><br><span class="line">Epoch  7/10: loss=0.4181, train_acc=0.852, test_acc=0.840</span><br><span class="line">Epoch  8/10: loss=0.4015, train_acc=0.859, test_acc=0.842</span><br><span class="line">Epoch  9/10: loss=0.3915, train_acc=0.862, test_acc=0.846</span><br><span class="line">Epoch 10/10: loss=0.3822, train_acc=0.865, test_acc=0.838</span><br><span class="line">Final loss 0.382, train acc 0.865, test acc 0.838</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019163831408.png" alt="image-20251019163831408" style="zoom:80%;">
+
+<h2 id="模型选择、欠拟合和过拟合"><a href="#模型选择、欠拟合和过拟合" class="headerlink" title="模型选择、欠拟合和过拟合"></a>模型选择、欠拟合和过拟合</h2><p>机器学习科学家的目标是发现<strong>模式(pattern)</strong>，这些模式捕捉到了训练集潜在总体的规律</p>
+<p>如何发现可以泛化的模式是机器学习的根本问题</p>
+<p>将模型在训练数据上拟合的比在潜在分布中更接近的现象称为<strong>过拟合(overfitting)</strong>，用于对抗过拟合的技术称为<strong>正则化(regularization)</strong></p>
+<h3 id="训练误差和泛化误差"><a href="#训练误差和泛化误差" class="headerlink" title="训练误差和泛化误差"></a>训练误差和泛化误差</h3><p><strong>训练误差(training error)</strong>：模型在训练数据上的平均错误</p>
+<p><strong>泛化误差(generalization error)</strong>：模型在“从未见过”的新样本上的平均错误</p>
+<p>泛化误差无法精确计算，因为真实数据分布是无限的，只能用独立的测试集(由未参与训练的随机样本组成)来近似估计它</p>
+<h4 id="统计学习理论"><a href="#统计学习理论" class="headerlink" title="统计学习理论"></a>统计学习理论</h4><p>假设训练数据和测试数据都是从相同的分布中独立提取的(独立同分布假设)，这意味着对数据进行采样的过程没有进行“记忆”</p>
+<p>即使这一假设被轻微违反，模型通常仍能良好工作，因为现实数据几乎总会偏离独立同分布</p>
+<h4 id="模型复杂性"><a href="#模型复杂性" class="headerlink" title="模型复杂性"></a>模型复杂性</h4><p>当模型简单、数据充足时，训练误差与泛化误差接近</p>
+<p>当模型复杂、样本较少时，训练误差下降但泛化误差上升</p>
+<p><font color="Violetred">影响模型泛化的因素</font></p>
+<ul>
+<li>模型复杂度，参数(自由度)越多越易过拟合</li>
+<li>权重大小，权重的取值范围越大越易过拟合</li>
+<li>训练样本的数量，样本越多越不易过拟合</li>
+</ul>
+<h3 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h3><p>在机器学习中通常在评估几个候选模型后选择最终的模型，这个过程叫做模型选择</p>
+<p>比较内容可以是不同模型类型(如决策树与线性模型)，也可以是同模型的不同超参数(如层数、单元数、激活函数等)</p>
+<p>为了确定候选模型中的最佳模型，通常会使用验证集</p>
+<h4 id="验证集"><a href="#验证集" class="headerlink" title="验证集"></a>验证集</h4><p>在进行训练前一般将数据分成三份，训练集、测试集、<strong>验证集(validation set)</strong></p>
+<p>验证集用于调整模型结构和超参数，但在实践中验证集与测试集往往来自同一数据源</p>
+<p>因此输出的准确度其实是验证集准确度，而不是测试集准确度</p>
+<h4 id="K折交叉验证"><a href="#K折交叉验证" class="headerlink" title="K折交叉验证"></a>K折交叉验证</h4><p>当训练数据稀缺时，往往难以划分出足够的验证集</p>
+<p>一种常用的解决方案是<strong>K 折交叉验证</strong>：</p>
+<p>将原始训练数据划分为 K 个互不重叠的子集，每次使用其中 K−1 个子集进行训练，剩下的一个用于验证</p>
+<p>重复 K 次后，对所有验证结果取平均，以更可靠地估计模型的训练与验证误差</p>
+<h3 id="欠拟合-过拟合"><a href="#欠拟合-过拟合" class="headerlink" title="欠拟合/过拟合"></a>欠拟合/过拟合</h3><p>当训练误差和验证误差都很高时，说明模型无法有效拟合训练数据，通常表示模型过于简单、表达能力不足，被称为<strong>欠拟合(underfitting)</strong></p>
+<p>当训练误差远低于验证误差时，则说明模型在训练集上表现良好，却无法泛化到新数据，被称为<strong>过拟合(overfitting)</strong></p>
+<p>模型是否欠拟合或过拟合，取决于其复杂度与可用训练数据量的平衡</p>
+<p>设训练数据由单个特征$x$和对应实数标签$y$组成，尝试用$d$阶多项式拟合<br>$$<br>\hat y= \sum_{i=0}^d x^i w_i<br>$$<br>这是一个线性回归问题，只不过输入特征为$x$的幂次</p>
+<p>其中$w_i$为模型权重，$w_0$为偏置，损失函数采用平方误差</p>
+<p>显然，高阶多项式的参数更多，模型更复杂，能表示的函数形状更灵活</p>
+<p>在相同训练数据下，高阶多项式模型的训练误差通常会小于等于低阶多项式模型的训练误差</p>
+<img src="https://zh.d2l.ai/_images/capacity-vs-error.svg" style="zoom: 80%;">
+
+<h3 id="多项式回归"><a href="#多项式回归" class="headerlink" title="多项式回归"></a>多项式回归</h3><h4 id="生成数据集"><a href="#生成数据集" class="headerlink" title="生成数据集"></a>生成数据集</h4><p>使用以下三阶多项式来生成训练和测试数据的标签：<br>$$<br>y = 5 + 1.2x - 3.4\frac{x^2}{2!} + 5.6 \frac{x^3}{3!} + \epsilon \text{ where }<br>\epsilon \sim \mathcal{N}(0, 0.1^2).<br>$$<br>在优化的过程中，通常希望避免非常大的梯度值或损失值，所以将特征从$x^i$调整为$x^i/i!$，这样可以避免很大的$i$带来的特别大的指数值</p>
+<p>将为训练集和测试集各生成100个样本</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line">max_degree = <span class="number">20</span>  <span class="comment"># 多项式的最大阶数</span></span><br><span class="line">n_train, n_test = <span class="number">100</span>, <span class="number">100</span>  <span class="comment"># 训练和测试数据集大小</span></span><br><span class="line">true_w = torch.zeros(max_degree)</span><br><span class="line">true_w[:<span class="number">4</span>] = torch.tensor([<span class="number">5</span>, <span class="number">1.2</span>, -<span class="number">3.4</span>, <span class="number">5.6</span>])</span><br><span class="line"></span><br><span class="line">features = torch.randn(n_train + n_test, <span class="number">1</span>)</span><br><span class="line">features = features[torch.randperm(features.shape[<span class="number">0</span>])]</span><br><span class="line"></span><br><span class="line">poly_features = torch.<span class="built_in">pow</span>(features, torch.arange(max_degree).reshape(<span class="number">1</span>, -<span class="number">1</span>)) <span class="comment"># 构建多项式特征</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_degree): <span class="comment"># 用阶乘归一化</span></span><br><span class="line">    poly_features[:, i] /= math.gamma(i + <span class="number">1</span>)  <span class="comment"># gamma(n)=(n-1)!</span></span><br><span class="line"><span class="comment"># 生成含噪标签</span></span><br><span class="line">labels = torch.matmul(poly_features, true_w)</span><br><span class="line">labels += torch.normal(<span class="number">0.0</span>, <span class="number">0.1</span>, size=labels.shape)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>存储在<code>poly_features</code>中的单项式由gamma函数重新缩放</p>
+<h4 id="训练和测试"><a href="#训练和测试" class="headerlink" title="训练和测试"></a>训练和测试</h4><p>实现一个函数来评估模型在给定数据集上的损失</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">evaluate_loss</span>(<span class="params">net, data_iter, loss</span>):  <span class="comment">#@save</span></span><br><span class="line">    <span class="string">"""评估给定数据集上模型的损失"""</span></span><br><span class="line">    metric = Accumulator(<span class="number">2</span>)  <span class="comment"># 损失的总和,样本数量</span></span><br><span class="line">    <span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter:</span><br><span class="line">        out = net(X)</span><br><span class="line">        y = y.reshape(out.shape)</span><br><span class="line">        l = loss(out, y)</span><br><span class="line">        metric.add(l.<span class="built_in">sum</span>(), l.numel())</span><br><span class="line">    <span class="keyword">return</span> metric[<span class="number">0</span>] / metric[<span class="number">1</span>]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>定义训练函数</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">train_features, test_features, train_labels, test_labels,</span></span><br><span class="line"><span class="params">          num_epochs=<span class="number">400</span></span>):</span><br><span class="line">    loss = nn.MSELoss(reduction=<span class="string">'none'</span>)</span><br><span class="line">    input_shape = train_features.shape[-<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 不设置偏置，因为在多项式特征中涵盖0阶</span></span><br><span class="line">    net = nn.Sequential(nn.Linear(input_shape, <span class="number">1</span>, bias=<span class="literal">False</span>))</span><br><span class="line">    batch_size = <span class="built_in">min</span>(<span class="number">10</span>, train_labels.shape[<span class="number">0</span>])</span><br><span class="line">    train_iter = load_array((train_features, train_labels.reshape(-<span class="number">1</span>,<span class="number">1</span>)),batch_size)</span><br><span class="line">    test_iter = load_array((test_features, test_labels.reshape(-<span class="number">1</span>,<span class="number">1</span>)),</span><br><span class="line">                               batch_size, is_train=<span class="literal">False</span>)</span><br><span class="line">    trainer = torch.optim.SGD(net.parameters(), lr=<span class="number">0.01</span>)</span><br><span class="line">    animator = Animator(xlabel=<span class="string">'epoch'</span>, ylabel=<span class="string">'loss'</span>, yscale=<span class="string">'log'</span>,</span><br><span class="line">                            xlim=[<span class="number">1</span>, num_epochs], ylim=[<span class="number">1e-3</span>, <span class="number">1e2</span>],</span><br><span class="line">                            legend=[<span class="string">'train'</span>, <span class="string">'test'</span>])</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">        train_epoch_ch3(net, train_iter, loss, trainer)</span><br><span class="line">        <span class="keyword">if</span> epoch == <span class="number">0</span> <span class="keyword">or</span> (epoch + <span class="number">1</span>) % <span class="number">20</span> == <span class="number">0</span>:</span><br><span class="line">            animator.add(epoch + <span class="number">1</span>, (evaluate_loss(net, train_iter, loss),</span><br><span class="line">                                     evaluate_loss(net, test_iter, loss)))</span><br><span class="line">    animator.show()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'weight:'</span>, net[<span class="number">0</span>].weight.data.numpy())</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="三阶多项式函数拟合-正常"><a href="#三阶多项式函数拟合-正常" class="headerlink" title="三阶多项式函数拟合(正常)"></a>三阶多项式函数拟合(正常)</h4><p>首先使用三阶多项式函数，它与数据生成函数的阶数相同，结果表明，该模型能有效降低训练损失和测试损失</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从多项式特征中选择前4个维度，即1,x,x^2/2!,x^3/3!</span></span><br><span class="line">train(poly_features[:n_train, :<span class="number">4</span>], poly_features[n_train:, :<span class="number">4</span>],</span><br><span class="line">      labels[:n_train], labels[n_train:])</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weight: [[ 5.0210333  1.2359931 -3.4435396  5.543001 ]]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>学习到的模型参数也接近真实值$w = [5, 1.2, -3.4, 5.6]$</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019171739585.png" alt="image-20251019171739585" style="zoom: 67%;">
+
+<h4 id="线性函数拟合-欠拟合"><a href="#线性函数拟合-欠拟合" class="headerlink" title="线性函数拟合(欠拟合)"></a>线性函数拟合(欠拟合)</h4><p>线性函数拟合，减少该模型的训练损失相对困难</p>
+<p>当用来拟合非线性模式(如这里的三阶多项式函数)时，线性模型容易欠拟合</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从多项式特征中选择前2个维度，即1和x</span></span><br><span class="line">train(poly_features[:n_train, :<span class="number">2</span>], poly_features[n_train:, :<span class="number">2</span>],</span><br><span class="line">      labels[:n_train], labels[n_train:])</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019171828526.png" alt="image-20251019171828526" style="zoom: 67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weight: [[3.1353095 5.6418805]]</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="高阶多项式函数拟合-过拟合"><a href="#高阶多项式函数拟合-过拟合" class="headerlink" title="高阶多项式函数拟合(过拟合)"></a>高阶多项式函数拟合(过拟合)</h4><p>在这种情况下，没有足够的数据用于学到高阶系数应该具有接近于零的值</p>
+<p>虽然训练损失可以有效地降低，但测试损失仍然很高，结果表明，复杂模型对数据造成了过拟合</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从多项式特征中选取所有维度</span></span><br><span class="line">train(poly_features[:n_train, :], poly_features[n_train:, :],</span><br><span class="line">      labels[:n_train], labels[n_train:], num_epochs=<span class="number">1500</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019171924301.png" alt="image-20251019171924301" style="zoom:67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">weight: [[ 5.0239668e+00  1.3013747e+00 -3.4798586e+00  5.2033052e+00</span><br><span class="line">   6.0640000e-02  9.5363843e-01  4.5289594e-01 -1.0846047e-01</span><br><span class="line">  -8.1542186e-02 -2.0034861e-02  2.2041972e-01  1.5507406e-01</span><br><span class="line">   8.8916212e-02 -1.3643771e-01  1.2644988e-01  1.2815433e-02</span><br><span class="line">  -1.4033292e-01 -3.4145068e-04 -8.9307956e-02  6.5196948e-03]]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以看到训练损失和测试损失的差值比三阶的更大了，因为一开始做了阶乘归一化，而且这里的训练次数也改到了1500所以不会导致很明显的过拟合</p>
+<h2 id="权重衰减"><a href="#权重衰减" class="headerlink" title="权重衰减"></a>权重衰减</h2><p>虽然增加训练数据量可以有效降低过拟合风险，但这往往代价高昂、耗时漫长，短期内难以实现</p>
+<p>在数据量已接近可行上限的情况下，通常将重点转向正则化方法</p>
+<p>在前面的多项式拟合中通过调整多项式的阶数来限制模型的容量，<font color="DarkViolet">限制特征的数量是缓解过拟合的一种常用技术</font></p>
+<p>在多变量情形中，多项式扩展为由多个变量的幂次乘积构成的<strong>单项式(monomials)</strong>，单项式的阶数是各变量幂次之和，例如$x_1^2 x_2$和$x_3 x_5^2$都是3次单项式</p>
+<p>随着阶数$d$的增长，单项式的数量迅速膨胀</p>
+<p>给定$k$个变量，阶数为$d$的项的个数为<br>$$<br>\binom{k-1+d}{k-1}=\frac{(k-1+d)!}{d!(k-1)!}<br>$$<br>这意味着阶数的微小提升都会显著提高模型的复杂度</p>
+<p>因此仅仅依靠限制特征数量仍可能使模型在过于简单与过于复杂之间摇摆，需要一个更精细可控的手段来调节函数的复杂性，使模型在两者之间取得平衡</p>
+<h3 id="范数与权重衰减"><a href="#范数与权重衰减" class="headerlink" title="范数与权重衰减"></a>范数与权重衰减</h3><p>在训练参数化机器学习模型时，**权重衰减(weight decay)**是最常用的正则化方法之一，也被称为$L_2$正则化，通过约束参数向量与零的距离来控制模型复杂度，从而防止过拟合</p>
+<p>对于线性模型$f(\mathbf{x}) = \mathbf{w}^\top \mathbf{x}$ 希望权重向量不要过大，常见做法是在损失函数中加入权重的平方范数惩罚项，调整为最小化预测损失和惩罚项之和</p>
+<p>通过正则化常数$\lambda$来描述这种权衡，这是一个非负超参数<br>$$<br>L(\mathbf{w}, b) + \frac{\lambda}{2}\mid\mid \mathbf{w} \mid\mid^2<br>$$<br>对于$\lambda = 0$恢复了原来的损失函数，对于$\lambda &gt; 0$限制$\mid\mid \mathbf{w} \mid\mid^2$的大小</p>
+<p><font color="DarkViolet">为什么在这里使用平方范数而不是标准范数(即欧几里得距离)?</font></p>
+<p>平方$L_2$范数保留了权重平方和的形式，使得惩罚的导数很容易计算，导数的和等于和的导数<br>$$<br>\frac{\partial}{\partial w_{i}} \frac{1}{2}\mid\mid \mathbf{w} \mid\mid^2=\frac{\partial}{\partial w_{i}} \frac{1}{2} \sum_{j} w_{j}^{2}=w_{i}<br>$$<br><font color="DarkViolet">为什么使用$L_2$范数，而不是$L_1$范数</font></p>
+<p>$L_2$正则化对应<strong>岭回归(ridge regression)算法</strong>，会对权重的较大分量施加更强惩罚，使权重在多个特征上平滑分布，从而提高模型对噪声和观测误差的稳定性</p>
+<p>$L_1$正则化线对应<strong>套索回归(lasso regression)<strong>会将部分权重推到零，实现</strong>特征选择(feature selection)</strong></p>
+<p>两者都能抑制过拟合，但$L_2$更适合连续平滑的参数调整，$L_1$更适合产生稀疏解</p>
+<p>$L_2$正则化回归的小批量随机梯度下降更新如下式<br>$$<br>\begin{aligned}<br>\mathbf{w} &amp; \leftarrow \left(1- \eta\lambda \right) \mathbf{w} - \frac{\eta}{|\mathcal{B}|} \sum_{i \in \mathcal{B}} \mathbf{x}^{(i)} \left(\mathbf{w}^\top \mathbf{x}^{(i)} + b - y^{(i)}\right).<br>\end{aligned}<br>$$<br>权重衰减+普通梯度下降，<font color="Violetred">通常网络输出层的偏置项不会被正则化</font></p>
+<h3 id="高维线性回归"><a href="#高维线性回归" class="headerlink" title="高维线性回归"></a>高维线性回归</h3><p>通过一个简单的例子来演示权重衰减，生成一些数据：</p>
+<p>$$<br>y = 0.05 + \sum_{i = 1}^d 0.01 x_i + \epsilon \text{ where }<br>\epsilon \sim \mathcal{N}(0, 0.01^2).<br>$$<br>选择标签是关于输入的线性函数，标签同时被均值为0，标准差为0.01高斯噪声破坏</p>
+<p>为了使过拟合的效果更加明显，可以将问题的维数增加到$d = 200$，并使用一个只包含20个样本的小训练集</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">synthetic_data</span>(<span class="params">w, b, num_examples</span>):  <span class="comment">#@save</span></span><br><span class="line">    <span class="string">"""生成y=Xw+b+噪声"""</span></span><br><span class="line">    X = torch.normal(<span class="number">0</span>, <span class="number">1</span>, (num_examples, <span class="built_in">len</span>(w)))</span><br><span class="line">    y = torch.matmul(X, w) + b </span><br><span class="line">    y += torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, y.shape)</span><br><span class="line">    <span class="keyword">return</span> X, y.reshape((-<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">n_train, n_test, num_inputs, batch_size = <span class="number">20</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">5</span></span><br><span class="line">true_w, true_b = torch.ones((num_inputs, <span class="number">1</span>)) * <span class="number">0.01</span>, <span class="number">0.05</span></span><br><span class="line">train_data = synthetic_data(true_w, true_b, n_train)</span><br><span class="line">train_iter = load_array(train_data, batch_size)</span><br><span class="line">test_data = synthetic_data(true_w, true_b, n_test)</span><br><span class="line">test_iter = load_array(test_data, batch_size, is_train=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="底层实现"><a href="#底层实现" class="headerlink" title="底层实现"></a>底层实现</h3><h4 id="初始化模型参数-1"><a href="#初始化模型参数-1" class="headerlink" title="初始化模型参数"></a>初始化模型参数</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">init_params</span>():</span><br><span class="line">    w = torch.normal(<span class="number">0</span>, <span class="number">1</span>, size=(num_inputs, <span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">    b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> [w, b]</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="定义L2范数惩罚"><a href="#定义L2范数惩罚" class="headerlink" title="定义L2范数惩罚"></a>定义L2范数惩罚</h4><p>最方便的方法是对所有项求平方后并将它们求和</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">l2_penalty</span>(<span class="params">w</span>):</span><br><span class="line">    <span class="keyword">return</span> torch.<span class="built_in">sum</span>(w.<span class="built_in">pow</span>(<span class="number">2</span>)) / <span class="number">2</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="定义训练代码"><a href="#定义训练代码" class="headerlink" title="定义训练代码"></a>定义训练代码</h4><p>唯一的变化是损失加上惩罚项</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">lambd</span>):</span><br><span class="line">    w, b = init_params()</span><br><span class="line">    net, loss = <span class="keyword">lambda</span> X: linreg(X, w, b), squared_loss</span><br><span class="line">    num_epochs, lr = <span class="number">100</span>, <span class="number">0.003</span></span><br><span class="line">    animator = Animator(xlabel=<span class="string">'epochs'</span>, ylabel=<span class="string">'loss'</span>, yscale=<span class="string">'log'</span>,</span><br><span class="line">                            xlim=[<span class="number">5</span>, num_epochs], legend=[<span class="string">'train'</span>, <span class="string">'test'</span>])</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">        <span class="keyword">for</span> X, y <span class="keyword">in</span> train_iter:</span><br><span class="line">            <span class="comment"># 增加了L2范数惩罚项，</span></span><br><span class="line">            <span class="comment"># 广播机制使l2_penalty(w)成为一个长度为batch_size的向量</span></span><br><span class="line">            l = loss(net(X), y) + lambd * l2_penalty(w)</span><br><span class="line">            l.<span class="built_in">sum</span>().backward()</span><br><span class="line">            sgd([w, b], lr, batch_size)</span><br><span class="line">        <span class="keyword">if</span> (epoch + <span class="number">1</span>) % <span class="number">5</span> == <span class="number">0</span>:</span><br><span class="line">            animator.add(epoch + <span class="number">1</span>, (evaluate_loss(net, train_iter, loss),</span><br><span class="line">                                     evaluate_loss(net, test_iter, loss)))</span><br><span class="line">    animator.show()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'w的L2范数是：'</span>, torch.norm(w).item())</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="无正则化"><a href="#无正则化" class="headerlink" title="无正则化"></a>无正则化</h4><p>用<code>lambd = 0</code>禁用权重衰减后运行这个代码，这里训练误差有了减少，但测试误差没有减少，这意味着出现了严重的过拟合</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train(lambd=<span class="number">0</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019173903702.png" alt="image-20251019173903702" style="zoom: 67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w的L2范数是： 14.787172317504883</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="权重衰减-1"><a href="#权重衰减-1" class="headerlink" title="权重衰减"></a>权重衰减</h4><p>使用权重衰减来运行代码，在这里训练误差增大，但测试误差减小，这正是期望从正则化中得到的效果</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train(lambd=<span class="number">3</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019173959981.png" alt="image-20251019173959981" style="zoom:67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w的L2范数是： 0.354495644569397</span><br></pre></td></tr></tbody></table></figure>
+
+<p>能看出如果不加权重衰减很容易陷入过拟合</p>
+<h3 id="简洁实现"><a href="#简洁实现" class="headerlink" title="简洁实现"></a>简洁实现</h3><p>深度学习框架将权重衰减直接集成到优化算法中，使其能够与任意损失函数方便结合</p>
+<p>在实例化优化器时只需通过 <code>weight_decay</code> 参数即可指定权重衰减系数</p>
+<p>在 PyTorch 中，默认情况下优化器会同时对权重参数和偏置参数施加衰减，这里只为权重设置了<code>weight_decay</code>，所以偏置参数不会衰减</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train_concise</span>(<span class="params">wd</span>):</span><br><span class="line">    net = nn.Sequential(nn.Linear(num_inputs,<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">for</span> param <span class="keyword">in</span> net.parameters():</span><br><span class="line">        param.data.normal_()</span><br><span class="line">    loss = nn.MSELoss(reduction=<span class="string">'none'</span>)</span><br><span class="line">    num_epochs, lr = <span class="number">100</span>, <span class="number">0.003</span></span><br><span class="line">    trainer = torch.optim.SGD([</span><br><span class="line">        {<span class="string">"params"</span>:net[<span class="number">0</span>].weight, <span class="string">'weight_decay'</span>:wd},</span><br><span class="line">        {<span class="string">"params"</span>:net[<span class="number">0</span>].bias}], lr = lr)</span><br><span class="line">    animator = Animator(xlabel=<span class="string">'epochs'</span>, ylabel=<span class="string">'loss'</span>,yscale=<span class="string">'log'</span>,</span><br><span class="line">                        xlim=[<span class="number">5</span>, num_epochs], legend=[<span class="string">'train'</span>, <span class="string">'test'</span>])</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">        <span class="keyword">for</span> X, y <span class="keyword">in</span> train_iter:</span><br><span class="line">            trainer.zero_grad()</span><br><span class="line">            l = loss(net(X), y)</span><br><span class="line">            l.mean().backward()</span><br><span class="line">            trainer.step()</span><br><span class="line">        <span class="keyword">if</span>(epoch + <span class="number">1</span>) % <span class="number">5</span> == <span class="number">0</span>:</span><br><span class="line">            animator.add(epoch + <span class="number">1</span>,</span><br><span class="line">                         (evaluate_loss(net, train_iter, loss),</span><br><span class="line">                          evaluate_loss(net, test_iter, loss)))</span><br><span class="line">    animator.show()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"w 的范数:"</span>, net[<span class="number">0</span>].weight.norm().item())</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_concise(<span class="number">0</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251018202634148.png" alt="image-20251018202634148" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w 的范数: 13.793038368225098</span><br></pre></td></tr></tbody></table></figure>
+
+<p>结果和从零开始实现权重衰减时的图相同，然而它们运行得更快，更容易实现</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_concise(<span class="number">3</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251018202811058.png" alt="image-20251018202811058" style="zoom:67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w 的范数: 0.3899060785770416</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>正则化是处理过拟合的常用方法：在训练集的损失函数中加入惩罚项，以降低学习到的模型的复杂度</li>
+<li>保持模型简单的一个特别的选择是使用$L_2$惩罚的权重衰减。这会导致学习算法更新步骤中的权重衰减</li>
+<li>在同一训练代码实现中，不同的参数集可以有不同的更新行为</li>
+</ul>
+<h3 id="思考题-2"><a href="#思考题-2" class="headerlink" title="思考题"></a>思考题</h3><ol>
+<li><p>训练与测试精度随 λ 变化的趋势</p>
+<p>测试误差先下降后上升，呈 U 形曲线</p>
+<p>正则化太弱 → 过拟合；正则化太强 → 欠拟合</p>
+</li>
+<li><p>使用验证集来找到$\lambda$最佳值。它真的是最优值吗？这有关系吗？</p>
+<p>是相对于这个训练集和验证集的最优值，会根据数据集大小发生变化</p>
+</li>
+<li><p>如果使用$L_1$正则化作为选择的惩罚，那么代码如何修改</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">l1_penalty</span>(<span class="params">w</span>):</span><br><span class="line">    <span class="keyword">return</span> torch.<span class="built_in">sum</span>(torch.<span class="built_in">abs</span>(w))</span><br><span class="line">    ...</span><br><span class="line">    trainer = torch.optim.SGD(net.parameters(), lr=lr)</span><br><span class="line">    ...</span><br><span class="line">    	l = l.mean() + lambd * l1_penalty(net[<span class="number">0</span>].weight)</span><br><span class="line">    ...</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<h2 id="暂退法Dropout"><a href="#暂退法Dropout" class="headerlink" title="暂退法Dropout"></a>暂退法Dropout</h2><h3 id="扰动的稳健性"><a href="#扰动的稳健性" class="headerlink" title="扰动的稳健性"></a>扰动的稳健性</h3><p>一个“好”的预测模型，不仅要在训练数据上表现良好，更重要的是能在未知数据上保持较高的准确度。经典的泛化理论认为，为了缩小训练和测试性能之间的差距，应追求模型的简单性</p>
+<p>简单性可以通过多种形式体现：<font color="DarkViolet">较低的模型维度、更小的参数范数，或是更平滑的函数行为</font></p>
+<p>平滑性意味着模型对输入的微小变化不敏感——在图像分类中，轻微的像素噪声不应影响预测结果</p>
+<p>1995年，克里斯托弗·毕晓普(Christopher Bishop)证明了在训练过程中向输入添加高斯噪声，与Tikhonov正则化(即$L_2$正则化)在数学上是等价的，这说明函数对输入噪声具有鲁棒性，本质上也是在约束其平滑性</p>
+<p>2014年，斯里瓦斯塔瓦等人将这一思想推广到神经网络的内部层，提出在训练时向每一层的输出中注入随机噪声，以增强输入–输出映射的平滑性，这便是<strong>暂退法(dropout)</strong>，通过在前向传播时随机丢弃部分神经元的激活值来实现正则化，这已经成为训练神经网络的常用技术</p>
+<p>为了避免引入偏差，dropout采用无偏噪声注入方式，每个中间激活值$h$以暂退概率$p$被置零，保留下来的放大为$h/(1-p)$，$h’$表示为<br>$$<br>\begin{split}\begin{aligned}<br>h’ =<br>\begin{cases}<br>    0 &amp; \text{ 概率为 } p \\<br>    \frac{h}{1-p} &amp; \text{ 其他情况}<br>\end{cases}<br>\end{aligned}\end{split}<br>$$<br>这样保证其期望值不变$E[h’] = h$</p>
+<h3 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h3><p>之前的多层感知机中带有1个隐藏层和5个隐藏单元，将暂退法应用到隐藏层，以$p$的概率将隐藏单元置为零，相当于每次训练时使用原网络的一个子网络</p>
+<p>使得输出层的计算不能过度依赖于$h_1, \ldots, h_5$的任何一个元素，提高模型的泛化性</p>
+<img src="https://zh.d2l.ai/_images/dropout2.svg" style="zoom:80%;">
+
+<p>测试阶段不使用dropout，也无需缩放；若模型在多次随机遮盖后仍能给出一致预测，说明其具有良好的稳定性与鲁棒性</p>
+<h3 id="底层实现-1"><a href="#底层实现-1" class="headerlink" title="底层实现"></a>底层实现</h3><p>要实现单层的暂退法函数，可以从均匀分布$U[0, 1]$中生成与该层神经元维度相同的随机张量，保留其中大于丢弃概率$p$的元素，其余置零</p>
+<p><code>dropout_layer</code> 函数：以<code>dropout</code>的概率丢弃张量输入<code>X</code>中的元素，再将剩余部分除以<code>1.0-dropout</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dropout_layer</span>(<span class="params">X, dropout</span>):</span><br><span class="line">    <span class="keyword">assert</span> <span class="number">0</span> &lt;= dropout &lt;= <span class="number">1</span></span><br><span class="line">    <span class="comment"># 在本情况中，所有元素都被丢弃</span></span><br><span class="line">    <span class="keyword">if</span> dropout == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> torch.zeros_like(X)</span><br><span class="line">    <span class="comment"># 在本情况中，所有元素都被保留</span></span><br><span class="line">    <span class="keyword">if</span> dropout == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> X</span><br><span class="line">    mask = (torch.rand(X.shape) &gt; dropout).<span class="built_in">float</span>() <span class="comment"># 均匀分布丢弃</span></span><br><span class="line">    <span class="keyword">return</span> mask * X / (<span class="number">1.0</span> - dropout)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将输入<code>X</code>通过暂退法操作，暂退概率分别为0、0.5和1来测试<code>dropout_layer</code>函数</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X = torch.arange(<span class="number">16</span>).reshape((<span class="number">2</span>,<span class="number">8</span>))</span><br><span class="line"><span class="built_in">print</span>(X)</span><br><span class="line"><span class="built_in">print</span>(dropout_layer(X, <span class="number">0.</span>))</span><br><span class="line"><span class="built_in">print</span>(dropout_layer(X, <span class="number">0.5</span>))</span><br><span class="line"><span class="built_in">print</span>(dropout_layer(X, <span class="number">1.</span>))</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="定义模型参数"><a href="#定义模型参数" class="headerlink" title="定义模型参数"></a>定义模型参数</h4><p>同样使用Fashion-MNIST数据集，定义具有两个隐藏层的多层感知机，每个隐藏层包含256个单元</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num_inputs, num_outputs, num_hiddens1, num_hiddens2 = <span class="number">784</span>, <span class="number">10</span>, <span class="number">256</span>, <span class="number">256</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="定义模型"><a href="#定义模型" class="headerlink" title="定义模型"></a>定义模型</h4><p>在网络中，通常在每个隐藏层的激活函数之后应用暂退法，并为不同层设置各自的暂退概率</p>
+<p>通常在靠近输入层的位置使用较小的暂退概率，而在更深层使用较大的暂退概率，以在保留关键信息的同时增强模型的正则化效果</p>
+<p>下面的模型将第一个和第二个隐藏层的暂退概率分别设置为0.2和0.5，并且暂退法只在训练期间有效</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Net</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, num_inputs, num_outputs, num_hiddens1, num_hiddens2, is_training = <span class="literal">True</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(Net, <span class="variable language_">self</span>).__init__() <span class="comment"># 调用 父类 nn.Module 的构造函数</span></span><br><span class="line">        <span class="variable language_">self</span>.num_inputs = num_inputs</span><br><span class="line">        <span class="variable language_">self</span>.training = is_training</span><br><span class="line">        <span class="variable language_">self</span>.lin1 = nn.Linear(num_inputs, num_hiddens1)</span><br><span class="line">        <span class="variable language_">self</span>.lin2 = nn.Linear(num_hiddens1, num_hiddens2)</span><br><span class="line">        <span class="variable language_">self</span>.lin3 = nn.Linear(num_hiddens2, num_outputs)</span><br><span class="line">        <span class="variable language_">self</span>.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, X</span>):</span><br><span class="line">        H1 = <span class="variable language_">self</span>.relu(<span class="variable language_">self</span>.lin1(X.reshape(-<span class="number">1</span>, <span class="variable language_">self</span>.num_inputs)))</span><br><span class="line">        <span class="comment"># 只有在训练模型时才使用dropout</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.training == <span class="literal">True</span>:</span><br><span class="line">            <span class="comment"># 在第一个全连接层之后添加一个dropout层</span></span><br><span class="line">            H1 = dropout_layer(H1, dropout1)</span><br><span class="line">        H2 = <span class="variable language_">self</span>.relu(<span class="variable language_">self</span>.lin2(H1))</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.training == <span class="literal">True</span>:</span><br><span class="line">            <span class="comment"># 在第二个全连接层之后添加一个dropout层</span></span><br><span class="line">            H2 = dropout_layer(H2, dropout2)</span><br><span class="line">        out = <span class="variable language_">self</span>.lin3(H2)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line">    </span><br><span class="line">dropout1, dropout2 = <span class="number">0.2</span>, <span class="number">0.5</span></span><br><span class="line">net = Net(num_inputs, num_outputs, num_hiddens1, num_hiddens2)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入层 → 全连接层1 → ReLU → Dropout1 → 全连接层2 → ReLU → Dropout2 → 输出层</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="训练和测试-1"><a href="#训练和测试-1" class="headerlink" title="训练和测试"></a>训练和测试</h4><p>类似于前面描述的多层感知机训练和测试</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">num_epochs, lr, batch_size = <span class="number">10</span>, <span class="number">0.5</span>, <span class="number">256</span></span><br><span class="line">loss = nn.CrossEntropyLoss(reduction=<span class="string">'none'</span>)</span><br><span class="line">train_iter, test_iter = load_data_fashion_mnist(batch_size)</span><br><span class="line">trainer = torch.optim.SGD(net.parameters(), lr = lr)</span><br><span class="line">train_ch3(net, train_iter, test_iter, loss, num_epochs, trainer)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Epoch  1/10: loss=0.8763, train_acc=0.672, test_acc=0.768</span><br><span class="line">Epoch  2/10: loss=0.5306, train_acc=0.805, test_acc=0.801</span><br><span class="line">Epoch  3/10: loss=0.4581, train_acc=0.833, test_acc=0.835</span><br><span class="line">Epoch  4/10: loss=0.4245, train_acc=0.846, test_acc=0.846</span><br><span class="line">Epoch  5/10: loss=0.3993, train_acc=0.854, test_acc=0.813</span><br><span class="line">Epoch  6/10: loss=0.3813, train_acc=0.861, test_acc=0.859</span><br><span class="line">Epoch  7/10: loss=0.3660, train_acc=0.864, test_acc=0.846</span><br><span class="line">Epoch  8/10: loss=0.3554, train_acc=0.870, test_acc=0.841</span><br><span class="line">Epoch  9/10: loss=0.3444, train_acc=0.873, test_acc=0.864</span><br><span class="line">Epoch 10/10: loss=0.3317, train_acc=0.877, test_acc=0.840</span><br><span class="line">Final loss 0.332, train acc 0.877, test acc 0.840</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019193516180.png" alt="image-20251019193516180" style="zoom:67%;">
+
+<h3 id="简洁实现-1"><a href="#简洁实现-1" class="headerlink" title="简洁实现"></a>简洁实现</h3><p>对于深度学习框架，只需在每个全连接层之后添加一个<code>Dropout</code>层，将暂退概率作为唯一的参数传递给它的构造函数</p>
+<p>在训练时，<code>Dropout</code>层将根据指定的暂退概率随机丢弃上一层的输出(相当于下一层的输入)</p>
+<p>在测试时，<code>Dropout</code>层仅传递数据</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">dropout1, dropout2 = <span class="number">0.2</span>, <span class="number">0.5</span></span><br><span class="line">num_inputs, num_outputs, num_hiddens1, num_hiddens2 = <span class="number">784</span>, <span class="number">10</span>, <span class="number">256</span>, <span class="number">256</span></span><br><span class="line">net = nn.Sequential(</span><br><span class="line">    nn.Flatten(),</span><br><span class="line">    nn.Linear(num_inputs, num_hiddens1),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    <span class="comment"># 在第一个全连接层之后添加一个dropout层</span></span><br><span class="line">    nn.Dropout(dropout1),</span><br><span class="line">    nn.Linear(num_hiddens1, num_hiddens2),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    <span class="comment"># 在第二个全连接层之后添加一个dropout层</span></span><br><span class="line">    nn.Dropout(dropout2),</span><br><span class="line">    nn.Linear(num_hiddens2, num_outputs)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_weights</span>(<span class="params">m</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span>(m) == nn.Linear:</span><br><span class="line">        nn.init.normal_(m.weight, std=<span class="number">0.01</span>)</span><br><span class="line">net.apply(init_weights)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>对模型进行训练和测试</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">dropout1, dropout2 = <span class="number">0.2</span>, <span class="number">0.5</span></span><br><span class="line">num_inputs, num_outputs, num_hiddens1, num_hiddens2 = <span class="number">784</span>, <span class="number">10</span>, <span class="number">256</span>, <span class="number">256</span></span><br><span class="line">net = nn.Sequential(</span><br><span class="line">    nn.Flatten(),</span><br><span class="line">    nn.Linear(num_inputs, num_hiddens1),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    <span class="comment"># 在第一个全连接层之后添加一个dropout层</span></span><br><span class="line">    nn.Dropout(dropout1),</span><br><span class="line">    nn.Linear(num_hiddens1, num_hiddens2),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    <span class="comment"># 在第二个全连接层之后添加一个dropout层</span></span><br><span class="line">    nn.Dropout(dropout2),</span><br><span class="line">    nn.Linear(num_hiddens2, num_outputs)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_weights</span>(<span class="params">m</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span>(m) == nn.Linear:</span><br><span class="line">        nn.init.normal_(m.weight, std=<span class="number">0.01</span>)</span><br><span class="line">net.apply(init_weights)</span><br><span class="line"></span><br><span class="line">trainer = torch.optim.SGD(net.parameters(), lr=lr)</span><br><span class="line">train_ch3(net, train_iter, test_iter, loss, num_epochs, trainer)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Epoch  1/10: loss=1.1567, train_acc=0.555, test_acc=0.721</span><br><span class="line">Epoch  2/10: loss=0.5841, train_acc=0.785, test_acc=0.797</span><br><span class="line">Epoch  3/10: loss=0.4915, train_acc=0.820, test_acc=0.750</span><br><span class="line">Epoch  4/10: loss=0.4529, train_acc=0.834, test_acc=0.831</span><br><span class="line">Epoch  5/10: loss=0.4177, train_acc=0.848, test_acc=0.847</span><br><span class="line">Epoch  6/10: loss=0.3963, train_acc=0.855, test_acc=0.847</span><br><span class="line">Epoch  7/10: loss=0.3803, train_acc=0.860, test_acc=0.857</span><br><span class="line">Epoch  8/10: loss=0.3637, train_acc=0.865, test_acc=0.861</span><br><span class="line">Epoch  9/10: loss=0.3565, train_acc=0.870, test_acc=0.859</span><br><span class="line">Epoch 10/10: loss=0.3455, train_acc=0.873, test_acc=0.856</span><br><span class="line">Final loss 0.346, train acc 0.873, test acc 0.856</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251019194335420.png" alt="image-20251019194335420" style="zoom: 67%;">
+
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>暂退法在前向传播过程中，计算每一内部层的同时丢弃一些神经元</li>
+<li>暂退法可以避免过拟合，它通常与控制权重向量的维数和大小结合使用的</li>
+<li>暂退法将活性值替换为具有相同期望值的随机变量</li>
+<li>暂退法仅在训练期间使用</li>
+</ul>
+<p>对比一下Dropout与权重衰减</p>
+<table>
+<thead>
+<tr>
+<th>正则化方式</th>
+<th>控制复杂度的方式</th>
+<th>直观效果</th>
+<th>正则对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>权重衰减</td>
+<td>直接惩罚权重的$L_2$范数<br>抑制参数变大</td>
+<td>让模型“更平滑”<br>权重分布更均匀</td>
+<td>参数空间的正则化</td>
+</tr>
+<tr>
+<td>暂退法</td>
+<td>训练时随机屏蔽部分神经元输出<br>防止神经元共适应</td>
+<td>让模型“更稀疏”<br>逼迫网络学习多种子结构</td>
+<td>结构空间的正则化</td>
+</tr>
+</tbody></table>
+<p>二者都能降低模型方差、增强泛化，但机制互补</p>
+<p>同时使用暂退法和权重衰减不会互相抵消，但会出现正则化叠加的边际效应递减，反而可能导致欠拟合或性能下降</p>
+<p>一般根据任务类型选择其一：</p>
+<ul>
+<li>Dropout → 对高维输入(如图像、文本)特别有效</li>
+<li>$L_2$ → 对权重尺度敏感的任务(如回归或线性模型)常用</li>
+</ul>
+<h3 id="思考题-3"><a href="#思考题-3" class="headerlink" title="思考题"></a>思考题</h3><ol>
+<li><p>如果将暂退法应用到权重矩阵的各个权重，而不是激活值，会发生什么？</p>
+<p>如果把 Dropout 施加到权重矩阵上，模型会变成类似DropConnect(Wan et al., 2013)的形式，随机屏蔽神经元连接，而非神经元输出，它理论上更强，但训练更噪、更慢、不稳定</p>
+</li>
+</ol>
+<h2 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h2><p>已经学习了如何用小批量随机梯度下降训练模型，但实现过程中只考虑了通过前向传播(forward propagation)所涉及的计算，在计算梯度时，只调用了深度学习框架提供的反向传播函数，而不知其所以然</p>
+<p>梯度的自动计算(自动微分)大大简化了深度学习算法的实现，现在来探讨反向传播的细节</p>
+<h3 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h3><p>前向传播(forward propagation或forward pass)指的是按顺序(从输入层到输出层)计算和存储神经网络中每层的结果</p>
+<p>假设输入样本是$\mathbf{x}\in \mathbb{R}^d$，并且隐藏层不包括偏置项，这里的中间变量是<br>$$<br>\mathbf{z}= \mathbf{W}^{(1)} \mathbf{x}<br>$$<br>其中$\mathbf{W}^{(1)} \in \mathbb{R}^{h \times d}$是隐藏层的权重参数，将中间变量$\mathbf{z}\in \mathbb{R}^h$通过激活函数后，得到长度为$h$的隐藏激活向量<br>$$<br>\mathbf{h}= \phi (\mathbf{z})<br>$$<br>假设输出层的参数只有权重$\mathbf{W}^{(2)} \in \mathbb{R}^{q \times h}$，可以得到输出层变量，它是一个长度为$q$的向量<br>$$<br>\mathbf{o}= \mathbf{W}^{(2)} \mathbf{h}<br>$$<br>假设损失函数为$l$，样本标签为$y$，单个数据样本的损失项<br>$$<br>L = l(\mathbf{o}, y)<br>$$<br>根据$L_2$正则化的定义，给定超参数$\lambda$，正则化项为<br>$$<br>s = \frac{\lambda}{2} \left(\mid\mid\mathbf{W}^{(1)}\mid\mid_F^2 + \mid\mid\mathbf{W}^{(2)}\mid\mid_F^2\right),<br>$$<br>模型在给定数据样本上的正则化损失为<br>$$<br>J = L + s<br>$$<br>将$J$称为目标函数</p>
+<h3 id="前向传播计算图"><a href="#前向传播计算图" class="headerlink" title="前向传播计算图"></a>前向传播计算图</h3><p>绘制计算图有助于可视化计算中操作符和变量的依赖关系</p>
+<p>与上述简单网络相对应的计算图</p>
+<p><img src="https://zh.d2l.ai/_images/forward.svg"></p>
+<p>其中正方形表示变量，圆圈表示操作符</p>
+<p>左下角表示输入，右上角表示输出</p>
+<h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>**反向传播(backward propagation或backpropagation)**指的是计算神经网络参数梯度的方法</p>
+<p>该方法根据微积分中的链式规则，按相反的顺序从输出层到输入层遍历网络</p>
+<p>算法存储了计算某些参数梯度时所需的任何中间变量(偏导数)</p>
+<p>根据链式法则得到<br>$$<br>\begin{aligned}\frac{\partial J}{\partial \mathbf{W}^{(1)}}<br>= \text{prod}\left(\frac{\partial J}{\partial \mathbf{z}}, \frac{\partial \mathbf{z}}{\partial \mathbf{W}^{(1)}}\right) + \text{prod}\left(\frac{\partial J}{\partial s}, \frac{\partial s}{\partial \mathbf{W}^{(1)}}\right)<br>= \frac{\partial J}{\partial \mathbf{z}} \mathbf{x}^\top + \lambda \mathbf{W}^{(1)}\\<br>\frac{\partial J}{\partial \mathbf{W}^{(2)}}= \text{prod}\left(\frac{\partial J}{\partial \mathbf{o}}, \frac{\partial \mathbf{o}}{\partial \mathbf{W}^{(2)}}\right) + \text{prod}\left(\frac{\partial J}{\partial s}, \frac{\partial s}{\partial \mathbf{W}^{(2)}}\right)= \frac{\partial J}{\partial \mathbf{o}} \mathbf{h}^\top + \lambda \mathbf{W}^{(2)} \end{aligned}<br>$$</p>
+<h3 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h3><p>在训练神经网络时，前向传播和反向传播相互依赖</p>
+<p>以上述简单网络为例</p>
+<p>前向传播期间计算正则项取决于模型参数$\mathbf{W}^{(1)}$和$\mathbf{W}^{(2)}$的当前值，是由优化算法根据最近迭代的反向传播给出的</p>
+<p>反向传播期间参数的梯度计算，取决于由前向传播给出的隐藏变量$\mathbf{h}$的当前值</p>
+<h2 id="稳定性和初始化"><a href="#稳定性和初始化" class="headerlink" title="稳定性和初始化"></a>稳定性和初始化</h2><p>初始化方案的选择在神经网络学习中起着举足轻重的作用，它对保持数值稳定性至关重要</p>
+<p>选择哪个函数以及如何初始化参数可以决定优化算法收敛的速度有多快</p>
+<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>考虑一个具有$L$层、输入$\mathbf{x}$和输出$\mathbf{o}$的深层网络，如果所有隐藏变量和输入都是向量，可以将$\mathbf{o}$关于任何一组参数$\mathbf{W}^{(l)}$的梯度写为下式<br>$$<br>\partial_{\mathbf W^{(l)}} \mathbf o = \underbrace{\partial_{\mathbf h^{(L-1)}} \mathbf h^{(L)}}<em>{ \mathbf M^{(L)} \stackrel{\mathrm{def}}{=}} \cdot \ldots \cdot \underbrace{\partial</em>{\mathbf h^{(l)}} \mathbf h^{(l+1)}}<em>{ \mathbf M^{(l+1)} \stackrel{\mathrm{def}}{=}} \underbrace{\partial</em>{\mathbf W^{(l)}} \mathbf h^{(l)}}_{ \mathbf v^{(l)} \stackrel{\mathrm{def}}{=}}.<br>$$<br>该梯度是$L-l$个矩阵$\mathbf{M}^{(L)} \cdot \ldots \cdot \mathbf{M}^{(l+1)}$与梯度向量$\mathbf{v}^{(l)}$的乘积，容易受到数值上下溢问题的影响</p>
+<p>不稳定梯度也威胁到优化算法的稳定性</p>
+<ul>
+<li>梯度爆炸(gradient exploding)问题：参数更新过大，破坏了模型的稳定收敛</li>
+<li>梯度消失(gradient vanishing)问题：参数更新过小，在每次更新时几乎不会移动，导致模型无法学习</li>
+</ul>
+<p>神经网络在参数化中存在<strong>对称性问题</strong>，隐藏层的多个单元可以通过权重重排获得相同的函数</p>
+<p>若所有隐藏单元用相同参数初始化，它们在前向传播中输出相同激活，反向传播中获得相同梯度，训练过程无法打破这种对称性，网络退化为仅一个有效单元，表达能力大幅下降</p>
+<p>虽然梯度下降无法打破这种对称性，但暂退法可通过随机扰动有效缓解这一问题</p>
+<h3 id="参数初始化"><a href="#参数初始化" class="headerlink" title="参数初始化"></a>参数初始化</h3><p>解决上述问题的一种方法是进行参数初始化，适当的正则化也可以进一步提高稳定性</p>
+<h4 id="默认初始化"><a href="#默认初始化" class="headerlink" title="默认初始化"></a>默认初始化</h4><p>如果不指定初始化方法，框架将使用默认的随机初始化方法，对于中等难度的问题，这种方法通常很有效</p>
+<p>根据不同层的类型，默认初始化方式也不相同</p>
+<table>
+<thead>
+<tr>
+<th>层类型</th>
+<th>默认初始化</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nn.Linear</code> <code>nn.Conv2d</code></td>
+<td>Kaiming Uniform</td>
+<td>适合 ReLU 系激活</td>
+</tr>
+<tr>
+<td><code>nn.BatchNorm</code></td>
+<td>权重=1，偏置=0</td>
+<td>保持尺度一致</td>
+</tr>
+<tr>
+<td><code>nn.Embedding</code></td>
+<td>均匀分布 U(-1, 1)</td>
+<td>向量随机初始化</td>
+</tr>
+<tr>
+<td><code>nn.LSTM</code> <code>nn.GRU</code></td>
+<td>Xavier Uniform(Glorot)</td>
+<td>平衡输入与输出方差</td>
+</tr>
+</tbody></table>
+<h4 id="Xavier初始化"><a href="#Xavier初始化" class="headerlink" title="Xavier初始化"></a>Xavier初始化</h4><p><strong>Xavier(Glorot)初始化</strong>是深度学习中最早、最经典的权重初始化方法之一</p>
+<p>核心思想：让每层的输入和输出方差尽量相同，从而保持信号在网络中传播时的尺度稳定</p>
+<p>为了让前向传播和反向传播都稳定<br>$$<br>Var(w)=\frac{2}{n_{in}+n_{out}}<br>$$<br>$n_{in}$：该层输入单元数</p>
+<p>$n_{out}$：该层输出单元数</p>
+<p>使得输入信号在传播到下一层时既不会放大也不会衰减</p>
+<p>提供了两种分布形式：均匀分布(Pytorch默认)和正态分布<br>$$<br>w \sim U\left(-\sqrt{\frac{6}{n_{in}+n_{out}}}, \sqrt{\frac{6}{n_{in}+n_{out}}}\right)<br>$$<br>尽管在其数学推理中“不存在非线性”的假设在神经网络中很容易被违反，但Xavier初始化方法在实践中被证明是有效的</p>
+<h4 id="Kaiming初始化"><a href="#Kaiming初始化" class="headerlink" title="Kaiming初始化"></a>Kaiming初始化</h4><p><strong>Kaiming(He)初始化</strong>是一种专门为 ReLU 及其变体设计的权重初始化方法</p>
+<p>核心思想：让每层的输出方差与输入方差保持一致，使信号在深层网络中既不过强也不过弱</p>
+<p>如果输入是独立的零均值变量，而 ReLU 会把一半的输入变为 0，为了维持方差恒定需要满足<br>$$<br>Var(w)=\frac{2}{n_{in}}<br>$$<br>提供了两种分布形式：均匀分布(Pytorch默认)和正态分布<br>$$<br>w \sim U\left(-\sqrt{\frac{6}{n_{i n}}}, \sqrt{\frac{6}{n_{i n}}}\right)<br>$$</p>
+<h3 id="对称性问题"><a href="#对称性问题" class="headerlink" title="对称性问题"></a>对称性问题</h3><p>神经网络中的“对称性”往往意味着“参数冗余”</p>
+<p>若多个单元、通道、时间步或模块在初始时完全相同，它们在训练中将始终保持相同，无法学习到互补特征</p>
+<p>通过随机初始化、正则化或结构差异来打破对称性，是让网络具备表达力与泛化能力的关键</p>
+<table>
+<thead>
+<tr>
+<th>网络类型</th>
+<th>对称性来源</th>
+<th>后果</th>
+<th>打破方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MLP</td>
+<td>隐藏单元可交换</td>
+<td>单元退化为相同功能</td>
+<td>随机初始化、dropout</td>
+</tr>
+<tr>
+<td>CNN</td>
+<td>通道交换</td>
+<td>特征图重复</td>
+<td>随机初始化、BN</td>
+</tr>
+<tr>
+<td>RNN/LSTM</td>
+<td>时间步相同</td>
+<td>无时间差异</td>
+<td>随机初始化、输入扰动</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>注意力头可交换</td>
+<td>多头退化为单头</td>
+<td>独立头部初始化</td>
+</tr>
+<tr>
+<td>Autoencoder</td>
+<td>编解码镜像</td>
+<td>恒等映射</td>
+<td>独立参数、噪声</td>
+</tr>
+<tr>
+<td>GAN</td>
+<td>G/D 对称博弈</td>
+<td>模式坍塌</td>
+<td>不同学习率、G/D异步更新</td>
+</tr>
+</tbody></table>
+<h2 id="分布偏移"><a href="#分布偏移" class="headerlink" title="分布偏移"></a>分布偏移</h2><p>在理想条件下，通常假设训练集和测试集都是从同一分布独立采样得到的(独立同分布)</p>
+<p>但现实中，这个假设几乎总是被打破，于是模型在训练环境中表现很好，却在新环境下表现糟糕，这就是<strong>分布偏移（distribution shift）</strong></p>
+<p>当这种分布差异是由外部环境变化（如天气、地域、设备差异等）导致的，也称之为<strong>环境偏移（environment shift）</strong></p>
+<h3 id="分布偏移类型"><a href="#分布偏移类型" class="headerlink" title="分布偏移类型"></a>分布偏移类型</h3><h4 id="协变量偏移"><a href="#协变量偏移" class="headerlink" title="协变量偏移"></a>协变量偏移</h4><p>在不同分布偏移中，**协变量偏移（covariate shift）**可能是最为广泛研究的</p>
+<p>假设：</p>
+<ul>
+<li>输入数据的分布$P(\mathbf{x})$改变了</li>
+<li>但输入与标签之间的映射关系$$P(y\mid \mathbf{x})$$保持不变</li>
+</ul>
+<p>比如猫狗分类问题，训练使用真实拍摄图片，测试使用卡通图片</p>
+<h4 id="标签偏移"><a href="#标签偏移" class="headerlink" title="标签偏移"></a>标签偏移</h4><p>**标签偏移（label shift）**描述了与协变量偏移相反的问题</p>
+<p>假设：</p>
+<ul>
+<li>各类样本的比例$P(y)$发生变化</li>
+<li>同一类别的样本外观（或特征分布）$$P(\mathbf{x} \mid y)$$不变</li>
+</ul>
+<p>当认为$y$导致$\mathbf{x}$时，标签偏移是一个合理的假设，例如预测患者的疾病，可能根据症状来判断</p>
+<h4 id="概念偏移"><a href="#概念偏移" class="headerlink" title="概念偏移"></a>概念偏移</h4><p><strong>概念偏移/条件偏移</strong>：$P(\mathbf{x})$和$P(y)$可能没发生改变，但$P(y\mid \mathbf x)$发生改变了</p>
+<p>输入与标签的关系变了</p>
+<p>比如不同地区对一个词的解释是不一样的，不同国家的交通指示不一样</p>
+<h2 id="学习问题的分类法"><a href="#学习问题的分类法" class="headerlink" title="学习问题的分类法"></a>学习问题的分类法</h2><h3 id="批量学习"><a href="#批量学习" class="headerlink" title="批量学习"></a>批量学习</h3><p>在**批量学习（batch learning）**中，可以访问一组训练特征和标签${(\mathbf{x}_1, y_1), \ldots, (\mathbf{x}_n, y_n)}$，使用这些特性和标签训练$f(\mathbf{x})$，然后部署此模型来对来自同一分布的新数据进行评分，基本再也不会更新</p>
+<h3 id="在线学习"><a href="#在线学习" class="headerlink" title="在线学习"></a>在线学习</h3><p>除了“批量”地学习，还可以单个“在线”学习数据$(\mathbf{x}_i, y_i)$</p>
+<p>首先观测到$\mathbf{x}_i$，得出一个估计值$f(\mathbf{x}_i)$，当做到这一点后才观测到$y_i$，根据决定会得到奖励或损失</p>
+<p>许多实际问题都属于这一类</p>
+<p>在**在线学习（online learning）**中有以下的循环，在这个循环中给定新的观测结果会不断地改进模型<br>$$<br>\mathrm{model} ~ f_t \rightarrow<br>\mathrm{data} ~ \mathbf x_t \rightarrow<br>\mathrm{estimate} ~ f_t(\mathbf x_t) \rightarrow<br>\mathrm{observation} ~ y_t \rightarrow<br>\mathrm{loss} ~ l(y_t, f_t(\mathbf x_t)) \rightarrow<br>\mathrm{model} ~ f_{t+1}<br>$$</p>
+<h3 id="老虎机"><a href="#老虎机" class="headerlink" title="老虎机"></a>老虎机</h3><p>**老虎机（bandits）**是上述问题的一个特例，虽然在大多数学习问题中有一个连续参数化的函数$f$，</p>
+<p>但在一个老虎机问题中，可以采取的行动是有限的，面对多个未知收益的选择，每次只能选择一个行动并获得反馈</p>
+<p>探索与利用之间的权衡，常见贪心算法</p>
+<h3 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h3><p>**强化学习（reinforcement learning）**强调如何基于环境而行动，以取得最大化的预期利益</p>
+<p>国际象棋、围棋、西洋双陆棋或星际争霸都是强化学习的应用实例</p>
+<p>类似老虎机，但是强化学习的奖励是延迟的</p>
+<p>与监督学习的区别</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>监督学习</th>
+<th>强化学习</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>训练数据</td>
+<td>已知输入–输出对</td>
+<td>通过环境交互生成</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>最小化预测误差</td>
+<td>最大化长期回报</td>
+</tr>
+<tr>
+<td>反馈</td>
+<td>即时且确定</td>
+<td>延迟且随机</td>
+</tr>
+<tr>
+<td>学习方式</td>
+<td>离线学习</td>
+<td>在线学习（边探索边更新）</td>
+</tr>
+<tr>
+<td>典型问题</td>
+<td>分类 / 回归</td>
+<td>决策 / 控制</td>
+</tr>
+</tbody></table>
+<h2 id="Kaggle实践"><a href="#Kaggle实践" class="headerlink" title="Kaggle实践"></a>Kaggle实践</h2><p>Kaggle的房价预测比赛，此数据集由Bart de Cock于2011年收集，涵盖了2006-2010年期间亚利桑那州埃姆斯市的房价，它比哈里森和鲁宾菲尔德的波士顿房价数据集要大得多，也有更多的特征</p>
+<h3 id="下载和缓存数据集"><a href="#下载和缓存数据集" class="headerlink" title="下载和缓存数据集"></a>下载和缓存数据集</h3><p>首先建立字典<code>DATA_HUB</code>，它可以将数据集名称的字符串映射到数据集相关的二元组上，这个二元组包含数据集的url和验证文件完整性的sha-1密钥，所有类似的数据集都托管在地址为<code>DATA_URL</code>的站点上</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> tarfile</span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment">#@save</span></span><br><span class="line">DATA_HUB = <span class="built_in">dict</span>()</span><br><span class="line">DATA_URL = <span class="string">'http://d2l-data.s3-accelerate.amazonaws.com/'</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>download</code>函数用来下载数据集，如果缓存目录中已经存在此数据集文件，并且其sha-1与存储在<code>DATA_HUB</code>中的相匹配，将使用缓存的文件，以避免重复的下载</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">download</span>(<span class="params">name, cache_dir=<span class="string">"data"</span></span>):  <span class="comment">#@save</span></span><br><span class="line">    <span class="string">"""下载一个DATA_HUB中的文件，返回本地文件名"""</span></span><br><span class="line">    <span class="keyword">assert</span> name <span class="keyword">in</span> DATA_HUB, <span class="string">f"<span class="subst">{name}</span> 不存在于 <span class="subst">{DATA_HUB}</span>"</span></span><br><span class="line">    url, sha1_hash = DATA_HUB[name]</span><br><span class="line">    os.makedirs(cache_dir, exist_ok=<span class="literal">True</span>)</span><br><span class="line">    fname = os.path.join(cache_dir, url.split(<span class="string">'/'</span>)[-<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(fname): <span class="comment"># 如果文件存在</span></span><br><span class="line">        sha1 = hashlib.sha1() <span class="comment"># 计算哈希值，验证文件是否被篡改或损坏</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(fname, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                data = f.read(<span class="number">1048576</span>) <span class="comment"># 每次从文件中读取1MB数据</span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                sha1.update(data) <span class="comment"># 把刚读到的字节块加入到哈希计算中</span></span><br><span class="line">        <span class="keyword">if</span> sha1.hexdigest() == sha1_hash:</span><br><span class="line">            <span class="keyword">return</span> fname  <span class="comment"># 如果哈希值匹配则返回缓存文件</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f'正在从<span class="subst">{url}</span>下载<span class="subst">{fname}</span>...'</span>)</span><br><span class="line">    r = requests.get(url, stream=<span class="literal">True</span>, verify=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(fname, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(r.content)</span><br><span class="line">    <span class="keyword">return</span> fname <span class="comment"># 返回本地文件路径</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>还需实现两个实用函数：一个将下载并解压缩一个zip或tar文件，另一个是将使用的所有数据集从<code>DATA_HUB</code>下载到缓存目录中</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">download_extract</span>(<span class="params">name, folder=<span class="literal">None</span></span>):  <span class="comment">#@save</span></span><br><span class="line">    <span class="string">"""下载并解压zip/tar文件"""</span></span><br><span class="line">    fname = download(name) <span class="comment"># 本地文件路径</span></span><br><span class="line">    <span class="comment"># 获取路径信息</span></span><br><span class="line">    base_dir = os.path.dirname(fname)</span><br><span class="line">    data_dir, ext = os.path.splitext(fname)</span><br><span class="line">    <span class="keyword">if</span> ext == <span class="string">'.zip'</span>:</span><br><span class="line">        fp = zipfile.ZipFile(fname, <span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">elif</span> ext <span class="keyword">in</span> (<span class="string">'.tar'</span>, <span class="string">'.gz'</span>):</span><br><span class="line">        fp = tarfile.<span class="built_in">open</span>(fname, <span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">assert</span> <span class="literal">False</span>, <span class="string">'只有zip/tar文件可以被解压缩'</span></span><br><span class="line">    fp.extractall(base_dir) <span class="comment"># 解压到base_dir</span></span><br><span class="line">    <span class="keyword">return</span> os.path.join(base_dir, folder) <span class="keyword">if</span> folder <span class="keyword">else</span> data_dir</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">download_all</span>():  <span class="comment">#@save</span></span><br><span class="line">    <span class="string">"""下载DATA_HUB中的所有文件"""</span></span><br><span class="line">    <span class="keyword">for</span> name <span class="keyword">in</span> DATA_HUB:</span><br><span class="line">        download(name)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Kaggle"><a href="#Kaggle" class="headerlink" title="Kaggle"></a>Kaggle</h3><p><a target="_blank" rel="noopener" href="https://www.kaggle.com/">Kaggle</a>是一个当今流行举办机器学习比赛的平台，每场比赛都以至少一个数据集为中心</p>
+<p>在房价预测比赛页面的“Data”选项卡下可以找到数据集</p>
+<h3 id="访问和读取数据集"><a href="#访问和读取数据集" class="headerlink" title="访问和读取数据集"></a>访问和读取数据集</h3><p>为方便起见可以使用上面定义的脚本下载并缓存Kaggle房屋数据集</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DATA_HUB[<span class="string">'kaggle_house_train'</span>] = (  <span class="comment">#@save</span></span><br><span class="line">    DATA_URL + <span class="string">'kaggle_house_pred_train.csv'</span>,</span><br><span class="line">    <span class="string">'585e9cc93e70b39160e7921475f9bcd7d31219ce'</span>)</span><br><span class="line"></span><br><span class="line">DATA_HUB[<span class="string">'kaggle_house_test'</span>] = (  <span class="comment">#@save</span></span><br><span class="line">    DATA_URL + <span class="string">'kaggle_house_pred_test.csv'</span>,</span><br><span class="line">    <span class="string">'fa19780a7b011d9b009e8bff8e99922a8ee2eb90'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将使用<code>pandas</code>读入并处理数据</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train_data = pd.read_csv(download(<span class="string">'kaggle_house_train'</span>))</span><br><span class="line">test_data = pd.read_csv(download(<span class="string">'kaggle_house_test'</span>))</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(train_data.shape) <span class="comment"># (1460, 81)</span></span><br><span class="line"><span class="built_in">print</span>(test_data.shape)  <span class="comment"># (1459, 80)</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>训练数据集包括1460个样本，每个样本80个特征和1个标签，测试数据集包含1459个样本，每个样本80个特征</p>
+<p>查看前四个和最后两个特征，以及相应标签（房价）</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(train_data.iloc[<span class="number">0</span>:<span class="number">4</span>,[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,-<span class="number">3</span>,-<span class="number">2</span>,-<span class="number">1</span>]])</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   Id  MSSubClass MSZoning  LotFrontage SaleType SaleCondition  SalePrice</span><br><span class="line">0   1          60       RL         65.0       WD        Normal     208500</span><br><span class="line">1   2          20       RL         80.0       WD        Normal     181500</span><br><span class="line">2   3          60       RL         68.0       WD        Normal     223500</span><br><span class="line">3   4          70       RL         60.0       WD       Abnorml     140000</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以看到，在每个样本中，第一个特征是ID，这有助于模型识别每个训练样本，但是并不携带任何信息，所以要删除该列</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">all_features = pd.concat((train_data.iloc[:, <span class="number">1</span>:-<span class="number">1</span>], test_data.iloc[:, <span class="number">1</span>:]))</span><br></pre></td></tr></tbody></table></figure>
+
+<p>训练集去掉<code>Id</code>和<code>SalePrice</code>，测试集只去掉<code>Id</code>列</p>
+<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p>在开始建模之前需要对数据进行预处理，需要将缺失值替换为相应特征的平均值</p>
+<p><font color="DarkViolet">为了将所有特征放在一个共同的尺度上，通过将特征重新缩放到零均值和单位方差来标准化数据</font><br>$$<br>x \leftarrow \frac{x - \mu}{\sigma}<br>$$</p>
+<table>
+<thead>
+<tr>
+<th>模型类型</th>
+<th>是否依赖标准化</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线性回归 / 逻辑回归</td>
+<td>必须</td>
+<td>梯度更新受特征尺度影响</td>
+</tr>
+<tr>
+<td>神经网络</td>
+<td>强烈建议</td>
+<td>有助于稳定训练、加快收敛</td>
+</tr>
+<tr>
+<td>SVM / KNN / PCA</td>
+<td>必须</td>
+<td>这些算法都依赖特征间的距离</td>
+</tr>
+<tr>
+<td>决策树 / 随机森林</td>
+<td>不需要</td>
+<td>树模型只关心特征的相对大小或阈值分割，不受尺度影响</td>
+</tr>
+</tbody></table>
+<p>标准化数据的原因：</p>
+<ul>
+<li>消除不同特征的量纲影响</li>
+<li>让梯度下降更快、更稳定</li>
+<li>避免某些特征主导模型学习</li>
+</ul>
+<p><code>number</code>类型数据处理：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选出所有数值类型的特征列</span></span><br><span class="line">numeric_features = all_features.select_dtypes(include=[np.number]).columns</span><br><span class="line"><span class="comment"># 对这些特征列进行标准化（减均值、除标准差）</span></span><br><span class="line">all_features[numeric_features] = all_features[numeric_features].apply(<span class="keyword">lambda</span> x: (x -x.mean()) / x.std())</span><br><span class="line"><span class="comment"># 在标准化数据之后，均值为0，因此可以将缺失值设置为0</span></span><br><span class="line">all_features[numeric_features] = all_features[numeric_features].fillna(<span class="number">0</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>离散数据处理：用独热编码替换</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># “Dummy_na=True”将“na”（缺失值）视为有效的特征值，并为其创建指示符特征</span></span><br><span class="line">all_features = pd.get_dummies(all_features, dummy_na=<span class="literal">True</span>) </span><br><span class="line">all_features = all_features.astype(<span class="built_in">float</span>)  <span class="comment"># 保证所有列都变成浮点型数值，可转为tensor</span></span><br><span class="line">all_features.shape  <span class="comment"># (2919, 330)</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>转换后将样本特征从79个增加到330个</p>
+<p>通过<code>values</code>属性，可以从<code>pandas</code>格式中提取NumPy格式，并将其转换为张量表示用于训练</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">n_train = train_data.shape[<span class="number">0</span>]</span><br><span class="line">train_features = torch.tensor(all_features[<span class="number">0</span>:n_train].values, dtype=torch.float32)</span><br><span class="line">test_features = torch.tensor(all_features[n_train:].values, dtype=torch.float32)</span><br><span class="line">train_labels = torch.tensor(train_data.SalePrice.values.reshape(-<span class="number">1</span>, <span class="number">1</span>), dtype=torch.float32)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="训练-2"><a href="#训练-2" class="headerlink" title="训练"></a>训练</h3><p>训练一个带有均方损失的线性模型，一般来说将线性模型将作为<strong>基线（baseline）模型</strong>，直观地知道最好的模型有超出简单的模型多少</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.MSELoss() </span><br><span class="line">in_features = train_features.shape[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_net</span>():</span><br><span class="line">    net = nn.Sequential(nn.Linear(in_features,<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">return</span> net</span><br></pre></td></tr></tbody></table></figure>
+
+<p>房价就像股票价格一样，更关心的是相对误差$\frac{y - \hat{y}}{y}$而不是绝对误差</p>
+<p>解决这个问题的一种方法是用价格预测的对数来衡量差异，事实上，这也是比赛中官方用来评价提交质量的误差指标</p>
+<p>将$\mid\log y - \log \hat{y}\mid \leq \delta$ 转换为 $e^{-\delta} \leq \frac{\hat{y}}{y} \leq e^\delta$，使得预测价格的对数与真实标签价格的对数之间出现以下<strong>均方根误差RMSLE</strong><br>$$<br>\sqrt{\frac{1}{n}\sum_{i=1}^n\left(\log y_i -\log \hat{y}_i\right)^2}<br>$$</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">log_rmse</span>(<span class="params">net, features, labels</span>):</span><br><span class="line">    <span class="comment"># 为了在取对数时进一步稳定该值，将小于1的值设置为1</span></span><br><span class="line">    clipped_preds = torch.clamp(net(features), <span class="number">1</span>, <span class="built_in">float</span>(<span class="string">'inf'</span>)) <span class="comment"># 将张量的值限制在指定区间</span></span><br><span class="line">    rmse = torch.sqrt(loss(torch.log(clipped_preds), torch.log(labels))) <span class="comment"># loss输入log</span></span><br><span class="line">    <span class="keyword">return</span> rmse.item() <span class="comment"># 转为float</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>与前面的部分不同，训练函数将借助Adam优化器(后面讲)，Adam优化器的主要吸引力在于它对初始学习率不那么敏感</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">net, train_features, train_labels, test_features, test_labels,</span></span><br><span class="line"><span class="params">          num_epochs, lr, weight_decay, batch_size</span>):</span><br><span class="line">    train_ls, test_ls = [], []</span><br><span class="line">    train_iter = load_array((train_features, train_labels), batch_size)</span><br><span class="line">    <span class="comment"># 使用Adam优化算法</span></span><br><span class="line">    optimizer = torch.optim.Adam(net.parameters(),</span><br><span class="line">                                 lr=lr,</span><br><span class="line">                                 weight_decay=weight_decay)</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">        <span class="keyword">for</span> X,y <span class="keyword">in</span> train_iter:</span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            l = loss(net(X), y)</span><br><span class="line">            l.backward()</span><br><span class="line">            optimizer.step()</span><br><span class="line">        train_ls.append(log_rmse(net, train_features, train_labels))</span><br><span class="line">        <span class="keyword">if</span> test_labels <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            test_ls.append(log_rmse(net, test_features, test_labels))</span><br><span class="line">    <span class="keyword">return</span> train_ls, test_ls</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="K折交叉验证-1"><a href="#K折交叉验证-1" class="headerlink" title="K折交叉验证"></a>K折交叉验证</h3><p>K折交叉验证有助于模型选择和超参数调整</p>
+<p>首先需要定义一个函数，在K折交叉验证过程中返回第$i$折的数据，具体来说就是它选择第$i$个切片作为验证数据,其余部分作为训练数据</p>
+<p>这并不是处理数据的最有效方法，如果数据集大得多，完整地复制和拼接数据会带来显著的内存与计算开销</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_k_fold_data</span>(<span class="params">k, i, X, y</span>):</span><br><span class="line">    <span class="keyword">assert</span> k &gt; <span class="number">1</span></span><br><span class="line">    fold_size = X.shape[<span class="number">0</span>] // k <span class="comment"># 每折大小</span></span><br><span class="line">    X_train, y_train = <span class="literal">None</span>, <span class="literal">None</span> <span class="comment"># 初始化为空</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(k): <span class="comment"># 循环划分每一折</span></span><br><span class="line">        idx = <span class="built_in">slice</span>(j * fold_size, (j + <span class="number">1</span>) * fold_size)</span><br><span class="line">        X_part, y_part = X[idx, :], y[idx] <span class="comment"># 对应每一折的内容</span></span><br><span class="line">        <span class="keyword">if</span> j == i:</span><br><span class="line">            X_valid, y_valid = X_part, y_part</span><br><span class="line">        <span class="keyword">elif</span> X_train <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            X_train, y_train = X_part, y_part</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            X_train = torch.cat([X_train, X_part], <span class="number">0</span>)</span><br><span class="line">            y_train = torch.cat([y_train, y_part], <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> X_train, y_train, X_valid, y_valid</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在K折交叉验证中训练K次后，返回训练和验证误差的平均值</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">k_fold</span>(<span class="params">k, X_train, y_train, num_epochs, lr, weight_decay,</span></span><br><span class="line"><span class="params">           batch_size</span>):</span><br><span class="line">    train_l_sum, valid_l_sum = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">        data = get_k_fold_data(k, i, X_train, y_train)</span><br><span class="line">        net = get_net()  <span class="comment"># 创建网络</span></span><br><span class="line">        <span class="comment"># 训练当前折</span></span><br><span class="line">        train_ls, valid_ls = train(net, *data, num_epochs, lr,</span><br><span class="line">                                   weight_decay, batch_size)</span><br><span class="line">        <span class="comment"># 累加最后一个 epoch 的训练与验证误差</span></span><br><span class="line">        train_l_sum += train_ls[-<span class="number">1</span>]</span><br><span class="line">        valid_l_sum += valid_ls[-<span class="number">1</span>]</span><br><span class="line">        <span class="comment"># 只绘制第一折的训练曲线</span></span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            plt.plot(<span class="built_in">range</span>(<span class="number">1</span>, num_epochs + <span class="number">1</span>), train_ls, label=<span class="string">'train'</span>)</span><br><span class="line">            plt.plot(<span class="built_in">range</span>(<span class="number">1</span>, num_epochs + <span class="number">1</span>), valid_ls, label=<span class="string">'valid'</span>, linestyle=<span class="string">'--'</span>)</span><br><span class="line">            plt.xlabel(<span class="string">'epoch'</span>)</span><br><span class="line">            plt.ylabel(<span class="string">'rmse'</span>)</span><br><span class="line">            plt.xlim(<span class="number">1</span>, num_epochs)</span><br><span class="line">            plt.yscale(<span class="string">'log'</span>)</span><br><span class="line">            plt.legend()</span><br><span class="line">            plt.grid(<span class="literal">True</span>)</span><br><span class="line">            plt.show()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f'折 <span class="subst">{i+<span class="number">1</span>}</span>: 训练 log RMSE = <span class="subst">{train_ls[-<span class="number">1</span>]:<span class="number">.4</span>f}</span>, 验证 log RMSE = <span class="subst">{valid_ls[-<span class="number">1</span>]:<span class="number">.4</span>f}</span>'</span>)</span><br><span class="line">    <span class="keyword">return</span> train_l_sum / k, valid_l_sum / k</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="模型选择-1"><a href="#模型选择-1" class="headerlink" title="模型选择"></a>模型选择</h3><p>找到合适的超参数通常需要较长时间，<font color="Violetred">当数据量充足且超参数设置合理时，K 折交叉验证结果通常稳定</font></p>
+<p>若超参数选择不当，验证误差可能失真，无法准确反映模型的真实性能</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">k, num_epochs, lr, weight_decay, batch_size = <span class="number">5</span>, <span class="number">100</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">64</span></span><br><span class="line">train_l, valid_l = k_fold(k, train_features, train_labels, num_epochs, lr,</span><br><span class="line">                          weight_decay, batch_size)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f'<span class="subst">{k}</span>-折验证: 平均训练log rmse: <span class="subst">{<span class="built_in">float</span>(train_l):f}</span>, '</span></span><br><span class="line">      <span class="string">f'平均验证log rmse: <span class="subst">{<span class="built_in">float</span>(valid_l):f}</span>'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里为什么lr设的这么大呢？因为对输入特征值做了标准化，使得特征值较小，同时输出值房价较大，所以nn的权重都较大，所以学习率要相应较大才能加快收敛速度</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251020141708112.png" alt="image-20251020141708112" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">折 1: 训练 log RMSE = 0.1705, 验证 log RMSE = 0.1562</span><br><span class="line">折 2: 训练 log RMSE = 0.1623, 验证 log RMSE = 0.1918</span><br><span class="line">折 3: 训练 log RMSE = 0.1637, 验证 log RMSE = 0.1679</span><br><span class="line">折 4: 训练 log RMSE = 0.1679, 验证 log RMSE = 0.1549</span><br><span class="line">折 5: 训练 log RMSE = 0.1626, 验证 log RMSE = 0.1825</span><br><span class="line">5-折验证: 平均训练log rmse: 0.165392, 平均验证log rmse: 0.170676</span><br></pre></td></tr></tbody></table></figure>
+
+<p>有时一组超参数的训练误差可能非常低，但K折交叉验证的误差要高得多，这表明模型过拟合了</p>
+<h3 id="提交Kaggle预测"><a href="#提交Kaggle预测" class="headerlink" title="提交Kaggle预测"></a>提交Kaggle预测</h3><p>使用所有数据对其进行训练，将预测保存在CSV文件中</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train_and_pred</span>(<span class="params">train_features, test_features, train_labels, test_data,</span></span><br><span class="line"><span class="params">                   num_epochs, lr, weight_decay, batch_size</span>):</span><br><span class="line">    net = get_net()</span><br><span class="line">    train_ls, _ = train(net, train_features, train_labels, <span class="literal">None</span>, <span class="literal">None</span>,</span><br><span class="line">                        num_epochs, lr, weight_decay, batch_size)</span><br><span class="line">    plt.figure(figsize=(<span class="number">6</span>,<span class="number">4</span>))</span><br><span class="line">    plt.plot(<span class="built_in">range</span>(<span class="number">1</span>, num_epochs + <span class="number">1</span>), train_ls, label=<span class="string">'train'</span>)</span><br><span class="line">    plt.xlabel(<span class="string">'epoch'</span>)</span><br><span class="line">    plt.ylabel(<span class="string">'log rmse'</span>)</span><br><span class="line">    plt.xlim(<span class="number">1</span>, num_epochs)</span><br><span class="line">    plt.yscale(<span class="string">'log'</span>)</span><br><span class="line">    plt.grid()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f'训练log rmse：<span class="subst">{<span class="built_in">float</span>(train_ls[-<span class="number">1</span>]):f}</span>'</span>)</span><br><span class="line">    <span class="comment"># 将网络应用于测试集。</span></span><br><span class="line">    preds = net(test_features).detach().numpy()</span><br><span class="line">    <span class="comment"># 将其重新格式化以导出到Kaggle</span></span><br><span class="line">    test_data[<span class="string">'SalePrice'</span>] = pd.Series(preds.reshape(<span class="number">1</span>, -<span class="number">1</span>)[<span class="number">0</span>])</span><br><span class="line">    submission = pd.concat([test_data[<span class="string">'Id'</span>], test_data[<span class="string">'SalePrice'</span>]], axis=<span class="number">1</span>)</span><br><span class="line">    submission.to_csv(<span class="string">'submission.csv'</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train_and_pred(train_features, test_features, train_labels, test_data,</span><br><span class="line">               num_epochs, lr, weight_decay, batch_size)</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">训练log rmse：0.162767</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20251020142631646.png" alt="image-20251020142631646" style="zoom: 80%;">
+
+<p>可以提交预测到Kaggle上，并查看在测试集上的预测与实际房价（标签）的比较情况</p>
+<h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>真实数据通常混合了不同的数据类型，需要进行预处理</li>
+<li>常用的预处理方法：将实值数据重新缩放为零均值和单位方法；用均值替换缺失值</li>
+<li>将类别特征转化为指标特征，可以把这个特征当作一个独热向量来对待</li>
+<li>可以使用折交叉验证来选择模型并调整超参数</li>
+<li>对数对于相对误差很有用</li>
+</ul>
+<p>当然，目前写的就是很简单的baseline，可优化空间非常多</p>
+<h3 id="思考题-4"><a href="#思考题-4" class="headerlink" title="思考题"></a>思考题</h3><ol>
+<li><p>用平均值替换缺失值总是好主意吗？</p>
+<p>用平均值填补缺失只在<strong>缺失完全随机</strong>的情况下合理，若缺失模式与特征或标签有关（非随机缺失），平均值填补会掩盖数据结构、引入系统性偏差，让模型学到错误的统计关系</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/9999.html">http://yhblogs.cn/posts/9999.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E2%8C%A8%EF%B8%8Fpython/">⌨️python</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21yzzx_1280x720.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/65314.html" title="深度学习计算"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-9oddld_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深度学习计算</div></div></a></div><div class="next-post pull-right"><a href="/posts/31940.html" title="线性神经网络"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-1qpqrw_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">线性神经网络</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/30698.html" title="BERT_Pytorch"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7jjyd9_2560x1440.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-09</div><div class="title">BERT_Pytorch</div></div></a></div><div><a href="/posts/31208.html" title="FunRec 推荐系统_精排模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1) (1).png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-18</div><div class="title">FunRec 推荐系统_精排模型</div></div></a></div><div><a href="/posts/24333.html" title="FunRec推荐系统_召回模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-vpp725_1280x720_(1).webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-14</div><div class="title">FunRec推荐系统_召回模型</div></div></a></div><div><a href="/posts/58676.html" title="Leetcode100记录"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-9ozdyx_1280x720.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="title">Leetcode100记录</div></div></a></div><div><a href="/posts/22642.html" title="windows安装ROCm"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/ROCm_logo.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-10</div><div class="title">windows安装ROCm</div></div></a></div><div><a href="/posts/3865533702.html" title="pyqt5简单实践"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071521231.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-28</div><div class="title">pyqt5简单实践</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-number">1.</span> <span class="toc-text">多层感知机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%90%E8%97%8F%E5%B1%82"><span class="toc-number">1.1.</span> <span class="toc-text">隐藏层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AF%AF%E5%B7%AE"><span class="toc-number">1.1.1.</span> <span class="toc-text">线性模型的误差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E8%97%8F%E5%B1%82%E7%9A%84%E5%8A%A0%E5%85%A5"><span class="toc-number">1.1.2.</span> <span class="toc-text">隐藏层的加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E7%BA%BF%E6%80%A7%E5%88%B0%E9%9D%9E%E7%BA%BF%E6%80%A7"><span class="toc-number">1.1.3.</span> <span class="toc-text">从线性到非线性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">激活函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ReLU%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text">ReLU函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sigmoid%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.</span> <span class="toc-text">sigmoid函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tanh%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.3.</span> <span class="toc-text">tanh函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">思考题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">多层感知机的底层实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text">初始化模型参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0-1"><span class="toc-number">2.2.</span> <span class="toc-text">激活函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.3.</span> <span class="toc-text">模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.</span> <span class="toc-text">训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98-1"><span class="toc-number">2.6.</span> <span class="toc-text">思考题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">多层感知机的简洁实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B-1"><span class="toc-number">3.1.</span> <span class="toc-text">模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83-1"><span class="toc-number">3.2.</span> <span class="toc-text">训练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E3%80%81%E6%AC%A0%E6%8B%9F%E5%90%88%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.</span> <span class="toc-text">模型选择、欠拟合和过拟合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E8%AF%AF%E5%B7%AE%E5%92%8C%E6%B3%9B%E5%8C%96%E8%AF%AF%E5%B7%AE"><span class="toc-number">4.1.</span> <span class="toc-text">训练误差和泛化误差</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA"><span class="toc-number">4.1.1.</span> <span class="toc-text">统计学习理论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="toc-number">4.1.2.</span> <span class="toc-text">模型复杂性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="toc-number">4.2.</span> <span class="toc-text">模型选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-number">4.2.1.</span> <span class="toc-text">验证集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="toc-number">4.2.2.</span> <span class="toc-text">K折交叉验证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A0%E6%8B%9F%E5%90%88-%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.3.</span> <span class="toc-text">欠拟合/过拟合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92"><span class="toc-number">4.4.</span> <span class="toc-text">多项式回归</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.4.1.</span> <span class="toc-text">生成数据集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%92%8C%E6%B5%8B%E8%AF%95"><span class="toc-number">4.4.2.</span> <span class="toc-text">训练和测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E9%98%B6%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%87%BD%E6%95%B0%E6%8B%9F%E5%90%88-%E6%AD%A3%E5%B8%B8"><span class="toc-number">4.4.3.</span> <span class="toc-text">三阶多项式函数拟合(正常)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0%E6%8B%9F%E5%90%88-%E6%AC%A0%E6%8B%9F%E5%90%88"><span class="toc-number">4.4.4.</span> <span class="toc-text">线性函数拟合(欠拟合)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E9%98%B6%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%87%BD%E6%95%B0%E6%8B%9F%E5%90%88-%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.4.5.</span> <span class="toc-text">高阶多项式函数拟合(过拟合)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F"><span class="toc-number">5.</span> <span class="toc-text">权重衰减</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E6%95%B0%E4%B8%8E%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F"><span class="toc-number">5.1.</span> <span class="toc-text">范数与权重衰减</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BB%B4%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="toc-number">5.2.</span> <span class="toc-text">高维线性回归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">5.3.</span> <span class="toc-text">底层实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0-1"><span class="toc-number">5.3.1.</span> <span class="toc-text">初始化模型参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89L2%E8%8C%83%E6%95%B0%E6%83%A9%E7%BD%9A"><span class="toc-number">5.3.2.</span> <span class="toc-text">定义L2范数惩罚</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E4%BB%A3%E7%A0%81"><span class="toc-number">5.3.3.</span> <span class="toc-text">定义训练代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E6%AD%A3%E5%88%99%E5%8C%96"><span class="toc-number">5.3.4.</span> <span class="toc-text">无正则化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F-1"><span class="toc-number">5.3.5.</span> <span class="toc-text">权重衰减</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">5.4.</span> <span class="toc-text">简洁实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">5.5.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98-2"><span class="toc-number">5.6.</span> <span class="toc-text">思考题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9A%82%E9%80%80%E6%B3%95Dropout"><span class="toc-number">6.</span> <span class="toc-text">暂退法Dropout</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B0%E5%8A%A8%E7%9A%84%E7%A8%B3%E5%81%A5%E6%80%A7"><span class="toc-number">6.1.</span> <span class="toc-text">扰动的稳健性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="toc-number">6.2.</span> <span class="toc-text">原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">6.3.</span> <span class="toc-text">底层实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="toc-number">6.3.1.</span> <span class="toc-text">定义模型参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B"><span class="toc-number">6.3.2.</span> <span class="toc-text">定义模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%92%8C%E6%B5%8B%E8%AF%95-1"><span class="toc-number">6.3.3.</span> <span class="toc-text">训练和测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">6.4.</span> <span class="toc-text">简洁实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="toc-number">6.5.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98-3"><span class="toc-number">6.6.</span> <span class="toc-text">思考题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">7.</span> <span class="toc-text">计算图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">7.1.</span> <span class="toc-text">前向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">7.2.</span> <span class="toc-text">前向传播计算图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">7.3.</span> <span class="toc-text">反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">7.4.</span> <span class="toc-text">训练神经网络</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">8.</span> <span class="toc-text">稳定性和初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="toc-number">8.1.</span> <span class="toc-text">稳定性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">8.2.</span> <span class="toc-text">参数初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">8.2.1.</span> <span class="toc-text">默认初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Xavier%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">8.2.2.</span> <span class="toc-text">Xavier初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Kaiming%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">8.2.3.</span> <span class="toc-text">Kaiming初始化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">8.3.</span> <span class="toc-text">对称性问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB"><span class="toc-number">9.</span> <span class="toc-text">分布偏移</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB%E7%B1%BB%E5%9E%8B"><span class="toc-number">9.1.</span> <span class="toc-text">分布偏移类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E5%8F%98%E9%87%8F%E5%81%8F%E7%A7%BB"><span class="toc-number">9.1.1.</span> <span class="toc-text">协变量偏移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E5%81%8F%E7%A7%BB"><span class="toc-number">9.1.2.</span> <span class="toc-text">标签偏移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5%E5%81%8F%E7%A7%BB"><span class="toc-number">9.1.3.</span> <span class="toc-text">概念偏移</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E9%97%AE%E9%A2%98%E7%9A%84%E5%88%86%E7%B1%BB%E6%B3%95"><span class="toc-number">10.</span> <span class="toc-text">学习问题的分类法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%AD%A6%E4%B9%A0"><span class="toc-number">10.1.</span> <span class="toc-text">批量学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0"><span class="toc-number">10.2.</span> <span class="toc-text">在线学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%81%E8%99%8E%E6%9C%BA"><span class="toc-number">10.3.</span> <span class="toc-text">老虎机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="toc-number">10.4.</span> <span class="toc-text">强化学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kaggle%E5%AE%9E%E8%B7%B5"><span class="toc-number">11.</span> <span class="toc-text">Kaggle实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%92%8C%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">11.1.</span> <span class="toc-text">下载和缓存数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kaggle"><span class="toc-number">11.2.</span> <span class="toc-text">Kaggle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E5%92%8C%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">11.3.</span> <span class="toc-text">访问和读取数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">11.4.</span> <span class="toc-text">数据预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83-2"><span class="toc-number">11.5.</span> <span class="toc-text">训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81-1"><span class="toc-number">11.6.</span> <span class="toc-text">K折交叉验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9-1"><span class="toc-number">11.7.</span> <span class="toc-text">模型选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4Kaggle%E9%A2%84%E6%B5%8B"><span class="toc-number">11.8.</span> <span class="toc-text">提交Kaggle预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93-2"><span class="toc-number">11.9.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98-4"><span class="toc-number">11.10.</span> <span class="toc-text">思考题</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

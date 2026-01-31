@@ -1,0 +1,1234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>光电探测器基础 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="PN结需要满足两个假设：  玻尔兹曼分布，每一个半导体区域都是非简并半导体； 完全电离，忽略温度对PN结的影响  玻尔兹曼分布的解释：     玻尔兹曼分布 费米–狄拉克分布    适用粒子 可区分粒子(经典) 费米子(电子等)   是否考虑泡利不相容 否 是   数学形式 $e^{-(E-E_F)/kT}$ $1/(e^{(E-E_F)/kT}+1)$   高温极限">
+<meta property="og:type" content="article">
+<meta property="og:title" content="光电探测器基础">
+<meta property="og:url" content="http://yhblogs.cn/posts/22050.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="PN结需要满足两个假设：  玻尔兹曼分布，每一个半导体区域都是非简并半导体； 完全电离，忽略温度对PN结的影响  玻尔兹曼分布的解释：     玻尔兹曼分布 费米–狄拉克分布    适用粒子 可区分粒子(经典) 费米子(电子等)   是否考虑泡利不相容 否 是   数学形式 $e^{-(E-E_F)/kT}$ $1/(e^{(E-E_F)/kT}+1)$   高温极限">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp">
+<meta property="article:published_time" content="2025-09-15T10:04:57.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.723Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🥼半导体">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/22050.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '光电探测器基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">光电探测器基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-09-15T10:04:57.000Z" title="发表于 2025-09-15 10:04:57">2025-09-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">15.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>57分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="光电探测器基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="PN结"><a href="#PN结" class="headerlink" title="PN结"></a>PN结</h2><p>需要满足两个假设：</p>
+<ul>
+<li>玻尔兹曼分布，每一个半导体区域都是非简并半导体；</li>
+<li>完全电离，忽略温度对PN结的影响</li>
+</ul>
+<p>玻尔兹曼分布的解释：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>玻尔兹曼分布</th>
+<th>费米–狄拉克分布</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>适用粒子</td>
+<td>可区分粒子(经典)</td>
+<td>费米子(电子等)</td>
+</tr>
+<tr>
+<td>是否考虑泡利不相容</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>数学形式</td>
+<td>$e^{-(E-E_F)/kT}$</td>
+<td>$1/(e^{(E-E_F)/kT}+1)$</td>
+</tr>
+<tr>
+<td>高温极限</td>
+<td>保持原形</td>
+<td>退化为玻尔兹曼分布</td>
+</tr>
+<tr>
+<td>典型应用</td>
+<td>理想气体</td>
+<td>金属导电电子、半导体电子</td>
+</tr>
+<tr>
+<td>服从分布</td>
+<td>非简并半导体</td>
+<td>简并半导体</td>
+</tr>
+</tbody></table>
+<p>电子和空穴都是费米子，理论上都应该遵守费米–狄拉克分布</p>
+<p>但在半导体中，通常载流子浓度较低，导带(或价带)中几乎没有被填满的情况<br>$$<br>(E-E_F)\gg kT<br>$$<br>所以半导体的中分布绝大部分服从玻尔兹曼分布，并且使用玻尔兹曼分布更直观</p>
+<p>在常温和弱掺杂条件下，通常使用玻尔兹曼近似来简化分析，但在强掺杂条件下(进入简并)需要回到费米狄拉克分布</p>
+<h3 id="PN结的基本结构"><a href="#PN结的基本结构" class="headerlink" title="PN结的基本结构"></a>PN结的基本结构</h3><p><strong>P型半导体</strong>：主要载流子是空穴(通过掺入受主杂质，如硼)</p>
+<p><strong>N型半导体</strong>：主要载流子是电子(通过掺入施主杂质，如磷)</p>
+<p>PN结是由P型半导体和N型半导体紧密结合而形成的半导体结，分隔p区和n区的交界面为冶金结</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-09-14_20-20-59.webp" alt="Snipaste_2025-09-14_20-20-59" style="zoom:80%;">
+
+<h3 id="耗尽层"><a href="#耗尽层" class="headerlink" title="耗尽层"></a>耗尽层</h3><p>在结区附近，由于电子和空穴相互扩散并复合，N区留下正电荷，P区留下负电荷，形成一个几乎没有自由载流子的“耗尽层”</p>
+<p>假设均匀掺杂并且空间电荷区在边缘处快速截断</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-09-14_21-00-31.webp" alt="Snipaste_2025-09-14_21-00-31" style="zoom:67%;">
+
+<p>在空间电荷区的电荷密度则可以表示为：<br>$$<br>\begin{aligned}&amp;\rho (x)=-eN_A,\quad -x_p&lt;x&lt;0\<br>&amp;\rho (x)=eN_D,\quad 0&lt;x&lt;x_n<br>\end{aligned}<br>$$<br>根据电荷守恒需要满足 $N_Ax_p = N_Dx_n$ </p>
+<p>结合泊松方程可以得到空间电荷区宽度：<br>$$<br>W=x_{n}+x_{p}=\sqrt{\frac{2 \varepsilon_{s}}{e} \frac{N_{A}+N_{D}}{N_{A} N_{D}} V_{b i}}<br>$$</p>
+<p>在此基础上可以推算出结电容<br>$$<br>C_j = \frac{\varepsilon_s A}{W}<br>$$</p>
+<h3 id="内建电势"><a href="#内建电势" class="headerlink" title="内建电势"></a>内建电势</h3><p>假设PN结两端没有外加电场，那么整个半导体系统的费米能级应该处处相同，但是p区和n区内导带和价带的位置随着费米能级的变化而变化，所以空间电荷区内的导带和价带会发生弯曲</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-09-14_20-25-25.webp" alt="Snipaste_2025-09-14_20-25-25" style="zoom:80%;">
+
+<p>n区的电子在进入p区的过程中会遇到一个势垒，阻碍电子继续扩散，<font color="Violetred">扩散与漂移达到平衡后</font>留下的电势差称为内建电势差，记为$V_{bi}$<br>$$<br>V_{bi} = |\phi_{Fp}|+|\phi_{Fn}|<br>$$<br>n区电子浓度可以表示为：<br>$$<br>n_0 = N_c\exp[\frac{-(E_c-E_F)}{kT}] = n_i\exp[\frac{E_F-E_{Fi}}{kT}]<br>$$<br>在完全电离的情况下平衡电子浓度(多数载流子浓度)几乎等于施主浓度 $n_0=N_D$</p>
+<p>解得<br>$$<br>E_F-E_{Fi}= {kT}\ln \frac{N_D}{n_i}<br>$$<br>同理<br>$$<br>E_{Fi}-E_F={kT}\ln\frac{N_A}{n_i}<br>$$<br>$\Delta E = eV$，所以PN的内建电势差大小为<br>$$<br>V_{bi}=\frac{kT}{e}\ln(\frac{N_aN_d}{n_i^2})<br>$$</p>
+<h3 id="外加电势"><a href="#外加电势" class="headerlink" title="外加电势"></a>外加电势</h3><p>在已有的内建电势基础上，如果在PN结两端增加一个电压值会导致不同的行为</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-09-14_21-16-21.webp" alt="Snipaste_2025-09-14_21-16-21" style="zoom: 67%;">
+
+<p>如果将正极与n区连接(反偏)，那么外加电场与内建电场的方向相同，这导致扩散运动更加受限，因此PN结内几乎没有电荷的流动，耗尽层的厚度增大</p>
+<p>如果将正极与p区连接(正偏)，那么外加电场与内建电场的方向相反，减弱了内建电场的阻碍作用，使得扩散运动加剧，因此有电荷流动的区域更多了，耗尽层的厚度减小</p>
+<h3 id="电流"><a href="#电流" class="headerlink" title="电流"></a>电流</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>漂移电流</th>
+<th>扩散电流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成因(驱动力)</td>
+<td>外电场或内建电场</td>
+<td>浓度梯度</td>
+</tr>
+<tr>
+<td>物理本质</td>
+<td>受力定向移动</td>
+<td>随机运动的统计结果</td>
+</tr>
+<tr>
+<td>方向</td>
+<td>电子p→n</td>
+<td>电子n→p</td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>反向偏压下的二极管电流</td>
+<td>正向偏压下的二极管电流</td>
+</tr>
+<tr>
+<td>与欧姆定律关系</td>
+<td>遵循欧姆定律</td>
+<td>不遵循欧姆定律</td>
+</tr>
+</tbody></table>
+<p>漂移电流(与外加电场关系密切)：<br>$$<br>J_{drift}=en\mu_nE+ep\mu_pE<br>$$<br>其中$\mu_n,\mu_p$为电子/空穴的迁移率</p>
+<p>扩散电流(与PN结属性相关)：(电子带负电正，负号抵消，空穴需要带负号)<br>$$<br>J_{diff}=eD_n\frac{dn}{dx}-eD_p\frac{dp}{dx}<br>$$<br>其中$D_n,D_p$为电子/空穴的扩散系数，$\frac{dn}{dx}/\frac{dp}{dx}$代表浓度梯度，$D$常用爱因斯坦关系转换$D/\mu = kT$</p>
+<p>推广到三维情况有</p>
+<p>$$<br>J=e n \mu_n \mathrm{E}+e p \mu_p \mathrm{E}+e D_n \nabla n-e D_p \nabla p<br>$$</p>
+<blockquote>
+<p>想象一个山坡上有两种小球：</p>
+<ul>
+<li>蓝色球代表电子，带负电</li>
+<li>红色球代表空穴，带正电</li>
+</ul>
+<p>漂移：<br> 往右边吹一阵风(电场向右)，<br> 红球(正电)顺风滚下去，蓝球(负电)逆风滚上去<br> 但电流定义按正电走的方向——所以红、蓝都对电流“有贡献向右”</p>
+<p>扩散：<br> 现在没风，只是左边的球多，右边的球少<br> 蓝红都往右扩散(粒子运动相同)，<br> 但红球带正电、蓝球带负电——一个推电流向右，一个推电流向左(负号的产生)</p>
+</blockquote>
+<p><strong>正向偏置下</strong>：外加的正向电压会削弱内建电场，这使得多数载流子的扩散变得更加容易，扩散电流急剧增加，并成为总电流的主要部分；漂移电流基本保持不变(因为它取决于少数载流子的数量)，<font color="Violetred">PN结的电流主要是扩散电流</font></p>
+<p><strong>反向偏置</strong>：外加的反向电压会增强内建电场，这极大地阻碍了多数载流子的扩散，使得扩散电流变得微不足道，电流主要由少数载流子在增强的电场下的漂移运动构成。<font color="Violetred">PN结的电流主要是漂移电流</font>，但这个电流非常小，也被称为反向饱和电流$I_0$</p>
+<h2 id="光电二极管"><a href="#光电二极管" class="headerlink" title="光电二极管"></a>光电二极管</h2><h3 id="光电二极管原理"><a href="#光电二极管原理" class="headerlink" title="光电二极管原理"></a>光电二极管原理</h3><p><font color="Violetred">光电二极管是一种特殊设计的PN结，其核心功能是利用PN结的光电效应将光信号转换为电信号</font></p>
+<p>为了有效地接收入射光线，光电二极管将其PN结的表面积设计得相对较大，电极则相对较小，此外，PN结的深度非常浅，通常小于1微米</p>
+<p>当光电二极管暴露在光线下且光子能量 $h\nu&gt;E_g$ 时，PN结中的价带电子会被激发到导带，产生电子–空穴对</p>
+<p>如果电子–空穴对出现在耗尽层或靠近耗尽层的区域，就会被内建电场(或外加反向偏置电场)迅速分离，电子拉向n区，空穴拉向p区，这些分离的载流子流向外电路，就形成了光电流$I_{ph}$</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202509142209.webp" alt="202509142209" style="zoom: 33%;">
+
+<p>一般情况下，光电流与入射光强成正比：<br>$$<br>I_{ph} = e\eta\frac{P_{opt}}{h\nu}<br>$$</p>
+<ul>
+<li><p>$\eta $: 量子效率(有效分离的电子–空穴对与吸收光子数之比)</p>
+</li>
+<li><p>$P_{opt}$: 入射光功率</p>
+</li>
+</ul>
+<p>光电流的方向与<font color="Violetred">二极管正向电流相反</font>，所以二极管方程修改为：<br>$$<br>I = I_0(e^{qV/kT}-1)-I_{ph}<br>$$<br>绝大多数情况下光电二极管工作在反向偏置状态下，这是因为反偏电压增大可以使耗尽区变宽，载流子能在耗尽区内被电场迅速抽取，减少复合、提高量子效率，此时光电流更大，响应更灵敏<br>$$<br>I_{out} = I_{dark}+I_{ph}<br>$$<br>反偏电压大概在10~50V这个区间</p>
+<p>缺点：反偏电压增大也会导致暗电流增大，噪声增多</p>
+<h3 id="PIN光电二极管"><a href="#PIN光电二极管" class="headerlink" title="PIN光电二极管"></a>PIN光电二极管</h3><p>PIN光电二极管是一种结构较传统PN光电二极管有所改进的光电探测器</p>
+<p>为了克服PN结的局限，PIN二极管在PN结之间增加了一个几乎未掺杂的本征区(I区)，电阻率高、载流子浓度低</p>
+<p>相比普通的PN结，I层的存在大大加宽了耗尽区的宽度，从而显著降低了结电容，减小了RC时间常数</p>
+<p>主要特性：</p>
+<ul>
+<li><strong>响应速度快</strong></li>
+<li><strong>量子效率高/响应度高</strong>：I层为入射光子提供了更大的吸收体积</li>
+<li><strong>暗电流低</strong>：I层载流子浓度极低</li>
+</ul>
+<h3 id="光电流的放大"><a href="#光电流的放大" class="headerlink" title="光电流的放大"></a>光电流的放大</h3><p>在弱光场景(如激光测距、光通信)中，入射光功率只有几微瓦，对应光电流仅几微安，甚至达到 pA 级</p>
+<p>若直接串联电阻测电压，需要非常大的电阻值，会导致：</p>
+<ul>
+<li><p>热噪声剧增</p>
+</li>
+<li><p>带宽严重下降</p>
+</li>
+<li><p>响应时间变慢</p>
+</li>
+</ul>
+<p><font color="Violetred">跨阻放大器TIA是光电探测器最常见的读出电路</font></p>
+<p>TIA电路是一个反相放大器，光电二极管接在运放的<strong>反相输入端</strong></p>
+<p>简单的反向放大器电路示意图：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510082033.webp" alt="202510082033" style="zoom:67%;">
+
+<p>基本结构：</p>
+<ul>
+<li>反馈电阻$R_f$</li>
+<li>反馈电容$C_f$</li>
+</ul>
+<p>运放通过反馈电阻$R_f$维持该节点电压近似为0V(虚地)<br>$$<br>V_{out} = -I_{pd}\cdot R_F<br>$$<br>输出电压取决于反馈电阻，在设计时需考虑两个因素：最大反向电流$I_{ph}$(max) 以及所需输出电压范围$V_{out}$(max) 和 $V_{out}$(min)</p>
+<p>运放反相端的总电容=节电容$C_j$+封装电容$C_{\text{pkg}}$+电缆电容$C_{\text{cable}}$+运放输入电容$C_{\text{amp,in}}$<br>$$<br>C_t=C_j+C_{\mathrm{pkg}}+C_{\text {cable }}+C_{\text {amp,in }}<br>$$<br>反馈电阻与总电容构成一阶低通滤波器，其截止频率（反馈极点）为<br>$$<br>f_F=\frac{1}{2\pi R_FC_t}<br>$$<br>反馈电容$C_f$用来补偿由于输入总电容$C_t$引起的相位滞后，防止运放高频不稳定</p>
+<p>一般$C_f = C_t/k$，$k$取3-10，根据运放大小决定</p>
+<ul>
+<li>k 越大 → 带宽更高，但稳定裕度更小</li>
+<li>k 越小 → 更稳定，但带宽下降</li>
+</ul>
+<h3 id="APD雪崩光电二极管"><a href="#APD雪崩光电二极管" class="headerlink" title="APD雪崩光电二极管"></a>APD雪崩光电二极管</h3><p>PIN光电二极管已经解决了传统PN光电二极管的问题(耗尽层窄、响应慢)，具备高速和高量子效率，但PIN没有内部增益，产生的光电流直接取决于光功率。在弱光检测(比如远距离光纤通信)中，信号电流可能非常微弱，需要额外的电子放大器，噪声就会成为限制</p>
+<p>APD在PIN的基础上，通过一个巧妙的内部放大机制，能够在探测到微弱光信号时产生远大于PIN二极管的输出电流</p>
+<p>典型的结构是 <strong>P⁺-π-P-N⁺</strong> 结构(有时也写作 <strong>P⁺-I-P-N⁺</strong>)，常用于长波长(如光通信中1.3μm和1.55μm)的 InGaAs APD</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/43074_2022_52_Fig1_HTML.webp" alt="43074_2022_52_Fig1_HTML" style="zoom: 33%;">
+
+<ul>
+<li>P+层：高掺杂的P型层，光从这一面入射</li>
+<li>π层：低掺杂或本征的P型层，<font color="DarkViolet">光子吸收区</font>，电场较低，防止提前击穿，但又足够强让载流子快速漂移</li>
+<li>P层：中等掺杂的P型层，<font color="DarkViolet">倍增区</font>，在高的反向偏压下，会形成一个非常强大的电场，当载流子进入此区时会被加速到足够高的能量，引发<font color="Violetred">碰撞电离</font></li>
+<li>N+层：高掺杂的N型衬底层，提供良好的欧姆接触和机械支撑</li>
+</ul>
+<p>雪崩效应的核心是碰撞电离：</p>
+<ol>
+<li>当一个能量足够的光子入射到APD并被<strong>π吸收区</strong>吸收时，会产生一个电子-空穴对；</li>
+<li>在吸收区的中等电场作用下，电子和空穴被迅速分离开，电子向N⁺区移动，而空穴向P⁺区移动；</li>
+<li>电子向N⁺区漂移的过程中，会进入电场强度极高的P倍增区(在某些设计中，也可能是空穴进入倍增区)，电子被极大地加速，获得了非常高的动能</li>
+<li>高速电子与晶格原子碰撞后将价带电子撞击出来，产生新的电子-空穴对。新产生的立刻被强电场加速，继续撞击产生二次电离，发生连锁反应，因此称为<strong>雪崩倍增效应</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">光子 → 产生电子-空穴对 → 高场加速 → 撞击电离 → 级联放大</span><br></pre></td></tr></tbody></table></figure>
+
+<p>结果是光生电流被指数级放大，这个倍增过程可以用一个倍增因子$M$来表征，$M=I_M/I_0$</p>
+<p>理论上：<br>$$<br>M(V)=\frac{1}{1-(V/V_{br})^n}<br>$$<br>$V_{br}$为击穿电压(大概在100-200V区间)，$n$为经验系数(2~6，取决于材料与结构)，当$V\rightarrow V_{br}$时$M$会上升到无穷大，完全击穿</p>
+<p>增益带来的同时还有噪声(乘法噪声)：<br>$$<br>F(M)=k\cdot M+(1-k)(2-\frac{1}{M})<br>$$<br>$k$为电子与空穴的电离系数比(硅大概0.1，InGaAs大概0.2-0.5)</p>
+<p>总噪声电流：<br>$$<br>I_{noise}=\sqrt{2q(I_{dark}+I_{ph})M^{2}F(M)\Delta f+4kT\Delta f/R_{L}}<br>$$<br>扫描不同偏压下的表现：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">M</span>(<span class="params">V</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> - (V / V_br) ** n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">F</span>(<span class="params">M, k</span>):</span><br><span class="line">    <span class="keyword">return</span> k * M + (<span class="number">1</span> - k) * (<span class="number">2</span> - <span class="number">1</span> / M)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">total_noise</span>(<span class="params">I_dark, I_ph, M, F, Delta_f, RL</span>):</span><br><span class="line">    term1 = <span class="number">2</span> * q * (I_dark+I_ph) * (M ** <span class="number">2</span>) * F * Delta_f</span><br><span class="line">    term2 = <span class="number">4</span> * k_B * T * Delta_f / RL</span><br><span class="line">    <span class="keyword">return</span> np.sqrt(term1 + term2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 常数</span></span><br><span class="line">q = <span class="number">1.6e-19</span>        <span class="comment"># 电荷 (C)</span></span><br><span class="line">k_B = <span class="number">1.38e-23</span>     <span class="comment"># Boltzmann 常数 (J/K)</span></span><br><span class="line">T = <span class="number">300</span>            <span class="comment"># 温度 (K)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 探测器参数</span></span><br><span class="line">R_lambda = <span class="number">0.6</span>     <span class="comment"># A/W (PIN 响应度)</span></span><br><span class="line">V_br = <span class="number">150</span>         <span class="comment"># 击穿电压 (V)</span></span><br><span class="line">n = <span class="number">3</span>              <span class="comment"># 指数因子</span></span><br><span class="line">k = <span class="number">0.3</span>            <span class="comment"># 电离系数比</span></span><br><span class="line">I_dark = <span class="number">1e-9</span>      <span class="comment"># 暗电流 (A)</span></span><br><span class="line">RL = <span class="number">1e3</span>           <span class="comment"># 负载电阻</span></span><br><span class="line">Delta_f = <span class="number">10e6</span>     <span class="comment"># 带宽 (Hz)</span></span><br><span class="line">P_opt = <span class="number">10e-6</span>      <span class="comment"># 光功率 (W)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 扫描电压</span></span><br><span class="line">V = np.linspace(<span class="number">100</span>, <span class="number">149</span>, <span class="number">200</span>)</span><br><span class="line"><span class="comment"># 各项计算</span></span><br><span class="line">M_values = M(V)</span><br><span class="line">F_values = F(M_values, k)</span><br><span class="line">I_ph = R_lambda * P_opt</span><br><span class="line"></span><br><span class="line">I_noise = total_noise(I_dark, I_ph, M_values, F_values, Delta_f, RL)</span><br><span class="line">I_signal = I_ph*M_values</span><br><span class="line">SNR = I_signal/I_noise</span><br><span class="line"><span class="comment"># 标注极值点</span></span><br><span class="line">max_index = np.argmax(SNR)  <span class="comment"># 找到SNR最大值的索引</span></span><br><span class="line">max_V = V[max_index]        <span class="comment"># 对应的电压</span></span><br><span class="line">max_SNR_dB = <span class="number">20</span> * np.log10(SNR[max_index])  <span class="comment"># 电流比，对数用20</span></span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">8</span>))</span><br><span class="line">plt.subplot(<span class="number">3</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">plt.plot(V, M_values)</span><br><span class="line">plt.ylabel(<span class="string">'Multiplication Gain M'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">plt.plot(V, F_values)</span><br><span class="line">plt.ylabel(<span class="string">'Excess Noise Factor'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>)</span><br><span class="line">plt.plot(V, <span class="number">20</span>*np.log10(SNR))</span><br><span class="line">plt.scatter(max_V, max_SNR_dB, color=<span class="string">'red'</span>, zorder=<span class="number">5</span>)  <span class="comment"># 标记极值点</span></span><br><span class="line">plt.annotate(<span class="string">f'Max: <span class="subst">{max_SNR_dB:<span class="number">.2</span>f}</span> dB\nat <span class="subst">{max_V:<span class="number">.1</span>f}</span> V'</span>,</span><br><span class="line">             xy=(max_V, max_SNR_dB),</span><br><span class="line">             xytext=(max_V, max_SNR_dB-<span class="number">2</span>),</span><br><span class="line">             fontsize=<span class="number">10</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Bias Voltage (V)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'SNR (dB)'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510071326~1.webp" alt="202510071326~1" style="zoom: 50%;">
+
+<p>可以看到$M$随$V$增加上升，在接近击穿电压时指数式增长，$F$的趋势和$M$差不多，SNR先上升(信号增强主导)后下降(噪声主导)</p>
+<p>$k$减小则$F(M)$的上升趋势变慢，使得SNR的极值向右移动，$M$不受$k$影响，以下为$k=0.1$</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510071348.webp" alt="202510071348" style="zoom:50%;">
+
+<p>同理，$n$增大$M$上升趋势变慢，导致$F(M)$上升趋势也降低，SNR的极值向右移动</p>
+<p>通常把$M$设在5–20，超过这个区间，$F(M)$与暗电流增长常常抵消进一步放大带来的收益</p>
+<h3 id="对比PIN和APD"><a href="#对比PIN和APD" class="headerlink" title="对比PIN和APD"></a>对比PIN和APD</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>PIN 光电二极管</th>
+<th>APD 雪崩光电二极管</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内部增益</td>
+<td>无</td>
+<td>有(10~1000倍)</td>
+</tr>
+<tr>
+<td>工作偏压</td>
+<td>低(&lt;5V)</td>
+<td>高(几十~几百伏)</td>
+</tr>
+<tr>
+<td>灵敏度</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>响应速度</td>
+<td>高速</td>
+<td>稍低于PIN(雪崩倍增需时间)</td>
+</tr>
+<tr>
+<td>噪声</td>
+<td>低</td>
+<td>高(乘法噪声)</td>
+</tr>
+<tr>
+<td>应用</td>
+<td>一般光检测、光通信、高速通信</td>
+<td>长距离光纤通信，高灵敏度探测，激光雷达</td>
+</tr>
+</tbody></table>
+<p>对于PIN<br>$$<br>SNR_{PIN} = \frac{R\cdot P}{\sqrt{2q(R\cdot P+I_d)\Delta f+\frac{4k_BT\Delta f}{R_L}}}<br>$$<br>但对于APD，噪声与信号电流都放大了<br>$$<br>SNR_{APD}=\frac{M\cdot R\cdot P}{\sqrt{2q(R\cdot P+I_d)M^2F(M)\Delta f+\frac{4k_BT\Delta f}{R_L}}}<br>$$<br>在低光条件下，$P$非常小，导致光电流也非常微弱</p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>主导噪声</th>
+<th>谁更优？</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>低光功率</td>
+<td>热噪声</td>
+<td>APD</td>
+<td>内部增益$M$将信号抬升至热噪声基底之上</td>
+</tr>
+<tr>
+<td>高光功率</td>
+<td>散粒噪声</td>
+<td>PIN</td>
+<td>不再需要增益，APD的过剩噪声$F(M)$劣化了SNR</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 物理常数 ---</span></span><br><span class="line">q = <span class="number">1.6e-19</span>        <span class="comment"># 元电荷 (C)</span></span><br><span class="line">k_B = <span class="number">1.38e-23</span>     <span class="comment"># 玻尔兹曼常数 (J/K)</span></span><br><span class="line">h = <span class="number">6.626e-34</span>      <span class="comment"># 普朗克常数 (J·s)</span></span><br><span class="line">c = <span class="number">3e8</span>            <span class="comment"># 光速 (m/s)</span></span><br><span class="line">T = <span class="number">300</span>            <span class="comment"># 温度 (K)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 系统参数 ---</span></span><br><span class="line">BW = <span class="number">1e6</span>           <span class="comment"># 带宽 (Hz)</span></span><br><span class="line">R_L = <span class="number">50</span>           <span class="comment"># 负载电阻 (Ω)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 探测器参数 ---</span></span><br><span class="line">wavelength = <span class="number">850e-9</span>   <span class="comment"># 入射波长 (m)</span></span><br><span class="line">eta = <span class="number">0.8</span>             <span class="comment"># 量子效率</span></span><br><span class="line">Id_pin = <span class="number">5e-12</span>        <span class="comment"># PIN 暗电流 (A)</span></span><br><span class="line">M = <span class="number">15</span>                <span class="comment"># APD 倍增因子</span></span><br><span class="line">Id_apd = <span class="number">1e-9</span>         <span class="comment"># APD 暗电流 (A)</span></span><br><span class="line">k = <span class="number">0.1</span>               <span class="comment"># APD电离系数比</span></span><br><span class="line">F = k*M+(<span class="number">1</span>-k)*(<span class="number">2</span>-<span class="number">1</span>/M) <span class="comment"># APD 噪声因子</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 响应度计算 ---</span></span><br><span class="line">R = (eta * q * wavelength) / (h * c)   <span class="comment"># 响应度 (A/W)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 输入光功率范围 ---</span></span><br><span class="line">P_in = np.logspace(-<span class="number">6</span>, -<span class="number">2</span>, <span class="number">200</span>)   <span class="comment"># 1uW → 10 mW</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 热噪声 ---</span></span><br><span class="line">I_noise_thermal = (<span class="number">4</span> * k_B * T * BW) / R_L</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- PIN SNR ---</span></span><br><span class="line">I_sig_pin = R * P_in</span><br><span class="line">I_noise_pin = np.sqrt(<span class="number">2</span> * q * (R * P_in + Id_pin) * BW + I_noise_thermal)</span><br><span class="line">snr_pin = I_sig_pin / I_noise_pin</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- APD SNR ---</span></span><br><span class="line">I_sig_apd = M * R * P_in</span><br><span class="line">noise_var_apd =<span class="number">2</span> * q * (R * P_in + Id_apd) * (M**<span class="number">2</span>) * F * BW + I_noise_thermal</span><br><span class="line">I_noise_apd = np.sqrt(noise_var_apd)</span><br><span class="line">snr_apd = I_sig_apd / I_noise_apd</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 绘图 ---</span></span><br><span class="line">plt.style.use(<span class="string">'seaborn-v0_8-whitegrid'</span>)</span><br><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># X 轴单位：µW</span></span><br><span class="line">ax.plot(P_in * <span class="number">1e6</span>, <span class="number">20</span> * np.log10(snr_pin),</span><br><span class="line">        label=<span class="string">'PIN'</span>, color=<span class="string">'dodgerblue'</span>, linewidth=<span class="number">2.5</span>)</span><br><span class="line">ax.plot(P_in * <span class="number">1e6</span>, <span class="number">20</span> * np.log10(snr_apd),</span><br><span class="line">        label=<span class="string">f'APD(M=<span class="subst">{M}</span>, F=<span class="subst">{F:<span class="number">.1</span>f}</span>)'</span>,</span><br><span class="line">        color=<span class="string">'crimson'</span>, linewidth=<span class="number">2.5</span>)</span><br><span class="line"></span><br><span class="line">ax.set_xscale(<span class="string">'log'</span>)</span><br><span class="line">ax.set_title(<span class="string">'PIN vs. APD SNR Comparison'</span>, fontsize=<span class="number">16</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">'Input Optical Power (µW)'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">'SNR [dB]'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax.legend(fontsize=<span class="number">11</span>)</span><br><span class="line">ax.grid(<span class="literal">True</span>, which=<span class="string">"both"</span>, ls=<span class="string">"--"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 寻找交叉点并标记 ---</span></span><br><span class="line">idx = np.argwhere(np.diff(np.sign(snr_pin - snr_apd))).flatten()</span><br><span class="line"><span class="keyword">if</span> idx.size &gt; <span class="number">0</span>:</span><br><span class="line">    crossover_power_uW = P_in[idx[<span class="number">0</span>]] * <span class="number">1e6</span></span><br><span class="line">    crossover_snr_db = <span class="number">20</span> * np.log10(snr_pin[idx[<span class="number">0</span>]])</span><br><span class="line">    ax.plot(crossover_power_uW, crossover_snr_db, <span class="string">'o'</span>,</span><br><span class="line">            color=<span class="string">'darkviolet'</span>, markersize=<span class="number">8</span>)</span><br><span class="line">    ax.annotate(<span class="string">f'Crossover Point\n~<span class="subst">{crossover_power_uW:<span class="number">.2</span>f}</span> µW'</span>,</span><br><span class="line">                xy=(crossover_power_uW, crossover_snr_db),</span><br><span class="line">                xytext=(crossover_power_uW, crossover_snr_db - <span class="number">15</span>),</span><br><span class="line">                arrowprops=<span class="built_in">dict</span>(facecolor=<span class="string">'black'</span>, shrink=<span class="number">0.05</span>,</span><br><span class="line">                                width=<span class="number">1</span>, headwidth=<span class="number">8</span>),</span><br><span class="line">                ha=<span class="string">'center'</span>, va=<span class="string">'top'</span>, fontsize=<span class="number">11</span>,</span><br><span class="line">                bbox=<span class="built_in">dict</span>(boxstyle=<span class="string">'round,pad=0.3'</span>,</span><br><span class="line">                          fc=<span class="string">'yellow'</span>, alpha=<span class="number">0.6</span>))</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510131040.webp" alt="202510131040" style="zoom:50%;">
+
+<p>符合预期</p>
+<h2 id="CCD与CMOS"><a href="#CCD与CMOS" class="headerlink" title="CCD与CMOS"></a>CCD与CMOS</h2><h3 id="CCD"><a href="#CCD" class="headerlink" title="CCD"></a>CCD</h3><p>CCD全称是Charge Coupled Device(电荷耦合器件)，是一种将光信号转换为电信号的半导体成像器件</p>
+<p>器件结构主要有：</p>
+<ul>
+<li>像素：每像素有一个感光区和一个潜在电势阱(由栅极电压形成)</li>
+<li>栅极：通常每像素用2或3个栅极做时钟控制，通过交替电压把电荷转移</li>
+<li>垂直移位通道：把整列像素的电荷逐行推到最底下一行的水平传输寄存器</li>
+<li>横向寄存器：把底行的电荷逐像素推到输出结构</li>
+<li>输出放大器：把单个像素电荷转换成电压，再经模数转换器(ADC)变为数字值</li>
+</ul>
+<p>工作可以分为四个主要过程：</p>
+<ol>
+<li><p>光吸收与电子生成：光照射到CCD表面后，光敏区内的硅吸收光子，产生电子–空穴对，电子收集到像素的势阱</p>
+</li>
+<li><p>电荷积累(积分)：在曝光时间内，像素积累电荷，直到读取或达到饱和；曝光结束后，每个像素中储存的电荷量代表了该像素的亮度</p>
+</li>
+<li><p><font color="Violetred">电荷转移(耦合)</font>：施加时钟脉冲到栅极，按顺序把每列电荷推到横向寄存器，再逐像素推向输出放大器</p>
+<p>逐像素移送保证了<font color="Orange">极高的一致性和低噪声，但代价是读出速度受限</font></p>
+</li>
+<li><p>信号读出与放大：每个像素在输出端把电荷转换为电压，经过放大器与 ADC 得到数字值，最终形成图像数据</p>
+</li>
+</ol>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510051737.webp" alt="202510051737" style="zoom: 20%;">
+
+<p>根据<strong>电荷传输方式</strong>的不同，CCD可分为几种：</p>
+<ul>
+<li><p>全帧转移(Full-Frame CCD)：整个阵列都是光敏区，需要机械快门控制曝光</p>
+<p>转移期间如果没有机械快门来阻挡入射光，会继续产生电子，导致拖影，损坏图像</p>
+<p>优点：感光效率高，噪声最低，结构简单；</p>
+<p>缺点：读出速度较慢，不能用于视频或快速拍摄</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/6389311791916204761318908.webp" alt="6389311791916204761318908" style="zoom: 67%;">
+</li>
+<li><p>帧转移(Frame-Transfer CCD)：传感器分为两个相等的部分：有源成像阵列和遮光存储阵列，曝光后整帧电荷被快速转移到存储区</p>
+<p>在读取存储区域时，光敏区可以立即开始集成下一帧，从而实现比全帧CCD更高的帧速率</p>
+<p>优点：无需机械快门，避免拖影，曝光和读出实现并行；</p>
+<p>缺点：存储区占据芯片面积，感光面积减少，成本与功耗高</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/6389311795906633476230955.webp" alt="6389311795906633476230955" style="zoom:67%;">
+</li>
+<li><p>行转移(Interline CCD)：每列像素旁有独立存储区，曝光结束后，电子迅速转移到相邻的存储区。存储区被遮光，因此可在下一次曝光时同时读出上一帧</p>
+<p>这种方式可以实现<font color="Violetred">电子快门</font>，无需机械部件</p>
+<p>优点：快速曝光控制，无拖影，读出速度快，支持视频帧率；</p>
+<p>缺点：光敏区被存储区挤占，填充因子降低(感光面积减少)，需要微透镜引导光线集中到感光区</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/6389311799526847239503801.webp" alt="6389311799526847239503801" style="zoom:67%;"></li>
+</ul>
+<p>微透镜的作用：当光线射入时，微透镜会把原本可能落在“非感光区”的光线重新聚焦到有效感光部分，有效光捕获率可以从 30–40% 提升到接近 90%</p>
+<p>制作方式包括光刻+热重流，让光刻胶在加热下自然形成半球形，现代技术中也会用离子束刻蚀或纳米压印方法形成更精确的形状；<font color="Violetred">透镜材质需具备高透光率、低吸收率，并能耐高温工艺</font></p>
+<p>可以分为<strong>线阵CCD</strong>和<strong>面阵CCD</strong></p>
+<ul>
+<li><p>线状CCD一般只有一排或几排像素，用于颜色分离，不能一次获取整个画面，而是通过移动被拍对象(或移动CCD本身)逐行扫描图像，分辨率高但需要机械扫描系统</p>
+</li>
+<li><p>面状CCD拥有二维像素阵列，可以一次性采集整幅图像，无需移动。快门打开时，整个二维像素阵列同时曝光，然后电荷被逐行读出，一次曝光即可获取完整图像，但读出速度相对较慢(现代CMOS已改善)</p>
+</li>
+</ul>
+<p>在光谱CCD中，想要的是光的能量分布，也就是不同波长的强度，就意味着它需要一个维度记录波长</p>
+<p>在典型的光谱仪中，光线从<font color="Violetred">狭缝(slit)</font>进入，经过光栅或棱镜被色散开，按照波长展开成一条光谱</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/2c5def29-8af9-466d-84c0-95ccea2159bd.webp" alt="2c5def29-8af9-466d-84c0-95ccea2159bd" style="zoom: 33%;">
+
+<p>CCD上看到的不是整幅图像，而是一条光谱带，横轴是波长，纵轴(对应狭缝高度)几乎是恒定的，只包含那个点的少量空间信息</p>
+<h3 id="CMOS"><a href="#CMOS" class="headerlink" title="CMOS"></a>CMOS</h3><p>与CCD一样，目标都是把光子变成电子信号</p>
+<p>工作原理：</p>
+<ol>
+<li><p>光电转换：光线经顶部微透镜和滤色片聚焦到光电二极管(与CCD类似)，每个像素的光敏区吸收光子</p>
+</li>
+<li><p>电荷积累：电子在电荷阱中累积一段曝光时间</p>
+</li>
+<li><p><font color="Violetred">信号读出</font>：<font color="DarkViolet">与CCD最大的不同</font>，每个像素不仅有光敏区，还有读出电路，先读出再转移</p>
+<p>像素电路通常由3～5个晶体管组成，称为3T/4T像素结构</p>
+<p>电荷被转化为电压信号，由像素内部的放大晶体管放大</p>
+<p>行列扫描电路按顺序选则每行像素，逐列读出，<font color="Violetred">每个像素信号都在片上完成放大与数字化</font></p>
+</li>
+<li><p>信号处理：芯片上可以直接集成图像信号处理(ISP)模块，执行曝光控制、去噪、白平衡、Gamma校正等操作</p>
+</li>
+</ol>
+<p>常见像素电路的结构有两种：</p>
+<ul>
+<li><p><strong>3T像素</strong>：复位晶体管、放大晶体管、选择晶体管</p>
+<p>结构简单，但噪声较大，灵敏度略低</p>
+</li>
+<li><p><strong>4T像素</strong>：在3T基础上增加一个转移门，可将电荷从光电二极管转移到独立的浮动扩散区，这让其能实现电子快门，并且支持低噪声读取(CDS)</p>
+<p>现代高端 CMOS 图像传感器几乎都采用4T架构</p>
+</li>
+</ul>
+<p><strong>正照式CMOS(FSI)</strong></p>
+<p>早期结构，如刚刚所述，光线要穿过：微透镜；彩色滤光片；经过金属布线层(信号与供电线路)；抵达光电二极管</p>
+<p>问题在于<font color="Violetred">金属布线遮光严重</font></p>
+<hr>
+<p><strong>背照式CMOS(BSI)</strong></p>
+<ol>
+<li>先在硅片正面完成所有电路制造(包括晶体管、金属布线等)；</li>
+<li>将晶圆与支撑基片粘合(防止在加工时破裂)；</li>
+<li>从背面化学机械抛光(CMP)或刻蚀，薄化硅基底，厚度降至几微米；</li>
+<li>在背面重新沉积抗反射层、微透镜和彩色滤光片</li>
+</ol>
+<p>光线从背面直接照入硅基底，先抵达光电二极管，再往下是电路层</p>
+<p>光线不再被金属层遮挡，使得光子利用率提升50%以上</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510052103.webp" alt="202510052103" style="zoom: 50%;">
+
+<hr>
+<p><strong>堆栈式CMOS(Stacked)</strong></p>
+<p>堆叠式传感器将图像传感器和信号处理电路分离成两层晶圆</p>
+<ul>
+<li><p>上层：像素阵列——负责感光；</p>
+</li>
+<li><p>下层：逻辑电路——负责信号放大、模数转换、缓存等；</p>
+</li>
+</ul>
+<p>两层通过TSV(Through-Silicon Via, 硅通孔)实现垂直连接</p>
+<p>使用堆栈式技术，人们研究出了一种新的拜耳排列RGBW</p>
+<p>其中，RGB对应常见的红绿蓝，W对应白，对亮度感光，这样传感器的低光感光能力就大大提升</p>
+<hr>
+<p>制造 BSI 和 Stacked 传感器的工艺非常苛刻：</p>
+<ul>
+<li>硅片要薄到几微米，任何应力不均都会导致晶圆翘曲或裂纹；</li>
+<li>TSV 互连要求纳米级精度，否则信号延迟和噪声都会显著上升；</li>
+<li>微透镜、滤光片、背照层的排列需与光路完全匹配，否则边缘像素会产生角度光偏差</li>
+</ul>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>CCD</th>
+<th>CMOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>读出方式</td>
+<td>电荷逐级转移(串行)</td>
+<td>各像素独立读出(并行)</td>
+</tr>
+<tr>
+<td>放大位置</td>
+<td>芯片边缘的单一放大器</td>
+<td>每个像素内置放大器</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>慢</td>
+<td>快</td>
+</tr>
+<tr>
+<td>噪声</td>
+<td>读出噪声低且均一</td>
+<td>早期略高且有FPN<br>现代sCMOS降到接近CCD水平</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>专用工艺，通常成本较高</td>
+<td>易量产，成本低且易集成</td>
+</tr>
+<tr>
+<td>集成度</td>
+<td>仅感光部分，片上功能少</td>
+<td>可集成ADC、ISP、控制电路与片上处理</td>
+</tr>
+<tr>
+<td>主要噪声来源</td>
+<td>光子噪声、暗电流</td>
+<td>读出噪声、光子噪声<br>暗电流、FPN(固定模式噪声)</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>极高的图像质量和线性响应<br>低读噪与高均一性<br>适合科学级成像<br>长曝光/低光表现优秀</td>
+<td>高速、低延时、低成本<br>片上集成功能多<br>可电子快门、高速连拍<br>更适合移动设备</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>串行读出限制速度<br>工艺与成本要求高<br>电源与驱动时序要求严格</td>
+<td>电路复杂，带来FPN/一致性挑战<br>噪声影响大</td>
+</tr>
+</tbody></table>
+<h2 id="图像传感器噪声模型"><a href="#图像传感器噪声模型" class="headerlink" title="图像传感器噪声模型"></a>图像传感器噪声模型</h2><p>图像传感器的总噪声主要由四个部分构成：光子噪声、暗电流噪声、读出噪声和固定模式噪声</p>
+<p>把所有独立噪声看成方差相加<br>$$<br>\sigma_{\text{tot}}^2 = \sigma_{\text{shot}}^2 + \sigma_{\text{dark}}^2 + \sigma_{\text{read}}^2 +  \sigma_{\text{FPN}}^2<br>$$</p>
+<h3 id="光子-散粒-噪声"><a href="#光子-散粒-噪声" class="headerlink" title="光子(散粒)噪声"></a>光子(散粒)噪声</h3><p>光是量子化的，即使光强恒定，单位时间内入射光子的数量也有统计波动，遵循泊松分布</p>
+<p>在一个采样时间$\Delta t$内，平均光功率为$P$与平均光子流的关系为$N = P\lambda/hc$，采样时间内平均到达的光子数$N_p=\lambda _N = N\cdot \Delta t$</p>
+<p>$n$表示在一次具体采样中，真正到达探测器的光子个数，则泊松分布表示为<br>$$<br>P(n) = \frac{(\lambda_N)^n e^{-\lambda_N}}{n!}<br>$$<br>泊松分布的一个关键特性是方差等于均值，则光子数的标准差为<br>$$<br>\sigma_{\text{shot}}^2=N_p<br>$$<br>信噪比SNR为<br>$$<br>SNR_{ph} = \frac{N_p}{\sqrt{N_p}} = \sqrt{N_p}<br>$$<br>光子噪声是信号相关噪声：信号越强，绝对噪声增大，但信噪比反而越好</p>
+<p>光子噪声无法通过电路消除，只能通过<font color="DarkViolet">增加光通量或曝光时间提升SNR</font>，这也是长时间曝光或多张照片堆栈可以得到更纯净图像的根本原因</p>
+<h3 id="暗电流"><a href="#暗电流" class="headerlink" title="暗电流"></a>暗电流</h3><p>当没有光照时，热激发会在光电二极管中产生电子，<font color="DarkViolet">暗电流随温度强烈变化</font>，近似指数规律：<br>$$<br>I_{d} \propto T^3 e^{-\frac{E_g}{kT}}<br>$$<br>温度每升高6-10°C，暗电流大约翻一倍</p>
+<p>暗电流产生的电子数同样遵循泊松分布，因此也属于散粒噪声($I_d$的单位为$e⁻/s$)<br>$$<br>\sigma_{dark}^2 = N_d = I_d\cdot t<br>$$</p>
+<blockquote>
+<p>为什么在这里分开来讲光子噪声和暗电流噪声，因为在光电二极管理论分析中通常只关心电流端噪声，所以直接把两者合并成一个“散粒噪声项”，但在图像传感器分析中更关注成像效果、温度特性和后处理，所以才会人为拆开讲解</p>
+</blockquote>
+<p>在完全黑场(遮光)下拍摄时，图像并不全黑，会出现整体偏亮或不均匀的“背景发光”</p>
+<p>可通过<font color="DarkViolet">冷却或像素级暗场校正减弱</font></p>
+<h3 id="读出噪声"><a href="#读出噪声" class="headerlink" title="读出噪声"></a>读出噪声</h3><p>读出噪声泛指从像素电荷转换为数字信号过程中引入的所有电子学噪声，是一个<font color="DarkViolet">与信号强度无关的固定附加噪声</font>，可以看作是传感器的底噪</p>
+<p>主要包含以下几种噪声机制：</p>
+<ol>
+<li>热噪声(Thermal noise)：电阻产生的随机电压，在带宽内功率均匀分布</li>
+<li>1/f噪声：低频漂移噪声，其功率谱密度与频率成反比，在低频时非常显著</li>
+<li>kTC(复位)噪声：对像素电容进行复位操作时引入的电荷不确定性，通常用相关双采样去除</li>
+</ol>
+<p>$$<br>\sigma_{read}^2 = \sigma_{thermal}^2  +\sigma^2_{1/f} + \sigma_{kTC}^2 + \sigma_{ADC}^2<br>$$<br>其中每一项都近似高斯分布(Gaussian)，因此读出噪声总体服从正态分布</p>
+<p><font color="Violetred">在极弱光、短曝光或高增益(ISO)的情况下最为显著</font></p>
+<p>在图像的极暗区域或阴影部分表现为随机的、细密的“盐粒状”噪点</p>
+<p>降噪手段包括：</p>
+<ul>
+<li>相关双采样CDS(在像素复位后和曝光后各读一次，两次相减，去除kTC噪声)</li>
+<li>避免过高的数字增益(ISO)</li>
+<li><font color="DarkViolet">多帧平均</font></li>
+</ul>
+<h3 id="固定模式噪声FPN"><a href="#固定模式噪声FPN" class="headerlink" title="固定模式噪声FPN"></a>固定模式噪声FPN</h3><p>FPN 不是随机噪声，而是由制造工艺的微小差异导致的空间不均匀性，不同像素的响应特性(如暗电流、增益)存在固定的微小差异，在暗场或均匀照明下仍存在</p>
+<p>分为两类：</p>
+<ul>
+<li>偏置型DSNU：即使在零照度下，不同像素的输出(偏置)也不同</li>
+<li>增益型PRNU：不同像素对光的响应灵敏度(增益)不同</li>
+</ul>
+<p>对于第 $i$ 个像素信号输出表示为：<br>$$<br>S_i=g_i\cdot N_p+o_i<br>$$<br>其中$g_i$为像素的增益，$o_i$为像素偏置，整个图像的FPN方差可表示为：</p>
+<p>$$<br>\sigma_{F P N}^{2}=\sigma_{g}^{2} N_{p}^{2}+\sigma_{o}^{2}<br>$$<br><font color="Violetred">偏置误差主导暗场噪声，而增益误差主导亮场噪声</font></p>
+<p>由于其固定特性，在多张照片的相同位置会重复出现，表现为条纹、带状噪声</p>
+<p>校正方式：</p>
+<ul>
+<li><font color="DarkViolet">暗场帧减法</font>：有效校正Offset FPN</li>
+<li><font color="DarkViolet">平场校正</font>：通过拍摄均匀光源(平场)来测量并校正Gain FPN</li>
+</ul>
+<p>现代传感器通常具有<strong>片上校正电路</strong>，在输出前就抑制 FPN</p>
+<h3 id="总噪声"><a href="#总噪声" class="headerlink" title="总噪声"></a>总噪声</h3><p>$$<br>\sigma_{total}^2 = \sigma_{ph}^2 + \sigma_{dark}^2 + \sigma_{read}^2 + \sigma_{FPN}^2\<br>\text{SNR} = \frac{N_p}{\sqrt{\sigma_{total}^2}}<br>$$</p>
+<table>
+<thead>
+<tr>
+<th>噪声类型</th>
+<th>统计本质</th>
+<th>主导条件</th>
+<th>图像表现</th>
+<th>改善策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>光子噪声</td>
+<td>泊松</td>
+<td>光照充足，信号强</td>
+<td>颗粒感，随亮度线性变强</td>
+<td>增加总进光量(长曝光、大光圈)</td>
+</tr>
+<tr>
+<td>暗电流</td>
+<td>泊松</td>
+<td>长曝光/高温/弱光</td>
+<td>暗区随机噪点、热像素</td>
+<td>传感器降温，缩短曝光，暗帧校正</td>
+</tr>
+<tr>
+<td>读出噪声</td>
+<td>近高斯</td>
+<td>低照度/短曝光/高速读出</td>
+<td>暗场“雪花底噪”，每帧不同</td>
+<td>多次采样平均</td>
+</tr>
+<tr>
+<td>固定模式噪声</td>
+<td>非随机(空间固定)</td>
+<td>所有情况都存在</td>
+<td>固定条纹，帧间长得一样</td>
+<td>硬件片上校正、拍平场/暗场校准</td>
+</tr>
+</tbody></table>
+<p><strong>代码语言</strong></p>
+<ul>
+<li><p>光子噪声：给光场施加泊松分布；</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N_ph = np.random.poisson(idea_photons)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>暗电流噪声：给暗电流电子数施加泊松分布；</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N_dark = np.random.poisson(dark_electrons)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>读出噪声：创建一个高斯分布矩阵，加性高斯白噪声</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N_read = np.random.normal(<span class="number">0</span>, read_noise_std, (rows, cols))</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>固定模式噪声：光场叠加增益误差矩阵，读出噪声不叠加</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gain_map = np.random.normal(<span class="number">1.0</span>, prnu_std, (rows, cols))</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final_signal = gain_map*(N_ph + N_dark) + N_read</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>N_ph + N_dark</code>: 光电子和暗电子在像素的势阱中被共同收集</p>
+<p><code>gain_map * (...)</code>: 收集到的总电荷经过每个像素独特的增益放大</p>
+<p><code>... + N_read</code>: 在所有信号被读出放大器处理时，最终叠加上读出噪声</p>
+<h3 id="交互代码"><a href="#交互代码" class="headerlink" title="交互代码"></a>交互代码</h3><p><strong>参数设计</strong>：</p>
+<ul>
+<li>光子流量数 ≈ 10 ~ 10000 e⁻/s/piexl</li>
+<li>曝光时间 ≈ 0.01 ~ 1s</li>
+<li>暗电流率 ≈ 1 ~ 30 e⁻/s/piexl</li>
+<li>读出噪声 ≈ 1 ~ 30 e⁻</li>
+<li>FPN(PRNU) ≈ 0.01 ~ 0.05(1% ~ 5%)</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> ipywidgets <span class="keyword">import</span> interact, FloatSlider, IntSlider, Layout</span><br><span class="line">np.random.seed(<span class="number">42</span>)</span><br><span class="line"><span class="comment"># --- 模拟函数 ---</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">simulate_cmos</span>(<span class="params"></span></span><br><span class="line"><span class="params">    photon_flux_rate,      <span class="comment"># 光子通量率</span></span></span><br><span class="line"><span class="params">    exposure_time,         <span class="comment"># 曝光时间 (s)</span></span></span><br><span class="line"><span class="params">    dark_current_rate,     <span class="comment"># 平均暗电流率</span></span></span><br><span class="line"><span class="params">    prnu_std,              <span class="comment"># 乘性增益标准差 (0.01 for 1%)</span></span></span><br><span class="line"><span class="params">    dsnu_std,              <span class="comment"># 暗电流的非均匀性</span></span></span><br><span class="line"><span class="params">    read_noise_std         <span class="comment"># 读出噪声标准差</span></span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    模拟CMOS传感器成像过程，并更精确地建模各种噪声源。</span></span><br><span class="line"><span class="string">    单位说明:</span></span><br><span class="line"><span class="string">    - 光子/暗电流相关的都是速率 (e-/pixel/s)</span></span><br><span class="line"><span class="string">    - 噪声都以电子数 (e-) 为单位</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># --- 参数设置 ---</span></span><br><span class="line">    rows, cols = <span class="number">128</span>, <span class="number">128</span></span><br><span class="line">    <span class="comment"># 模拟高斯光斑的光子通量率图</span></span><br><span class="line">    x = np.linspace(-<span class="number">1</span>, <span class="number">1</span>, cols)</span><br><span class="line">    y = np.linspace(-<span class="number">1</span>, <span class="number">1</span>, rows)</span><br><span class="line">    X, Y = np.meshgrid(x, y)</span><br><span class="line">    photon_flux_map = photon_flux_rate * np.exp(-<span class="number">4</span> * (X**<span class="number">2</span> + Y**<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 理想信号(平均光电子数)，无任何噪声</span></span><br><span class="line">    idea_photons = photon_flux_map * exposure_time</span><br><span class="line">    <span class="comment"># 暗电子数</span></span><br><span class="line">    dark_current_map = np.random.normal(dark_current_rate, dsnu_std, (rows, cols))</span><br><span class="line">    dark_current_map[dark_current_map &lt; <span class="number">0</span>] = <span class="number">0</span> <span class="comment"># 暗电流不能为负</span></span><br><span class="line">    dark_electrons = dark_current_map * exposure_time</span><br><span class="line"></span><br><span class="line">    <span class="comment"># --- 生成噪声 ---</span></span><br><span class="line">    <span class="comment"># 光子散粒噪声</span></span><br><span class="line">    N_ph = np.random.poisson(idea_photons)</span><br><span class="line">    <span class="comment"># 暗电流散粒噪声</span></span><br><span class="line">    N_dark = np.random.poisson(dark_electrons)</span><br><span class="line">    <span class="comment"># 读出噪声</span></span><br><span class="line">    N_read = np.random.normal(<span class="number">0</span>, read_noise_std, (rows, cols))</span><br><span class="line">    <span class="comment"># 固定模式增益误差</span></span><br><span class="line">    gain_map = np.random.normal(<span class="number">1.0</span>, prnu_std, (rows, cols))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># --- 输出信号 ---</span></span><br><span class="line">    final_signal = gain_map*(N_ph + N_dark) + N_read</span><br><span class="line"></span><br><span class="line">    <span class="comment"># --- 结果展示 ---</span></span><br><span class="line">    fig, axs = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line">    <span class="comment"># 理想图像现在是纯粹的光子信号</span></span><br><span class="line">    im1 = axs[<span class="number">0</span>].imshow(idea_photons, cmap=<span class="string">'gray'</span>)</span><br><span class="line">    axs[<span class="number">0</span>].set_title(<span class="string">"Ideal Image (Photon Signal Only)"</span>)</span><br><span class="line">    fig.colorbar(im1, ax=axs[<span class="number">0</span>], shrink=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">    im2 = axs[<span class="number">1</span>].imshow(final_signal, cmap=<span class="string">'gray'</span>)</span><br><span class="line">    axs[<span class="number">1</span>].set_title(<span class="string">"Image with All Noise Sources"</span>)</span><br><span class="line">    fig.colorbar(im2, ax=axs[<span class="number">1</span>], shrink=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ax <span class="keyword">in</span> axs:</span><br><span class="line">        ax.axis(<span class="string">'off'</span>)</span><br><span class="line">    plt.tight_layout()</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># --- SNR 计算 ---</span></span><br><span class="line">    signal_mean = np.mean(idea_photons)</span><br><span class="line">    noise_std = np.std(final_signal - idea_photons)</span><br><span class="line">    SNR = <span class="number">20</span> * np.log10(signal_mean / noise_std)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"平均信噪比 ≈ <span class="subst">{SNR:<span class="number">.2</span>f}</span> dB"</span>)</span><br><span class="line"></span><br><span class="line">style = {<span class="string">'description_width'</span>: <span class="string">'initial'</span>}</span><br><span class="line">layout = Layout(width=<span class="string">'80%'</span>)</span><br><span class="line"><span class="comment"># --- 交互界面 ---</span></span><br><span class="line">interact(</span><br><span class="line">    simulate_cmos,</span><br><span class="line">    photon_flux_rate=IntSlider(value=<span class="number">10000</span>, <span class="built_in">min</span>=<span class="number">100</span>, <span class="built_in">max</span>=<span class="number">20000</span>, step=<span class="number">100</span>, description=<span class="string">'光子通量率 (ph/s)'</span>, style=style, layout=layout),</span><br><span class="line">    exposure_time=FloatSlider(value=<span class="number">0.1</span>, <span class="built_in">min</span>=<span class="number">0.001</span>, <span class="built_in">max</span>=<span class="number">1.0</span>, step=<span class="number">0.005</span>, description=<span class="string">'曝光时间 (s)'</span>, style=style, layout=layout),</span><br><span class="line">    dark_current_rate=FloatSlider(value=<span class="number">1</span>, <span class="built_in">min</span>=<span class="number">0.1</span>, <span class="built_in">max</span>=<span class="number">30</span>, step=<span class="number">0.1</span>, description=<span class="string">'暗电流率 (e-/s)'</span>, style=style, layout=layout),</span><br><span class="line">    prnu_std=FloatSlider(value=<span class="number">0.01</span>, <span class="built_in">min</span>=<span class="number">0.0</span>, <span class="built_in">max</span>=<span class="number">0.05</span>, step=<span class="number">0.001</span>, description=<span class="string">'PRNU 标准差'</span>, style=style, layout=layout, readout_format=<span class="string">'.3f'</span>),</span><br><span class="line">    dsnu_std=FloatSlider(value=<span class="number">0.5</span>, <span class="built_in">min</span>=<span class="number">0.0</span>, <span class="built_in">max</span>=<span class="number">10</span>, step=<span class="number">0.1</span>, description=<span class="string">'DSNU 标准差 (e-/s)'</span>, style=style, layout=layout),</span><br><span class="line">    read_noise_std=FloatSlider(value=<span class="number">2</span>, <span class="built_in">min</span>=<span class="number">1</span>, <span class="built_in">max</span>=<span class="number">30</span>, step=<span class="number">1</span>, description=<span class="string">'读出噪声 (e-)'</span>, style=style, layout=layout)</span><br><span class="line">);</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="光电二极管的性能指标"><a href="#光电二极管的性能指标" class="headerlink" title="光电二极管的性能指标"></a>光电二极管的性能指标</h2><h3 id="光电转换特性"><a href="#光电转换特性" class="headerlink" title="光电转换特性"></a>光电转换特性</h3><p><font color="Violetred">响应度$R$</font>：在特定波长的入射光照射下，光电二极管产生的光电流与入射光功率之比，单位A/W<br>$$<br>R = \frac{I_{ph}}{P} [A/W]<br>$$<br>衡量光电二极管对光敏感的核心指标，表示光电转换的宏观效率，随波长变化，通常会有一个峰值响应波长<br>$$<br>R(\lambda) = \eta \frac{e}{h\nu}=\eta\frac{e\lambda}{hc}<br>$$<br>可以看出响应度随波长线性增大，但这并不是没有限制的，随着波长增大，当超过材料带隙后($\lambda &gt; \lambda_c$(截止波长))，响应度急剧下降，但边缘并不陡峭，存在带尾态(Urbach tail)</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510072155.webp" alt="202510072155" style="zoom: 50%;">
+$$
+\lambda _c = \frac{hc}{E_g}
+$$
+因为$E_g$的单位为eV，所以计算截止波长可以直接$1240/Eg$
+
+<table>
+<thead>
+<tr>
+<th>材料</th>
+<th>带隙Eg(eV)</th>
+<th>截止波长(nm)</th>
+<th>常见用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Si</td>
+<td>1.12</td>
+<td>1100</td>
+<td>可见光~近红外</td>
+</tr>
+<tr>
+<td>Ge</td>
+<td>0.67</td>
+<td>1850</td>
+<td>红外探测</td>
+</tr>
+<tr>
+<td>InGaAs</td>
+<td>0.75 (可调)</td>
+<td>1650</td>
+<td>光通信、近红外成像</td>
+</tr>
+<tr>
+<td>HgCdTe</td>
+<td>0.1~0.3 (可调)</td>
+<td>4000~12000</td>
+<td>中远红外探测、热成像</td>
+</tr>
+</tbody></table>
+<p>温度升高 → 带隙变窄 → 截止波长$\lambda_c$“红移”</p>
+<p><font color="Violetred">量子效率$\eta$</font>：产生的光电子-空穴对数量与入射的光子数量之比，无单位</p>
+<p>表示光电转换的微观效率，越高表明器件内部的光电转换机制越有效，取决于波长和材料，典型硅光电二极管的$\eta \sim 70%- 90%$</p>
+<p><strong>是最典型的计算指标</strong>，可以从响应度$R$和波长计算得出<br>$$<br>\eta = \frac{R\cdot h c}{e\lambda}\approx \frac{1240\cdot R}{\lambda(nm)} \times 100%<br>$$<br><strong>1240的推导</strong>：</p>
+<p>$h$：普朗克常数 ($6.62607015 × 10^{-34} J\cdot s$)  </p>
+<p>$e$：元电荷 ($1.6\times 10^{-19}C$)</p>
+<p>$\lambda$：<font color="Violetred">以nm为单位</font>，所以上下项均$\times 10^9$<br>$$<br>\frac{hc}{e} \times 10^9= \frac{6.62607015\cdot10^{-34}\times 3\cdot10^{8}}{1.6\cdot10^{-19}}\times 10^9 \approx 1240<br>$$</p>
+<p><font color="Violetred">光谱响应范围</font>：光电二极管能够有效探测的光波长范围，决定了该二极管适用于哪个波段的应用</p>
+<h3 id="噪声特性"><a href="#噪声特性" class="headerlink" title="噪声特性"></a>噪声特性</h3><p><font color="Violetred">暗电流$I_d$</font>：在无光照时，给光电二极管施加反向偏压时流过的电流，主要由热激发或缺陷引起</p>
+<p>是光电二极管主要的内部噪声源，暗电流越小，探测微弱信号的能力越强</p>
+<p>对温度非常敏感，温度每升高6-10°C，暗电流大约增加一倍</p>
+<p>暗电流噪声<font color="DarkViolet">在低温下可忽略</font>，但在红外探测器中不可忽视</p>
+<p><strong>噪声电流的来源</strong>：</p>
+<p>主要考虑散粒噪声和热噪声，<font color="Violetred">噪声与测量带宽的平方根成正比</font></p>
+<p><font color="DarkViolet"><strong>散粒噪声</strong></font>(Shot Noise)：源于载流子通过PN结的随机性，是一种基本的量子噪声，它与流经二极管的总电流有关<br>$$<br>i^2_{shot} = 2q(I_{ph}+I_{dark})\Delta f<br>$$<br><strong><font color="DarkViolet">热噪声</font></strong>(Thermal noise)：由探测器本身和等效到输入端电阻$R_L$中电荷载流子的热运动引起<br>$$<br>i_{th}^2 = \frac{4kT}{R_L}\Delta f<br>$$<br>如果用的是反馈电阻，记得这里改为$R_f$</p>
+<p>总噪声电流(均方根值)<br>$$<br>I_{noise} = \sqrt{i_{shot}^2 +i_{th}^2 }=\sqrt{2q(I_{ph}+I_d)\Delta f+\frac{4kT}{R_{L}}\Delta f}<br>$$</p>
+<p>在极低光功率下，$I_{ph}$很小，噪声主要由热噪声决定</p>
+<p>随着光功率和光电流$I_{ph}$的增大，散粒噪声逐渐成为主导因素</p>
+<p><font color="Orange">光电流的数量级在某个界限前噪声主要由热噪声决定；当超过界限后，散粒噪声占据主导地位</font></p>
+<p>参数：$R_L=1k\Omega,T=300K,I_{dark}=1nA,\Delta f=1MHz$</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510051503.webp" alt="202510051503" style="zoom:67%;">
+
+<p>这里大概是$10^{-5}$量级，真实$R_L$往往等效成很大的$R_f$(kΩ→MΩ量级)，分界电流会更低，这也是为何弱光系统通常只考虑散粒噪声</p>
+<p><font color="Violetred">噪声等效功率$NEP$</font>：单位带宽下，当输出信号的信噪比SNR为1时，所需入射到探测器上的光功率，是衡量探测器灵敏度的核心指标<br>$$<br>NEP =\frac{I_{noise}/\sqrt {\Delta f}}{R}[W/\sqrt{Hz}]<br>$$<br>$NEP$值越小，说明探测器探测微弱光信号的能力越强，性能越好</p>
+<p><font color="Violetred">探测率$D^<em>$</em></font><em>：消除探测器面积对$NEP$的影响，便于比较不同尺寸探测器的性能而引入的归一化指标<br>$$<br>D^</em> = \frac{\sqrt{A}}{NEP}[cm\cdot \sqrt {Hz}/W]<br>$$<br>$A$是探测器的有效感光面积，$D^*$越大，探测弱信号的能力越强</p>
+<h3 id="响应速度特性"><a href="#响应速度特性" class="headerlink" title="响应速度特性"></a>响应速度特性</h3><p>响应速度决定了探测器能多快地响应光信号的变化，是高速应用(如光通信、激光雷达)的关键参数</p>
+<p>光电二极管可简化为一个理想电流源，并联一个结电容$C_j$和一个并联电阻$R_{sh}$</p>
+<p><font color="Violetred">结电容$C_j$</font>：光电二极管PN结的电容，与负载电阻$R_L$构成了RC电路，决定了响应速度的物理极限，结电容越小，响应速度越快。施加反向偏压可以增加PN结耗尽区的宽度，从而有效降低结电容，提高响应速度</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/DET_DWG_3_780.jpg" style="zoom: 67%;">
+
+<p>简单$R_L$读出在带宽与灵敏度间强牵制</p>
+<p>在实际电路中，工程上多用跨阻放大器TIA读出，等效电阻大小为$R_f$(反馈电阻)，且输出为电压方便后级处理，并且$R_f$一般会同时并联一个$C_f$用于补偿</p>
+<p>在频域中，系统相当于一个一阶低通滤波器<br>$$<br>H(f)=\frac{1}{\sqrt{1+(2\pi fR_fC_t)^2}}<br>$$<br><font color="Violetred">带宽(BW)$\Delta f$</font>：指探测器的响应度下降到其最大值的$\sqrt 2$(约70.7%，即<font color="Violetred">-3dB</font>)时的调制频率</p>
+<blockquote>
+<p>光电二极管的RC截止频率可近似代表带宽，但真实带宽还受漂移时间等因素限制，物理带宽比截止频率低</p>
+</blockquote>
+<p>$$<br>\Delta f=\frac{1}{2\pi R_{f}C_{t}}<br>$$<br>小电容+小反馈电阻 → 更高带宽，带宽越大，探测器能够处理的信号频率就越高</p>
+<p><font color="Violetred">响应时间$\tau_r $</font>：常指上升时间，即输出信号从光脉冲输入后幅度的10%上升到90%所需的时间，直观地描述了器件对光强变化的反应速度</p>
+<p>带宽和上升时间之间有一个近似的换算关系，<font color="Orange">如果手册只给了其中一个，另一个可以通过计算估算</font><br>$$<br>\tau_r \approx \frac{0.35}{\Delta f} \qquad \Delta f\approx \frac{0.35}{\tau_r}<br>$$</p>
+<h3 id="信噪比SNR"><a href="#信噪比SNR" class="headerlink" title="信噪比SNR"></a>信噪比SNR</h3><p>信噪比是衡量输出信号质量的最终指标，它综合了信号强度和总噪声<br>$$<br>SNR = \frac{I_{ph}}{I_{noise}}<br>$$<br><strong>弱光区域</strong>($RP_{opt}\ll I_{dark}$)，光电流远小于暗电流，SNR与入射光功率成正比<br>$$<br>{SNR}\approx\frac{RP}{\sqrt{2qI_{dark}\Delta f}}\propto P<br>$$<br><strong>强光区域</strong>($RP_{opt}\gg I_{dark}$)，光电流远大于暗电流，成为总电流和散粒噪声的主要来源，SNR与入射光功率的平方根成正比<br>$$<br>{SNR}\approx\frac{RP}{\sqrt{2qRP\Delta f}}=\sqrt{\frac{RP}{2q\Delta f}}\propto \sqrt P<br>$$<br>与前一部分中讨论的光子噪声的SNR特性完全一致，因为光子噪声就是光电流散粒噪声的根本来源</p>
+<p>转为对数形式时，因为一般计算时用的都是幅度比，所以<br>$$<br>\mathrm{dB} = 20\log_{10}SNR<br>$$</p>
+<h3 id="总结表格"><a href="#总结表格" class="headerlink" title="总结表格"></a>总结表格</h3><table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>单位</th>
+<th>值越..越好</th>
+<th>简单描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>响应度</td>
+<td>$A/W$</td>
+<td>↑</td>
+<td>光电转换的宏观效率</td>
+</tr>
+<tr>
+<td>量子效率</td>
+<td>无</td>
+<td>↑</td>
+<td>光电转换的微观效率</td>
+</tr>
+<tr>
+<td>暗电流</td>
+<td>$A$</td>
+<td>↓</td>
+<td>无光时的噪声</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>$Hz$</td>
+<td>↑</td>
+<td>能处理的信号最高频率范围</td>
+</tr>
+<tr>
+<td>噪声等效功率</td>
+<td>$W/\sqrt{Hz}$</td>
+<td>↓</td>
+<td>能探测到信号的最小光功率</td>
+</tr>
+<tr>
+<td>比探测率</td>
+<td>$cm\cdot \sqrt {Hz}/W$</td>
+<td>↑</td>
+<td>标准化的探测能力</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">材料</th>
+<th>光谱范围</th>
+<th>暗电流</th>
+<th>速度</th>
+<th>成本</th>
+<th>特点与适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">硅</td>
+<td>可见到近红外(350~1100nm)</td>
+<td>低(pA)</td>
+<td>高速(小面积ps，常规ns)</td>
+<td>低</td>
+<td>成熟工艺，线性好，通用型</td>
+</tr>
+<tr>
+<td align="center">黑硅</td>
+<td>可见到近红外(400~1200+nm)</td>
+<td>低到中等(pA-nA)</td>
+<td>中高速(ns)</td>
+<td>中等</td>
+<td>具有更高的量子效率，适用于低光照</td>
+</tr>
+<tr>
+<td align="center">锗Ge</td>
+<td>近红外(800~1800nm)</td>
+<td>高(~2–200 mA/cm²)</td>
+<td>低速(ns-$\mu s$)</td>
+<td>低</td>
+<td>光纤通信，需低温操作</td>
+</tr>
+<tr>
+<td align="center">砷化铟镓InGaAs</td>
+<td>近红外(900~1700nm)</td>
+<td>低(pA-nA)</td>
+<td>高速(ps)</td>
+<td>中等</td>
+<td>光纤通信主力，LIDAR</td>
+</tr>
+<tr>
+<td align="center">扩展型砷化铟镓 InGaAs</td>
+<td>近红外(1000~2600 nm)</td>
+<td>高($\mu A$)</td>
+<td>高速</td>
+<td>高</td>
+<td>光谱分析，需要热电制冷</td>
+</tr>
+<tr>
+<td align="center">砷化锑化铟InAsSb</td>
+<td>近红外至中红外</td>
+<td>高($\mu A$-mA)</td>
+<td>中低速</td>
+<td>高</td>
+<td>高温工作能力，适合 MWIR应用(气体探测、光谱、热成像等)</td>
+</tr>
+<tr>
+<td align="center">碲化镉汞MCT(HgCdTe)</td>
+<td>近红外至中/远红外</td>
+<td>高(温度依赖强)</td>
+<td>中等到低速</td>
+<td>非常高</td>
+<td>最顶级的红外探测，通常需要制冷与复杂封装/校准</td>
+</tr>
+</tbody></table>
+<p><strong>为什么红外通信与LiDAR常用InGaAs?</strong></p>
+<p>通信领域：1310nm与1550nm是光纤损耗最低的窗口</p>
+<p>LiDAR领域：1550nm常被采用，因为人眼安全，同时能在雾、尘、烟环境中穿透力更好</p>
+<p>硅的截止频率在~1100nm，无法满足需求</p>
+<p><font color="DarkViolet">InGaAs(InₓGa₁₋ₓAs)</font>是一种可调带隙半导体，靠调整In/Ga比例，可以调节吸收边从约900nm到 2600nm，非常灵活；</p>
+<p>通常用于探测器的InGaAs带隙约为0.75 eV，使得它对波长范围900nm到1700nm的光具有高吸收效率，完美覆盖了光纤通信中最重要、损耗最低的几个波段</p>
+<p>在1550nm仍有0.9A/W左右响应，且暗电流相对较小(肯定还是比硅大的)，室温下可工作，系统成本低</p>
+<h3 id="性能计算"><a href="#性能计算" class="headerlink" title="性能计算"></a>性能计算</h3><p>常见手册参数包括：受光面积、响应度(典型值)、光谱响应范围、暗电流(最大值)、结电容</p>
+<p>以滨松光子的S2386-5K硅光电二极管为例</p>
+<p>参数表如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>受光面</td>
+<td>$2.4 \times  2.4 mm$</td>
+</tr>
+<tr>
+<td>光谱响应范围</td>
+<td>$320\sim 1100nm$</td>
+</tr>
+<tr>
+<td>最大灵敏度波长</td>
+<td>$960 nm$</td>
+</tr>
+<tr>
+<td>响应度(典型值)</td>
+<td>$0.6A/W$</td>
+</tr>
+<tr>
+<td>暗电流(最大值)</td>
+<td>$5pA$</td>
+</tr>
+<tr>
+<td>上升时间(典型值)</td>
+<td>$1.8 \mu s$</td>
+</tr>
+<tr>
+<td>结电容(典型值)</td>
+<td>$730pF$</td>
+</tr>
+</tbody></table>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/kspdb0110eb.webp" alt="kspdb0110eb" style="zoom:80%;">
+
+<p>有效接收面$A = 2.4^2 = 5.76mm^2=0.0576cm^2$</p>
+<p>量子效率：(960nm处)<br>$$<br>\eta = \frac{1240R}{\lambda}=1240\times 0.6/960 = 77.5%<br>$$</p>
+<p>利用Logistic模拟响应度随波长变化，类似，峰值略有差异，基本模拟</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510072133.webp" alt="202510072133" style="zoom: 67%;">
+
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> ipywidgets <span class="keyword">import</span> interact, FloatLogSlider, FloatSlider</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 物理常数 ---</span></span><br><span class="line">h = <span class="number">6.626e-34</span>  <span class="comment"># 普朗克常数 (J·s)</span></span><br><span class="line">c = <span class="number">3.0e8</span>      <span class="comment"># 光速 (m/s)</span></span><br><span class="line">q = <span class="number">1.6e-19</span>    <span class="comment"># 基本电荷 (C)</span></span><br><span class="line">k = <span class="number">1.38e-23</span>   <span class="comment"># 玻尔兹曼常数 (J/K)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">photodiode_analysis</span>(<span class="params"></span></span><br><span class="line"><span class="params">    A_mm2=<span class="number">5.76</span>, lambda_peak_nm=<span class="number">960</span>, R_peak=<span class="number">0.6</span>,</span></span><br><span class="line"><span class="params">    P_uW=<span class="number">10</span>, lambda_nm=<span class="number">960</span>,</span></span><br><span class="line"><span class="params">    Rf=<span class="number">1e4</span>, Cj0_pF=<span class="number">730</span>, Vb=<span class="number">10</span>,</span></span><br><span class="line"><span class="params">    Id_pA=<span class="number">5</span>, T=<span class="number">298</span></span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    一个比较真实的光电二极管性能分析模型</span></span><br><span class="line"><span class="string">    1. 响应度(R)不再是固定输入，而是基于峰值波长和峰值响应度计算得出。</span></span><br><span class="line"><span class="string">    2. 结电容(Cj)会根据反向偏压动态变化</span></span><br><span class="line"><span class="string">    3. 模拟TIA放大器读出，采用Rf</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># --- 模型参数 ---</span></span><br><span class="line">    lambda_min_nm = <span class="number">320</span>      <span class="comment"># 模型中响应度开始不为0的波长 (nm)</span></span><br><span class="line">    lambda_cutoff_nm = <span class="number">1100</span>  <span class="comment"># 硅的截止波长 (nm)</span></span><br><span class="line">    Vbi = <span class="number">0.7</span>                <span class="comment"># 硅的内建电势 (V)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># --- 单位换算 ---</span></span><br><span class="line">    A = A_mm2 * <span class="number">1e-6</span>     <span class="comment"># mm² → m²</span></span><br><span class="line">    P = P_uW * <span class="number">1e-6</span>      <span class="comment"># µW → W</span></span><br><span class="line">    Id = Id_pA * <span class="number">1e-12</span>   <span class="comment"># pA → A</span></span><br><span class="line">    Cj0 = Cj0_pF * <span class="number">1e-12</span> <span class="comment"># pF → F</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># --- 响应度(R)计算 ---</span></span><br><span class="line">    <span class="comment"># 控制曲线陡峭度的参数（越大越尖锐）</span></span><br><span class="line">    k0 = <span class="number">5</span></span><br><span class="line">    <span class="comment"># 左右两边的陡峭度系数</span></span><br><span class="line">    k1 = k0 / (lambda_peak_nm - lambda_min_nm)</span><br><span class="line">    k2 = k0 / (lambda_cutoff_nm - lambda_peak_nm)</span><br><span class="line">    <span class="comment"># 计算上升与下降的logistic因子</span></span><br><span class="line">    L1 = <span class="number">1</span> / (<span class="number">1</span> + <span class="number">5</span>*np.exp(-k1 * (lambda_nm - lambda_min_nm)))</span><br><span class="line">    L2 = <span class="number">1</span> / (<span class="number">1</span> + <span class="number">5</span>*np.exp(k2 * (lambda_nm - lambda_cutoff_nm)))</span><br><span class="line">    R = R_peak * L1 * L2</span><br><span class="line"></span><br><span class="line">    <span class="comment"># --- 属性计算 ---</span></span><br><span class="line">    Cj = Cj0 / np.sqrt(<span class="number">1</span> + Vb / Vbi)    <span class="comment"># 结电容</span></span><br><span class="line">    Iph = R * P                         <span class="comment"># 光电流 (A)</span></span><br><span class="line">    eta = (R * h * c) / (q * (lambda_nm * <span class="number">1e-9</span>)) <span class="comment"># 量子效率</span></span><br><span class="line">    <span class="comment"># 时间常数和带宽</span></span><br><span class="line">    BW = <span class="number">1</span> / (<span class="number">2</span> * np.pi * Rf * Cj)</span><br><span class="line">    tau_r = <span class="number">0.35</span> / BW</span><br><span class="line">    BW_str = <span class="string">f"<span class="subst">{BW/<span class="number">1e6</span>:<span class="number">.2</span>f}</span> MHz"</span> <span class="keyword">if</span> BW &gt;= <span class="number">1e6</span> <span class="keyword">else</span> <span class="string">f"<span class="subst">{BW/<span class="number">1e3</span>:<span class="number">.2</span>f}</span> kHz"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># --- 噪声计算 ---</span></span><br><span class="line">    <span class="comment"># 散粒噪声: 包含光电流和暗电流</span></span><br><span class="line">    ishot = np.sqrt(<span class="number">2</span> * q * (Iph + Id) * BW)</span><br><span class="line">    <span class="comment"># 热噪声: 由负载电阻产生</span></span><br><span class="line">    itherm = np.sqrt(<span class="number">4</span> * k * T / Rf * BW)</span><br><span class="line">    <span class="comment"># 总噪声</span></span><br><span class="line">    Inoise = np.sqrt(ishot**<span class="number">2</span> + itherm**<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 探测性能</span></span><br><span class="line">    NEP = Inoise / (R * np.sqrt(BW)) <span class="comment"># 噪声等效功率 (W/√Hz)</span></span><br><span class="line">    D_star = np.sqrt(A * <span class="number">1e4</span>) / NEP  <span class="comment"># 探测率 (cm·√Hz/W)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 信噪比</span></span><br><span class="line">    SNR = Iph / Inoise</span><br><span class="line">    SNR_dB = <span class="number">20</span> * np.log10(SNR)</span><br><span class="line">    <span class="comment"># --- 输出 ---</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"="</span>*<span class="number">40</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"      光电二极管性能分析"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"="</span>*<span class="number">40</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\n--- 输入与环境参数 ---"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"工作波长 λ = <span class="subst">{lambda_nm:<span class="number">.0</span>f}</span> nm"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"光功率 P_in = <span class="subst">{P_uW:<span class="number">.2</span>f}</span> µW"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"反馈电阻 R_f = <span class="subst">{Rf/<span class="number">1e3</span>:<span class="number">.2</span>f}</span> kΩ"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"反向偏压 V_b = <span class="subst">{Vb:<span class="number">.2</span>f}</span> V"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"温度 T = <span class="subst">{T:<span class="number">.1</span>f}</span> K"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\n--- 器件核心参数 (计算值) ---"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"光谱响应度 R = <span class="subst">{R:<span class="number">.3</span>f}</span> A/W (@ <span class="subst">{lambda_nm:<span class="number">.0</span>f}</span> nm)"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"量子效率 η = <span class="subst">{eta*<span class="number">100</span>:<span class="number">.1</span>f}</span>%"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"结电容 Cj = <span class="subst">{Cj*<span class="number">1e12</span>:<span class="number">.2</span>f}</span> pF (@ <span class="subst">{Vb:<span class="number">.1</span>f}</span> V)"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\n--- 性能指标 ---"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"光电流 I_ph = <span class="subst">{Iph*<span class="number">1e9</span>:<span class="number">.3</span>f}</span> nA"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"带宽 BW = <span class="subst">{BW_str}</span>"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"上升时间 (10%-90%) τ_r = <span class="subst">{tau_r*<span class="number">1e9</span>:<span class="number">.2</span>f}</span> ns"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\n--- 噪声与探测性能 (@ 计算带宽) ---"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"散粒噪声 I_shot = <span class="subst">{ishot*<span class="number">1e12</span>:<span class="number">.3</span>f}</span> pA"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"热噪声 I_therm = <span class="subst">{itherm*<span class="number">1e12</span>:<span class="number">.3</span>f}</span> pA"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"总电流噪声 I_noise = <span class="subst">{Inoise*<span class="number">1e12</span>:<span class="number">.3</span>f}</span> pA"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"信噪比 SNR = <span class="subst">{SNR:<span class="number">.2</span>f}</span> (<span class="subst">{SNR_dB:<span class="number">.2</span>f}</span> dB)"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"噪声等效功率 NEP = <span class="subst">{NEP:<span class="number">.2</span>e}</span> W/√Hz"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"探测率 D* = <span class="subst">{D_star:<span class="number">.2</span>e}</span> cm·√Hz/W"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"="</span>*<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 交互控件定义 (使用更常见的参数范围) ---</span></span><br><span class="line">interact(</span><br><span class="line">    photodiode_analysis,</span><br><span class="line">    A_mm2=FloatSlider(value=<span class="number">5.76</span>, <span class="built_in">min</span>=<span class="number">1</span>, <span class="built_in">max</span>=<span class="number">6</span>, step=<span class="number">0.1</span>, description=<span class="string">'受光面积 (mm²)'</span>),</span><br><span class="line">    lambda_peak_nm=FloatSlider(value=<span class="number">960</span>, <span class="built_in">min</span>=<span class="number">700</span>, <span class="built_in">max</span>=<span class="number">1000</span>, step=<span class="number">10</span>, description=<span class="string">'峰值波长 (nm)'</span>),</span><br><span class="line">    R_peak=FloatSlider(value=<span class="number">0.6</span>, <span class="built_in">min</span>=<span class="number">0.36</span>, <span class="built_in">max</span>=<span class="number">0.7</span>, step=<span class="number">0.01</span>, description=<span class="string">'峰值响应度 (A/W)'</span>),</span><br><span class="line">    P_uW = FloatLogSlider(value=<span class="number">10</span>, base=<span class="number">10</span>, <span class="built_in">min</span>=-<span class="number">2</span>, <span class="built_in">max</span>=<span class="number">3</span>, step=<span class="number">0.1</span>, description=<span class="string">'光照功率 (µW)'</span>), <span class="comment"># 0.01uW to 1mW</span></span><br><span class="line">    lambda_nm=FloatSlider(value=<span class="number">960</span>, <span class="built_in">min</span>=<span class="number">350</span>, <span class="built_in">max</span>=<span class="number">1100</span>, step=<span class="number">5</span>, description=<span class="string">'工作波长 (nm)'</span>),</span><br><span class="line">    Rf=FloatLogSlider(value=<span class="number">1e4</span>, base=<span class="number">10</span>, <span class="built_in">min</span>=<span class="number">3</span>, <span class="built_in">max</span>=<span class="number">6</span>, step=<span class="number">0.1</span>, description=<span class="string">'反馈电阻 (Ω)'</span>), <span class="comment"># 1k to 1M</span></span><br><span class="line">    Cj0_pF=FloatSlider(value=<span class="number">730</span>, <span class="built_in">min</span>=<span class="number">50</span>, <span class="built_in">max</span>=<span class="number">1000</span>, step=<span class="number">5</span>, description=<span class="string">'零偏压结电容 (pF)'</span>),</span><br><span class="line">    Vb=FloatSlider(value=<span class="number">5.0</span>, <span class="built_in">min</span>=<span class="number">0</span>, <span class="built_in">max</span>=<span class="number">20</span>, step=<span class="number">0.5</span>, description=<span class="string">'反向偏压 (V)'</span>),</span><br><span class="line">    Id_pA=FloatLogSlider(value=<span class="number">5</span>, base=<span class="number">10</span>, <span class="built_in">min</span>=<span class="number">0</span>, <span class="built_in">max</span>=<span class="number">4</span>, step=<span class="number">0.1</span>, description=<span class="string">'暗电流 (pA)'</span>), <span class="comment"># 1pA to 10nA</span></span><br><span class="line">    T=FloatSlider(value=<span class="number">298</span>, <span class="built_in">min</span>=<span class="number">77</span>, <span class="built_in">max</span>=<span class="number">350</span>, step=<span class="number">1</span>, description=<span class="string">'温度 (K)'</span>)</span><br><span class="line">);</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="硅vs石墨烯"><a href="#硅vs石墨烯" class="headerlink" title="硅vs石墨烯"></a>硅vs石墨烯</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>硅 (Silicon)</th>
+<th>石墨烯 (Graphene)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>响应速度</td>
+<td>ns~ps</td>
+<td>ps~fs</td>
+</tr>
+<tr>
+<td>波长范围</td>
+<td>350nm~1100nm(可见-近红外)</td>
+<td>极宽(UV–可见–IR–THz)(紫外-中红外)</td>
+</tr>
+<tr>
+<td>量子效率</td>
+<td>高(可达80–95%)</td>
+<td>单层低(~2–3%)，需要光学谐振腔/波导耦合</td>
+</tr>
+<tr>
+<td>暗电流</td>
+<td>极低(pA–nA)</td>
+<td>较高(μA–mA)，噪声大</td>
+</tr>
+<tr>
+<td>工艺成熟度</td>
+<td>极其成熟，成本低</td>
+<td>工艺尚不成熟，一致性差</td>
+</tr>
+<tr>
+<td>主要应用</td>
+<td>消费电子、太阳能电池、传统光通信</td>
+<td>高速光通信、宽带光谱探测、前沿科学研究</td>
+</tr>
+</tbody></table>
+<h2 id="Time-of-Flight-ToF"><a href="#Time-of-Flight-ToF" class="headerlink" title="Time-of-Flight(ToF)"></a>Time-of-Flight(ToF)</h2><h3 id="系统原理"><a href="#系统原理" class="headerlink" title="系统原理"></a>系统原理</h3><p>TOF(飞行时间)是一种通过计算光在介质中传播一定距离所需时间来测量距离的技术</p>
+<p>基本原理：发射光脉冲 → 光传播 → 反射 → 探测延时 → 计算间距<br>$$<br>d = \frac{c\cdot \Delta t}{2}<br>$$<br><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510081302.webp" alt="202510081302" style="zoom:50%;"></p>
+<p>常用激光，也就是光速，如果用声波就是声速$v=343m/s(20^\circ  C)$</p>
+<p>动画模拟：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib widget</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.animation <span class="keyword">import</span> FuncAnimation, PillowWriter</span><br><span class="line"><span class="comment"># 参数设置</span></span><br><span class="line">c = <span class="number">3e8</span></span><br><span class="line">d = <span class="number">5</span></span><br><span class="line">delta_t = <span class="number">2</span>*d/c</span><br><span class="line">frames = <span class="number">200</span></span><br><span class="line">sensor_x = <span class="number">0</span></span><br><span class="line">target_x = d</span><br><span class="line">x_positions = np.linspace(sensor_x, target_x, frames//<span class="number">2</span>)</span><br><span class="line">x_positions = np.concatenate([x_positions, x_positions[::-<span class="number">1</span>]]) <span class="comment"># 往返运动</span></span><br><span class="line"><span class="comment"># 绘图设置</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">6</span>, <span class="number">4</span>))</span><br><span class="line">ax.set_xlim(-<span class="number">1</span>, d + <span class="number">1</span>)</span><br><span class="line">ax.set_ylim(-<span class="number">0.5</span>, <span class="number">0.5</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">"Distance (m)"</span>)</span><br><span class="line">ax.set_title(<span class="string">"ToF animation diagram"</span>)</span><br><span class="line"><span class="comment"># 绘制传感器和目标</span></span><br><span class="line">sensor_dot, = ax.plot(sensor_x, <span class="number">0</span>, <span class="string">'bo'</span>, markersize=<span class="number">10</span>, label=<span class="string">"sensor"</span>)</span><br><span class="line">target_dot, = ax.plot(target_x, <span class="number">0</span>, <span class="string">'ro'</span>, markersize=<span class="number">10</span>, label=<span class="string">"target"</span>)</span><br><span class="line">light_dot, = ax.plot([], [], <span class="string">'yo'</span>, markersize=<span class="number">8</span>, label=<span class="string">"light"</span>)</span><br><span class="line">text_time = ax.text(<span class="number">0.5</span>, <span class="number">0.3</span>, <span class="string">''</span>, ha=<span class="string">'center'</span>)</span><br><span class="line">text_distance = ax.text(<span class="number">0.5</span>, -<span class="number">0.3</span>, <span class="string">''</span>, ha=<span class="string">'center'</span>)</span><br><span class="line">ax.legend(loc=<span class="string">'upper right'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init</span>():</span><br><span class="line">    light_dot.set_data([], [])</span><br><span class="line">    text_time.set_text(<span class="string">''</span>)</span><br><span class="line">    text_distance.set_text(<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">return</span> light_dot, text_time, text_distance</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">frame</span>):</span><br><span class="line">    x = x_positions[frame]</span><br><span class="line">    light_dot.set_data(x, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模拟时间与测距计算</span></span><br><span class="line">    fraction = frame / (frames - <span class="number">1</span>)</span><br><span class="line">    t = fraction * delta_t</span><br><span class="line">    d_measured = c * t / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    text_time.set_text(<span class="string">f"time: <span class="subst">{t*<span class="number">1e9</span>:<span class="number">.2</span>f}</span> ns"</span>)</span><br><span class="line">    text_distance.set_text(<span class="string">f"d_measured: <span class="subst">{d_measured:<span class="number">.2</span>f}</span> m"</span>)</span><br><span class="line">    <span class="comment"># 延迟一帧停止：只在最后一帧之后停止</span></span><br><span class="line">    <span class="keyword">if</span> frame == frames-<span class="number">1</span>:</span><br><span class="line">        ani.event_source.stop()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"动画播放完成。"</span>)</span><br><span class="line">    <span class="keyword">return</span> light_dot, text_time, text_distance</span><br><span class="line"></span><br><span class="line">ani = FuncAnimation(fig, update, frames=frames, init_func=init, interval=<span class="number">30</span>, blit=<span class="literal">True</span>)</span><br><span class="line">save_gif = <span class="literal">False</span></span><br><span class="line"><span class="keyword">if</span> save_gif:</span><br><span class="line">    writer = PillowWriter(fps=<span class="number">30</span>)</span><br><span class="line">    ani.save(<span class="string">"tof_animation.gif"</span>, writer=writer)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"已保存为 tof_animation.gif"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-10-08_16-44-11.webp" alt="Snipaste_2025-10-08_16-44-11" style="zoom: 67%;">
+
+<h3 id="系统结构"><a href="#系统结构" class="headerlink" title="系统结构"></a>系统结构</h3><p>一个典型的TOF系统由以下几个部分组成：</p>
+<ul>
+<li><p>发射端Tx：包括激光光源(主要是VCSEL，垂直腔面发射激光器)，激光驱动电路ASIC以及用于光束控制的光学组件(准直镜头，衍射光学元件DOE以及滤光片)</p>
+</li>
+<li><p>接收端Rx：包括镜头和滤光片，根据系统设计使用不同的传感器，以及ISP(图像信号处理器，完成信号放大、时间测距、3D深度图生成等计算)</p>
+<p>传感器类型主要有这3种：</p>
+<ul>
+<li>CIS(CMOS Image Sensor)：常见于连续调制TOF系统，成像分辨率高</li>
+<li><font color="Violetred">SPAD(Single Photon Avalanche Diode)：单光子雪崩二极管</font>，灵敏度极高，<strong>用于脉冲式TOF系统</strong></li>
+<li>SiPM(Silicon Photomultiplier)：硅光电倍增器，也能检测极弱光信号</li>
+</ul>
+</li>
+<li><p>电源管理：TOF系统对电源的要求非常苛刻，<font color="DarkViolet">VCSEL需要非常精确、快速响应的电流控制，以保证激光脉冲的一致性</font>，SPAD等器件通常需要高电压偏置才能工作在雪崩模式下，因此需要高精度、低噪声的电源管理模块</p>
+</li>
+<li><p>软件层：包括固件(运行在TOF芯片上的低层控制程序)、SDK(为上层应用提供接口函数)、操作系统(OS)与应用层</p>
+</li>
+</ul>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/1702878368563924.webp" alt="1702878368563924" style="zoom:50%;">
+
+<p>脉冲信号模拟：发射端Tx脉冲有展宽，接收端Rx脉冲有幅度衰减</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">c = <span class="number">3e8</span>  <span class="comment"># 光速 (m/s)</span></span><br><span class="line">d = <span class="number">1.0</span>  <span class="comment"># 测距目标距离 (m)</span></span><br><span class="line">delta_t = <span class="number">2</span> * d / c  <span class="comment"># 光往返时间 (s)</span></span><br><span class="line"></span><br><span class="line">t_min = -<span class="number">2e-9</span>    <span class="comment"># 提前一点时间，方便看发射脉冲</span></span><br><span class="line">t_max = <span class="number">10e-9</span>    <span class="comment"># 足够长的窗口以容纳回波</span></span><br><span class="line">dt = <span class="number">10e-12</span>       <span class="comment"># 时间分辨率 10ps</span></span><br><span class="line">t = np.arange(t_min, t_max, dt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发射脉冲</span></span><br><span class="line">pluse_sigma = <span class="number">0.5e-9</span> <span class="comment"># 发射脉冲的时间宽度 (标准差 0.5 ns)</span></span><br><span class="line">pluse_amp = <span class="number">1.0</span></span><br><span class="line">pluse_tx = pluse_amp * np.exp(-t**<span class="number">2</span>/(<span class="number">2</span>*pluse_sigma**<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收脉冲：延迟 delta_t，振幅衰减</span></span><br><span class="line">pluse_rx = <span class="number">0.4</span>* pluse_amp * np.exp(-(t-delta_t)**<span class="number">2</span>/(<span class="number">2</span>*pluse_sigma**<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制模拟信号图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>, <span class="number">4</span>))</span><br><span class="line">plt.plot(t * <span class="number">1e9</span>, pluse_tx, label=<span class="string">'Tx pulse'</span>)</span><br><span class="line">plt.plot(t * <span class="number">1e9</span>, pluse_rx, label=<span class="string">'Rx pulse'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Time(ns)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Amp(a.u.)'</span>)</span><br><span class="line">plt.title(<span class="string">f'Ideal ToF Pulse(d=<span class="subst">{d}</span>m)'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-10-08_14-57-08.webp" alt="Snipaste_2025-10-08_14-57-08" style="zoom:67%;">
+
+<h3 id="系统分类"><a href="#系统分类" class="headerlink" title="系统分类"></a>系统分类</h3><p>ToF根据调制方法的不同，可以分为两种：脉冲式和连续波调制式</p>
+<p><strong>脉冲式</strong>：也称为直接TOF(dToF)，通过TDC(时间数字转化器)直接测量发射接收时间差$\Delta t$</p>
+<table>
+<thead>
+<tr>
+<th>分辨率</th>
+<th>可测精度</th>
+<th>对应距离精度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1ns</td>
+<td>30cm</td>
+<td>较粗测距(普通 ToF)</td>
+</tr>
+<tr>
+<td>100ps</td>
+<td>3cm</td>
+<td>高精度测距(中档 LiDAR)</td>
+</tr>
+<tr>
+<td>10ps</td>
+<td>3mm</td>
+<td>精密测距(SPAD 系统)</td>
+</tr>
+<tr>
+<td>1ps</td>
+<td>0.3mm</td>
+<td>实验室级精度</td>
+</tr>
+</tbody></table>
+<p><strong>连续波调制</strong>：也称为间接TOF(iToF)，通过检测相位差来计算时间差</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>脉冲式dTOF</th>
+<th>连续波调制iTOF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>测距原理</td>
+<td>测量飞行时间($\Delta t$)</td>
+<td>测量相位差($\Delta \phi$)</td>
+</tr>
+<tr>
+<td>发射信号</td>
+<td>短脉冲</td>
+<td>连续调制波</td>
+</tr>
+<tr>
+<td>精度</td>
+<td>高(ps级)</td>
+<td>中(相位精度决定)</td>
+</tr>
+<tr>
+<td>成本与功耗</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>典型应用</td>
+<td>激光雷达、工业测距</td>
+<td>手机3D相机、消费电子</td>
+</tr>
+<tr>
+<td>误差来源</td>
+<td>TDC分辨率<br>激光脉冲抖动<br>探测器时间抖动<br>多路径反射<br>温度漂移影响时钟</td>
+<td>相位模糊(超过2π)<br>环境光影响<br>多路径反射</td>
+</tr>
+</tbody></table>
+<p>想测1ns，就得把抖动压到100ps级别</p>
+<h4 id="脉冲式dToF"><a href="#脉冲式dToF" class="headerlink" title="脉冲式dToF"></a>脉冲式dToF</h4><p>脉冲式直接测量光的往返时间，照射光源一般采用方波脉冲<br>$$<br>d = \frac{c\cdot \Delta t}{2}<br>$$<br>$\Delta t$ 的测量方法有两种：</p>
+<p><font color="DarkViolet">快门积分法</font>：</p>
+<p>激光器发出一个有限宽度的脉冲(持续时间$t_p$)，到达接收端探测器时，并不是瞬间一个点，而是一个有宽度的电流脉冲，通过早窗($S_0$)和晚窗($S_1$)的大小，就可以求得传播时间</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510081355.webp" alt="202510081355" style="zoom: 33%;">
+$$
+d =  \frac{c}{2}\times t_p\times \frac{S_1}{S_0+S_1}
+$$
+最小的可测距离：$S_0$收集了全电荷，$S_1$没有收到，则$d=0$
+
+<p>最大的可测距离：$S1$收集全电荷，$S_0$没有收到，则$d=0.5c\times t_p$，最大可测量距离是通过光脉冲宽度来确定的</p>
+<p>优点：</p>
+<ul>
+<li>不需要亚纳秒级的TDC(硬件复杂度低)</li>
+<li>积分能把噪声平均掉，对背景光有一定抑制</li>
+<li>算法简单，适合CMOS图像传感器阵列(ToF相机常用)</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>精度受限于脉冲宽度</li>
+<li>多径回波时积分比值可能失真</li>
+<li>本质是模拟插值，不是直接测时间</li>
+</ul>
+<p>在慢门后一般需要间隔一小段时间再进行下一次脉冲，这是为了避免前一次雪崩后的残余电荷可能导致虚假触发</p>
+<p><font color="Darkviolet">直方图法</font></p>
+<p>关键组件：单光子雪崩二极管(SPAD)，一个光子 → 一次大电流脉冲</p>
+<p>每次探测到一个光子，TDC记录其到达时间戳，经过多次脉冲发射，把光子到达时间累积成直方图，回波脉冲形成一个峰值，峰值位置就是$\Delta t$</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">rng = np.random.default_rng(<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">N = <span class="number">10000</span>  <span class="comment"># 重复测量次数</span></span><br><span class="line">true_delay = <span class="number">6.67e-9</span></span><br><span class="line">time_jitter = <span class="number">2e-10</span>  <span class="comment"># 探测器时间抖动</span></span><br><span class="line">arrival_times = rng.normal(true_delay, time_jitter, N)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 时间分辨率 10 ps</span></span><br><span class="line">bin_width = <span class="number">10e-12</span></span><br><span class="line"><span class="comment"># 定义时间范围，比如以 ±3σ 覆盖所有数据</span></span><br><span class="line">t_min = true_delay - <span class="number">3</span> * time_jitter</span><br><span class="line">t_max = true_delay + <span class="number">3</span> * time_jitter</span><br><span class="line">bins = np.arange(t_min, t_max + bin_width, bin_width)</span><br><span class="line"><span class="comment"># 绘制直方图并获取数据</span></span><br><span class="line">counts, bin_edges, _ = plt.hist(arrival_times * <span class="number">1e9</span>, bins=bins * <span class="number">1e9</span>, color=<span class="string">'lightblue'</span>)</span><br><span class="line">max_index = np.argmax(counts)</span><br><span class="line">peak_time = <span class="number">0.5</span>* (bin_edges[max_index] + bin_edges[max_index+<span class="number">1</span>])</span><br><span class="line">peak_count = counts[max_index]</span><br><span class="line"><span class="comment"># 标注峰值</span></span><br><span class="line">plt.scatter(peak_time, peak_count, color=<span class="string">'red'</span>, s=<span class="number">2</span>, label=<span class="string">'Peak'</span>)</span><br><span class="line">plt.text(peak_time, peak_count, <span class="string">f'<span class="subst">{peak_time:<span class="number">.3</span>f}</span> ns'</span>, color=<span class="string">'red'</span>, ha=<span class="string">'left'</span>, va=<span class="string">'bottom'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Arrival Time (ns)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Counts'</span>)</span><br><span class="line">plt.title(<span class="string">'SPAD Photon Arrival Histogram(10 ps resolution)'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-10-08_17-05-11.webp" alt="Snipaste_2025-10-08_17-05-11" style="zoom: 67%;">
+
+<p>优点：</p>
+<ul>
+<li>精度高，时间分辨率取决于TDC bin宽度</li>
+<li>对长距离测量更有优势</li>
+<li>能分辨多径：直方图可能出现多个峰，对应多次反射</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>硬件复杂，需要高速TDC(ps分辨率)</li>
+<li>数据量大，需要累积统计才能形成稳定直方图</li>
+<li>功耗较高，不太适合大规模阵列实时成像</li>
+</ul>
+<p>常用于高性能激光雷达(SPAD阵列 + TDC)、科研用激光测距</p>
+<h4 id="连续波调制式iToF"><a href="#连续波调制式iToF" class="headerlink" title="连续波调制式iToF"></a>连续波调制式iToF</h4><p>实际应用中，通常采用的是正弦波调制<br>$$<br>I(t)=I_0(1+\sin (2\pi ft))<br>$$<br>目标反射回来后，接收的信号会有一个相位延迟$\Delta \phi$</p>
+<p>通过测相位差，可以推算距离<br>$$<br>d= \frac{c\cdot \Delta \phi}{4\pi f}<br>$$<br><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/Snipaste_2025-10-08_14-10-08.webp" alt="Snipaste_2025-10-08_14-10-08" style="zoom:50%;"></p>
+<p>不用皮秒级计时，只要能检测相位差</p>
+<p>$\Delta \phi$的测量方法：(类似四步相移法)</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/202510081919.webp" alt="202510081919" style="zoom: 33%;">
+
+<ol>
+<li><p>假设发射的正弦信号$s(t)$振幅是$a$，调制频率是$f$<br>$$<br>s(t)= a(1+\sin(2\pi f t))<br>$$</p>
+</li>
+<li><p>经过时延$\Delta t$后接收到的信号为$r(t)$，衰减后的振幅为$A$，强度偏移(由环境光引起)为$B$<br>$$<br>r(t) = A \cdot (1 + \sin(2\pi f(t - \Delta t))) + B = A \cdot (1 + \sin(2\pi ft - \Delta \varphi)) + B<br>$$<br>信号在时间上延迟相当于在波形上向后平移一个相位角</p>
+</li>
+<li><p>四个采样时间间隔相等，均为$T/4$<br>$$<br>t_0=0,t_1= \frac{1}{4}T,t_2=\frac{1}{2}T,t_3=\frac{3}{4}T<br>$$<br>在一个周期内分四次采样，相位间隔分别是 0°, 90°, 180°, 270°</p>
+</li>
+<li><p>根据上述采样时间可以列出四个方程组<br>$$<br>r_i = A\cdot \sin (2\pi ft_i-\Delta \phi)+(A+B)<br>$$<br>采样得到的$r_0,r_1,r_2,r_3$四个值，是相机像素实际测量到的光强</p>
+</li>
+<li><p>代入4个$t$发现<br>$$<br>r_2 - r_0 = 2A \sin \Delta \varphi \ r_1 - r_3 = 2A \cos \Delta \varphi<br>$$<br>则可知<br>$$<br>\Delta \phi = 2\pi f\Delta t = \mathrm{atan2}(r_2-r_0,r_1-r_3)<br>$$<br>用四个采样的光强，算出反射波与发射波之间的相位差</p>
+<p>atan2是双参数反正切函数，用于求出角度且自动考虑象限</p>
+</li>
+<li><p>为了提高精度，需要估计信号的幅值A(调制分量)和偏置B(背景光)</p>
+<p>平方并相加：<br>$$<br>(r_0 - r_2)^2 + (r_1 - r_3)^2 = 4A^2(\sin^2 \Delta \varphi + \cos^2 \Delta \varphi)<br>$$<br>则可知<br>$$<br>A = \frac{1}{2}\sqrt{(r_0 - r_2)^2 + (r_1 - r_3)^2}<br>$$<br>因为正弦函数在0°,90°,180°,270° 四点的平均值是0，则可知<br>$$<br>\<br>B = \frac{1}{4}(r_0 + r_1 + r_2 + r_3) - A<br>$$</p>
+</li>
+<li><p>测距不确定度(误差$\sigma _d$)<br>$$<br>\sigma_d = \frac{c}{4\sqrt{2\pi f}} \cdot \frac{\sqrt{A+B}}{c_d \cdot A}<br>$$<br>$c_d$是一个与相机系统有关的常数，用来把光强单位转成等效信号幅度单位</p>
+<p>可知：</p>
+<ul>
+<li><p>调制频率越高(f ↑) → 距离误差越小<br>$$<br>\Delta d= \frac{c}{4\pi f}<br>$$</p>
+</li>
+<li><p>反射信号越强(A ↑) → 距离误差越小</p>
+</li>
+<li><p>背景光越强(B ↑) → 距离误差越大</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>优点：</p>
+<ul>
+<li>更容易在 CMOS 图像传感器上实现，每个像素都能测深度</li>
+<li>成本低，适合手机、近距3D成像</li>
+<li>同时能做大规模二维阵列成像</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>距离会模糊(周期性重复)，因为相位只在2π之间，对应最大无歧义距离<br>$$<br>d_{max} = \frac{c}{2f}<br>$$</p>
+</li>
+<li><p>环境光干扰大，容易降低信噪比</p>
+</li>
+<li><p>调制频率限制精度</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/22050.html">http://yhblogs.cn/posts/22050.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%A5%BC%E5%8D%8A%E5%AF%BC%E4%BD%93/">🥼半导体</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/35959.html" title="python信号处理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-pokg2e.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">python信号处理</div></div></a></div><div class="next-post pull-right"><a href="/posts/60233.html" title="python基础"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Python-Logo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/59657.html" title="COMSOL光电器件仿真"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qrz9wl_1280x720.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-08</div><div class="title">COMSOL光电器件仿真</div></div></a></div><div><a href="/posts/18299.html" title="复合理论"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqx7ol_1280x720.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-09</div><div class="title">复合理论</div></div></a></div><div><a href="/posts/3769378865.html" title="微纳米加工及应用"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/DALL·E_2024-09-13_14.39.53_-_In_a_warm,_soft_anime_art_style,_a_peaceful_seaside_at_low_tide_is_depicted._A_young_person,_possibly_a_child,_is_standing_by_the_water's_edge_with_a_.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-14</div><div class="title">微纳米加工及应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PN%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">PN结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PN%E7%BB%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">PN结的基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%97%E5%B0%BD%E5%B1%82"><span class="toc-number">1.2.</span> <span class="toc-text">耗尽层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%BB%BA%E7%94%B5%E5%8A%BF"><span class="toc-number">1.3.</span> <span class="toc-text">内建电势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E5%8A%A0%E7%94%B5%E5%8A%BF"><span class="toc-number">1.4.</span> <span class="toc-text">外加电势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%B5%81"><span class="toc-number">1.5.</span> <span class="toc-text">电流</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E7%94%B5%E4%BA%8C%E6%9E%81%E7%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">光电二极管</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E7%94%B5%E4%BA%8C%E6%9E%81%E7%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">光电二极管原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PIN%E5%85%89%E7%94%B5%E4%BA%8C%E6%9E%81%E7%AE%A1"><span class="toc-number">2.2.</span> <span class="toc-text">PIN光电二极管</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E7%94%B5%E6%B5%81%E7%9A%84%E6%94%BE%E5%A4%A7"><span class="toc-number">2.3.</span> <span class="toc-text">光电流的放大</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#APD%E9%9B%AA%E5%B4%A9%E5%85%89%E7%94%B5%E4%BA%8C%E6%9E%81%E7%AE%A1"><span class="toc-number">2.4.</span> <span class="toc-text">APD雪崩光电二极管</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94PIN%E5%92%8CAPD"><span class="toc-number">2.5.</span> <span class="toc-text">对比PIN和APD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CCD%E4%B8%8ECMOS"><span class="toc-number">3.</span> <span class="toc-text">CCD与CMOS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CCD"><span class="toc-number">3.1.</span> <span class="toc-text">CCD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMOS"><span class="toc-number">3.2.</span> <span class="toc-text">CMOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="toc-number">3.3.</span> <span class="toc-text">对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E4%BC%A0%E6%84%9F%E5%99%A8%E5%99%AA%E5%A3%B0%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">图像传感器噪声模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E5%AD%90-%E6%95%A3%E7%B2%92-%E5%99%AA%E5%A3%B0"><span class="toc-number">4.1.</span> <span class="toc-text">光子(散粒)噪声</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%97%E7%94%B5%E6%B5%81"><span class="toc-number">4.2.</span> <span class="toc-text">暗电流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%87%BA%E5%99%AA%E5%A3%B0"><span class="toc-number">4.3.</span> <span class="toc-text">读出噪声</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BA%E5%AE%9A%E6%A8%A1%E5%BC%8F%E5%99%AA%E5%A3%B0FPN"><span class="toc-number">4.4.</span> <span class="toc-text">固定模式噪声FPN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E5%99%AA%E5%A3%B0"><span class="toc-number">4.5.</span> <span class="toc-text">总噪声</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E4%BB%A3%E7%A0%81"><span class="toc-number">4.6.</span> <span class="toc-text">交互代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%89%E7%94%B5%E4%BA%8C%E6%9E%81%E7%AE%A1%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-number">5.</span> <span class="toc-text">光电二极管的性能指标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E7%94%B5%E8%BD%AC%E6%8D%A2%E7%89%B9%E6%80%A7"><span class="toc-number">5.1.</span> <span class="toc-text">光电转换特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E7%89%B9%E6%80%A7"><span class="toc-number">5.2.</span> <span class="toc-text">噪声特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%E7%89%B9%E6%80%A7"><span class="toc-number">5.3.</span> <span class="toc-text">响应速度特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%99%AA%E6%AF%94SNR"><span class="toc-number">5.4.</span> <span class="toc-text">信噪比SNR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8%E6%A0%BC"><span class="toc-number">5.5.</span> <span class="toc-text">总结表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97"><span class="toc-number">5.6.</span> <span class="toc-text">性能计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%85vs%E7%9F%B3%E5%A2%A8%E7%83%AF"><span class="toc-number">5.7.</span> <span class="toc-text">硅vs石墨烯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Time-of-Flight-ToF"><span class="toc-number">6.</span> <span class="toc-text">Time-of-Flight(ToF)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86"><span class="toc-number">6.1.</span> <span class="toc-text">系统原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="toc-number">6.2.</span> <span class="toc-text">系统结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%88%86%E7%B1%BB"><span class="toc-number">6.3.</span> <span class="toc-text">系统分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%89%E5%86%B2%E5%BC%8FdToF"><span class="toc-number">6.3.1.</span> <span class="toc-text">脉冲式dToF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%B3%A2%E8%B0%83%E5%88%B6%E5%BC%8FiToF"><span class="toc-number">6.3.2.</span> <span class="toc-text">连续波调制式iToF</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

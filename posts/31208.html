@@ -1,0 +1,1200 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>FunRec 推荐系统_精排模型 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在完成候选的快速筛选后，精排阶段需要对上千个候选进行更准确的偏好预测，并在可接受的延迟内兼顾效果、泛化性和稳定性 精排模型的发展路径较为清晰，Wide &amp; Deep 将线性模型的记忆能力与深度模型的泛化能力结合，成为常用的基础框架 随着对特征交互的重视，从 FM 到 DeepFM、xDeepFM，再到基于注意力机制的自动交互建模，模型逐步提升了对复杂特征关系的刻画能力 为了刻画用户兴趣的多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FunRec 推荐系统_精排模型">
+<meta property="og:url" content="http://yhblogs.cn/posts/31208.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="在完成候选的快速筛选后，精排阶段需要对上千个候选进行更准确的偏好预测，并在可接受的延迟内兼顾效果、泛化性和稳定性 精排模型的发展路径较为清晰，Wide &amp; Deep 将线性模型的记忆能力与深度模型的泛化能力结合，成为常用的基础框架 随着对特征交互的重视，从 FM 到 DeepFM、xDeepFM，再到基于注意力机制的自动交互建模，模型逐步提升了对复杂特征关系的刻画能力 为了刻画用户兴趣的多">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1)%20(1).png">
+<meta property="article:published_time" content="2026-01-18T19:27:57.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.719Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="⌨️python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1)%20(1).png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/31208.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'FunRec 推荐系统_精排模型',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">FunRec 推荐系统_精排模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-01-18T19:27:57.000Z" title="发表于 2026-01-18 19:27:57">2026-01-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">20k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>74分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="FunRec 推荐系统_精排模型"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>在完成候选的快速筛选后，精排阶段需要对上千个候选进行更准确的偏好预测，并在可接受的延迟内兼顾效果、泛化性和稳定性</p>
+<p>精排模型的发展路径较为清晰，Wide &amp; Deep 将线性模型的记忆能力与深度模型的泛化能力结合，成为常用的基础框架</p>
+<p>随着对特征交互的重视，从 FM 到 DeepFM、xDeepFM，再到基于注意力机制的自动交互建模，模型逐步提升了对复杂特征关系的刻画能力</p>
+<p>为了刻画用户兴趣的多样性和变化过程，序列建模被引入精排，DIN 关注不同兴趣的匹配，DIEN 建模兴趣的演化，DSIN 进一步利用会话信息，使模型能够更好地理解用户的动态行为</p>
+<p>在实际业务中，精排模型往往需要同时优化多个目标，并适配不同场景。通过多目标和多场景建模，结合合理的架构设计和动态权重策略，模型可以在复杂环境中取得更优的整体效果</p>
+<h2 id="记忆与泛化"><a href="#记忆与泛化" class="headerlink" title="记忆与泛化"></a>记忆与泛化</h2><p>在构建推荐模型时，常常追求两个看似矛盾的目标：<font color="DarkViolet">记忆(Memorization)与泛化(Generalization)</font></p>
+<ul>
+<li><strong>记忆能力</strong>：模型能够学习并记住那些在历史数据中频繁共同出现的特征组合。例如，模型记住“买了A的用户，通常也会买B”，这种能力可以精准地捕捉显性、高频的关联，为用户提供与他们历史行为高度相关的推荐</li>
+<li><strong>泛化能力</strong>：模型能学到特征间的深层关系，处理训练时很少见到的特征组合。例如，模型发现“物品A和物品C都是同一类的，用户喜欢这类东西”，那就可以给喜欢A的用户推荐C，哪怕用户以前没见过C，这能让推荐更丰富一些</li>
+</ul>
+<p>2016年Google提出Wide &amp; Deep，这个模型的想法很直接：既然需要两种能力，那就设计两个部分，然后让它们一起训练，通过联合训练的方式配合工作</p>
+<p>模型的设计思路是把结构分成两块，各自负责不同的事情：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/wide_and_deep.jpg" alt="wide_and_deep" style="zoom:67%;">
+
+<p><strong>记忆的捷径：Wide部分</strong></p>
+<p>Wide部分本质上是一个广义线性模型，比如逻辑回归</p>
+<p>它的优势在于结构简单、可解释更强，并且能高效地“记忆”那些显而易见的关联规则。其数学表达形式如下：<br>$$<br>y=\mathbf w^T \mathbf x+b<br>$$<br>Wide部分的关键在于其输入的特征向量，不仅包含原始特征，更重要的是<font color="Violetred">包含了大量人工设计的交叉特征(Cross-product Features)</font></p>
+<p>交叉特征可以将多个独立的特征组合成一个新的特征，用于捕捉特定的共现模式</p>
+<p>核心代码：</p>
+<p>为每个特征组合分配一个独立的权重，通过查表操作直接“记住”历史数据中的共现模式</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 遍历所有需要交叉的特征对</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cross_feature_columns)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i + <span class="number">1</span>, <span class="built_in">len</span>(cross_feature_columns)):</span><br><span class="line">        fc_i = cross_feature_columns[i]</span><br><span class="line">        fc_j = cross_feature_columns[j]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 获取两个特征的输入</span></span><br><span class="line">        <span class="comment"># feat_i / feat_j 是离散特征的 id</span></span><br><span class="line">        feat_i = input_layer_dict[fc_i.name]  <span class="comment"># [B, 1]</span></span><br><span class="line">        feat_j = input_layer_dict[fc_j.name]  <span class="comment"># [B, 1]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 为每个特征对创建独立的权重表</span></span><br><span class="line">        cross_vocab_size = fc_i.vocab_size * fc_j.vocab_size</span><br><span class="line">        cross_embedding = Embedding(</span><br><span class="line">            input_dim=cross_vocab_size,</span><br><span class="line">            output_dim=<span class="number">1</span>,  <span class="comment"># 标量权重，直接记住这对特征的影响</span></span><br><span class="line">            name=<span class="string">f"cross_<span class="subst">{fc_i.name}</span>_<span class="subst">{fc_j.name}</span>"</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将特征对组合成单一索引并查找权重</span></span><br><span class="line">        combined_index = feat_i * fc_j.vocab_size + feat_j  <span class="comment"># 计算在特征对权重表中的位置</span></span><br><span class="line">        cross_weight = cross_embedding(combined_index)  <span class="comment"># 查表得到这对特征的权重</span></span><br><span class="line">        cross_weights.append(cross_weight)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有交叉特征权重相加</span></span><br><span class="line">cross_logits = tf.add_n(cross_weights) <span class="comment"># [B, 1]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>举例</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user_gender        ∈ {0: 女, 1: 男}                vocab_size = 2</span><br><span class="line">user_age_bucket    ∈ {0: 18-24, 1:25-34, 2:35-44}  vocab_size = 3</span><br><span class="line">item_category      ∈ {0: 数码, 1:服饰, 2:食品, 3:家居} vocab_size = 4</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cross_feature_columns = [</span><br><span class="line">    user_gender,</span><br><span class="line">    user_age_bucket,</span><br><span class="line">    item_category</span><br><span class="line">]</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>样本</th>
+<th>user_gender</th>
+<th>user_age_bucket</th>
+<th>item_category</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>男 (1)</td>
+<td>25-34 (1)</td>
+<td>数码 (0)</td>
+</tr>
+<tr>
+<td>B</td>
+<td>女 (0)</td>
+<td>35-44 (2)</td>
+<td>服饰 (1)</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input_layer_dict = {</span><br><span class="line">    "user_gender":     [[1], [0]],</span><br><span class="line">    "user_age_bucket": [[1], [2]],</span><br><span class="line">    "item_category":   [[0], [1]]</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>以 user_gender × user_age_bucket 为例</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">feat_i = user_gender     # [[1], [0]]</span><br><span class="line">feat_j = user_age_bucket # [[1], [2]]</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_vocab_size = 2 * 3 = 6</span><br><span class="line">cross_embedding = Embedding(input_dim=6, output_dim=1)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>计算联合索引</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 * 3 + 1 = 4  → 男 × 25-34</span><br><span class="line">0 * 3 + 2 = 2  → 女 × 35-44</span><br><span class="line">combined_index = [[4], [2]]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>需要已经学好的<code>cross_embedding</code>，假设</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">w2 = -0.3</span><br><span class="line">w4 = +0.8</span><br><span class="line">cross_weight = [[+0.8], [-0.3]]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>最终是所有交叉项求和</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">样本A：</span><br><span class="line">gender × age        : +0.8</span><br><span class="line">gender × category   : +1.2</span><br><span class="line">age × category      : +0.6</span><br><span class="line">--------------------------------</span><br><span class="line">cross_logits(A)     = +2.6</span><br><span class="line"></span><br><span class="line">样本B：</span><br><span class="line">gender × age        : -0.3</span><br><span class="line">gender × category   : +0.4</span><br><span class="line">age × category      : -0.2</span><br><span class="line">--------------------------------</span><br><span class="line">cross_logits(B)     = -0.1</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>学习复杂关系：Deep部分</strong></p>
+<p>Deep 部分是一个标准的前馈神经网络(DNN)，主要负责模型的泛化能力</p>
+<p>相比依赖人工特征交叉的 Wide 部分，Deep 部分能够自动学习特征之间的高阶、非线性关系</p>
+<p>工作流程如下：将高维稀疏的类别特征(如用户 ID、物品 ID)先通过嵌入层映射为低维稠密向量，再将这些向量输入 DNN 进行建模。嵌入向量能够表达特征的潜在语义，是模型实现泛化的关键</p>
+<p>例如，《流浪地球》和《三体》的电影ID在嵌入空间中的距离，可能会比《流浪地球》和《熊出没》更近</p>
+<p>随后，这些嵌入向量与其他数值特征拼接在一起，被送入多层神经网络中进行前向传播：<br>$$<br>a^{(l+1)}=f(W^{(l)}a^{(l)}+b^{(l)})<br>$$<br>其中，$a^{(l)}$是第$l$层的激活值，$W^{(l)}$和$b^{(l)}$是该层的权重和偏置，$f$是激活函数(如ReLU)</p>
+<p>通过逐层抽象，DNN能够发掘出数据中隐藏的复杂模式，从而对未曾见过的特征组合也能做出合理的预测</p>
+<p>核心代码：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 特征嵌入：将稀疏的类别特征转换为稠密向量</span></span><br><span class="line">group_feature_dict = {}</span><br><span class="line"><span class="keyword">for</span> group_name, _ <span class="keyword">in</span> group_embedding_feature_dict.items():</span><br><span class="line">    group_feature_dict[group_name] = concat_group_embedding(</span><br><span class="line">        group_embedding_feature_dict, group_name, axis=<span class="number">1</span>, flatten=<span class="literal">True</span></span><br><span class="line">    )  <span class="comment"># 按group_name拼接多个特征向量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 深度神经网络：逐层学习特征的非线性组合</span></span><br><span class="line">deep_logits = []</span><br><span class="line"><span class="keyword">for</span> group_name, group_feature <span class="keyword">in</span> group_feature_dict.items():</span><br><span class="line">    <span class="comment"># 构建多层神经网络</span></span><br><span class="line">    deep_out = DNNs(</span><br><span class="line">        units=dnn_units,  <span class="comment"># 例如 [64, 32]</span></span><br><span class="line">        activation=<span class="string">"relu"</span>,  <span class="comment"># ReLU激活函数</span></span><br><span class="line">        dropout_rate=dnn_dropout_rate</span><br><span class="line">    )(group_feature)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出层：将深度特征映射为预测分数</span></span><br><span class="line">    deep_logit = tf.keras.layers.Dense(<span class="number">1</span>, activation=<span class="literal">None</span>)(deep_out)</span><br><span class="line">    deep_logits.append(deep_logit)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>group_embedding_feature_dict</code>是一个按特征组组织 embedding 的字典</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">group_embedding_feature_dict = {</span><br><span class="line">    "user": {</span><br><span class="line">        "user_id":      user_id_embedding,      # [B, D]</span><br><span class="line">        "user_gender":  gender_embedding,        # [B, D]</span><br><span class="line">        "user_age":     age_embedding            # [B, D]</span><br><span class="line">    },</span><br><span class="line">    "item": {</span><br><span class="line">        "item_id":      item_id_embedding,       # [B, D]</span><br><span class="line">        "item_category":category_embedding       # [B, D]</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">group_feature_dict = {</span><br><span class="line">    "user": Tensor[B, 3*D],</span><br><span class="line">    "item": Tensor[B, 2*D]</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>两者结合</strong></p>
+<p>Wide &amp; Deep模型通过联合训练，将两部分的输出结合起来进行最终的预测。其预测概率如下：<br>$$<br> P(Y=1|\mathbf x)=\sigma(\mathbf w_{wide}^T[\mathbf x,\phi(\mathbf x)]+\mathbf w_{deep}^T a^{(lf)}+b)<br>$$<br>$\sigma$是Sigmoid函数，$[\mathbf{x}, \phi(\mathbf{x})]$代表Wide部分的输入(包含原始特征和交叉特征)，$a^{(lf)}$是Deep部分最后一层的输出向量，$\mathbf{w}<em>{wide}$，$\mathbf{w}</em>{deep}$和$b$是最终预测层的权重和偏置</p>
+<p>模型的梯度在反向传播时会同时更新Wide和Deep两部分的所有参数</p>
+<p>由于两部分处理的特征类型不同，它们通常会采用不同的优化器</p>
+<ul>
+<li>Wide部分的输入特征非常稀疏，常使用带L1正则化的FTRL<u>(Ferreira and Soares, 2025)</u>等优化器，L1正则化可以产生稀疏的权重，相当于自动进行特征选择，让模型只“记住”重要的规则(惩罚某系参数置0)</li>
+<li>Deep部分的参数是稠密的，更适合使用像AdaGrad<u>(Duchi <em>et al.</em>, 2011)</u>或Adam<u>(Kingma and Ba, 2014)</u>优化器</li>
+</ul>
+<p>核心代码</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Wide部分：线性特征 + 交叉特征</span></span><br><span class="line">linear_logit = get_linear_logits(input_layer_dict, feature_columns)</span><br><span class="line">cross_logit = get_cross_logits(input_layer_dict, feature_columns)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deep部分：多个特征组的深度网络输出</span></span><br><span class="line">deep_logits = []</span><br><span class="line"><span class="keyword">for</span> group_name, group_feature <span class="keyword">in</span> group_feature_dict.items():</span><br><span class="line">    deep_out = DNNs(units=dnn_units, activation=<span class="string">"relu"</span>, dropout_rate=dnn_dropout_rate)(</span><br><span class="line">        group_feature</span><br><span class="line">    )</span><br><span class="line">    deep_logit = tf.keras.layers.Dense(<span class="number">1</span>, activation=<span class="literal">None</span>)(deep_out)</span><br><span class="line">    deep_logits.append(deep_logit)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 联合训练：将Wide和Deep的输出相加</span></span><br><span class="line">wide_deep_logits = add_tensor_func(deep_logits + [linear_logit, cross_logit]) <span class="comment"># list相加</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终预测：通过sigmoid函数输出点击概率</span></span><br><span class="line">output = tf.keras.layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)(wide_deep_logits)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Wide &amp; Deep模型的意义不只是提供了一个新的网络结构，更重要的是给出了一个思路：怎么把记忆能力和泛化能力结合起来</p>
+<p>该模型不仅成为了许多推荐业务的基线模型，更为后续精排模型的发展提供了重要的参考</p>
+<h2 id="特征交叉"><a href="#特征交叉" class="headerlink" title="特征交叉"></a>特征交叉</h2><p>Wide部分需要人工设计交叉特征，这种手工设计的方式不仅费时费力，还很难覆盖所有有用的特征组合</p>
+<p>能否让模型自己学会做特征交叉呢？最直接的想法是让模型自动捕捉所有特征对之间的交互关系</p>
+<p>但是推荐系统的特征动辄成千上万，如果每两个特征都要学一个参数，参数量会爆炸</p>
+<p>而且推荐数据本身就很稀疏，大部分特征组合根本没有足够的样本来训练</p>
+<p>关键是要找到一种巧妙的方法，既能自动学习特征交叉，又不会让参数太多</p>
+<h3 id="二阶特征交叉"><a href="#二阶特征交叉" class="headerlink" title="二阶特征交叉"></a>二阶特征交叉</h3><h4 id="FM-从召回到精排"><a href="#FM-从召回到精排" class="headerlink" title="FM: 从召回到精排"></a>FM: 从召回到精排</h4><p>在召回时，FM主要解决的是“如何快速从海量物品中找到候选集”的问题</p>
+<p>但在精排阶段问题是：如何自动学习特征之间的交叉关系，而不用手工一个个去设计</p>
+<p>FM的核心思想发挥作用：<font color="DarkViolet">给每个特征学一个向量表示，然后用向量内积来捕捉特征间的关系</font></p>
+<p>为了捕捉特征间的交互关系，一个直接的想法是在线性模型的基础上增加所有特征的二阶组合项，即多项式模型：<br>$$<br>y = w_0 + \sum_{i=1}^n w_i x_i + \sum_{i=1}^{n-1} \sum_{j=i+1}^n w_{ij} x_i x_j<br>$$<br>这个模型存在两个致命缺陷：</p>
+<ul>
+<li>参数数量会达到$O(n^2)$的级别，在特征数量庞大的推荐场景下难以承受</li>
+<li>在数据高度稀疏的环境中，绝大多数的交叉特征$x_i x_j$在训练集中从未共同出现过，导致其对应的权重$w_{ij}$无法得到有效学习</li>
+</ul>
+<p>FM 模型巧妙地解决了这个问题，它将交互权重分解为两个低维隐向量的内积$w_{ij}=\langle\mathbf v_i,\mathbf v_j\rangle$，模型的预测公式就演变为：<br>$$<br>y = w_0 + \sum_{i=1}^n w_i x_i + \sum_{i=1}^{n-1} \sum_{j=i+1}^n \langle\mathbf v_i,\mathbf v_j\rangle x_i x_j<br>$$<br>其中$\mathbf v_i,\mathbf v_j$ 分别是特征 $i$ 和特征 $j$ 的 $k$ 维隐向量(Embedding)，$k$ 是一个远小于特征数量 $n$ 的超参数</p>
+<p><font color="DarkViolet">FM 的核心在于参数共享</font>，相比直接为每一对特征学习独立的交叉权重 $w_{ij}$(复杂度为$O(n^2) $)，FM 只需为每个特征学习一个 $k$ 维隐向量，总参数量降低为 $O(nk)$</p>
+<p>这种设计显著缓解了数据稀疏问题，即使特征 $i$ 和 $j$ 在训练样本中从未同时出现过，模型也能通过它们与其他特征的共现关系学到各自的隐向量，从而对二者的交叉效应进行合理预测</p>
+<p>另外通过数学重写，FM 的二阶交叉项计算复杂度可从$O(kn^2)$优化到线性的$O(kn)$，使其在工业界得到了广泛应用</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># FM层的核心计算：0.5 * ((sum(v))^2 - sum(v^2))</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, field_num, embedding_size]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先求和再平方：(∑v_i)^2</span></span><br><span class="line">square_of_sum = tf.square(</span><br><span class="line">    tf.reduce_sum(inputs, axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span><br><span class="line">)  <span class="comment"># [B, 1, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先平方再求和：∑(v_i^2)</span></span><br><span class="line">sum_of_square = tf.reduce_sum(</span><br><span class="line">    inputs * inputs, axis=<span class="number">1</span>, keepdims=<span class="literal">True</span></span><br><span class="line">)  <span class="comment"># [B, 1, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># FM二阶交互项</span></span><br><span class="line">cross_term = <span class="number">0.5</span> * tf.reduce_sum(</span><br><span class="line">    square_of_sum - sum_of_square, axis=<span class="number">2</span></span><br><span class="line">)  <span class="comment"># [B, 1]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="AFM：注意力加权的交叉特征"><a href="#AFM：注意力加权的交叉特征" class="headerlink" title="AFM：注意力加权的交叉特征"></a>AFM：注意力加权的交叉特征</h4><p>FM 对所有特征交叉给予了相同的权重，但实际上不同交叉组合的重要性是不同的</p>
+<p>AFM<u>(Xiao <em>et al.</em>, 2017)</u> 在 FM 的基础上引入注意力机制，为不同的特征交叉分配不同权重，使模型能够重点关注更有价值的交互</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/afm_architecture_(1).webp" alt="afm_architecture_(1)" style="zoom:67%;">
+
+<p>AFM 将所有成对特征的隐向量进行元素积(Hadamard Product)，得到保留向量信息的二阶交叉表示而不是像 FM 那样直接求内积，为后续的注意力计算提供了输入，这一步称为<font color="Violetred">成对交互层</font>(Pair-wise Interaction Layer)<br>$$<br>\color{purple}f_{PI}(\mathcal E)<br>= \sum_{(i,j)\in\mathcal R_x}<br>(\mathbf v_i \odot \mathbf v_j) x_i x_j<br>$$<br>$\mathcal E$ 表示输入样本中所有非零特征的embedding向量集合，$\mathcal R_x$ 表示输入样本中所有非零特征的索引对集合</p>
+<p>AFM 使用一个小型注意力网络来学习每个交叉特征 $(v_i \odot v_j)$ 的重要性得分 $a_{ij}$<br>$$<br>\begin{aligned}<br>a_{ij}’ &amp;= \textbf h^T \text{ReLU}(\textbf{W} (\mathbf v_i \odot \mathbf v_j) x_i x_j + \textbf{b}) \\<br>a_{ij} &amp;= \frac{\exp(a_{ij}’)}{\sum_{(i,k) \in \mathcal R_x} \exp(a_{ik}’)}<br>\end{aligned}<br>$$<br>其中 $\textbf{W}$ 是注意力网络的权重矩阵，$\textbf{b}$ 是偏置向量，$\textbf{h}$ 是输出层向量</p>
+<blockquote>
+<p>$\textbf{h}$是attention projection 向量<code>[B, attention_factor, 1]</code>，表示“什么样的交叉是重要的”这一判断标准</p>
+<p>相当于一个不带激活的线性层，把输入映射成 1 维输出，几乎等价于Dense(1, use_bias=False)</p>
+</blockquote>
+<p>得分 $a_{ij}$ 经过 Softmax 归一化后，被用作加权求和的权重，与原始的交叉特征向量相乘，最终汇总成一个向量，这个过程被称为注意力池化层(Attention-based Pooling)<br>$$<br>\color{red} f_{Att} = \sum_{(i,j) \in \mathcal R_x} a_{ij} (\mathbf v_i \odot \mathbf v_j) x_i x_j<br>$$<br>最终，AFM 将一阶线性部分与经过注意力加权的二阶交叉结果结合，输出预测结果<br>$$<br>\hat y_{afm}(x) = w_0 + \sum_{i=1}^n w_i x_i + \textbf{p}^T f_{Att}<br>$$<br>其中 $\textbf{p}$ 是一个投影向量，用于将最终的交叉结果映射为标量</p>
+<p>通过引入注意力机制，AFM 不仅提升了模型的表达能力，还<font color="Violetred">通过可视化注意力权重 $a_{ij}$ 赋予了模型更好的可解释性</font>，可以洞察哪些特征交叉对预测结果的贡献最大</p>
+<p><strong>核心代码</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 计算所有特征对的元素积交互</span></span><br><span class="line"><span class="comment"># num_pairs = n(n-1)/2</span></span><br><span class="line"><span class="comment"># group_pairwise: [batch_size, num_pairs, embedding_dim]</span></span><br><span class="line">group_pairwise = pairwise_feature_interactions(</span><br><span class="line">    group_feature, drop_rate=dropout_rate</span><br><span class="line">) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 注意力权重计算：h^T · ReLU(W · (v_i ⊙ v_j) + b) </span></span><br><span class="line"><span class="comment"># 这个过程是FM没有的</span></span><br><span class="line">weighted_inputs = tf.matmul(</span><br><span class="line">    group_pairwise, attention_weight</span><br><span class="line">) + attention_bias  <span class="comment"># [B, num_pairs, attention_factor]</span></span><br><span class="line"></span><br><span class="line">activation = tf.nn.relu(weighted_inputs)</span><br><span class="line"><span class="comment"># attention_projection是一个可学习的投影向量，用来把交互特征压缩成一个标量注意力分数</span></span><br><span class="line">projected = tf.matmul(activation, attention_projection)  <span class="comment"># [B, num_pairs, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Softmax归一化得到注意力权重</span></span><br><span class="line">attention_weights = tf.nn.softmax(projected, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 加权求和：∑ a_ij · (v_i ⊙ v_j)</span></span><br><span class="line">attention_output = tf.reduce_sum(</span><br><span class="line">    tf.multiply(group_pairwise, attention_weights), axis=<span class="number">1</span></span><br><span class="line">)  <span class="comment"># [B, D]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>相比FM对所有特征交叉一视同仁，AFM通过注意力机制自动识别重要的交互模式，提升了模型的表达能力和可解释性</p>
+<h4 id="NFM-交叉特征的深度学习"><a href="#NFM-交叉特征的深度学习" class="headerlink" title="NFM: 交叉特征的深度学习"></a>NFM: 交叉特征的深度学习</h4><p>NFM(Neural Factorization Machine) <u>(He and Chua, 2017)</u> 通过进一步利用特征交叉信息，在 FM 的基础上引入了深度网络。它将 FM 中得到的二阶交叉结果(以哈达玛积向量表示)作为输入，送入 DNN，从而学习更高阶、非线性的特征关系</p>
+<p>其核心思想是：<font color="Violetred">FM 学到的二阶交叉本身就是高质量特征，可作为 DNN 的输入，由深度网络自动建模这些交叉特征之间的复杂组合关系</font></p>
+<p>NFM 的结构可以分为两个部分：先做特征交叉，再用深度网络学习</p>
+<p>关键创新是引入<font color="Violetred">“特征交叉池化层”</font>(Bi-Interaction Pooling Layer)，把所有特征对的交叉信息汇总成一个向量，然后送给后面的神经网络去学习更复杂的模式。具体的计算过程如下：<br>$$<br>\color{purple}f_{BI}(V_x) = \sum_{i=1}^n \sum_{j=i+1}^n (\mathbf v_i \odot \mathbf v_j) x_i x_j<br>$$<br>其中 $V_x = {x_1 v_1, x_2 v_2, …, x_n v_n}$ 是输入样本中所有非零特征的 Embedding 向量集合，$\odot$ 仍然是元素积操作</p>
+<p>这个操作的结果是一个与 Embedding 维度相同的向量，有效地编码了所有的二阶特征交叉信息</p>
+<p>与FM中的变换类似，这一层的计算同样可以被优化到线性时间复杂度，非常高效：<br>$$<br>f_{BI}(V_x) = \frac{1}{2} \left[\left(\sum_{i=1}^n x_i \mathbf v_i\right)^2 - \sum_{i=1}^n (x_i \mathbf v_i)^2\right].<br>$$</p>
+<blockquote>
+<p>虽然这里变为Hadamard Product，但是优化的方式是通用的，这里平方不是点积平方，而是逐元素平方</p>
+</blockquote>
+<p>得到特征交叉池化层的输出向量 $f_{BI}(V_x)$ 后，NFM 将其送入一个标准的多层前馈神经网络(MLP)，输出$z_L$</p>
+<p>最后，NFM 将一阶线性部分与 DNN 部分的输出结合起来，得到最终的预测结果：<br>$$<br>\hat y_{NFM}(x) = w_0 + \sum_{i=1}^n w_i x_i + \textbf h^T z_L<br>$$<br>其中 $\textbf h$ 是预测层的权重向量</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>AFM</th>
+<th>NFM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数学形式</td>
+<td>线性映射 → 1 维</td>
+<td>线性映射 → 1 维</td>
+</tr>
+<tr>
+<td>输入对象</td>
+<td>单个交叉向量</td>
+<td>DNN 最终表示</td>
+</tr>
+<tr>
+<td>输出语义</td>
+<td>重要性分数</td>
+<td>预测分数</td>
+</tr>
+<tr>
+<td>是否参与 softmax</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>是否是模型输出</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>本质角色</td>
+<td>Attention scorer</td>
+<td>Prediction head</td>
+</tr>
+</tbody></table>
+<p>通过这种方式，NFM 巧妙地将 FM 的二阶交叉能力与 DNN 的高阶非线性建模能力结合在了一起</p>
+<p>FM 可以被看作是 NFM 在没有隐藏层时的特例，这表明 NFM 是对 FM 的一个自然扩展和深度化</p>
+<p><strong>核心代码</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 双交互池化层：1/2 * ((∑v_i)^2 - ∑(v_i^2))</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, num_features, embedding_dim]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># (∑v_i)^2：先求和再平方</span></span><br><span class="line">sum_of_embeds = tf.reduce_sum(inputs, axis=<span class="number">1</span>)  <span class="comment"># [B, D]</span></span><br><span class="line">square_of_sum = tf.square(sum_of_embeds)  <span class="comment"># [B, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ∑(v_i^2)：先平方再求和</span></span><br><span class="line">square_of_embeds = tf.square(inputs)  <span class="comment"># [B, N, D]</span></span><br><span class="line">sum_of_square = tf.reduce_sum(square_of_embeds, axis=<span class="number">1</span>)  <span class="comment"># [B, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 双交互池化输出</span></span><br><span class="line">bi_interaction = <span class="number">0.5</span> * (square_of_sum - sum_of_square)  <span class="comment"># [B, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 送入深度神经网络</span></span><br><span class="line">dnn_output = DNNs(</span><br><span class="line">    units=[<span class="number">64</span>, <span class="number">32</span>], activation=<span class="string">"relu"</span>, use_bn=<span class="literal">True</span>, dropout_rate=<span class="number">0.1</span></span><br><span class="line">)(bi_interaction)</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="PNN-多样化的乘积操作"><a href="#PNN-多样化的乘积操作" class="headerlink" title="PNN: 多样化的乘积操作"></a>PNN: 多样化的乘积操作</h4><p>PNN <u>(Qu et al., 2016)</u> 的核心动机很直接：单一的内积或元素积难以充分刻画特征交互，因此引入多种“乘积”操作，让模型更全面地建模特征之间的关系</p>
+<p>PNN 的关键组件是<font color="Violetred">乘积层(Product Layer)</font>，该层以特征 Embedding 为输入，一方面保留线性信息，另一方面显式建模特征之间的二阶交互，并将两部分结果送入后续的全连接网络进行高阶非线性学习</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/pnn (1).webp" alt="pnn (1)" style="zoom:67%;">
+
+<p>PNN 的乘积层会产生两部分信号</p>
+<p>一部分是线性信号 $\mathbf l_z$，本质上就是对所有特征 Embedding 的一次线性变换，可视为一个普通的全连接层<br>$$<br>\mathbf l_z^n = \sum_{i=1}^N\sum_{k=1}^M (\mathbf W_z^n)_{i,k} \mathbf f_i^k<br>$$<br>其中 $\mathbf f_i$ 是特征 $i$ 的 Embedding 向量，$\mathbf W_z^n$ 是第 $n$ 个神经元对应的线性信号权重矩阵，$N$ 为特征字段数量，$M$ 为 Embedding 维数</p>
+<hr>
+<p>另一部分是二次信号 $\mathbf l_p$，用于刻画特征间的交互。根据交互方式不同，PNN 有两种主要变体</p>
+<ul>
+<li><p><strong>IPNN (Inner Product-based Neural Network)</strong>:</p>
+<p>使用<font color="Violetred">特征 Embedding 之间的内积来计算二次信号</font><br>$$<br>\mathbf l_p^n = \sum_{i=1}^N \sum_{j=1}^N (\textbf W_p^n)_{i,j} \langle \mathbf f_i, \mathbf f_j \rangle<br>$$<br><font color="DarkViolet">$\mathbf W_p^n \in \mathbb R^{M \times M}$ 是第 $n$ 个神经元对应的权重矩阵</font>，计算的复杂度是 $O(N^2)$，$N$ 为特征字段数量，复杂度太高</p>
+<p><font color="DarkViolet">利用将交互权重矩阵分解为向量外积的形式</font>，$\textbf W_p^n$ 分解为 $\theta_n \theta_n^T$<br>$$<br>\mathbf l_p^n = \sum_{i=1}^N \sum_{j=1}^N \theta_i^n \theta_j^n \langle \mathbf f_i, \mathbf f_j \rangle = \sum_{i=1}^N \sum_{j=1}^N \langle \theta_i^n \mathbf f_i, \theta_j^n \mathbf f_j \rangle = \langle \sum_{i=1}^N \theta_i^n \mathbf f_i, \sum_{j=1}^N \theta_j^n \mathbf f_j \rangle = \left|\sum_{i=1}^N \theta_i^n \mathbf f_i\right|^2<br>$$<br>通过这个变换，所有内积对的加权和转变成了先对 Embedding 进行加权求和，然后计算一次向量的 L2 范数平方，复杂度成功地从 $O(N^2M)$ 降低到了 $O(NM)$<br>$$<br>\mathbf l_p = \left(\left|\sum_{i=1}^N \theta_i^1 \mathbf f_i\right|^2, \left|\sum_{i=1}^N \theta_i^2 \mathbf f_i\right|^2, \ldots, \left|\sum_{i=1}^N \theta_i^n \mathbf f_i\right|^2\right)<br>$$</p>
+</li>
+<li><p><strong>OPNN (Outer Product-based Neural Network)</strong>:</p>
+<p>使用<font color="Violetred">特征 Embedding 之间的外积来捕捉更丰富的交互信息</font></p>
+<p>如果对所有外积对进行加权求和$\sum_{i=1}^N \sum_{j=1}^N \mathbf{f}_i \mathbf{f}_j^T$，计算复杂度太高$O(N^2M^2)$</p>
+<p>OPNN 采用了一种称为“叠加”(superposition)的近似方法来大幅降低复杂度</p>
+<p>先将所有特征的 Embedding 向量相加，然后再计算一次外积<br>$$<br>\sum_{i=1}^N \sum_{j=1}^N \mathbf f_i \mathbf f_j^T = (\sum_{i=1}^N \mathbf f_i)(\sum_{j=1}^N \mathbf f_j)^T<br>$$<br>计算量得到了节省$O(M(M+N)) = O(NM)+O(M^2)$<br>$$<br>\mathbf l_p = \left(\langle\mathbf W_p^1, (\sum_{i=1}^N \mathbf f_i)(\sum_{j=1}^N \mathbf f_j)^T\rangle, \langle\mathbf W_p^2, (\sum_{i=1}^N \mathbf f_i)(\sum_{j=1}^N \mathbf f_j)^T\rangle, \ldots, \langle\mathbf W_p^n, (\sum_{i=1}^N \mathbf f_i)(\sum_{j=1}^N \mathbf f_j)^T\rangle\right)<br>$$</p>
+</li>
+</ul>
+<p>在得到线性信号 $l_z$ 和经过优化的二次信号 $l_p$ 后，PNN 将它们合并，并送入后续的全连接层进行高阶非线性变换<br>$$<br>\begin{aligned}<br>\mathbf l_1 &amp;= \text{ReLU}(\mathbf l_z + \mathbf l_p + \mathbf b_1) \\<br>\mathbf l_2 &amp;= \text{ReLU}(\mathbf W_2 \mathbf l_1 + \mathbf b_2) \\<br>\hat y &amp;= \sigma(\textbf W_3 \mathbf l_2 + b_3)<br>\end{aligned}<br>$$<br>PNN 的独特之处在于，它将“乘积”操作(无论是内积还是外积)作为了网络中的一个核心计算单元，认为这种操作比传统 DNN 中简单的“加法”操作更能有效地捕捉类别型特征之间的交互关系</p>
+<hr>
+<p><strong>核心代码</strong></p>
+<p>以IPNN的优化实现为例</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 线性信号：直接对特征embedding做全连接</span></span><br><span class="line">concat_embed = tf.concat(inputs, axis=<span class="number">1</span>)  <span class="comment"># [B, N*D]</span></span><br><span class="line">lz = tf.matmul(concat_embed, linear_w)  <span class="comment"># [B, units]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 内积优化：||∑(θ_i · f_i)||^2 代替 ∑∑&lt;θ_i·f_i, θ_j·f_j&gt;</span></span><br><span class="line">lp_list = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(units):</span><br><span class="line">    <span class="comment"># 对每个特征加权：θ_i · f_i</span></span><br><span class="line">    delta = tf.multiply(</span><br><span class="line">        concat_embed, tf.expand_dims(inner_w[i], axis=<span class="number">1</span>)</span><br><span class="line">    )  <span class="comment"># [B, N, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 求和后计算L2范数平方：||∑(θ_i · f_i)||^2</span></span><br><span class="line">    delta = tf.reduce_sum(delta, axis=<span class="number">1</span>)  <span class="comment"># [B, D]</span></span><br><span class="line">    lp_i = tf.reduce_sum(tf.square(delta), axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)  <span class="comment"># [B, 1]</span></span><br><span class="line">    lp_list.append(lp_i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接线性信号和内积信号</span></span><br><span class="line">lp = tf.concat(lp_list, axis=<span class="number">1</span>)  <span class="comment"># [B, units]</span></span><br><span class="line">product_output = tf.concat([lz, lp], axis=<span class="number">1</span>)  <span class="comment"># [B, 2*units]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="FiBiNET-特征重要性与双线性交互"><a href="#FiBiNET-特征重要性与双线性交互" class="headerlink" title="FiBiNET: 特征重要性与双线性交互"></a>FiBiNET: 特征重要性与双线性交互</h4><p>PNN 用了多种乘积操作来做特征交互，但默认所有特征的重要性相同</p>
+<p>FiBiNET (Feature Importance and Bilinear feature Interaction Network) <u>(Huang et al., 2019)</u> 针对这一不足，引入特征重要性建模机制，在交互之前先学习各特征的权重，再有针对性地进行特征交互</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/fibinet_architecture (1).webp" alt="fibinet_architecture (1)" style="zoom: 80%;">
+
+<p>FiBiNET 的创新主要体现在两个核心模块上：SENET 特征重要性学习机制和双线性交互层</p>
+<p><strong>SENET 特征重要性学习</strong></p>
+<p>FiBiNET 引入 SENET(Squeeze-and-Excitation Network)<u>(Hu <em>et al.</em>, 2018)</u> 机制，用于自适应学习不同特征的重要性权重。与传统方法对所有特征一视同仁不同，SENET 能根据当前任务自动调整各特征的关注程度</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/fibinet_senet.webp" alt="fibinet_senet" style="zoom:67%;">
+
+<p>SENET 的工作流程分为三个步骤：</p>
+<ol>
+<li><p><strong>Squeeze (挤压)</strong>: 对每个特征的 embedding 向量做全局平均池化，将高维向量压缩为一个标量表示<br>$$<br>\mathbf z_i = F_{\text{sq}}(\mathbf e_i) = \frac{1}{k} \sum_{t=1}^k \mathbf e_i(t)<br>$$</p>
+</li>
+<li><p><strong>Excitation (激活)</strong>: 通过一个小型两层神经网络，建模特征之间的依赖关系，输出每个特征的重要性权重<br>$$<br>\mathbf A = F_{\text{ex}}(\mathbf Z) = \sigma_2(\mathbf W_2 \sigma_1(\mathbf W_1 \mathbf Z))<br>$$<br>其中 $\mathbf W_1 \in \mathbb R^{f \times \frac{f}{r}}$ 和 $\mathbf W_2 \in \mathbb R^{\frac{f}{r} \times f}$ 是可学习的权重矩阵，$r$ 是缩减率超参数</p>
+</li>
+<li><p><strong>Re-weight (重新加权)</strong>: 利用学到的权重对原始 embedding 进行缩放，突出重要特征，抑制次要特征<br>$$<br>\mathbf V = F_{\text{ReWeight}}(\mathbf A, \mathbf E) = [\mathbf a_1 \cdot \mathbf e_1, \mathbf a_2 \cdot \mathbf e_2, \ldots, \mathbf a_f \cdot \mathbf e_f]<br>$$</p>
+</li>
+</ol>
+<p>经过 SENET 处理后，模型获得了一组带有重要性信息的特征嵌入表示</p>
+<p><strong>双线性交互层</strong></p>
+<p>在获得原始嵌入 $\mathbf E$ 和经过 SENET 加权的嵌入，FiBiNET 接下来要解决如何更好地建模特征交互的问题</p>
+<p>不同于 FM 的内积或 PNN 的元素积，FiBiNET 采用双线性交互，引入一个可学习的变换矩阵$\mathbf W \in \mathbb R^{k \times k}$<br>$$<br>\mathbf p_{ij} = \mathbf v_i \cdot \mathbf W \circ \mathbf v_j<br>$$<br>其中 $\circ$ 表示哈达玛积，这种双线性变换相比于简单的内积或元素积，能够捕捉到更加丰富和细致的特征交互信息</p>
+<p>FiBiNET 同时对原始嵌入 $\mathbf{E}$ 和加权嵌入 $\mathbf{V}$ 进行双线性交互，并将这些交互结果与深度网络输出共同用于预测</p>
+<p>通过这种方式，FiBiNET 不仅解决了”哪些特征更重要”的问题，还通过双线性交互提升了二阶特征交叉的表达能力</p>
+<p><strong>核心代码</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. SENET特征重要性学习</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, num_features, embedding_dim]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Squeeze：全局平均池化</span></span><br><span class="line">squeeze = tf.reduce_mean(inputs, axis=-<span class="number">1</span>)  <span class="comment"># [B, N]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Excitation：两层全连接网络</span></span><br><span class="line">excitation = tf.matmul(squeeze, w1)  <span class="comment"># [B, reduction_size]</span></span><br><span class="line">excitation = tf.nn.relu(excitation)</span><br><span class="line">excitation = tf.matmul(excitation, w2)  <span class="comment"># [B, N]</span></span><br><span class="line">excitation = tf.nn.sigmoid(excitation)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Re-weight：应用注意力权重</span></span><br><span class="line">excitation = tf.expand_dims(excitation, axis=<span class="number">2</span>)  <span class="comment"># [B, N, 1]</span></span><br><span class="line">senet_output = tf.multiply(inputs, excitation)  <span class="comment"># [B, N, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 双线性交互：v_i · W ⊙ v_j</span></span><br><span class="line">interaction_outputs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_features):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, num_features):</span><br><span class="line">        <span class="comment"># 对特征i应用变换矩阵</span></span><br><span class="line">        vi_transformed = tf.matmul(inputs[:, i, :], W_list[idx])  <span class="comment"># [B, D]</span></span><br><span class="line">        <span class="comment"># 与特征j做元素积</span></span><br><span class="line">        interaction = tf.multiply(vi_transformed, inputs[:, j, :])  <span class="comment"># [B, D]</span></span><br><span class="line">        interaction_outputs.append(interaction)</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="DeepFM-低阶高阶的统一建模"><a href="#DeepFM-低阶高阶的统一建模" class="headerlink" title="DeepFM: 低阶高阶的统一建模"></a>DeepFM: 低阶高阶的统一建模</h4><p>DeepFM <u>(Guo et al., 2017)</u> 是在 Wide &amp; Deep 架构上的直接改进，用 FM 模型替代了需要大量人工特征工程的 Wide 部分，从而实现了真正的端到端训练</p>
+<p>DeepFM 的一个关键设计：<font color="DarkViolet">FM 组件和 Deep 组件共享同一套特征 Embedding</font></p>
+<p>模型可以在同一表示空间中同时学习低阶和高阶特征交互，不仅减少了参数冗余，也提升了训练效率</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/deepfm_architecture.png" alt="deepfm_architecture"></p>
+<p>DeepFM 由两个并行组件构成：</p>
+<ul>
+<li><p><strong>FM 组件</strong>: 负责学习一阶特征和二阶特征交叉，其输出的计算方式与标准 FM 完全相同，用于捕捉低阶交互关系<br>$$<br>y_{FM} = \langle w, x \rangle + \sum_{i=1}^{n} \sum_{j=i+1}^{n}\left\langle\mathbf v_{i}, \mathbf v_{j}\right\rangle x_{i} x_{j}<br>$$</p>
+</li>
+<li><p><strong>Deep 组件</strong>: 以 FM 中使用的 Embedding 向量作为输入，将各特征的 Embedding 拼接后送入前馈神经网络，学习高阶、非线性的特征交互模式<br>$$<br>a^{(l+1)} = \sigma(\textbf W^{(l)} a^{(l)} + \textbf b^{(l)})<br>$$<br>其中 $l$ 是层深度，$\sigma$ 是激活函数，$\textbf W^{(l)}$、$\textbf b^{(l)}$分别是第 $l$ 层的权重和偏置，最后输出为<br>$$<br>y_{Deep} = \textbf W^{|H|+1} \cdot a^{|H|} + \textbf b^{|H|+1}<br>$$<br>其中 $H$ 是隐藏层数量</p>
+</li>
+</ul>
+<p>最终，DeepFM 将 FM 部分和 Deep 部分输出的 logit 直接相加，并通过 Sigmoid 函数得到点击率预测<br>$$<br>\hat y = \sigma(y_{FM} + y_{Deep})<br>$$<br>DeepFM 的核心思路很简单：用 FM 自动学习低阶特征交互，用 DNN 学习高阶特征交互，并通过共享 Embedding 将两者紧密结合</p>
+<p>相比 Wide &amp; Deep，DeepFM 显著减少了人工特征工程的依赖，使模型更加简洁且易于扩展</p>
+<p><strong>核心代码</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取共享的特征embedding</span></span><br><span class="line"><span class="comment"># concat_feature: [batch_size, num_features, embedding_dim]</span></span><br><span class="line">concat_feature = concat_group_embedding(</span><br><span class="line">    group_embedding_feature_dict, group_name, axis=<span class="number">1</span>, flatten=<span class="literal">False</span></span><br><span class="line">) <span class="comment"># 这里不flatten是为了FM，需要显示计算特征交叉</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. FM组件：学习二阶特征交叉</span></span><br><span class="line">fm_output = FM()(concat_feature)  <span class="comment"># [B, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. DNN组件：学习高阶非线性特征交叉</span></span><br><span class="line"><span class="comment"># 将embedding展平作为DNN输入</span></span><br><span class="line">flatten_feature = tf.keras.layers.Flatten()(concat_feature)  <span class="comment"># [B, N*D]</span></span><br><span class="line">dnn_output = DNNs(</span><br><span class="line">    units=[<span class="number">64</span>, <span class="number">32</span>, <span class="number">1</span>],  <span class="comment"># 多层神经网络</span></span><br><span class="line">    activation=<span class="string">"relu"</span>,</span><br><span class="line">    dropout_rate=<span class="number">0.1</span></span><br><span class="line">)(flatten_feature)  <span class="comment"># [B, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 联合训练：将FM和DNN的输出相加</span></span><br><span class="line">deepfm_logits = tf.add(fm_output, dnn_output)  <span class="comment"># [B, 1]</span></span><br><span class="line">output = tf.keras.layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)(deepfm_logits)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>DeepFM通过共享Embedding实现了端到端训练，FM组件捕捉低阶交叉，DNN组件学习高阶模式，两者互补形成高效的特征学习能力</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>二阶交叉方式</th>
+<th>是否区分重要性</th>
+<th>是否建模高阶</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FM</td>
+<td>内积</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AFM</td>
+<td>Hadamard + Attention</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>NFM</td>
+<td>Hadamard + DNN</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>PNN</td>
+<td>内积 / 外积</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>FiBiNET</td>
+<td>双线性交互</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>DeepFM</td>
+<td>FM + DNN</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<p>虽然有些方法建模了高阶，但它们并不是显示地建模高阶，都是利用FM显示建模二阶，利用 DNN 隐式建立高阶模型</p>
+<p>对比NFM和DeepFM</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>NFM</th>
+<th>DeepFM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显式二阶交叉</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>高阶交叉来源</td>
+<td>二阶交叉的非线性组合</td>
+<td>原始特征的隐式交叉</td>
+</tr>
+<tr>
+<td>是否保留原始特征</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>交叉空间</td>
+<td>固定（二阶）</td>
+<td>自由（≥3 阶）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>NFM 的深度是“交叉后再加深”</li>
+<li>DeepFM 的深度是“保留原始信息再自动交叉”</li>
+</ul>
+<h3 id="高阶特征交叉"><a href="#高阶特征交叉" class="headerlink" title="高阶特征交叉"></a>高阶特征交叉</h3><p>深度网络虽然能学到高阶交互，但不知道它具体学到了什么，也不清楚这些交互是怎么影响预测的</p>
+<p>能不能像 FM 处理二阶交叉那样，设计出能够明确捕捉高阶交叉的网络结构？</p>
+<h4 id="DCN-残差连接的高阶交叉"><a href="#DCN-残差连接的高阶交叉" class="headerlink" title="DCN: 残差连接的高阶交叉"></a>DCN: 残差连接的高阶交叉</h4><p>Deep &amp; Cross Network (DCN) <u>(Wang et al., 2017)</u> 用Cross Network替代了Wide &amp; Deep模型中需要人工构造特征的 Wide 部分，实现了<font color="DarkViolet">显式、高效的高阶特征交叉建模</font></p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/deepcross.webp" alt="deepcross"></p>
+<p>DCN 的整体结构由两条并行分支组成：</p>
+<ul>
+<li>Cross Network：显式建模特征交叉</li>
+<li>Deep Network：学习隐式的高阶非线性关系</li>
+</ul>
+<p>两者共享同一套 Embedding 作为输入</p>
+<p>首先，模型将稀疏的类别特征转换为低维稠密的Embedding向量，并与数值型特征拼接在一起，形成统一的输入向量$\mathbf x_0$<br>$$<br>\mathbf x_0 = [\mathbf x_{\text{embed}, 1}^T, \ldots, \mathbf x_{\text{embed}, k}^T, \mathbf x_{\text{dense}}^T]<br>$$<br>这个初始向量会被同时送入Cross Network和Deep Network</p>
+<p><font color="DarkViolet">Cross Network是DCN的核心创新，它由多个交叉层堆叠而成，其精妙之处在于每一层的计算都会与原始输入$\mathbf x_0$的直接交互</font><br>$$<br>\mathbf x_{l+1} = \mathbf x_0 \mathbf x_l^T \mathbf w_l + \mathbf b_l + \mathbf x_l<br>$$<br><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/cross_network.webp" alt="cross_network" style="zoom: 33%;"></p>
+<p>这一结构可以看作一种带显式交叉项的残差网络：</p>
+<ul>
+<li>$\mathbf x_l$：残差连接，保证信息稳定传递</li>
+<li>$\mathbf x_0 \mathbf x_l^T \mathbf w_l$：显式特征交叉项</li>
+</ul>
+<p>例如：在第一层($l=0$)，$\mathbf x_1$ 包含了与 $\mathbf x_0$ 相关的二阶交叉项；在第二层($l=1$)，由于 $\mathbf x_1$ 已经包含了二阶信息，它与 $\mathbf x_0$ 的再次交叉就会产生三阶的交叉项</p>
+<p>因此，Cross Network 的深度直接决定了可建模的最高交叉阶数</p>
+<p>这种设计使得参数量只随着输入维度呈线性增长，非常高效</p>
+<p>与Cross Network并行的Deep Network部分是一个标准的全连接神经网络，用于隐式地学习高阶非线性关系，其结构与DeepFM中的DNN部分类似</p>
+<p>最后模型将Cross Network的输出 $\mathbf x_{L_1}$ 和Deep Network的输出 $\mathbf h_{L_2}$ 拼接起来，通过一个逻辑回归层得到最终的预测概率</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Cross Network的交叉层：x_{l+1} = x_0 * (x_l^T * w_l) + b_l + x_l</span></span><br><span class="line"><span class="comment"># 输入 x_0: [batch_size, feature_dim]</span></span><br><span class="line"></span><br><span class="line">x_l = x_0  <span class="comment"># 初始化为原始输入</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_cross_layers):</span><br><span class="line">    <span class="comment"># 计算 x_l^T * w_l：得到一个标量权重</span></span><br><span class="line">    xlw = tf.matmul(x_l, w_l)  <span class="comment"># [B, 1]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算 x_0 * (x_l^T * w_l)：交叉项</span></span><br><span class="line">    cross_term = tf.multiply(x_0, xlw)  <span class="comment"># [B, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 残差连接：x_{l+1} = cross_term + b_l + x_l</span></span><br><span class="line">    x_l = cross_term + b_l + x_l  <span class="comment"># [B, D]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="xDeepFM-向量级别的特征交互"><a href="#xDeepFM-向量级别的特征交互" class="headerlink" title="xDeepFM: 向量级别的特征交互"></a>xDeepFM: 向量级别的特征交互</h4><p><font color="Violetred">DCN 虽然能够显式构建高阶特征交叉，但其交叉发生在元素级别(bit-wise)</font>，Embedding向量中的每个元素都单独和其他特征的元素交互，这样就把Embedding向量拆散了，没有把它当作一个完整的特征来看待</p>
+<p>为此，xDeepFM 提出了压缩交互网络(Compressed Interaction Network, CIN)<u>(Lian et al., 2018)</u> ，<font color="DarkViolet">以向量级别(vector-wise)的方式进行显式特征交叉</font></p>
+<p>xDeepFM 由三部分并行组成：</p>
+<ul>
+<li>线性部分：建模一阶特征</li>
+<li>DNN 部分：学习隐式、高阶非线性交互</li>
+<li>CIN 部分：学习显式、向量级的高阶特征交叉</li>
+</ul>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/xdeepfm.webp" alt="xdeepfm" style="zoom:67%;">
+
+<p>CIN 的输入是一个特征域级别的 Embedding 矩阵<br>$$<br>\mathbf X_0 \in \mathbb R^{m \times D}<br>$$</p>
+<ul>
+<li>$m$：特征域(Field)数量</li>
+<li>$D$：Embedding 维度</li>
+<li>第$i$行$\mathbf e_i$：第 $i$ 个特征域的 Embedding 向量</li>
+</ul>
+<p>CIN 通过多层堆叠来显式建模高阶交叉，第 $k$ 层的输出 $\mathbf X_k$ 为上一层的输出 $\mathbf X_{k-1}$ 和最原始的输入 $\mathbf X_0$</p>
+<ol>
+<li><p>模上一层输出的$H_{k-1}$个向量与原始输入层的 $m$ 个向量之间，两两做Hadamard Product</p>
+<p>这个操作会产生 $H_{k-1} \times m$ 个交互向量，每个向量的维度仍然是 $D$</p>
+</li>
+<li><p>为了生成第 $k$ 层的第 $h$ 个新特征向量 $\mathbf X_{h,\ast}^k$，模型对所有交互向量进行加权求和<br>$$<br>\mathbf X_{h,\ast}^k = \sum_{i=1}^{H_{k-1}} \sum_{j=1}^{m} \mathbf W_{i,j}^{k,h} (\mathbf X_{i,\ast}^{k-1} \circ \mathbf X_{j,\ast}^0)<br>$$<br>其中：</p>
+<ul>
+<li><p>$\mathbf X_k \in \mathbb R^{H_k \times D}$ ：CIN 第 $k$ 层的输出，包含了 $H_k$ 个特征向量的集合(称为“特征图”)，$H_k$ 是第 $k$ 层特征图的数量</p>
+</li>
+<li><p>$\mathbf X_{i,\ast}^{k-1}$：第 $k-1$ 层输出的第 $i$ 个 $D$ 维向量</p>
+</li>
+<li><p>$\mathbf X_{j,\ast}^0$ ：原始输入矩阵的第 $j$ 个 $D$ 维向量(即第 $j$ 个特征域的Embedding)</p>
+</li>
+<li><p>$\circ$：哈达玛积，实现了向量级别的交互，保留了 $D$ 维的向量结构</p>
+</li>
+<li><p>$\mathbf W_{k,h} \in \mathbb R^{H_{k-1} \times m}$：参数矩阵，它为每一个由 $(\mathbf X_{i,\ast}^{k-1}, \mathbf X_{j,\ast}^0)$ 产生的交互向量都提供了一个权重，通过加权求和的方式，将 $H_{k-1} \times m$ 个交互向量的信息“压缩”成一个全新的 $D$ 维向量 $\mathbf X_{h,*}^k$</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>在计算出每一层(从第$1$层到第$T$层)的特征图 $\mathbf X_k$ 后，CIN会对每个特征图的所有向量在维度$D$上进行求和池化(Sum Pooling)，得到一个池化后的向量 $\mathbf p_k \in \mathbb R^{H_k}$</p>
+<p>将所有层的池化结果拼接，形成 CIN 的最终输出<br>$$<br>\mathbf p^+ = [\mathbf p_1, \mathbf p_2, \ldots, \mathbf p_T]<br>$$<br>该向量显式包含二阶到$T+1$阶的向量级交叉特征</p>
+<p>最终，xDeepFM将线性部分、DNN部分和CIN部分的输出结合起来，通过一个Sigmoid函数得到最终的预测结果<br>$$<br>\hat y = \sigma(\mathbf w_\text{linear}^T \mathbf a + \mathbf w_\text{dnn}^T \mathbf x_\text{dnn}^k + \mathbf w_\text{cin}^T \mathbf p^+ + \mathbf b)<br>$$<br>通过CIN网络，xDeepFM把向量级别的显式交互和元素级别的隐式交互结合到了一起，为高阶特征交互提供了一个更好的解决方案</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CIN层的向量级别交互</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, field_num, embed_dim]</span></span><br><span class="line"></span><br><span class="line">cin_layers = [inputs]  <span class="comment"># X^0：原始输入</span></span><br><span class="line">pooled_outputs = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> layer_size <span class="keyword">in</span> cin_layer_sizes: <span class="comment"># cin_layer_sizes = [H1, H2, H3]</span></span><br><span class="line">    <span class="comment"># 获取上一层输出 X^{k-1} 和原始输入 X^0</span></span><br><span class="line">    x_k_minus_1 = cin_layers[-<span class="number">1</span>]  <span class="comment"># [B, H_{k-1}, D]</span></span><br><span class="line">    x_0 = cin_layers[<span class="number">0</span>]  <span class="comment"># [B, m, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 扩展维度以便进行广播计算</span></span><br><span class="line">    x_k_minus_1_expand = tf.expand_dims(x_k_minus_1, axis=<span class="number">2</span>)  <span class="comment"># [B, H_{k-1}, 1, D]</span></span><br><span class="line">    x_0_expand = tf.expand_dims(x_0, axis=<span class="number">1</span>)  <span class="comment"># [B, 1, m, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 向量级别的哈达玛积交互</span></span><br><span class="line">    z_k = tf.multiply(x_k_minus_1_expand, x_0_expand)  <span class="comment"># [B, H_{k-1}, m, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 压缩：通过线性变换将 H_{k-1}*m 个交互向量压缩为 H_k 个</span></span><br><span class="line">    z_k_reshape = tf.reshape(z_k, [batch_size, -<span class="number">1</span>, embed_dim])  <span class="comment"># [B, H_{k-1}*m, D]</span></span><br><span class="line">    x_k = dense_layer(tf.transpose(z_k_reshape, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>]))  <span class="comment"># [B, D, H_k]</span></span><br><span class="line">    x_k = tf.transpose(x_k, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>])  <span class="comment"># [B, H_k, D]</span></span><br><span class="line"></span><br><span class="line">    cin_layers.append(x_k)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 求和池化：将向量维度聚合为标量</span></span><br><span class="line">    pooled_outputs.append(tf.reduce_sum(x_k, axis=-<span class="number">1</span>))  <span class="comment"># [B, H_k]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接所有层的输出</span></span><br><span class="line">cin_output = tf.concat(pooled_outputs, axis=<span class="number">1</span>)  <span class="comment"># [B, sum(H_k)]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="AutoInt-自注意力的自适应交互"><a href="#AutoInt-自注意力的自适应交互" class="headerlink" title="AutoInt: 自注意力的自适应交互"></a>AutoInt: 自注意力的自适应交互</h4><p>DCN 通过残差结构实现了元素级别的显式高阶特征交叉，xDeepFM 通过 CIN 实现了向量级别的显式高阶交叉，但<font color="DarkViolet">二者都有一个共同局限：高阶特征交互的构建方式是预先固定的</font></p>
+<ul>
+<li>DCN：每一层都必须与原始输入交叉</li>
+<li>CIN：交互对象和交互形式由网络结构提前定义</li>
+</ul>
+<p>能否让模型自动决定“哪些特征要交互、交互强度有多大”？</p>
+<p>AutoInt (Automatic Feature Interaction) <u>(Song et al., 2019)</u>  借鉴 Transformer 的核心思想，引入 多头自注意力机制，在训练过程中自适应地学习任意阶数的特征交互，而不依赖固定的交互公式或人工设计的结构</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/autoint_overview.webp" alt="autoint_overview" style="zoom: 33%;">
+
+<p>AutoInt 首先将所有特征(类别型与数值型)映射为同一维度的嵌入向量$\mathbf e_m \in \mathbb R^d$，其中 $m$ 代表第 $m$ 个特征域</p>
+<p>所有特征嵌入共同构成自注意力层的输入，角色上等价于 Transformer 中的 token embeddings</p>
+<p><strong>多头自注意力机制</strong></p>
+<p>AutoInt 的核心是其交互层，该层由多头自注意力机制构成</p>
+<p>对于任意两个特征的嵌入向量 $\mathbf e_m$ 和 $\mathbf e_k$，自注意力机制会计算它们之间的相关性得分，这个过程在每个”注意力头” (head) $h$ 中独立进行<br>$$<br>\alpha_{m,k}^{(h)} = \frac{\exp(\psi^{(h)}(\mathbf e_m, \mathbf e_k))}{\sum_{l=1}^{M}\exp(\psi^{(h)}(\mathbf e_m, \mathbf e_l))}<br>$$<br>其中相似度函数通常采用缩放点积注意力<br>$$<br>\psi^{(h)}\left(\mathbf e_{\mathbf m}, \mathbf e_{\mathbf k}\right)=\left\langle\mathbf W_{\text {Query }}^{(h)} \mathbf e_{\mathbf m}, \mathbf W_{\text {Key }}^{(h)} \mathbf e_{\mathbf k}\right\rangle<br>$$<br>在得到注意力权重后，模型对 Value 向量进行加权求和，生成一个新的、融合了其他特征信息的表示<br>$$<br>\mathbf {\tilde e_m^{(h)}} = \sum_{k=1}^{M} \alpha_{m,k}^{(h)} (\mathbf{W}_{\text{Value}}^{(h)} \mathbf{e}_k)<br>$$<br>该表示本质上是由模型自动学习得到的“特征组合结果”</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/autoint_attention.webp" alt="autoint_attention" style="zoom:67%;">
+
+<p><strong>多层交互与高阶特征学习</strong></p>
+<p>“多头”机制允许模型在不同的子空间中并行地学习不同方面的特征交互，各注意力头的输出被拼接，形成更丰富的表示：<br>$$<br>\mathbf{\tilde e_m} = \mathbf{\tilde e_m^{(1)}} \oplus \mathbf{\tilde e_m^{(2)}} \oplus \cdots \oplus \mathbf{\tilde e_m^{(H)}}<br>$$<br>为了稳定训练并保留原始信息，引入残差连接：<br>$$<br>\mathbf{e_m^{\text{Res}}}= \text{ReLU}(\mathbf e_m + \mathbf W_{\text{Res}} \mathbf{\tilde{e}_m)}<br>$$<br><font color="DarkViolet">AutoInt 的关键创新在于其高阶特征交互的构建方式</font></p>
+<p>通过堆叠多个这样的交互层，AutoInt 能够显式地构建任意高阶的特征交互，每一层的输出都代表了更高一阶的、自适应学习到的特征组合</p>
+<p>与 DCN、xDeepFM 不同，AutoInt 中的高阶交互：</p>
+<ul>
+<li>不依赖固定公式</li>
+<li>不依赖预设结构</li>
+<li>而是由注意力权重动态决定</li>
+</ul>
+<p>所有层输出的特征表示被拼接后，送入逻辑回归层进行预测<br>$$<br>\hat y=\sigma\left(\mathbf w^{\mathrm T}\left(\mathbf e_{1}^{\mathbf{Res}} \oplus \mathbf e_{2}^{\mathbf{Res}} \oplus \cdots \oplus \mathbf e_{\mathbf{M}}^{\text {Res}}\right)+b\right)<br>$$<br><strong>AutoInt 的优势总结</strong></p>
+<ul>
+<li>交互方式灵活：模型自主决定交互关系</li>
+<li>可解释性强：注意力权重可直接反映特征重要性</li>
+<li>高阶能力自然：层数即交叉阶数</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 多头自注意力层的前向传播</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, num_features, embed_dim]</span></span><br><span class="line"></span><br><span class="line">head_outputs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_heads):</span><br><span class="line">    <span class="comment"># 计算Query、Key、Value矩阵</span></span><br><span class="line">    query = tf.einsum(<span class="string">'bfe,ea-&gt;bfa'</span>, inputs, query_weights[i])  <span class="comment"># [B, N, d']</span></span><br><span class="line">    key = tf.einsum(<span class="string">'bfe,ea-&gt;bfa'</span>, inputs, key_weights[i])      <span class="comment"># [B, N, d']</span></span><br><span class="line">    value = tf.einsum(<span class="string">'bfe,ea-&gt;bfa'</span>, inputs, value_weights[i])  <span class="comment"># [B, N, d']</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算注意力得分：Query和Key的点积</span></span><br><span class="line">    attention_score = tf.matmul(query, key, transpose_b=<span class="literal">True</span>)  <span class="comment"># [B, N, N]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Softmax归一化得到注意力权重</span></span><br><span class="line">    attention_weights = tf.nn.softmax(attention_score, axis=-<span class="number">1</span>)  <span class="comment"># [B, N, N]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 加权求和：用注意力权重对Value进行聚合</span></span><br><span class="line">    head_output = tf.matmul(attention_weights, value)  <span class="comment"># [B, N, d']</span></span><br><span class="line">    head_outputs.append(head_output)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接多个注意力头的输出</span></span><br><span class="line">multi_head_output = tf.concat(head_outputs, axis=-<span class="number">1</span>)  <span class="comment"># [B, N, d'*H]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 残差连接：保留原始信息</span></span><br><span class="line">residual_input = tf.tensordot(inputs, residual_weights, axes=[[<span class="number">2</span>], [<span class="number">0</span>]])</span><br><span class="line">output = tf.keras.layers.ReLU()(multi_head_output + residual_input)</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>DCN：用 Cross Layer 构造显式的多项式特征交叉</p>
+<p>关键公式：<br>$$<br>\mathbf x_{l+1} = \mathbf x_0 \mathbf x_l^T \mathbf w_l + \mathbf b_l + \mathbf x_l<br>$$</p>
+<ul>
+<li><p>显式多项式交叉，阶数完全可控，参数效率高（低秩），在bit-wise维度上交互</p>
+</li>
+<li><p>交叉形式固定（外积结构），表达多样性有限</p>
+</li>
+</ul>
+<p>xDeepFM：在 embedding 级别显式构造高阶交叉</p>
+<p>关键模块CIN：<br>$$<br>\mathbf X^{(k)} = f(\mathbf X^{(k-1)}\circ \mathbf X^{(0)})<br>$$</p>
+<ul>
+<li>显式、逐阶构造交叉；交叉粒度在 vector-level；可枚举</li>
+<li>计算和显存开销大</li>
+</ul>
+<p>AutoInt：用 Self-Attention 自动学习特征交叉权重</p>
+<p>关键机制：<br>$$<br>\text{Attention}(Q,K,V) = \text{softmax}\left (\frac{QK^T}{\sqrt d} \right)V<br>$$</p>
+<ul>
+<li>自动选择交叉关系；不需要人工设定交叉结构</li>
+<li>交叉阶数不直观；解释性弱于 DCN / xDeepFM</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>DCN</th>
+<th>xDeepFM</th>
+<th>AutoInt</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>交叉方式</td>
+<td>多项式</td>
+<td>枚举式</td>
+<td>注意力</td>
+</tr>
+<tr>
+<td>是否显式</td>
+<td>是</td>
+<td>是</td>
+<td>半显式</td>
+</tr>
+<tr>
+<td>阶数可控</td>
+<td>强</td>
+<td>强</td>
+<td>弱</td>
+</tr>
+<tr>
+<td>表达自由度</td>
+<td>中</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>参数效率</td>
+<td>高</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>可解释性</td>
+<td>高</td>
+<td>中</td>
+<td>中偏低</td>
+</tr>
+</tbody></table>
+<h2 id="序列建模"><a href="#序列建模" class="headerlink" title="序列建模"></a>序列建模</h2><p>无论是二阶交叉的FM、AFM，还是高阶交叉的DCN、xDeepFM，它们的核心目标都是从一个静态的特征集合中挖掘出有价值的信息</p>
+<p>这些模型存在一个共同的局限：它们大多将用户的历史行为看作无序的，如同用户的兴趣是一个静态的表示</p>
+<p>传统的特征交叉模型难以捕捉这种蕴含在行为顺序中的、随时间变化的意图</p>
+<p>序列建模不再将用户历史看作一堆静态特征的集合，而是将其视为一个动态的序列，介绍工业界在序列建模方向上的三个代表性模型：DIN、DIEN和DSIN</p>
+<h3 id="DIN-局部激活的注意力机制"><a href="#DIN-局部激活的注意力机制" class="headerlink" title="DIN:局部激活的注意力机制"></a>DIN:局部激活的注意力机制</h3><p>在传统的深度学习模型(即Embedding&amp;MLP范式)中，通常的做法是将用户所有的历史行为(如点击过的商品ID)对应的Embedding向量通过池化(Pooling)操作，压缩成一个固定长度的向量来代表该用户</p>
+<p>这个固定长度的用户向量，很快就成为了表达用户多样兴趣的瓶颈</p>
+<p>为了增强表达能力而粗暴地增加向量维度，又会带来参数量爆炸和过拟合的风险</p>
+<p><font color="DarkViolet">DIN的核心思想：局部激活 (Local Activation)</font></p>
+<p>深度兴趣网络(Deep Interest Network, DIN)<u>(Zhou et al., 2018)</u>发现，用户的某一次具体点击行为，通常只由其历史兴趣中的一部分所“激活”，所以用户的兴趣表示不应该是固定的，而应是根据当前的候选广告(Candidate Ad)不同而动态变化的</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/din_architecture.webp" alt="din_architecture" style="zoom: 67%;">
+
+<p>为了实现“局部激活”这一思想，DIN引入了<font color="Violetred">局部激活单元(Local Activation Unit)</font>，其本质就是注意力机制</p>
+<p>与基准模型对用户历史行为 Embedding 做简单池化不同，DIN 会根据候选广告对历史行为进行加权求和，从而得到与当前广告相关的用户兴趣表示</p>
+<p>具体来说，对于一个给定的用户$U$和候选广告$A$，用户的兴趣表示向量$\boldsymbol v_{U}(A)$定义为<br>$$<br>\boldsymbol v_{U}(A)=f(\boldsymbol v_{A},\boldsymbol e_{1},\boldsymbol e_{2},\ldots,\boldsymbol e_{H})=\sum_{j=1}^{H}a(\boldsymbol e_{j},\boldsymbol v_{A})\boldsymbol e_{j}=\sum_{j=1}^{H}w_{j}\boldsymbol e_{j}<br>$$</p>
+<ul>
+<li><p>$\boldsymbol e_{j}$表示用户的第$j$个历史行为 Embedding</p>
+</li>
+<li><p>$\boldsymbol v_{A}$ 是候选广告A的Embedding向量</p>
+</li>
+<li><p>$a(\boldsymbol e_{j}, \boldsymbol v_{A})$ 是一个激活单元(通常是一个小型前馈神经网络)，用于计算历史行为与广告之间的相关性权重$\boldsymbol w_{j}$ </p>
+<p>该权重刻画了历史行为在当前广告场景下的重要程度，与广告越相关的历史行为，其对应权重越大，在最终兴趣表示中贡献也越高</p>
+</li>
+</ul>
+<p>DIN 学到的用户兴趣表示不再是固定向量，而是随候选广告动态变化的</p>
+<p>需要注意的是，<font color="DarkViolet">DIN 中的注意力权重未使用 Softmax 归一化</font>，$\sum \boldsymbol w_{j}$不一定等于1，这种设计可以保留用户兴趣的绝对强度信息：当大量历史行为与广告高度相关时，加权后的兴趣向量模长更大；反之则更小</p>
+<p>这样不仅能刻画兴趣的方向，还能反映兴趣的强弱</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># DIN注意力层的核心计算</span></span><br><span class="line"><span class="comment"># query: 候选广告 [batch_size, 1, embedding_dim]</span></span><br><span class="line"><span class="comment"># keys: 历史行为序列 [batch_size, seq_len, embedding_dim]</span></span><br><span class="line"></span><br><span class="line">query = tf.squeeze(query, axis=<span class="number">1</span>)  <span class="comment"># [B, H]</span></span><br><span class="line">length = tf.shape(keys)[-<span class="number">2</span>]</span><br><span class="line">query = tf.expand_dims(query, axis=<span class="number">1</span>)  <span class="comment"># [B, 1, H]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建多角度交互特征：query, keys, query-keys, query*keys</span></span><br><span class="line">att_inputs = tf.concat([</span><br><span class="line">    tf.tile(query, [<span class="number">1</span>, length, <span class="number">1</span>]),  <span class="comment"># 重复query以匹配序列长度</span></span><br><span class="line">    keys,                             <span class="comment"># 历史行为</span></span><br><span class="line">    query - keys,                     <span class="comment"># 差异特征</span></span><br><span class="line">    query * keys                      <span class="comment"># 元素积特征</span></span><br><span class="line">], axis=-<span class="number">1</span>)  <span class="comment"># [B, L, 4*H]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过前馈网络计算注意力分数</span></span><br><span class="line">hidden_layer = ffn_layer(att_inputs)  <span class="comment"># [B, L, hidden_units]</span></span><br><span class="line">scores = tf.keras.layers.Dense(<span class="number">1</span>)(hidden_layer)  <span class="comment"># [B, L, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用mask并进行加权求和(注意：不使用softmax归一化)</span></span><br><span class="line">attention_weights = scores * mask  <span class="comment"># [B, L, 1]</span></span><br><span class="line">user_interest = tf.reduce_sum(keys * attention_weights, axis=<span class="number">1</span>)  <span class="comment"># [B, H]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="DIEN-兴趣的演化建模"><a href="#DIEN-兴趣的演化建模" class="headerlink" title="DIEN:兴趣的演化建模"></a>DIEN:兴趣的演化建模</h3><p>DIN 虽然成功捕捉了用户兴趣的多样性和局部激活特性，但它将用户历史行为视为无序集合，忽略了行为之间的时序依赖。而在真实场景中，用户兴趣不仅是多样的，更是在不断演化的</p>
+<p>深度兴趣演化网络(Deep Interest Evolution Network, DIEN)<u>(Zhou et al., 2019)</u>被提出</p>
+<p>DIEN 的核心观点是：不应只建模“行为”，而应建模行为背后随时间演化的“潜在兴趣状态”</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/dien.webp" alt="dien" style="zoom:67%;">
+
+<p>基于这一思想，DIEN 采用了一个两阶段结构</p>
+<p><strong>第一阶段：兴趣提取层 (Interest Extractor Layer)</strong></p>
+<p>该阶段的目标是：从原始行为序列中抽取更能表示潜在兴趣的兴趣状态序列</p>
+<p>DIEN 使用 GRU 按时间顺序对用户行为 Embedding 序列${\boldsymbol e_1, \boldsymbol e_2, \dots, \boldsymbol e_T}$进行建模，得到隐状态$\boldsymbol h_t$，但仅依靠 GRU 的隐状态不足以精确刻画“兴趣”</p>
+<p>DIEN 引入了关键创新：辅助损失(Auxiliary Loss)，其假设是：用户在时刻$t$的兴趣状态，直接决定了其在$t+1$时刻的行为</p>
+<p>用$t$时刻的兴趣状态$\boldsymbol h_t$去预测用户在$t+1$时刻的真实行为$\boldsymbol e_{t+1}$，并通过负采样构造二分类损失：<br>$$<br>L_{aux}=-\frac{1}{N}\left(\sum_{i=1}^{N}\sum_{t=1}^{T}\log\sigma(\boldsymbol h^i_t,\boldsymbol e^i_{b[t+1]})+\log(1-\sigma(\boldsymbol h^i_t,\boldsymbol{\hat e^i_{b[t+1]}}))\right)<br>$$<br>该辅助损失与主任务 CTR 损失共同优化：<br>$$<br>L = L_{target} + \alpha L_{aux}<br>$$<br>这一额外监督信号在每个时间步约束 GRU，使其隐状态更贴近真实的潜在兴趣表示，而不仅仅是行为序列的编码</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 兴趣提取层的辅助损失计算</span></span><br><span class="line"><span class="comment"># interest_states: [batch_size, seq_len, hidden_units]</span></span><br><span class="line"><span class="comment"># pos_behaviors: [batch_size, seq_len, embedding_dim] 正样本行为</span></span><br><span class="line"><span class="comment"># neg_behaviors: [batch_size, seq_len, embedding_dim] 负样本行为</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用t时刻的兴趣预测t+1时刻的行为</span></span><br><span class="line">current_interests = interest_states[:, :-<span class="number">1</span>, :]      <span class="comment"># [B, T-1, H]</span></span><br><span class="line">next_pos_behaviors = pos_behaviors[:, <span class="number">1</span>:, :]        <span class="comment"># [B, T-1, D]</span></span><br><span class="line">next_neg_behaviors = neg_behaviors[:, <span class="number">1</span>:, :]        <span class="comment"># [B, T-1, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接兴趣和行为，送入MLP预测</span></span><br><span class="line">pos_input = tf.concat([current_interests, next_pos_behaviors], axis=-<span class="number">1</span>)</span><br><span class="line">neg_input = tf.concat([current_interests, next_neg_behaviors], axis=-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测正负样本的概率</span></span><br><span class="line">pos_probs = auxiliary_mlp(pos_input)  <span class="comment"># [B, T-1, 1]</span></span><br><span class="line">neg_probs = auxiliary_mlp(neg_input)  <span class="comment"># [B, T-1, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 二元交叉熵损失</span></span><br><span class="line">aux_loss = -tf.reduce_mean(</span><br><span class="line">    tf.math.log(pos_probs + <span class="number">1e-8</span>) + tf.math.log(<span class="number">1</span> - neg_probs + <span class="number">1e-8</span>)</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>第二阶段：兴趣演化层 (Interest Evolving Layer)</strong></p>
+<p>经过第一阶段，模型获得了兴趣状态序列$\boldsymbol h_1, \boldsymbol h_2, \dots, \boldsymbol h_T$</p>
+<p>第二阶段的目标，就是对这个兴趣序列的演化过程进行建模</p>
+<p>现实中，<font color="DarkViolet">用户兴趣常伴随兴趣漂移</font>，即在不同兴趣点之间切换</p>
+<p>如果直接用标准 GRU 建模，历史中不相关的兴趣可能会干扰当前兴趣的演化</p>
+<p>DIEN 设计了带注意力更新门的AUGRU(Attention-based GRU)，将 DIN 的注意力思想引入 GRU 的更新过程</p>
+<p>注意力得分$a_t$由$t$时刻的兴趣状态$\boldsymbol h_t$和候选广告$\boldsymbol e_a$共同决定<br>$$<br>a_t = \frac{\exp(\boldsymbol h_t W \boldsymbol e_a)}{\sum_{j=1}^T\exp(\boldsymbol h_j W \boldsymbol e_a)}<br>$$<br>该注意力分数用于缩放 GRU 的更新门 $\boldsymbol{\tilde u’_t} = a_t \cdot \boldsymbol u’_t$</p>
+<p>并据此更新隐状态：<br>$$<br>\boldsymbol h_t’ = (1 - \boldsymbol{\tilde u_t’}) \circ \boldsymbol h_{t-1}’ + \boldsymbol{\tilde u_t’} \circ \boldsymbol{\tilde h_t’}<br>$$<br>通过这种方式，AUGRU 在兴趣演化的每一步都会参考当前候选广告</p>
+<p>与广告相关的兴趣被强化并持续传递，不相关的历史兴趣则被抑制，从而有效缓解兴趣漂移问题，使模型聚焦于与当前推荐任务最相关的兴趣演化路径</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># AUGRU的前向传播</span></span><br><span class="line"><span class="comment"># interest_states: [batch_size, seq_len, hidden_units]</span></span><br><span class="line"><span class="comment"># target_item_embedding: [batch_size, embedding_dim]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 计算双线性注意力分数</span></span><br><span class="line"><span class="comment"># h_t * W * e_a</span></span><br><span class="line">h_W = tf.tensordot(interest_states, bilinear_weight, axes=[[<span class="number">2</span>], [<span class="number">0</span>]])</span><br><span class="line">target_expanded = tf.expand_dims(target_item_embedding, axis=<span class="number">1</span>)</span><br><span class="line">attention_scores = tf.reduce_sum(h_W * target_expanded, axis=<span class="number">2</span>)  <span class="comment"># [B, T]</span></span><br><span class="line">attention_scores = tf.nn.softmax(attention_scores, axis=<span class="number">1</span>)  <span class="comment"># [B, T]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 逐步处理序列</span></span><br><span class="line">hidden_state = tf.zeros([batch_size, hidden_units])</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(seq_len):</span><br><span class="line">    current_input = interest_states[:, t, :]     <span class="comment"># [B, H]</span></span><br><span class="line">    current_attention = attention_scores[:, t]   <span class="comment"># [B]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 标准GRU计算</span></span><br><span class="line">    update_gate = tf.nn.sigmoid(</span><br><span class="line">        dense_input_update(current_input) + dense_hidden_update(hidden_state)</span><br><span class="line">    )  <span class="comment"># [B, H]</span></span><br><span class="line"></span><br><span class="line">    reset_gate = tf.nn.sigmoid(</span><br><span class="line">        dense_input_reset(current_input) + dense_hidden_reset(hidden_state)</span><br><span class="line">    )  <span class="comment"># [B, H]</span></span><br><span class="line"></span><br><span class="line">    candidate_state = tf.nn.tanh(</span><br><span class="line">        dense_input_candidate(current_input) +</span><br><span class="line">        dense_hidden_candidate(reset_gate * hidden_state)</span><br><span class="line">    )  <span class="comment"># [B, H]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 关键：用注意力分数缩放更新门</span></span><br><span class="line">    attention_expanded = tf.expand_dims(current_attention, axis=<span class="number">1</span>)</span><br><span class="line">    attention_expanded = tf.tile(attention_expanded, [<span class="number">1</span>, hidden_units])</span><br><span class="line">    attention_update_gate = attention_expanded * update_gate  <span class="comment"># [B, H]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新隐藏状态</span></span><br><span class="line">    hidden_state = (<span class="number">1</span> - attention_update_gate) * hidden_state + \</span><br><span class="line">                   attention_update_gate * candidate_state</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="DSIN-从行为序列到会话序列"><a href="#DSIN-从行为序列到会话序列" class="headerlink" title="DSIN:从行为序列到会话序列"></a>DSIN:从行为序列到会话序列</h3><p>从 DIN 到 DIEN，模型对用户兴趣的理解从“静态相关”发展到“动态演化”，但它们仍将用户行为视为一条连续序列，在真实场景中，这一假设并不总是成立</p>
+<p>用户行为往往呈现明显的会话结构：</p>
+<p>在一个会话(Session)内，用户通常围绕单一意图进行集中操作；而在不同会话之间，兴趣点可能发生显著变化，呈现出会话内同质、会话间异质的特点。若直接用 RNN 建模这种带有明显“断层”的长序列，模型需要额外学习兴趣突变，建模效率和效果都会受限</p>
+<p>深度会话兴趣网络(Deep Session Interest Network, DSIN)<u>(Feng et al., 2019)</u> 将“会话”作为分析用户行为的基本单元，并采用一种分层的思想来建模</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/dsin_architecture.webp" alt="dsin_architecture" style="zoom: 80%;">
+
+<p><strong>DSIN的技术实现：分层建模</strong></p>
+<p>DSIN 的整体结构可以分为四个层次</p>
+<ol>
+<li><p><strong>会话划分层(Session Division Layer)</strong></p>
+<p>这是模型的第一步，也是DSIN的基础。根据行为发生的时间间隔(如超过 30 分钟)，将原始用户行为长序列 $\mathbf S$ 切分为多个独立的会话短序列<br>$$<br>\mathbf Q = [\mathbf Q_1, \mathbf Q_2, …, \mathbf Q_K]<br>$$<br>这一层显式引入会话边界，使后续建模不再被长序列中的兴趣突变干扰</p>
+</li>
+<li><p><strong>会话兴趣提取层 (Session Interest Extractor Layer)</strong></p>
+<p>该层的目标是：为每个会话提取一个核心兴趣表示</p>
+<p>然会话内意图相对集中，但不同历史行为的重要性仍不相同，DSIN 采用 自注意力机制(Self-Attention) 对会话内行为进行建模，捕捉行为之间的关联关系，并聚合关键信息，为每个会话 $\mathbf Q_k$ 生成一个兴趣向量 $\mathbf I_k$</p>
+</li>
+<li><p><strong>会话兴趣交互层 (Session Interest Interacting Layer)</strong></p>
+<p>在上一层的基础上，模型得到的是一个更高层次的序列——<strong>会话兴趣序列</strong>：<br>$$<br>\mathbf I_1, \mathbf I_2, …, \mathbf I_K<br>$$<br>该序列反映了用户兴趣在更长时间尺度上的变化</p>
+<p>DSIN 使用 双向 LSTM(Bi-LSTM)对该序列建模，捕捉不同会话之间的演进关系，输出带上下文信息的会话兴趣表示<br>$$<br>[\mathbf H_1, \mathbf H_2, …, \mathbf H_K]<br>$$</p>
+</li>
+<li><p><strong>会话兴趣激活层 (Session Interest Activating Layer)</strong></p>
+<p>最后，DSIN 延续 DIN 的“局部激活”思想，引入候选广告$\mathbf X_I$,对会话兴趣进行注意力加权</p>
+<p>DSIN分别对会话兴趣提取层和交互层的输出都进行了激活<br>$$<br>\mathbf U^{I} = \sum_{k=1}^{K} a_{k}^{I} \mathbf I_{k} \qquad  \mathbf U^{H} = \sum_{k=1}^{K} a_{k}^{H} \mathbf H_{k}<br>$$<br>最终，将这两个激活后的向量拼接，得到用户的最终兴趣表示</p>
+</li>
+</ol>
+<p>DSIN 通过引入会话这一中间层次，将原本复杂的长序列建模问题分解为两个更清晰的子问题：</p>
+<ul>
+<li>会话内信息聚合(Self-Attention)</li>
+<li>会话间信息传递(Bi-LSTM)</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 会话兴趣提取：使用多头自注意力聚合会话内信息</span></span><br><span class="line"><span class="comment"># session_embeddings: [batch_size, sess_max_count, sess_max_len, embedding_dim]</span></span><br><span class="line"></span><br><span class="line">session_interests = []</span><br><span class="line"><span class="keyword">for</span> sess_idx <span class="keyword">in</span> <span class="built_in">range</span>(sess_max_count):</span><br><span class="line">    <span class="comment"># 获取单个会话的embedding</span></span><br><span class="line">    session_emb = session_embeddings[:, sess_idx, :, :]  <span class="comment"># [B, L, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 多头自注意力捕获会话内物品之间的关系</span></span><br><span class="line">    attention_output = tf.keras.layers.MultiHeadAttention(</span><br><span class="line">        num_heads=att_head_num,</span><br><span class="line">        key_dim=att_embedding_size,</span><br><span class="line">        dropout=dropout_rate</span><br><span class="line">    )(session_emb, session_emb)  <span class="comment"># [B, L, d_model]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 平均池化得到会话级表示</span></span><br><span class="line">    session_interest = tf.reduce_mean(attention_output, axis=<span class="number">1</span>)  <span class="comment"># [B, d_model]</span></span><br><span class="line">    session_interests.append(session_interest)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建会话兴趣向量的序列</span></span><br><span class="line">session_interests = tf.stack(session_interests, axis=<span class="number">1</span>)  <span class="comment"># [B, K, d_model]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 会话兴趣交互：使用双向LSTM建模会话间的时序关系</span></span><br><span class="line"><span class="comment"># 构建上下文信息的会话兴趣序列</span></span><br><span class="line">session_interactions = tf.keras.layers.Bidirectional(</span><br><span class="line">    tf.keras.layers.LSTM(</span><br><span class="line">        d_model // <span class="number">2</span>,</span><br><span class="line">        return_sequences=<span class="literal">True</span>,</span><br><span class="line">        dropout=dropout_rate</span><br><span class="line">    ) <span class="comment"># [B, K, d_model//2]</span></span><br><span class="line">)(session_interests) <span class="comment"># [B, K, d_model]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 会话兴趣激活：基于目标物品激活相关会话</span></span><br><span class="line"><span class="comment"># 扩展目标物品embedding以匹配会话维度</span></span><br><span class="line">target_expanded = tf.expand_dims(target_item_embedding, axis=<span class="number">1</span>)  <span class="comment"># [B, 1, D]</span></span><br><span class="line">target_repeated = tf.tile(target_expanded, [<span class="number">1</span>, sess_max_count, <span class="number">1</span>])  <span class="comment"># [B, K, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接会话特征 H_k 和目标物品</span></span><br><span class="line">combined_H = tf.concat(</span><br><span class="line">    [session_interactions, target_repeated], axis=-<span class="number">1</span></span><br><span class="line">)  <span class="comment"># [B, K, d_model + D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算注意力权重</span></span><br><span class="line">attention_scores_H = tf.keras.layers.Dense(</span><br><span class="line">    <span class="number">1</span>, activation=<span class="string">'tanh'</span></span><br><span class="line">)(combined_H)</span><br><span class="line">attention_weights_H = tf.nn.softmax(attention_scores_H, axis=<span class="number">1</span>)  <span class="comment"># [B, K, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 加权聚合会话特征</span></span><br><span class="line">U_H = tf.reduce_sum(</span><br><span class="line">    session_interactions * attention_weights_H, axis=<span class="number">1</span></span><br><span class="line">)  <span class="comment"># [B, d_model]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>上面只体现了会话间交互后的兴趣的激活</p>
+<p>还有浓缩的兴趣向量的激活</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拼接会话兴趣 I_k 和目标物品</span></span><br><span class="line">combined_I = tf.concat(</span><br><span class="line">    [session_interests, target_repeated], axis=-<span class="number">1</span></span><br><span class="line">)  <span class="comment"># [B, K, d_model + D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算注意力权重</span></span><br><span class="line">attention_scores_I = tf.keras.layers.Dense(</span><br><span class="line">    <span class="number">1</span>, activation=<span class="string">'tanh'</span></span><br><span class="line">)(combined_I)</span><br><span class="line">attention_weights_I = tf.nn.softmax(attention_scores_I, axis=<span class="number">1</span>) <span class="comment"># [B, K, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 加权聚合会话兴趣</span></span><br><span class="line">U_I = tf.reduce_sum(</span><br><span class="line">    session_interests * attention_weights_I, axis=<span class="number">1</span></span><br><span class="line">) <span class="comment"># [B, d_model]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>最后双路拼接</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_interest = tf.concat([U_I, U_H], axis=-<span class="number">1</span>)  <span class="comment"># [B, 2 * d_model]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>DIN</th>
+<th>DIEN</th>
+<th>DSIN</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主要动机</td>
+<td>不同历史行为对不同目标贡献不同</td>
+<td>用户兴趣随时间变化</td>
+<td>用户行为具有会话结构</td>
+</tr>
+<tr>
+<td>是否考虑时序</td>
+<td>否</td>
+<td>是</td>
+<td>是(会话级)</td>
+</tr>
+<tr>
+<td>序列建模方式</td>
+<td>无</td>
+<td>GRU / AUGRU</td>
+<td>Bi-LSTM(会话序列)</td>
+</tr>
+<tr>
+<td>注意力使用位置</td>
+<td>行为 → 目标</td>
+<td>兴趣 → 目标</td>
+<td>会话 → 目标(双路)</td>
+</tr>
+<tr>
+<td>关键创新点</td>
+<td>局部激活单元</td>
+<td>辅助损失 + AUGRU</td>
+<td>分层建模 + 双路激活</td>
+</tr>
+<tr>
+<td>应对兴趣漂移</td>
+<td>×</td>
+<td>部分缓解</td>
+<td>更自然缓解</td>
+</tr>
+<tr>
+<td>表达能力</td>
+<td>中</td>
+<td>高</td>
+<td>更高</td>
+</tr>
+<tr>
+<td>模型复杂度</td>
+<td>低</td>
+<td>中</td>
+<td>中–偏高</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>精排基础模型</td>
+<td>长行为序列</td>
+<td>行为断层明显</td>
+</tr>
+<tr>
+<td>工程实现难度</td>
+<td>低</td>
+<td>中</td>
+<td>较高</td>
+</tr>
+</tbody></table>
+<h2 id="多目标建模"><a href="#多目标建模" class="headerlink" title="多目标建模"></a>多目标建模</h2><p>多目标建模（Multi-Task Learning, MTL）通过联合优化多个相关任务，实现推荐系统中用户体验与商业目标的协同提升。相较于独立建模，MTL 能够共享表示、减少参数规模，并通过知识迁移缓解数据稀疏问题。</p>
+<p>在实际应用中，电商场景常联合优化 CTR、CVR 与 GMV，以避免单一指标带来的低质推荐</p>
+<p>视频平台则同时建模播放完成率、评分预测与用户留存，以提升长期用户价值</p>
+<p>然而，多目标建模也面临任务冲突、跷跷板效应及负迁移等挑战</p>
+<blockquote>
+<p>CTR（Click-Through Rate，点击率） 点击次数/曝光次数</p>
+<p>CVR（Conversion Rate，转化率）    转化次数/点击次数</p>
+<p>GMV（Gross Merchandise Volume，成交额）  GMV = 曝光量 × CTR × CVR × 客单价</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">曝光</span><br><span class="line"> ↓ (CTR)</span><br><span class="line">点击</span><br><span class="line"> ↓ (CVR)</span><br><span class="line">下单</span><br><span class="line"> ↓ (客单价)</span><br><span class="line">GMV</span><br></pre></td></tr></tbody></table></figure></blockquote>
+<h3 id="基础结构演进"><a href="#基础结构演进" class="headerlink" title="基础结构演进"></a>基础结构演进</h3><h4 id="Shared-Bottom"><a href="#Shared-Bottom" class="headerlink" title="Shared-Bottom"></a>Shared-Bottom</h4><p>Shared-Bottom <u>(Caruana, 1997)</u> 模型作为多目标建模的奠基性架构，采用“共享地基+独立塔楼”的设计范式</p>
+<p>其核心结构包含两个关键组件：</p>
+<ul>
+<li>共享底层（Shared Bottom）：所有任务共用同一组特征转换层，负责学习跨任务的通用特征表示；</li>
+<li>任务特定塔（Task-Specific Towers）：每个任务拥有独立的顶层网络，基于共享表示学习任务特定决策边界</li>
+</ul>
+<p>这种架构的数学表达可描述为：<br>$$<br>\hat y_t = f_t(W_t \cdot g(W_s \mathbf x))<br>$$<br>其中 $\mathbf W_s$ 为共享层参数，$g(\cdot)$ 为共享特征提取函数，$f_t(\cdot)$ 为任务 $t$ 的预测函数</p>
+<p>该结构隐含的核心假设是任务同质性：不同任务在底层特征空间中具有较高的一致性，仅需在高层进行任务区分</p>
+<blockquote>
+<p>这个模型很容易联想到BERT，理念相似、实现与目标不同</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Shared-Bottom</th>
+<th>BERT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>抽象层级</td>
+<td>训练结构设计</td>
+<td>表示学习范式 + 具体模型</td>
+</tr>
+<tr>
+<td>是否限定模型</td>
+<td>不限定</td>
+<td>强限定（Transformer）</td>
+</tr>
+<tr>
+<td>是否必须预训练</td>
+<td>否</td>
+<td>是核心</td>
+</tr>
+<tr>
+<td>任务关系假设</td>
+<td>任务同时存在，且强相关</td>
+<td>下游任务可以完全无关</td>
+</tr>
+<tr>
+<td>训练方式</td>
+<td>联合训练，loss 是多任务加权</td>
+<td>先预训练再fine-tune</td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>得益于这一设计，Shared-Bottom 在效率与泛化能力之间取得了良好平衡，其核心优势主要体现在以下几点</p>
+<ol>
+<li>共享层承载了模型的大部分参数，使整体参数规模显著降低</li>
+<li>参数共享本身具有正则化效应，可有效抑制单任务过拟合</li>
+<li>当任务之间存在相关性时，共享层能够实现知识迁移，从而提升样本稀缺任务的泛化性能</li>
+</ol>
+<p>然而，Shared-Bottom 的硬共享机制也带来了明显局限，即负迁移问题</p>
+<p>当不同任务的优化目标存在冲突时，共享层参数需同时响应多个方向不一致的梯度信号，导致优化过程出现内在矛盾</p>
+<p>数学上，若任务$i$与任务$j$的损失梯度满足<br>$$<br>\nabla L_i \cdot \nabla L_j&lt;0<br>$$<br>则共享参数的更新方向发生冲突，模型难以同时兼顾多个目标</p>
+<p>内容平台中内容消费深度与广告曝光之间的权衡，深度阅读行为往往与广告点击行为呈负相关</p>
+<p>这种“提升一项指标往往以牺牲另一项为代价”的现象，通常被称为跷跷板效应，也是 Shared-Bottom 架构进一步演进的重要动机</p>
+<p>shared-bottom模型构建代码如下，先组装输入到shared-bottom网络中的特征dnn_inputs, 经过一个shared-bottom DNN网络，遍历创建各个任务独立的DNN塔，最后输出多个塔的预估值用于计算Loss</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">build_shared_bottom_model</span>(<span class="params"></span></span><br><span class="line"><span class="params">        feature_columns,</span></span><br><span class="line"><span class="params">        task_name_list,</span></span><br><span class="line"><span class="params">        share_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        task_tower_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        </span>):</span><br><span class="line">    <span class="comment"># 输入层：将原始特征映射为 Keras 输入</span></span><br><span class="line">    input_layer_dict = build_input_layer(feature_columns)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 嵌入层：为各特征组创建嵌入表，得到组内嵌入向量</span></span><br><span class="line">    embedding_table_dict = build_group_feature_embedding_table_dict(</span><br><span class="line">        feature_columns, input_layer_dict, prefix=<span class="string">"embedding_"</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 合并嵌入：将多组嵌入拼接为共享 DNN 的输入</span></span><br><span class="line">    dnn_inputs = concat_group_embedding(embedding_table_dict, <span class="string">'dnn'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 共享底座：所有任务共享的特征抽取网络（Shared Bottom）</span></span><br><span class="line">    shared_feature = DNNs(share_dnn_units)(dnn_inputs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 任务塔：在共享特征上为每个任务构建独立塔并输出概率</span></span><br><span class="line">    task_outputs = []</span><br><span class="line">    <span class="keyword">for</span> task_name <span class="keyword">in</span> task_name_list:</span><br><span class="line">        task_logit = DNNs(task_tower_dnn_units + [<span class="number">1</span>])(shared_feature)</span><br><span class="line">        task_prob = PredictLayer(name=<span class="string">f"task_<span class="subst">{task_name}</span>"</span>)(task_logit)</span><br><span class="line">        task_outputs.append(task_prob)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 构建多任务模型：共享底座 + 多任务塔输出</span></span><br><span class="line">    model = tf.keras.Model(inputs=<span class="built_in">list</span>(input_layer_dict.values()), outputs=task_outputs)</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="MMoE"><a href="#MMoE" class="headerlink" title="MMoE"></a>MMoE</h4><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/mmoe.webp" alt="mmoe" style="zoom:67%;">
+
+<p>Shared-Bottom 在任务相关性较低时容易产生负迁移</p>
+<p>OMoE（One-gate Mixture-of-Experts）将单一共享底层拆分为多个 Expert，并通过一个全局共享的门控网络对专家输出进行加权融合，其本质是“专家网络 + 全局门控”的两层结构</p>
+<p>该设计通过提升底层特征表示的多样性，在一定程度上缓解了任务相关性较低时的负迁移问题</p>
+<p>然而，由于 OMoE 的门控机制对所有任务共享，不同任务的梯度仍会同时作用于同一组专家</p>
+<p>当任务目标存在冲突时，专家参数依然受到多任务梯度的直接干扰，因此并未从根本上解决多任务冲突问题</p>
+<p>为进一步缓解这一问题，<font color="Violetred">MMoE（Multi-gate Mixture-of-Experts）为每个任务引入独立的门控网络</font>，将门控机制从“全局共享”升级为“任务自适应”，数学表达式可以表示为：<br>$$<br>\begin{aligned}<br>\mathbf e_k &amp;= f_k(\mathbf x) \\<br>g_t(\mathbf x) &amp;= \text{softmax}(\mathbf W_t \mathbf x) \\<br>\mathbf h_t &amp;= \sum_{k=1}^K g_{t,k} \cdot \mathbf e_k \\<br>\hat y_t &amp;= f_t(\mathbf h_t)<br>\end{aligned}<br>$$<br>其中</p>
+<ul>
+<li><p>$\mathbf x $表示底层的特征输入</p>
+</li>
+<li><p>$\mathbf e_k$表示第$k$个专家网络的输出</p>
+</li>
+<li><p>$g_t(\mathbf x)$表示第$t$个任务融合专家网络的门控向量</p>
+</li>
+<li><p>$\mathbf h_t$表示第$t$个任务融合专家网络的输出</p>
+</li>
+<li><p>$\hat y_t$表示第$t$个任务的预测结果</p>
+</li>
+</ul>
+<p>通过任务自适应门控，不同任务可以根据自身特性选择不同的专家组合</p>
+<p>例如，在电商场景中，CTR 任务更侧重“即时兴趣”“价格敏感”等专家，而 CVR 任务则更关注“消费能力”“品牌忠诚”等长期特征</p>
+<p>当任务$i$与$j$冲突时，MMoE的门控机制会让两个任务学习到不同专家的权重分布，例如某个专家$e_m$可能在任务$i$的门控网络中获得很高的权重$g_{i,m}$，而在任务$j$的门控网络中获得很低的权重$g_{j,m}$，从而有效减少梯度干扰</p>
+<p>相比 OMoE，MMoE 在缓解任务冲突和负迁移方面更为有效，也成为多专家多任务建模的重要基础结构</p>
+<p><strong>核心代码</strong></p>
+<p>先组装输入到MoE网络中的特征dnn_inputs, 然后为每个任务创建一个门控网络输出最终融合专家网络的门控向量</p>
+<p>最后为每个任务都创建一个任务塔，并且不同任务塔的输入都是对应任务的门控向量和多个专家网络融合后的向量</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">build_mmoe_model</span>(<span class="params"></span></span><br><span class="line"><span class="params">        feature_columns,</span></span><br><span class="line"><span class="params">        task_name_list,</span></span><br><span class="line"><span class="params">        expert_nums=<span class="number">4</span>,</span></span><br><span class="line"><span class="params">        expert_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        gate_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        task_tower_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        </span>):</span><br><span class="line">    <span class="comment"># 输入层：原始特征 → Keras 输入</span></span><br><span class="line">    input_layer_dict = build_input_layer(feature_columns)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 嵌入层：为各特征组创建嵌入表，得到组内嵌入向量</span></span><br><span class="line">    embedding_table_dict = build_group_feature_embedding_table_dict(</span><br><span class="line">        feature_columns, input_layer_dict, prefix=<span class="string">"embedding_"</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 合并嵌入：拼接为专家与门控的共同输入</span></span><br><span class="line">    dnn_inputs = concat_group_embedding(embedding_table_dict, <span class="string">'dnn'</span>) <span class="comment"># 对应x</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 共享专家：多个并行 DNN（专家）供所有任务共享</span></span><br><span class="line">    expert_outputs = [DNNs(expert_dnn_units, name=<span class="string">f"expert_<span class="subst">{i}</span>"</span>)(dnn_inputs)</span><br><span class="line">                      <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(expert_nums)] <span class="comment"># 对应e_k</span></span><br><span class="line">    <span class="comment"># 按专家维度堆叠，便于后续加权求和</span></span><br><span class="line">    experts = tf.keras.layers.Lambda(<span class="keyword">lambda</span> xs: tf.stack(xs, axis=<span class="number">1</span>))(expert_outputs) <span class="comment"># [B, E, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 任务门控：每个任务产生 softmax 权重，对专家加权融合</span></span><br><span class="line">    task_features = []</span><br><span class="line">    <span class="keyword">for</span> idx, task_name <span class="keyword">in</span> <span class="built_in">enumerate</span>(task_name_list):</span><br><span class="line">        gate_hidden = DNNs(gate_dnn_units, name=<span class="string">f"task_<span class="subst">{idx}</span>_gate_mlp"</span>)(dnn_inputs)</span><br><span class="line">        gate_weights = tf.keras.layers.Dense(expert_nums, use_bias=<span class="literal">False</span>,</span><br><span class="line">                                             activation=<span class="string">'softmax'</span>,</span><br><span class="line">                                             name=<span class="string">f"task_<span class="subst">{idx}</span>_gate_softmax"</span>)(gate_hidden)  <span class="comment"># [B, E]</span></span><br><span class="line">        <span class="comment"># 加权融合：einsum('be,bed-&gt;bd') == sum_e w_e * expert_e</span></span><br><span class="line">        task_mix = tf.keras.layers.Lambda(</span><br><span class="line">            <span class="keyword">lambda</span> x: tf.einsum(<span class="string">'be,bed-&gt;bd'</span>, x[<span class="number">0</span>], x[<span class="number">1</span>])</span><br><span class="line">        )([gate_weights, experts]) <span class="comment"># [B, D]</span></span><br><span class="line">        <span class="comment"># einsum: 在左边出现、但在右边没出现的维度，会被“乘完再求和”</span></span><br><span class="line">        task_features.append(task_mix) </span><br><span class="line"></span><br><span class="line">    <span class="comment"># 任务塔：基于融合特征为每个任务建塔并输出概率</span></span><br><span class="line">    task_outputs = []</span><br><span class="line">    <span class="keyword">for</span> task_name, task_feat <span class="keyword">in</span> <span class="built_in">zip</span>(task_name_list, task_features):</span><br><span class="line">        task_logit = DNNs(task_tower_dnn_units + [<span class="number">1</span>])(task_feat) <span class="comment"># 最后输出一个值</span></span><br><span class="line">        task_prob = PredictLayer(name=<span class="string">f"task_<span class="subst">{task_name}</span>"</span>)(task_logit)</span><br><span class="line">        task_outputs.append(task_prob)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 构建模型：共享专家 + 任务门控 + 任务塔</span></span><br><span class="line">    model = tf.keras.Model(inputs=<span class="built_in">list</span>(input_layer_dict.values()), outputs=task_outputs)</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="CGC"><a href="#CGC" class="headerlink" title="CGC"></a>CGC</h4><p>MMoE 通过为每个任务引入专属门控网络，使不同任务能够根据自身需求选择不同的专家组合，从而在一定程度上缓解多任务学习中的冲突问题</p>
+<p>其结构仍存在一个根本性局限：所有专家对所有任务的门控均可见，这种“软隔离”的共享机制在实践中仍面临以下挑战</p>
+<ol>
+<li>负迁移未根除：<ul>
+<li>干扰路径未切断：在 MMoE 中，即使某个专家 $e_m$ 在前向传播中几乎不被任务 $j$ 的门控选中，该专家仍属于任务 $j$ 的可选专家集合。因此，在反向传播阶段，任务 $j$ 的梯度仍可能更新 $e_m$ 的参数。当任务间冲突较强时，这种“潜在梯度通路”会导致共享表征被污染</li>
+<li>专家角色模糊：MMoE 未对专家的功能进行显式分工，一个专家可能同时承担共享知识与多个任务的特定信息，容易成为冲突的集中点。尤其在任务相关性较低的场景下，这种耦合会显著加剧负迁移。</li>
+</ul>
+</li>
+<li>门控决策负担重：<ul>
+<li>每个任务的门控需要在全部 $K$ 个专家上进行权重分配。随着专家数量增加（通常需要增大 $K$ 以提升模型容量），门控网络面临高维决策问题，训练稳定性下降，且更容易陷入次优解</li>
+<li>门控需要从包含多任务混杂信息的专家池中筛选有效表示，进一步增加了学习难度</li>
+</ul>
+</li>
+</ol>
+<p>为解决上述问题，CGC（Customized Gate Control） 通过硬性结构约束显式分离共享知识与任务特定知识，从而降低负迁移风险</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/cgc.webp" alt="cgc" style="zoom:67%;">
+
+<p><strong>专家职责强制分离</strong>：</p>
+<ul>
+<li><p>共享专家（C-Experts）：一组仅用于学习所有任务共性知识的专家，数量为 $M$，其输出为<br>$$<br>{\mathbf c_1, \mathbf c_2, …, \mathbf c_M}<br>$$</p>
+</li>
+<li><p>任务专家 (T-Experts)：每个任务 $t$ 拥有独立的专家组，仅用于建模该任务的特有模式，数量为 $N_t$，其输出为<br>$$<br>{\mathbf t_t^1, \mathbf t_t^2, …, \mathbf t_t^{N_t}}<br>$$</p>
+</li>
+</ul>
+<p><strong>任务专属门控的输入限制</strong>：</p>
+<ul>
+<li>任务 $t$ 的门控 $g_t$ 输入被严格限制为：共享专家输出 + 本任务专属专家输出</li>
+<li>物理切断干扰路径：任务$t$的门控完全无法访问其他任务的专属专家，同样其他任务的梯度不会更新任务$t$的专属专家参数</li>
+</ul>
+<p>CGC门控的计算如下：<br>$$<br>g_t(\mathbf x) = \text{softmax}\Big(\mathbf W_t \cdot \mathbf x + \mathbf b_t\Big) \\<br>\mathbf h_t = \sum_{k=1}^{M} g_{t,k} \cdot \mathbf c_k + \sum_{j=1}^{N_t} g_{t, M+j} \cdot \mathbf t_t^j\\<br>\hat y_t = f_t(\mathbf h_t)<br>$$<br>其中：</p>
+<ul>
+<li>$\mathbf W_t, \mathbf b_t$ 为任务 $t$ 门控的参数</li>
+<li>$g_{t,k}$ 表示第 $k$ 个共享专家的权重</li>
+<li>$g_{t,M+j}$ 表示任务 $t$ 的第 $j$ 个专属专家的权重</li>
+</ul>
+<blockquote>
+<p>MMoE 通过门控“弱选择”专家，而 CGC 通过结构“硬隔离”专家</p>
+</blockquote>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cgc_net</span>(<span class="params"></span></span><br><span class="line"><span class="params">        input_list,</span></span><br><span class="line"><span class="params">        task_num,</span></span><br><span class="line"><span class="params">        task_expert_num,</span></span><br><span class="line"><span class="params">        shared_expert_num,</span></span><br><span class="line"><span class="params">        task_expert_dnn_units,</span></span><br><span class="line"><span class="params">        shared_expert_dnn_units,</span></span><br><span class="line"><span class="params">        task_gate_dnn_units,</span></span><br><span class="line"><span class="params">        shared_gate_dnn_units,</span></span><br><span class="line"><span class="params">        leval_name=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">        is_last=<span class="literal">False</span></span>):</span><br><span class="line">    <span class="string">"""CGC（共享专家 + 任务门控）核心结构（简化版）</span></span><br><span class="line"><span class="string">    - 每个任务：拥有若干 Task-Experts；</span></span><br><span class="line"><span class="string">    - 全局：拥有若干 Shared-Experts；</span></span><br><span class="line"><span class="string">    - 每个任务 Gate 产生 softmax 权重，对其 Task-Experts 与 Shared-Experts 加权融合；</span></span><br><span class="line"><span class="string">    - 若非最后一层：再用 Shared-Gate 融合所有任务的 Task-Experts 与 Shared-Experts，供下一层共享使用。</span></span><br><span class="line"><span class="string">    input_list：为方便处理，给每个任务复制一份相同输入，最后一个为共享输入，长度 = task_num + 1</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 任务专家：每个任务创建 task_expert_num 个专家</span></span><br><span class="line">    task_expert_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(task_num):</span><br><span class="line">        task_expert_list.append([</span><br><span class="line">            DNNs(task_expert_dnn_units, name=<span class="string">f"<span class="subst">{leval_name}</span>_task_<span class="subst">{i}</span>_expert_<span class="subst">{j}</span>"</span>)(input_list[i])</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(task_expert_num)</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 共享专家：创建 shared_expert_num 个专家（共享输入使用 input_list[-1]）</span></span><br><span class="line">    shared_expert_list = [</span><br><span class="line">        DNNs(shared_expert_dnn_units, name=<span class="string">f"<span class="subst">{leval_name}</span>_shared_expert_<span class="subst">{i}</span>"</span>)(input_list[-<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(shared_expert_num)</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 任务门控与融合：对当前任务的（Task + Shared）专家集合进行 softmax 加权求和</span></span><br><span class="line">    cgc_outputs = []</span><br><span class="line">    fusion_expert_num = task_expert_num + shared_expert_num</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(task_num):</span><br><span class="line">        cur_experts = task_expert_list[i] + shared_expert_list</span><br><span class="line">        experts = tf.keras.layers.Lambda(<span class="keyword">lambda</span> xs: tf.stack(xs, axis=<span class="number">1</span>))(cur_experts)  <span class="comment"># [B, E, D]</span></span><br><span class="line"></span><br><span class="line">        gate_hidden = DNNs(task_gate_dnn_units, name=<span class="string">f"<span class="subst">{leval_name}</span>_task_<span class="subst">{i}</span>_gate"</span>)(input_list[i])</span><br><span class="line">        gate_weights = tf.keras.layers.Dense(fusion_expert_num, use_bias=<span class="literal">False</span>, activation=<span class="string">'softmax'</span>)(gate_hidden)  <span class="comment"># [B, E]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 加权融合：einsum('be,bed-&gt;bd') == sum_e w_e * expert_e</span></span><br><span class="line">        fused = tf.keras.layers.Lambda(<span class="keyword">lambda</span> x: tf.einsum(<span class="string">'be,bed-&gt;bd'</span>, x[<span class="number">0</span>], x[<span class="number">1</span>]))([gate_weights, experts])</span><br><span class="line">        cgc_outputs.append(fused)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 若非最后一层：共享门控融合所有任务专家与共享专家，作为下一层共享输入</span></span><br><span class="line">    <span class="comment"># 这部分是PLE的</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> is_last:</span><br><span class="line">        <span class="comment"># 展平所有任务的专家 + 共享专家</span></span><br><span class="line">        all_task_experts = [e <span class="keyword">for</span> task <span class="keyword">in</span> task_expert_list <span class="keyword">for</span> e <span class="keyword">in</span> task]</span><br><span class="line">        cur_experts = all_task_experts + shared_expert_list</span><br><span class="line">        experts_all = tf.keras.layers.Lambda(<span class="keyword">lambda</span> xs: tf.stack(xs, axis=<span class="number">1</span>))(cur_experts)  <span class="comment"># [B, E_all, D]</span></span><br><span class="line">        cur_expert_num = <span class="built_in">len</span>(cur_experts)</span><br><span class="line"></span><br><span class="line">        shared_gate_hidden = DNNs(shared_gate_dnn_units, name=<span class="string">f"<span class="subst">{leval_name}</span>_shared_gate"</span>)(input_list[-<span class="number">1</span>])</span><br><span class="line">        shared_gate_weights = tf.keras.layers.Dense(cur_expert_num, use_bias=<span class="literal">False</span>, activation=<span class="string">'softmax'</span>)(shared_gate_hidden)  <span class="comment"># [B, E_all]</span></span><br><span class="line">        shared_fused = tf.keras.layers.Lambda(<span class="keyword">lambda</span> x: tf.einsum(<span class="string">'be,bed-&gt;bd'</span>, x[<span class="number">0</span>], x[<span class="number">1</span>]))([shared_gate_weights, experts_all])</span><br><span class="line">        cgc_outputs.append(shared_fused)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cgc_outputs</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="PLE"><a href="#PLE" class="headerlink" title="PLE"></a>PLE</h4><p>CGC 通过结构约束实现了共享知识与任务特定知识的显式分离，但其本质仍是单层专家融合结构，表征学习深度有限</p>
+<p>受深度神经网络逐层抽象特征的启发，PLE (Progressive Layered Extraction) 通过纵向堆叠多个 CGC 单元，构建深层多任务架构，实现知识的渐进式提取与融合</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/ple.webp" alt="ple" style="zoom:67%;">
+
+<p>PLE 由 $L$ 个 CGC 层级组成</p>
+<p>第1层 (输入层) CGC：</p>
+<ul>
+<li><p>输入：原始特征 $\mathbf x$</p>
+</li>
+<li><p>结构：一个标准 CGC 模块</p>
+<p>$M^{(1)}$ 个共享专家（C-Experts），每个任务 $t$ 有 $N_t^{(1)}$ 个任务专家（T-Experts），以及对应的任务门控 $g_t^{(1)}$</p>
+</li>
+<li><p>作用：在原始特征空间中进行初步的共享/任务特定知识分离</p>
+</li>
+<li><p>输出：每个任务的初步融合表示 $\mathbf h_t^{(1)}$，以及（更常见地）该层所有专家的输出集合，作为下一层的输入</p>
+</li>
+</ul>
+<p>第 $l$ 层（$l \ge 2$）CGC：</p>
+<ul>
+<li><p>输入：第 $l-1$ 层所有专家（C + T）的输出，设其总数为 $E^{(l-1)}$</p>
+</li>
+<li><p>结构：一个新的 CGC 模块</p>
+<p>$M^{(l)}$ 个共享专家，每个任务 $t$ 的 $N_t^{(l)}$ 个任务专家，新的任务门控 $g_t^{(l)}$</p>
+</li>
+<li><p>处理：在更高层、更加丰富的特征空间中再次执行显式知识分离（新的共享 / 任务专家），并通过门控完成任务感知的融合</p>
+</li>
+<li><p>输出：当前层的任务表示 $\mathbf h_t^{(l)}$，或该层所有专家的输出集合</p>
+</li>
+</ul>
+<p>输出层（第 $L$ 层）：</p>
+<ul>
+<li>最后一层 CGC 的任务输出 $\mathbf h_t^{(L)}$输入至各自的任务塔网络 $f_t$，得到最终预测：<br>$$<br>\hat y_t = f_t(\mathbf h_t^{(L)})<br>$$</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>CNN</th>
+<th>PLE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>卷积核（Kernel）</td>
+<td>专家（Expert）</td>
+</tr>
+<tr>
+<td>通道（Channel）</td>
+<td>专家维度</td>
+</tr>
+<tr>
+<td>Feature Map</td>
+<td>任务 / 共享表征</td>
+</tr>
+<tr>
+<td>1×1 Conv</td>
+<td>Gate（加权融合）</td>
+</tr>
+<tr>
+<td>Conv Block</td>
+<td>CGC Block</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">build_ple_model</span>(<span class="params"></span></span><br><span class="line"><span class="params">        feature_columns,</span></span><br><span class="line"><span class="params">        task_name_list,</span></span><br><span class="line"><span class="params">        ple_level_nums=<span class="number">1</span>,</span></span><br><span class="line"><span class="params">        task_expert_num=<span class="number">4</span>,</span></span><br><span class="line"><span class="params">        shared_expert_num=<span class="number">2</span>,</span></span><br><span class="line"><span class="params">        task_expert_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        shared_expert_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        task_gate_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        shared_gate_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        task_tower_dnn_units=[<span class="number">128</span>, <span class="number">64</span>],</span></span><br><span class="line"><span class="params">        </span>):</span><br><span class="line">    <span class="comment"># 1) 输入与嵌入：构建输入层/分组嵌入，拼接为 PLE 的共享输入</span></span><br><span class="line">    input_layer_dict = build_input_layer(feature_columns)</span><br><span class="line">    group_embedding_feature_dict = build_group_feature_embedding_table_dict(</span><br><span class="line">        feature_columns, input_layer_dict, prefix=<span class="string">"embedding_"</span></span><br><span class="line">    )</span><br><span class="line">    dnn_inputs = concat_group_embedding(group_embedding_feature_dict, <span class="string">'dnn'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2) 级联 PLE（CGC）层：每层包含“任务专家 + 共享专家 + 门控”，最后一层仅输出任务特征</span></span><br><span class="line">    task_num = <span class="built_in">len</span>(task_name_list)</span><br><span class="line">    ple_input_list = [dnn_inputs] * (task_num + <span class="number">1</span>)  <span class="comment"># 前 task_num 为各任务输入，末尾为共享输入</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(ple_level_nums):</span><br><span class="line">        is_last = (i == ple_level_nums - <span class="number">1</span>)</span><br><span class="line">        ple_input_list = cgc_net(</span><br><span class="line">            ple_input_list,</span><br><span class="line">            task_num,</span><br><span class="line">            task_expert_num,</span><br><span class="line">            shared_expert_num,</span><br><span class="line">            task_expert_dnn_units,</span><br><span class="line">            shared_expert_dnn_units,</span><br><span class="line">            task_gate_dnn_units,</span><br><span class="line">            shared_gate_dnn_units,</span><br><span class="line">            leval_name=<span class="string">f"cgc_level_<span class="subst">{i}</span>"</span>,</span><br><span class="line">            is_last=is_last</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3) 任务塔与输出：将各任务特征送入塔 DNN，得到每个任务的概率输出</span></span><br><span class="line">    task_output_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(task_num):</span><br><span class="line">        task_logit = DNNs(task_tower_dnn_units + [<span class="number">1</span>])(ple_input_list[i])</span><br><span class="line">        task_prob = PredictLayer(name=<span class="string">"task_"</span> + task_name_list[i])(task_logit)</span><br><span class="line">        task_output_list.append(task_prob)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4) 构建模型：输入为所有原始输入层，输出为各任务概率</span></span><br><span class="line">    model = tf.keras.Model(inputs=<span class="built_in">list</span>(input_layer_dict.values()), outputs=task_output_list)</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="多目标损失融合"><a href="#多目标损失融合" class="headerlink" title="多目标损失融合"></a>多目标损失融合</h3><p>在多目标学习中，多个任务通常对应多个损失函数，其联合优化策略在模型结构确定后，成为影响最终性能的关键因素。最简单的做法是对各任务损失进行加权求和：<br>$$<br>Loss_{total} = \sum_i w_i L_i<br>$$<br>其中，$L_i$ 表示第 $i$ 个任务的损失，$w_i$ 为对应权重</p>
+<p>然而，手工加权方法存在三个根本性问题：</p>
+<ul>
+<li>量级失衡：不同任务损失值尺度差异大（如CTR损失通常在0.1-0.5，CVR损失可达2.0+），导致大损失主导优化；</li>
+<li>收敛异步：稀疏任务收敛慢，密集任务收敛快，造成过拟合与欠拟合并存</li>
+<li>梯度冲突：任务梯度方向不一致甚至相反，造成更新相互抵消（如CTR与CTR任务梯度夹角&gt;90°）</li>
+</ul>
+<p>重点介绍三类代表性方案</p>
+<h4 id="Uncertainty-Weight"><a href="#Uncertainty-Weight" class="headerlink" title="Uncertainty Weight"></a>Uncertainty Weight</h4><p>基于不确定性加权损失（Uncertainty Weighted Loss, UWL）<u>(Kendall et al., 2018)</u></p>
+<p>UWL的核心思想是根据任务的不确定性动态调整权重，其基本思想是：不确定性越高的任务，对参数更新的影响应越小</p>
+<p>损失函数形式为：<br>$$<br>Loss = \sum _i\frac{1}{2\sigma_i^2} \mathcal L_i(\mathbf W) + \log \sigma_i<br>$$<br>其中，$\sigma_i$ 为任务 $i$ 的不确定性参数，是可学习的</p>
+<p>当任务损失较大或噪声较高时，$\sigma_i$ 增大，对应权重 $\frac{1}{\sigma_i^2}$ 减小，模型自动降低该任务对共享参数更新的影响</p>
+<p>该方法无需人工设权，但假设损失服从特定概率分布，适用性依赖任务建模假设</p>
+<h4 id="GradNorm"><a href="#GradNorm" class="headerlink" title="GradNorm"></a>GradNorm</h4><p>GradNorm<u>(Chen et al., 2018)</u>直接从梯度层面解决多任务训练不平衡问题，同时考虑：</p>
+<ul>
+<li>任务损失的梯度量级</li>
+<li>不同任务的学习速度</li>
+</ul>
+<p>梯度量级定义：<br>$$<br>G_W^{(i)}(t) =  ||\nabla_W w_{i}(t) L_{i}(t)||_2<br>$$</p>
+<p>$$<br> \overline G_W(t) =  E_{task}[G_W^{(i)}(t)]<br>$$</p>
+<p>其中 $W$ 是所有任务loss对多个任务最后一层共享参数</p>
+<p>$G_{W}^{(i)}(t)$表示任务$i$加权后的Loss，对共享参数$W$的梯度；$\overline G_{W}(t)$表示所有任务对共享参数梯度的均值</p>
+<p>学习速度定义：<br>$$<br>\begin{aligned}<br>\tilde L_i(\tilde t) = L_i(t) / L_i(0)\\<br>r_i(t) = \frac{\tilde L_i(t)}{E_{\text{task}}[\tilde L_i(t)]}<br>\end{aligned}<br>$$<br>$L_i(t)$表示的是训练的第$t$时刻，任务$i$的Loss值，所以$\tilde{L}_i(\tilde{t})$表示的是任务$i$在第$t$时刻的相对第0时刻的损失比率，该值如果越小的话则代表该任务loss收敛的比较快</p>
+<p>$r_i(t)$则是在$L_i(t)$的基础上做了一次归一化，让所有任务之间的速率相对可以比较</p>
+<p>最终的梯度损失函数定义为如下表达式：<br>$$<br>L_{\text{grad}} = \sum_i \left| G_W^{(i)}(t) - \overline G_W(t) \times [r_i(t)]^\alpha \right|_1<br>$$<br>GradNorm 通过最小化该梯度损失，动态调整各任务的损失权重，使：</p>
+<ul>
+<li>梯度过大的任务被抑制</li>
+<li>收敛过快的任务被减速</li>
+<li>多任务训练保持同步</li>
+</ul>
+<h4 id="Pareto-Optimization"><a href="#Pareto-Optimization" class="headerlink" title="Pareto Optimization"></a>Pareto Optimization</h4><p>当任务之间存在根本性梯度冲突时（优化一个任务必然损害另一个），加权求和方法不再适用，需要引入帕累托优化框架<u>(Lin et al., 2019)</u></p>
+<p>多目标优化问题定义为：<br>$$<br>\min_{\theta} \mathbf L(\theta) = \min_{\theta} (\mathcal L_1(\theta), \mathcal L_2(\theta), …, \mathcal L_T(\theta))<br>$$<br>帕累托最优解指：不存在另一解能在不恶化至少一个任务的情况下改进任一任务</p>
+<p><strong>核心思想</strong></p>
+<p>将多目标损失合并为加权和，并利用 KKT 条件动态调整权重，使优化方向指向帕累托前沿：<br>$$<br>\mathcal L(\theta) = \sum_{i=1}^{K} w_i \mathcal L_i (\theta)<br>$$<br>其中 $w_i$ 为可学习的权重，满足 $\sum w_i = 1$ 且 $w_i \geq c_i$（$c_i$ 为权重下限）</p>
+<p><strong>优化流程</strong></p>
+<ol>
+<li><p>固定权重，更新模型参数 $\theta$：通过梯度下降最小化加权损失 $\mathcal{L}(\theta)$，即常规的模型训练步骤</p>
+</li>
+<li><p>固定模型参数，优化权重 $w_i$<br>$$<br>\min_w\left|\sum_{i=1}^{K} w_{i} \nabla_\theta \mathcal L_{i}(\theta)\right|_2^2<br>$$<br>约束条件：$\sum w_i = 1$，$w_i \geq c_i$</p>
+<p>通过变量松弛与投影，将该问题转化为带约束的二次规划并高效求解</p>
+</li>
+</ol>
+<h4 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h4><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Uncertainty Weight (UWL)</th>
+<th>GradNorm</th>
+<th>Pareto Optimization</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心视角</td>
+<td>概率建模</td>
+<td>梯度平衡</td>
+<td>多目标优化理论</td>
+</tr>
+<tr>
+<td>解决的主要问题</td>
+<td>Loss 量级失衡</td>
+<td>梯度量级 + 收敛速度不一致</td>
+<td>根本性梯度冲突</td>
+</tr>
+<tr>
+<td>权重来源</td>
+<td>任务不确定性 $\sigma_i$</td>
+<td>梯度统计量</td>
+<td>显式可学习权重 $w_i$</td>
+</tr>
+<tr>
+<td>是否显式考虑梯度方向</td>
+<td>❌</td>
+<td>❌（仅量级）</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>优化目标</td>
+<td>加权 loss</td>
+<td>梯度量级对齐</td>
+<td>加权梯度范数最小</td>
+</tr>
+<tr>
+<td>是否引入额外 loss</td>
+<td>❌</td>
+<td>✅（gradient loss）</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>计算复杂度</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>实现复杂度</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>训练稳定性</td>
+<td>高</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>工程可控性</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>适合任务关系</td>
+<td>弱冲突 / 同质</td>
+<td>中等冲突</td>
+<td>强冲突 / 对立</td>
+</tr>
+<tr>
+<td>常见应用</td>
+<td>多回归 / 多分类</td>
+<td>CTR + CVR</td>
+<td>LTR / 强博弈任务</td>
+</tr>
+</tbody></table>
+<h2 id="多场景建模"><a href="#多场景建模" class="headerlink" title="多场景建模"></a>多场景建模</h2><p>在现代大规模推荐系统中，用户的行为和兴趣往往呈现出高度的场景依赖性</p>
+<p>这里的“场景”既可以是不同业务位置（如首页推荐、详情页推荐、购物车推荐），也可以是不同流量入口、用户状态、设备类型或时间上下文</p>
+<p>试图用单一全局模型覆盖所有场景，通常会面临以下问题：</p>
+<ol>
+<li>场景特性被淹没：数据量大的主流场景主导训练过程，模型难以刻画小场景或特性鲜明场景的独有模式</li>
+<li>数据稀疏性突出：新场景、低流量场景或长尾用户缺乏足够样本，独立建模效果不稳定</li>
+<li>参数与维护成本高：为每个场景单独训练完整模型，参数冗余严重，且难以实现场景间的知识迁移</li>
+</ol>
+<p>多场景建模（Multi-scenario / Multi-domain Modeling）其核心目标是：充分利用多个场景数据之间的潜在“共性”来提升模型的泛化能力和鲁棒性，同时精细地识别和建模不同场景的“特性”差异，以实现场景间的差异化精准推荐</p>
+<p>多场景建模的目标是：既要“合”得好（共享有益知识），也要“分”得清（保留独有特性）</p>
+<p><strong>两大类主流且互补的范式</strong></p>
+<ul>
+<li><p>多塔结构建模范式：</p>
+<ul>
+<li>在模型结构层面进行显式划分，构建一个或多个共享塔（Shared Tower），学习跨场景的共性知识；</li>
+<li>为每个场景（或场景组）构建场景专属塔（Scenario-specific Tower），建模场景特有模式</li>
+<li>通过门控、路由等机制控制共享与专属信息的融合方式</li>
+</ul>
+<p>该范式强调结构上的“硬区分”，具有良好的可解释性与稳定性</p>
+</li>
+<li><p>动态权重建模范式：不显式划分模型结构，而是利用场景上下文信息（如场景 ID、场景属性、用户在该场景下的行为）</p>
+<ul>
+<li>动态调整特征表示、网络权重或损失权重</li>
+<li>在保持模型主体共享的同时，使模型行为随场景自适应变化</li>
+</ul>
+<p>该范式强调行为上的“软适配”，灵活性更强</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/31208.html">http://yhblogs.cn/posts/31208.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E2%8C%A8%EF%B8%8Fpython/">⌨️python</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1) (1).png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3893.html" title="新闻推荐"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-mlz139_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">新闻推荐</div></div></a></div><div class="next-post pull-right"><a href="/posts/24333.html" title="FunRec推荐系统_召回模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-vpp725_1280x720_(1).webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">FunRec推荐系统_召回模型</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/30698.html" title="BERT_Pytorch"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7jjyd9_2560x1440.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-09</div><div class="title">BERT_Pytorch</div></div></a></div><div><a href="/posts/24333.html" title="FunRec推荐系统_召回模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-vpp725_1280x720_(1).webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-14</div><div class="title">FunRec推荐系统_召回模型</div></div></a></div><div><a href="/posts/58676.html" title="Leetcode100记录"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-9ozdyx_1280x720.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="title">Leetcode100记录</div></div></a></div><div><a href="/posts/22642.html" title="windows安装ROCm"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/ROCm_logo.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-10</div><div class="title">windows安装ROCm</div></div></a></div><div><a href="/posts/3865533702.html" title="pyqt5简单实践"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071521231.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-28</div><div class="title">pyqt5简单实践</div></div></a></div><div><a href="/posts/35959.html" title="python信号处理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-pokg2e.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-18</div><div class="title">python信号处理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B0%E5%BF%86%E4%B8%8E%E6%B3%9B%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">记忆与泛化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89"><span class="toc-number">2.</span> <span class="toc-text">特征交叉</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89"><span class="toc-number">2.1.</span> <span class="toc-text">二阶特征交叉</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM-%E4%BB%8E%E5%8F%AC%E5%9B%9E%E5%88%B0%E7%B2%BE%E6%8E%92"><span class="toc-number">2.1.1.</span> <span class="toc-text">FM: 从召回到精排</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AFM%EF%BC%9A%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%8A%A0%E6%9D%83%E7%9A%84%E4%BA%A4%E5%8F%89%E7%89%B9%E5%BE%81"><span class="toc-number">2.1.2.</span> <span class="toc-text">AFM：注意力加权的交叉特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NFM-%E4%BA%A4%E5%8F%89%E7%89%B9%E5%BE%81%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-number">2.1.3.</span> <span class="toc-text">NFM: 交叉特征的深度学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PNN-%E5%A4%9A%E6%A0%B7%E5%8C%96%E7%9A%84%E4%B9%98%E7%A7%AF%E6%93%8D%E4%BD%9C"><span class="toc-number">2.1.4.</span> <span class="toc-text">PNN: 多样化的乘积操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FiBiNET-%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E4%B8%8E%E5%8F%8C%E7%BA%BF%E6%80%A7%E4%BA%A4%E4%BA%92"><span class="toc-number">2.1.5.</span> <span class="toc-text">FiBiNET: 特征重要性与双线性交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DeepFM-%E4%BD%8E%E9%98%B6%E9%AB%98%E9%98%B6%E7%9A%84%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1"><span class="toc-number">2.1.6.</span> <span class="toc-text">DeepFM: 低阶高阶的统一建模</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.1.7.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E9%98%B6%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89"><span class="toc-number">2.2.</span> <span class="toc-text">高阶特征交叉</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DCN-%E6%AE%8B%E5%B7%AE%E8%BF%9E%E6%8E%A5%E7%9A%84%E9%AB%98%E9%98%B6%E4%BA%A4%E5%8F%89"><span class="toc-number">2.2.1.</span> <span class="toc-text">DCN: 残差连接的高阶交叉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xDeepFM-%E5%90%91%E9%87%8F%E7%BA%A7%E5%88%AB%E7%9A%84%E7%89%B9%E5%BE%81%E4%BA%A4%E4%BA%92"><span class="toc-number">2.2.2.</span> <span class="toc-text">xDeepFM: 向量级别的特征交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AutoInt-%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E4%BA%A4%E4%BA%92"><span class="toc-number">2.2.3.</span> <span class="toc-text">AutoInt: 自注意力的自适应交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">2.2.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%BB%BA%E6%A8%A1"><span class="toc-number">3.</span> <span class="toc-text">序列建模</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DIN-%E5%B1%80%E9%83%A8%E6%BF%80%E6%B4%BB%E7%9A%84%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="toc-number">3.1.</span> <span class="toc-text">DIN:局部激活的注意力机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DIEN-%E5%85%B4%E8%B6%A3%E7%9A%84%E6%BC%94%E5%8C%96%E5%BB%BA%E6%A8%A1"><span class="toc-number">3.2.</span> <span class="toc-text">DIEN:兴趣的演化建模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DSIN-%E4%BB%8E%E8%A1%8C%E4%B8%BA%E5%BA%8F%E5%88%97%E5%88%B0%E4%BC%9A%E8%AF%9D%E5%BA%8F%E5%88%97"><span class="toc-number">3.3.</span> <span class="toc-text">DSIN:从行为序列到会话序列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">3.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%9B%AE%E6%A0%87%E5%BB%BA%E6%A8%A1"><span class="toc-number">4.</span> <span class="toc-text">多目标建模</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84%E6%BC%94%E8%BF%9B"><span class="toc-number">4.1.</span> <span class="toc-text">基础结构演进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Shared-Bottom"><span class="toc-number">4.1.1.</span> <span class="toc-text">Shared-Bottom</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MMoE"><span class="toc-number">4.1.2.</span> <span class="toc-text">MMoE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CGC"><span class="toc-number">4.1.3.</span> <span class="toc-text">CGC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PLE"><span class="toc-number">4.1.4.</span> <span class="toc-text">PLE</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%8D%9F%E5%A4%B1%E8%9E%8D%E5%90%88"><span class="toc-number">4.2.</span> <span class="toc-text">多目标损失融合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Uncertainty-Weight"><span class="toc-number">4.2.1.</span> <span class="toc-text">Uncertainty Weight</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GradNorm"><span class="toc-number">4.2.2.</span> <span class="toc-text">GradNorm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pareto-Optimization"><span class="toc-number">4.2.3.</span> <span class="toc-text">Pareto Optimization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-3"><span class="toc-number">4.2.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%9C%BA%E6%99%AF%E5%BB%BA%E6%A8%A1"><span class="toc-number">5.</span> <span class="toc-text">多场景建模</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

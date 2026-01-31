@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>深度学习引言 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="定义机器学习算法：一个灵活的程序算法，其输出由许多参数(parameter)决定，使用数据集来确定当下的“最佳参数集”，这些参数通过某种性能度量方式来达到完成任务的最佳性能 任一调整参数后的程序被称为模型(model)，通过操作参数而生成的所有不同程序(输入-输出映射)的集合称为模型族，使用数据集来选择参数的元程序被称为学习算法 在开始用机器学习算法解决问题之前，必须精确地定义问题，确定输入(in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习引言">
+<meta property="og:url" content="http://yhblogs.cn/posts/31974.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="定义机器学习算法：一个灵活的程序算法，其输出由许多参数(parameter)决定，使用数据集来确定当下的“最佳参数集”，这些参数通过某种性能度量方式来达到完成任务的最佳性能 任一调整参数后的程序被称为模型(model)，通过操作参数而生成的所有不同程序(输入-输出映射)的集合称为模型族，使用数据集来选择参数的元程序被称为学习算法 在开始用机器学习算法解决问题之前，必须精确地定义问题，确定输入(in">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqxqv7_1280x720%20(1).webp">
+<meta property="article:published_time" content="2025-10-10T16:30:57.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.726Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="⌨️python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqxqv7_1280x720%20(1).webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/31974.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深度学习引言',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">深度学习引言</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-10-10T16:30:57.000Z" title="发表于 2025-10-10 16:30:57">2025-10-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深度学习引言"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>机器学习算法：一个灵活的程序算法，其输出由许多参数(parameter)决定，使用数据集来确定当下的“最佳参数集”，这些参数通过某种性能度量方式来达到完成任务的最佳性能</p>
+<p>任一调整参数后的程序被称为模型(model)，通过操作参数而生成的所有不同程序(输入-输出映射)的集合称为模型族，使用数据集来选择参数的元程序被称为学习算法</p>
+<p>在开始用机器学习算法解决问题之前，必须精确地定义问题，确定输入(input)和输出(output)的性质，并选择合适的模型族</p>
+<p>训练过程通常包含如下步骤：</p>
+<ol>
+<li>从一个随机初始化参数的模型开始，这个模型基本没有“智能”；</li>
+<li>获取一些数据样本(例如，音频片段以及对应的是或否标签)；</li>
+<li>调整参数，使模型在这些样本中表现得更好；</li>
+<li>重复第(2)步和第(3)步，直到模型在任务中的表现令人满意</li>
+</ol>
+<img src="https://zh.d2l.ai/_images/ml-loop.svg" style="zoom: 80%;">
+
+<h2 id="机器学习中的关键组件"><a href="#机器学习中的关键组件" class="headerlink" title="机器学习中的关键组件"></a>机器学习中的关键组件</h2><p>无论什么类型的机器学习问题，都会遇到这些组件：</p>
+<ol>
+<li>可以用来学习的数据(data)；</li>
+<li>如何转换数据的模型(model)；</li>
+<li>一个目标函数(objective function)，用来量化模型的有效性；</li>
+<li>调整模型参数以优化目标函数的算法(algorithm)</li>
+</ol>
+<h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><p>每个数据集由一个个样本组成，大多时候它们遵循独立同分布</p>
+<p>通常每个样本由一组称为特征的属性组成，机器学习模型会根据这些属性进行预测</p>
+<p>当每个样本的特征类别数量都是相同的时候，其特征向量是固定长度的，这个长度被称为数据的维数。固定长度的特征向量是一个方便的属性，它可以用来量化学习大量样本。但并不是所有的数据都可以用“固定长度”的向量表示</p>
+<p>与传统机器学习方法相比，深度学习的一个主要优势是可以处理不同长度的数据</p>
+<p>仅仅拥有海量的数据是不够的，还需要正确的数据，警惕垃圾数据带来的后果</p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>大多数机器学习会涉及到数据的转换</p>
+<p>深度学习与经典方法的区别主要在于：前者关注功能强大的模型，这些模型由神经网络错综复杂的交织在一起，包含层层数据转换，因此被称为深度学习</p>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>在机器学习中，需要定义模型优劣程度的度量，这个度量在大多数情况是“可优化”的，被称之为目标函数；目标函数希望优化到最低点，因为越低越好，所以也称为损失函数</p>
+<ul>
+<li><font color="DarkViolet">当任务在试图预测数值时，最常见的损失函数是平方误差</font>(squared error)，即预测值与实际值之差的平方；</li>
+<li><font color="DarkViolet">当试图解决分类问题时，最常见的目标函数是最小化错误率</font>，即预测与实际情况不符的样本比例</li>
+</ul>
+<p>可用数据集通常可以分成两部分：训练数据集用于拟合模型参数，测试数据集用于评估拟合的模型</p>
+<p>测试性能可能会显著偏离训练性能，当一个模型在训练集上表现良好，但不能推广到测试集时，这个模型被称为过拟合(overfitting)的</p>
+<h3 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h3><p>大多流行的优化算法通常基于一种基本方法——梯度下降</p>
+<p>梯度下降法都会检查每个参数，看看如果仅对该参数进行少量变动，训练集损失会朝哪个方向移动，在可以减少损失的方向上优化参数</p>
+<h2 id="各种机器学习问题"><a href="#各种机器学习问题" class="headerlink" title="各种机器学习问题"></a>各种机器学习问题</h2><p>列出一些常见的机器学习问题和应用</p>
+<h3 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h3><p>监督学习(supervised learning)擅长在“给定输入特征”的情况下预测标签。每个“特征-标签”对都称为一个样本(example)。有时即使标签是未知的，样本也可以指代输入特征。目标是生成一个模型，能够将任何输入特征映射到标签(即预测)</p>
+<p>一个具体的例子：假设需要预测患者的心脏病是否会发作，那么观察结果“心脏病发作”或“心脏病没有发作”将是样本的标签。输入特征可能是生命体征，如心率、舒张压和收缩压等</p>
+<p>监督学习<font color="DarkViolet">用概率论术语来说，希望预测“给定输入特征的标签”的条件概率</font></p>
+<p>监督学习的学习过程一般可以分为三大步骤：</p>
+<ol>
+<li>从已知大量数据样本中随机选取一个子集，为每个样本获取真实标签。有时这些样本已有标签(例如，患者是否在下一年内康复?)；有时，这些样本可能需要被人工标记(例如，图像分类)。这些输入和相应的标签一起构成了训练数据集；</li>
+<li>选择有监督的学习算法，它将训练数据集作为输入，并输出一个“已完成学习的模型”；</li>
+<li>将之前没有见过的样本特征放到这个“已完成学习的模型”中，使用模型的输出作为相应标签的预测</li>
+</ol>
+<p>整个监督学习过程如图所示</p>
+<img src="https://zh.d2l.ai/_images/supervised-learning.svg" alt="https://zh.d2l.ai/_images/supervised-learning.svg" style="zoom: 80%;">
+
+<h4 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h4><p>回归(regression)是最简单的监督学习任务之一，当标签取任意数值时称之为回归问题</p>
+<p>判断回归问题的一个很好的经验法则是，任何有关“有多少”的问题很可能就是回归问题</p>
+<p>比如：</p>
+<ul>
+<li>这个手术需要多少小时；</li>
+<li>在未来6小时，这个镇会有多少降雨量；</li>
+<li>预测用户对一部电影的评分</li>
+</ul>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>虽然回归模型可以很好地解决“有多少”的问题，但是很多问题并非如此</p>
+<p>“哪一个”的问题叫做分类(classification)问题</p>
+<p>分类问题希望模型能够预测样本属于哪个类别，最简单的分类问题只有两类，被称之为二项分类(binomial classification)，比如猫狗分类</p>
+<p>当有两个以上的类别时，把这个问题称为多项分类(multiclass classification)问题，比如手写字符识别</p>
+<p><font color="DarkViolet">与解决回归问题不同，分类问题的常见损失函数被称为交叉熵</font></p>
+<p>如果分类用于寻找层次结构将更复杂，通常被称为层次分类(hierarchical classification)</p>
+<h4 id="标记问题"><a href="#标记问题" class="headerlink" title="标记问题"></a>标记问题</h4><p>有些分类问题很适合于二项分类或多项分类，但如果输入有多种类别的内容，分类器可能束手无策</p>
+<p>学习预测不相互排斥的类别的问题称为多标签分类(multi-label classification)</p>
+<h4 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h4><p>不仅仅希望输出一个类别或一个实值，在信息检索领域希望对一组项目进行排序</p>
+<p>以网络搜索为例，目标不是简单的“查询(query)-网页(page)”分类，而是在海量搜索结果中找到用户最需要的那部分</p>
+<p>一种可能的解决方案：首先为集合中的每个元素分配相应的相关性分数，然后检索评级最高的元素</p>
+<h4 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h4><p>另一类与搜索和排名相关的问题是推荐系统(recommender system)，它的目标是向特定用户进行“个性化”推荐</p>
+<p>在某些应用中，客户会提供明确反馈，表达他们对特定产品的喜爱程度，例如，亚马逊上的产品评级和评论</p>
+<p>在其他一些情况下，客户会提供隐性反馈，例如，某用户跳过播放列表中的某些歌曲，这可能说明这些歌曲对此用户不大合适</p>
+<p>推荐系统会为“给定用户和物品”的匹配性打分，这个“分数”可能是估计的评级或购买的概率</p>
+<p>推荐系统的缺陷：</p>
+<ul>
+<li>用户更倾向于给他们感觉强烈的事物打分，例如，在五分制电影评分中，会有许多五星级和一星级评分，但三星级却明显很少</li>
+<li>有可能形成反馈循环：推荐系统首先会优先推送一个购买量较大(可能被认为更好)的商品，然而目前用户的购买习惯往往是遵循推荐算法，但学习算法并不总是考虑到这一细节，进而更频繁地被推荐</li>
+</ul>
+<h4 id="序列学习"><a href="#序列学习" class="headerlink" title="序列学习"></a>序列学习</h4><p>以上大多数问题都具有固定大小的输入和产生固定大小的输出</p>
+<p>在这些情况下，模型只会将输入作为生成输出的“原料”，而不会“记住”输入的具体内容</p>
+<p>如果输入的样本之间没有任何关系，以上模型可能完美无缺，但是如果输入是连续的，模型可能就需要拥有“记忆”功能</p>
+<p>序列学习需要摄取输入序列或预测输出序列，或两者兼而有之，输入和输出都是可变长度的序列</p>
+<h3 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h3><p>监督学习需要向模型提供巨大数据集：每个样本包含特征和相应标签值</p>
+<p>数据中不含有“目标”的机器学习问题通常被为无监督学习(unsupervised learning)</p>
+<p>无监督学习面对的主要问题：</p>
+<ul>
+<li>聚类(clustering)问题</li>
+<li>主成分分析(principal component analysis)问题</li>
+<li>因果关系(causality)和概率图模型(probabilistic graphical models)问题</li>
+<li>生成对抗性网络(generative adversarial networks)</li>
+</ul>
+<h3 id="与环境互动"><a href="#与环境互动" class="headerlink" title="与环境互动"></a>与环境互动</h3><p>不管是监督学习还是无监督学习都会预先获取大量数据，然后启动模型，不再与环境交互，被称为离线学习(offline learning)</p>
+<p>对于监督学习，从环境中收集数据的过程类似于</p>
+<img src="https://zh.d2l.ai/_images/data-collection.svg" style="zoom:80%;">
+
+<ul>
+<li>优点：孤立地进行模式识别，不受干扰</li>
+<li>缺点：解决的问题相当有限</li>
+</ul>
+<p>与预测不同，“与真实环境互动”实际上会影响环境</p>
+<h3 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h3><p>可能包括应用到机器人、对话系统，甚至开发视频游戏的人工智能(AI)</p>
+<p>深度强化学习(deep reinforcement learning)将深度学习应用于强化学习的问题</p>
+<p>突破性的深度Q网络(Q-network)在雅达利游戏中仅使用视觉输入就击败了人类，以及 AlphaGo 程序在棋盘游戏围棋中击败了世界冠军，是两个突出强化学习的例子</p>
+<p>在强化学习问题中，智能体(agent)在一系列的时间步骤上与环境交互在每个特定时间点，智能体从环境接收一些观察(observation)，并且必须选择一个动作(action)，然后通过某种机制(有时称为执行器)将其传输回环境，最后智能体从环境中获得奖励(reward)</p>
+<p><font color="DarkViolet">强化学习的目标是产生一个好的策略(policy)</font></p>
+<img src="https://zh.d2l.ai/_images/rl-environment.svg" style="zoom: 80%;">
+
+<ul>
+<li>当环境可被完全观察到时，强化学习问题被称为马尔可夫决策过程(markov decision process)</li>
+<li>当状态不依赖于之前的操作时，我们称该问题为上下文赌博机(contextual bandit problem)</li>
+<li>当没有状态，只有一组最初未知回报的可用动作时，这个问题就是经典的多臂赌博机(multi-armed bandit problem)</li>
+</ul>
+<h2 id="机器学习与深度学习"><a href="#机器学习与深度学习" class="headerlink" title="机器学习与深度学习"></a>机器学习与深度学习</h2><p>机器学习与深度学习属于从属关系：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">机器学习(Machine Learning)</span><br><span class="line">│    ├── 传统机器学习(Regression, SVM, Tree, etc.)</span><br><span class="line">│    └── 深度学习(Deep Learning)</span><br><span class="line">│         └── 神经网络（CNN, RNN, Transformer...）</span><br></pre></td></tr></tbody></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>层面</th>
+<th>传统机器学习</th>
+<th>深度学习</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>特征</td>
+<td>人工定义</td>
+<td>自动学习</td>
+</tr>
+<tr>
+<td>表达能力</td>
+<td>有限(浅层)</td>
+<td>极强(深层非线性)</td>
+</tr>
+<tr>
+<td>数据需求</td>
+<td>少量即可</td>
+<td>需要大量数据</td>
+</tr>
+<tr>
+<td>可解释性</td>
+<td>强</td>
+<td>弱(黑箱)</td>
+</tr>
+<tr>
+<td>计算需求</td>
+<td>CPU 足够</td>
+<td>需要 GPU</td>
+</tr>
+<tr>
+<td>泛化能力</td>
+<td>容易过拟合高维数据</td>
+<td>训练得当，能学到高层抽象特征</td>
+</tr>
+<tr>
+<td>典型算法</td>
+<td>SVM、KNN、决策树</td>
+<td>CNN、RNN、Transformer</td>
+</tr>
+<tr>
+<td>典型应用</td>
+<td>数据回归</td>
+<td>图像识别、语音识别、自然语言理解</td>
+</tr>
+</tbody></table>
+<p>假设要让模型识别“猫”：</p>
+<ul>
+<li>**机器学习：**告诉模型看耳朵、眼睛、胡须、毛发颜色，模型靠这些指标判断是否是猫</li>
+<li><strong>深度学习</strong>：只给它图片，模型自己发现特征</li>
+</ul>
+<p>区别的本质在于“特征获取方式”</p>
+<ul>
+<li>传统机器学习依赖人工特征(人告诉机器看什么)</li>
+<li>深度学习能自动从原始数据中学习多层抽象特征</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/31974.html">http://yhblogs.cn/posts/31974.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E2%8C%A8%EF%B8%8Fpython/">⌨️python</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqxqv7_1280x720 (1).webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/22642.html" title="windows安装ROCm"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/ROCm_logo.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">windows安装ROCm</div></div></a></div><div class="next-post pull-right"><a href="/posts/18299.html" title="复合理论"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqx7ol_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">复合理论</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/30698.html" title="BERT_Pytorch"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7jjyd9_2560x1440.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-09</div><div class="title">BERT_Pytorch</div></div></a></div><div><a href="/posts/31208.html" title="FunRec 推荐系统_精排模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1) (1).png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-18</div><div class="title">FunRec 推荐系统_精排模型</div></div></a></div><div><a href="/posts/24333.html" title="FunRec推荐系统_召回模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-vpp725_1280x720_(1).webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-14</div><div class="title">FunRec推荐系统_召回模型</div></div></a></div><div><a href="/posts/58676.html" title="Leetcode100记录"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-9ozdyx_1280x720.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="title">Leetcode100记录</div></div></a></div><div><a href="/posts/22642.html" title="windows安装ROCm"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/ROCm_logo.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-10</div><div class="title">windows安装ROCm</div></div></a></div><div><a href="/posts/3865533702.html" title="pyqt5简单实践"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071521231.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-28</div><div class="title">pyqt5简单实践</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">机器学习中的关键组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.</span> <span class="toc-text">数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">目标函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">优化算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">各种机器学习问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.1.</span> <span class="toc-text">监督学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92"><span class="toc-number">3.1.1.</span> <span class="toc-text">回归</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">3.1.2.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0%E9%97%AE%E9%A2%98"><span class="toc-number">3.1.3.</span> <span class="toc-text">标记问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2"><span class="toc-number">3.1.4.</span> <span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.1.5.</span> <span class="toc-text">推荐系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.1.6.</span> <span class="toc-text">序列学习</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.2.</span> <span class="toc-text">无监督学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E7%8E%AF%E5%A2%83%E4%BA%92%E5%8A%A8"><span class="toc-number">3.3.</span> <span class="toc-text">与环境互动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.4.</span> <span class="toc-text">强化学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.</span> <span class="toc-text">机器学习与深度学习</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

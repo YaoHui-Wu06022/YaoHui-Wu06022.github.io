@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>评论搭建 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一些参考可以看官网链接 避坑不要用gitalk！！！血泪教训，搞了快两个点一直不行，卡在如下界面：     这个问题实在没法解决，只能选择放弃gitalk，最终选择腾讯云的twikoo Twikoo快速上手 云开发环境 进入云开发CloudBase (opens new window)页面，全程微信扫码登录就行  进入云开发控制台找云开发，新建环境     推荐创建上海环境。如选择广州环境，需要在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="评论搭建">
+<meta property="og:url" content="http://yhblogs.cn/posts/800961490.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="一些参考可以看官网链接 避坑不要用gitalk！！！血泪教训，搞了快两个点一直不行，卡在如下界面：     这个问题实在没法解决，只能选择放弃gitalk，最终选择腾讯云的twikoo Twikoo快速上手 云开发环境 进入云开发CloudBase (opens new window)页面，全程微信扫码登录就行  进入云开发控制台找云开发，新建环境     推荐创建上海环境。如选择广州环境，需要在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071515945.webp">
+<meta property="article:published_time" content="2022-04-11T09:34:24.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.728Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🦋butterfly">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071515945.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/800961490.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '评论搭建',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">评论搭建</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2022-04-11T09:34:24.000Z" title="发表于 2022-04-11 09:34:24">2022-04-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">654</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="评论搭建"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>一些参考可以看<a target="_blank" rel="noopener" href="https://butterfly.js.org/posts/ceeb73f/#%E8%A9%95%E8%AB%96">官网链接</a></p>
+<h1 id="避坑"><a href="#避坑" class="headerlink" title="避坑"></a>避坑</h1><p>不要用<code>gitalk</code>！！！血泪教训，搞了快两个点一直不行，卡在如下界面：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411093815174.png" alt="image-20220411093815174" style="zoom:50%;">
+
+
+
+<p>这个问题实在没法解决，只能选择放弃gitalk，最终选择腾讯云的<code>twikoo</code></p>
+<h1 id="Twikoo"><a href="#Twikoo" class="headerlink" title="Twikoo"></a>Twikoo</h1><p><a target="_blank" rel="noopener" href="https://twikoo.js.org/quick-start.html">快速上手</a></p>
+<h2 id="云开发环境"><a href="#云开发环境" class="headerlink" title="云开发环境"></a>云开发环境</h2><ol>
+<li><p>进入<a target="_blank" rel="noopener" href="https://curl.qcloud.com/KnnJtUom">云开发CloudBase (opens new window)</a>页面，全程微信扫码登录就行</p>
+</li>
+<li><p>进入<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/tcb/">云开发控制台</a>找云开发，新建环境</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411094704275.png" style="zoom: 33%;">
+
+<blockquote>
+<ul>
+<li>推荐创建上海环境。如选择广州环境，需要在 <code>twikoo.init()</code> 时额外指定环境 <code>region: "ap-guangzhou"</code></li>
+<li>环境名称自由填写</li>
+<li>推荐选择计费方式<code>包年包月</code>，套餐版本<code>基础版 1</code>，超出免费额度不会收费</li>
+<li>如果提示选择“应用模板”，请选择“空模板”</li>
+</ul>
+</blockquote>
+</li>
+<li><p>进入<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/tcb/env/login">环境-登录授权 (opens new window)</a>，启用“匿名登录”和“未登录”</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411094856415.png" style="zoom: 33%;">
+</li>
+<li><p>进入<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/tcb/env/safety">环境-安全配置 (opens new window)</a>，将网站域名添加到“WEB安全域名”</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411095033153.png" style="zoom:33%;">
+</li>
+<li><p>进入<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/tcb/scf/index">环境-云函数 (opens new window)</a>，点击“新建云函数”</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411095202484.png" style="zoom: 50%;">
+</li>
+<li><p>因为现在云函数有bug，删不掉里面的示例代码，需要另外在本地书写再上传覆盖</p>
+<p>在<code>index.js</code>中写入</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">main</span> = <span class="built_in">require</span>(<span class="string">'twikoo-func'</span>).<span class="property">main</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>在<code>package.json</code>中写入</p>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span> <span class="attr">"dependencies"</span><span class="punctuation">:</span> <span class="punctuation">{</span> <span class="attr">"twikoo-func"</span><span class="punctuation">:</span> <span class="string">"1.5.3"</span> <span class="punctuation">}</span> <span class="punctuation">}</span> #版本号根据版本修改为最新</span><br></pre></td></tr></tbody></table></figure>
+
+<p>两个文件一起压缩为压缩包</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411095749657.png" style="zoom:50%;"></li>
+</ol>
+<p>到此云平台这边的搭建就结束了，接下来是主题配置文件的修改</p>
+<h2 id="butterfly配置文件"><a href="#butterfly配置文件" class="headerlink" title="butterfly配置文件"></a>butterfly配置文件</h2><p>修改<code>comments</code>代码use处为<code>Twikoo</code></p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="comment"># Up to two comments system, the first will be shown as default</span></span><br><span class="line">  <span class="comment"># Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus</span></span><br><span class="line">  <span class="attr">use:</span> <span class="string">Twikoo</span></span><br><span class="line">  <span class="attr">text:</span> <span class="literal">true</span> <span class="comment"># Display the comment name next to the button</span></span><br><span class="line">  <span class="comment"># lazyload: The comment system will be load when comment element enters the browser's viewport.</span></span><br><span class="line">  <span class="comment"># If you set it to true, the comment count will be invalid</span></span><br><span class="line">  <span class="attr">lazyload:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">count:</span> <span class="literal">false</span> <span class="comment"># Display comment count in post's top_img</span></span><br><span class="line">  <span class="attr">card_post_count:</span> <span class="literal">false</span> <span class="comment"># Display comment count in Home Page</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>在接下去的<code>twikoo</code>处代码修改<code>envId</code></p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">twikoo:</span></span><br><span class="line">  <span class="attr">envId:</span> <span class="string">'×××'</span></span><br><span class="line">  <span class="attr">region:</span></span><br><span class="line">  <span class="attr">visitor:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">option:</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>envId</code>的获取方法如下</p>
+<ol>
+<li><p>回到<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/tcb/">云开发控制台</a></p>
+</li>
+<li><p>点击复制</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411100423745.png" style="zoom:50%;"></li>
+</ol>
+<p>然后就hexo一键三连就可以了</p>
+<h2 id="管理员配置"><a href="#管理员配置" class="headerlink" title="管理员配置"></a>管理员配置</h2><ol>
+<li><p>进入<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/tcb/env/login">环境-登录授权 (opens new window)</a>，点击“自定义登录”右边的“私钥下载”，下载私钥文件</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411100538421.png" alt="image-20220411100538421" style="zoom:50%;">
+</li>
+<li><p>复制里面的所有内容</p>
+</li>
+<li><p>进到博客网站任意一篇post的下方</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img/image-20220411102227558.png" style="zoom:50%;">
+
+<p>点开设置，粘贴私钥文件内容(第一个空直接全部放进去)，并设置管理员密码</p>
+</li>
+</ol>
+<p>到这里就全部完成啦，评论时的头像是根据邮箱的头像来显示的，修改要去对应的邮箱修改</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/800961490.html">http://yhblogs.cn/posts/800961490.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%A6%8Bbutterfly/">🦋butterfly</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071515945.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3824828603.html" title="3.5GHz微带天线设计与分析"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071525069.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">3.5GHz微带天线设计与分析</div></div></a></div><div class="next-post pull-right"><a href="/posts/3435245376.html" title="butterfly美化过程"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071529202.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">butterfly美化过程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3435245376.html" title="butterfly美化过程"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071529202.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-08</div><div class="title">butterfly美化过程</div></div></a></div><div><a href="/posts/253396570.html" title="关于JsDelivr降速后的处理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071521957.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-30</div><div class="title">关于JsDelivr降速后的处理</div></div></a></div><div><a href="/posts/799695709.html" title="外挂标签"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071523471.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-09</div><div class="title">外挂标签</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%BF%E5%9D%91"><span class="toc-number">1.</span> <span class="toc-text">避坑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Twikoo"><span class="toc-number">2.</span> <span class="toc-text">Twikoo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%91%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">云开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#butterfly%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">butterfly配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%91%98%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">管理员配置</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

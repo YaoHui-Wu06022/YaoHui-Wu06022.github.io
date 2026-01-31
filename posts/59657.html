@@ -1,0 +1,723 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>COMSOL光电器件仿真 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="COMSOL内置物理参数   描述 名称 值    重力加速度 g_const 9.80665[m/s^2]   阿伏加德罗常数 N_A_const 6.02214076e23[1/mol]   玻尔兹曼常数 k_B_const 1.380649e-23[J/K]   真空特性阻抗(自由空间阻抗) Z0_const 376.73031346177066[ohm]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="COMSOL光电器件仿真">
+<meta property="og:url" content="http://yhblogs.cn/posts/59657.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="COMSOL内置物理参数   描述 名称 值    重力加速度 g_const 9.80665[m/s^2]   阿伏加德罗常数 N_A_const 6.02214076e23[1/mol]   玻尔兹曼常数 k_B_const 1.380649e-23[J/K]   真空特性阻抗(自由空间阻抗) Z0_const 376.73031346177066[ohm]">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qrz9wl_1280x720.webp">
+<meta property="article:published_time" content="2025-10-08T20:04:57.000Z">
+<meta property="article:modified_time" content="2026-01-31T12:00:30.718Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🥼半导体">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qrz9wl_1280x720.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yhblogs.cn/posts/59657.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'COMSOL光电器件仿真',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-31 12:00:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="がんばろう"><img class="site-icon" src="/img/favicon.png"><span class="site-name">がんばろう</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">COMSOL光电器件仿真</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-10-08T20:04:57.000Z" title="发表于 2025-10-08 20:04:57">2025-10-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="COMSOL光电器件仿真"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="COMSOL内置物理参数"><a href="#COMSOL内置物理参数" class="headerlink" title="COMSOL内置物理参数"></a>COMSOL内置物理参数</h2><table>
+<thead>
+<tr>
+<th>描述</th>
+<th>名称</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>重力加速度</td>
+<td>g_const</td>
+<td>9.80665[m/s^2]</td>
+</tr>
+<tr>
+<td>阿伏加德罗常数</td>
+<td>N_A_const</td>
+<td>6.02214076e23[1/mol]</td>
+</tr>
+<tr>
+<td>玻尔兹曼常数</td>
+<td>k_B_const</td>
+<td>1.380649e-23[J/K]</td>
+</tr>
+<tr>
+<td>真空特性阻抗<br>(自由空间阻抗)</td>
+<td>Z0_const</td>
+<td>376.73031346177066[ohm]</td>
+</tr>
+<tr>
+<td>电子质量</td>
+<td>me_const</td>
+<td>9.10938291e-31[kg]</td>
+</tr>
+<tr>
+<td>元电荷</td>
+<td>e_const</td>
+<td>1.602176634e-19[C]</td>
+</tr>
+<tr>
+<td>法拉第常数</td>
+<td>F_const</td>
+<td>96485.3365[C/mol]</td>
+</tr>
+<tr>
+<td>精细结构常数</td>
+<td>alpha_const</td>
+<td>7.29735298e-3</td>
+</tr>
+<tr>
+<td>万有引力常数</td>
+<td>G_const</td>
+<td>6.67384e-11[<code>m^3/(kg*s^2)</code>]</td>
+</tr>
+<tr>
+<td>理想气体摩尔体积<br>(273.15K,1atm)</td>
+<td>V_m_const</td>
+<td>2.2413968e-2[m^3/mol]</td>
+</tr>
+<tr>
+<td>中子质量</td>
+<td>mn_const</td>
+<td>1.674927351e-27[kg]</td>
+</tr>
+<tr>
+<td>真空磁导率(磁常数)</td>
+<td>mu0_const</td>
+<td><code>2*alpha_const*h_const/c_const/e_const/e_const</code></td>
+</tr>
+<tr>
+<td>真空介电常数</td>
+<td>epsilon0_const</td>
+<td>1/mu0_const/c_const/c_const</td>
+</tr>
+<tr>
+<td>普朗克常数</td>
+<td>h_const</td>
+<td>6.62607015e-34[J*s]</td>
+</tr>
+<tr>
+<td>普朗克常数除以2pi</td>
+<td>hbar_const</td>
+<td>1.05457172533629e-34[J*s]</td>
+</tr>
+<tr>
+<td>质子质量</td>
+<td>mp_const</td>
+<td>1.672621777e-27[kg]</td>
+</tr>
+<tr>
+<td>真空中的光速</td>
+<td>c_const</td>
+<td>299792458[m/s]</td>
+</tr>
+<tr>
+<td>玻尔兹曼常数</td>
+<td>sigma_const</td>
+<td>5.670373e-8[<code>W/(m^2*K^4)</code>]</td>
+</tr>
+<tr>
+<td>通用气体常数</td>
+<td>R_const</td>
+<td>8.3144621[J/(mol*K)]</td>
+</tr>
+<tr>
+<td>维恩位移定律常数</td>
+<td>b_const</td>
+<td>2.8977721e-3[m*K]</td>
+</tr>
+</tbody></table>
+<h2 id="一维PN结"><a href="#一维PN结" class="headerlink" title="一维PN结"></a>一维PN结</h2><p><a target="_blank" rel="noopener" href="https://cn.comsol.com/model/pn-junction-1d-14621">官网链接</a></p>
+<h3 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h3><p>阳极接触与p型区相邻，阴极与n型区连接，基于麦克斯韦方程和玻耳兹曼方程推导出载流子输运的半导体模型(基于稳态问题)：</p>
+<p><strong>半导体中的高斯定理(泊松方程)</strong></p>
+<p>描述电场与电荷密度的关系<br>$$<br>\begin{aligned} \nabla \cdot(\varepsilon \nabla V)=-q\left(p-n+N_{D}^{+}-N_{A}^{-}\right)  \end{aligned}<br>$$<br>左边是电位移矢量($D=\varepsilon E = -\varepsilon  \nabla V$)的散度，反映电场的通量(电荷)，欠个负号</p>
+<p>右边是负的电荷密度，$\rho = q\left(p-n+N_{D}^{+}-N_{A}^{-}\right)$是半导体中的总(+)电荷密度</p>
+<p>在半导体的耗尽区，无自由载流子，但有电离的施主和受主，方程简化为：<br>$$<br>\begin{aligned}\nabla \cdot(\varepsilon \nabla V) = -q(N_D^{+} - N_A^{-}) \end{aligned}<br>$$<br>这与耗尽区的电荷分布一致(耗尽区的电荷由电离杂质决定)</p>
+<p><strong>电流连续性方程</strong></p>
+<p>描述载流子电流密度与SRH净复合率的关系($\nabla\cdot \vec J = -\partial \rho /\partial t$)，是电荷守恒定律的体现</p>
+<p>正值表示净流出，负值表示净流入，所以右侧负号<br>$$<br>\begin{aligned}<br>\nabla \cdot \vec J_n=-q R_{SRH} \qquad<br>\nabla \cdot \vec J_p=q R_{SRH}<br>\end{aligned}<br>$$</p>
+<p>左边是载流子电流密度的散度，反映载流子数量的变化</p>
+<p>当$R_{SRH}&gt;0$(净复合)时，电子在某处减少(被复合)，所以必须有电子电流汇入以补充，电流密度散度为负；对空穴来说，复合意味着空穴也减少，但由于空穴带正电，所以符号方向相反</p>
+<p>在该案例中假设$R_{SRH}$是电子和空穴复合的唯一来源</p>
+<blockquote>
+<p>$R_{SRH}$是<code>Shockley-Read-Hall</code>复合速率，是硅基半导体的主要复合机制</p>
+<p>$R_{SRH} $理论详细见<a href="/posts/18299.html" title="复合理论">复合理论</a></p>
+</blockquote>
+<p>假设等温、非简并半导体具有恒定的能带结构，电子流和空穴流表示为<br>$$<br>\begin{aligned}<br>\vec J_n  =-n q \mu_{n} \nabla V+\mu_n k_B T \nabla n \qquad<br>\vec J_p  =-p q \mu_{p} \nabla V-\mu_p k_B T \nabla p<br>\end{aligned}<br>$$<br>第一项为漂移电流，这部分由电场$E=-\nabla V$引起<br>$$<br>\begin{aligned}<br>\vec J_{n,drift}=qn\mu_nE \qquad<br>\vec J_{p,drift}=qp\mu_pE<br>\end{aligned}<br>$$<br>第二项为扩散电流，来源于浓度梯度<br>$$<br>\begin{aligned}\vec J_{n, diff}=\mu_n k_B T \nabla n \qquad \vec J_{p, diff}=-\mu_p k_B T \nabla p \end{aligned}<br>$$<br>可以用爱因斯坦关系式写的更熟悉些<br>$$<br>\begin{aligned} D_n =\mu_n \frac{k_B T}{q}\qquad  D_p=\mu_p \frac{k_B T}{q} \end{aligned}<br>$$<br>得到<br>$$<br>\begin{aligned}\vec J_{n, diff}=q D_n \nabla n \qquad \vec J_{p, diff}=-q D_p \nabla p \end{aligned}<br>$$<br>负号来自于电流方向与$\nabla p$方向相反</p>
+<h3 id="模型定义"><a href="#模型定义" class="headerlink" title="模型定义"></a>模型定义</h3><p>本例模型模拟p-n结在反向、平衡和正向偏压下的特性，模拟的结长度为$5\mu m$，p型掺杂侧和n型掺杂侧的净掺杂浓度均为$1\times 10^{15}cm^{-3}$</p>
+<p>模型中还添加了Shockley-Read-Hall复合特征，用于模拟通常在间接带隙半导体(例如硅，本例模型中使用的材料)中发生的复合</p>
+<p>模型采用文献中使用的材料参数，并比较不同偏压条件下(-4V、0V和0.5V)计算出的载流子浓度分布与参考文献中的相应结果</p>
+<blockquote>
+<p>Kramer K M, Hitchon W N. Semiconductor devices: A simulation approach with CDROM[M]. Prentice Hall PTR, 1997.</p>
+</blockquote>
+<p>使用两种不同的离散化方法来求解模型：有限元(FEM)对数形式离散法和有限体积(FVM)离散法</p>
+<h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><p><strong>全局定义</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Va</td>
+<td><code>bias*sweep</code></td>
+<td>外加电压</td>
+</tr>
+<tr>
+<td>Tl</td>
+<td>300[K]</td>
+<td>晶格温度</td>
+</tr>
+<tr>
+<td>Na</td>
+<td>1e15[1/cm^3]</td>
+<td>受主浓度</td>
+</tr>
+<tr>
+<td>Nd</td>
+<td>1e15[1/cm^3]</td>
+<td>施主浓度</td>
+</tr>
+<tr>
+<td>epsilonr_param</td>
+<td>11.8</td>
+<td>相对介电常数</td>
+</tr>
+<tr>
+<td>Eg0_param</td>
+<td>1.12[V]</td>
+<td>带隙</td>
+</tr>
+<tr>
+<td>chi0_param</td>
+<td>4.05[V]</td>
+<td>电子亲和能</td>
+</tr>
+<tr>
+<td>Ni</td>
+<td>1.25e10[1/cm^3]</td>
+<td>本征载流子浓度</td>
+</tr>
+<tr>
+<td>Nc_param</td>
+<td><code>Ni*exp(Eg0_param*e_const/(2*k_B_const*Tl))</code></td>
+<td>导带态密度</td>
+</tr>
+<tr>
+<td>Nv_param</td>
+<td><code>Ni*exp(Eg0_param*e_const/(2*k_B_const*Tl))</code></td>
+<td>价带态密度</td>
+</tr>
+<tr>
+<td>taun_param</td>
+<td>1e-6[s]</td>
+<td>电子寿命</td>
+</tr>
+<tr>
+<td>taup_param</td>
+<td>taun_param</td>
+<td>空穴寿命</td>
+</tr>
+<tr>
+<td>bias</td>
+<td>-4[V]</td>
+<td>器件偏压</td>
+</tr>
+<tr>
+<td>sweep</td>
+<td>1</td>
+<td>偏压的扫描参数</td>
+</tr>
+</tbody></table>
+<p>相对介电常数：11.8 是硅的典型值</p>
+<p>硅的带隙：1.12eV，温度升高时带隙会略微减小，但这里假定为常数</p>
+<p>电子亲和能：4.05 eV 是硅的典型值</p>
+<p>掺杂浓度：$N_a$与$N_d$两个值设为相等，说明这是一个对称的 P–N 结，简化分析</p>
+<p>本征载流子浓度：纯硅在300K时电子与空穴的平衡浓度$1.25\times 10^{10} cm^{-3}$(典型值)</p>
+<p>导带态密度与价带态密度：来自于统计力学近似<br>$$<br>n_i^2 = N_c N_v e^{-E_g / (kT)}<br>$$<br>在该模型中简化，将$N_c=N_v$，实际上取决于电子空穴有效质量<br>$$<br>N_c = 2 \left(\frac{2\pi m_n^* k T}{h^2}\right)^{3/2}\qquad  N_v = 2 \left(\frac{2\pi m_p^* k T}{h^2}\right)^{3/2}<br>$$<br>一般来说在硅中$N_v/N_c \approx 0.37$</p>
+<p>300K时的大概数值为<br>$$<br>N_c \approx 2.8 \times 10^{19} \mathrm{c m}^{-3} \qquad N_{v} \approx1 . 0 4 \times1 0^{1 9} \mathrm{c m}^{-3}<br>$$</p>
+<hr>
+<p><strong>局部变量</strong></p>
+<p>Kramer迁移率模型</p>
+<p>列出电子的，空穴的类似</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A1n</td>
+<td><code>1430[cm^2/(V*s)]</code></td>
+<td>A1参数</td>
+</tr>
+<tr>
+<td>B1n</td>
+<td><code>-2.2[1]</code></td>
+<td>B1参数(无量纲)</td>
+</tr>
+<tr>
+<td>MUln</td>
+<td><code>A1n*(Tl/300[K])^B1n</code></td>
+<td>MU1参数，<strong>晶格散射主导时</strong>电子的迁移率</td>
+</tr>
+<tr>
+<td>Ain</td>
+<td><code>4.61e17[1/(V*s*cm)]</code></td>
+<td>Ai参数(经验拟合常数)<br>描述掺杂浓度和温度对迁移率的影响</td>
+</tr>
+<tr>
+<td>Bin</td>
+<td><code>1.52e15[1/(K^2*cm^3)]</code></td>
+<td>Bi 参数(同Ai)</td>
+</tr>
+<tr>
+<td>MUin</td>
+<td><code>(Ain*(Tl/1[K])^(1.5)/Ntot)/(log(1+Bin*Tl^2/Ntot)-Bin*Tl^2/(Ntot+Bin*Tl^2))</code></td>
+<td>MUi 参数，杂质散射的迁移率</td>
+</tr>
+<tr>
+<td>Xn</td>
+<td><code>sqrt(6*MUln/MUin)</code></td>
+<td>X 参数，控制两种散射机制的权重关系</td>
+</tr>
+<tr>
+<td>mu_n</td>
+<td><code>MUln*(1.025/(1+(Xn/1.68)^1.43)-0.025)</code></td>
+<td>电子迁移率，平滑函数，保证在两种散射机制之间过渡连续</td>
+</tr>
+<tr>
+<td>Ntot</td>
+<td><code>semi.Naminus+semi.Ndplus</code></td>
+<td>电离杂质总数</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">温度 Tl → 晶格散射项 MUl</span><br><span class="line">掺杂浓度 Ntot + 温度 → 杂质散射项 MUi</span><br><span class="line">两者通过 X 参数融合 → 最终迁移率 μ</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>主要操作跟官方教程走就行，这里讲一下一些操作的原因</p>
+<p><strong>在半导体的设置窗口中，单击以展开离散化栏，从公式列表中选择有限元，对数公式(线性形函数)</strong></p>
+<p>当势能差很大(例如在P-N结耗尽区)，电子或空穴浓度呈<font color="DarkViolet">指数分布变化</font></p>
+<p>普通有限元法若直接用线性形函数去近似 $n$ 与 $V$ 的空间分布，就会产生数值扩散或假振荡，因为线性插值函数无法精确捕捉指数曲线</p>
+<p>对数公式是一种特殊的有限元离散方法，它在单元级的插值中对浓度采用了对数形式，使得在局部指数变化时仍能保持高精度和数值稳定性</p>
+<p>对数有限元形式的线性形函数其实仍然使用一阶单元，但在离散时会对变量进行指数变换(或称对数平均)，从而让电荷输运的对称性得到保持，不会因离散误差而破坏电流连续性</p>
+<p><strong>右键单击组件1 &gt; 几何 1 并选择线段间隔</strong>  </p>
+<p>线段间隔决定了坐标轴上的区间范围，相当于设定了“模拟器件的物理尺寸”</p>
+<p>每个间隔的端点会自动成为几何点，而这些点通常就是金属接触或电势边界的位置，所以线段间隔的定义也直接影响了后续边界条件的指定</p>
+<p><strong>插值</strong></p>
+<p><code>Kramer Eq V</code>：平衡偏压(0 V)下的参考电势分布</p>
+<p><code>Kramer Fwd V</code>：正向偏压(+0.5 V)下的参考电势分布</p>
+<p><code>Kramer Rev V</code>：反向偏压(–4 V)下的参考电势分布</p>
+<p><code>Kramer Eq n</code>, <code>Kramer Eq p</code> 等：对应条件下电子与空穴浓度的参考分布</p>
+<p>是用来导入文献参考结果的电势分布函数，以便将 COMSOL 的计算结果与理论或参考结果进行对比验证，像是一条真值曲线，用于测试模型是否解得正确</p>
+<p><strong>在定义工具栏中单击非局部耦合，然后选择积分</strong>  </p>
+<p>相当于做了一个基准电势归零的操作，让电势曲线的零点始终在边界1处，从而得到相对电势分布</p>
+<p><strong>定位到迁移率模型，从列表中选择用户定义，输入”mu_n” “mu_p”</strong>  </p>
+<p>变为变量，不再是常量，迁移率就会随着温度场或掺杂分布变化而自动更新</p>
+<p><strong>陷阱辅助复合</strong>  </p>
+<p>硅类半导体载流子复合的主要物理机制，在直接带隙材料(如GaAs)中，电子和空穴可以通过辐射复合(直接跃迁)，但在硅这类间接带隙材料中，这种直接跃迁的概率非常低</p>
+<p><strong>复制半导体(semi)</strong></p>
+<p>方便后面添加第二个研究，不冲突</p>
+<p><strong>研究展开研究扩展栏，选中辅助扫描复选框，从扫描类型列表中选择所有组合，添加</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值列表</th>
+<th>参数单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bias(器件偏压)</td>
+<td>-4 0 0.5</td>
+<td>V</td>
+</tr>
+<tr>
+<td>sweep(逐渐提高偏压的扫描参数)</td>
+<td>0 1</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这是给有限元法准备的扫描参数，在后续选择不同电压条件的时候需要考虑第一个还是最后一个</p>
+<p><strong>在线结果图的设置窗口中， 定位到 x 轴数据栏，从参数列表中选择表达式，在表达式文本框中键入“x”</strong></p>
+<p>默认可能是参数值或者索引，需要把表达式改成<code>x</code>，让COMSOL以几何坐标为横轴绘制物理分布</p>
+<p>(原来图上范围为0-5，改完之后变为-2.5~2.5)</p>
+<p>图例改成FE是因为FE是有限元法的简称</p>
+<p><strong>结果&gt;电势节点，然后单击线结果图1，y轴数据栏在表达式文本框中键入“V-intop1(V)”</strong></p>
+<p>把整个器件的电势分布减去某个积分算出来的参考电位，从而得到相对电势</p>
+<p><strong><code>V</code></strong> ：电势场，从物理场中求解所得</p>
+<p><code>intop1(...)</code> ：积分算符，在定义阶段创建的“非局部耦合&gt;积分”节点生成的，换算成为相对电势</p>
+<p><strong>添加研究</strong>  </p>
+<p>为了比较有限元对数形式与有限体积法，需要更改离散方法，并添加第二个研究，用新的选择重新求解模型</p>
+<p>FVM内置了物理导向的指数插值，对电势差的敏感性比 FEM 小得多，不需要电压逐渐升高，因此Va的期望值可以直接在辅助扫描中设置</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值列表</th>
+<th>参数单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Va (外加电压)</td>
+<td>-4 0 0.5</td>
+<td>V</td>
+</tr>
+</tbody></table>
+<p>在后续选择不同电压条件的时候使用列表索引</p>
+<p><strong>添加线结果图3、4、5</strong></p>
+<p>引入参考文献插值解用于对比结果</p>
+<h2 id="GaAs光电二极管"><a href="#GaAs光电二极管" class="headerlink" title="GaAs光电二极管"></a>GaAs光电二极管</h2><h3 id="模型定义-1"><a href="#模型定义-1" class="headerlink" title="模型定义"></a>模型定义</h3><p>模拟一个简单的矩形砷化镓 PIN 结构，顶面上有一个 p 型接触，在底面上有一个 n 型接触 </p>
+<p>顶部是p⁺ – p – i 结构，底部是 n – n⁺ 结构，中间约0.7$\mu m$为本征层</p>
+<p>由于导带和价带的倾斜特性：导带能量在 p 接触端最高，在 n 接触端最低</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/image-20221226170804681_2025.webp" alt="image-20221226170804681_2025" style="zoom: 50%;">
+
+<p>当一个光子被吸收并产生电子—空穴对时，电子会被电场驱动向 n 接触端运动，而空穴则朝相反方向移动到 p 接触端</p>
+<p>在该结构中，p 接触端接地，n 接触端施加 2 V 电压，使其处于反向偏置状态(reverse bias)</p>
+<p>对于给定波长的入射光，输出电流与光照强度成线性关系</p>
+<p>反向偏置不仅会增大能带的倾斜度，还会扩大耗尽层的宽度，从而缩短响应时间，但这也会增加暗电流</p>
+<ul>
+<li><p><strong>半导体接口</strong>用于定义器件的掺杂分布和电接触区域</p>
+</li>
+<li><p><strong>电磁波，频域接口</strong>用于定义入射的电磁辐射</p>
+</li>
+<li><p><strong>光跃迁节点</strong>配置两个接口之间的耦合</p>
+</li>
+</ul>
+<p>该模型采用直接带隙模型来计算吸收过程，对于本模型所使用的 GaAs 材料而言，这是一种合理的近似</p>
+<p>利用材料内电子空穴对的自发复合寿命，确定导带与价带中具有相同波矢状态的相互作用强度，从而计算自发辐射和受激辐射</p>
+<p>频域计算通过引入一个额外的维度来表示，从而可以将某些特性可视化为光子能量的函数，这使得可以绘制自发辐射光谱</p>
+<p>光子的吸收不仅在载流子连续性方程中引入了电子和空穴的生成项，还会引起材料极化率的变化</p>
+<p>在模型构建树中的多物理场节点下，通过“半导体-电磁波耦合”实现两个接口的自动耦合，将电磁波频域接口中计算得到的电场用作半导体接口中吸收过程的输入，同时根据半导体接口计算出的结果修正电磁波接口中的材料极化率，以反映由载流子行为引起的变化</p>
+<p>模型中执行波长扫描，其中入射光的功率保持恒定，波长范围为 875 nm 到 475 nm</p>
+<p>砷化镓材料的带隙为1.424 eV，相当于约 872 nm 的波长</p>
+<h3 id="参数设置-1"><a href="#参数设置-1" class="headerlink" title="参数设置"></a>参数设置</h3><p><font color="Violetred">二维模型，请特别注意涉及面外厚度的参数</font></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>w_dom</td>
+<td>5[um]</td>
+<td>宽度</td>
+</tr>
+<tr>
+<td>h_dom</td>
+<td>1[um]</td>
+<td>厚度</td>
+</tr>
+<tr>
+<td>V_n</td>
+<td>2[V]</td>
+<td>n 型接触电压</td>
+</tr>
+<tr>
+<td>V_p</td>
+<td>0[V]</td>
+<td>p 型接触电压</td>
+</tr>
+<tr>
+<td>hbar0</td>
+<td>h_const/(2*pi)</td>
+<td>无弧度单位的hbar</td>
+</tr>
+<tr>
+<td>lda0</td>
+<td>870[nm]</td>
+<td>入射波长</td>
+</tr>
+<tr>
+<td>f0</td>
+<td>c_const/lda0</td>
+<td>入射频率</td>
+</tr>
+<tr>
+<td>omega0</td>
+<td><code>2*pi*1[rad]*f0</code></td>
+<td>入射角频率</td>
+</tr>
+<tr>
+<td>E_ph</td>
+<td>f0*h_const</td>
+<td>入射光子能量</td>
+</tr>
+<tr>
+<td>n0</td>
+<td>3.5</td>
+<td>GaAs折射率(实部)</td>
+</tr>
+<tr>
+<td>tau</td>
+<td>2[ns]</td>
+<td>自发寿命</td>
+</tr>
+<tr>
+<td>d0</td>
+<td>1[um]</td>
+<td>半导体接口的面外厚度<br>(波动光学接口中默认为 1 m)</td>
+</tr>
+<tr>
+<td>Pin</td>
+<td>10[uW]</td>
+<td>面外厚度 d0 = 1 um 时的入射功率</td>
+</tr>
+</tbody></table>
+<p>波长：870nm，光子能量约为1.425eV，接近带隙，吸收/反射都会很敏感</p>
+<p>面外厚度：在二维仿真中，功率单位通常是W/m，引入一个面外厚度使得入射功率可以换算为总功率</p>
+<p>自发寿命：代表电子–空穴对平均存在的时间，寿命越长，复合速率越低，说明材料缺陷较少或复合为辐射型，2ns是GaAs的典型辐射寿命</p>
+<h3 id="操作-1"><a href="#操作-1" class="headerlink" title="操作"></a>操作</h3><p><strong>设置掺杂</strong></p>
+<p>解析掺杂模型：用数学函数在器件内部定义“本底掺杂”以及主体的 p 区 / n 区的掺杂分布(例如常数、线性、指数或高斯型)，常用于描述器件的主体结结构和掺杂梯度</p>
+<p>几何掺杂模型：直接在几何区域上画上高掺杂层(例如在器件顶部/底部靠近金属的那一层做 p⁺ / n⁺)，用于模拟为了改善金属接触而刻意做的极浅/薄高掺杂层</p>
+<p><strong>三个p掺杂区</strong></p>
+<p>定义从器件上方(金属接触)到内部的三个连续区域</p>
+<ul>
+<li><p>恒定的 p 型掺杂 → 主体 p 区(保证耗尽区宽度与光吸收)</p>
+<p>解析掺杂模型，浓度$N_{A0}=1\times 14cm^{-3}$(较低)，代表p主体层或i区延伸部分</p>
+</li>
+<li><p>p 型掺杂 → 渐变过渡层(连接主体与接触)</p>
+<p>解析掺杂模型，浓度提高到$N_{A0}=1\times 18cm^{-3}$，用来建立结区电场的 p 侧</p>
+<p>从<code>(0，0.9*h_dom)</code>开始(顶部10%)，与主体层形成一个平滑的掺杂过渡</p>
+<p>$d_j$代表扩散过渡区域的厚度，用于平滑边界</p>
+</li>
+<li><p>p⁺ 型掺杂 → 高掺杂接触层(实现低阻欧姆接触)</p>
+<p>几何掺杂模型，浓度提高到$N_{A0}=1\times 20cm^{-3}$，属于极高掺杂层</p>
+<p>用于与金属接触形成欧姆接触，被定义在器件最上方、厚度约<code>0.1h_dom</code>的区域</p>
+</li>
+</ul>
+<p>五个掺杂区</p>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>类型</th>
+<th>掺杂浓度</th>
+<th>模型类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>恒定的 p 型掺杂</td>
+<td>受主</td>
+<td>1e14 cm⁻³</td>
+<td>解析(背景 p)</td>
+</tr>
+<tr>
+<td>p 型掺杂</td>
+<td>受主</td>
+<td>1e18 cm⁻³</td>
+<td>解析(主体 p)</td>
+</tr>
+<tr>
+<td>p⁺ 型掺杂</td>
+<td>受主</td>
+<td>1e20 cm⁻³</td>
+<td>几何(接触层)</td>
+</tr>
+<tr>
+<td>n 型掺杂</td>
+<td>施主</td>
+<td>1e18 cm⁻³</td>
+<td>解析(主体 n)</td>
+</tr>
+<tr>
+<td>n⁺ 型掺杂</td>
+<td>施主</td>
+<td>1e20 cm⁻³</td>
+<td>几何(接触层)</td>
+</tr>
+</tbody></table>
+<p>中间的 i 区是几乎未掺杂或极轻 p 型，用恒定的 p 型掺杂表示背景掺杂就足够，不需要恒定n型掺杂</p>
+<p><strong>材料折射率虚部设为0</strong></p>
+<p>在电磁学中<br>$$<br>\tilde{n}=n+i \kappa<br>$$<br>实部决定光传播速度(折射)；虚部$\kappa$决定光吸收</p>
+<p>在这个 PIN 光电二极管模型中，光吸收不是通过折射率虚部来建模的，而是由半导体物理接口自身的“光跃迁”节点计算得到的，再设一个非零虚部，反而会重复计算吸收，所以这里设为0</p>
+<p><strong>从求解的电场分量列表中选择面外矢量</strong></p>
+<p>因为模型是二维(x–y 平面)的，实际的光沿y传播方向</p>
+<p>为了在二维模型中表示一个三维平面波的传播，电场当作面外分量(z方向震荡)</p>
+<p>这是一种常见的简化，称为 TE 模式(横电模式)</p>
+<p><strong>边界 1 和 4 设置为“周期性条件”</strong></p>
+<p>由于模型是二维的(只考虑垂直方向变化)，相当于假设在水平方向上无限延伸，这样光场不会在侧边泄露，也避免了侧壁反射</p>
+<p><strong>映射分布设置</strong></p>
+<p>边界3上设为1保持水平方向一致，边界1上设为500表示y方向分为500区间来分析</p>
+<p><strong>积分1的定义</strong></p>
+<p>非局部积分耦合，在整个半导体域上对各种物理量进行积分</p>
+<p><strong>绘图参数</strong></p>
+<p><code>semi.Nd</code> —— 表示施主掺杂浓度</p>
+<p><code>semi.Na</code> —— 表示受主掺杂浓度</p>
+<p>因为x轴反转弧长了，所以在绘图时y是从顶部开始</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yhblogs.cn/posts/59657.html">http://yhblogs.cn/posts/59657.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%A5%BC%E5%8D%8A%E5%AF%BC%E4%BD%93/">🥼半导体</a></div><div class="post_share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qrz9wl_1280x720.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/18299.html" title="复合理论"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqx7ol_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">复合理论</div></div></a></div><div class="next-post pull-right"><a href="/posts/29316.html" title="虚拟摄像头构建"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-218x7m_1920x1080.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">虚拟摄像头构建</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/22050.html" title="光电探测器基础"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ml91l9_compressed.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="title">光电探测器基础</div></div></a></div><div><a href="/posts/18299.html" title="复合理论"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqx7ol_1280x720.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-09</div><div class="title">复合理论</div></div></a></div><div><a href="/posts/3769378865.html" title="微纳米加工及应用"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/DALL·E_2024-09-13_14.39.53_-_In_a_warm,_soft_anime_art_style,_a_peaceful_seaside_at_low_tide_is_depicted._A_young_person,_possibly_a_child,_is_standing_by_the_water's_edge_with_a_.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-14</div><div class="title">微纳米加工及应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">今天睡够了吗</div><div class="author-info__description">相遇是最小单位的奇迹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天</div><div class="twopeople"><div class="twopeople"><div class="container" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script> <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script> <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script> <style>.twopeople{margin:0;align-items:center;justify-content:center;text-align:center}canvas{display:block;margin:0 auto;cursor:move}</style></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#COMSOL%E5%86%85%E7%BD%AE%E7%89%A9%E7%90%86%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">COMSOL内置物理参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%BB%B4PN%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">一维PN结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">2.1.</span> <span class="toc-text">理论基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="toc-number">2.2.</span> <span class="toc-text">模型定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">参数设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C"><span class="toc-number">2.4.</span> <span class="toc-text">操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GaAs%E5%85%89%E7%94%B5%E4%BA%8C%E6%9E%81%E7%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">GaAs光电二极管</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%AE%9A%E4%B9%89-1"><span class="toc-number">3.1.</span> <span class="toc-text">模型定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE-1"><span class="toc-number">3.2.</span> <span class="toc-text">参数设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C-1"><span class="toc-number">3.3.</span> <span class="toc-text">操作</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2026 By 今天睡够了吗</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
