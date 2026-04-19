@@ -3,6 +3,15 @@ html {
   cursor: url('https://npm.elemecdn.com/akilar-candyassets/cur/arrow.cur'), auto !important;
 }
 
+[data-theme='light'] {
+  --card-bg: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme='dark'] {
+  --card-bg: rgba(26, 27, 29, 0.9) !important;
+  --btn-bg: #012c48 !important;
+}
+
 img {
   cursor: url('https://npm.elemecdn.com/akilar-candyassets/cur/btn.cur'), auto !important;
 }
