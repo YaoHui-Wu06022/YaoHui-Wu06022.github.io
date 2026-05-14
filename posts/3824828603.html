@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071525069.webp">
 <meta property="article:published_time" content="2022-04-12T13:13:26.000Z">
-<meta property="article:modified_time" content="2026-04-19T12:20:29.631Z">
+<meta property="article:modified_time" content="2026-05-14T03:49:17.778Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🧲电磁场">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/3824828603.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071525069.webp",
   "datePublished": "2022-04-12T13:13:26.000Z",
-  "dateModified": "2026-04-19T12:20:29.631Z",
+  "dateModified": "2026-05-14T03:49:17.778Z",
   "author": [
     {
       "@type": "Person",
@@ -164,7 +164,7 @@
 <p>主要特点：效率低、耐受功率低、高Q值，频带很窄。</p>
 <p>微带天线典型使用频率为1-100GHz。</p>
 <p>结构：由很薄($t\ll\lambda_0$)的金属贴片以高度$h$放置在距离接地平面上得到，$h\ll\lambda_0$，通常$0.003\lambda_0\le h\le 0.005\lambda_0$，微带贴片天线和坐标系的结构图如下图所示：</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/电磁场1.png" alt="电磁场1" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/%E7%94%B5%E7%A3%81%E5%9C%BA1.webp" alt="电磁场1" style="zoom:50%;" />
 
 <p>微带贴片这样设计是为了在贴片的侧射方向有最大的辐射，选择不同的贴片组形状还可以实现不同方向的端射辐射，例如矩形、椭圆、三角形等。对于矩形贴片，贴片长度 L 一般取1&#x2F;3到1&#x2F;2的波长，贴片和地平面之间被介电常数为$\varepsilon_r$介质隔开</p>
 <h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>微带天线的辐射机理实际上是高频的电磁泄露。一个微波电路如果不是被导体封闭，不连续处就会产生电磁辐射。例如微带电路的开路端，由于结构尺寸的突变、弯折等不连续处也会产生电磁辐射。频率低时，这部分的电尺寸很小，电磁辐射很少；随着频率增加，电尺寸增加，泄露增多。经过特殊设计，使其工作在谐振状态，辐射显著增强，辐射效率大大提高，成为有效的天线。</p>
@@ -279,13 +279,13 @@ $$
 
 <h2 id="仿真步骤"><a href="#仿真步骤" class="headerlink" title="仿真步骤"></a>仿真步骤</h2><ol>
 <li><p>创建一个新的HFSS工程</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414132647600.png" alt="image-20220414132647600" style="zoom: 33%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414132647600.webp" alt="image-20220414132647600" style="zoom: 33%;" />
 
 <p>右击新的工程选择<code>solution type</code>，修改<code>Model</code>为<code>Teminal</code></p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414132839241.png" alt="image-20220414132839241" style="zoom:50%;" />
 </li>
 <li><p>增加变量，右击新工程选择<code>Design Properties</code>，输入之前计算的量</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414224532988.png" alt="image-20220414224532988" style="zoom: 33%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414224532988.webp" alt="image-20220414224532988" style="zoom: 33%;" />
 </li>
 <li><p>创建PCB板，创建一个<b>长方体</b>，修改材料为<code>FR4_epoxy</code> ，记得修改系统里面这个材料的介电常数为<code>4.2</code>，之后修改位置</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414134229333.png" alt="image-20220414134229333" style="zoom: 50%;" />
@@ -320,7 +320,7 @@ $$
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414140803537.png" alt="image-20220414140803537" style="zoom: 50%;" />
 
 <p>点击下一步后改<code>None</code>为<code>newline</code>，方向为GND指向馈线，其他全部默认</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414173410750.png" alt="image-20220414173410750" style="zoom: 50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414173410750.webp" alt="image-20220414173410750" style="zoom: 50%;" />
 </li>
 <li><p>设置辐射边界，边界需要满足大于1&#x2F;4个波长，然后把它的z全部改为1000，然后设置辐射边界条件</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414173640457.png" alt="image-20220414173640457" style="zoom: 67%;" />
@@ -347,30 +347,30 @@ $$
 <p>它是反射系数绝对值的倒数，以分贝值表示。回波损耗的值在0dB的到无穷大之间，在移动通信系统中，一般要求回波损耗大于14dB</p>
 <p>回波损耗越大说明反射回来的越少，所以对于我们设计的天线需要回波损耗绝对值(一般来说都是负数)越大越好</p>
 </blockquote>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/初始.png" alt="初始" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/%E5%88%9D%E5%A7%8B.webp" alt="初始" style="zoom:50%;" />
 
-<p>中心频率和我们一开始3.5GHz的目标差的有点多，需要进行修改，右击<code>optimetrice</code>-&gt;<code>add</code>-&gt;<code>parameter</code>，对贴片的长度L进行扫描，因为现在是偏小所以要把L调小才能让中心频率上升，选择在18mm到20mm之间</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ图片20220414190045.png"  style="zoom: 50%;" />
+<p>中心频率和我们一开始3.5GHz的目标差的有点多，需要进行修改，右击<code>optimetrice</code>-&gt;<code>add</code>-&gt;<code>parameter</code>，对贴片的长度L进行扫描，因为现在是偏小所以要把L调小才能让中心频率上升，选择在18mm到20mm之间</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ%E5%9B%BE%E7%89%8720220414190045.webp"  style="zoom: 50%;" />
 
 <p>接近3.5GHz了但还没完全接近，再在18.8mm到19.0mm进行扫描</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414191042465.png"  style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414191042465.webp"  style="zoom:50%;" />
 
-<p>最终确定合适的path_L为18.9mm</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ图片20220414191213.png" alt="QQ图片20220414191213" style="zoom:50%;" />
+<p>最终确定合适的path_L为18.9mm</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ%E5%9B%BE%E7%89%8720220414191213.webp" alt="QQ图片20220414191213" style="zoom:50%;" />
 
 <p>中心频率达到3.5GHz，RL也达到一个绝对值较大值</p></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></li>
 </ol>
-<h2 id="仿真结果"><a href="#仿真结果" class="headerlink" title="仿真结果"></a>仿真结果</h2><div class="tabs"><div class="nav-tabs"><button type="button" class="tab active">绘制仿真结构图</button><button type="button" class="tab">阻抗</button><button type="button" class="tab">S11图</button><button type="button" class="tab">驻波比图</button><button type="button" class="tab">Smith图</button><button type="button" class="tab">截面增益</button><button type="button" class="tab">三维增益</button><button type="button" class="tab">天线性能参数</button></div><div class="tab-contents"><div class="tab-item-content active"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414204844575.png" alt="image-20220414204844575" style="zoom: 33%;" /></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220425202538787.png" alt="image-20220425202538787" style="zoom:50%;" />
+<h2 id="仿真结果"><a href="#仿真结果" class="headerlink" title="仿真结果"></a>仿真结果</h2><div class="tabs"><div class="nav-tabs"><button type="button" class="tab active">绘制仿真结构图</button><button type="button" class="tab">阻抗</button><button type="button" class="tab">S11图</button><button type="button" class="tab">驻波比图</button><button type="button" class="tab">Smith图</button><button type="button" class="tab">截面增益</button><button type="button" class="tab">三维增益</button><button type="button" class="tab">天线性能参数</button></div><div class="tab-contents"><div class="tab-item-content active"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220414204844575.webp" alt="image-20220414204844575" style="zoom: 33%;" /></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220425202538787.webp" alt="image-20220425202538787" style="zoom:50%;" />
 
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220425202814342.png" alt="image-20220425202814342" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/image-20220425202814342.webp" alt="image-20220425202814342" style="zoom:50%;" />
 
-<p>匹配我们的需求50Ω</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ图片20220414191213.png" alt="QQ图片20220414191213" style="zoom:50%;" /></div><div class="tab-item-content"><p><strong>驻波比</strong>（VSWR）：它是行波系数的倒数，其值在1到无穷大之间。驻波比为1，表示完全匹配；驻波比为无穷大表示全反射，完全失配。在移动通信系统中，一般要求驻波比小于1.5，但实际应用中VSWR应小于1.2。过大的驻波比会减小基站的覆盖并造成系统内干扰加大，影响基站的服务性能。</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/VSWR.png" alt="VSWR" style="zoom: 50%;" />
+<p>匹配我们的需求50Ω</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/QQ%E5%9B%BE%E7%89%8720220414191213.webp" alt="QQ图片20220414191213" style="zoom:50%;" /></div><div class="tab-item-content"><p><strong>驻波比</strong>（VSWR）：它是行波系数的倒数，其值在1到无穷大之间。驻波比为1，表示完全匹配；驻波比为无穷大表示全反射，完全失配。在移动通信系统中，一般要求驻波比小于1.5，但实际应用中VSWR应小于1.2。过大的驻波比会减小基站的覆盖并造成系统内干扰加大，影响基站的服务性能。</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/VSWR.webp" alt="VSWR" style="zoom: 50%;" />
 
-<p>图中可知3.5GHz时VSWR仅1.0931，驻波比显示匹配较好</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/Smith图.png" alt="Smith图" style="zoom:50%;" />
+<p>图中可知3.5GHz时VSWR仅1.0931，驻波比显示匹配较好</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/Smith%E5%9B%BE.webp" alt="Smith图" style="zoom:50%;" />
 
 <p>这里显示的是归一化阻抗，可以看出，实部出现了不匹配的情况。若是要达到完美的匹配，阻抗的实部和虚部必须很接近0，应该要达到10的-2次方级别（即0.01），询问过老师这个其实不是非常重要，主要还是看S11图</p></div><div class="tab-item-content"><p>两条曲线分别为XZ和YZ平面的</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/截面增益.png" alt="截面增益" style="zoom:50%;" /></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/3维增益.png" alt="3维增益" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/%E6%88%AA%E9%9D%A2%E5%A2%9E%E7%9B%8A.webp" alt="截面增益" style="zoom:50%;" /></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/3%E7%BB%B4%E5%A2%9E%E7%9B%8A.webp" alt="3维增益" style="zoom:50%;" />
 
-<p>三维辐射场可以看出在正Z方向有最大的辐射增益，-Z方向增益就比较低，那么要求在安装天线的时候，要把正面对着要接收的电磁波方向，不能把背面朝外，否则接收不到信号</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/参数.png" alt="参数" style="zoom:50%;" /></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+<p>三维辐射场可以看出在正Z方向有最大的辐射增益，-Z方向增益就比较低，那么要求在安装天线的时候，要把正面对着要接收的电磁波方向，不能把背面朝外，否则接收不到信号</p></div><div class="tab-item-content"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/img2/%E5%8F%82%E6%95%B0.webp" alt="参数" style="zoom:50%;" /></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
 
 
 
