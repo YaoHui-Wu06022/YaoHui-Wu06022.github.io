@@ -1,0 +1,618 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LLM学习 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="提示工程提示原则原则一：编写清晰、具体的指令  使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，”””，&lt; &gt;， &#96;等，可以防止提示词注入 结构化输出，json形式 要求模型检查是否满足条件 提供少量示例  原则二：给模型时间去思考  指定完成任务所需的步骤 指导模型在下结论之前找出一个自己的解法  直接给模型输入一份解答，模型可能默认会判断输入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLM学习">
+<meta property="og:url" content="https://yhblogs.cn/posts/6231.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="提示工程提示原则原则一：编写清晰、具体的指令  使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，”””，&lt; &gt;， &#96;等，可以防止提示词注入 结构化输出，json形式 要求模型检查是否满足条件 提供少量示例  原则二：给模型时间去思考  指定完成任务所需的步骤 指导模型在下结论之前找出一个自己的解法  直接给模型输入一份解答，模型可能默认会判断输入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp">
+<meta property="article:published_time" content="2026-07-16T13:57:57.000Z">
+<meta property="article:modified_time" content="2026-07-16T15:21:03.837Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🖹LLM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LLM学习",
+  "url": "https://yhblogs.cn/posts/6231.html",
+  "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp",
+  "datePublished": "2026-07-16T13:57:57.000Z",
+  "dateModified": "2026-07-16T15:21:03.837Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "今天睡够了吗",
+      "url": "https://yhblogs.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yhblogs.cn/posts/6231.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'LLM学习',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">LLM学习</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">LLM学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-07-16T13:57:57.000Z" title="发表于 2026-07-16 21:57:57">2026-07-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>19分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="提示工程"><a href="#提示工程" class="headerlink" title="提示工程"></a>提示工程</h2><h3 id="提示原则"><a href="#提示原则" class="headerlink" title="提示原则"></a>提示原则</h3><p>原则一：编写清晰、具体的指令</p>
+<ul>
+<li>使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，”””，&lt; &gt;，<tag> </tag>&#96;等，可以防止提示词注入</li>
+<li>结构化输出，json形式</li>
+<li>要求模型检查是否满足条件</li>
+<li>提供少量示例</li>
+</ul>
+<p>原则二：给模型时间去思考</p>
+<ul>
+<li>指定完成任务所需的步骤</li>
+<li>指导模型在下结论之前找出一个自己的解法</li>
+</ul>
+<p>直接给模型输入一份解答，模型可能默认会判断输入是对的，需要让它自己思考一次再对比</p>
+<h3 id="提示词设计"><a href="#提示词设计" class="headerlink" title="提示词设计"></a>提示词设计</h3><p>语言类prompt检查是否满足四要素：</p>
+<ul>
+<li>立角色</li>
+<li>述问题</li>
+<li>定目标</li>
+<li>补要求</li>
+</ul>
+<p>统一模板：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">你是一名具有【领域】经验的【角色】</span><br><span class="line"></span><br><span class="line">## 任务背景</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">## 任务说明</span><br><span class="line">子任务1：...</span><br><span class="line">子任务2：...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">## 任务示例</span><br><span class="line"></span><br><span class="line">## 输入[不一定都有输入]</span><br><span class="line">&lt;INPUT&gt;</span><br><span class="line">&#123;&#123;输入内容&#125;&#125;</span><br><span class="line">&lt;/INPUT&gt;</span><br><span class="line"></span><br><span class="line">## 任务约束</span><br><span class="line">1. 【具体要求1】</span><br><span class="line">2. 【具体要求2】</span><br><span class="line">3. 【具体要求3】</span><br><span class="line">4. 不得添加输入中不存在的事实</span><br><span class="line">5. 信息不足时明确指出，不要自行假设</span><br><span class="line"></span><br><span class="line">## 输出结构</span><br><span class="line">请严格按照以下结构输出：</span><br><span class="line">一般以json形式输出，且要规定好输出的json结构</span><br></pre></td></tr></table></figure>
+
+<p>最重要的是：<strong>任务、约束、输出格式</strong></p>
+<p>提示词优化方法：</p>
+<ul>
+<li><p>人工修改</p>
+</li>
+<li><p>自动提示词优化：利用大模型自动生成多个候选提示词，通过验证集评分，选出效果最好的提示词</p>
+<blockquote>
+<p>APE(Automatic Prompt Engineer)：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.01910">Large Language Models Are Human-Level Prompt Engineers</a></p>
+</blockquote>
+</li>
+</ul>
+<p>图像类prompt一般不止包含正向提示词，还需要负向提示词来限制画面输出，正向提示词包含：</p>
+<ul>
+<li>主体</li>
+<li>细节</li>
+<li>风格参考</li>
+</ul>
+<p>多模态prompt需要明确模态分工，减少不同模态之间的对应关系歧义</p>
+<ul>
+<li>图片：核心的语义负载，表达“是什么“</li>
+<li>文字：权重调节器和语义补全器，表达“要什么”</li>
+</ul>
+<p>设计原则：明确检索意图、锚定视觉焦点、属性调节校准</p>
+<h3 id="上下文学习"><a href="#上下文学习" class="headerlink" title="上下文学习"></a>上下文学习</h3><ul>
+<li><font color='Violetred'>Zero-shot(零样本提示)</font>：只告诉模型任务和要求，不给示例</li>
+<li><font color='Violetred'>Few-shot(少样本提示)</font>：除任务要求外，再提供少量“输入—输出”示例，让模型模仿其中的规则、标签含义和输出格式</li>
+</ul>
+<p>GPT-3 论文系统比较了 zero-shot、one-shot 和 few-shot 三种设置</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.14165">Language Models are Few-Shot Learners</a></p>
+</blockquote>
+<p>一般来说先零样本测试，输出不稳定或错误较多时，再添加代表性示例，构成小样本提示，但是不能无限增加示例</p>
+<h3 id="Responses-API"><a href="#Responses-API" class="headerlink" title="Responses API"></a>Responses API</h3><p>最新版不再推荐使用 <code>system</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">developer = 规则和业务逻辑</span><br><span class="line">user      = 用户问题、动态数据、检索上下文</span><br><span class="line">assistant = 模型历史回答或示例答案</span><br></pre></td></tr></table></figure>
+
+<p>在 Responses API 中有几类数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">developer / user / assistant -&gt; 普通对话消息 Message</span><br><span class="line">function_call -&gt; 模型生成的工具调用项</span><br><span class="line">function_call_output -&gt; 程序返回给模型的工具执行结果</span><br></pre></td></tr></table></figure>
+
+<p>标准流程是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">用户输入</span><br><span class="line">   ↓</span><br><span class="line">第一次调用 LLM</span><br><span class="line">   ├─ 判断是否需要工具</span><br><span class="line">   ├─ 选择工具</span><br><span class="line">   └─ 抽取工具参数</span><br><span class="line">   ↓</span><br><span class="line">程序执行工具</span><br><span class="line">   ↓</span><br><span class="line">返回 function_call_output</span><br><span class="line">   ↓</span><br><span class="line">第二次调用 LLM</span><br><span class="line">   ↓</span><br><span class="line">生成最终回答</span><br></pre></td></tr></table></figure>
+
+<p>函数定义：放在 <code>tools</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tools = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;type&quot;</span>: <span class="string">&quot;function&quot;</span>,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;get_weather&quot;</span>,</span><br><span class="line">        <span class="string">&quot;description&quot;</span>: <span class="string">&quot;查询天气&quot;</span>,</span><br><span class="line">        <span class="string">&quot;parameters&quot;</span>: &#123;...&#125;,</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>函数调用：放在 <code>response.output</code>，模型返回样式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;function_call&quot;</span>,</span><br><span class="line">    <span class="string">&quot;call_id&quot;</span>: <span class="string">&quot;call_abc123&quot;</span>,</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;get_weather&quot;</span>,</span><br><span class="line">    <span class="string">&quot;arguments&quot;</span>: <span class="string">&#x27;&#123;&quot;city&quot;:&quot;北京&quot;&#125;&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>模型只是生成了调用请求，并没有执行 Python 函数，程序必须读取 <code>name</code> 和 <code>arguments</code>，然后自己调用对应函数</p>
+<p>函数执行结果：放在 <code>function_call_output</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;function_call_output&quot;</span>,</span><br><span class="line">    <span class="string">&quot;call_id&quot;</span>: <span class="string">&quot;call_abc123&quot;</span>,</span><br><span class="line">    <span class="string">&quot;output&quot;</span>: <span class="string">&#x27;&#123;&quot;temperature&quot;:26&#125;&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整结构可以理解为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">input_items = [</span><br><span class="line">    <span class="comment"># 普通消息</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;role&quot;</span>: <span class="string">&quot;developer&quot;</span>,</span><br><span class="line">        <span class="string">&quot;content&quot;</span>: <span class="string">&quot;系统规则&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;role&quot;</span>: <span class="string">&quot;user&quot;</span>,</span><br><span class="line">        <span class="string">&quot;content&quot;</span>: <span class="string">&quot;用户问题&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模型上一次产生的工具调用</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;type&quot;</span>: <span class="string">&quot;function_call&quot;</span>,</span><br><span class="line">        <span class="string">&quot;call_id&quot;</span>: <span class="string">&quot;call_123&quot;</span>,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;get_weather&quot;</span>,</span><br><span class="line">        <span class="string">&quot;arguments&quot;</span>: <span class="string">&#x27;&#123;&quot;city&quot;:&quot;北京&quot;&#125;&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 你的程序提供的工具结果</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;type&quot;</span>: <span class="string">&quot;function_call_output&quot;</span>,</span><br><span class="line">        <span class="string">&quot;call_id&quot;</span>: <span class="string">&quot;call_123&quot;</span>,</span><br><span class="line">        <span class="string">&quot;output&quot;</span>: <span class="string">&#x27;&#123;&quot;temperature&quot;:26&#125;&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>最后，模型才会生成普通的 assistant 消息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;role&quot;</span>: <span class="string">&quot;assistant&quot;</span>,</span><br><span class="line">    <span class="string">&quot;content&quot;</span>: <span class="string">&quot;北京当前气温为 26℃。&quot;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义区分：</p>
+<ul>
+<li>Function Calling 是模型与外部工具交互的接口<strong>机制</strong>；</li>
+<li>RAG 是利用外部知识增强生成结果的信息处理<strong>架构</strong>；</li>
+<li>Agent 是由模型负责决策和控制任务执行过程的系统<strong>架构</strong>；</li>
+</ul>
+<blockquote>
+<p>在 RAG 和 Agent 中都可以用到 Function Calling</p>
+</blockquote>
+<p>区分：</p>
+<ul>
+<li>RAG 的典型流程：用户问题 → 检索文档 → 拼接上下文 → 生成回答，不一定利用Function Calling</li>
+<li>Agent 的典型流程：目标 → 决策 → 调工具 → 观察结果 → 再决策，根据目标和中间结果，动态选择步骤和工具</li>
+</ul>
+<h2 id="LLaMa"><a href="#LLaMa" class="headerlink" title="LLaMa"></a>LLaMa</h2><p>架构和GPT-3相同，但是用了一些不同的组件</p>
+<h3 id="旋转位置编码-RoPE"><a href="#旋转位置编码-RoPE" class="headerlink" title="旋转位置编码 RoPE"></a>旋转位置编码 RoPE</h3><p>不是把位置向量加到词向量上，而是根据 token 的位置，对注意力中的 $Q$ 和 $K$ 向量进行旋转</p>
+<ul>
+<li>用<strong>绝对位置</strong>控制旋转角度；</li>
+<li>在注意力分数中自然形成<strong>相对位置信息</strong>；</li>
+</ul>
+<p>相对传统Transformer使用的加法位置编码，RoPE不把位置向量加进 token，利用位置信息旋转 $Q&#x2F;K$</p>
+<p>对于一个二维向量，<strong>二维旋转矩阵</strong>为：<br>$$<br>R(\phi)&#x3D;\begin{bmatrix}<br>\cos\phi &amp; -\sin\phi\\<br>\sin\phi &amp; \cos\phi<br>\end{bmatrix}<br>$$</p>
+<blockquote>
+<p>重点，因为二维旋转矩阵是一个正交矩阵，RoPE 改变向量的方向和相位，但不改变其欧氏范数</p>
+</blockquote>
+<p>旋转后的向量为：<br>$$<br>R(\phi)x &#x3D; \begin{bmatrix}<br>x_1\cos\phi-x_2\sin\phi\\<br>x_1\sin\phi+x_2\cos\phi<br>\end{bmatrix}<br>$$<br>因为输入向量通常不是二维，而是高维，RoPE 会把向量的维度两两分组，每一对维度都视为一个二维平面，然后分别旋转</p>
+<p>对于第 $i$ 对维度：<br>$$<br>\begin{bmatrix}x’<em>{2i}\\x’</em>{2i+1}<br>\end{bmatrix}&#x3D;\begin{bmatrix}<br>\cos(m\theta_i) &amp; -\sin(m\theta_i)\\<br>\sin(m\theta_i) &amp; \cos(m\theta_i)<br>\end{bmatrix}<br>\begin{bmatrix}<br>x_{2i}\\<br>x_{2i+1}<br>\end{bmatrix}<br>$$<br>不同的二维子空间使用不同的旋转频率：<br>$$<br>\theta_i&#x3D;b^{-\frac{2i}{d_h}}<br>$$<br>原始设计取 $b&#x3D;10000$，不同频率的作用类似于传统正弦位置编码：</p>
+<ul>
+<li>高频维度变化快，容易区分附近位置</li>
+<li>低频维度变化慢，可以覆盖较长距离</li>
+</ul>
+<p>位置 $m$ 的 query 为 $q_m$，位置 $n$ 的 key 为 $k_n$，经过 RoPE 后<br>$$<br>\tilde{q}_m &#x3D; R_m q_m \qquad \tilde{k}_n &#x3D; R_n k_n<br>$$<br>旋转后的注意力点积为：<br>$$<br>\tilde{q}_m^{\top}\tilde{k}<em>n&#x3D; (R_m q_m)^{\top}(R_n k_n) \rightarrow \tilde{q}<em>m^{\top}\tilde{k}<em>n&#x3D; q_m^{\top}R_m^{\top}R_n k_n<br>$$<br>旋转矩阵满足：<br>$$<br>\color{red} R_m^{\top} &#x3D; R</em>{-m} \qquad R</em>{-m}R_n &#x3D; R</em>{n-m}<br>$$<br>所以点积时可以反映信息<br>$$<br>\tilde{q}_m^{\top}\tilde{k}<em>n&#x3D; q_m^{\top}R</em>{n-m}k_n<br>$$</p>
+<blockquote>
+<p>Su J, Ahmed M, Lu Y, et al. Roformer: Enhanced transformer with rotary position embedding[J]. Neurocomputing, 2024, 568: 127063.</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.09864">https://arxiv.org/abs/2104.09864</a></p>
+</blockquote>
+<p>优点：</p>
+<ul>
+<li>自然表达相对位置，无需额外维护相对位置 embedding 表</li>
+<li>不改变向量长度</li>
+<li>不需要学习位置参数</li>
+</ul>
+<p>局限：</p>
+<ul>
+<li>旋转具有周期性</li>
+<li>上下文窗口拓展性受限</li>
+</ul>
+<h3 id="RMSNorm"><a href="#RMSNorm" class="headerlink" title="RMSNorm"></a>RMSNorm</h3><p>$$<br>\operatorname{RMSNorm}(x)&#x3D;\gamma\odot\frac{x}{\sqrt{\frac{1}{d}\sum_{i&#x3D;1}^{d}x_i^2+\epsilon}}<br>$$</p>
+<ul>
+<li>LayerNorm 同时做“减均值”和“缩放方差”</li>
+<li>RMSNorm 省略减均值，只根据均方根缩放</li>
+</ul>
+<p>RMSNorm 可以看作 LayerNorm 的简化版本，且现代LLM基本都采用了RMSNorm</p>
+<p>减均值这个操作有三个坏处：</p>
+<ul>
+<li>打扰注意力机制的结构</li>
+<li>性能变慢</li>
+<li>对梯度反而不稳定</li>
+</ul>
+<h3 id="分组查询注意力-GQA"><a href="#分组查询注意力-GQA" class="headerlink" title="分组查询注意力 GQA"></a>分组查询注意力 GQA</h3><p>标准多头注意力中，输入隐藏状态 $X$ 分别投影成 $Q, K, V$</p>
+<p>GQA 不改变注意力本身公式，但<font color='Violetred'>Query head 的数量和 Key&#x2F;Value head 的数量不再必须相同</font>，且通常有 $H_{KV}&lt;H_Q$</p>
+<p>多个 Query heads 被分成若干组，每一组共享一个 Key head 和一个 Value head</p>
+<p>现在大模型高效注意力大致形成了 GQA、MQA、MLA 以及局部注意力等多条路线</p>
+<table>
+<thead>
+<tr>
+<th>MHA</th>
+<th>MQA</th>
+<th>GQA(4Q共享为例)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q1 → K1, V1<br/>Q2 → K2, V2<br/>Q3 → K3, V3<br/>Q4 → K4, V4<br/>Q5 → K5, V5<br/>Q6 → K6, V6<br/>Q7 → K7, V7<br/>Q8 → K8, V8</td>
+<td>Q1 ─┐<br/>Q2 ─┤<br/>Q3 ─┤<br/>Q4 ─┤<br/>Q5 ─┤──→ 唯一的 K1, V1<br/>Q6 ─┤<br/>Q7 ─┤<br/>Q8 ─┘</td>
+<td>Q1 ─┐<br/>Q2 ─┤<br/>Q3 ─┤──→ K1, V1<br/>Q4 ─┘<br/><br/>Q5 ─┐<br/>Q6 ─┤<br/>Q7 ─┤──→ K2, V2<br/>Q8 ─┘</td>
+</tr>
+</tbody></table>
+<p>主要目的是为了减少 KV Cache</p>
+<p>MQA 的 KV Cache 最小，但共享程度太高，可能限制不同注意力头表达不同类型的信息</p>
+<p>GQA 的思想和Resnext很像，常见的就是4Q&#x2F;8Q共享KV，多个 Query 头可以提出不同的问题，但必须使用同一套索引方式和信息表示</p>
+<p>很多情况下：</p>
+<ul>
+<li>多个 KV 头的投影空间相似；</li>
+<li>不同头可能关注相近的位置；</li>
+<li>Query 头的差异比 KV 头的差异更重要；</li>
+</ul>
+<p>所以共享KV不会带来太大的性能下降，反而因为KV cache的减少能带来更多收益</p>
+<h3 id="SwiGLU"><a href="#SwiGLU" class="headerlink" title="SwiGLU"></a>SwiGLU</h3><p>传统 Transformer FFN 通常写成：<br>$$<br>\operatorname{FFN}(x)&#x3D;W_2\phi(W_1x+b_1)+b_2<br>$$<br>普通 FFN 只有一条升维分支</p>
+<p>SwiGLU加入门控，门控 FFN 则使用两条分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">           +--&gt; ---------内容分支 ----------+</span><br><span class="line">           |                              |</span><br><span class="line">输入 x ----+                               * --&gt; 降维 --&gt; 输出</span><br><span class="line">           |                              |</span><br><span class="line">           +--&gt; 门控分支 --&gt; 激活函数 -------+</span><br></pre></td></tr></table></figure>
+
+<p>一条分支产生内容，一条分支决定这些内容应该保留、放大还是抑制</p>
+<p>标准 GLU 可以写成：<br>$$<br>\operatorname{GLU}(x)&#x3D;(W_v x+b_v)\odot\sigma(W_g x+b_g)<br>$$<br>SwiGLU 将门控分支中的激活函数换成 SiLU<br>$$<br>\operatorname{SwiGLU}(x)&#x3D;\operatorname{SiLU}(W_g x)\odot(W_u x)<br>$$</p>
+<p>第 $i$ 个专家可以写成<br>$$<br>E(x)&#x3D;W_{\text{down}}<br>\left[\operatorname{SiLU}(W_{\text{gate}}x)\odot(W_{\text{up}}x)\right]<br>$$</p>
+<h3 id="混合专家结构-MoE"><a href="#混合专家结构-MoE" class="headerlink" title="混合专家结构 MoE"></a>混合专家结构 MoE</h3><blockquote>
+<p>在LLaMa4中加入</p>
+</blockquote>
+<p>在普通稠密 Transformer 中，每个 Token 都经过同一个 FFN</p>
+<p>导致的问题：</p>
+<ul>
+<li>所有 Token 使用相同参数</li>
+<li>增大 FFN 参数量时，每个 Token 的计算量也同步增加</li>
+<li>总参数量与单 Token 计算量紧密绑定</li>
+</ul>
+<p>MoE 的目标是增加大量参数容量，但每个 Token 只激活其中一小部分，通过训练一个 Router，让输入选择少量专家</p>
+<p>实现总参数量大幅增长，而单样本计算量不会按同样比例增长</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输入 Token x</span><br><span class="line">      ↓</span><br><span class="line">    Router</span><br><span class="line">      |</span><br><span class="line">      +--------&gt; Expert 1</span><br><span class="line">      +--------&gt; Expert 2</span><br><span class="line">      +--------&gt; Expert 3</span><br><span class="line">      |</span><br><span class="line">      ...</span><br><span class="line">      |</span><br><span class="line">      +--------&gt; Expert N</span><br><span class="line">Router 只选择 Top-K 个专家</span><br><span class="line">      ↓</span><br><span class="line">专家输出加权求和</span><br></pre></td></tr></table></figure>
+
+<p>一个 Token 会经过：</p>
+<ol>
+<li>始终启用的 <strong>Shared Expert，共享专家</strong>；（非必须）</li>
+<li>经过 Router 选出的 <strong>Routed Expert，路由专家</strong>；</li>
+</ol>
+<p>Router 通常是一个很小的线性层<br>$$<br>z&#x3D;W_r x\qquad W_r\in\mathbb{R}^{E\times d}<br>$$<br>${z}$ 中包含每个专家的路由分数，通常经过 Softmax 再选出 Top-k<br>$$<br>y(x)&#x3D;\sum_{i\in \operatorname{TopK}(g(x))}p_i(x)E_i(x)<br>$$<br>Top-1 的情况下</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算最少；<br />通信简单；</td>
+<td>单个专家错误会直接影响输出；<br />容易出现专家负载不均；<br />路由选择更离散；</td>
+</tr>
+</tbody></table>
+<p>专家分工是训练中自动形成的，并不一定具有稳定、清晰的人类语义标签</p>
+<p><font color='DarkViolet'>主要训练问题：路由不均衡，热门专家过载，冷门专家得不到充分训练；</font></p>
+<p>部分现代 MoE 不只使用路由专家，还增加一个或多个共享专家，减少路由专家间的知识冗余</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">                    +--&gt; Router --&gt; Routed FFN Experts --+</span><br><span class="line">x --&gt; RMSNorm ------+                                    +--&gt; 相加</span><br><span class="line">                    +--&gt; Shared FFN Experts -------------+</span><br></pre></td></tr></table></figure>
+
+<p>$$<br>y(x)&#x3D;\sum_{j&#x3D;1}^{N_s}E^{\mathrm{shared}}<em>j(x)+\sum</em>{i\in\operatorname{TopK}(g(x))}p_i(x)E^{\mathrm{routed}}_i(x)<br>$$</p>
+<p>DeepSeekMoE 将这个设计称为 <strong>Shared Expert Isolation，共享专家隔离</strong></p>
+<h2 id="分布式训练框架"><a href="#分布式训练框架" class="headerlink" title="分布式训练框架"></a>分布式训练框架</h2><p>预训练一个 LLM 所需要的算力资源极其庞大，需要分布式训练</p>
+<p>分布式训练的两条基本思路：</p>
+<ul>
+<li>数据并行：模型复制，数据切分</li>
+<li>模型并行：数据可以相同或分成 micro-batch，模型本身被切分</li>
+</ul>
+<h3 id="数据并行"><a href="#数据并行" class="headerlink" title="数据并行"></a>数据并行</h3><p>主要就是Pytorch 的 <strong>DDP</strong></p>
+<p>每张 GPU：</p>
+<ol>
+<li>保存一份完整模型；</li>
+<li>读取不同的数据；</li>
+<li>独立进行前向和反向传播；</li>
+<li>通过 <code>AllReduce</code> 聚合梯度；</li>
+<li>获得相同梯度后，各自更新模型。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0: batch 0 → gradient G0 ─┐</span><br><span class="line">GPU 1: batch 1 → gradient G1 ─┤</span><br><span class="line">GPU 2: batch 2 → gradient G2 ─┼→ AllReduce → 平均梯度(g1,g2,g3,g4) → 各自更新</span><br><span class="line">GPU 3: batch 3 → gradient G3 ─┘</span><br></pre></td></tr></table></figure>
+
+<p>$$<br>g&#x3D;\frac{1}{P}\sum_{p&#x3D;1}^{P}G_p<br>$$</p>
+<p>前提是：<font color='Violetred'>完整模型及其训练状态能放入单卡</font></p>
+<h3 id="模型并行"><a href="#模型并行" class="headerlink" title="模型并行"></a>模型并行</h3><p>当数据并行分片仍然不够，或者单个层本身太大，就需要模型并行</p>
+<p><strong>张量并行 TP</strong>：将一个矩阵运算拆到多张 GPU</p>
+<p>比如：</p>
+<ul>
+<li>MLP层：将权重矩阵 W 按列切分为 [W1,W2] ，分别放置于不同GPU</li>
+<li>Attention层：将多头注意力切分到不同设备</li>
+</ul>
+<p><strong>流水线并行 PP</strong>：按照模型层切分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入</span><br><span class="line"> │</span><br><span class="line"> ▼</span><br><span class="line">GPU 0            GPU 1            GPU 2            GPU 3</span><br><span class="line">Layer 0~7  ---&gt;  Layer 8~15 ---&gt;  Layer 16~23 ---&gt; Layer 24~31</span><br><span class="line"> │                                                    │</span><br><span class="line"> └────────────────────── 反向传播 &lt;────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p>PP 的主要问题是 <strong>pipeline bubble，流水线气泡</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">时间      0    1    2    3    4    5    6    7</span><br><span class="line">         ---------------------------------------</span><br><span class="line">GPU 0    F    --   --   --   --   --   --   B</span><br><span class="line">GPU 1    --   F    --   --   --   --   B    --</span><br><span class="line">GPU 2    --   --   F    --   --   B    --   --</span><br><span class="line">GPU 3    --   --   --   F    B    --   --   --</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">F  = 整个 batch 的前向传播</span><br><span class="line">B  = 整个 batch 的反向传播</span><br><span class="line">-- = GPU 空闲</span><br></pre></td></tr></table></figure>
+
+<p>大部分时间只有一张 GPU 在工作，设备利用率很低</p>
+<p>把一个 batch 拆成多个 micro-batch，使不同流水线阶段同时处理不同 micro-batch</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">时间      0    1    2    3    4    5    6    7    8    9   10   11   12   13</span><br><span class="line">         ---------------------------------------------------------------------</span><br><span class="line">GPU 0    F0   F1   F2   F3   --   --   --   --   --   --   B3   B2   B1   B0</span><br><span class="line">GPU 1    --   F0   F1   F2   F3   --   --   --   --   B3   B2   B1   B0   --</span><br><span class="line">GPU 2    --   --   F0   F1   F2   F3   --   --   B3   B2   B1   B0   --   --</span><br><span class="line">GPU 3    --   --   --   F0   F1   F2   F3   B3   B2   B1   B0   --   --   --</span><br></pre></td></tr></table></figure>
+
+<p>增加 micro-batch 数量可以摊薄填充和排空气泡，但也会导致激活显存、调度复杂度和优化器更新延迟增加</p>
+<p><strong>序列&#x2F;上下文并行</strong></p>
+<p>对于长上下文模型，激活和注意力矩阵可能成为显存瓶颈，因此可以沿序列维度切分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">完整序列：</span><br><span class="line">[token 0 ... token 32767]</span><br><span class="line"></span><br><span class="line">GPU 0:</span><br><span class="line">[token 0 ... token 8191]</span><br><span class="line"></span><br><span class="line">GPU 1:</span><br><span class="line">[token 8192 ... token 16383]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>但注意力需要 token 之间相互交互，因此会引入 <code>AllGather</code>、<code>AllToAll</code> 或其他通信</p>
+<ul>
+<li><code>AllGather</code>：每张 GPU 把自己的数据分享给所有 GPU，最终所有 GPU 都拥有完整数据</li>
+<li><code>AllToAll</code>：每张 GPU 把不同的数据块分别发送给不同 GPU，最终数据在 GPU 之间重新分布</li>
+</ul>
+<p><strong>专家并行 EP</strong>：</p>
+<p>MoE的专家通常不在一张 GPU 上，Token 根据路由结果被发送到对应 GPU</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0: Experts 0, 1</span><br><span class="line">GPU 1: Experts 2, 3</span><br><span class="line">GPU 2: Experts 4, 5</span><br><span class="line">GPU 3: Experts 6, 7</span><br></pre></td></tr></table></figure>
+
+<p>token 需要从原 GPU 去往专家 GPU，专家计算完成后又要返回原 GPU，所以 MoE 的 FLOPs 可能较低，但端到端速度不一定按理论比例提升</p>
+<h3 id="零冗余优化器（ZeRO）"><a href="#零冗余优化器（ZeRO）" class="headerlink" title="零冗余优化器（ZeRO）"></a>零冗余优化器（ZeRO）</h3><p>ZeRO 在数据并行基础上，通过<font color='Violetred'>“分片保存模型状态”</font>降低单张 GPU 显存占用</p>
+<p>普通 DDP 中，每张 GPU 都保存相同的三类东西</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P：模型参数 Parameters</span><br><span class="line">G：梯度 Gradients</span><br><span class="line">O：优化器状态 Optimizer States</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：</span><br><span class="line">参数      p0 p1 p2 p3 p4 p5 p6 p7</span><br><span class="line">梯度      g0 g1 g2 g3 g4 g5 g6 g7</span><br><span class="line">优化器    O0 O1 O2 O3 O4 O5 O6 O7</span><br><span class="line"></span><br><span class="line">GPU 1：</span><br><span class="line">参数      p0 p1 p2 p3 p4 p5 p6 p7</span><br><span class="line">梯度      g0 g1 g2 g3 g4 g5 g6 g7</span><br><span class="line">优化器    O0 O1 O2 O3 O4 O5 O6 O7</span><br></pre></td></tr></table></figure>
+
+<p>ZeRO 将数据并行中的冗余状态逐步分片，分为三种不同的配置</p>
+<p><strong>ZeRO-1</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：[完整参数] [完整梯度] [O0 O1]</span><br><span class="line">GPU 1：[完整参数] [完整梯度] [O2 O3]</span><br><span class="line">GPU 2：[完整参数] [完整梯度] [O4 O5]</span><br><span class="line">GPU 3：[完整参数] [完整梯度] [O6 O7]</span><br></pre></td></tr></table></figure>
+
+<p>每张 GPU 只保存四分之一的优化器状态，参数和梯度依然是完整复制的</p>
+<p><strong>ZeRO-2</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：[完整参数] [g0 g1] [O0 O1]</span><br><span class="line">GPU 1：[完整参数] [g2 g3] [O2 O3]</span><br><span class="line">GPU 2：[完整参数] [g4 g5] [O4 O5]</span><br><span class="line">GPU 3：[完整参数] [g6 g7] [O6 O7]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里的g已经是平均后的了</p>
+</blockquote>
+<p>使用 <code>ReduceScatter</code>聚合完成后直接拆开</p>
+<p><strong>ZeRO-3</strong></p>
+<p>把参数也分片，每张 GPU 平时只保存一部分模型状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：[p0 p1] [g0 g1] [O0 O1]</span><br><span class="line">GPU 1：[p2 p3] [g2 g3] [O2 O3]</span><br><span class="line">GPU 2：[p4 p5] [g4 g5] [O4 O5]</span><br><span class="line">GPU 3：[p6 p7] [g6 g7] [O6 O7]</span><br></pre></td></tr></table></figure>
+
+<p>但是计算前需要 <code>AllGather</code></p>
+<h2 id="大模型微调"><a href="#大模型微调" class="headerlink" title="大模型微调"></a>大模型微调</h2><ul>
+<li><font color='Violetred'>继续预训练</font>：没有人工标签，仅输入额外文本，模型只是继续进行语言模型训练，适合学习领域术语、特殊语言</li>
+<li><font color='Violetred'>监督微调 SFT</font>：用已经完成预训练的大语言模型，使用人工整理的“问题-答案”数据继续训练</li>
+<li><font color='Violetred'>强化学习微调 RL</font>：让模型根据奖励改进，奖励可以来自多种来源，最主要是RLHF(基于人类反馈的强化学习)和PPO(近端策略优化)</li>
+</ul>
+<p><strong>SFT数据集</strong></p>
+<p>单条数据评估视角：规范性、完整性、及时性、安全性、有效性、唯一性</p>
+<p>数据集评估视角：多样性(领域知识)、平衡性(领域数据集数量)、一致性、正交性(领域能力互不影响)、必要性(数据价值)</p>
+<p>在数据筛选时需要用到</p>
+<ul>
+<li><p>困惑度：形式上和交叉熵损失一致，困惑度与交叉熵损失是指数关系<br>$$<br>P_i(x)&#x3D;\exp\left(-\frac{1}{T}\sum_{t&#x3D;1}^{T}\log p(x_t\mid x_{&lt;t})\right)<br>$$</p>
+</li>
+<li><p>学习百分比：判断一条 SFT 数据的学习难度<br>$$<br>\operatorname{LP}(i)&#x3D;\frac{P_{i-1}-P_i}{P_0-P_n}<br>$$<br>分子表示第 $i$ 个epoch内，困惑度的下降，一般选择 $LP(1)$ </p>
+</li>
+<li><p>数据难度可转移性：不同规模模型对数据难易程度的相对排序具有较强一致性，所以可以用小模型来筛选，降低成本</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://aclanthology.org/2024.findings-acl.623/">Smaller Language Models are capable of selecting Instruction-Tuning Training Data for Larger Language Models - ACL Anthology</a></p>
+</blockquote>
+</li>
+</ul>
+<p><strong>RL算法</strong></p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>中文名</th>
+<th>是否需要价值模型</th>
+<th>核心思想</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PPO</td>
+<td>近端策略优化</td>
+<td>通常需要</td>
+<td>限制每次策略更新幅度</td>
+</tr>
+<tr>
+<td>GRPO</td>
+<td>组相对策略优化</td>
+<td>不需要</td>
+<td>同一问题的多个回答组内比较</td>
+</tr>
+<tr>
+<td>DAPO</td>
+<td>解耦裁剪与动态采样策略优化</td>
+<td>不需要</td>
+<td>GRPO + 非对称裁剪 + 动态采样 + 长序列优化</td>
+</tr>
+</tbody></table>
+<p>PPO常见的目标函数是<br>$$<br>L_{\mathrm{PPO}}(\theta)&#x3D;\mathbb{E}_t\left[\min\left(r_t(\theta)\hat A_t,;\operatorname{clip}\left(r_t(\theta),1-\epsilon,1+\epsilon\right)\hat A_t\right)\right]<br>$$</p>
+<h2 id="Tokenizer"><a href="#Tokenizer" class="headerlink" title="Tokenizer"></a>Tokenizer</h2><p>主要有以下几类切分方法</p>
+<ul>
+<li>词级切分(Word-level)</li>
+<li>字符级切分(Character-level)</li>
+<li>子词切分(Subword-level)</li>
+<li>字节级切分(Byte-level)</li>
+</ul>
+<p>目前大多数大语言模型使用的是子词或字节级方法</p>
+<h3 id="词级切分"><a href="#词级切分" class="headerlink" title="词级切分"></a>词级切分</h3><p>将文本按空格和标点符号分割成单词</p>
+<ul>
+<li>优点在于简单直接；</li>
+<li>缺点很明显，无法处理未登录词(不在词表的词)和罕见词，对复合词或缩略词的处理也不够精细；</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I love machine learning</span><br><span class="line">[&quot;I&quot;, &quot;love&quot;, &quot;machine&quot;, &quot;learning&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>现在的大语言模型很少使用纯词级 Tokenizer</p>
+<h3 id="字符级切分"><a href="#字符级切分" class="headerlink" title="字符级切分"></a>字符级切分</h3><p>将每个字符作为一个 Token，能非常精细地处理文本，适用于处理拼写错误、未登录词或新词</p>
+<p>对于一些特定的应用场景，如生成式任务或需要处理大量未登录词的任务，特别有用</p>
+<ul>
+<li>优点在于词表会非常小，几乎不会出现未知的token，对拼写错误、罕见单词比较鲁棒；</li>
+<li>缺点是让 token 序列变得非常长，增加了模型的计算复杂度和训练时间；</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line">[&quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="子词切分"><a href="#子词切分" class="headerlink" title="子词切分"></a>子词切分</h3><p>子词方法介于词级和字符级之间</p>
+<ul>
+<li>常见单词保留为完整 Token</li>
+<li>罕见单词拆成多个有意义或高频的片段</li>
+</ul>
+<p>常见的子词分词方法包括 BPE、WordPiece 和 Unigram</p>
+<h4 id="BPE"><a href="#BPE" class="headerlink" title="BPE"></a>BPE</h4><p>BPE 全称是 <strong>Byte Pair Encoding</strong>，核心思想是：从字符开始，不断合并语料中出现频率最高的相邻 Token 对</p>
+<p>优点在于其简单和高效，能够有效地处理未知词和罕见词，同时保持较低的词典大小</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">low</span><br><span class="line">lower -&gt; low + er</span><br><span class="line">lowest -&gt; low + est</span><br></pre></td></tr></table></figure>
+
+<p>在 GPT-2 上得到应用</p>
+<h4 id="WordPiece"><a href="#WordPiece" class="headerlink" title="WordPiece"></a>WordPiece</h4><p>与 BPE 很相似，但它选择合并项时，不只是看绝对频率，更关注合并后是否能提高语言模型对语料的解释能力</p>
+<p>在简化理解下，可以把候选合并分数写成<br>$$<br>\operatorname{score}(a,b)&#x3D;\frac{\operatorname{freq}(ab)}<br>{\operatorname{freq}(a)\operatorname{freq}(b)}<br>$$</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">playing</span><br><span class="line">[&quot;play&quot;, &quot;##ing&quot;]</span><br></pre></td></tr></table></figure>
+
+<p><code>&quot;##ing&quot;</code> 表示这个子词不能单独作为单词开头，而是接在其他 Token 后面</p>
+<p>在 BERT 上得到应用</p>
+<h4 id="Unigram"><a href="#Unigram" class="headerlink" title="Unigram"></a>Unigram</h4><p>Unigram 方法与 BPE 的方向相反</p>
+<p>Unigram 是从一个较大的候选子词集合开始，不断删除不重要的子词</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/6231.html">https://yhblogs.cn/posts/6231.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%96%B9LLM/">🖹LLM</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Swift框架</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1918.html" title="《Attention is All You Need》"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">《Attention is All You Need》</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">提示工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E5%8E%9F%E5%88%99"><span class="toc-number">1.1.</span> <span class="toc-text">提示原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text">提示词设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.3.</span> <span class="toc-text">上下文学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Responses-API"><span class="toc-number">1.4.</span> <span class="toc-text">Responses API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLaMa"><span class="toc-number">2.</span> <span class="toc-text">LLaMa</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81-RoPE"><span class="toc-number">2.1.</span> <span class="toc-text">旋转位置编码 RoPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMSNorm"><span class="toc-number">2.2.</span> <span class="toc-text">RMSNorm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E6%B3%A8%E6%84%8F%E5%8A%9B-GQA"><span class="toc-number">2.3.</span> <span class="toc-text">分组查询注意力 GQA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SwiGLU"><span class="toc-number">2.4.</span> <span class="toc-text">SwiGLU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E7%BB%93%E6%9E%84-MoE"><span class="toc-number">2.5.</span> <span class="toc-text">混合专家结构 MoE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%E6%A1%86%E6%9E%B6"><span class="toc-number">3.</span> <span class="toc-text">分布式训练框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C"><span class="toc-number">3.1.</span> <span class="toc-text">数据并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%B9%B6%E8%A1%8C"><span class="toc-number">3.2.</span> <span class="toc-text">模型并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E5%86%97%E4%BD%99%E4%BC%98%E5%8C%96%E5%99%A8%EF%BC%88ZeRO%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">零冗余优化器（ZeRO）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83"><span class="toc-number">4.</span> <span class="toc-text">大模型微调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tokenizer"><span class="toc-number">5.</span> <span class="toc-text">Tokenizer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8D%E7%BA%A7%E5%88%87%E5%88%86"><span class="toc-number">5.1.</span> <span class="toc-text">词级切分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%BA%A7%E5%88%87%E5%88%86"><span class="toc-number">5.2.</span> <span class="toc-text">字符级切分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E8%AF%8D%E5%88%87%E5%88%86"><span class="toc-number">5.3.</span> <span class="toc-text">子词切分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BPE"><span class="toc-number">5.3.1.</span> <span class="toc-text">BPE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WordPiece"><span class="toc-number">5.3.2.</span> <span class="toc-text">WordPiece</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unigram"><span class="toc-number">5.3.3.</span> <span class="toc-text">Unigram</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/js/vendor/twopeople1.js"></script><script src="/js/vendor/zdog.dist.js"></script><script id="rendered-js" src="/js/vendor/twopeople.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>
