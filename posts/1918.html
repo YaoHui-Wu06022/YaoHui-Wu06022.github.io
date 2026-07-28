@@ -1,24 +1,24 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>《Attention is All You Need》 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="核心创新点：Transformer 架构和 Self-Attention 自注意力机制  Transformer 之前，主流序列转导模型通常具有以下特征：   主体结构多基于 RNN，CNN 作为替代路线  通常采用 encoder-decoder 架构 使用注意力机制增强  Transformer结构的创新：  用 Self-Attention 取代 RNN&#x2F;CNN 作为序列建模核心">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>transformer | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="[1706.03762] Attention Is All You Need  核心创新点：Transformer 架构和 Self-Attention 自注意力机制  Transformer 之前，主流序列转导模型通常具有以下特征：   主体结构多基于 RNN，CNN 作为替代路线  通常采用 encoder-decoder 架构 使用注意力机制增强  Transformer 结构的创新：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《Attention is All You Need》">
+<meta property="og:title" content="transformer">
 <meta property="og:url" content="https://yhblogs.cn/posts/1918.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="核心创新点：Transformer 架构和 Self-Attention 自注意力机制  Transformer 之前，主流序列转导模型通常具有以下特征：   主体结构多基于 RNN，CNN 作为替代路线  通常采用 encoder-decoder 架构 使用注意力机制增强  Transformer结构的创新：  用 Self-Attention 取代 RNN&#x2F;CNN 作为序列建模核心">
+<meta property="og:description" content="[1706.03762] Attention Is All You Need  核心创新点：Transformer 架构和 Self-Attention 自注意力机制  Transformer 之前，主流序列转导模型通常具有以下特征：   主体结构多基于 RNN，CNN 作为替代路线  通常采用 encoder-decoder 架构 使用注意力机制增强  Transformer 结构的创新：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp">
 <meta property="article:published_time" content="2026-06-03T13:30:57.000Z">
-<meta property="article:modified_time" content="2026-07-16T15:21:03.840Z">
+<meta property="article:modified_time" content="2026-07-28T15:34:23.356Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🖹LLM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "《Attention is All You Need》",
+  "headline": "transformer",
   "url": "https://yhblogs.cn/posts/1918.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp",
   "datePublished": "2026-06-03T13:30:57.000Z",
-  "dateModified": "2026-07-16T15:21:03.840Z",
+  "dateModified": "2026-07-28T15:34:23.356Z",
   "author": [
     {
       "@type": "Person",
@@ -155,18 +155,21 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '《Attention is All You Need》',
+  title: 'transformer',
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">《Attention is All You Need》</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">《Attention is All You Need》</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-06-03T13:30:57.000Z" title="发表于 2026-06-03 21:30:57">2026-06-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p><strong>核心创新点</strong>：Transformer 架构和 Self-Attention 自注意力机制 </p>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">transformer</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">transformer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-06-03T13:30:57.000Z" title="发表于 2026-06-03 21:30:57">2026-06-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">1706.03762] Attention Is All You Need</a></p>
+</blockquote>
+<p><strong>核心创新点</strong>：Transformer 架构和 Self-Attention 自注意力机制 </p>
 <p>Transformer 之前，主流序列转导模型通常具有以下特征： </p>
 <ol>
 <li>主体结构多基于 RNN，CNN 作为替代路线 </li>
 <li>通常采用 encoder-decoder 架构</li>
 <li>使用注意力机制增强</li>
 </ol>
-<p>Transformer结构的创新：</p>
+<p>Transformer 结构的创新：</p>
 <ol>
 <li>用 Self-Attention 取代 RNN&#x2F;CNN 作为序列建模核心</li>
 <li>引入 Multi-Head Attention，让模型从多个子空间看关系</li>
@@ -180,7 +183,14 @@
 </ul>
 <p>编码器解码器结构<font color='Violetred'>解决了输入输出不等长的问题</font></p>
 <p>早期 encoder 通常是一个 RNN &#x2F; LSTM &#x2F; GRU，编码器按顺序读入 token</p>
-<p>每读一个 token，更新一次隐藏状态<br>$$<br>h_t &#x3D; f(h_{t-1}, x_t)<br>$$<br>最后，encoder 会得到一个整体表示，通常记作$c &#x3D; h_n$ (context vector)，也可以理解成“源句子的压缩表示”</p>
+<p>每读一个 token，更新一次隐藏状态</p>
+<div class="mathjax-display">
+$$
+h_t = f(h_{t-1}, x_t)
+$$
+</div>
+最后，encoder 会得到一个整体表示，通常记作$c = h_n$ (context vector)，也可以理解成“源句子的压缩表示”
+
 <p>解码器 decoder 在第 $t$ 步根据：</p>
 <ol>
 <li>encoder 给出的上下文向量 $c$</li>
@@ -205,11 +215,37 @@
 <li><p>解决模型处理长序列时的“遗忘”问题</p>
 </li>
 <li><p>解决不同时间步输入对当前时刻输出的“重要性”问题</p>
-<p>decoder 每生成一个词，都计算当前解码状态和所有 encoder 隐藏状态的相关性，然后加权汇总<br>$$<br>c_t &#x3D; \sum_{i&#x3D;1}^{n} \alpha_{t,i} h_i<br>$$</p>
-</li>
+<p>decoder 每生成一个词，都计算当前解码状态和所有 encoder 隐藏状态的相关性，然后加权汇总</p>
+<div class="mathjax-display">
+$$
+c_t = \sum_{i=1}^{n} \alpha_{t,i} h_i
+$$
+</div></li>
 </ul>
 <h2 id="位置编码"><a href="#位置编码" class="headerlink" title="位置编码"></a>位置编码</h2><p>因为没有 RNN 的时间递推，也没有 CNN 的局部窗口顺序结构，Self-Attention 本身不知道 token 的顺序</p>
-<p>在 encoder 和 decoder 底部给输入 embedding 加入 positional encodings，用来注入 token 的位置信息<br>$$<br>X_{pos} &#x3D; E_{pos} + PE_{pos}<br>$$<br>原始 Transformer 用的正弦&#x2F;余弦位置编码<br>$$<br>PE_{(pos,2i)}&#x3D;\sin<br>\left(\frac{pos}{10000^{2i&#x2F;d_{\text{model}}}}\right)\\<br>PE_{(pos,2i+1)}&#x3D;<br>\cos\left(\frac{pos}{10000^{2i&#x2F;d_{\text{model}}}}\right)<br>$$<br>假设模型维度是 $d_{\text{model}} &#x3D; 4$，那么一个位置 $pos$ 的位置编码大概长这样<br>$$<br>PE_{pos}&#x3D;[\sin(\omega_1 pos),\cos(\omega_1 pos),\sin(\omega_2 pos),\cos(\omega_2 pos)]<br>$$<br>不同维度使用不同频率，</p>
+<p>在 encoder 和 decoder 底部给输入 embedding 加入 positional encodings，用来注入 token 的位置信息</p>
+<div class="mathjax-display">
+$$
+X_{pos} = E_{pos} + PE_{pos}
+$$
+</div>
+原始 Transformer 用的正弦/余弦位置编码
+<div class="mathjax-display">
+$$
+PE_{(pos,2i)}=\sin
+\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)\\
+PE_{(pos,2i+1)}=
+\cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
+$$
+</div>
+假设模型维度是 $d_{\text{model}} = 4$，那么一个位置 $pos$ 的位置编码大概长这样
+<div class="mathjax-display">
+$$
+PE_{pos}=[\sin(\omega_1 pos),\cos(\omega_1 pos),\sin(\omega_2 pos),\cos(\omega_2 pos)]
+$$
+</div>
+不同维度使用不同频率，
+
 <ul>
 <li>低维度：变化快，区分近距离位置</li>
 <li>高维度：变化慢，表达长距离趋势</li>
@@ -225,8 +261,19 @@
 <p>论文中给出的一个重要动机是：对于固定偏移 $k$，$PE_{pos+k}$ 可以表示为 $PE_{pos}$ 的线性函数，因此模型可能更容易学习相对位置关系</p>
 <h2 id="多头注意力机制"><a href="#多头注意力机制" class="headerlink" title="多头注意力机制"></a>多头注意力机制</h2><p>多头注意力 Multi-Head Attention 的核心思想是：<font color='Violetred'>把同一批 token 映射到多个不同的表示子空间中，并行做多次 attention，然后把结果拼接起来</font></p>
 <p>Transformer 使用的基础注意力是 Scaled Dot-Product Attention</p>
-<p>$Q,K,V$ 都来自同一个输入序列，让输入序列内部的 token 互相建模关系<br>$$<br>\mathrm{Attention}(Q,K,V)&#x3D;\mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V<br>$$</p>
-<p>$$<br>\mathrm{Softmax}(z_i)&#x3D;\frac{e^{z_i}}{\sum_{j&#x3D;1}^{k} e^{z_j}}<br>$$</p>
+<p>$Q,K,V$ 都来自同一个输入序列，让输入序列内部的 token 互相建模关系</p>
+<div class="mathjax-display">
+$$
+\mathrm{Attention}(Q,K,V)=\mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$
+</div>
+
+<div class="mathjax-display">
+$$
+\mathrm{Softmax}(z_i)=\frac{e^{z_i}}{\sum_{j=1}^{k} e^{z_j}}
+$$
+</div>
+
 <ul>
 <li><code>QK^T</code>：计算每个 token 对其他 token 的关注程度</li>
 <li>softmax：把关注分数归一化成权重</li>
@@ -240,21 +287,69 @@
 <p>多头注意力不是直接对原始 $Q,K,V$ 做很多次一样的 attention，而是先用不同的线性变换得到不同 head 的 $Q_i,K_i,V_i$</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">q_proj = nn.Linear(d_model, d_model)</span><br><span class="line">k_proj = nn.Linear(d_model, d_model)</span><br><span class="line">v_proj = nn.Linear(d_model, d_model)</span><br><span class="line"></span><br><span class="line">Q = q_proj(x)  <span class="comment"># [B, L, 512]</span></span><br><span class="line">K = k_proj(x)  <span class="comment"># [B, L, 512]</span></span><br><span class="line">V = v_proj(x)  <span class="comment"># [B, L, 512]</span></span><br><span class="line"><span class="comment"># 分头</span></span><br><span class="line">Q = Q.view(B, L, num_heads, d_head).transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">K = K.view(B, L, num_heads, d_head).transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">V = V.view(B, L, num_heads, d_head).transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 
-<p>第 $i$ 个 head 是<br>$$<br>\mathrm{head}_i&#x3D;\mathrm{Attention}\left(QW_i^Q,KW_i^K,VW_i^V\right)<br>$$<br>然后把所有 head 的输出拼接起来<br>$$<br>\mathrm{MultiHead}(Q,K,V)&#x3D;\mathrm{Concat}(head_1,\dots,head_h)W^O<br>$$<br>再经过一个线性变换，融合多头信息<br>$$<br>\mathrm{FFN}(x)&#x3D;W_2,\sigma(W_1x+b_1)+b_2<br>$$</p>
-<blockquote>
-<p>相当于八个低清晰度的表情包你给拼一块了说它是高清的，那肯定不行，还得再处理一下</p>
-</blockquote>
+<p>第 $i$ 个 head 是</p>
+<div class="mathjax-display">
+$$
+\mathrm{head}_i=\mathrm{Attention}\left(QW_i^Q,KW_i^K,VW_i^V\right)
+$$
+</div>
+然后把所有 head 的输出拼接起来
+<div class="mathjax-display">
+$$
+\mathrm{MultiHead}(Q,K,V)=\mathrm{Concat}(head_1,\dots,head_h)W^O
+$$
+</div>
+再经过一个线性变换，融合多头信息
+<div class="mathjax-display">
+$$
+\mathrm{FFN}(x)=W_2\,\sigma(W_1x+b_1)+b_2
+$$
+</div>
+> 相当于八个低清晰度的表情包你给拼一块了说它是高清的，那肯定不行，还得再处理一下
+
 <p>这种模式使得每个头只需要捕获一种或少量关系模式</p>
 <p>这里也会有一个问题，<font color='Violetred'>拆成多个头降低了维度，可能会损失表达能力，但损失的远小于收益</font></p>
 <p>拆分成多头在同等计算量上获取到的信息大于单头，并且低维子空间相当于隐含的正则化，保证每种学习关系独立，也防止了每个头在高维空间过拟合，多头保证了多种关系可以并行捕捉</p>
 <p>head数量需要根据实际情况决定，head 太少，表达能力可能不足；head 太多，每个 head 的维度会变小，单个 head 的表示能力下降，而且计算和工程开销增加</p>
 <p>通常 $h$ 是一个超参数，需要和 $d_{\text{model}}$ 配合</p>
-<h3 id="Mask"><a href="#Mask" class="headerlink" title="Mask"></a>Mask</h3><p>mask 不是加在 $Q$、$K$、$V$ 上，而是加在 attention logits 上<br>$$<br>\mathrm{MaskedAttention}(Q,K,V)&#x3D;<br>\mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}} + M\right)V<br>$$<br>其中 $M$ 是 mask 矩阵<br>$$<br>M_{ij}&#x3D;<br>\begin{cases}<br>0, &amp; j \le i \<br>-\infty, &amp; j &gt; i<br>\end{cases}<br>$$<br>这样可以获得每个 token 根据注意力权重，从它能看到的 token 的 value 向量中汇聚出来的新表示</p>
+<h3 id="Mask"><a href="#Mask" class="headerlink" title="Mask"></a>Mask</h3><p>mask 不是加在 $Q$、$K$、$V$ 上，而是加在 attention logits 上</p>
+<div class="mathjax-display">
+$$
+\mathrm{MaskedAttention}(Q,K,V)=
+\mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}} + M\right)V
+$$
+</div>
+其中 $M$ 是 mask 矩阵
+<div class="mathjax-display">
+$$
+M_{ij}=
+\begin{cases}
+0, &amp; j \le i \\
+-\infty, &amp; j > i
+\end{cases}
+$$
+</div>
+这样可以获得每个 token 根据注意力权重，从它能看到的 token 的 value 向量中汇聚出来的新表示
+
 <p>加Mask是为了避免关注到后面的信息，只注意自己和之前的信息</p>
-<h3 id="张量形状"><a href="#张量形状" class="headerlink" title="张量形状"></a>张量形状</h3><p>每个 token 原始 hidden state 的维度是<br>$$<br>X \in \mathbb{R}^{B \times L \times d_{\text{model}}}<br>$$<br>通过线性层得到</p>
+<h3 id="张量形状"><a href="#张量形状" class="headerlink" title="张量形状"></a>张量形状</h3><p>每个 token 原始 hidden state 的维度是</p>
+<div class="mathjax-display">
+$$
+X \in \mathbb{R}^{B \times L \times d_{\text{model}}}
+$$
+</div>
+通过线性层得到
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Q: [B, L, d_model]</span><br><span class="line">K: [B, L, d_model]</span><br><span class="line">V: [B, L, d_model]</span><br></pre></td></tr></table></figure>
 
-<p>然后拆成 $h$ 个 head：<br>$$<br>d_{\text{head}} &#x3D; \frac{d_{\text{model}}}{h}<br>$$<br>如果 $d_{\text{model}}&#x3D;512$，$h&#x3D;8$，那么</p>
+<p>然后拆成 $h$ 个 head：</p>
+<div class="mathjax-display">
+$$
+d_{\text{head}} = \frac{d_{\text{model}}}{h}
+$$
+</div>
+如果 $d_{\text{model}}=512$，$h=8$，那么
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Q: [B, h, L, d_head] = [B, 8, L, 64]</span><br><span class="line">K: [B, h, L, d_head] = [B, 8, L, 64]</span><br><span class="line">V: [B, h, L, d_head] = [B, 8, L, 64]</span><br></pre></td></tr></table></figure>
 
 <p>每个 head 单独做 attention</p>
@@ -264,9 +359,23 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Concat(heads): [B, L, 512]</span><br></pre></td></tr></table></figure>
 
 <p>最后再经过输出投影 $W^O$</p>
-<h3 id="分母-sqrt-d-k"><a href="#分母-sqrt-d-k" class="headerlink" title="分母 $\sqrt{d_k}$"></a>分母 $\sqrt{d_k}$</h3><p>注意力分数是：<br>$$<br>q \cdot k &#x3D; \sum_{i&#x3D;1}^{d_k} q_i k_i<br>$$<br>假设$q_i, k_i$都是均值为 $0$、方差为 $1$ 的独立随机变量</p>
+<h3 id="分母-sqrt-d-k"><a href="#分母-sqrt-d-k" class="headerlink" title="分母 $\sqrt{d_k}$"></a>分母 $\sqrt{d_k}$</h3><p>注意力分数是：</p>
+<div class="mathjax-display">
+$$
+q \cdot k = \sum_{i=1}^{d_k} q_i k_i
+$$
+</div>
+假设$q_i, k_i$都是均值为 $0$、方差为 $1$ 的独立随机变量
+
 <p>那么单项乘积 $q_i k_i$ 的均值大约是 $0$，方差大约是 $1$</p>
-<p>点积是 $d_k$ 个这样的项相加，所以方差大约是<br>$$<br>\mathrm{Var}(q \cdot k) \approx d_k<br>$$<br>$d_k$ 越大，点积结果越容易变得很大或很小</p>
+<p>点积是 $d_k$ 个这样的项相加，所以方差大约是</p>
+<div class="mathjax-display">
+$$
+\mathrm{Var}(q \cdot k) \approx d_k
+$$
+</div>
+$d_k$ 越大，点积结果越容易变得很大或很小
+
 <p>为了把点积分数标准化到相对稳定的尺度，需要除以标准差</p>
 <p>如果不除会导致</p>
 <ol>
@@ -278,7 +387,33 @@
 <p>Post-LayerNorm是原文设计</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x</span><br><span class="line"> │</span><br><span class="line"> ├── Sublayer(x)   (Attention 或 FFN)</span><br><span class="line"> │</span><br><span class="line"> ├── + residual (x)</span><br><span class="line"> │</span><br><span class="line"> └── LayerNorm</span><br><span class="line">     │</span><br><span class="line">     y</span><br></pre></td></tr></table></figure>
 
-<p>Attention block：<br>$$<br>x_1 &#x3D; \mathrm{LayerNorm}(x+\mathrm{Attention}(x))<br>$$<br>FFN block：<br>$$<br>x_2 &#x3D; \mathrm{LayerNorm}(x_1+\mathrm{FFN}(x_1))<br>$$<br>可以这么理解<br>$$<br>y &#x3D; \mathrm{LN}(x+F(x))\quad z&#x3D; x+F(x)<br>$$<br>损失对输入的梯度：<br>$$<br>\frac{\partial L}{\partial x}&#x3D;\frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x} &#x3D; \frac{\partial L}{\partial y} \cdot \frac{\partial \mathrm{LN}}{\partial z}(I<br>+\frac{\partial F}{\partial x})<br>$$<br>问题在于LN在在残差连接之后，${\partial \mathrm{LN}}&#x2F;{\partial z}$梯度值近似为$1&#x2F;\sqrt d_k$，使得残差传播的恒等路径梯度不再是1，每层都要缩放一次</p>
+<p>Attention block：</p>
+<div class="mathjax-display">
+$$
+x_1 = \mathrm{LayerNorm}(x+\mathrm{Attention}(x))
+$$
+</div>
+FFN block：
+<div class="mathjax-display">
+$$
+x_2 = \mathrm{LayerNorm}(x_1+\mathrm{FFN}(x_1))
+$$
+</div>
+可以这么理解
+<div class="mathjax-display">
+$$
+y = \mathrm{LN}(x+F(x))\quad z= x+F(x)
+$$
+</div>
+损失对输入的梯度：
+<div class="mathjax-display">
+$$
+\frac{\partial L}{\partial x}=\frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial \mathrm{LN}}{\partial z}(I
++\frac{\partial F}{\partial x})
+$$
+</div>
+问题在于LN在在残差连接之后，${\partial \mathrm{LN}}/{\partial z}$梯度值近似为$1/\sqrt d_k$，使得残差传播的恒等路径梯度不再是1，每层都要缩放一次
+
 <p>所以梯度随网络深度呈指数衰减，导致低层（靠近输入的层）梯度几乎消失，梯度消失会导致Adam等优化器的更新变得不稳定</p>
 <h3 id="Layer-Norm"><a href="#Layer-Norm" class="headerlink" title="Layer Norm"></a>Layer Norm</h3><p>对每个 token 的 hidden dimension 做归一化</p>
 <ul>
@@ -286,68 +421,154 @@
 <li>不跨 sequence length 归一化</li>
 <li>只在每个 token 自己的特征维度上归一化</li>
 </ul>
-<p>$$<br>\mu &#x3D; \frac{1}{d}\sum_{i&#x3D;1}^{d} x_i\qquad \sigma^2 &#x3D; \frac{1}{d}\sum_{i&#x3D;1}^{d}(x_i - \mu)^2<br>$$</p>
-<p>归一化：<br>$$<br>\hat{x}_i &#x3D; \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon}}<br>$$<br>不是像 Batch Norm 那样依赖 mini-batch 统计</p>
+<div class="mathjax-display">
+$$
+\mu = \frac{1}{d}\sum_{i=1}^{d} x_i\qquad \sigma^2 = \frac{1}{d}\sum_{i=1}^{d}(x_i - \mu)^2
+$$
+</div>
+
+<p>归一化：</p>
+<div class="mathjax-display">
+$$
+\hat{x}_i = \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon}}
+$$
+</div>
+不是像 Batch Norm 那样依赖 mini-batch 统计
+
 <p>Transformer 需要 Layer Norm是因为每一层都有复杂变换</p>
 <p>如果不做归一化，层数加深后 hidden states 的尺度可能变得不稳定</p>
 <p>Layer Norm 的作用是把每个 token 的 hidden state 拉回到相对稳定的尺度</p>
 <h4 id="Post-LayerNorm"><a href="#Post-LayerNorm" class="headerlink" title="Post-LayerNorm"></a>Post-LayerNorm</h4><p>Post-LN 是原始 Transformer 的写法；Pre-LN 是后来更常用的稳定训练写法</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x</span><br><span class="line"> │</span><br><span class="line"> ├── Sublayer(x)   (Attention 或 FFN)</span><br><span class="line"> │</span><br><span class="line"> ├── + residual (x)</span><br><span class="line"> │</span><br><span class="line"> └── LayerNorm</span><br><span class="line">     │</span><br><span class="line">     y</span><br></pre></td></tr></table></figure>
 
-<p>Attention block：<br>$$<br>x_1 &#x3D;\mathrm{LayerNorm}(x+\mathrm{Attention}(x))<br>$$<br>FFN block：<br>$$<br>x_2 &#x3D; \mathrm{LayerNorm}(x_1+\mathrm{FFN}(x_1))<br>$$</p>
-<table>
-<thead>
-<tr>
-<th>优点</th>
-<th>缺点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>每一层输出都被及时归一化</td>
-<td>训练初期更容易不稳定<br />深层模型难训练(论文原文中提及)<br />对超参数(学习率、初始化、warm-up)更敏感</td>
-</tr>
-</tbody></table>
+<p>Attention block：</p>
+<div class="mathjax-display">
+$$
+x_1 =\mathrm{LayerNorm}(x+\mathrm{Attention}(x))
+$$
+</div>
+FFN block：
+<div class="mathjax-display">
+$$
+x_2 = \mathrm{LayerNorm}(x_1+\mathrm{FFN}(x_1))
+$$
+</div>
+| 优点                     | 缺点                                                         |
+| ------------------------ | ------------------------------------------------------------ |
+| 每一层输出都被及时归一化 | 训练初期更容易不稳定<br />深层模型难训练(论文原文中提及)<br />对超参数(学习率、初始化、warm-up)更敏感 |
+
 <h4 id="Pre-LayerNorm"><a href="#Pre-LayerNorm" class="headerlink" title="Pre-LayerNorm"></a>Pre-LayerNorm</h4><p>把 LayerNorm 移到子层前面</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x</span><br><span class="line"> │</span><br><span class="line"> ├── LayerNorm</span><br><span class="line"> │</span><br><span class="line"> ├── Sublayer</span><br><span class="line"> │</span><br><span class="line"> ├── + residual</span><br><span class="line"> │</span><br><span class="line"> └── y</span><br></pre></td></tr></table></figure>
 
-<p>Attention block：<br>$$<br>x_1 &#x3D;x+\mathrm{Attention}( \mathrm{LayerNorm}(x))<br>$$<br>FFN block：<br>$$<br>x_2 &#x3D; x_1+\mathrm{FFN}(\mathrm{LayerNorm}(x_1))<br>$$<br>最关键的在于这样使得残差路径变成恒等映射<br>$$<br>y &#x3D; x+F(\mathrm{LN}(x))\quad u &#x3D; \mathrm{LN}(x)<br>$$<br>损失对输入的梯度：<br>$$<br>\frac{\partial L}{\partial x}&#x3D;\frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x} &#x3D; \frac{\partial L}{\partial y}(I+\frac{\partial F}{\partial u}\cdot \frac{\partial u}{\partial x})<br>$$</p>
+<p>Attention block：</p>
+<div class="mathjax-display">
+$$
+x_1 =x+\mathrm{Attention}( \mathrm{LayerNorm}(x))
+$$
+</div>
+FFN block：
+<div class="mathjax-display">
+$$
+x_2 = x_1+\mathrm{FFN}(\mathrm{LayerNorm}(x_1))
+$$
+</div>
+最关键的在于这样使得残差路径变成恒等映射
+<div class="mathjax-display">
+$$
+y = x+F(\mathrm{LN}(x))\quad u = \mathrm{LN}(x)
+$$
+</div>
+损失对输入的梯度：
+<div class="mathjax-display">
+$$
+\frac{\partial L}{\partial x}=\frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x} = \frac{\partial L}{\partial y}(I+\frac{\partial F}{\partial u}\cdot \frac{\partial u}{\partial x})
+$$
+</div>
+| 优点                                                         | 缺点                       |
+| ------------------------------------------------------------ | -------------------------- |
+| 深层模型更容易训练<br />对超参数(学习率、初始化、warm-up)更鲁棒<br />残差连接保留信息更直接，梯度传播更稳定 | 深层更新可能被残差主干稀释 |
+
+<h2 id="Mamba"><a href="#Mamba" class="headerlink" title="Mamba"></a>Mamba</h2><p>对于transformer，自注意力需要计算所有token的关系，那么 $QK^T$ 的大小为 $L\times L$，标准注意力的复杂度为 $O(L^2d)$</p>
+<p>当上下文非常长时，例如数十万甚至上百万 token，计算量和显存占用都会明显增加</p>
+<p>Mamba 的目标是把序列复杂度降低到 $O(Ld)$</p>
+<p>基础是<strong>状态空间模型（State Space Model, SSM）</strong></p>
+<blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.00396">2111.00396] Efficiently Modeling Long Sequences with Structured State Spaces</a> 别名 S4</p>
+</blockquote>
+<p><strong>SSM 的基本结构</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                         +-------------+</span><br><span class="line">                         |   h(t-1)    |</span><br><span class="line">                         +------+------+</span><br><span class="line">                                |</span><br><span class="line">                                | A: state transition</span><br><span class="line">                                v</span><br><span class="line">+-------------+   B: write   +-------------+   C: read    +-------------+</span><br><span class="line">|    x(t)     |-------------&gt;|    h(t)     |-------------&gt;|    y(t)     |</span><br><span class="line">+------+------+              +-------------+              +------^------+</span><br><span class="line">       |                                                           |</span><br><span class="line">       +--------------------- D: skip connection ------------------+</span><br></pre></td></tr></table></figure>
+
+<div class="mathjax-display">
+$$
+\frac{\mathrm d h(t)}{\mathrm d t}=Ah(t)+Bx(t),
+\qquad
+y(t)=Ch(t).
+$$
+</div>
+
+<p>S4 使用的是双线性离散化</p>
+<div class="mathjax-display">
+$$
+\overline A=\left(I-\frac{\Delta}{2}A\right)^{-1}\left(I+\frac{\Delta}{2}A\right) \qquad 
+\overline B=\left(I-\frac{\Delta}{2}A\right)^{-1}\Delta B\qquad 
+\overline C = C
+$$
+</div>
+参数一般不随序列位置变化
+<div class="mathjax-display">
+$$
+\overline A_t=\overline A,\qquad \overline B_t=\overline B \qquad C_t=C
+$$
+</div>
+Mamba 采用零阶保持法(ZOH)离散化
+<div class="mathjax-display">
+$$
+\overline{A}_t=\exp(\Delta_t A) \qquad  \overline{B}_t=(\Delta_tA)^{-1}\left(\exp(\Delta_tA)-I\right)\Delta_tB_t
+$$
+</div>
+然后得到真正执行的离散递推
+<div class="mathjax-display">
+$$
+h_t=\overline{A}_t h_{t-1}+\overline{B}_t x_t\qquad y_t=C_t h_t
+$$
+</div>
+<font color='DarkViolet'>对于S4 $A, B, C ,\Delta $对于所有时间步都是固定的，$x_i$ 对输出的影响只取决于二者的距离</font>，相当于固定卷积核
+
+<p>对于Mamba</p>
 <table>
 <thead>
 <tr>
-<th>优点</th>
-<th>缺点</th>
+<th>参数</th>
+<th>功能</th>
+<th>直观含义</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>深层模型更容易训练<br />对超参数(学习率、初始化、warm-up)更鲁棒<br />残差连接保留信息更直接，梯度传播更稳定</td>
-<td>深层更新可能被残差主干稀释</td>
+<td>$(\Delta_t)$</td>
+<td>控制状态更新和遗忘速度</td>
+<td>什么时候保留、什么时候刷新</td>
+</tr>
+<tr>
+<td>$(B_t)$</td>
+<td>控制输入如何写入状态</td>
+<td>当前 token 写入哪些状态维度</td>
+</tr>
+<tr>
+<td>$(C_t)$</td>
+<td>控制状态如何被读出</td>
+<td>当前输出需要读取哪些信息</td>
+</tr>
+<tr>
+<td>$(A)$</td>
+<td>定义基础状态动力学</td>
+<td>信息在状态中的衰减和传播规律</td>
 </tr>
 </tbody></table>
-<h2 id="主流是Decoder的原因"><a href="#主流是Decoder的原因" class="headerlink" title="主流是Decoder的原因"></a>主流是Decoder的原因</h2><p>18年GPT和BERT发布</p>
-<p>GPT采用Decoder-only，单向注意力，从左往右预测下一个token</p>
-<p>BERT采用Encoder-only，双向注意力，采用 Masked Language Modeling，在当时的 NLP 基准测试上显著优于 GPT1</p>
-<p>转变可以分为几个原因：</p>
-<ol>
-<li><p><font color='DarkViolet'>核心原因</font>：训练效率差异</p>
-<p>Decoder-only 采用因果语言模型训练，在一段长度为n的序列中，每个位置都会产生预测任务并同时计算 loss</p>
-<p>相比之下，BERT 的 MLM 训练只对约 15% 被遮盖的位置计算 loss，其余位置不会产生梯度更新</p>
-<p>当训练数据规模达到万亿 token 级时，这种训练信号利用率差异会带来明显的效率差距</p>
-</li>
-<li><p><font color='Violetred'>重要原因</font>：训练和推理的一致性</p>
-<p>BERT 在训练时需要引入 mask 标记，模型学习的是“看到 mask 预测原 token”，而在实际下游任务或推理时，输入文本中通常并不存在 mask 标记，因此训练数据分布和推理分布并不完全一致</p>
-<p>虽然 BERT 通过随机替换等策略缓解这一问题，但本质上的分布偏移仍然存在</p>
-<p>Decoder-only 模型则始终执行同一种行为，训练和推理过程完全一致，因此在大规模生成任务中更加稳定</p>
-</li>
-<li><p><strong>上下文学习</strong></p>
-<p>从 GPT2 开始，模型即使不进行微调，只通过在 prompt 中给出几个示例，就可以在新任务上产生合理输出</p>
-<p>这种能力与 decoder-only 的训练方式高度一致，示例可以直接作为上下文的一部分，让模型继续生成答案</p>
-<p>而 BERT 的训练目标是“填空预测”，并不天然支持这种序列生成式学习，很难形成类似能力</p>
-</li>
-<li><p><font color='Violetred'>scaling 行为的可预测性</font></p>
-<p>OpenAI 的 scaling law 研究发现，在自回归语言模型中，当模型参数量、数据量和计算量同时扩大时，训练 loss 会按照稳定的幂律规律下降，并且这种趋势可以较好预测，这种可预测性使工程团队能够在训练前评估算力投入和模型性能之间的关系，从而支持超大规模模型训练决策</p>
-</li>
-</ol>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1918.html">https://yhblogs.cn/posts/1918.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%96%B9LLM/">🖹LLM</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/16598.html" title="华为机考复习笔记"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-zp5z2w_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">华为机考复习笔记</div></div></div></a><a class="pagination-related  no-desc" href="/posts/58676.html" title="Leetcode100记录"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-9ozdyx_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Leetcode100记录</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/6231.html" title="LLM学习"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">LLM学习</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder-Decoder-%E6%9E%B6%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">Encoder-Decoder 架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attention-%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">Attention 机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">位置编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="toc-number">4.</span> <span class="toc-text">多头注意力机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mask"><span class="toc-number">4.1.</span> <span class="toc-text">Mask</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%A0%E9%87%8F%E5%BD%A2%E7%8A%B6"><span class="toc-number">4.2.</span> <span class="toc-text">张量形状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AF%8D-sqrt-d-k"><span class="toc-number">4.3.</span> <span class="toc-text">分母 $\sqrt{d_k}$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Layer-Norm"><span class="toc-number">4.4.</span> <span class="toc-text">Layer Norm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Post-LayerNorm"><span class="toc-number">4.4.1.</span> <span class="toc-text">Post-LayerNorm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pre-LayerNorm"><span class="toc-number">4.4.2.</span> <span class="toc-text">Pre-LayerNorm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%B5%81%E6%98%AFDecoder%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">5.</span> <span class="toc-text">主流是Decoder的原因</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+<p>$A$ 仍然不随 token 改变，$B_t, C_t, \Delta _t$ 依赖当前位置的输入特征，形成了一个动态卷积核</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">普通 S4：</span><br><span class="line">权重 = f(距离)</span><br><span class="line"></span><br><span class="line">Mamba：</span><br><span class="line">权重 = f(距离, 输入内容, 中间上下文)</span><br></pre></td></tr></table></figure>
+
+<p>可以实现根据内容选择性压缩历史</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1918.html">https://yhblogs.cn/posts/1918.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%96%B9LLM/">🖹LLM</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/16598.html" title="华为机考复习笔记"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-zp5z2w_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">华为机考复习笔记</div></div></div></a><a class="pagination-related  no-desc" href="/posts/58676.html" title="Leetcode100记录"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-9ozdyx_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Leetcode100记录</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/6231.html" title="LLM学习"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">LLM学习</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder-Decoder-%E6%9E%B6%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">Encoder-Decoder 架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attention-%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">Attention 机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">位置编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="toc-number">4.</span> <span class="toc-text">多头注意力机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mask"><span class="toc-number">4.1.</span> <span class="toc-text">Mask</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%A0%E9%87%8F%E5%BD%A2%E7%8A%B6"><span class="toc-number">4.2.</span> <span class="toc-text">张量形状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AF%8D-sqrt-d-k"><span class="toc-number">4.3.</span> <span class="toc-text">分母 $\sqrt{d_k}$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Layer-Norm"><span class="toc-number">4.4.</span> <span class="toc-text">Layer Norm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Post-LayerNorm"><span class="toc-number">4.4.1.</span> <span class="toc-text">Post-LayerNorm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pre-LayerNorm"><span class="toc-number">4.4.2.</span> <span class="toc-text">Pre-LayerNorm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mamba"><span class="toc-number">5.</span> <span class="toc-text">Mamba</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {

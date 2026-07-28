@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ROS机器人系统 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="机器人系统仿真在 ROS 中，仿真实现主要涉及的内容：  对机器人建模(URDF) 创建仿真环境(Gazebo) 感知环境(Rviz)  如果安装的是完整版ros，Gazebo和Rviz默认安装 URDF：Unified Robot Description Format 可以以一种 XML 的方式描述机器人的部分结构，比如底盘、摄像头、激光雷达、机械臂以及不同关节的自由度…..，该文件可以被 C+">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ROS机器人系统 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="机器人系统仿真在 ROS 中，仿真实现主要涉及的内容：  对机器人建模(URDF) 创建仿真环境(Gazebo) 感知环境(Rviz)  如果安装的是完整版ros，Gazebo和Rviz默认安装 URDF：Unified Robot Description Format 可以以一种 XML 的方式描述机器人的部分结构，比如底盘、摄像头、激光雷达、机械臂以及不同关节的自由度.....，该文件可以被">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ROS机器人系统">
 <meta property="og:url" content="https://yhblogs.cn/posts/3254549402.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="机器人系统仿真在 ROS 中，仿真实现主要涉及的内容：  对机器人建模(URDF) 创建仿真环境(Gazebo) 感知环境(Rviz)  如果安装的是完整版ros，Gazebo和Rviz默认安装 URDF：Unified Robot Description Format 可以以一种 XML 的方式描述机器人的部分结构，比如底盘、摄像头、激光雷达、机械臂以及不同关节的自由度…..，该文件可以被 C+">
+<meta property="og:description" content="机器人系统仿真在 ROS 中，仿真实现主要涉及的内容：  对机器人建模(URDF) 创建仿真环境(Gazebo) 感知环境(Rviz)  如果安装的是完整版ros，Gazebo和Rviz默认安装 URDF：Unified Robot Description Format 可以以一种 XML 的方式描述机器人的部分结构，比如底盘、摄像头、激光雷达、机械臂以及不同关节的自由度.....，该文件可以被">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-1q83qg.jpg">
 <meta property="article:published_time" content="2025-06-10T08:04:57.000Z">
-<meta property="article:modified_time" content="2026-07-16T15:21:03.840Z">
+<meta property="article:modified_time" content="2026-07-28T15:34:23.356Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🤖ROS">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/3254549402.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-1q83qg.jpg",
   "datePublished": "2025-06-10T08:04:57.000Z",
-  "dateModified": "2026-07-16T15:21:03.840Z",
+  "dateModified": "2026-07-28T15:34:23.356Z",
   "author": [
     {
       "@type": "Person",
@@ -159,7 +159,7 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">ROS机器人系统</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">ROS机器人系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-06-10T08:04:57.000Z" title="发表于 2025-06-10 16:04:57">2025-06-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">23.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>102分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="机器人系统仿真"><a href="#机器人系统仿真" class="headerlink" title="机器人系统仿真"></a>机器人系统仿真</h2><p>在 ROS 中，仿真实现主要涉及的内容：</p>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">ROS机器人系统</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">ROS机器人系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-06-10T08:04:57.000Z" title="发表于 2025-06-10 16:04:57">2025-06-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">23.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>102分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="机器人系统仿真"><a href="#机器人系统仿真" class="headerlink" title="机器人系统仿真"></a>机器人系统仿真</h2><p>在 ROS 中，仿真实现主要涉及的内容：</p>
 <ul>
 <li>对机器人建模(URDF)</li>
 <li>创建仿真环境(Gazebo)</li>
@@ -167,7 +167,7 @@
 </ul>
 <p>如果安装的是完整版ros，Gazebo和Rviz默认安装</p>
 <p><strong>URDF</strong>：Unified Robot Description Format</p>
-<p>可以以一种 XML 的方式描述机器人的部分结构，比如底盘、摄像头、激光雷达、机械臂以及不同关节的自由度…..，该文件可以被 C++ 内置的解释器转换成可视化的机器人模型，是 ROS 中实现机器人仿真的重要组件</p>
+<p>可以以一种 XML 的方式描述机器人的部分结构，比如底盘、摄像头、激光雷达、机械臂以及不同关节的自由度.....，该文件可以被 C++ 内置的解释器转换成可视化的机器人模型，是 ROS 中实现机器人仿真的重要组件</p>
 <p><strong>rviz</strong>：ROS Visualization Tool</p>
 <p>以三维方式显示ROS消息，可以将数据进行可视化表达</p>
 <p><strong>Gazebo</strong>：</p>
@@ -178,7 +178,7 @@
 <li>如果是仿真环境，那么需要使用 URDF 结合 Gazebo 搭建仿真环境，并结合 Rviz 显示感知的虚拟环境信息</li>
 </ul>
 <p>仿真缺陷：</p>
-<p>机器人在仿真环境与实际环境下的表现差异较大，仿真并不能完全做到模拟真实的物理世界，存在一些”失真”的情况</p>
+<p>机器人在仿真环境与实际环境下的表现差异较大，仿真并不能完全做到模拟真实的物理世界，存在一些&quot;失真&quot;的情况</p>
 <ol>
 <li><p>仿真器所使用的物理引擎目前还不能够完全精确模拟真实世界的物理情况</p>
 </li>
@@ -253,19 +253,19 @@
 <p>所有的 link 和 joint 以及其他标签都必须包含在 robot 标签内</p>
 <p>在该标签内可以通过 name 属性设置机器人模型的名称</p>
 <h4 id="link"><a href="#link" class="headerlink" title="link"></a>link</h4><p>urdf 中的 link 标签用于描述机器人某个部件(也即刚体部分)的外观和物理属性</p>
-<p>比如: 机器人底座、轮子、激光雷达、摄像头…</p>
+<p>比如: 机器人底座、轮子、激光雷达、摄像头...</p>
 <p>每一个部件都对应一个 link，在 link 标签内，可以设计该部件的形状、尺寸、颜色、惯性(inertial)矩阵、碰撞(collision)参数等一系列属性</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/20250610link.webp" alt="20250610link" style="zoom:50%;" />
 
-<p>属性：name —&gt; 为连杆命名</p>
+<p>属性：name ---&gt; 为连杆命名</p>
 <p>子标签：</p>
-<p>visual —&gt; 描述外观(对应的数据是可视的)</p>
+<p>visual ---&gt; 描述外观(对应的数据是可视的)</p>
 <ul>
 <li><p>geometry 设置连杆的形状</p>
 <ul>
 <li><p>标签1: box(盒状)</p>
 <ul>
-<li>属性：size &#x3D; “[x] [y] [z]”  单位为m</li>
+<li>属性：size &#x3D; &quot;[x] [y] [z]&quot;  单位为m</li>
 </ul>
 </li>
 <li><p>标签2: cylinder(圆柱)</p>
@@ -289,9 +289,9 @@
 </li>
 <li><p>origin 设置偏移量与倾斜弧度</p>
 <ul>
-<li><p>属性1：xyz&#x3D;”[x] [y] [z]”</p>
+<li><p>属性1：xyz&#x3D;&quot;[x] [y] [z]&quot;</p>
 </li>
-<li><p>属性2：rpy&#x3D;”[翻滚] [俯仰] [偏航]”</p>
+<li><p>属性2：rpy&#x3D;&quot;[翻滚] [俯仰] [偏航]&quot;</p>
 <blockquote>
 <p>逆着轴方向看逆时针旋转为正</p>
 <p>偏移多在joint中实现</p>
@@ -303,28 +303,28 @@
 <ul>
 <li>属性: name</li>
 <li>标签: color<ul>
-<li>属性: rgba&#x3D;”[红] [绿] [蓝] [透明度]”  取值均[0,1]</li>
+<li>属性: rgba&#x3D;&quot;[红] [绿] [蓝] [透明度]&quot;  取值均[0,1]</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>collision —&gt; 连杆的碰撞属性</p>
+<li><p>collision ---&gt; 连杆的碰撞属性</p>
 </li>
-<li><p>Inertial —&gt; 连杆的惯性矩阵</p>
+<li><p>Inertial ---&gt; 连杆的惯性矩阵</p>
 </li>
 </ul>
 <p>urdf文件：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">name</span> = <span class="string">&quot;car&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span> =<span class="string">&quot;base_link&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 可视化标签 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 1.形状 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 立方体 --&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- &lt;box size = &quot;0.2 0.2 0.2&quot; /&gt; --&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 圆柱 --&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- &lt;cylinder radius = &quot;0.2&quot; length = &quot;2&quot; /&gt; --&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 球体 --&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- &lt;sphere radius = &quot;0.2&quot; /&gt; --&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 皮肤 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">mesh</span> <span class="attr">filename</span> = <span class="string">&quot;package://urdf01_rviz/meshes/autolabor_mini.stl&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 2. 偏移量和倾斜弧度 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;1.57 0 1.57&quot;</span> /&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 3. 颜色 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span> = <span class="string">&quot;car_color&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span> = <span class="string">&quot;0.3 0.4 0.2 1&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">robot</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="joint"><a href="#joint" class="headerlink" title="joint"></a>joint</h4><p>urdf 中的 joint 标签用于描述机器人关节的运动学和动力学属性，还可以指定关节运动的安全极限</p>
-<p>机器人的两个部件(分别称之为 parent link 与 child link)以”关节”的形式相连接</p>
-<p>不同的关节有不同的运动形式：旋转、滑动、固定、旋转速度、旋转角度限制….</p>
+<p>机器人的两个部件(分别称之为 parent link 与 child link)以&quot;关节&quot;的形式相连接</p>
+<p>不同的关节有不同的运动形式：旋转、滑动、固定、旋转速度、旋转角度限制....</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/YJS1/官方02_link.webp" alt="官方02_link" style="zoom:50%;" />
 
 <p>属性：</p>
 <ul>
-<li>name —&gt; 为关节命名</li>
-<li>type —&gt; 关节运动形式<ul>
+<li>name ---&gt; 为关节命名</li>
+<li>type ---&gt; 关节运动形式<ul>
 <li><font color='Violetred'>continuous</font>：旋转关节，可以绕单轴无限旋转</li>
 <li>revolute：旋转关节，类似于 continues，但是有旋转角度限制</li>
 <li>prismatic：滑动关节，沿某一轴线移动的关节，有位置极限</li>
@@ -417,7 +417,7 @@
 <p>Xacro 是 XML Macros 的缩写，Xacro 是一种 XML 宏语言，是可编程的 XML</p>
 <p>Xacro 可以声明变量，可以通过数学运算求解，使用流程控制控制执行顺序，还可以通过类似函数的实现，封装固定的逻辑，将逻辑中需要的可变的数据以参数的方式暴露出去，从而提高代码复用率以及程序的安全性。</p>
 <h4 id="Xacro体验"><a href="#Xacro体验" class="headerlink" title="Xacro体验"></a>Xacro体验</h4><p><font color='Violetred'>注意：该案例编写生成的是非法的 URDF 文件，目的在于演示 Xacro 的极简使用以及优点</font></p>
-<p>编写 Xacro 文件，以变量的方式封装属性(常量半径、高度、车轮半径…)，以函数的方式封装重复实现(车轮的添加)</p>
+<p>编写 Xacro 文件，以变量的方式封装属性(常量半径、高度、车轮半径...)，以函数的方式封装重复实现(车轮的添加)</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">name</span>=<span class="string">&quot;mycar&quot;</span> <span class="attr">xmlns:xacro</span>=<span class="string">&quot;http://wiki.ros.org/xacro&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 属性封装 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:property</span> <span class="attr">name</span>=<span class="string">&quot;wheel_radius&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0.0325&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:property</span> <span class="attr">name</span>=<span class="string">&quot;wheel_length&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0.0015&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:property</span> <span class="attr">name</span>=<span class="string">&quot;PI&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3.1415927&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:property</span> <span class="attr">name</span>=<span class="string">&quot;base_link_length&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0.08&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:property</span> <span class="attr">name</span>=<span class="string">&quot;lidi_space&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0.015&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 宏 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:macro</span> <span class="attr">name</span>=<span class="string">&quot;wheel_func&quot;</span> <span class="attr">params</span>=<span class="string">&quot;wheel_name flag&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;$&#123;wheel_name&#125;_wheel&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">cylinder</span> <span class="attr">radius</span>=<span class="string">&quot;$&#123;wheel_radius&#125;&quot;</span> <span class="attr">length</span>=<span class="string">&quot;$&#123;wheel_length&#125;&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 0 0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;$&#123;PI / 2&#125; 0 0&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;wheel_color&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;0 0 0 0.3&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 3-2.joint --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;$&#123;wheel_name&#125;2link&quot;</span> <span class="attr">type</span>=<span class="string">&quot;continuous&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;base_link&quot;</span>  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;$&#123;wheel_name&#125;_wheel&quot;</span> /&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">                x 无偏移</span></span><br><span class="line"><span class="comment">                y 车体半径</span></span><br><span class="line"><span class="comment">                z z= 车体高度 / 2 + 离地间距 - 车轮半径</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0 $&#123;0.1 * flag&#125; $&#123;(base_link_length / 2 + lidi_space - wheel_radius) * -1&#125;&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0 0 0&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">axis</span> <span class="attr">xyz</span>=<span class="string">&quot;0 1 0&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xacro:macro</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:wheel_func</span> <span class="attr">wheel_name</span>=<span class="string">&quot;left&quot;</span> <span class="attr">flag</span>=<span class="string">&quot;1&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:wheel_func</span> <span class="attr">wheel_name</span>=<span class="string">&quot;right&quot;</span> <span class="attr">flag</span>=<span class="string">&quot;-1&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">robot</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>命令行进入 xacro文件所属目录，执行:<code>rosrun xacro xacro xxx.xacro &gt; xxx.urdf</code>, 会将 xacro 文件解析为 urdf 文件(同一目录下)</p>
@@ -426,7 +426,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:xacro=&quot;http://wiki.ros.org/xacro&quot;</span><br></pre></td></tr></table></figure>
 
 <p><strong>属性与算数运算</strong></p>
-<p>用于封装 URDF 中的一些字段，比如：PAI 值，小车的尺寸，轮子半径 ….</p>
+<p>用于封装 URDF 中的一些字段，比如：PAI 值，小车的尺寸，轮子半径 ....</p>
 <p>属性定义：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xacro:property</span> <span class="attr">name</span>=<span class="string">&quot;PI&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3.1415927&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -588,7 +588,7 @@
 <li>车轮翻转需要依赖于 PI 值，如果 PI 值精度偏低，也可能导致上述情况产生</li>
 </ol>
 <p>同理修改camera和laser，具体代码不附</p>
-<h4 id="仿真环境搭建"><a href="#仿真环境搭建" class="headerlink" title="仿真环境搭建"></a>仿真环境搭建</h4><p>到目前为止，我们已经可以将机器人模型显示在 Gazebo 之中了，但是当前默认情况下，在 Gazebo 中机器人模型是在 empty world 中，并没有类似于房间、家具、道路、树木… 之类的仿真物</p>
+<h4 id="仿真环境搭建"><a href="#仿真环境搭建" class="headerlink" title="仿真环境搭建"></a>仿真环境搭建</h4><p>到目前为止，我们已经可以将机器人模型显示在 Gazebo 之中了，但是当前默认情况下，在 Gazebo 中机器人模型是在 empty world 中，并没有类似于房间、家具、道路、树木... 之类的仿真物</p>
 <p>Gazebo 中创建仿真实现方式有两种：</p>
 <ul>
 <li>方式1: 直接添加内置组件创建仿真环境</li>
@@ -750,7 +750,7 @@
 <ol>
 <li><strong>SLAM</strong>(simultaneous localization and mapping)，也称为CML (Concurrent Mapping and Localization)，即时定位与地图构建</li>
 <li>SLAM问题：机器人在未知环境中从一个未知位置开始移动,在移动过程中根据位置估计和地图进行自身定位，同时在自身定位的基础上建造增量式地图，以绘制出外部环境的完全地图</li>
-<li>如果要完成 SLAM ，机器人必须要具备感知外界环境的能力，尤其是要具备获取周围环境深度信息的能力。感知的实现需要依赖于传感器，比如：激光雷达、摄像头、RGB-D摄像头…</li>
+<li>如果要完成 SLAM ，机器人必须要具备感知外界环境的能力，尤其是要具备获取周围环境深度信息的能力。感知的实现需要依赖于传感器，比如：激光雷达、摄像头、RGB-D摄像头...</li>
 <li>SLAM 可以用于地图生成，而生成的地图还需要被保存以待后续使用，在 ROS 中保存地图的功能包是 map_server</li>
 </ol>
 <p>SLAM 虽然是机器人导航的重要技术之一，但是二者并不等价，确切的讲，SLAM 只是实现地图构建和即时定位</p>
@@ -769,7 +769,7 @@
 </li>
 </ol>
 <p><strong>运动控制</strong>：</p>
-<p>导航功能包集假定通过话题”cmd_vel”发布<code>geometry_msgs/Twist</code>类型的消息，这个消息基于机器人的基坐标系，传递的是运动命令。这意味着必须有一个节点订阅”cmd_vel”话题，将该话题上的速度命令转换为电机命令并发送</p>
+<p>导航功能包集假定通过话题&quot;cmd_vel&quot;发布<code>geometry_msgs/Twist</code>类型的消息，这个消息基于机器人的基坐标系，传递的是运动命令。这意味着必须有一个节点订阅&quot;cmd_vel&quot;话题，将该话题上的速度命令转换为电机命令并发送</p>
 <h4 id="导航之坐标系"><a href="#导航之坐标系" class="headerlink" title="导航之坐标系"></a>导航之坐标系</h4><p>定位实现需要依赖于机器人自身，机器人需要逆向推导参考系原点并计算坐标系相对关系，该过程实现常用方式有两种：</p>
 <ul>
 <li>通过里程计定位：时时收集机器人的速度信息计算并发布机器人坐标系与父级参考系的相对关系</li>
@@ -792,7 +792,7 @@
 <li>里程计定位时，父级坐标系一般称之为 odom</li>
 <li>传感器定位时，父级参考系一般称之为 map</li>
 </ul>
-<p>当二者结合使用时，map 和 odom 都是机器人模型根坐标系的父级，这是不符合坐标变换中”单继承”的原则的</p>
+<p>当二者结合使用时，map 和 odom 都是机器人模型根坐标系的父级，这是不符合坐标变换中&quot;单继承&quot;的原则的</p>
 <p>一般会将转换关系设置为：<font color='Violetred'>map -&gt; odom -&gt; base_link 或 base_footprint</font></p>
 <blockquote>
 <p>因为map一般精度更高</p>
@@ -857,9 +857,9 @@
 </ul>
 <p>参数（参数较多，下面是几个较为常用的参数）：</p>
 <ul>
-<li>~base_frame(string, default:”base_link”)：机器人基坐标系</li>
-<li>~map_frame(string, default:”map”)：地图坐标系</li>
-<li>~odom_frame(string, default:”odom”)：里程计坐标系</li>
+<li>~base_frame(string, default:&quot;base_link&quot;)：机器人基坐标系</li>
+<li>~map_frame(string, default:&quot;map&quot;)：地图坐标系</li>
+<li>~odom_frame(string, default:&quot;odom&quot;)：里程计坐标系</li>
 <li>~map_update_interval(float, default: 5.0)：地图更新频率，根据指定的值设计更新间隔</li>
 <li>~maxUrange(float, default: 80.0)：激光探测的最大可用范围(超出此阈值，被截断)</li>
 <li>~maxRange(float)：激光探测的最大范围</li>
@@ -967,13 +967,13 @@
 </ul>
 <p>参数：</p>
 <ul>
-<li><p>~odom_model_type(string, default:”diff”)：里程计模型选择”diff”,”omni”,”diff-corrected”,”omni-corrected” (diff 差速、omni 全向轮)</p>
+<li><p>~odom_model_type(string, default:&quot;diff&quot;)：里程计模型选择&quot;diff&quot;,&quot;omni&quot;,&quot;diff-corrected&quot;,&quot;omni-corrected&quot; (diff 差速、omni 全向轮)</p>
 </li>
-<li><p>~odom_frame_id(string, default:”odom”)：里程计坐标系</p>
+<li><p>~odom_frame_id(string, default:&quot;odom&quot;)：里程计坐标系</p>
 </li>
-<li><p>~base_frame_id(string, default:”base_link”)：机器人坐标系</p>
+<li><p>~base_frame_id(string, default:&quot;base_link&quot;)：机器人坐标系</p>
 </li>
-<li><p>~global_frame_id(string, default:”map”)：地图坐标系</p>
+<li><p>~global_frame_id(string, default:&quot;map&quot;)：地图坐标系</p>
 </li>
 </ul>
 <p>里程计本身也是可以协助机器人定位的，不过里程计存在累计误差且一些特殊情况时(车轮打滑)会出现定位错误的情况</p>
@@ -1122,7 +1122,7 @@
 <p>2.然后执行launch文件；</p>
 <p>3.在rviz中通过2D Nav Goal设置目标点，机器人开始自主移动并建图了；</p>
 <p>4.最后可以使用 map_server 保存地图</p>
-<h3 id="导航相关消息"><a href="#导航相关消息" class="headerlink" title="导航相关消息"></a>导航相关消息</h3><p>在上一节的实现中，这些消息已经在rviz中做了可视化处理，比如：地图、雷达、摄像头、里程计、路径规划…的相关消息在rviz中提供了相关组件，本节主要介绍这些消息的具体格式</p>
+<h3 id="导航相关消息"><a href="#导航相关消息" class="headerlink" title="导航相关消息"></a>导航相关消息</h3><p>在上一节的实现中，这些消息已经在rviz中做了可视化处理，比如：地图、雷达、摄像头、里程计、路径规划...的相关消息在rviz中提供了相关组件，本节主要介绍这些消息的具体格式</p>
 <h4 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h4><p>地图相关的消息主要有两个：</p>
 <ul>
 <li><p>nav_msgs&#x2F;MapMetaData：地图元数据，包括地图的宽度、高度、分辨率等。</p>

@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5g22q5_1920x1080_compressed.webp">
 <meta property="article:published_time" content="2025-06-30T07:45:57.000Z">
-<meta property="article:modified_time" content="2026-07-16T15:21:03.839Z">
+<meta property="article:modified_time" content="2026-07-28T15:34:23.354Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🤖ROS">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/3894864178.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5g22q5_1920x1080_compressed.webp",
   "datePublished": "2025-06-30T07:45:57.000Z",
-  "dateModified": "2026-07-16T15:21:03.839Z",
+  "dateModified": "2026-07-28T15:34:23.354Z",
   "author": [
     {
       "@type": "Person",
@@ -292,9 +292,9 @@
 
 <p>格式解释：</p>
 <ul>
-<li>–build-type：是指功能包的构建类型，有cmake、ament_cmake(c++)、ament_python(python)三种类型可选；</li>
-<li>–dependencies：所依赖的功能包列表，空格分割多个功能包；</li>
-<li>–node-name：可执行程序的名称，会自动生成对应的源文件并生成配置文件</li>
+<li>--build-type：是指功能包的构建类型，有cmake、ament_cmake(c++)、ament_python(python)三种类型可选；</li>
+<li>--dependencies：所依赖的功能包列表，空格分割多个功能包；</li>
+<li>--node-name：可执行程序的名称，会自动生成对应的源文件并生成配置文件</li>
 </ul>
 <p><strong>编译</strong></p>
 <p>编译功能包语法如下：</p>
@@ -342,7 +342,7 @@
 <p><strong>初始化与资源释放在程序中起什么作用？</strong></p>
 <ol>
 <li><p>前提：构建的程序可能由若干步骤或阶段组成</p>
-<p>初始化–&gt;节点对象–日志输出–&gt;数据的发布—&gt;数据订阅–&gt;…–&gt;资源释放</p>
+<p>初始化--&gt;节点对象--日志输出--&gt;数据的发布---&gt;数据订阅--&gt;...--&gt;资源释放</p>
 </li>
 <li><p>不同步骤或阶段之间涉及到数据的传递</p>
 </li>
@@ -504,7 +504,7 @@
 <blockquote>
 <p>一个节点发布消息，另一个节点订阅该消息</p>
 </blockquote>
-<p>像雷达、摄像头、GPS…. 等等传感器数据的采集都是使用话题通信</p>
+<p>像雷达、摄像头、GPS.... 等等传感器数据的采集都是使用话题通信</p>
 <p>数据发布对象称为发布方，数据订阅对象称之为订阅方，发布方和订阅方通过话题相关联，消息的流向是单向的</p>
 <p>话题通信的发布方与订阅方是一种多对多的关系，这意味着数据会出现交叉传输的情况</p>
 <p><font color='Violetred'>可以通过<code>rqt</code>命令查看话题之间的关系</font></p>
@@ -517,7 +517,7 @@
 <p>关于消息接口的使用有多种方式：</p>
 <ol>
 <li>在ROS2中通过std_msgs包封装了一些原生的数据类型，这些原生数据类型也可以作为话题通信的载体，不过这些数据一般只包含一个 data 字段，而std_msgs包中其他的接口文件也比较简单，结构的单一意味着功能上的局限性，当传输一些结构复杂的数据时，就显得力不从心了；</li>
-<li>在ROS2中还预定义了许多标准话题消息接口，这在实际工作中有着广泛的应用，比如：sensor_msgs包中定义了许多关于传感器消息的接口（雷达、摄像头、点云……），geometry_msgs包中则定义了许多几何消息相关的接口（坐标点、坐标系、速度指令……）；</li>
+<li>在ROS2中还预定义了许多标准话题消息接口，这在实际工作中有着广泛的应用，比如：sensor_msgs包中定义了许多关于传感器消息的接口（雷达、摄像头、点云......），geometry_msgs包中则定义了许多几何消息相关的接口（坐标点、坐标系、速度指令......）；</li>
 <li>如果上述接口文件都不能满足需求，那么就可以自定义接口消息；</li>
 </ol>
 <h4 id="案例需求"><a href="#案例需求" class="headerlink" title="案例需求"></a>案例需求</h4><p>需求1：编写话题通信实现，发布方以某个频率发布一段文本，订阅方订阅消息，并输出在终端</p>
@@ -646,7 +646,7 @@
 <p>demo02_client.cpp</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  </span></span><br><span class="line"><span class="comment">  需求：编写客户端，发送两个整型变量作为请求数据，并处理响应结果。</span></span><br><span class="line"><span class="comment">  步骤：</span></span><br><span class="line"><span class="comment">    前提：main中需要验证提交参数是否正确</span></span><br><span class="line"><span class="comment">    1.包含头文件；</span></span><br><span class="line"><span class="comment">    2.初始化 ROS2 客户端；</span></span><br><span class="line"><span class="comment">    3.定义节点类；</span></span><br><span class="line"><span class="comment">      3-1.创建客户端；</span></span><br><span class="line"><span class="comment">      3-2.等待服务连接；</span></span><br><span class="line"><span class="comment">      3-3.组织请求数据并发送；</span></span><br><span class="line"><span class="comment">    4.创建对象指针调用其功能</span></span><br><span class="line"><span class="comment">      调用连接服务函数，根据连接结果进行下一步</span></span><br><span class="line"><span class="comment">      连接成功后，调用请求发送函数</span></span><br><span class="line"><span class="comment">      处理响应结果</span></span><br><span class="line"><span class="comment">    5.释放资源</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.包含头文件；</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;rclcpp/rclcpp.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;base_interfaces/srv/add_ints.hpp&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> base_interfaces::srv::AddInts;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono_literals; <span class="comment">// 可以直接输入时间</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.自定义类节点</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddIntsClient</span>: <span class="keyword">public</span> rclcpp::Node&#123; </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">AddIntsClient</span>():<span class="built_in">Node</span>(<span class="string">&quot;addints_client_node_cpp&quot;</span>)&#123;  </span><br><span class="line">	  <span class="built_in">RCLCPP_INFO</span>(<span class="keyword">this</span>-&gt;<span class="built_in">get_logger</span>(),<span class="string">&quot;客户端创建成功！&quot;</span>); </span><br><span class="line">    <span class="comment">// 3-1.创建客户端</span></span><br><span class="line">    client_ = <span class="keyword">this</span>-&gt;<span class="built_in">create_client</span>&lt;AddInts&gt;(<span class="string">&quot;add_ints&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 3-2.等待服务连接；</span></span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">connect_server</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="comment">// 循环以5s时间连接服务器，直到服务器连接成功</span></span><br><span class="line">      <span class="keyword">while</span>(!client_-&gt;<span class="built_in">wait_for_service</span>(<span class="number">5</span>s)) <span class="comment">// 连接上返回true，超过时间返回false</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 对ctrl+c作出特殊处理</span></span><br><span class="line">        <span class="comment">// 按下ctrl+c是结束R0S2程序，意味着要释放资源，例如关闭context，无法再调用类this</span></span><br><span class="line">        <span class="comment">// rclcpp::get_logger(&quot;name&quot;)创建 logger 对象不依赖于context</span></span><br><span class="line">        <span class="keyword">if</span> (!rclcpp::<span class="built_in">ok</span>())</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">RCLCPP_INFO</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>),<span class="string">&quot;强制退出！&quot;</span>);</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">RCLCPP_INFO</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>),<span class="string">&quot;服务连接中，请稍候...&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 3-3.组织请求数据并发送；</span></span><br><span class="line">    <span class="comment">//编写发送请求函数，参数是两个整型数据，返回值是提交请求后服务端的返回结果</span></span><br><span class="line">    rclcpp::Client&lt;AddInts&gt;::<span class="function">FutureAndRequestId <span class="title">send_request</span><span class="params">(<span class="type">int32_t</span> num1,<span class="type">int32_t</span> num2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">      <span class="keyword">auto</span> request = std::<span class="built_in">make_shared</span>&lt;AddInts::Request&gt;();</span><br><span class="line">      request-&gt;num1 = num1;</span><br><span class="line">      request-&gt;num2 = num2;</span><br><span class="line">      <span class="keyword">return</span> client_-&gt;<span class="built_in">async_send_request</span>(request);</span><br><span class="line">      <span class="comment">// async_send_request返回: a FutureAndRequestId instance.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  rclcpp::Client&lt;AddInts&gt;::SharedPtr client_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> ** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(argc!=<span class="number">3</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">RCLCPP_ERROR</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>),<span class="string">&quot;请提交两个int数据&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 2.初始化 ROS2 客户端；</span></span><br><span class="line">  rclcpp::<span class="built_in">init</span>(argc,argv);</span><br><span class="line">  <span class="comment">// 客户端不需要spin</span></span><br><span class="line">  <span class="comment">// 3-1 创建客户端对象</span></span><br><span class="line">  <span class="keyword">auto</span> client = std::<span class="built_in">make_shared</span>&lt;AddIntsClient&gt;(); </span><br><span class="line">  <span class="comment">// 根据连接结果做进一步处理</span></span><br><span class="line">  <span class="type">bool</span> flag = client-&gt;<span class="built_in">connect_server</span>();</span><br><span class="line">  <span class="keyword">if</span>(!flag)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">RCLCPP_ERROR</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>),<span class="string">&quot;服务器连接失败&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 调用请求提交函数，接收并处理响应结果。</span></span><br><span class="line">  <span class="comment">// 发送异步请求</span></span><br><span class="line">  <span class="keyword">auto</span> response = client-&gt;<span class="built_in">send_request</span>(<span class="built_in">atoi</span>(argv[<span class="number">1</span>]),<span class="built_in">atoi</span>(argv[<span class="number">2</span>]));</span><br><span class="line">  <span class="comment">// 处理响应</span></span><br><span class="line">  <span class="comment">// 判断是否成功</span></span><br><span class="line">  <span class="keyword">if</span> (rclcpp::<span class="built_in">spin_until_future_complete</span>(client,response) == rclcpp::FutureReturnCode::SUCCESS)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">RCLCPP_INFO</span>(client-&gt;<span class="built_in">get_logger</span>(),<span class="string">&quot;请求正常处理&quot;</span>);</span><br><span class="line">    <span class="built_in">RCLCPP_INFO</span>(client-&gt;<span class="built_in">get_logger</span>(),<span class="string">&quot;响应结果:%d!&quot;</span>, response.<span class="built_in">get</span>()-&gt;sum);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">RCLCPP_INFO</span>(client-&gt;<span class="built_in">get_logger</span>(),<span class="string">&quot;请求异常&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 5.释放资源。</span></span><br><span class="line">  rclcpp::<span class="built_in">shutdown</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="动作通信"><a href="#动作通信" class="headerlink" title="动作通信"></a>动作通信</h3><p>导航是一个过程，是耗时操作，如果使用服务通信，那么只有在导航结束时，才会产生响应结果，而在导航过程中，节点A是不会获取到任何反馈的，从而可能出现程序”假死”的现象</p>
+<h3 id="动作通信"><a href="#动作通信" class="headerlink" title="动作通信"></a>动作通信</h3><p>导航是一个过程，是耗时操作，如果使用服务通信，那么只有在导航结束时，才会产生响应结果，而在导航过程中，节点A是不会获取到任何反馈的，从而可能出现程序&quot;假死&quot;的现象</p>
 <p>更合理的方案应该是：导航过程中，可以连续反馈当前机器人状态信息，当导航终止时，再返回最终的执行结果</p>
 <p>在ROS中，该实现策略称为action 通信，适用于耗时的请求响应场景，用以获取连续的状态反馈</p>
 <p>功能而言动作通信类似于服务通信，动作客户端可以发送请求到动作服务端，并接收动作服务端响应的最终结果，不过动作通信可以在请求响应过程中获取连续反馈，并且也可以向动作服务端发送任务取消请求</p>
@@ -821,14 +821,14 @@
 <li>编码实现</li>
 </ol>
 <h4 id="run2-run"><a href="#run2-run" class="headerlink" title="run2 run"></a>run2 run</h4><p><strong>设置命名空间</strong></p>
-<p>语法：ros2 run 包名 节点名 –ros-args –remap __ns:&#x3D;命名空间</p>
+<p>语法：ros2 run 包名 节点名 --ros-args --remap __ns:&#x3D;命名空间</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node --ros-args --remap __ns:=/t1</span><br></pre></td></tr></table></figure>
 
 <p><strong>名称重映射</strong></p>
 <p>语法：</p>
 <ul>
-<li>ros2 run 包名 节点名 –ros-args –remap __name:&#x3D;新名称</li>
-<li>ros2 run 包名 节点名 –ros-args –remap __node:&#x3D;新名称</li>
+<li>ros2 run 包名 节点名 --ros-args --remap __name:&#x3D;新名称</li>
+<li>ros2 run 包名 节点名 --ros-args --remap __node:&#x3D;新名称</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node --ros-args --remap __name:=turtle1</span><br></pre></td></tr></table></figure>
 
@@ -875,11 +875,11 @@
 </ol>
 <h4 id="run2-run-1"><a href="#run2-run-1" class="headerlink" title="run2 run"></a>run2 run</h4><p><strong>设置命名空间</strong></p>
 <p>该实现与节点重名的方法相同</p>
-<p>语法：ros2 run 包名 节点名 –ros-args –remap __ns:&#x3D;命名空间</p>
+<p>语法：ros2 run 包名 节点名 --ros-args --remap __ns:&#x3D;命名空间</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node --ros-args --remap __ns:=/t1</span><br></pre></td></tr></table></figure>
 
 <p><strong>话题名称重映射</strong></p>
-<p>语法：ros2 run 包名 节点名 –ros-args –remap 原话题名称:&#x3D;新话题名称</p>
+<p>语法：ros2 run 包名 节点名 --ros-args --remap 原话题名称:&#x3D;新话题名称</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node --ros-args --remap /turtle1/cmd_vel:=/cmd_vel</span><br></pre></td></tr></table></figure>
 
 <p>当为节点添加命名空间时，节点下的所有非全局话题都会前缀命名空间，而重映射的方式只是修改指定话题</p>
@@ -938,8 +938,8 @@
 </ul>
 <p>问题：Time与Duration有什么区别？</p>
 <p>API使用类似，但二者有着本质区别：</p>
-<p>rclcpp:Time t2(2,500000000L) –&gt; 指的是一个具体时刻(时间点)</p>
-<p>rclcpp::Duration du2(2,500000000) –&gt; 指的是一个时间段</p>
+<p>rclcpp:Time t2(2,500000000L) --&gt; 指的是一个具体时刻(时间点)</p>
+<p>rclcpp::Duration du2(2,500000000) --&gt; 指的是一个时间段</p>
 <h4 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h4><p>Time ± Duration → Time：时间点加减时间段 → 新时间点</p>
 <p>Time - Time → Duration：两个时间点相减 → 时间段</p>
 <p>Duration ± Duration → Duration：时间段加减 → 新时间段</p>

@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LLM学习 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="提示工程提示原则原则一：编写清晰、具体的指令  使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，”””，&lt; &gt;， &#96;等，可以防止提示词注入 结构化输出，json形式 要求模型检查是否满足条件 提供少量示例  原则二：给模型时间去思考  指定完成任务所需的步骤 指导模型在下结论之前找出一个自己的解法  直接给模型输入一份解答，模型可能默认会判断输入">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LLM学习 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="提示工程提示原则原则一：编写清晰、具体的指令  使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，&quot;&quot;&quot;，&lt; &gt;， &#96;等，可以防止提示词注入 结构化输出，json形式 要求模型检查是否满足条件 提供少量示例  原则二：给模型时间去思考  指定完成任务所需的步骤 指导模型在下结论之前找出一个自己的解法  直接给模型输入一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LLM学习">
 <meta property="og:url" content="https://yhblogs.cn/posts/6231.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="提示工程提示原则原则一：编写清晰、具体的指令  使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，”””，&lt; &gt;， &#96;等，可以防止提示词注入 结构化输出，json形式 要求模型检查是否满足条件 提供少量示例  原则二：给模型时间去思考  指定完成任务所需的步骤 指导模型在下结论之前找出一个自己的解法  直接给模型输入一份解答，模型可能默认会判断输入">
+<meta property="og:description" content="提示工程提示原则原则一：编写清晰、具体的指令  使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，&quot;&quot;&quot;，&lt; &gt;， &#96;等，可以防止提示词注入 结构化输出，json形式 要求模型检查是否满足条件 提供少量示例  原则二：给模型时间去思考  指定完成任务所需的步骤 指导模型在下结论之前找出一个自己的解法  直接给模型输入一">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp">
 <meta property="article:published_time" content="2026-07-16T13:57:57.000Z">
-<meta property="article:modified_time" content="2026-07-16T15:21:03.837Z">
+<meta property="article:modified_time" content="2026-07-28T15:34:23.352Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🖹LLM">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/6231.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp",
   "datePublished": "2026-07-16T13:57:57.000Z",
-  "dateModified": "2026-07-16T15:21:03.837Z",
+  "dateModified": "2026-07-28T15:34:23.352Z",
   "author": [
     {
       "@type": "Person",
@@ -159,9 +159,9 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">LLM学习</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">LLM学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-07-16T13:57:57.000Z" title="发表于 2026-07-16 21:57:57">2026-07-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>19分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="提示工程"><a href="#提示工程" class="headerlink" title="提示工程"></a>提示工程</h2><h3 id="提示原则"><a href="#提示原则" class="headerlink" title="提示原则"></a>提示原则</h3><p>原则一：编写清晰、具体的指令</p>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">LLM学习</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">LLM学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-07-16T13:57:57.000Z" title="发表于 2026-07-16 21:57:57">2026-07-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">11.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>41分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="提示工程"><a href="#提示工程" class="headerlink" title="提示工程"></a>提示工程</h2><h3 id="提示原则"><a href="#提示原则" class="headerlink" title="提示原则"></a>提示原则</h3><p>原则一：编写清晰、具体的指令</p>
 <ul>
-<li>使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，”””，&lt; &gt;，<tag> </tag>&#96;等，可以防止提示词注入</li>
+<li>使用分隔符实现不同文本部分的隔断，比如&#96;&#96;&#96;&#96;，&quot;&quot;&quot;，&lt; &gt;，<tag> </tag>&#96;等，可以防止提示词注入</li>
 <li>结构化输出，json形式</li>
 <li>要求模型检查是否满足条件</li>
 <li>提供少量示例</li>
@@ -253,125 +253,83 @@
 <li>RAG 的典型流程：用户问题 → 检索文档 → 拼接上下文 → 生成回答，不一定利用Function Calling</li>
 <li>Agent 的典型流程：目标 → 决策 → 调工具 → 观察结果 → 再决策，根据目标和中间结果，动态选择步骤和工具</li>
 </ul>
-<h2 id="LLaMa"><a href="#LLaMa" class="headerlink" title="LLaMa"></a>LLaMa</h2><p>架构和GPT-3相同，但是用了一些不同的组件</p>
-<h3 id="旋转位置编码-RoPE"><a href="#旋转位置编码-RoPE" class="headerlink" title="旋转位置编码 RoPE"></a>旋转位置编码 RoPE</h3><p>不是把位置向量加到词向量上，而是根据 token 的位置，对注意力中的 $Q$ 和 $K$ 向量进行旋转</p>
+<h2 id="Tokenizer"><a href="#Tokenizer" class="headerlink" title="Tokenizer"></a>Tokenizer</h2><p>主要有以下几类切分方法</p>
 <ul>
-<li>用<strong>绝对位置</strong>控制旋转角度；</li>
-<li>在注意力分数中自然形成<strong>相对位置信息</strong>；</li>
+<li>词级切分(Word-level)</li>
+<li>字符级切分(Character-level)</li>
+<li>子词切分(Subword-level)</li>
+<li>字节级切分(Byte-level)</li>
 </ul>
-<p>相对传统Transformer使用的加法位置编码，RoPE不把位置向量加进 token，利用位置信息旋转 $Q&#x2F;K$</p>
-<p>对于一个二维向量，<strong>二维旋转矩阵</strong>为：<br>$$<br>R(\phi)&#x3D;\begin{bmatrix}<br>\cos\phi &amp; -\sin\phi\\<br>\sin\phi &amp; \cos\phi<br>\end{bmatrix}<br>$$</p>
-<blockquote>
-<p>重点，因为二维旋转矩阵是一个正交矩阵，RoPE 改变向量的方向和相位，但不改变其欧氏范数</p>
-</blockquote>
-<p>旋转后的向量为：<br>$$<br>R(\phi)x &#x3D; \begin{bmatrix}<br>x_1\cos\phi-x_2\sin\phi\\<br>x_1\sin\phi+x_2\cos\phi<br>\end{bmatrix}<br>$$<br>因为输入向量通常不是二维，而是高维，RoPE 会把向量的维度两两分组，每一对维度都视为一个二维平面，然后分别旋转</p>
-<p>对于第 $i$ 对维度：<br>$$<br>\begin{bmatrix}x’<em>{2i}\\x’</em>{2i+1}<br>\end{bmatrix}&#x3D;\begin{bmatrix}<br>\cos(m\theta_i) &amp; -\sin(m\theta_i)\\<br>\sin(m\theta_i) &amp; \cos(m\theta_i)<br>\end{bmatrix}<br>\begin{bmatrix}<br>x_{2i}\\<br>x_{2i+1}<br>\end{bmatrix}<br>$$<br>不同的二维子空间使用不同的旋转频率：<br>$$<br>\theta_i&#x3D;b^{-\frac{2i}{d_h}}<br>$$<br>原始设计取 $b&#x3D;10000$，不同频率的作用类似于传统正弦位置编码：</p>
+<p>目前大多数大语言模型采用子词切分，部分模型使用以字节为基础的子词算法，例如 byte-level BPE；</p>
+<h3 id="词级切分"><a href="#词级切分" class="headerlink" title="词级切分"></a>词级切分</h3><p>将文本按空格和标点符号分割成单词</p>
+<p>英文中可以近似按照空格和标点切分，但中文、日文等语言通常需要额外的分词算法</p>
 <ul>
-<li>高频维度变化快，容易区分附近位置</li>
-<li>低频维度变化慢，可以覆盖较长距离</li>
+<li>优点在于简单直接；</li>
+<li>缺点很明显，词表通常非常大，单词形态变化会占用不同词表项，遇到词表外单词时只能映射为 <code>[UNK]</code></li>
 </ul>
-<p>位置 $m$ 的 query 为 $q_m$，位置 $n$ 的 key 为 $k_n$，经过 RoPE 后<br>$$<br>\tilde{q}_m &#x3D; R_m q_m \qquad \tilde{k}_n &#x3D; R_n k_n<br>$$<br>旋转后的注意力点积为：<br>$$<br>\tilde{q}_m^{\top}\tilde{k}<em>n&#x3D; (R_m q_m)^{\top}(R_n k_n) \rightarrow \tilde{q}<em>m^{\top}\tilde{k}<em>n&#x3D; q_m^{\top}R_m^{\top}R_n k_n<br>$$<br>旋转矩阵满足：<br>$$<br>\color{red} R_m^{\top} &#x3D; R</em>{-m} \qquad R</em>{-m}R_n &#x3D; R</em>{n-m}<br>$$<br>所以点积时可以反映信息<br>$$<br>\tilde{q}_m^{\top}\tilde{k}<em>n&#x3D; q_m^{\top}R</em>{n-m}k_n<br>$$</p>
-<blockquote>
-<p>Su J, Ahmed M, Lu Y, et al. Roformer: Enhanced transformer with rotary position embedding[J]. Neurocomputing, 2024, 568: 127063.</p>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.09864">https://arxiv.org/abs/2104.09864</a></p>
-</blockquote>
-<p>优点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I love machine learning</span><br><span class="line">[&quot;I&quot;, &quot;love&quot;, &quot;machine&quot;, &quot;learning&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>现在的大语言模型很少使用纯词级 Tokenizer</p>
+<h3 id="字符级切分"><a href="#字符级切分" class="headerlink" title="字符级切分"></a>字符级切分</h3><p>将每个字符作为一个 Token，能非常精细地处理文本，适用于处理拼写错误、未登录词或新词</p>
+<p>适用于对拼写、字符结构、转写和噪声文本比较敏感的任务，例如拼写纠错、字符转写、语音文本转换以及部分多语言任务</p>
 <ul>
-<li>自然表达相对位置，无需额外维护相对位置 embedding 表</li>
-<li>不改变向量长度</li>
-<li>不需要学习位置参数</li>
+<li>优点在于词表会非常小，几乎不会出现未知的token，对拼写错误、罕见单词比较鲁棒；</li>
+<li>缺点是 token 序列变得非常长，增加了模型的计算复杂度和训练时间；</li>
 </ul>
-<p>局限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line">[&quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="子词切分"><a href="#子词切分" class="headerlink" title="子词切分"></a>子词切分</h3><p>子词方法介于词级和字符级之间</p>
 <ul>
-<li>旋转具有周期性</li>
-<li>上下文窗口拓展性受限</li>
+<li>高频词或高频片段保留为一个 Token</li>
+<li>低频词拆成多个较小的 Token</li>
 </ul>
-<h3 id="RMSNorm"><a href="#RMSNorm" class="headerlink" title="RMSNorm"></a>RMSNorm</h3><p>$$<br>\operatorname{RMSNorm}(x)&#x3D;\gamma\odot\frac{x}{\sqrt{\frac{1}{d}\sum_{i&#x3D;1}^{d}x_i^2+\epsilon}}<br>$$</p>
-<ul>
-<li>LayerNorm 同时做“减均值”和“缩放方差”</li>
-<li>RMSNorm 省略减均值，只根据均方根缩放</li>
-</ul>
-<p>RMSNorm 可以看作 LayerNorm 的简化版本，且现代LLM基本都采用了RMSNorm</p>
-<p>减均值这个操作有三个坏处：</p>
-<ul>
-<li>打扰注意力机制的结构</li>
-<li>性能变慢</li>
-<li>对梯度反而不稳定</li>
-</ul>
-<h3 id="分组查询注意力-GQA"><a href="#分组查询注意力-GQA" class="headerlink" title="分组查询注意力 GQA"></a>分组查询注意力 GQA</h3><p>标准多头注意力中，输入隐藏状态 $X$ 分别投影成 $Q, K, V$</p>
-<p>GQA 不改变注意力本身公式，但<font color='Violetred'>Query head 的数量和 Key&#x2F;Value head 的数量不再必须相同</font>，且通常有 $H_{KV}&lt;H_Q$</p>
-<p>多个 Query heads 被分成若干组，每一组共享一个 Key head 和一个 Value head</p>
-<p>现在大模型高效注意力大致形成了 GQA、MQA、MLA 以及局部注意力等多条路线</p>
+<p>常见的子词分词方法包括 BPE、WordPiece 和 Unigram</p>
 <table>
 <thead>
 <tr>
-<th>MHA</th>
-<th>MQA</th>
-<th>GQA(4Q共享为例)</th>
+<th></th>
+<th>BPE</th>
+<th>WordPiece</th>
+<th>Unigram</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Q1 → K1, V1<br/>Q2 → K2, V2<br/>Q3 → K3, V3<br/>Q4 → K4, V4<br/>Q5 → K5, V5<br/>Q6 → K6, V6<br/>Q7 → K7, V7<br/>Q8 → K8, V8</td>
-<td>Q1 ─┐<br/>Q2 ─┤<br/>Q3 ─┤<br/>Q4 ─┤<br/>Q5 ─┤──→ 唯一的 K1, V1<br/>Q6 ─┤<br/>Q7 ─┤<br/>Q8 ─┘</td>
-<td>Q1 ─┐<br/>Q2 ─┤<br/>Q3 ─┤──→ K1, V1<br/>Q4 ─┘<br/><br/>Q5 ─┐<br/>Q6 ─┤<br/>Q7 ─┤──→ K2, V2<br/>Q8 ─┘</td>
+<td>初始状态</td>
+<td>字符或字节等基础符号</td>
+<td>字符等基础符号</td>
+<td>较大的候选子词词表</td>
 </tr>
-</tbody></table>
-<p>主要目的是为了减少 KV Cache</p>
-<p>MQA 的 KV Cache 最小，但共享程度太高，可能限制不同注意力头表达不同类型的信息</p>
-<p>GQA 的思想和Resnext很像，常见的就是4Q&#x2F;8Q共享KV，多个 Query 头可以提出不同的问题，但必须使用同一套索引方式和信息表示</p>
-<p>很多情况下：</p>
-<ul>
-<li>多个 KV 头的投影空间相似；</li>
-<li>不同头可能关注相近的位置；</li>
-<li>Query 头的差异比 KV 头的差异更重要；</li>
-</ul>
-<p>所以共享KV不会带来太大的性能下降，反而因为KV cache的减少能带来更多收益</p>
-<h3 id="SwiGLU"><a href="#SwiGLU" class="headerlink" title="SwiGLU"></a>SwiGLU</h3><p>传统 Transformer FFN 通常写成：<br>$$<br>\operatorname{FFN}(x)&#x3D;W_2\phi(W_1x+b_1)+b_2<br>$$<br>普通 FFN 只有一条升维分支</p>
-<p>SwiGLU加入门控，门控 FFN 则使用两条分支</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">           +--&gt; ---------内容分支 ----------+</span><br><span class="line">           |                              |</span><br><span class="line">输入 x ----+                               * --&gt; 降维 --&gt; 输出</span><br><span class="line">           |                              |</span><br><span class="line">           +--&gt; 门控分支 --&gt; 激活函数 -------+</span><br></pre></td></tr></table></figure>
-
-<p>一条分支产生内容，一条分支决定这些内容应该保留、放大还是抑制</p>
-<p>标准 GLU 可以写成：<br>$$<br>\operatorname{GLU}(x)&#x3D;(W_v x+b_v)\odot\sigma(W_g x+b_g)<br>$$<br>SwiGLU 将门控分支中的激活函数换成 SiLU<br>$$<br>\operatorname{SwiGLU}(x)&#x3D;\operatorname{SiLU}(W_g x)\odot(W_u x)<br>$$</p>
-<p>第 $i$ 个专家可以写成<br>$$<br>E(x)&#x3D;W_{\text{down}}<br>\left[\operatorname{SiLU}(W_{\text{gate}}x)\odot(W_{\text{up}}x)\right]<br>$$</p>
-<h3 id="混合专家结构-MoE"><a href="#混合专家结构-MoE" class="headerlink" title="混合专家结构 MoE"></a>混合专家结构 MoE</h3><blockquote>
-<p>在LLaMa4中加入</p>
-</blockquote>
-<p>在普通稠密 Transformer 中，每个 Token 都经过同一个 FFN</p>
-<p>导致的问题：</p>
-<ul>
-<li>所有 Token 使用相同参数</li>
-<li>增大 FFN 参数量时，每个 Token 的计算量也同步增加</li>
-<li>总参数量与单 Token 计算量紧密绑定</li>
-</ul>
-<p>MoE 的目标是增加大量参数容量，但每个 Token 只激活其中一小部分，通过训练一个 Router，让输入选择少量专家</p>
-<p>实现总参数量大幅增长，而单样本计算量不会按同样比例增长</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输入 Token x</span><br><span class="line">      ↓</span><br><span class="line">    Router</span><br><span class="line">      |</span><br><span class="line">      +--------&gt; Expert 1</span><br><span class="line">      +--------&gt; Expert 2</span><br><span class="line">      +--------&gt; Expert 3</span><br><span class="line">      |</span><br><span class="line">      ...</span><br><span class="line">      |</span><br><span class="line">      +--------&gt; Expert N</span><br><span class="line">Router 只选择 Top-K 个专家</span><br><span class="line">      ↓</span><br><span class="line">专家输出加权求和</span><br></pre></td></tr></table></figure>
-
-<p>一个 Token 会经过：</p>
-<ol>
-<li>始终启用的 <strong>Shared Expert，共享专家</strong>；（非必须）</li>
-<li>经过 Router 选出的 <strong>Routed Expert，路由专家</strong>；</li>
-</ol>
-<p>Router 通常是一个很小的线性层<br>$$<br>z&#x3D;W_r x\qquad W_r\in\mathbb{R}^{E\times d}<br>$$<br>${z}$ 中包含每个专家的路由分数，通常经过 Softmax 再选出 Top-k<br>$$<br>y(x)&#x3D;\sum_{i\in \operatorname{TopK}(g(x))}p_i(x)E_i(x)<br>$$<br>Top-1 的情况下</p>
-<table>
-<thead>
 <tr>
-<th>优点</th>
-<th>缺点</th>
+<td>训练方向</td>
+<td>自底向上合并</td>
+<td>自底向上构建</td>
+<td>自顶向下裁剪</td>
 </tr>
-</thead>
-<tbody><tr>
-<td>计算最少；<br />通信简单；</td>
-<td>单个专家错误会直接影响输出；<br />容易出现专家负载不均；<br />路由选择更离散；</td>
+<tr>
+<td>训练方法</td>
+<td>合并最高频的相邻符号对</td>
+<td>选择使训练数据似然提升较大的子词单元</td>
+<td>逐步删除对整体似然贡献较小的子词</td>
+</tr>
+<tr>
+<td>切分方式</td>
+<td>按学习到的合并规则切分</td>
+<td>贪心最长匹配优先</td>
+<td>动态规划寻找概率较大的整体切分</td>
+</tr>
+<tr>
+<td>主要特点</td>
+<td>简单、高效、切分稳定</td>
+<td>切分阶段简单，常配合预分词</td>
+<td>概率模型更完整，可进行子词采样</td>
+</tr>
+<tr>
+<td>典型应用</td>
+<td>GPT、RoBERTa</td>
+<td>BERT</td>
+<td>SentencePiece、T5</td>
 </tr>
 </tbody></table>
-<p>专家分工是训练中自动形成的，并不一定具有稳定、清晰的人类语义标签</p>
-<p><font color='DarkViolet'>主要训练问题：路由不均衡，热门专家过载，冷门专家得不到充分训练；</font></p>
-<p>部分现代 MoE 不只使用路由专家，还增加一个或多个共享专家，减少路由专家间的知识冗余</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">                    +--&gt; Router --&gt; Routed FFN Experts --+</span><br><span class="line">x --&gt; RMSNorm ------+                                    +--&gt; 相加</span><br><span class="line">                    +--&gt; Shared FFN Experts -------------+</span><br></pre></td></tr></table></figure>
-
-<p>$$<br>y(x)&#x3D;\sum_{j&#x3D;1}^{N_s}E^{\mathrm{shared}}<em>j(x)+\sum</em>{i\in\operatorname{TopK}(g(x))}p_i(x)E^{\mathrm{routed}}_i(x)<br>$$</p>
-<p>DeepSeekMoE 将这个设计称为 <strong>Shared Expert Isolation，共享专家隔离</strong></p>
 <h2 id="分布式训练框架"><a href="#分布式训练框架" class="headerlink" title="分布式训练框架"></a>分布式训练框架</h2><p>预训练一个 LLM 所需要的算力资源极其庞大，需要分布式训练</p>
 <p>分布式训练的两条基本思路：</p>
 <ul>
@@ -389,7 +347,12 @@
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0: batch 0 → gradient G0 ─┐</span><br><span class="line">GPU 1: batch 1 → gradient G1 ─┤</span><br><span class="line">GPU 2: batch 2 → gradient G2 ─┼→ AllReduce → 平均梯度(g1,g2,g3,g4) → 各自更新</span><br><span class="line">GPU 3: batch 3 → gradient G3 ─┘</span><br></pre></td></tr></table></figure>
 
-<p>$$<br>g&#x3D;\frac{1}{P}\sum_{p&#x3D;1}^{P}G_p<br>$$</p>
+<div class="mathjax-display">
+$$
+g=\frac{1}{P}\sum_{p=1}^{P}G_p
+$$
+</div>
+
 <p>前提是：<font color='Violetred'>完整模型及其训练状态能放入单卡</font></p>
 <h3 id="模型并行"><a href="#模型并行" class="headerlink" title="模型并行"></a>模型并行</h3><p>当数据并行分片仍然不够，或者单个层本身太大，就需要模型并行</p>
 <p><strong>张量并行 TP</strong>：将一个矩阵运算拆到多张 GPU</p>
@@ -448,19 +411,866 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：[p0 p1] [g0 g1] [O0 O1]</span><br><span class="line">GPU 1：[p2 p3] [g2 g3] [O2 O3]</span><br><span class="line">GPU 2：[p4 p5] [g4 g5] [O4 O5]</span><br><span class="line">GPU 3：[p6 p7] [g6 g7] [O6 O7]</span><br></pre></td></tr></table></figure>
 
 <p>但是计算前需要 <code>AllGather</code></p>
-<h2 id="大模型微调"><a href="#大模型微调" class="headerlink" title="大模型微调"></a>大模型微调</h2><ul>
-<li><font color='Violetred'>继续预训练</font>：没有人工标签，仅输入额外文本，模型只是继续进行语言模型训练，适合学习领域术语、特殊语言</li>
-<li><font color='Violetred'>监督微调 SFT</font>：用已经完成预训练的大语言模型，使用人工整理的“问题-答案”数据继续训练</li>
-<li><font color='Violetred'>强化学习微调 RL</font>：让模型根据奖励改进，奖励可以来自多种来源，最主要是RLHF(基于人类反馈的强化学习)和PPO(近端策略优化)</li>
+<h2 id="LLaMa"><a href="#LLaMa" class="headerlink" title="LLaMa"></a>LLaMa</h2><h3 id="旋转位置编码-RoPE"><a href="#旋转位置编码-RoPE" class="headerlink" title="旋转位置编码 RoPE"></a>旋转位置编码 RoPE</h3><p>不是把位置向量加到词向量上，而是根据 token 的位置，对注意力中的 $Q$ 和 $K$ 向量进行旋转</p>
+<ul>
+<li>用<strong>绝对位置</strong>控制旋转角度；</li>
+<li>在注意力分数中自然形成<strong>相对位置信息</strong>；</li>
 </ul>
-<p><strong>SFT数据集</strong></p>
+<p>相对传统Transformer使用的加法位置编码，RoPE不把位置向量加进 token，利用位置信息旋转 $Q&#x2F;K$</p>
+<p>对于一个二维向量，<strong>二维旋转矩阵</strong>为：</p>
+<div class="mathjax-display">
+$$
+R(\phi)=\begin{bmatrix}
+\cos\phi &amp; -\sin\phi\\
+\sin\phi &amp; \cos\phi
+\end{bmatrix}
+$$
+</div>
+
+<blockquote>
+<p>重点，因为二维旋转矩阵是一个正交矩阵，RoPE 改变向量的方向和相位，但不改变其欧氏范数</p>
+</blockquote>
+<p>旋转后的向量为：</p>
+<div class="mathjax-display">
+$$
+R(\phi)x = \begin{bmatrix}
+x_1\cos\phi-x_2\sin\phi\\
+x_1\sin\phi+x_2\cos\phi
+\end{bmatrix}
+$$
+</div>
+因为输入向量通常不是二维，而是高维，RoPE 会把向量的维度两两分组，每一对维度都视为一个二维平面，然后分别旋转
+
+<p>对于第 $i$ 对维度</p>
+<div class="mathjax-display">
+$$
+\begin{bmatrix}x^{\prime}_{2i}\cr x^{\prime}_{2i+1}\end{bmatrix}=\begin{bmatrix}\cos(m\theta_i)&amp;-\sin(m\theta_i)\cr\sin(m\theta_i)&amp;\cos(m\theta_i)\end{bmatrix}\begin{bmatrix}x_{2i}\cr x_{2i+1}\end{bmatrix}
+$$
+</div>
+不同的二维子空间使用不同的旋转频率：
+<div class="mathjax-display">
+$$
+\theta_i=b^{-\frac{2i}{d_h}}
+$$
+</div>
+原始设计取 $b=10000$，不同频率的作用类似于传统正弦位置编码：
+
+<ul>
+<li>高频维度变化快，容易区分附近位置</li>
+<li>低频维度变化慢，可以覆盖较长距离</li>
+</ul>
+<p>位置 $m$ 的 query 为 $q_m$，位置 $n$ 的 key 为 $k_n$，经过 RoPE 后</p>
+<div class="mathjax-display">
+$$
+\tilde{q}_m = R_m q_m \qquad \tilde{k}_n = R_n k_n
+$$
+</div>
+旋转后的注意力点积为：
+<div class="mathjax-display">
+$$
+\tilde{q}_m^{\top}\tilde{k}_n=(R_m q_m)^{\top}(R_n k_n)=q_m^{\top}R_m^{\top}R_n k_n
+$$
+</div>
+旋转矩阵满足：
+<div class="mathjax-display">
+$$
+\color{red} R_m^{\top} = R_{-m} \qquad R_{-m}R_n = R_{n-m}
+$$
+</div>
+所以点积时可以反映信息
+<div class="mathjax-display">
+$$
+\tilde{q}_m^{\top}\tilde{k}_n= q_m^{\top}R_{n-m}k_n
+$$
+</div>
+
+<blockquote>
+<p>Su J, Ahmed M, Lu Y, et al. Roformer: Enhanced transformer with rotary position embedding[J]. Neurocomputing, 2024, 568: 127063.</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.09864">https://arxiv.org/abs/2104.09864</a></p>
+</blockquote>
+<p>优点：</p>
+<ul>
+<li>自然表达相对位置，无需额外维护相对位置 embedding 表</li>
+<li>不改变向量长度</li>
+<li>不需要学习位置参数</li>
+</ul>
+<p>局限：</p>
+<ul>
+<li>旋转具有周期性</li>
+<li>上下文窗口拓展性受限</li>
+</ul>
+<h3 id="SwiGLU"><a href="#SwiGLU" class="headerlink" title="SwiGLU"></a>SwiGLU</h3><p>传统 Transformer FFN 通常写成：</p>
+<div class="mathjax-display">
+$$
+\operatorname{FFN}(x)=W_2\phi(W_1x+b_1)+b_2
+$$
+</div>
+普通 FFN 只有一条升维分支
+
+<p>SwiGLU加入门控，门控 FFN 则使用两条分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">           +--&gt; ---------内容分支 ----------+</span><br><span class="line">           |                              |</span><br><span class="line">输入 x ----+                               * --&gt; 降维 --&gt; 输出</span><br><span class="line">           |                              |</span><br><span class="line">           +--&gt; 门控分支 --&gt; 激活函数 -------+</span><br></pre></td></tr></table></figure>
+
+<p>一条分支产生内容，一条分支决定这些内容应该保留、放大还是抑制</p>
+<p>标准 GLU 可以写成：</p>
+<div class="mathjax-display">
+$$
+\operatorname{GLU}(x)=(W_v x+b_v)\odot\sigma(W_g x+b_g)
+$$
+</div>
+SwiGLU 将门控分支中的激活函数换成 SiLU
+<div class="mathjax-display">
+$$
+\operatorname{SwiGLU}(x)=\operatorname{SiLU}(W_g x)\odot(W_u x)
+$$
+</div>
+
+<h3 id="混合专家结构-MoE"><a href="#混合专家结构-MoE" class="headerlink" title="混合专家结构 MoE"></a>混合专家结构 MoE</h3><blockquote>
+<p>在LLaMa4中加入</p>
+</blockquote>
+<p>在普通稠密 Transformer 中，每个 Token 都经过同一个 FFN</p>
+<p>导致的问题：</p>
+<ul>
+<li>所有 Token 使用相同参数</li>
+<li>增大 FFN 参数量时，每个 Token 的计算量也同步增加</li>
+<li>总参数量与单 Token 计算量紧密绑定</li>
+</ul>
+<p>MoE 的目标是增加大量参数容量，但每个 Token 只激活其中一小部分，通过训练一个 Router，让输入选择少量专家</p>
+<p>实现总参数量大幅增长，而单样本计算量不会按同样比例增长</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输入 Token x</span><br><span class="line">      ↓</span><br><span class="line">    Router</span><br><span class="line">      |</span><br><span class="line">      +--------&gt; Expert 1</span><br><span class="line">      +--------&gt; Expert 2</span><br><span class="line">      +--------&gt; Expert 3</span><br><span class="line">      |</span><br><span class="line">      ...</span><br><span class="line">      |</span><br><span class="line">      +--------&gt; Expert N</span><br><span class="line">Router 只选择 Top-K 个专家</span><br><span class="line">      ↓</span><br><span class="line">专家输出加权求和</span><br></pre></td></tr></table></figure>
+
+<p>一个 Token 会经过：</p>
+<ol>
+<li>始终启用的 <strong>Shared Expert，共享专家</strong>；（非必须）</li>
+<li>经过 Router 选出的 <strong>Routed Expert，路由专家</strong>；</li>
+</ol>
+<p>Router 通常是一个很小的线性层</p>
+<div class="mathjax-display">
+$$
+z=W_r x\qquad W_r\in\mathbb{R}^{E\times d}
+$$
+</div>
+${z}$ 中包含每个专家的路由分数，经过 Sigmoid 再选出 Top-k
+
+<blockquote>
+<p>在 MoE Router 中 Softmax gating 和 Sigmoid gating都有，Softmax更常见一些</p>
+</blockquote>
+<p>第 $i$ 个专家可以写成</p>
+<div class="mathjax-display">
+$$
+E(x)=W_{\text{down}}
+\left[\operatorname{SiLU}(W_{\text{gate}}x)\odot(W_{\text{up}}x)\right]
+$$
+</div>
+得到输出
+<div class="mathjax-display">
+$$
+y(x)=\sum_{i\in \operatorname{TopK}(g(x))}p_i(x)E_i(x)
+$$
+</div>
+Top-1 的情况下
+
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算最少；<br />通信简单；</td>
+<td>单个专家错误会直接影响输出；<br />容易出现专家负载不均；<br />路由选择更离散；</td>
+</tr>
+</tbody></table>
+<p>专家分工是训练中自动形成的，并不一定具有稳定、清晰的人类语义标签</p>
+<p><font color='DarkViolet'>主要训练问题：路由不均衡，热门专家过载，冷门专家得不到充分训练；</font></p>
+<p>部分现代 MoE 不只使用路由专家，还增加一个或多个共享专家，减少路由专家间的知识冗余</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">                    +--&gt; Router --&gt; Routed FFN Experts --+</span><br><span class="line">x --&gt; RMSNorm ------+                                    +--&gt; 相加</span><br><span class="line">                    +--&gt; Shared FFN Experts -------------+</span><br></pre></td></tr></table></figure>
+
+<div class="mathjax-display">
+$$
+y(x)=\sum_{j=1}^{N_s}E^{\mathrm{shared}}_j(x)+\sum_{i\in\operatorname{TopK}(g(x))}p_i(x)E^{\mathrm{routed}}_i(x)
+$$
+</div>
+
+<p>DeepSeekMoE 将这个设计称为 <strong>Shared Expert Isolation，共享专家隔离</strong></p>
+<h2 id="线性注意力"><a href="#线性注意力" class="headerlink" title="线性注意力"></a>线性注意力</h2><h3 id="标准注意力"><a href="#标准注意力" class="headerlink" title="标准注意力"></a>标准注意力</h3><p>标准多头注意力 MHA 对第 t 个 token 计算将其拆成 $n_h$ 个注意力头</p>
+<div class="mathjax-display">
+$$
+q_t=[q_{t,1};\ldots;q_{t,n_h}],\qquad k_t=[k_{t,1};\ldots;k_{t,n_h}],\qquad v_t=[v_{t,1};\ldots;v_{t,n_h}]
+$$
+</div>
+每个 head 执行
+<div class="mathjax-display">
+$$
+o_{t,i}=\sum_{j=1}^{t}\operatorname{softmax}_j\left(\frac{q_{t,i}^{\top}k_{j,i}}{\sqrt{d_h}}\right)v_{j,i}
+$$
+</div>
+自回归生成时，每生成一个新 token，都需要让当前 query 与全部历史 key 计算相似度，并读取相应的 value
+
+<p>因此，过去所有 token 的 (K,V) 都必须保留在 KV Cache 中</p>
+<p>如果每个 token 有 ($n_h$) 个 head，每个 head 维度为 ($d_h$)，上下文长度为 ($T$)、层数为 ($L$) 时，需要缓存</p>
+<div class="mathjax-display">
+$$
+O(2LTn_hd_h)
+$$
+</div>
+长上下文、大 batch 推理时，KV Cache 会占用大量显存和显存带宽
+
+<h3 id="RNN-视角"><a href="#RNN-视角" class="headerlink" title="RNN 视角"></a>RNN 视角</h3><p>普通 RNN 按时间递推隐藏状态：</p>
+<div class="mathjax-display">
+$$
+h_t=F(h_{t-1},x_t)
+$$
+</div>
+输出为
+<div class="mathjax-display">
+$$
+y_t=G(h_t,x_t)
+$$
+</div>
+RNN 的核心思想是将截止到时刻 (t) 的历史信息压缩进固定大小的隐藏状态 ($h_t$)
+
+<p>传统 RNN 的主要限制：</p>
+<ul>
+<li>($h_t$) 依赖 ($h_{t-1}$)，时间维度存在严格的串行依赖</li>
+<li>固定大小的隐藏状态需要压缩全部历史，容易形成信息瓶颈</li>
+<li>当前输入通常不能像注意力那样，对历史信息进行显式的内容寻址</li>
+</ul>
+<p>线性注意力同样可以写成递归状态模型，但它有两个重要区别</p>
+<ul>
+<li>隐藏状态通常是一个矩阵，而不是一个向量；</li>
+<li>当前 query 可以对矩阵状态进行内容相关的读取</li>
+</ul>
+<p>因此训练时可以采用并行或分块并行形式</p>
+<h3 id="核注意力"><a href="#核注意力" class="headerlink" title="核注意力"></a>核注意力</h3><p>标准注意力可以抽象成：</p>
+<div class="mathjax-display">
+$$
+y_t=\frac{\sum_{i=1}^{t}\operatorname{sim}(q_t,k_i)v_i}{\sum_{i=1}^{t}\operatorname{sim}(q_t,k_i)}
+$$
+</div>
+线性注意力要求相似度函数可以分解为特征映射的内积：
+<div class="mathjax-display">
+$$
+\operatorname{sim}(q,k)=\phi(q)^\top\phi(k),\qquad\phi:\mathbb R^{d_k}\rightarrow\mathbb R^m
+$$
+</div>
+核心就是将 query-key 相似度表示为<font color='Violetred'>有限维特征空间中</font>的内积，从而利用矩阵乘法结合律重新安排计算顺序，这样的核函数是一个有限秩核
+
+<p>特征映射可以保持维度不变 $\color{red}\phi:\mathbb R^{d_k}\rightarrow\mathbb R^{d_k}$，甚至可以采用恒等映射</p>
+<p>常用</p>
+<div class="mathjax-display">
+$$
+\operatorname{ELU}(x)=\begin{cases}x,&amp;x>0,\\e^x-1,&amp;x\leq0\end{cases}
+$$
+</div>
+
+<blockquote>
+<p>这也就是为什么核函数会导致记忆混合的原因，因为如果两个 key 的核特征相似，写入 $S_t$ 的方向接近，对应的key容易发生混合 </p>
+</blockquote>
+<p>如果核函数直接取为 $\kappa(q,k)&#x3D;\exp\left(\frac{q^\top k}{\sqrt d}\right)$，代入后正好得到 Softmax 注意力</p>
+<div class="mathjax-display">
+$$
+\displaystyle y_t=\frac{\sum_i\kappa(q_t,k_i)v_i}{\sum_i\kappa(q_t,k_i)}
+$$
+</div>
+但指数点积核包含所有阶数，对应的 $\phi$ 是无限维的，因为要用到泰勒展开，所以只能近似无法等价
+<div class="mathjax-display">
+$$
+\boxed{\exp\left(\frac{q^\top k}{\sqrt d}\right)=\phi_\infty(q)^\top\phi_\infty(k)}\qquad \boxed{\exp\left(\frac{q^\top k}{\sqrt d}\right)\approx\phi_m(q)^\top\phi_m(k)} 
+$$
+</div>
+
+<h3 id="代数重排"><a href="#代数重排" class="headerlink" title="代数重排"></a>代数重排</h3><p>简化符号，定义：</p>
+<div class="mathjax-display">
+$$
+q'_t=\phi(q_t), k'_i=\phi(k_i) \in\mathbb R^m\qquad v_i\in\mathbb R^{d_v}
+$$
+</div>
+于是
+<div class="mathjax-display">
+$$
+y_t=\frac{\sum_{i=1}^{t}(q'_t{}^\top k'_i)v_i}{\sum_{i=1}^{t}q'_t{}^\top k'_i}
+$$
+</div>
+根据矩阵乘法，分子可以改写为
+<div class="mathjax-display">
+$$
+\sum_{i=1}^{t}(q'_t{}^\top k'_i)v_i^\top=q'_t{}^\top\left(\sum_{i=1}^{t}k'_iv_i^\top\right)
+$$
+</div>
+分母同理
+<div class="mathjax-display">
+$$
+\sum_{i=1}^{t}q'_t{}^\top k'_i=q'_t{}^\top\left(\sum_{i=1}^{t}k'_i\right)
+$$
+</div>
+定义矩阵状态：
+<div class="mathjax-display">
+$$
+S_t=\sum_{i=1}^{t}k'_iv_i^\top\in\mathbb R^{m\times d_v}
+$$
+</div>
+定义归一化状态：
+<div class="mathjax-display">
+$$
+z_t=\sum_{i=1}^{t}k'_i\in\mathbb R^m
+$$
+</div>
+最终得到
+<div class="mathjax-display">
+$$
+\boxed{y_t^\top=\frac{q_t^{\prime\top}S_t}{q_t^{\prime\top}z_t+\varepsilon}}
+$$
+</div>
+这一重排将原本的计算方式改成<font color='Violetred'>先将所有历史 key-value 汇总为固定大小状态，再由当前 query 读取状态</font>
+
+<h3 id="递归更新"><a href="#递归更新" class="headerlink" title="递归更新"></a>递归更新</h3><p>对于当前输入 ($x_t$)，先计算</p>
+<div class="mathjax-display">
+$$
+q'_t=\phi(W_Qx_t),\qquad k'_t=\phi(W_Kx_t),\qquad v_t=W_Vx_t
+$$
+</div>
+计算流程为：
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入 x_t</span><br><span class="line">│</span><br><span class="line">├── q&#x27;_t = φ(W_Q x_t)</span><br><span class="line">├── k&#x27;_t = φ(W_K x_t)</span><br><span class="line">└── v_t  = W_V x_t</span><br></pre></td></tr></table></figure>
+
+<p>状态更新：</p>
+<div class="mathjax-display">
+$$
+S_t=S_{t-1}+k'_tv_t^\top\\
+z_t=z_{t-1}+k'_t
+$$
+</div>
+因此，可以把线性注意力的隐藏状态定义为：
+<div class="mathjax-display">
+$$
+h_t^{\mathrm{LA}}=(S_t,z_t)
+$$
+</div>
+其状态更新函数为：
+<div class="mathjax-display">
+$$
+h_t^{\mathrm{LA}}=F(h_{t-1}^{\mathrm{LA}},x_t)=\left(S_{t-1}+k'_tv_t^\top,z_{t-1}+k'_t\right)
+$$
+</div>
+从这个角度看，线性注意力本质上是一个具有矩阵隐藏状态的 RNN
+
+<h3 id="关键问题"><a href="#关键问题" class="headerlink" title="关键问题"></a>关键问题</h3><p>所有 token 合并成一个固定大小状态，每一步都会增加新的 key-value 外积，因此<font color='DarkViolet'>最大的问题是旧记忆只能被持续累积，不能被选择性删除、衰减或者覆盖</font></p>
+<p>标准因果 Softmax 注意力为：</p>
+<div class="mathjax-display">
+$$
+Y=\operatorname{softmax}\left(\frac{QK^\top}{\sqrt d}+M\right)V
+$$
+</div>
+
+<blockquote>
+<p>$M$ 为因果掩码</p>
+</blockquote>
+<p>Softmax 注意力保存每个历史 token 的独立 key 和 value，线性注意力则保存压缩状态，历史 token 已经不再作为独立条目存在，而是被叠加进固定大小状态</p>
+<p>同时 Softmax 对分数使用指数变换，分数之间并不大的差异，可以被指数函数显著放大，很容易形成接近 one-hot 的注意力分布，从大量历史 token 中选出少数位置；并且由于行归一化还引入了显式竞争</p>
+<p>因此 Softmax 注意力更适合：</p>
+<ul>
+<li>从长上下文中查找某个实体；</li>
+<li>精确复制前文中的数字或字符串；</li>
+<li>匹配括号和代码变量；</li>
+<li>进行指针式读取；</li>
+<li>根据不同 query 选择完全不同的历史位置；</li>
+<li>形成接近离散路由的检索行为</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Softmax 注意力</th>
+<th>基础线性注意力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>历史存储</td>
+<td>保存全部历史 (K,V)</td>
+<td>压缩为固定状态 ($S_t,z_t$)</td>
+</tr>
+<tr>
+<td>状态大小</td>
+<td>随序列长度增长</td>
+<td>与序列长度无关</td>
+</tr>
+<tr>
+<td>查询方式</td>
+<td>重新查询每个历史 key</td>
+<td>查询压缩后的矩阵状态</td>
+</tr>
+<tr>
+<td>检索能力</td>
+<td>精确、动态、尖锐</td>
+<td>易发生混合和干扰</td>
+</tr>
+<tr>
+<td>归一化</td>
+<td>Softmax 全局竞争</td>
+<td>核归一化</td>
+</tr>
+<tr>
+<td>训练复杂度</td>
+<td>通常为 $O(L^2)$</td>
+<td>固定特征维度下为 $O(L)$</td>
+</tr>
+<tr>
+<td>推理缓存</td>
+<td>KV Cache 随 $L$ 线性增长</td>
+<td>固定大小递归状态</td>
+</tr>
+<tr>
+<td>主要优势</td>
+<td>精确检索与复杂路由</td>
+<td>长流式序列和低缓存推理</td>
+</tr>
+<tr>
+<td>主要问题</td>
+<td>长序列计算与显存成本高</td>
+<td>固定容量、缺少遗忘、记忆碰撞</td>
+</tr>
+</tbody></table>
+<h3 id="GLA"><a href="#GLA" class="headerlink" title="GLA"></a>GLA</h3><p><font color='DarkViolet'>核函数选用恒等映射</font></p>
+<p>基础线性注意力最明显的问题是：</p>
+<div class="mathjax-display">
+$$
+S_t=S_{t-1}+k_tv_t^\top
+$$
+</div>
+旧状态只能累积，无法根据当前输入选择性遗忘
+
+<p>一种简单改进是加入固定衰减(类似强化学习里的回报折扣因子)：</p>
+<div class="mathjax-display">
+$$
+S_t=\gamma S_{t-1}+k_tv_t^\top,\qquad 0&lt;\gamma&lt;1
+$$
+</div>
+最一般的门可以是同样大小的矩阵
+<div class="mathjax-display">
+$$
+S_t=G_t\odot S_{t-1}+k_tv_t^\top
+$$
+</div>
+GLA根据当前输入计算遗忘门
+<div class="mathjax-display">
+$$
+\alpha_t=f_\alpha(x_t),\qquad\alpha_t\in(0,1)^{d_k}
+$$
+</div>
+状态更新为
+<div class="mathjax-display">
+$$
+S_t=\operatorname{Diag}(\alpha_t)S_{t-1}+k_tv_t^\top
+$$
+</div>
+<font color='DarkViolet'>GLA 仍然是一个具有矩阵隐藏状态的 RNN，只是其状态转移矩阵由当前输入动态控制</font>
+
+<p>第 i 个 token 写入的内容，到达第 t 步时，必须经过后续所有门，只要某个中间位置将某个通道的门设得很小，该通道中更早的信息就会被显著削弱</p>
+<p>RetNet 一类方法使用数据无关的固定衰减，这是两者的核心差异之一</p>
+<h3 id="MLA"><a href="#MLA" class="headerlink" title="MLA"></a>MLA</h3><p>不直接缓存完整的 KV Cache，把当前 token 的隐藏表示 $h_t$ 压缩成一个较低维的潜变量 $c_t^{KV}$</p>
+<div class="mathjax-display">
+$$
+h_t\in\mathbb R^d,\qquad c_t^{KV}=W^{DKV}h_t\in\mathbb R^{d_c},\qquad d_c\ll n_hd_h
+$$
+</div>
+
+<blockquote>
+<p>这里的 $h_t$ 就是当前注意力层在位置接收到的输入表示，因为$x_t^{(2)} &#x3D; h_t^{(1)}$</p>
+</blockquote>
+<p>然后再通过两个不同的升维矩阵恢复 content key 和 value</p>
+<div class="mathjax-display">
+$$
+k_t^C=W^{UK}c_t^{KV},\qquad v_t^C=W^{UV}c_t^{KV}
+$$
+</div>
+完整映射
+<div class="mathjax-display">
+$$
+k_t^C=W^{UK}W^{DKV}h_t,\qquad v_t^C=W^{UV}W^{DKV}h_t
+$$
+</div>
+可以将其理解为对原来的 ($W_K,W_V$) 做低秩分解
+<div class="mathjax-display">
+$$
+W_K\approx W^{UK}W^{DKV},\qquad W_V\approx W^{UV}W^{DKV}
+$$
+</div>
+
+<blockquote>
+<p>DeepSeek-V2 的 MLA</p>
+</blockquote>
+<p>MLA 对每个历史 token 都保存一个独立的潜变量</p>
+<div class="mathjax-display">
+$$
+\mathcal C_t=\left\{c_1^{KV},c_2^{KV},\ldots,c_t^{KV}\right\}
+$$
+</div>
+因此，MLA 的缓存仍然随序列长度增长
+
+<p>MLA 仍然保留每个 token 的独立地址，因此仍能执行 token 级 Softmax 检索</p>
+<p>因为 MLA 的低秩 KV 压缩与标准 RoPE 不容易直接兼容，所以需要分开存放</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入 h_t</span><br><span class="line">│</span><br><span class="line">├── Query 分支</span><br><span class="line">│   ├── c_t^Q = W^&#123;DQ&#125; h_t         投影到低维 Query 潜变量</span><br><span class="line">│   ├── q_t^C = W^&#123;UQ&#125; c_t^Q       从 Query潜变量恢复查询向量</span><br><span class="line">│   └── q_t^R = RoPE(W^&#123;QR&#125; c_t^Q) 生成携带位置信息的 Query 向量</span><br><span class="line">│</span><br><span class="line">└── KV 分支</span><br><span class="line">    ├── c_t^&#123;KV&#125; = W^&#123;DKV&#125; h_t       将隐藏状态压缩为共享的 KV 潜变量，缓存</span><br><span class="line">    ├── k_t^C = W^&#123;UK&#125; c_t^&#123;KV&#125;      从 KV 潜变量恢复内容 Key，参与内容注意力计算</span><br><span class="line">    ├── v_t^C = W^&#123;UV&#125; c_t^&#123;KV&#125;      从 KV 潜变量恢复 Value，用于对注意力结果加权求和</span><br><span class="line">    └── k_t^R = RoPE(W^&#123;KR&#125; h_t)     直接从隐藏状态生成位置 Key，并注入 RoPE 位置信息，缓存</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>历史信息的保存方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MHA</strong></td>
+<td>每个 token 为每个注意力头保存完整的 (K,V)</td>
+</tr>
+<tr>
+<td><strong>GQA &#x2F; MQA</strong></td>
+<td>多个 Query Head 共享部分或全部 (K,V)</td>
+</tr>
+<tr>
+<td><strong>MLA</strong></td>
+<td>每个 token 仅保存压缩后的 KV 潜变量 ($c_t^{KV}$)</td>
+</tr>
+<tr>
+<td><strong>线性注意力 &#x2F; GLA</strong></td>
+<td>将截至当前的全部历史信息压缩到固定大小的状态 ($S_t$) 中</td>
+</tr>
+</tbody></table>
+<h2 id="大模型组件"><a href="#大模型组件" class="headerlink" title="大模型组件"></a>大模型组件</h2><h3 id="常见结构组件"><a href="#常见结构组件" class="headerlink" title="常见结构组件"></a>常见结构组件</h3><p>现代大模型通常会在原始 Transformer 上采用一组工程化改进</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RMSNorm</td>
+<td>替代传统 LayerNorm，计算相对简单</td>
+</tr>
+<tr>
+<td>RoPE</td>
+<td>注入 Token 的相对位置信息</td>
+</tr>
+<tr>
+<td>SwiGLU</td>
+<td>替代普通 ReLU&#x2F;GELU，提高 FFN 表达能力</td>
+</tr>
+<tr>
+<td>MoE</td>
+<td>在控制激活计算量的同时扩大参数容量</td>
+</tr>
+<tr>
+<td>GQA&#x2F;MQA</td>
+<td>减少 KV Cache 和推理开销</td>
+</tr>
+<tr>
+<td>MLA</td>
+<td>压缩 Key&#x2F;Value 表示，降低推理缓存开销</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>Key&#x2F;Value 的组织方式</th>
+<th>KV Cache</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MHA</td>
+<td>每个头独立拥有 K&#x2F;V</td>
+<td>最大</td>
+<td>表达能力强</td>
+</tr>
+<tr>
+<td>MQA</td>
+<td>所有 Query 头共享一套 K&#x2F;V</td>
+<td>最小</td>
+<td>高效，但共享程度较高</td>
+</tr>
+<tr>
+<td>GQA</td>
+<td>一组 Query 头共享一套 K&#x2F;V</td>
+<td>中等</td>
+<td>MHA 与 MQA 的折中</td>
+</tr>
+<tr>
+<td>MLA</td>
+<td>共享压缩潜在向量，再进行头特定投影</td>
+<td>很小</td>
+<td>尽量兼顾表达能力和缓存效率</td>
+</tr>
+</tbody></table>
+<h3 id="RMSNorm"><a href="#RMSNorm" class="headerlink" title="RMSNorm"></a>RMSNorm</h3><div class="mathjax-display">
+$$
+\operatorname{RMSNorm}(x)=\gamma\odot\frac{x}{\sqrt{\frac{1}{d}\sum_{i=1}^{d}x_i^2+\epsilon}}
+$$
+</div>
+
+<p>RMSNorm 可以看作 LayerNorm 的简化版本</p>
+<p>相比 LayerNorm，RMSNorm：</p>
+<ul>
+<li>减少了均值计算和相关运算；</li>
+<li>保留输入的整体方向信息；</li>
+<li>具有重缩放不变性；</li>
+<li>在许多模型中能以更低计算成本取得与 LayerNorm 相近的效果</li>
+</ul>
+<p>RMSNorm 已被 Llama、Mistral、Qwen、Gemma 等许多现代 Decoder-only LLM 广泛采用</p>
+<h3 id="旋转位置编码-RoPE-1"><a href="#旋转位置编码-RoPE-1" class="headerlink" title="旋转位置编码 RoPE"></a>旋转位置编码 RoPE</h3><p>位置编码的目的是让内积直到 token 的前后顺序</p>
+<p>旋转位置编码把不把位置向量加到 token 表示上，而是根据 token 的位置，<font color='DarkViolet'>对 Query 和 Key 的二维子空间进行旋转</font></p>
+<p>假设 Query 中有两个维度，RoPE 根据位置 $m$，将它旋转 $m\theta$</p>
+<div class="mathjax-display">
+$$
+R_{m,\theta}=\begin{bmatrix}\cos(m\theta)&amp;-\sin(m\theta)\\\sin(m\theta)&amp;\cos(m\theta)\end{bmatrix}
+$$
+</div>
+旋转后的 Query 为 $\widetilde q_m=R_{m,\theta}q_m$
+
+<p>同理，位置为 $n$ 的 Key $\widetilde k_n&#x3D;R_{n,\theta}k_n$</p>
+<p>位置不同，向量朝向不同</p>
+<blockquote>
+<p>重点，因为二维旋转矩阵是一个正交矩阵，RoPE 改变向量的方向和相位，但不改变其欧氏范数</p>
+<p>重要性质：
+$$
+R_m^\top R_n&#x3D;R_{n-m}
+$$</p>
+</blockquote>
+<div class="mathjax-display">
+$$
+\tilde{q}_m^{\top}\tilde{k}_n=(R_m q_m)^{\top}(R_n k_n)=q_m^{\top}R_m^{\top}R_n k_n
+$$
+</div>
+
+<p>RoPE 之后的注意力内积为：</p>
+<div class="mathjax-display">
+$$
+\color{red}\boxed{\widetilde q_m^\top\widetilde k_n=q_m^\top R_{n-m}k_n}
+$$
+</div>
+这就是 RoPE 最关键的性质，<font color='Violetred'>这种旋转使注意力内积自然包含相对位置 $n-m$</font>
+
+<blockquote>
+<p>Su J, Ahmed M, Lu Y, et al. Roformer: Enhanced transformer with rotary position embedding[J]. Neurocomputing, 2024, 568: 127063.</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.09864">https://arxiv.org/abs/2104.09864</a></p>
+</blockquote>
+<p>实际的 Query 和 Key 不是二维向量，而是 $d_h$ 维，RoPE将相邻维度两两分组，每一对维度都视为一个二维平面，然后分别旋转</p>
+<div class="mathjax-display">
+$$
+(q_0,q_1),\quad(q_2,q_3),\quad\dots,\quad(q_{d_h-2},q_{d_h-1})
+$$
+</div>
+
+<blockquote>
+<p>省略了位置下标，其实应该是 $(q_{m,2i},q_{m,2i+1})$</p>
+</blockquote>
+<p>对于第 $i$ 个二维分组，常见频率为</p>
+<div class="mathjax-display">
+$$
+\theta_i=10000^{-\frac{2i}{d_h}},\qquad i=0,1,\dots,\frac{d_h}{2}-1
+$$
+</div>
+那么第 $i$ 组变换为
+<div class="mathjax-display">
+$$
+\begin{bmatrix}\widetilde q_{2i}\\\widetilde q_{2i+1}\end{bmatrix}=\begin{bmatrix}\cos(m\theta_i)&amp;-\sin(m\theta_i)\\\sin(m\theta_i)&amp;\cos(m\theta_i)\end{bmatrix}\begin{bmatrix}q_{2i}\\q_{2i+1}\end{bmatrix}
+$$
+</div>
+比较位置时每个维度组产生不同的相位差，模型通过所有维度组的相位组合，判断两个 token 的相对距离
+
+<p>不同频率的作用类似于传统正弦位置编码：</p>
+<ul>
+<li>高频维度变化快，容易区分附近位置（前面的组）</li>
+<li>低频维度变化慢，可以覆盖较长距离（后面的组）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>天然建模相对位置</strong>：注意力分数直接依赖 token 间的相对距离</td>
+<td><strong>长度外推有限</strong>：推理长度远超训练长度时，性能可能明显下降</td>
+</tr>
+<tr>
+<td><strong>无额外可训练参数</strong>：位置频率通常固定生成</td>
+<td><strong>存在周期性混淆</strong>：不同远距离位置可能出现相似旋转相位</td>
+</tr>
+<tr>
+<td><strong>计算开销小</strong>：只需对 Q、K 做二维旋转</td>
+<td><strong>高频维度不稳定</strong>：长序列下会多次旋转，容易产生相位混叠</td>
+</tr>
+<tr>
+<td><strong>兼容标准点积注意力</strong>：可直接用于 MHA、GQA、MQA 等</td>
+<td><strong>内容与位置耦合</strong>：位置旋转直接作用于语义通道，影响低秩压缩</td>
+</tr>
+<tr>
+<td><strong>保持向量范数不变</strong>：旋转只改变方向，不改变长度</td>
+<td><strong>绝对位置表达较弱</strong>：更擅长相对位置，不直接强调“第几个位置”</td>
+</tr>
+</tbody></table>
+<h4 id="解耦-RoPE"><a href="#解耦-RoPE" class="headerlink" title="解耦 RoPE"></a>解耦 RoPE</h4><p>MLA 先把隐藏状态压缩为低维潜变量，没有 RoPE 时可以做矩阵吸收，加入后不能直接做吸收</p>
+<p>解决方法是把每个注意力头的 Query 和 Key 拆成两部分</p>
+<div class="mathjax-display">
+$$
+q_{m,i}=\left[q_{m,i}^C;q_{m,i}^R\right]\qquad k_{n,i}=\left[k_{n,i}^C;k_n^R\right]
+$$
+</div>
+“解耦”是指：将内容表征和 RoPE 位置表征解耦，而不是将 Query 与 Key 解耦
+
+<p>拼接后的内积可以直接拆开：</p>
+<div class="mathjax-display">
+$$
+q_{m,i}^\top k_{n,i}=\begin{bmatrix}q_{m,i}^C\\q_{m,i}^R\end{bmatrix}^{\top}\begin{bmatrix}k_{n,i}^C\\k_n^R\end{bmatrix}
+$$
+</div>
+
+
+<h3 id="分组查询注意力-GQA"><a href="#分组查询注意力-GQA" class="headerlink" title="分组查询注意力 GQA"></a>分组查询注意力 GQA</h3><p>标准多头注意力中，输入隐藏状态 $X$ 分别投影成 $Q, K, V$</p>
+<p>GQA 不改变注意力本身公式，但<font color='Violetred'>Query head 的数量和 Key&#x2F;Value head 的数量不再必须相同</font>，且通常有 $H_{KV}&lt;H_Q$</p>
+<p>多个 Query heads 被分成若干组，每一组共享一个 Key head 和一个 Value head，主要目的是为了减少 KV Cache</p>
+<table>
+<thead>
+<tr>
+<th>MHA</th>
+<th>MQA</th>
+<th>GQA(4Q共享为例)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q1 → K1, V1<br/>Q2 → K2, V2<br/>Q3 → K3, V3<br/>Q4 → K4, V4<br/>Q5 → K5, V5<br/>Q6 → K6, V6<br/>Q7 → K7, V7<br/>Q8 → K8, V8</td>
+<td>Q1 ─┐<br/>Q2 ─┤<br/>Q3 ─┤<br/>Q4 ─┤<br/>Q5 ─┤──&gt; 唯一的 K1, V1<br/>Q6 ─┤<br/>Q7 ─┤<br/>Q8 ─┘</td>
+<td>Q1 ─┐<br/>Q2 ─┤<br/>Q3 ─┤──&gt; K1, V1<br/>Q4 ─┘<br/><br/>Q5 ─┐<br/>Q6 ─┤<br/>Q7 ─┤──&gt; K2, V2<br/>Q8 ─┘</td>
+</tr>
+</tbody></table>
+<p>MQA 的 KV Cache 最小，但共享程度太高，可能限制不同注意力头表达不同类型的信息</p>
+<p>GQA 使用了“分组共享”的思想，但其与 ResNeXt 的具体计算对象和设计目标不同</p>
+<p>每个 KV head 对应的 Query head 数量为</p>
+<div class="mathjax-display">
+$$
+G = \frac{H_Q}{H_{KV}}
+$$
+</div>
+多个 Query 头可以提出不同的问题，但必须使用同一套索引方式和信息表示
+
+<p>很多情况下：</p>
+<ul>
+<li>多个 KV 头的投影空间相似；</li>
+<li>不同头可能关注相近的位置；</li>
+<li>Query 头的差异比 KV 头的差异更重要；</li>
+</ul>
+<p>所以共享KV不会带来太大的性能下降，反而因为KV cache的减少能带来更多收益</p>
+<h2 id="大模型训练"><a href="#大模型训练" class="headerlink" title="大模型训练"></a>大模型训练</h2><p>目前通用文本大模型的主流预训练范式可以概括为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">大规模原始语料</span><br><span class="line">    ↓</span><br><span class="line">清洗、去重、质量筛选、数据配比</span><br><span class="line">    ↓</span><br><span class="line">Tokenizer 编码与样本 Packing</span><br><span class="line">    ↓</span><br><span class="line">Decoder-only Transformer</span><br><span class="line">    ↓</span><br><span class="line">自回归下一 Token 预测</span><br><span class="line">    ↓</span><br><span class="line">AdamW + 学习率调度 + 混合精度 + 分布式训练</span><br><span class="line">    ↓</span><br><span class="line">持续预训练 / 长上下文扩展</span><br><span class="line">    ↓</span><br><span class="line">Base Model</span><br><span class="line">    ↓</span><br><span class="line">SFT、DPO、RL 等后训练</span><br></pre></td></tr></table></figure>
+
+<p>Encoder-only 模型仍广泛用于文本分类、Embedding 和重排序等任务</p>
+<p>Encoder-Decoder 模型仍适合翻译和输入输出转换任务，但在通用对话大模型领域，Decoder-only 已成为主要路线</p>
+<h3 id="模型预训练"><a href="#模型预训练" class="headerlink" title="模型预训练"></a>模型预训练</h3><p>预训练阶段并不是直接教模型“回答问题”，而是让模型从海量文本中学习：</p>
+<ul>
+<li>语言的语法与语义规律；</li>
+<li>词语、事实和概念之间的关联；</li>
+<li>代码、数学和自然语言的结构；</li>
+<li>根据上文预测后文的能力；</li>
+<li>上下文学习和模式泛化能力</li>
+</ul>
+<p>训练完成后得到的是 Base Model，基础模型，擅长续写，但不能稳定理解用户指令，也没有经过完整的偏好和安全对齐</p>
+<p>大模型通常不会全部使用 FP32 训练，因为显存和计算成本过高</p>
+<table>
+<thead>
+<tr>
+<th>精度</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FP32</td>
+<td>数值稳定，但显存与计算成本高</td>
+</tr>
+<tr>
+<td>FP16</td>
+<td>范围较小，通常需要 Loss Scaling</td>
+</tr>
+<tr>
+<td>BF16</td>
+<td>指数范围接近 FP32，训练稳定性较好</td>
+</tr>
+<tr>
+<td>FP8</td>
+<td>显存和计算成本更低，但实现和校准更复杂</td>
+</tr>
+</tbody></table>
+<p>当前较普遍的是 <strong>BF16 混合精度训练</strong></p>
+<ul>
+<li>矩阵乘法：BF16 </li>
+<li>部分归一化与关键操作：FP32</li>
+<li>优化器状态：FP32 或经过验证的低精度格式</li>
+</ul>
+<h3 id="预训练后"><a href="#预训练后" class="headerlink" title="预训练后"></a>预训练后</h3><table>
+<thead>
+<tr>
+<th>训练类型</th>
+<th>数据形式</th>
+<th>目标</th>
+<th>主要目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>持续预训练 CPT</td>
+<td>领域原始文本</td>
+<td>下一 Token 预测</td>
+<td>学习领域语言和知识</td>
+</tr>
+<tr>
+<td>监督微调 SFT</td>
+<td>指令—回答数据</td>
+<td>模仿目标回答</td>
+<td>学习如何回答、遵循格式</td>
+</tr>
+<tr>
+<td>偏好优化 DPO</td>
+<td>优选回答—劣选回答</td>
+<td>提高优质回答相对概率</td>
+<td>学习回答偏好</td>
+</tr>
+<tr>
+<td>强化学习 RL</td>
+<td>奖励模型或可验证奖励</td>
+<td>最大化期望奖励</td>
+<td>进一步优化行为或推理</td>
+</tr>
+</tbody></table>
+<p>DPO 和 RL 属于对齐 &#x2F; 偏好优化</p>
+<p>典型流程通常是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">预训练模型</span><br><span class="line">→ SFT：先学会遵循指令和生成合理回答</span><br><span class="line">→ DPO：再学习“两个合理回答中更偏好哪一个”</span><br></pre></td></tr></table></figure>
+
+<h4 id="SFT"><a href="#SFT" class="headerlink" title="SFT"></a>SFT</h4><p>典型样本为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">System:</span><br><span class="line">你是一个严谨的数学助手。</span><br><span class="line"></span><br><span class="line">User:</span><br><span class="line">求解方程 x² - 5x + 6 = 0。</span><br><span class="line"></span><br><span class="line">Assistant:</span><br><span class="line">将其因式分解：</span><br><span class="line">(x - 2)(x - 3) = 0</span><br><span class="line">因此 x = 2 或 x = 3。</span><br></pre></td></tr></table></figure>
+
+<p>模型会先通过 Chat Template 将消息转换成特殊 Token</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;system&gt;</span><br><span class="line">你是一个严谨的数学助手。</span><br><span class="line">&lt;/system&gt;</span><br><span class="line">&lt;user&gt;</span><br><span class="line">求解方程……</span><br><span class="line">&lt;/user&gt;</span><br><span class="line">&lt;assistant&gt;</span><br><span class="line">将其因式分解……</span><br><span class="line">&lt;/assistant&gt;</span><br></pre></td></tr></table></figure>
+
+<p>SFT 的本质是行为克隆，对数据集的质量有要求</p>
 <p>单条数据评估视角：规范性、完整性、及时性、安全性、有效性、唯一性</p>
 <p>数据集评估视角：多样性(领域知识)、平衡性(领域数据集数量)、一致性、正交性(领域能力互不影响)、必要性(数据价值)</p>
 <p>在数据筛选时需要用到</p>
 <ul>
-<li><p>困惑度：形式上和交叉熵损失一致，困惑度与交叉熵损失是指数关系<br>$$<br>P_i(x)&#x3D;\exp\left(-\frac{1}{T}\sum_{t&#x3D;1}^{T}\log p(x_t\mid x_{&lt;t})\right)<br>$$</p>
+<li><p>困惑度：形式上和交叉熵损失一致，困惑度与交叉熵损失是指数关系</p>
+<div class="mathjax-display">
+$$
+P_i(x)=\exp\left(-\frac{1}{T}\sum_{t=1}^{T}\log p(x_t\mid x_{&lt;t})\right)
+$$
+</div>
 </li>
-<li><p>学习百分比：判断一条 SFT 数据的学习难度<br>$$<br>\operatorname{LP}(i)&#x3D;\frac{P_{i-1}-P_i}{P_0-P_n}<br>$$<br>分子表示第 $i$ 个epoch内，困惑度的下降，一般选择 $LP(1)$ </p>
+<li><p>学习百分比：判断一条 SFT 数据的学习难度</p>
+<div class="mathjax-display">
+$$
+\operatorname{LP}(i)=\frac{P_{i-1}-P_i}{P_0-P_n}
+$$
+</div>
+分子表示第 $i$ 个epoch内，困惑度的下降，一般选择 $LP(1)$ 
 </li>
 <li><p>数据难度可转移性：不同规模模型对数据难易程度的相对排序具有较强一致性，所以可以用小模型来筛选，降低成本</p>
 <blockquote>
@@ -468,80 +1278,265 @@
 </blockquote>
 </li>
 </ul>
-<p><strong>RL算法</strong></p>
+<h4 id="RL"><a href="#RL" class="headerlink" title="RL"></a>RL</h4><p>不再要求模型逐 Token 模仿标准答案，而是让模型生成完整回答，根据回答获得奖励，再提高高奖励回答的生成概率</p>
+<p>对于语言模型，可以将生成过程建模为一个序列决策过程：</p>
+<ul>
+<li><strong>状态 State</strong>：输入指令以及当前已经生成的 Token；</li>
+<li><strong>动作 Action</strong>：选择下一个 Token；</li>
+<li><strong>策略 Policy</strong>：语言模型 $\pi_\theta$；</li>
+<li><strong>轨迹 Trajectory</strong>：模型生成的完整回答；</li>
+<li><strong>奖励 Reward</strong>：奖励模型、规则验证器或环境返回的分数。</li>
+</ul>
+<p>SFT 优化的是给定标准答案的似然：</p>
+<div class="mathjax-display">
+$$
+\mathcal{L}_{\mathrm{SFT}} = -\sum_{t=1}^{T} \log \pi_\theta \left( y_t\mid x,y_{&lt;t} \right)
+$$
+</div>
+RL 则优化模型生成回答的期望奖励：
+<div class="mathjax-display">
+$$
+J(\theta) = \mathbb{E}_{x\sim\mathcal{D},\, y\sim\pi_\theta(\cdot\mid x)} \left[ R(x,y) \right]
+$$
+</div>
+
+<h4 id="RLHF"><a href="#RLHF" class="headerlink" title="RLHF"></a>RLHF</h4><p>RLHF 全称为 <u>Reinforcement Learning from Human Feedback</u>，基于人类反馈的强化学习</p>
+<p>经典 RLHF 通常包含三个阶段：</p>
+<ol>
+<li>使用指令—回答数据进行 SFT，得到初始策略模型；</li>
+<li>收集人类对多个候选回答的偏好排序，训练奖励模型；</li>
+<li>使用 PPO 等强化学习算法优化策略模型，使其获得更高奖励。</li>
+</ol>
+<p>奖励模型 Reward Model 接收问题和回答，并输出一个标量奖励，通常使用成对偏好数据训练奖励模型</p>
+<div class="mathjax-display">
+$$
+P(y_w\succ y_l\mid x) = \sigma \left( r_\phi(x,y_w)-r_\phi(x,y_l) \right)
+$$
+</div>
+对应的奖励模型损失为：
+<div class="mathjax-display">
+$$
+\mathcal{L}_{\mathrm{RM}} = -\log \sigma \left( r_\phi(x,y_w)-r_\phi(x,y_l) \right)
+$$
+</div>
+该目标并不要求奖励模型预测绝对正确的分数，而是要求：
+<div class="mathjax-display">
+$$
+r_\phi(x,y_w)>r_\phi(x,y_l)
+$$
+</div>
+奖励模型通常由预训练语言模型加一个标量输出头构成，其训练质量主要取决于：
+
+<ul>
+<li>偏好标注是否一致；</li>
+<li>Chosen 与 Rejected 是否存在有效区分；</li>
+<li>数据是否覆盖实际部署分布；</li>
+<li>标注是否受到长度、格式和表达风格等表面特征干扰</li>
+</ul>
+<h4 id="PPO"><a href="#PPO" class="headerlink" title="PPO"></a>PPO</h4><p>PPO 全称为 <u>Proximal Policy Optimization</u>，近端策略优化，是一种限制策略更新幅度的策略梯度算法</p>
+<p>核心思想：</p>
+<ul>
+<li>提高优势为正的动作概率；</li>
+<li>降低优势为负的动作概率；</li>
+<li>限制新策略相对于旧策略的变化幅度，避免单次更新过大。</li>
+</ul>
+<p>PPO 训练通常涉及以下组成部分</p>
 <table>
 <thead>
 <tr>
-<th>算法</th>
-<th>中文名</th>
-<th>是否需要价值模型</th>
-<th>核心思想</th>
+<th>组成部分</th>
+<th>作用</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>PPO</td>
-<td>近端策略优化</td>
-<td>通常需要</td>
-<td>限制每次策略更新幅度</td>
+<td>Actor &#x2F; Policy</td>
+<td>根据当前状态选择动作</td>
 </tr>
 <tr>
-<td>GRPO</td>
-<td>组相对策略优化</td>
-<td>不需要</td>
-<td>同一问题的多个回答组内比较</td>
+<td>Critic &#x2F; Value Function</td>
+<td>估计当前状态的期望累计回报</td>
 </tr>
 <tr>
-<td>DAPO</td>
-<td>解耦裁剪与动态采样策略优化</td>
-<td>不需要</td>
-<td>GRPO + 非对称裁剪 + 动态采样 + 长序列优化</td>
+<td>Old Policy</td>
+<td>生成当前训练数据时使用的旧策略</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>执行动作并返回奖励和下一状态</td>
 </tr>
 </tbody></table>
-<p>PPO常见的目标函数是<br>$$<br>L_{\mathrm{PPO}}(\theta)&#x3D;\mathbb{E}_t\left[\min\left(r_t(\theta)\hat A_t,;\operatorname{clip}\left(r_t(\theta),1-\epsilon,1+\epsilon\right)\hat A_t\right)\right]<br>$$</p>
-<h2 id="Tokenizer"><a href="#Tokenizer" class="headerlink" title="Tokenizer"></a>Tokenizer</h2><p>主要有以下几类切分方法</p>
-<ul>
-<li>词级切分(Word-level)</li>
-<li>字符级切分(Character-level)</li>
-<li>子词切分(Subword-level)</li>
-<li>字节级切分(Byte-level)</li>
-</ul>
-<p>目前大多数大语言模型使用的是子词或字节级方法</p>
-<h3 id="词级切分"><a href="#词级切分" class="headerlink" title="词级切分"></a>词级切分</h3><p>将文本按空格和标点符号分割成单词</p>
-<ul>
-<li>优点在于简单直接；</li>
-<li>缺点很明显，无法处理未登录词(不在词表的词)和罕见词，对复合词或缩略词的处理也不够精细；</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I love machine learning</span><br><span class="line">[&quot;I&quot;, &quot;love&quot;, &quot;machine&quot;, &quot;learning&quot;]</span><br></pre></td></tr></table></figure>
+<p>在时刻 t，智能体处于状态 $s_t$，根据策略 $\pi_\theta$ 选择动作：</p>
+<div class="mathjax-display">
+$$
+a_t \sim \pi_\theta(\cdot \mid s_t)
+$$
+</div>
+环境执行动作后，返回即时奖励 $r_t$ 和下一状态 $s_{t+1}$
 
-<p>现在的大语言模型很少使用纯词级 Tokenizer</p>
-<h3 id="字符级切分"><a href="#字符级切分" class="headerlink" title="字符级切分"></a>字符级切分</h3><p>将每个字符作为一个 Token，能非常精细地处理文本，适用于处理拼写错误、未登录词或新词</p>
-<p>对于一些特定的应用场景，如生成式任务或需要处理大量未登录词的任务，特别有用</p>
+<p>一次完整交互可以表示为轨迹：</p>
+<div class="mathjax-display">
+$$
+\tau=(s_0,a_0,r_0,s_1,a_1,r_1,\ldots,s_T)
+$$
+</div>
+PPO 的目标是调整策略参数 $\theta$，使策略获得的期望累计奖励最大
+
+<p><strong>累计回报</strong></p>
+<p>从时刻 $t$ 开始的折扣累计回报定义为：</p>
+<div class="mathjax-display">
+$$
+G_t=\sum_{k=0}^{T-t-1}\gamma^k r_{t+k}
+$$
+</div>
+状态价值函数表示从状态 $s_t$ 出发，按照当前策略继续行动时能够获得的期望累计回报
+<div class="mathjax-display">
+$$
+V^\pi(s_t)=\mathbb{E}_\pi[G_t\mid s_t]
+$$
+</div>
+动作价值函数表示在状态 $s_t$ 下执行动作 $a_t$ 之后按照当前策略继续行动时能够获得的期望累计回报：
+<div class="mathjax-display">
+$$
+Q^\pi(s_t,a_t)=\mathbb{E}_\pi[G_t\mid s_t,a_t]
+$$
+</div>
+**优势函数**
+<div class="mathjax-display">
+$$
+A^\pi(s_t,a_t)=Q^\pi(s_t,a_t)-V^\pi(s_t)
+$$
+</div>
+优势函数衡量某个动作相对于当前状态下平均动作水平的好坏：
+
 <ul>
-<li>优点在于词表会非常小，几乎不会出现未知的token，对拼写错误、罕见单词比较鲁棒；</li>
-<li>缺点是让 token 序列变得非常长，增加了模型的计算复杂度和训练时间；</li>
+<li>$A^\pi&gt;0$：该动作比预期更好，应提高其概率；</li>
+<li>$A^\pi&lt;0$：该动作比预期更差，应降低其概率；</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line">[&quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]</span><br></pre></td></tr></table></figure>
+<p>实际训练中无法直接获得真实的 $Q^\pi$ 和 $A^\pi$，因此需要使用采样数据进行估计</p>
+<p>一种简单的优势估计为</p>
+<div class="mathjax-display">
+$$
+\hat A_t=G_t-V_\psi(s_t)
+$$
+</div>
+其中，$V_\psi$ 是由 Critic 参数化的价值函数
 
-<h3 id="子词切分"><a href="#子词切分" class="headerlink" title="子词切分"></a>子词切分</h3><p>子词方法介于词级和字符级之间</p>
-<ul>
-<li>常见单词保留为完整 Token</li>
-<li>罕见单词拆成多个有意义或高频的片段</li>
-</ul>
-<p>常见的子词分词方法包括 BPE、WordPiece 和 Unigram</p>
-<h4 id="BPE"><a href="#BPE" class="headerlink" title="BPE"></a>BPE</h4><p>BPE 全称是 <strong>Byte Pair Encoding</strong>，核心思想是：从字符开始，不断合并语料中出现频率最高的相邻 Token 对</p>
-<p>优点在于其简单和高效，能够有效地处理未知词和罕见词，同时保持较低的词典大小</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">low</span><br><span class="line">lower -&gt; low + er</span><br><span class="line">lowest -&gt; low + est</span><br></pre></td></tr></table></figure>
+<p><strong>新旧策略概率比率</strong></p>
+<p>对于当前策略 $\pi_\theta$ 和生成数据时使用的旧策略 $\pi_{\theta_{\mathrm{old}}}$，定义概率比率：</p>
+<div class="mathjax-display">
+$$
+\rho_t(\theta) = \frac{ \pi_\theta(a_t\mid s_t) }{ \pi_{\theta_{\mathrm{old}}}(a_t\mid s_t) }
+$$
+</div>
+**PPO 裁剪目标**
 
-<p>在 GPT-2 上得到应用</p>
-<h4 id="WordPiece"><a href="#WordPiece" class="headerlink" title="WordPiece"></a>WordPiece</h4><p>与 BPE 很相似，但它选择合并项时，不只是看绝对频率，更关注合并后是否能提高语言模型对语料的解释能力</p>
-<p>在简化理解下，可以把候选合并分数写成<br>$$<br>\operatorname{score}(a,b)&#x3D;\frac{\operatorname{freq}(ab)}<br>{\operatorname{freq}(a)\operatorname{freq}(b)}<br>$$</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">playing</span><br><span class="line">[&quot;play&quot;, &quot;##ing&quot;]</span><br></pre></td></tr></table></figure>
+<p>如果直接根据优势更新策略，策略可能在一次训练中变化过大，导致训练不稳定</p>
+<p>PPO 使用裁剪目标限制概率比率变化带来的收益</p>
+<div class="mathjax-display">
+$$
+J_{\mathrm{PPO}}(\theta) = \mathbb{E}_t \left[ \min \left( \rho_t(\theta)\hat A_t,\, \operatorname{clip} \left( \rho_t(\theta),1-\epsilon,1+\epsilon \right)\hat A_t \right) \right]
+$$
+</div>
+其中，$\epsilon$ 用于控制策略更新幅度
 
-<p><code>&quot;##ing&quot;</code> 表示这个子词不能单独作为单词开头，而是接在其他 Token 后面</p>
-<p>在 BERT 上得到应用</p>
-<h4 id="Unigram"><a href="#Unigram" class="headerlink" title="Unigram"></a>Unigram</h4><p>Unigram 方法与 BPE 的方向相反</p>
-<p>Unigram 是从一个较大的候选子词集合开始，不断删除不重要的子词</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/6231.html">https://yhblogs.cn/posts/6231.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%96%B9LLM/">🖹LLM</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Swift框架</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1918.html" title="《Attention is All You Need》"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">《Attention is All You Need》</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">提示工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E5%8E%9F%E5%88%99"><span class="toc-number">1.1.</span> <span class="toc-text">提示原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text">提示词设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.3.</span> <span class="toc-text">上下文学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Responses-API"><span class="toc-number">1.4.</span> <span class="toc-text">Responses API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLaMa"><span class="toc-number">2.</span> <span class="toc-text">LLaMa</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81-RoPE"><span class="toc-number">2.1.</span> <span class="toc-text">旋转位置编码 RoPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMSNorm"><span class="toc-number">2.2.</span> <span class="toc-text">RMSNorm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E6%B3%A8%E6%84%8F%E5%8A%9B-GQA"><span class="toc-number">2.3.</span> <span class="toc-text">分组查询注意力 GQA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SwiGLU"><span class="toc-number">2.4.</span> <span class="toc-text">SwiGLU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E7%BB%93%E6%9E%84-MoE"><span class="toc-number">2.5.</span> <span class="toc-text">混合专家结构 MoE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%E6%A1%86%E6%9E%B6"><span class="toc-number">3.</span> <span class="toc-text">分布式训练框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C"><span class="toc-number">3.1.</span> <span class="toc-text">数据并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%B9%B6%E8%A1%8C"><span class="toc-number">3.2.</span> <span class="toc-text">模型并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E5%86%97%E4%BD%99%E4%BC%98%E5%8C%96%E5%99%A8%EF%BC%88ZeRO%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">零冗余优化器（ZeRO）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83"><span class="toc-number">4.</span> <span class="toc-text">大模型微调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tokenizer"><span class="toc-number">5.</span> <span class="toc-text">Tokenizer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8D%E7%BA%A7%E5%88%87%E5%88%86"><span class="toc-number">5.1.</span> <span class="toc-text">词级切分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%BA%A7%E5%88%87%E5%88%86"><span class="toc-number">5.2.</span> <span class="toc-text">字符级切分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E8%AF%8D%E5%88%87%E5%88%86"><span class="toc-number">5.3.</span> <span class="toc-text">子词切分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BPE"><span class="toc-number">5.3.1.</span> <span class="toc-text">BPE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WordPiece"><span class="toc-number">5.3.2.</span> <span class="toc-text">WordPiece</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unigram"><span class="toc-number">5.3.3.</span> <span class="toc-text">Unigram</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+<blockquote>
+<p>裁剪并不保证概率比率一定处于 $[1-\epsilon,1+\epsilon]$，而是限制超出该范围后对优化目标产生的有利影响</p>
+</blockquote>
+<p>因为 PyTorch、TensorFlow 等框架通常执行的是梯度下降，所以将裁剪目标取负，得到 Actor 的策略损失</p>
+<div class="mathjax-display">
+$$
+\mathcal{L}_{\mathrm{PPO}} = -\mathbb{E}_t \left[ \min \left( \rho_t(\theta)\hat{A}_t,\, \operatorname{clip} \left( \rho_t(\theta), 1-\epsilon, 1+\epsilon \right) \hat{A}_t \right) \right]
+$$
+</div>
+<font color='DarkViolet'>以下两项属于常见的可选训练稳定化技术，不是 PPO 裁剪目标的必要组成部分</font>
+
+<p><strong>价值函数裁剪</strong></p>
+<p>PPO 的裁剪目标主要限制 Actor 的策略更新，但 Critic 的价值估计同样可能在一次训练中变化过大</p>
+<p>可以将当前价值预测裁剪为：</p>
+<div class="mathjax-display">
+$$
+V_{\mathrm{clip}}(s_t) = V_{\psi_{\mathrm{old}}}(s_t) + \operatorname{clip} \left( V_\psi(s_t)-V_{\psi_{\mathrm{old}}}(s_t), -\epsilon_v, \epsilon_v \right)
+$$
+</div>
+
+<div class="mathjax-display">
+$$
+\mathcal L_{\mathrm{value}} = \frac{1}{2} \mathbb{E}_t \left[ \max \left( \left(V_\psi(s_t)-\hat G_t\right)^2, \left(V_{\mathrm{clip}}(s_t)-\hat G_t\right)^2 \right) \right]
+$$
+</div>
+
+<p>价值裁剪的作用是限制 Critic 相对于旧价值预测的变化幅度，防止价值函数在一次更新中发生剧烈变化</p>
+<p><strong>KL Early Stopping</strong></p>
+<p>即使使用裁剪目标，当前策略仍然可能逐渐偏离生成数据时使用的 Old Policy</p>
+<p>因此，可以在每轮更新后估计当前策略与 Old Policy 之间的 KL 散度</p>
+<div class="mathjax-display">
+$$
+\widehat D_{\mathrm{KL}} = \mathbb{E}_t \left[ \log \pi_{\theta_{\mathrm{old}}}(a_t\mid s_t) - \log \pi_\theta(a_t\mid s_t) \right]
+$$
+</div>
+根据概率比率的定义可以简写为
+<div class="mathjax-display">
+$$
+\widehat D_{\mathrm{KL}} = \mathbb{E}_t \left[ -\log \rho_t(\theta) \right]
+$$
+</div>
+如果估计的 KL 散度超过预设阈值，则提前停止当前批次剩余的训练轮次
+
+<p>KL Early Stopping 是 PPO 裁剪之外的辅助保护机制</p>
+<p><strong>PPO 训练流程</strong></p>
+<ol>
+<li>将当前策略参数保存为 Old Policy；</li>
+<li>使用 Old Policy 与环境交互，采集状态、动作和奖励；</li>
+<li>根据奖励和 Critic 计算累计回报与优势；</li>
+<li>计算当前策略与 Old Policy 的概率比率；</li>
+<li>使用裁剪目标更新 Actor；</li>
+<li>使用回报目标更新 Critic；</li>
+<li>用更新后的策略重新采集数据并重复训练。</li>
+</ol>
+<h4 id="GRPO"><a href="#GRPO" class="headerlink" title="GRPO"></a>GRPO</h4><p>对同一个问题，GRPO 从旧策略中采样一组回答分别计算奖励，然后使用组内奖励的均值和标准差构造相对优势，奖励高于组内平均值的回答得到正优势，奖励低于组内平均值的回答得到负优势</p>
+<p>GRPO 随后使用类似 PPO 的裁剪目标更新策略，但不再训练独立的 Critic</p>
+<p>GRPO 与 PPO 的主要区别为：</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>典型 PPO</th>
+<th>GRPO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>优势基准</td>
+<td>Critic 预测的状态价值</td>
+<td>同一问题下的组内平均奖励</td>
+</tr>
+<tr>
+<td>是否需要 Critic</td>
+<td>通常需要</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>数据组织</td>
+<td>按轨迹计算 Token 级优势</td>
+<td>同一问题采样一组回答并比较</td>
+</tr>
+<tr>
+<td>显存开销</td>
+<td>需要维护 Value Model</td>
+<td>去掉 Value Model，通常更低</td>
+</tr>
+<tr>
+<td>奖励形式</td>
+<td>标量奖励</td>
+<td>标量奖励，并在组内归一化</td>
+</tr>
+<tr>
+<td>主要风险</td>
+<td>Critic 估计偏差</td>
+<td>组内奖励缺乏差异</td>
+</tr>
+</tbody></table>
+<p>GRPO 需要组内存在有效差异，如果同组回答奖励全部相同，则归一化优势接近零，当前组基本无法提供有效策略梯度信号</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/6231.html">https://yhblogs.cn/posts/6231.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%96%B9LLM/">🖹LLM</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Swift框架</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1918.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">提示工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E5%8E%9F%E5%88%99"><span class="toc-number">1.1.</span> <span class="toc-text">提示原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text">提示词设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.3.</span> <span class="toc-text">上下文学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Responses-API"><span class="toc-number">1.4.</span> <span class="toc-text">Responses API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tokenizer"><span class="toc-number">2.</span> <span class="toc-text">Tokenizer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8D%E7%BA%A7%E5%88%87%E5%88%86"><span class="toc-number">2.1.</span> <span class="toc-text">词级切分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%BA%A7%E5%88%87%E5%88%86"><span class="toc-number">2.2.</span> <span class="toc-text">字符级切分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E8%AF%8D%E5%88%87%E5%88%86"><span class="toc-number">2.3.</span> <span class="toc-text">子词切分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%E6%A1%86%E6%9E%B6"><span class="toc-number">3.</span> <span class="toc-text">分布式训练框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C"><span class="toc-number">3.1.</span> <span class="toc-text">数据并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%B9%B6%E8%A1%8C"><span class="toc-number">3.2.</span> <span class="toc-text">模型并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E5%86%97%E4%BD%99%E4%BC%98%E5%8C%96%E5%99%A8%EF%BC%88ZeRO%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">零冗余优化器（ZeRO）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLaMa"><span class="toc-number">4.</span> <span class="toc-text">LLaMa</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81-RoPE"><span class="toc-number">4.1.</span> <span class="toc-text">旋转位置编码 RoPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SwiGLU"><span class="toc-number">4.2.</span> <span class="toc-text">SwiGLU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E7%BB%93%E6%9E%84-MoE"><span class="toc-number">4.3.</span> <span class="toc-text">混合专家结构 MoE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="toc-number">5.</span> <span class="toc-text">线性注意力</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="toc-number">5.1.</span> <span class="toc-text">标准注意力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RNN-%E8%A7%86%E8%A7%92"><span class="toc-number">5.2.</span> <span class="toc-text">RNN 视角</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="toc-number">5.3.</span> <span class="toc-text">核注意力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E6%95%B0%E9%87%8D%E6%8E%92"><span class="toc-number">5.4.</span> <span class="toc-text">代数重排</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%9B%B4%E6%96%B0"><span class="toc-number">5.5.</span> <span class="toc-text">递归更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98"><span class="toc-number">5.6.</span> <span class="toc-text">关键问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GLA"><span class="toc-number">5.7.</span> <span class="toc-text">GLA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MLA"><span class="toc-number">5.8.</span> <span class="toc-text">MLA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%BB%84%E4%BB%B6"><span class="toc-number">6.</span> <span class="toc-text">大模型组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%BB%93%E6%9E%84%E7%BB%84%E4%BB%B6"><span class="toc-number">6.1.</span> <span class="toc-text">常见结构组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMSNorm"><span class="toc-number">6.2.</span> <span class="toc-text">RMSNorm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81-RoPE-1"><span class="toc-number">6.3.</span> <span class="toc-text">旋转位置编码 RoPE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E8%80%A6-RoPE"><span class="toc-number">6.3.1.</span> <span class="toc-text">解耦 RoPE</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E6%B3%A8%E6%84%8F%E5%8A%9B-GQA"><span class="toc-number">6.4.</span> <span class="toc-text">分组查询注意力 GQA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">7.</span> <span class="toc-text">大模型训练</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="toc-number">7.1.</span> <span class="toc-text">模型预训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E5%90%8E"><span class="toc-number">7.2.</span> <span class="toc-text">预训练后</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SFT"><span class="toc-number">7.2.1.</span> <span class="toc-text">SFT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RL"><span class="toc-number">7.2.2.</span> <span class="toc-text">RL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RLHF"><span class="toc-number">7.2.3.</span> <span class="toc-text">RLHF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PPO"><span class="toc-number">7.2.4.</span> <span class="toc-text">PPO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GRPO"><span class="toc-number">7.2.5.</span> <span class="toc-text">GRPO</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
