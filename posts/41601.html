@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>地理信息系统教程 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概论地理信息系统（Geographic Information System 或 Geo-Information System， 简称 GIS）   地理数据的三个基本组成：  空间位置：经纬度坐标；平面坐标；相邻、包含等相对位置关系 属性数据 时域数据  可以把地理数据理解为：空间 + 属性 + 时间 地理信息的四个空间特征：  空间相关性：距离越近的地理事物，通常相关性越大 空间区域性：地理现">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>地理信息系统教程 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="把项目需要用的基础知识补上，项目主要使用栅格数据进行后续处理 概论地理信息系统（Geographic Information System 或 Geo-Information System， 简称 GIS）   地理数据的三个基本组成：  空间位置：经纬度坐标；平面坐标；相邻、包含等相对位置关系 属性数据 时域数据  可以把地理数据理解为：空间 + 属性 + 时间 地理信息的四个空间特征：  空间">
 <meta property="og:type" content="article">
 <meta property="og:title" content="地理信息系统教程">
 <meta property="og:url" content="https://yhblogs.cn/posts/41601.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="概论地理信息系统（Geographic Information System 或 Geo-Information System， 简称 GIS）   地理数据的三个基本组成：  空间位置：经纬度坐标；平面坐标；相邻、包含等相对位置关系 属性数据 时域数据  可以把地理数据理解为：空间 + 属性 + 时间 地理信息的四个空间特征：  空间相关性：距离越近的地理事物，通常相关性越大 空间区域性：地理现">
+<meta property="og:description" content="把项目需要用的基础知识补上，项目主要使用栅格数据进行后续处理 概论地理信息系统（Geographic Information System 或 Geo-Information System， 简称 GIS）   地理数据的三个基本组成：  空间位置：经纬度坐标；平面坐标；相邻、包含等相对位置关系 属性数据 时域数据  可以把地理数据理解为：空间 + 属性 + 时间 地理信息的四个空间特征：  空间">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21ow86_1280x720.png">
 <meta property="article:published_time" content="2026-08-10T01:30:57.000Z">
-<meta property="article:modified_time" content="2026-08-10T06:56:58.106Z">
+<meta property="article:modified_time" content="2026-08-18T13:33:37.869Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🗺️GIS">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/41601.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21ow86_1280x720.png",
   "datePublished": "2026-08-10T01:30:57.000Z",
-  "dateModified": "2026-08-10T06:56:58.106Z",
+  "dateModified": "2026-08-18T13:33:37.869Z",
   "author": [
     {
       "@type": "Person",
@@ -159,7 +159,8 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">地理信息系统教程</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">地理信息系统教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-10T01:30:57.000Z" title="发表于 2026-08-10 09:30:57">2026-08-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h2><p>地理信息系统（Geographic Information System 或 Geo-Information System， 简称 GIS）  </p>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">地理信息系统教程</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">地理信息系统教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-10T01:30:57.000Z" title="发表于 2026-08-10 09:30:57">2026-08-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>把项目需要用的基础知识补上，项目主要使用栅格数据进行后续处理</p>
+<h2 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h2><p>地理信息系统（Geographic Information System 或 Geo-Information System， 简称 GIS）  </p>
 <p>地理数据的三个基本组成：</p>
 <ul>
 <li>空间位置：经纬度坐标；平面坐标；相邻、包含等相对位置关系</li>
@@ -257,6 +258,7 @@
 <blockquote>
 <p>一张 1080p 照片放大 ≠ 变成 4K</p>
 </blockquote>
+<p>可以这么理解，拍照时像素已经固定，放大只是影响画面大小，无法提升像素</p>
 <h3 id="地理格图"><a href="#地理格图" class="headerlink" title="地理格图"></a>地理格图</h3><p>按照一定数学规则对地球表面进行划分形成的格网</p>
 <p>空间区域框架可以包括：</p>
 <ul>
@@ -291,7 +293,7 @@
 </tbody></table>
 <p>除了规则格网，还可以把地理空间划成各种区域多边形</p>
 <blockquote>
-<p><strong>格网是规则划分空间；区域多边形是依据自然、社会或管理需要划分空间</strong></p>
+<p>格网是规则划分空间；区域多边形是依据自然、社会或管理需要划分空间</p>
 </blockquote>
 <h2 id="空间数据模型"><a href="#空间数据模型" class="headerlink" title="空间数据模型"></a>空间数据模型</h2><h3 id="地理空间与空间抽象"><a href="#地理空间与空间抽象" class="headerlink" title="地理空间与空间抽象"></a>地理空间与空间抽象</h3><p>地理空间主要指地球表面及近地表空间</p>
 <p>GIS 不可能把现实世界原封不动放进计算机，必须经过：观察 → 选择 → 简化 → 抽象 → 编码</p>
@@ -328,8 +330,7 @@
 <li>时空模型</li>
 <li>多维模型</li>
 </ol>
-<p>最基础的是：对象观点 + 场观点</p>
-<p>网络、时空、多维模型可以看成针对特定问题进一步发展的模型</p>
+<p>最基础的是：对象观点 + 场观点，网络、时空、多维模型可以看成针对特定问题进一步发展的模型</p>
 <p><strong>对象模型</strong></p>
 <p>基本思想：把地理空间看成一个容器，其中分布着一个个独立的地理对象</p>
 <p>基本对象类型：&#x3D;&#x3D;点、线、面、体&#x3D;&#x3D;</p>
@@ -347,14 +348,13 @@
 <li>二维地图 → 面</li>
 <li>三维场景 → 体</li>
 </ul>
-<p>最终取决于<strong>建模目的和尺度</strong></p>
+<p>最终取决于<u>建模目的和尺度</u></p>
 <p><strong>场模型</strong></p>
 <p>基本思想：把地理现象看成在空间中连续变化的变量</p>
 <p>地形高程，可以用：</p>
 <ul>
 <li>离散高程点</li>
 <li>规则格网</li>
-<li>TIN 三角形</li>
 <li>等高线</li>
 </ul>
 <table>
@@ -431,13 +431,11 @@
 <li>实体行为建模：可以做什么、如何变化、受到什么规则约束</li>
 </ul>
 <p>逻辑模型 &#x3D; 属性 + 关系 + 行为</p>
-<p>使用 UML(统一建模语言) 表示逻辑数据模型</p>
 <p>面向对象技术的核心是：</p>
 <ul>
-<li>对象 Object：具体的实体，具有属性 + 方法（行为）</li>
+<li>对象 Object：具体的实体，具有属性 + 方法，对象是类的实例</li>
 <li>类 Class：具有相同属性和方法的一组对象的抽象</li>
 </ul>
-<p>对象是类的实例</p>
 <hr>
 <p>面向对象的几个重要概念：</p>
 <ul>
@@ -454,14 +452,300 @@
 <li>属性数据：描述地理对象性质</li>
 <li>元数据：关于数据的数据 [来源、时间、分辨率、比例尺等信息]</li>
 </ul>
-<p>像元大小决定“数据有多细”，比例尺决定“现在看多大”</p>
 <p><span style="color: red;">空间关系主要分成三类</span>：</p>
 <ul>
 <li>拓扑关系</li>
 <li>顺序关系</li>
 <li>度量关系</li>
 </ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/41601.html">https://yhblogs.cn/posts/41601.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%97%BA%EF%B8%8FGIS/">🗺️GIS</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21ow86_1280x720.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/20094.html" title="编程刷题合集"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-w5mgxr_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">编程刷题合集</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">概论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">地理空间数学基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E7%90%83%E7%A9%BA%E9%97%B4%E5%8F%82%E8%80%83"><span class="toc-number">2.1.</span> <span class="toc-text">地球空间参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E6%8A%95%E5%BD%B1"><span class="toc-number">2.2.</span> <span class="toc-text">空间数据投影</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E5%B0%BA%E5%BA%A6"><span class="toc-number">2.3.</span> <span class="toc-text">空间尺度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E7%90%86%E6%A0%BC%E5%9B%BE"><span class="toc-number">2.4.</span> <span class="toc-text">地理格图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">空间数据模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E4%B8%8E%E7%A9%BA%E9%97%B4%E6%8A%BD%E8%B1%A1"><span class="toc-number">3.1.</span> <span class="toc-text">地理空间与空间抽象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A6%82%E5%BF%B5%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">空间数据概念模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E9%80%BB%E8%BE%91%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.3.</span> <span class="toc-text">空间数据逻辑模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E4%B8%8E%E7%A9%BA%E9%97%B4%E5%85%B3%E7%B3%BB"><span class="toc-number">3.4.</span> <span class="toc-text">空间数据与空间关系</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+<p><strong>拓扑关系</strong>的核心思想：图形发生缩放、旋转、拉伸，只要没有断裂，某些空间关系仍保持不变</p>
+<p>主要包含：</p>
+<ul>
+<li>邻接关系</li>
+<li>关联关系</li>
+<li>包含关系</li>
+<li>连通关系</li>
+</ul>
+<p>拓扑关系的主要作用：</p>
+<ul>
+<li>稳定表达逻辑关系</li>
+<li>支持空间查询</li>
+<li>可以重建和分析空间实体</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    A[&quot;两个空间对象&quot;] --&gt; B&#123;&quot;有没有公共位置？&quot;&#125;</span><br><span class="line"></span><br><span class="line">    B -- &quot;没有&quot; --&gt; C[&quot;相离Disjoint&quot;]</span><br><span class="line"></span><br><span class="line">    B -- &quot;有&quot; --&gt; D&#123;&quot;几何是否完全相同？&quot;&#125;</span><br><span class="line"></span><br><span class="line">    D -- &quot;是&quot; --&gt; E[&quot;重合&quot;]</span><br><span class="line"></span><br><span class="line">    D -- &quot;否&quot; --&gt; F&#123;&quot;是否只接触边界？&quot;&#125;</span><br><span class="line"></span><br><span class="line">    F -- &quot;是&quot; --&gt; G[&quot;邻接 Touches&quot;]</span><br><span class="line"></span><br><span class="line">    F -- &quot;否&quot; --&gt; H&#123;&quot;一个对象是否完全位于另一个内部？&quot;&#125;</span><br><span class="line"></span><br><span class="line">    H -- &quot;是&quot; --&gt; I[&quot;包含 Contains / Within&quot;]</span><br><span class="line"></span><br><span class="line">    H -- &quot;否&quot; --&gt; J&#123;&quot;具体是哪种相交？&quot;&#125;</span><br><span class="line"></span><br><span class="line">    J -- &quot;线穿过线 / 面&quot; --&gt; K[&quot;穿过 Crosses&quot;]</span><br><span class="line"></span><br><span class="line">    J -- &quot;两个面部分重叠&quot; --&gt; L[&quot;重叠 Overlaps&quot;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="空间数据结构"><a href="#空间数据结构" class="headerlink" title="空间数据结构"></a>空间数据结构</h2><h3 id="矢量数据结构"><a href="#矢量数据结构" class="headerlink" title="矢量数据结构"></a>矢量数据结构</h3><p>矢量数据结构直接记录地理实体的<strong>空间坐标及其关系</strong>，分为：实体数据结构、拓扑数据结构</p>
+<p>实体数据结构：编码容易、数字化简单、数据组织直观；但容易数据冗余，可能产生缝隙或重叠，并且没有明确拓扑关系</p>
+<p>拓扑数据结构：点相互独立 → 点组成线 → 线组成面，同时显式记录它们之间的空间关系，<span style="color: red;">具有拓扑编辑功能</span></p>
+<p>可以用于：</p>
+<ul>
+<li>检查数字化错误</li>
+<li>判断多边形是否闭合</li>
+<li>自动构建多边形</li>
+<li>建立邻接关系</li>
+<li>建立空间数据库</li>
+</ul>
+<h3 id="栅格数据结构"><a href="#栅格数据结构" class="headerlink" title="栅格数据结构"></a><span style="color: purple;">栅格数据结构</span></h3><p>栅格数据结构把整个地理空间划分成：规则排列的栅格单元 Cell</p>
+<p>每个栅格单元：</p>
+<ul>
+<li>行列号决定位置</li>
+<li>单元值表示属性</li>
+</ul>
+<h3 id="矢量与栅格的融合和转换"><a href="#矢量与栅格的融合和转换" class="headerlink" title="矢量与栅格的融合和转换"></a>矢量与栅格的融合和转换</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>矢量</th>
+<th>栅格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心</td>
+<td>坐标</td>
+<td>格子</td>
+</tr>
+<tr>
+<td>位置</td>
+<td>明显</td>
+<td>隐含</td>
+</tr>
+<tr>
+<td>属性</td>
+<td>相对隐含</td>
+<td>明显</td>
+</tr>
+<tr>
+<td>精度</td>
+<td>高</td>
+<td>受像元大小影响</td>
+</tr>
+<tr>
+<td>数据量</td>
+<td>通常较小</td>
+<td>通常较大</td>
+</tr>
+<tr>
+<td>拓扑</td>
+<td>强</td>
+<td>弱</td>
+</tr>
+<tr>
+<td>叠置分析</td>
+<td>较复杂</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>数学模拟</td>
+<td>较复杂</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>遥感结合</td>
+<td>较弱</td>
+<td>很自然</td>
+</tr>
+<tr>
+<td>图形质量</td>
+<td>高</td>
+<td>较低</td>
+</tr>
+</tbody></table>
+<h2 id="GIS-基本空间分析"><a href="#GIS-基本空间分析" class="headerlink" title="GIS 基本空间分析"></a>GIS 基本空间分析</h2><h3 id="叠置分析-Overlay-Analysis"><a href="#叠置分析-Overlay-Analysis" class="headerlink" title="叠置分析 Overlay Analysis"></a>叠置分析 Overlay Analysis</h3><p>把两个或多个空间图层叠在一起，产生一个新的空间图层，同时建立新的空间关系和属性关系</p>
+<p><strong>矢量叠置</strong></p>
+<ul>
+<li><p>点 + 多边形：通常是把多边形属性添加到点上，因此最核心的空间关系是包含关系</p>
+</li>
+<li><p>线 + 多边形：计算线与多边形边界的交点；把原来的线切成多段；判断每段属于哪个多边形；给这些线段添加对应多边形属性</p>
+</li>
+<li><p>多边形 + 多边形：最经典、最常用的矢量叠置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">边界求交</span><br><span class="line">↓</span><br><span class="line">原多边形被重新分割</span><br><span class="line">↓</span><br><span class="line">形成新多边形</span><br><span class="line">↓</span><br><span class="line">重新建立拓扑</span><br><span class="line">↓</span><br><span class="line">继承两个图层的属性</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>多边形叠置的重要问题：破碎多边形。理论上两个图层的边界相同，但实际数字化位置存在微小差异，重叠后可能会产生很多细小、没有实际地理意义的多边形</p>
+<p>处理方式包括：</p>
+<ul>
+<li>模糊容差</li>
+<li>最小制图单元</li>
+</ul>
+<p>容差需要考虑，太大可能删掉真正的小对象；太小又无法消除碎屑</p>
+<p><strong>栅格叠置</strong></p>
+<p>位置相同的像元之间直接进行计算</p>
+<p>几种核心方式：</p>
+<ul>
+<li>布尔逻辑</li>
+<li>重分类</li>
+<li>数学运算复合</li>
+</ul>
+<p>所以栅格更适合做多因素综合分析，因为所有图层都变成统一格网后，可以逐像元直接计算</p>
+<p>相对于矢量多边形叠置：</p>
+<ul>
+<li>数据结构简单</li>
+<li>运算方便</li>
+<li>不产生碎屑多边形</li>
+</ul>
+<h3 id="缓冲区分析-Buffer-Analysis"><a href="#缓冲区分析-Buffer-Analysis" class="headerlink" title="缓冲区分析 Buffer Analysis"></a>缓冲区分析 Buffer Analysis</h3><p>围绕一个地理对象建立一定距离或影响范围的区域</p>
+<p><strong>矢量缓冲区</strong></p>
+<ul>
+<li>点缓冲：圆形范围</li>
+<li>线缓冲：可以是双侧对称、双侧不对称、单侧</li>
+<li>面缓冲：可以是向外缓冲、向内缓冲、内外同时缓冲</li>
+</ul>
+<p>缓冲距离本身也可以由属性控制</p>
+<p><strong>栅格缓冲区</strong></p>
+<p>矢量 Buffer 常形成：区域内相同、区域外不同的离散范围</p>
+<p>现实中的很多影响是随着距离逐渐衰减</p>
+<p>栅格可以建立连续的距离表面，每个像元保存距最近目标有多远</p>
+<p>关键概念：<span style="color: purple;">成本距离 Cost Distance</span></p>
+<p>现实空间并不均质，所以不能只看欧氏距离，给不同区域设置不同移动&#x2F;传播成本，形成成本距离缓冲区</p>
+<h3 id="窗口分析"><a href="#窗口分析" class="headerlink" title="窗口分析"></a>窗口分析</h3><p>核心思想：一个像元不仅由自己决定，还受到周围像元影响</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌───┬───┬───┐</span><br><span class="line">│   │   │   │</span><br><span class="line">├───┼───┼───┤</span><br><span class="line">│   │ ● │   │</span><br><span class="line">├───┼───┼───┤</span><br><span class="line">│   │   │   │</span><br><span class="line">└───┴───┴───┘</span><br></pre></td></tr></table></figure>
+
+<p>根据周围像元计算中心像元的新值，再把窗口逐格移动，最后产生新的栅格图层</p>
+<h3 id="网络分析-Network-Analysis"><a href="#网络分析-Network-Analysis" class="headerlink" title="网络分析 Network Analysis"></a>网络分析 Network Analysis</h3><p>线相互连接 + 资源在线上流动</p>
+<p><strong>矢量网络分析</strong></p>
+<ul>
+<li>链 Link：资源流动的通道</li>
+<li>障碍 Barrier：禁止或阻碍通过的位置</li>
+<li>拐角点：描述转向时产生的时间、费用、限制</li>
+<li>结点 Node：网络中不同链之间的连接点</li>
+<li>中心 Center：资源发出或接收的位置</li>
+<li>站点 Stop：路径分析中途需要经过或处理资源的位置</li>
+</ul>
+<p><strong>栅格网络分析</strong></p>
+<p>传统矢量网络需要显式维护：</p>
+<ul>
+<li>点</li>
+<li>线</li>
+<li>拓扑</li>
+<li>阻强</li>
+<li>几何关系</li>
+</ul>
+<p>当网络发生大量动态变化时维护这些拓扑关系会很复杂</p>
+<p>栅格具有属性明显、位置隐含的特点</p>
+<p>格网之间的邻接关系天然存在，因此可以利用地图代数 + 栅格连通关系进行网络路径计算</p>
+<p>把网络看成一个具有距离刻度的连通管系统，资源从起点扩散，最早到达终点的轨迹对应最短路径</p>
+<hr>
+<p>网络的三个重要属性</p>
+<ol>
+<li>阻强：走过这段网络需要付出的代价，最优路径就是找最小损失</li>
+<li>资源容量：一个中心最多能够提供或容纳多少资源</li>
+<li>资源需求量：网络中对象对资源的需求量</li>
+</ol>
+<p>四类主要网络分析应用：</p>
+<ul>
+<li>路径分析：静态路径 vs 动态路径</li>
+<li>资源分配：哪些地区应该由哪个服务中心负责，让资源配置和服务范围尽可能合理</li>
+<li>最佳选址</li>
+<li>地址匹配：把文字地址转换为网络中的地理位置</li>
+</ul>
+<h2 id="DEM-与数字地形分析"><a href="#DEM-与数字地形分析" class="headerlink" title="DEM 与数字地形分析"></a>DEM 与数字地形分析</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>DEM：Digital Elevation Model，数字高程模型</p>
+<p>通过有限的地形高程数据，对地形曲面进行数字化模拟</p>
+<p>数学上可以把地形看成</p>
+<div class="mathjax-display">
+$$
+H=f(x,y)
+$$
+</div>
+DEM 实际上是：有限采样点 + 某种连接/内插规则 → 逼近连续地形表面
+
+<p>规则格网 DEM 因为结构简单、算法清晰，是实际应用最广泛的形式之一</p>
+<p>地形属性：</p>
+<ol>
+<li>地形曲面参数：具有明确数学定义，可以直接从 DEM 计算，例如坡度、坡向、曲率</li>
+<li>地形形态特征：描述地貌形态</li>
+<li>地形统计特征：对一定区域中的地形进行统计描述</li>
+<li>复合地形属性：在基本地形参数基础上结合应用模型构建综合指标</li>
+</ol>
+<p>DEM 建立本质上就是把真实连续地形 → 抽象成计算机可以处理的有限数字表面</p>
+<h3 id="数字地形分析"><a href="#数字地形分析" class="headerlink" title="数字地形分析"></a>数字地形分析</h3><p>基本地形因子包括：</p>
+<ul>
+<li>坡度</li>
+<li>坡向</li>
+<li>曲率</li>
+</ul>
+<p><strong>坡度 Slope</strong></p>
+<p>核心计算思想是求：X&#x2F;Y 方向高程变化率$f_x, f_y$</p>
+<div class="mathjax-display">
+$$
+Slope=\arctan\sqrt{f_x^2+f_y^2}
+$$
+</div>
+Slope 本质上就是一种基于 DEM 的邻域/窗口分析
+
+<p><strong>坡向 Aspect</strong></p>
+<p>地形表面该点法向量在水平面上的投影，与正北方向之间的夹角</p>
+<p><strong>曲率 Curvature</strong></p>
+<p>剖面曲率：沿最大坡降方向，坡面怎样弯 [竖着看坡面怎么弯] [可以类比滑雪，顺着下坡走，坡怎么弯]</p>
+<p>平面曲率：水平方向上的弯曲程度 [沿等高线方向看它怎么弯] [从天上看，左右怎么弯]</p>
+<h2 id="GIS-空间统计分析"><a href="#GIS-空间统计分析" class="headerlink" title="GIS 空间统计分析"></a>GIS 空间统计分析</h2><h3 id="空间统计概述"><a href="#空间统计概述" class="headerlink" title="空间统计概述"></a>空间统计概述</h3><p>空间统计既考虑属性值，又考虑空间位置和距离</p>
+<p>经典统计往往假设：不同观测值彼此独立，但地理现象通常不是这样，具有空间依赖性 &#x2F; 空间自相关</p>
+<p>空间统计主要分析内容</p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>回答的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本统计</td>
+<td>数据总体什么样？</td>
+</tr>
+<tr>
+<td>探索性分析</td>
+<td>有没有异常、趋势、空间相关？</td>
+</tr>
+<tr>
+<td>空间插值</td>
+<td>没采样的地方是多少？</td>
+</tr>
+<tr>
+<td>空间分类</td>
+<td>能不能把区域归成若干类型？</td>
+</tr>
+<tr>
+<td>空间回归</td>
+<td>各因素之间有什么空间关系？</td>
+</tr>
+</tbody></table>
+<h3 id="探索性数据分析"><a href="#探索性数据分析" class="headerlink" title="探索性数据分析"></a>探索性数据分析</h3><p>基本分析工具</p>
+<p><strong>直方图 Histogram</strong></p>
+<p>把数值划分成多个区间</p>
+<p>作用：</p>
+<ul>
+<li>看数据分布形态</li>
+<li>看集中范围</li>
+<li>找异常值</li>
+<li>初步判断是否近似正态</li>
+</ul>
+<p><strong>QQ Plot</strong></p>
+<p>正态 QQ 图主要回答数据是否接近正态分布？</p>
+<p>如果点大致排列成一条直线 → 数据比较接近正态分布</p>
+<p>如果有少量点明显偏离可能存在异常值</p>
+<p>普通 QQ 图用于比较两个数据集的分布是否相似</p>
+<p><strong>半变异函数 Semivariogram</strong></p>
+<p>描述样点之间的差异怎样随着距离增加而变化</p>
+<p>与协方差刚好大致相反，距离越近 → 协方差越大</p>
+<p>四个概念：</p>
+<ol>
+<li><p>块金值 Nugget</p>
+<p>理论上距离 &#x3D; 0 → 差异也应 &#x3D; 0，但由于测量误差，使得非常接近的两个点仍然存在差异</p>
+<p>这个起始差异就是块金值</p>
+</li>
+<li><p>基台值 Sill</p>
+<p>随着距离增加，半变异值逐渐增加，到一定程度后趋于稳定，这个稳定值就是基台值</p>
+</li>
+<li><p>偏基台值 Partial Sill</p>
+<div class="mathjax-display">
+$$
+\text{Partial Sill}=\text{Sill}-\text{Nugget}
+$$
+</div>
+</li>
+<li><p>变程 Range</p>
+<p>从起点增加到基台时对应的距离，表示空间相关性能够作用多远</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/41601.html">https://yhblogs.cn/posts/41601.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%97%BA%EF%B8%8FGIS/">🗺️GIS</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21ow86_1280x720.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/46539.html" title="无线网络仿真技术"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">无线网络仿真技术</div></div></div></a><a class="pagination-related  no-desc" href="/posts/20094.html" title="编程刷题合集"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-w5mgxr_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">编程刷题合集</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/46539.html" title="无线网络仿真技术"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-10</div><div class="info-item-2">无线网络仿真技术</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">概论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">地理空间数学基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E7%90%83%E7%A9%BA%E9%97%B4%E5%8F%82%E8%80%83"><span class="toc-number">2.1.</span> <span class="toc-text">地球空间参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E6%8A%95%E5%BD%B1"><span class="toc-number">2.2.</span> <span class="toc-text">空间数据投影</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E5%B0%BA%E5%BA%A6"><span class="toc-number">2.3.</span> <span class="toc-text">空间尺度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E7%90%86%E6%A0%BC%E5%9B%BE"><span class="toc-number">2.4.</span> <span class="toc-text">地理格图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">空间数据模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E4%B8%8E%E7%A9%BA%E9%97%B4%E6%8A%BD%E8%B1%A1"><span class="toc-number">3.1.</span> <span class="toc-text">地理空间与空间抽象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A6%82%E5%BF%B5%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">空间数据概念模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E9%80%BB%E8%BE%91%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.3.</span> <span class="toc-text">空间数据逻辑模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E4%B8%8E%E7%A9%BA%E9%97%B4%E5%85%B3%E7%B3%BB"><span class="toc-number">3.4.</span> <span class="toc-text">空间数据与空间关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">空间数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A2%E9%87%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">4.1.</span> <span class="toc-text">矢量数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%85%E6%A0%BC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">4.2.</span> <span class="toc-text">栅格数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A2%E9%87%8F%E4%B8%8E%E6%A0%85%E6%A0%BC%E7%9A%84%E8%9E%8D%E5%90%88%E5%92%8C%E8%BD%AC%E6%8D%A2"><span class="toc-number">4.3.</span> <span class="toc-text">矢量与栅格的融合和转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GIS-%E5%9F%BA%E6%9C%AC%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">GIS 基本空间分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%A0%E7%BD%AE%E5%88%86%E6%9E%90-Overlay-Analysis"><span class="toc-number">5.1.</span> <span class="toc-text">叠置分析 Overlay Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E5%88%86%E6%9E%90-Buffer-Analysis"><span class="toc-number">5.2.</span> <span class="toc-text">缓冲区分析 Buffer Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%88%86%E6%9E%90"><span class="toc-number">5.3.</span> <span class="toc-text">窗口分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90-Network-Analysis"><span class="toc-number">5.4.</span> <span class="toc-text">网络分析 Network Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DEM-%E4%B8%8E%E6%95%B0%E5%AD%97%E5%9C%B0%E5%BD%A2%E5%88%86%E6%9E%90"><span class="toc-number">6.</span> <span class="toc-text">DEM 与数字地形分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">6.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E5%9C%B0%E5%BD%A2%E5%88%86%E6%9E%90"><span class="toc-number">6.2.</span> <span class="toc-text">数字地形分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GIS-%E7%A9%BA%E9%97%B4%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90"><span class="toc-number">7.</span> <span class="toc-text">GIS 空间统计分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E7%BB%9F%E8%AE%A1%E6%A6%82%E8%BF%B0"><span class="toc-number">7.1.</span> <span class="toc-text">空间统计概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E6%80%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="toc-number">7.2.</span> <span class="toc-text">探索性数据分析</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {

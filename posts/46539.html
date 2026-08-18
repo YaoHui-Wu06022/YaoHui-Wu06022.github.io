@@ -1,0 +1,585 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>无线网络仿真技术 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="传播模型理论经验传播模型Okumura-Hata：是无线通信领域非常经典的经验传播模型，根据大量实测数据建立经验公式 路径损耗主要由以下决定  频率 基站高度 用户终端高度 距离 城市 &#x2F; 郊区 &#x2F; 农村  城市环境的经典 Hata 公式可以写成  $$ L_u&#x3D;69.55+26.16\log_{10}(f)-13.82\log_{10}(h_b)-a(h_m)+[44.9-6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无线网络仿真技术">
+<meta property="og:url" content="https://yhblogs.cn/posts/46539.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="传播模型理论经验传播模型Okumura-Hata：是无线通信领域非常经典的经验传播模型，根据大量实测数据建立经验公式 路径损耗主要由以下决定  频率 基站高度 用户终端高度 距离 城市 &#x2F; 郊区 &#x2F; 农村  城市环境的经典 Hata 公式可以写成  $$ L_u&#x3D;69.55+26.16\log_{10}(f)-13.82\log_{10}(h_b)-a(h_m)+[44.9-6">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp">
+<meta property="article:published_time" content="2026-08-10T11:30:57.000Z">
+<meta property="article:modified_time" content="2026-08-18T13:33:37.870Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🗺️GIS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "无线网络仿真技术",
+  "url": "https://yhblogs.cn/posts/46539.html",
+  "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp",
+  "datePublished": "2026-08-10T11:30:57.000Z",
+  "dateModified": "2026-08-18T13:33:37.870Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "今天睡够了吗",
+      "url": "https://yhblogs.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yhblogs.cn/posts/46539.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '无线网络仿真技术',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">无线网络仿真技术</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">无线网络仿真技术</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-10T11:30:57.000Z" title="发表于 2026-08-10 19:30:57">2026-08-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="传播模型理论"><a href="#传播模型理论" class="headerlink" title="传播模型理论"></a>传播模型理论</h2><h3 id="经验传播模型"><a href="#经验传播模型" class="headerlink" title="经验传播模型"></a>经验传播模型</h3><p><strong>Okumura-Hata</strong>：是无线通信领域非常经典的<strong>经验传播模型</strong>，根据大量实测数据建立经验公式</p>
+<p>路径损耗主要由以下决定</p>
+<ul>
+<li>频率</li>
+<li>基站高度</li>
+<li>用户终端高度</li>
+<li>距离</li>
+<li>城市 &#x2F; 郊区 &#x2F; 农村</li>
+</ul>
+<p>城市环境的经典 Hata 公式可以写成</p>
+<div class="mathjax-display">
+$$
+L_u=69.55+26.16\log_{10}(f)-13.82\log_{10}(h_b)-a(h_m)+[44.9-6.55\log_{10}(h_b)]\log_{10}(d)
+$$
+</div>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$f$</td>
+<td>无线信号频率</td>
+</tr>
+<tr>
+<td>$h_b$</td>
+<td>基站天线高度</td>
+</tr>
+<tr>
+<td>$h_m$</td>
+<td>手机&#x2F;移动台天线高度</td>
+</tr>
+<tr>
+<td>$d$</td>
+<td>基站到用户的距离</td>
+</tr>
+<tr>
+<td>$a(h_m)$</td>
+<td>移动台高度修正</td>
+</tr>
+<tr>
+<td>$L$</td>
+<td>最终路径损耗</td>
+</tr>
+</tbody></table>
+<p>Hata 首先建立一个城市 Urban 基准模型</p>
+<p>然后通过修正得到：</p>
+<ul>
+<li>Urban：城市</li>
+<li>Suburban：郊区</li>
+<li>Open Area：开阔地区</li>
+</ul>
+<p>但这只能是经验模型，无法根据地形修正</p>
+<hr>
+<p><strong>COST-231 Hata</strong>：Hata 模型向更高蜂窝频段扩展的经典版本</p>
+<div class="mathjax-display">
+$$
+L_u=46.3+33.9\log_{10}(f)-13.82\log_{10}(h_b)-a(h_m)+[44.9-6.55\log_{10}(h_b)]\log_{10}(d)+C_m
+$$
+</div>
+保留 Hata 的整体结构，把它扩展到更高的蜂窝频率范围，并增加城市类型等修正
+
+<hr>
+<p>修正后的路损公式：</p>
+<div class="mathjax-display">
+$$
+L_{\mathrm{path}} = L_u - a(h_m) + C_m
+$$
+</div>
+在 COST-231 Hata 模型中，中小城市常用
+<div class="mathjax-display">
+$$
+a(H_m)=\left(1.1\log_{10}f-0.7\right)H_m-\left(1.56\log_{10}f-0.8\right)
+$$
+</div>
+$C_m$ 是主要修正的值，根据不同场景使用不同的值
+
+<h3 id="蜂窝标准模型"><a href="#蜂窝标准模型" class="headerlink" title="蜂窝标准模型"></a>蜂窝标准模型</h3><p>3GPP TR 38.901 覆盖 0.5–100 GHz 的信道建模</p>
+<table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>全称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RMa</strong></td>
+<td>Rural Macro</td>
+<td>农村宏站</td>
+</tr>
+<tr>
+<td><strong>UMa</strong></td>
+<td>Urban Macro</td>
+<td>城市宏站</td>
+</tr>
+<tr>
+<td><strong>UMi</strong></td>
+<td>Urban Micro</td>
+<td>城市微站</td>
+</tr>
+<tr>
+<td><strong>InH</strong></td>
+<td>Indoor Hotspot</td>
+<td>室内热点</td>
+</tr>
+</tbody></table>
+<p>3GPP 的目的就是让不同研究者在评估现代蜂窝物理层技术时使用统一、可比较的信道模型框架</p>
+<h3 id="射线追踪传播模型"><a href="#射线追踪传播模型" class="headerlink" title="射线追踪传播模型"></a>射线追踪传播模型</h3><p>射线追踪明确涉及建筑遮挡、反射、散射、穿透建筑和多径传播等机制</p>
+<p>在真实城市种，基站到手机可能存在很多条路径，Ray Tracing 的核心工作，就是把这些可能的传播路径找出来，然后分别计算</p>
+<p>主要做以下几类追踪：</p>
+<ol>
+<li><p>Direct Path：直射，LOS[Line of Sight，视距传播]，没有障碍物遮挡，通常信号最强</p>
+</li>
+<li><p>Reflection：反射，即使手机看不到基站仍然可能通过旁边建筑的反射收到信号</p>
+</li>
+<li><p>Diffraction：衍射，即使中间有建筑物或者山将信号遮挡，但无线电波可以绕到障碍物后面。频率越高，波长越短，衍射能力就越弱</p>
+<div class="mathjax-display">
+$$
+\nu=h\sqrt{\frac{2}{\lambda}\left(\frac{1}{d_1}+\frac{1}{d_2}\right)}
+$$
+</div>
+$h$ 是障碍物相对 LOS 直线的高度
+
+<p>Fresnel–Kirchhoff 单刀刃绕射损耗</p>
+<div class="mathjax-display">
+$$
+J(\nu)=6.9+20\log_{10}\left[\sqrt{(\nu-0.1)^2+1}+\nu-0.1\right]
+$$
+</div>
+在刀刃恰好位于 LOS，也就是 $\nu = 0$ 时也有一部分损失，可以用以下条件判断是否产生衍射附加损失
+<div class="mathjax-display">
+$$
+\boxed{\nu\le -0.78} \rightarrow \boxed{h\le -0.55r_1}
+$$
+</div>
+工程上保守使用
+<div class="mathjax-display">
+$$
+\boxed{h\le -0.6r_1}
+$$
+</div>
+如果想要充分考虑，需要先计算 LOS，然后判断该位置的建筑高度 $h$ 是否超过 LOS
+<div class="mathjax-display">
+$$
+\boxed{r_1=\sqrt{\frac{\lambda d_1d_2}{d_1+d_2}}}
+$$
+</div>
+$r_1$ 是第一菲涅耳区半径，如果建筑有很多个栅格，需要利用最大的建筑高度计算
+</li>
+<li><p>Transmission：穿透，手机在室内，需要穿过墙、窗，但会有不同的额外损耗</p>
+</li>
+<li><p>Scattering：散射，墙不是平滑的，会发生漫反射</p>
+</li>
+</ol>
+<p>手机接收到的不是一条波，而是多个波的叠加，不同波之间有时延(导致相位差)、强度差，不同波的叠加可能会发生相长干涉和相消干涉</p>
+<h2 id="传播模型校正"><a href="#传播模型校正" class="headerlink" title="传播模型校正"></a>传播模型校正</h2><p>通过 CW(连续波测试) 和 DT(路测) 测试用于传播模型校正</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CW</th>
+<th>DT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>全称</td>
+<td>Continuous Wave</td>
+<td>Drive Test</td>
+</tr>
+<tr>
+<td>发射源</td>
+<td>专门测试发射机</td>
+<td>真实基站</td>
+</tr>
+<tr>
+<td>信号</td>
+<td>单一连续波</td>
+<td>LTE&#x2F;5G真实信号</td>
+</tr>
+<tr>
+<td>发射功率</td>
+<td>通常严格已知</td>
+<td>受实际配置影响</td>
+</tr>
+<tr>
+<td>网络负载影响</td>
+<td>基本没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>干扰影响</td>
+<td>可控&#x2F;较小</td>
+<td>有</td>
+</tr>
+<tr>
+<td>调度影响</td>
+<td>没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>传播模型校准</td>
+<td><strong>非常适合</strong></td>
+<td>可以，但更复杂</td>
+</tr>
+<tr>
+<td>网络优化</td>
+<td>不主要做</td>
+<td><strong>非常适合</strong></td>
+</tr>
+</tbody></table>
+<p>经验模型默认使用最小二乘校正</p>
+<p>射线追踪模型默认使用粒子群校正算法</p>
+<p>使用 RMSE 进行评价</p>
+<h2 id="无线网络仿真"><a href="#无线网络仿真" class="headerlink" title="无线网络仿真"></a>无线网络仿真</h2><h3 id="网元建模"><a href="#网元建模" class="headerlink" title="网元建模"></a>网元建模</h3><ul>
+<li>SCS：子载波间隔</li>
+<li>SC：子载波</li>
+<li>RB：资源块</li>
+</ul>
+<p>在 5G NR中：</p>
+<div class="mathjax-display">
+$$
+\Delta f = 15\times 2^\mu\ \text{kHz}
+$$
+</div>
+其中 $\mu$ 是 numerology 参数：
+
+<table>
+<thead>
+<tr>
+<th>$\mu$</th>
+<th>SCS</th>
+<th>1 RB 带宽</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>15 kHz</td>
+<td>180kHz</td>
+</tr>
+<tr>
+<td>1</td>
+<td>30 kHz</td>
+<td>360kHz</td>
+</tr>
+<tr>
+<td>2</td>
+<td>60 kHz</td>
+<td>720kHz</td>
+</tr>
+<tr>
+<td>3</td>
+<td>120 kHz</td>
+<td>1.44 MHz</td>
+</tr>
+</tbody></table>
+<p>一个 RB 固定有 12 个子载波，所以一个 RB 在频域上的宽度</p>
+<div class="mathjax-display">
+$$
+B_{\text{RB}}=12\Delta f
+$$
+</div>
+若系统共配置 $N_{\mathrm{RB}}$ 个 RB，则所有 RB 对应的频域带宽为
+<div class="mathjax-display">
+$$
+B_{\text{occupied}}=N_{\text{RB}}\times12\times\Delta f
+$$
+</div>
+需要注意：
+<div class="mathjax-display">
+$$
+B_{\mathrm{occupied}}\neq B_{\mathrm{channel}}
+$$
+</div>
+其中 $B_{\mathrm{channel}}$ 为配置的信道带宽，这是因为信道带宽两侧还需要预留一定的保护带
+
+<p>例如：</p>
+<div class="mathjax-display">
+$$
+B_{\mathrm{channel}}=100\text{ MHz}\quad \Delta f=30\text{ kHz} 
+$$
+</div>
+对应 $N_{\mathrm{RB}}=273$ 因此实际占用带宽为
+<div class="mathjax-display">
+$$
+273\times12\times30\text{ kHz}=98.28\text{ MHz}
+$$
+</div>
+
+<hr>
+<p><strong>NR-ARFCN（NR Absolute Radio Frequency Channel Number）</strong> 用一个整数编号表示 NR 的射频参考频率位置</p>
+<p>NR-ARFCN 与频率之间的换算关系为</p>
+<div class="mathjax-display">
+$$
+F_{\mathrm{REF}}=F_{\mathrm{REF-Offs}}+\Delta F_{\mathrm{Global}}\left(N_{\mathrm{REF}}-N_{\mathrm{REF-Offs}}\right)
+$$
+</div>
+其中：
+
+<ul>
+<li>$N_{\mathrm{REF}}$：NR-ARFCN</li>
+<li>$F_{\mathrm{REF}}$​：NR-ARFCN 对应的射频参考频率，通常接近&#x2F;等于载波中心频率</li>
+<li>$\Delta F_{\mathrm{Global}}$：全局频率栅格步长</li>
+<li>$F_{\mathrm{REF-Offs}}$：参考频率偏移</li>
+<li>$N_{\mathrm{REF-Offs}}$：NR-ARFCN 编号偏移</li>
+</ul>
+<p>在传播建模、覆盖仿真或射线追踪中，通常可以将该射频参考频率作为载波中心频率</p>
+<table>
+<thead>
+<tr>
+<th>频率范围</th>
+<th>NR-ARFCN 范围</th>
+<th>ARFCN 步进($\Delta F_{\text{Global}}$)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0 ～ 3000 MHz</td>
+<td>0 ～ 599999</td>
+<td>5 kHz</td>
+</tr>
+<tr>
+<td>3000 ～ 24250.08 MHz</td>
+<td>600000 ～ 2016666</td>
+<td>15 kHz</td>
+</tr>
+<tr>
+<td>24250.08 ～ 100000 MHz</td>
+<td>2016667 ～ 3279165</td>
+<td>60 kHz</td>
+</tr>
+</tbody></table>
+<p>这套全局栅格是 3GPP 标准定义的</p>
+<p>因此可以通过 NR-ARFCN 得到仿真所使用的载波频率</p>
+<p>进而得到信道的最低频率和最高频率</p>
+<div class="mathjax-display">
+$$
+f_{low}=F_{\mathrm{REF}}-\frac{B_{\mathrm{channel}}}{2}\\
+f_{high}=F_{\mathrm{REF}}+\frac{B_{\mathrm{channel}}}{2}
+$$
+</div>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                 Channel Bandwidth</span><br><span class="line">            &lt;-------------------------&gt;</span><br><span class="line">           </span><br><span class="line">        f_low           f_c          f_high</span><br><span class="line">          │              │              │</span><br><span class="line">          ▼              ▼              ▼</span><br><span class="line">──────────┼──────────────┼──────────────┼──────────► f</span><br><span class="line">                         │</span><br><span class="line">                       F_REF</span><br><span class="line"></span><br><span class="line">             &lt;------ B_occupied ------&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>先由 3GPP 规定的频率映射关系得到 $F_{\mathrm{REF}}$ 再计算最低频率和最高频率，才进入子载波计算</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/46539.html">https://yhblogs.cn/posts/46539.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%97%BA%EF%B8%8FGIS/">🗺️GIS</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/32726.html" title="VIT"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">VIT</div></div></div></a><a class="pagination-related  no-desc" href="/posts/41601.html" title="地理信息系统教程"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21ow86_1280x720.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">地理信息系统教程</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/41601.html" title="地理信息系统教程"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-21ow86_1280x720.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-10</div><div class="info-item-2">地理信息系统教程</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E6%92%AD%E6%A8%A1%E5%9E%8B%E7%90%86%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">传播模型理论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E9%AA%8C%E4%BC%A0%E6%92%AD%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">经验传播模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%9C%82%E7%AA%9D%E6%A0%87%E5%87%86%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">蜂窝标准模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%84%E7%BA%BF%E8%BF%BD%E8%B8%AA%E4%BC%A0%E6%92%AD%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">射线追踪传播模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E6%92%AD%E6%A8%A1%E5%9E%8B%E6%A0%A1%E6%AD%A3"><span class="toc-number">2.</span> <span class="toc-text">传播模型校正</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F"><span class="toc-number">3.</span> <span class="toc-text">无线网络仿真</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E5%85%83%E5%BB%BA%E6%A8%A1"><span class="toc-number">3.1.</span> <span class="toc-text">网元建模</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/js/vendor/twopeople1.js"></script><script src="/js/vendor/zdog.dist.js"></script><script id="rendered-js" src="/js/vendor/twopeople.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>
