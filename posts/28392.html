@@ -1,24 +1,24 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>机考选择题 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="编码执行下面的 Python 代码，打印结果是什么？ 12345678910111213squares &#x3D; (k * k for k in range(4))view &#x3D; squaresp &#x3D; next(squares)q &#x3D; next(view)rest &#x3D; list(squares)try:    tail &#x3D; next(view)except StopIteration:    tail &#x3D;">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大语言模型训练与推理 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="训练流程通用文本大模型的主流预训练范式 123456789101112131415大规模原始语料    ↓清洗、去重、质量筛选    ↓Tokenizer 编码    ↓Decoder-only Transformer    ↓Next Token Prediction    ↓Pretrained Base Model    ↓Fine-Tuning   ↓Chat &#x2F; Instruct Mod">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机考选择题">
+<meta property="og:title" content="大语言模型训练与推理">
 <meta property="og:url" content="https://yhblogs.cn/posts/28392.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="编码执行下面的 Python 代码，打印结果是什么？ 12345678910111213squares &#x3D; (k * k for k in range(4))view &#x3D; squaresp &#x3D; next(squares)q &#x3D; next(view)rest &#x3D; list(squares)try:    tail &#x3D; next(view)except StopIteration:    tail &#x3D;">
+<meta property="og:description" content="训练流程通用文本大模型的主流预训练范式 123456789101112131415大规模原始语料    ↓清洗、去重、质量筛选    ↓Tokenizer 编码    ↓Decoder-only Transformer    ↓Next Token Prediction    ↓Pretrained Base Model    ↓Fine-Tuning   ↓Chat &#x2F; Instruct Mod">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp">
-<meta property="article:published_time" content="2026-09-03T14:30:57.000Z">
-<meta property="article:modified_time" content="2026-09-21T16:01:51.433Z">
+<meta property="article:published_time" content="2026-10-02T14:30:57.000Z">
+<meta property="article:modified_time" content="2026-10-07T15:28:45.848Z">
 <meta property="article:author" content="今天睡够了吗">
-<meta property="article:tag" content="🕗就业">
+<meta property="article:tag" content="🖹LLM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "机考选择题",
+  "headline": "大语言模型训练与推理",
   "url": "https://yhblogs.cn/posts/28392.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp",
-  "datePublished": "2026-09-03T14:30:57.000Z",
-  "dateModified": "2026-09-21T16:01:51.433Z",
+  "datePublished": "2026-10-02T14:30:57.000Z",
+  "dateModified": "2026-10-07T15:28:45.848Z",
   "author": [
     {
       "@type": "Person",
@@ -155,101 +155,1139 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '机考选择题',
+  title: '大语言模型训练与推理',
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">机考选择题</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">机考选择题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-09-03T14:30:57.000Z" title="发表于 2026-09-03 22:30:57">2026-09-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">319</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p><strong>执行下面的 Python 代码，打印结果是什么？</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">squares = (k * k <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>))</span><br><span class="line">view = squares</span><br><span class="line"></span><br><span class="line">p = <span class="built_in">next</span>(squares)</span><br><span class="line">q = <span class="built_in">next</span>(view)</span><br><span class="line">rest = <span class="built_in">list</span>(squares)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    tail = <span class="built_in">next</span>(view)</span><br><span class="line"><span class="keyword">except</span> StopIteration:</span><br><span class="line">    tail = <span class="string">&quot;end&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(p, q, rest, tail)</span><br></pre></td></tr></table></figure>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">大语言模型训练与推理</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">大语言模型训练与推理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-10-02T14:30:57.000Z" title="发表于 2026-10-02 22:30:57">2026-10-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">6.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>26分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="训练流程"><a href="#训练流程" class="headerlink" title="训练流程"></a>训练流程</h1><p>通用文本大模型的主流预训练范式</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">大规模原始语料</span><br><span class="line">    ↓</span><br><span class="line">清洗、去重、质量筛选</span><br><span class="line">    ↓</span><br><span class="line">Tokenizer 编码</span><br><span class="line">    ↓</span><br><span class="line">Decoder-only Transformer</span><br><span class="line">    ↓</span><br><span class="line">Next Token Prediction</span><br><span class="line">    ↓</span><br><span class="line">Pretrained Base Model</span><br><span class="line">    ↓</span><br><span class="line">Fine-Tuning</span><br><span class="line">   ↓</span><br><span class="line">Chat / Instruct Model</span><br></pre></td></tr></table></figure>
 
-<p>这是 Python 的**生成器表达式（generator expression）**语法，而非元组</p>
-<p><code>list()</code> 会把生成器中<strong>剩余的所有元素全部取完</strong></p>
-<p>输出 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 [4,9] end</span><br></pre></td></tr></table></figure>
+<h2 id="Pretraining"><a href="#Pretraining" class="headerlink" title="Pretraining"></a>Pretraining</h2><blockquote>
+<p>GPT3：[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.14165">2005.14165] Language Models are Few-Shot Learners</a></p>
+</blockquote>
+<p>预训练阶段主要使用大规模无标注文本，通过 <strong>Next Token Prediction</strong> 学习语言、知识和通用能力</p>
+<p>对于序列：</p>
+<div class="mathjax-display">
+$$
+x=(x_1,x_2,\ldots,x_T)
+$$
+</div>
+Decoder-only LLM 优化：
+<div class="mathjax-display">
+$$
+\mathcal{L}_{\mathrm{PT}}
+=
+-\sum_{t=1}^{T}
+\log P_\theta(x_t\mid x_{&lt;t})
+$$
+</div>
 
-<p>常见的排序方法：</p>
+<p><strong>Continued Pretraining，CPT</strong>：在已有 Base Model 上继续使用领域原始文本进行下一 Token 预测，主要改变模型的领域知识和语言分布适应能力，广义上也属于微调</p>
+<h2 id="Supervised-Fine-tuning"><a href="#Supervised-Fine-tuning" class="headerlink" title="Supervised Fine-tuning"></a>Supervised Fine-tuning</h2><p>使用高质量的 <strong>Instruction → Response</strong> 数据，让 Base Model 学习如何遵循指令并按照期望格式回答</p>
+<p>Training Data通常是</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Instruction / User</span><br><span class="line">        ↓</span><br><span class="line">Response / Assistant</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User:</span><br><span class="line">解释一下 Transformer</span><br><span class="line"></span><br><span class="line">Assistant:</span><br><span class="line">Transformer 是一种基于 Self-Attention 的神经网络架构……</span><br></pre></td></tr></table></figure>
+
+<p>多轮对话则类似：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">System:</span><br><span class="line">You are a helpful assistant.</span><br><span class="line"></span><br><span class="line">User:</span><br><span class="line">什么是 LoRA？</span><br><span class="line"></span><br><span class="line">Assistant:</span><br><span class="line">LoRA 是一种参数高效微调方法……</span><br><span class="line"></span><br><span class="line">User:</span><br><span class="line">为什么能减少显存？</span><br><span class="line"></span><br><span class="line">Assistant:</span><br><span class="line">因为训练时只更新低秩矩阵……</span><br></pre></td></tr></table></figure>
+
+<p>经过 Chat Template 和 Tokenizer 后，最终仍然变成一个 Token Sequence</p>
+<p>本质上仍然是 <strong>Next Token Prediction</strong></p>
+<div class="mathjax-display">
+$$
+\mathcal{L}_{\mathrm{SFT}}
+=
+-\sum_{t=1}^{T}
+\log \pi_\theta(y_t\mid x,y_{&lt;t})
+$$
+</div>
+但只对 Assistant Response 计算 Loss
+
+<p>区别可以简单记为：</p>
 <table>
 <thead>
 <tr>
-<th>排序</th>
-<th>平均时间</th>
-<th>最好</th>
-<th>最坏</th>
-<th>空间</th>
+<th>阶段</th>
+<th>数据</th>
+<th>主要目的</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>冒泡</td>
-<td>O(n²)</td>
-<td>O(n)</td>
-<td>O(n²)</td>
-<td>O(1)</td>
+<td>Pre-training</td>
+<td>大规模普通文本</td>
+<td>学习语言、知识和通用能力</td>
 </tr>
 <tr>
-<td>简单选择</td>
-<td>O(n²)</td>
-<td>O(n²)</td>
-<td>O(n²)</td>
-<td>O(1)</td>
+<td>CPT</td>
+<td>特定领域普通文本</td>
+<td>补充领域知识</td>
 </tr>
 <tr>
-<td>快速</td>
-<td>O(nlogn)</td>
-<td>O(nlogn)</td>
-<td>O(n²)</td>
-<td>O(logn)</td>
-</tr>
-<tr>
-<td>归并</td>
-<td>O(nlogn)</td>
-<td>O(nlogn)</td>
-<td>O(nlogn)</td>
-<td>O(n)</td>
-</tr>
-<tr>
-<td>堆排序</td>
-<td>O(nlogn)</td>
-<td>O(nlogn)</td>
-<td>O(nlogn)</td>
-<td>O(1)</td>
+<td>SFT</td>
+<td>Instruction-Response</td>
+<td>学习如何完成用户指令</td>
 </tr>
 </tbody></table>
-<p>简单选择排序需要比较 $(n-1)n&#x2F;2$次</p>
-<h2 id="线性代数"><a href="#线性代数" class="headerlink" title="线性代数"></a>线性代数</h2><p>对于$ A_{m\times n}$ 且 $rank(A) &#x3D; r$</p>
-<p>那么</p>
+<h2 id="Preference-Alignment"><a href="#Preference-Alignment" class="headerlink" title="Preference Alignment"></a>Preference Alignment</h2><p>SFT 让模型学会“怎么回答”，Preference Alignment 进一步让模型学习“什么回答更好”</p>
+<p>典型 Preference Dataset 包含</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Prompt</span><br><span class="line">+</span><br><span class="line">Chosen Response</span><br><span class="line">+</span><br><span class="line">Rejected Response</span><br></pre></td></tr></table></figure>
+
+<h3 id="RLHF"><a href="#RLHF" class="headerlink" title="RLHF"></a>RLHF</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.02155">2203.02155] Training language models to follow instructions with human feedback</a></p>
+</blockquote>
+<p>基于人类反馈的强化学习，是 RL 在大模型对齐中的一种应用范式</p>
+<p>经典流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SFT Model</span><br><span class="line">    ↓</span><br><span class="line">生成多个 Response</span><br><span class="line">    ↓</span><br><span class="line">Human Ranking</span><br><span class="line">    ↓</span><br><span class="line">Reward Model</span><br><span class="line">    ↓</span><br><span class="line">Reinforcement Learning</span><br><span class="line">    ↓</span><br><span class="line">Aligned Model</span><br></pre></td></tr></table></figure>
+
+<p><span style = "color:#DC5A5A">需要根据偏好训练一个 Reward Model</span></p>
+<p>然后 Reward Model 对回答输出一个标量奖励 $r_\phi(x,y)$</p>
+<p>成对偏好训练常写为：</p>
+<div class="mathjax-display">
+$$
+\mathcal{L}_{\mathrm{RM}}
+=
+-\log
+\sigma
+\left(
+r_\phi(x,y_w)-r_\phi(x,y_l)
+\right)
+$$
+</div>
+目标是使：
+<div class="mathjax-display">
+$$
+r_\phi(x,y_w)>r_\phi(x,y_l)
+$$
+</div>
+
+<h3 id="PPO"><a href="#PPO" class="headerlink" title="PPO"></a>PPO</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1707.06347">1707.06347] Proximal Policy Optimization Algorithms</a></p>
+</blockquote>
+<p>核心思想是：提高高优势动作的概率，同时限制新策略相对于旧策略一次更新过大</p>
+<p>对于状态 $s_t $ 下采取的动作 $a_t$，定义新旧策略的概率比：</p>
+<div class="mathjax-display">
+$$
+\rho_t(\theta)=
+\frac{
+\pi_\theta(a_t\mid s_t)
+}{
+\pi_{\theta_{\mathrm{old}}}(a_t\mid s_t)
+}
+$$
+</div>
+
+<ul>
+<li>$\theta$：当前策略模型的参数</li>
+<li>$a_t$：当前生成的 token</li>
+<li>$s_t$：Prompt + 前面已经生成的 token</li>
+</ul>
+<p>但是 PPO 不希望策略一次更新得太激进，引入裁剪目标：</p>
+<div class="mathjax-display">
+$$
+J_{\mathrm{PPO}}(\theta)
+=
+\mathbb{E}_t
+\left[
+\min
+\left(
+\rho_t(\theta)\hat A_t,
+\operatorname{clip}
+\left(
+\rho_t(\theta),1-\epsilon,1+\epsilon
+\right)\hat A_t
+\right)
+\right]
+$$
+</div>
+$\hat A$ 表示在状态 $s_t$ 下采取 $a_t$ 相比平均表现好多少
+
+<p>在 RLHF 中，Reward Model 对完整 Response 给出 Reward，再结合 Value Model 等方法估计每个 timestep 的 $\hat A_t$</p>
+<p><span style = "color:#DC5A5A">核心是逐 token &#x2F; 时间步优化</span></p>
+<p>Reward Model + PPO 是经典的 RLHF 对齐方案</p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Prompt:</span><br><span class="line">解释 Transformer 是什么</span><br><span class="line">Answer:</span><br><span class="line">Transformer / uses / attention / EOS</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">π_old:</span><br><span class="line">Transformer   0.40</span><br><span class="line">uses          0.50</span><br><span class="line">attention     0.60</span><br><span class="line">EOS           0.80</span><br><span class="line"></span><br><span class="line">π_theta:</span><br><span class="line">Transformer   0.48</span><br><span class="line">uses          0.45</span><br><span class="line">attention     0.72</span><br><span class="line">EOS           0.72</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Transformer: 0.48 / 0.40 = 1.20</span><br><span class="line">uses:        0.45 / 0.50 = 0.90</span><br><span class="line">attention:   0.72 / 0.60 = 1.20</span><br><span class="line">EOS:         0.72 / 0.80 = 0.90</span><br></pre></td></tr></table></figure>
+
+<p>假设每个时间步 Advantage </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A = [1.0, 0.5, 1.2, -0.2]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t1: ratio=1.20 × advantage=1.0</span><br><span class="line">t2: ratio=0.90 × advantage=0.5</span><br><span class="line">t3: ratio=1.20 × advantage=1.2</span><br><span class="line">t4: ratio=0.90 × advantage=-0.2</span><br></pre></td></tr></table></figure>
+
+<h3 id="DPO"><a href="#DPO" class="headerlink" title="DPO"></a>DPO</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.18290">2305.18290] Direct Preference Optimization: Your Language Model is Secretly a Reward Model</a></p>
+</blockquote>
+<p>DPO 没有 PPO 那种 token-level 优化信号，直接利用</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Prompt</span><br><span class="line">Chosen</span><br><span class="line">Rejected</span><br></pre></td></tr></table></figure>
+
+<p>优化模型对 Chosen 和 Rejected 的相对偏好</p>
+<p>常见目标：</p>
+<div class="mathjax-display">
+$$
+\mathcal{L}_{DPO}
+=
+-
+\log
+\sigma
+\left[
+\beta
+\left(
+\log
+\frac{
+\pi_\theta(y_w\mid x)
+}{
+\pi_{\mathrm{ref}}(y_w\mid x)
+}
+-
+\log
+\frac{
+\pi_\theta(y_l\mid x)
+}{
+\pi_{\mathrm{ref}}(y_l\mid x)
+}
+\right)
+\right]
+$$
+</div>
+直接看整条回答的概率提升，关心的是相对于 Reference 变化了多少
+
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Prompt:</span><br><span class="line">解释 Transformer 是什么</span><br><span class="line"></span><br><span class="line">chosen:</span><br><span class="line">Transformer / uses / self-attention / to / model / relationships / EOS</span><br><span class="line">长度 = 7</span><br><span class="line"></span><br><span class="line">rejected:</span><br><span class="line">Transformer / is / a / CNN / EOS</span><br><span class="line">长度 = 5</span><br></pre></td></tr></table></figure>
+
+<p>假设当前模型 $\pi_\theta$ 对 chosen 的 token 概率是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Transformer      0.8</span><br><span class="line">uses             0.7</span><br><span class="line">self-attention   0.6</span><br><span class="line">to               0.9</span><br><span class="line">model            0.7</span><br><span class="line">relationships    0.6</span><br><span class="line">EOS              0.8</span><br></pre></td></tr></table></figure>
+
+<div class="mathjax-display">
+$$
+\log \pi_\theta(y_w\mid x)
+=
+\log0.8+\log0.7+\log0.6+\log0.9+\log0.7+\log0.6+\log0.8
+$$
+</div>
+
+<p>假设 rejected</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Transformer   0.7</span><br><span class="line">is            0.6</span><br><span class="line">a             0.8</span><br><span class="line">CNN           0.2</span><br><span class="line">EOS           0.6</span><br></pre></td></tr></table></figure>
+
+<div class="mathjax-display">
+$$
+\log \pi_\theta(y_l\mid x)
+=
+\log0.7+\log0.6+\log0.8+\log0.2+\log0.6
+$$
+</div>
+
+<p>然后 reference model 也分别计算</p>
+<p>最后比较</p>
+<div class="mathjax-display">
+$$
+\left[
+\log\pi_\theta(y_w|x)
+-
+\log\pi_{\mathrm{ref}}(y_w|x)
+\right]
+-
+\left[
+\log\pi_\theta(y_l|x)
+-
+\log\pi_{\mathrm{ref}}(y_l|x)
+\right]
+$$
+</div>
+对比 chosen 答案和 rejected 答案在新模型中概率的变化量
+
+<h3 id="GRPO"><a href="#GRPO" class="headerlink" title="GRPO"></a>GRPO</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.03300">2402.03300] DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models</a></p>
+</blockquote>
+<p>对于同一个问题，从旧策略采样一组回答：</p>
+<div class="mathjax-display">
+$$
+y_1,y_2,\ldots,y_G
+$$
+</div>
+分别获得 Reward：
+<div class="mathjax-display">
+$$
+r_1,r_2,\ldots,r_G
+$$
+</div>
+GRPO 本身不限定 Reward 来源，可以使用 Reward Model、Rule-based Reward 或 Verifier
+
+<p>Rule-based Reward ：</p>
+<ul>
+<li>答案正确：Reward &#x3D; 1</li>
+<li>答案错误：Reward &#x3D; 0</li>
+</ul>
+<p>根据同一 Prompt 下多个 Response 的组内 Reward 估计相对 Advantage</p>
+<div class="mathjax-display">
+$$
+\hat A_i
+=
+\frac{
+r_i-\operatorname{mean}(r)
+}{
+\operatorname{std}(r)+\epsilon
+}
+$$
+</div>
+与 PPO 相比，GRPO 不需要独立的 Value Model，减少了额外模型带来的显存开销
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>DPO</th>
+<th>GRPO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主要用途</td>
+<td><strong>通用偏好对齐</strong></td>
+<td><strong>推理能力强化</strong></td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>风格、语气、安全偏好</td>
+<td>数学、代码、逻辑推理</td>
+</tr>
+<tr>
+<td>训练数据</td>
+<td><code>Prompt + Chosen + Rejected</code></td>
+<td><code>Prompt + Group Response</code></td>
+</tr>
+<tr>
+<td>Reward 来源</td>
+<td>Chosen &#x2F; Rejected 偏好</td>
+<td>Rule-based Reward</td>
+</tr>
+</tbody></table>
+<h1 id="训练显存与数值精度"><a href="#训练显存与数值精度" class="headerlink" title="训练显存与数值精度"></a>训练显存与数值精度</h1><p>训练大模型时，显存主要由以下部分组成：</p>
+<div class="mathjax-display">
+$$
+M_{\mathrm{train}}
+\approx
+M_{\mathrm{param}}
++
+M_{\mathrm{grad}}
++
+M_{\mathrm{opt}}
++
+M_{\mathrm{act}}
++
+M_{\mathrm{temp}}
+$$
+</div>
+其中：
+
+<ul>
+<li><strong>Parameters</strong>：模型权重</li>
+<li><strong>Gradients</strong>：反向传播产生的梯度</li>
+<li><strong>Optimizer States</strong>：优化器保存的额外状态，例如 Adam 的一阶矩、二阶矩</li>
+<li><strong>Activations</strong>：Forward 中保存、供 Backward 使用的中间结果</li>
+<li><strong>Temporary Buffers</strong>：Attention、矩阵乘法等计算过程中的临时空间</li>
+</ul>
+<h2 id="数值精度"><a href="#数值精度" class="headerlink" title="数值精度"></a>数值精度</h2><table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">位数</th>
+<th align="center">Sign</th>
+<th align="center">Exponent</th>
+<th align="center">Mantissa</th>
+<th>每个元素显存</th>
+<th align="left">主要用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">FP32</td>
+<td align="left">32 bit</td>
+<td align="center">1</td>
+<td align="center">8</td>
+<td align="center">23</td>
+<td>4 Byte</td>
+<td align="left">高精度计算，显存占用大</td>
+</tr>
+<tr>
+<td align="left">FP16</td>
+<td align="left">16 bit</td>
+<td align="center">1</td>
+<td align="center">5</td>
+<td align="center">10</td>
+<td>2 Byte</td>
+<td align="left">混合精度训练</td>
+</tr>
+<tr>
+<td align="left">BF16</td>
+<td align="left">16 bit</td>
+<td align="center">1</td>
+<td align="center">8</td>
+<td align="center">7</td>
+<td>2 Byte</td>
+<td align="left">数值范围接近 FP32，当前大模型训练常用</td>
+</tr>
+<tr>
+<td align="left">FP8</td>
+<td align="left">8 bit</td>
+<td align="center">1</td>
+<td align="center">4&#x2F;5</td>
+<td align="center">3&#x2F;2</td>
+<td>1 Byte</td>
+<td align="left">低精度训练</td>
+</tr>
+<tr>
+<td align="left">INT8</td>
+<td align="left">8 bit</td>
+<td align="center">--</td>
+<td align="center">--</td>
+<td align="center">--</td>
+<td>1 Byte</td>
+<td align="left">权重量化、推理</td>
+</tr>
+<tr>
+<td align="left">INT4</td>
+<td align="left">4 bit</td>
+<td align="center">--</td>
+<td align="center">--</td>
+<td align="center">--</td>
+<td>0.5 Byte</td>
+<td align="left">低比特量化</td>
+</tr>
+</tbody></table>
+<p>如果考虑模型参数</p>
+<div class="mathjax-display">
+$$
+M_{\text{param}}
+=
+N_{\text{param}}
+\times
+\frac{\text{bit}}{8}
+$$
+</div>
+例如一个 (7B) 参数模型
+
+<ul>
+<li>FP32：$7\times10^9\times4\approx28\text{ GB}$</li>
+<li>FP16 &#x2F; BF16：$7\times10^9\times2\approx14\text{ GB}$</li>
+<li>INT8：$7\times10^9\times1\approx7\text{ GB}$</li>
+</ul>
+<p>这些只是模型权重本身的显存，并不是完整训练显存</p>
+<h2 id="Mixed-Precision"><a href="#Mixed-Precision" class="headerlink" title="Mixed Precision"></a>Mixed Precision</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1710.03740">[1710.03740] Mixed Precision Training</a></p>
+</blockquote>
+<p>基本思想：使用 FP16 进行神经网络训练，在降低显存和计算开销的同时，尽量保持与 FP32 训练相同的精度</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FP16</span><br><span class="line">├── Weights（Forward / Backward 使用）</span><br><span class="line">├── Activations</span><br><span class="line">└── Gradients</span><br><span class="line"></span><br><span class="line">FP32</span><br><span class="line">├── Master Weights</span><br><span class="line">└── 部分累加操作</span><br></pre></td></tr></table></figure>
+
+<h3 id="FP32-Master-Weights"><a href="#FP32-Master-Weights" class="headerlink" title="FP32 Master Weights"></a>FP32 Master Weights</h3><p>Forward 和 Backward 使用 FP16 权重，但额外维护一份 FP32 Master Copy</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">        FP32 Master Weights</span><br><span class="line">                │</span><br><span class="line">        cast FP32 → FP16</span><br><span class="line">                ▼</span><br><span class="line">           FP16 Weights</span><br><span class="line">                │</span><br><span class="line">                ▼</span><br><span class="line">           Forward Pass</span><br><span class="line">                │</span><br><span class="line">                ▼</span><br><span class="line">               Loss</span><br><span class="line">                │</span><br><span class="line">          × Loss Scale S</span><br><span class="line">                ▼</span><br><span class="line">           Scaled Loss</span><br><span class="line">                │</span><br><span class="line">                ▼</span><br><span class="line">          Backward Pass</span><br><span class="line">             /      \</span><br><span class="line">            /        \</span><br><span class="line">           ▼          ▼</span><br><span class="line">Activation Grad.   Weight Grad.</span><br><span class="line">传给前一层         用于参数更新</span><br><span class="line">                       │</span><br><span class="line">                     ÷ S</span><br><span class="line">                       ▼</span><br><span class="line">              Unscaled Weight Grad.</span><br><span class="line">                       │</span><br><span class="line">                       ▼</span><br><span class="line">                FP32 Weight Update</span><br><span class="line">                       │</span><br><span class="line">                       ▼</span><br><span class="line">              Updated Master Weights</span><br><span class="line">                       │</span><br><span class="line">                       └──→ 下一轮</span><br></pre></td></tr></table></figure>
+
+<p>原因是 FP16 精度有限，较小的 Weight Update 可能无法表示，甚至在更新时直接变成 0</p>
+<p>使用 FP32 Master Weight 可以保留这些小更新</p>
+<p>也就是存储使用FP32，但是计算用FP16</p>
+<h3 id="Loss-Scaling"><a href="#Loss-Scaling" class="headerlink" title="Loss Scaling"></a>Loss Scaling</h3><p>FP16 的动态范围比 FP32 小，较小的 Gradient 可能发生 Underflow</p>
+<p>因此在 Backward 前将 Loss 乘一个 Scale</p>
+<div class="mathjax-display">
+$$
+L'=SL\qquad 
+g'_t
+=
+\nabla_\theta L'
+=
+S\nabla_\theta L
+=
+Sg_t
+$$
+</div>
+这样可以把小梯度移动到 FP16 可表示范围内
+
+<p>Unscale 将放大的 Gradient 除以 $S$ 恢复原始尺度</p>
+<div class="mathjax-display">
+$$
+g_t
+=
+\frac{g'_t}{S}
+$$
+</div>
+回到FP32，再用这个梯度更新参数
+
+<h3 id="FP16-Multiply-FP32-Accumulation"><a href="#FP16-Multiply-FP32-Accumulation" class="headerlink" title="FP16 Multiply + FP32 Accumulation"></a>FP16 Multiply + FP32 Accumulation</h3><p>对于矩阵乘法：</p>
+<div class="mathjax-display">
+$$
+C_{ij}=\sum_k A_{ik}B_{kj}
+$$
+</div>
+采用：
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FP16 × FP16</span><br><span class="line">     ↓</span><br><span class="line">FP32 Accumulation</span><br><span class="line">     ↓</span><br><span class="line">FP16 Storage</span><br></pre></td></tr></table></figure>
+
+<p>因为大量 FP16 数值直接累加容易产生较大的数值误差</p>
+<h1 id="分布式训练与并行"><a href="#分布式训练与并行" class="headerlink" title="分布式训练与并行"></a>分布式训练与并行</h1><p>当单张 GPU 无法提供足够的计算能力或显存时，需要把训练拆到多张 GPU</p>
+<p>核心可以分为两类</p>
+<ul>
+<li>数据并行：模型复制，数据切分</li>
+<li>模型并行：数据可以相同或分成 micro-batch，模型本身被切分</li>
+</ul>
+<p>实际大模型训练通常会组合多种并行方式</p>
 <table>
 <thead>
 <tr>
-<th>项目</th>
-<th>数值</th>
+<th>并行方式</th>
+<th>切分目标</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>未知量个数</td>
-<td>n</td>
+<td>DP</td>
+<td>Data</td>
 </tr>
 <tr>
-<td>自由未知量</td>
-<td>n−r</td>
+<td>TP</td>
+<td>Tensor</td>
 </tr>
 <tr>
-<td>齐次方程解空间维数</td>
-<td>n−r</td>
+<td>PP</td>
+<td>Model Layers</td>
 </tr>
 <tr>
-<td>解空间基向量个数</td>
-<td>n−r</td>
+<td>EP</td>
+<td>Experts</td>
+</tr>
+<tr>
+<td>ZeRO &#x2F; FSDP</td>
+<td>Training States</td>
 </tr>
 </tbody></table>
-<h2 id="AI-coding"><a href="#AI-coding" class="headerlink" title="AI coding"></a>AI coding</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">阅读@README.md ，理解项目背景、需求、输入输出和验收标准，只分析不写代码</span><br></pre></td></tr></table></figure>
+<h3 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h3><h4 id="AllGather"><a href="#AllGather" class="headerlink" title="AllGather"></a>AllGather</h4><p>将各 GPU 上的 Shard 收集起来，使每张 GPU 都得到完整 Tensor</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GPU0: [A]  </span><br><span class="line">GPU1: [B]</span><br><span class="line"></span><br><span class="line">AllGather →</span><br><span class="line"></span><br><span class="line">GPU0: [A, B]  </span><br><span class="line">GPU1: [A, B]</span><br><span class="line"></span><br><span class="line">Shard → Full Tensor</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@main.py @data/SCHEMA.md  查看数据文档和已有代码框架，把需求分成独立实现的不同阶段，可以做到一部分一部分验证，先分析不修改代码</span><br></pre></td></tr></table></figure>
+<h4 id="AllToAll"><a href="#AllToAll" class="headerlink" title="AllToAll"></a>AllToAll</h4><p>常用于 Expert Parallel</p>
+<p>每张 GPU 向其他 GPU 发送不同的数据块，用于数据重分布；各 GPU 通常同时持有本地 Token 和部分 Experts</p>
+<p> Router 后通过 AllToAll 将不同 GPU 上的 Token 重新分发到对应 Expert 所在设备，计算完成后再通过一次 AllToAll 返回</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GPU0: [A0 → GPU0, A1 → GPU1]  </span><br><span class="line">GPU1: [B0 → GPU0, B1 → GPU1]</span><br><span class="line"></span><br><span class="line">AllToAll →</span><br><span class="line"></span><br><span class="line">GPU0: [A0, B0]  </span><br><span class="line">GPU1: [A1, B1]</span><br></pre></td></tr></table></figure>
 
+<p>每个参与通信的 GPU 都既是发送方，也是接收方</p>
+<h4 id="ReduceScatter"><a href="#ReduceScatter" class="headerlink" title="ReduceScatter"></a>ReduceScatter</h4><p>AllReduce &#x3D; 聚合后每张卡都有完整结果</p>
+<p>ReduceScatter &#x3D; 聚合后每张卡只保留一个 shard</p>
+<h2 id="数据维度"><a href="#数据维度" class="headerlink" title="数据维度"></a>数据维度</h2><h3 id="Data-Parallel"><a href="#Data-Parallel" class="headerlink" title="Data Parallel"></a>Data Parallel</h3><p>每张 GPU 保存一份完整模型，但读取不同的数据</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0: batch 0 → gradient G0 ─┐</span><br><span class="line">GPU 1: batch 1 → gradient G1 ─┤</span><br><span class="line">GPU 2: batch 2 → gradient G2 ─┼→ AllReduce → 同步梯度</span><br><span class="line">GPU 3: batch 3 → gradient G3 ─┘</span><br></pre></td></tr></table></figure>
 
+<p> 如果共有 $P$ 张 GPU：</p>
+<div class="mathjax-display">
+$$
+g
+=
+\frac{1}{P}
+\sum_{p=1}^{P}G_p
+$$
+</div>
 
+<p>PyTorch 中常用 <strong>DistributedDataParallel，DDP</strong>（这里是AllReduce ）</p>
+<p>DDP 的限制是：<span style = "color:#7C6DB0">每张 GPU 都需要保存完整模型以及对应训练状态</span></p>
+<p>因此模型本身必须能够放入单卡</p>
+<h3 id="ZeRO"><a href="#ZeRO" class="headerlink" title="ZeRO"></a>ZeRO</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1910.02054">[1910.02054] ZeRO: Memory Optimizations Toward Training Trillion Parameter Models</a></p>
+</blockquote>
+<p>Data Parallel 中，每张 GPU 都保存相同的：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P：Parameters</span><br><span class="line">G：Gradients</span><br><span class="line">O：Optimizer States</span><br></pre></td></tr></table></figure>
 
+<p>核心思想：将 Data Parallel 中冗余复制的训练状态分片存储</p>
+<p>以下举例</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：</span><br><span class="line">参数      p0 p1 p2 p3 p4 p5 p6 p7</span><br><span class="line">梯度      g0 g1 g2 g3 g4 g5 g6 g7</span><br><span class="line">优化器    O0 O1 O2 O3 O4 O5 O6 O7</span><br><span class="line"></span><br><span class="line">GPU 1：</span><br><span class="line">参数      p0 p1 p2 p3 p4 p5 p6 p7</span><br><span class="line">梯度      g0 g1 g2 g3 g4 g5 g6 g7</span><br><span class="line">优化器    O0 O1 O2 O3 O4 O5 O6 O7</span><br></pre></td></tr></table></figure>
 
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/28392.html">https://yhblogs.cn/posts/28392.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%95%97%E5%B0%B1%E4%B8%9A/">🕗就业</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/3388.html" title="Agent Skill自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Agent Skill自演进</div></div></div></a><a class="pagination-related  no-desc" href="/posts/20813.html" title="面试八股"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rqjg21_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">面试八股</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/20813.html" title="面试八股"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rqjg21_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-01</div><div class="info-item-2">面试八股</div></div></div></a><a class="pagination-related no-desc" href="/posts/20094.html" title="机考合集"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-w5mgxr_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">机考合集</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">线性代数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AI-coding"><span class="toc-number">3.</span> <span class="toc-text">AI coding</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+<h4 id="ZeRO-1"><a href="#ZeRO-1" class="headerlink" title="ZeRO-1"></a>ZeRO-1</h4><p>只分片 Optimizer States</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：[完整参数] [完整梯度] [O0 O1]</span><br><span class="line">GPU 1：[完整参数] [完整梯度] [O2 O3]</span><br><span class="line">GPU 2：[完整参数] [完整梯度] [O4 O5]</span><br><span class="line">GPU 3：[完整参数] [完整梯度] [O6 O7]</span><br></pre></td></tr></table></figure>
+
+<h4 id="ZeRO-2"><a href="#ZeRO-2" class="headerlink" title="ZeRO-2"></a>ZeRO-2</h4><p>额外分片 Gradients</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：[完整参数] [g0 g1] [O0 O1]</span><br><span class="line">GPU 1：[完整参数] [g2 g3] [O2 O3]</span><br><span class="line">GPU 2：[完整参数] [g4 g5] [O4 O5]</span><br><span class="line">GPU 3：[完整参数] [g6 g7] [O6 O7]</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>ReduceScatter</code>聚合完成后直接拆开</p>
+<h4 id="ZeRO-3"><a href="#ZeRO-3" class="headerlink" title="ZeRO-3"></a>ZeRO-3</h4><p>把参数也分片</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0：[p0 p1] [g0 g1] [O0 O1]</span><br><span class="line">GPU 1：[p2 p3] [g2 g3] [O2 O3]</span><br><span class="line">GPU 2：[p4 p5] [g4 g5] [O4 O5]</span><br><span class="line">GPU 3：[p6 p7] [g6 g7] [O6 O7]</span><br></pre></td></tr></table></figure>
+
+<p>计算某一层之前，需要通过 <strong>AllGather</strong> 临时获取当前层所需参数（因为参数长期分片）</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>主要分片内容</th>
+<th>典型通信</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DDP</td>
+<td>不分片</td>
+<td>AllReduce 梯度</td>
+</tr>
+<tr>
+<td>ZeRO-1</td>
+<td>Optimizer State</td>
+<td>ReduceScatter + AllGather 参数</td>
+</tr>
+<tr>
+<td>ZeRO-2</td>
+<td>Optimizer State + Gradient</td>
+<td>ReduceScatter 梯度 + AllGather 参数</td>
+</tr>
+<tr>
+<td>ZeRO-3</td>
+<td>Optimizer + Gradient + Parameter</td>
+<td>ReduceScatter 梯度 + 按需 AllGather 参数</td>
+</tr>
+</tbody></table>
+<h3 id="FSDP"><a href="#FSDP" class="headerlink" title="FSDP"></a>FSDP</h3><p>核心思想与 ZeRO-3 类似，将 Parameters、Gradients、Optimizer States 分片到不同 GPU，并<span style = "color:#DC5A5A">在计算时按需 AllGather 参数</span></p>
+<p>FSDP 是 PyTorch 原生提供的 Full Sharding 训练方案</p>
+<p>核心行为基本就是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Parameters   → Shard</span><br><span class="line">Gradients    → Shard</span><br><span class="line">Optimizer    → Shard</span><br></pre></td></tr></table></figure>
+
+<p>计算某一层前：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Parameter Shards</span><br><span class="line">        ↓</span><br><span class="line">AllGather</span><br><span class="line">        ↓</span><br><span class="line">Forward / Backward</span><br></pre></td></tr></table></figure>
+
+<p>Backward 后：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Gradients</span><br><span class="line">    ↓</span><br><span class="line">ReduceScatter</span><br><span class="line">    ↓</span><br><span class="line">每张 GPU 只保留 Gradient Shard</span><br></pre></td></tr></table></figure>
+
+<h2 id="模型维度"><a href="#模型维度" class="headerlink" title="模型维度"></a>模型维度</h2><h3 id="Tensor-Parallel"><a href="#Tensor-Parallel" class="headerlink" title="Tensor Parallel"></a>Tensor Parallel</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1909.08053">[1909.08053] Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</a></p>
+</blockquote>
+<p><span style = "color:#DC5A5A">TP：将一个大的矩阵运算拆到多张 GPU</span></p>
+<p>例如线性层，将权重矩阵按列切分：</p>
+<div class="mathjax-display">
+$$
+W=
+\left[
+W_1\quad W_2
+\right]
+$$
+</div>
+不同 GPU 分别计算：
+<div class="mathjax-display">
+$$
+Y_1=XW_1,\qquad Y_2=XW_2
+$$
+</div>
+在 Transformer 中通常会对：
+
+<ul>
+<li>Attention Heads</li>
+<li>Q&#x2F;K&#x2F;V Projection</li>
+<li>MLP Linear Layers</li>
+</ul>
+<p>进行 Tensor Parallel</p>
+<p>TP 能解决单个 Layer 太大的问题，但会带来较频繁的 GPU 间通信</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Transformer Layer</span><br><span class="line"></span><br><span class="line">       ┌── GPU 0 ──┐</span><br><span class="line">       ├── GPU 1 ──┤</span><br><span class="line">Input ─┼── GPU 2 ──┼→ Communication → Output</span><br><span class="line">       └── GPU 3 ──┘</span><br></pre></td></tr></table></figure>
+
+<h3 id="Pipeline-Parallel"><a href="#Pipeline-Parallel" class="headerlink" title="Pipeline Parallel"></a>Pipeline Parallel</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1811.06965">[1811.06965] GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism</a></p>
+</blockquote>
+<p><span style = "color:#DC5A5A">PP：按照 Transformer Layer 切分模型</span></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GPU 0            GPU 1            GPU 2            GPU 3</span><br><span class="line"></span><br><span class="line">Layer 0~7   →   Layer 8~15   →   Layer 16~23   →   Layer 24~31</span><br></pre></td></tr></table></figure>
+
+<p>简单流水线会产生 <strong>Pipeline Bubble</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">时间      0    1    2    3    4    5    6    7</span><br><span class="line">         ---------------------------------------</span><br><span class="line">GPU 0    F    --   --   --   --   --   --   B</span><br><span class="line">GPU 1    --   F    --   --   --   --   B    --</span><br><span class="line">GPU 2    --   --   F    --   --   B    --   --</span><br><span class="line">GPU 3    --   --   --   F    B    --   --   --</span><br><span class="line"></span><br><span class="line">F  = 整个 batch 的前向传播</span><br><span class="line">B  = 整个 batch 的反向传播</span><br><span class="line">-- = GPU 空闲</span><br></pre></td></tr></table></figure>
+
+<p>大部分时间只有一张 GPU 在工作，设备利用率很低</p>
+<p>因此通常把一个 Batch 切分为多个 Micro-batch：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">时间      0    1    2    3    4    5    6    7    8    9   10   11   12   13</span><br><span class="line">         ---------------------------------------------------------------------</span><br><span class="line">GPU 0    F0   F1   F2   F3   --   --   --   --   --   --   B3   B2   B1   B0</span><br><span class="line">GPU 1    --   F0   F1   F2   F3   --   --   --   --   B3   B2   B1   B0   --</span><br><span class="line">GPU 2    --   --   F0   F1   F2   F3   --   --   B3   B2   B1   B0   --   --</span><br><span class="line">GPU 3    --   --   --   F0   F1   F2   F3   B3   B2   B1   B0   --   --   --</span><br></pre></td></tr></table></figure>
+
+<p>若有 $K$ 个 pipeline stages，$M$ 个batch，简单情况下设备利用率大致为：</p>
+<div class="mathjax-display">
+$$
+\text{Utilization}
+\approx
+\frac{M}{M+K-1}
+$$
+</div>
+增加 Micro-batch 数量可以摊薄 Pipeline 的填充和排空气泡，提高设备利用率
+
+<p>但 Micro-batch 过多会增加调度、通信开销</p>
+<h3 id="Expert-Parallel"><a href="#Expert-Parallel" class="headerlink" title="Expert Parallel"></a>Expert Parallel</h3><p>MoE 中通常存在大量 Experts，但每个 Token 只激活少量专家</p>
+<p><span style = "color:#DC5A5A">EP：将不同专家放到不同 GPU</span></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPU 0: Expert 0, 1</span><br><span class="line">GPU 1: Expert 2, 3</span><br><span class="line">GPU 2: Expert 4, 5</span><br><span class="line">GPU 3: Expert 6, 7</span><br></pre></td></tr></table></figure>
+
+<p>Router 根据 Token 决定目标 Expert 后，需要把 Token 发送到对应 GPU</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Token</span><br><span class="line"> ↓</span><br><span class="line">Router</span><br><span class="line"> ↓</span><br><span class="line">AllToAll</span><br><span class="line"> ↓</span><br><span class="line">Expert GPU</span><br><span class="line"> ↓</span><br><span class="line">AllToAll</span><br><span class="line"> ↓</span><br><span class="line">返回原设备</span><br></pre></td></tr></table></figure>
+
+<p>因此，MoE 可以降低单 Token 的激活参数量，但性能通常受 <strong>通信开销</strong> 和 <strong>Expert 负载均衡</strong> 影响</p>
+<h2 id="Hybrid-Parallelism"><a href="#Hybrid-Parallelism" class="headerlink" title="Hybrid Parallelism"></a>Hybrid Parallelism</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">                Hybrid Parallelism</span><br><span class="line">                        │</span><br><span class="line">       ┌────────────────┼────────────────┐</span><br><span class="line">       │                │                │</span><br><span class="line">      PP               TP               EP</span><br><span class="line">Pipeline Parallel  Tensor Parallel  Expert Parallel</span><br><span class="line">  按 Layer 切分      按 Tensor 切分      按 Expert 切分</span><br><span class="line">       │                │                │</span><br><span class="line">       └────────────────┼────────────────┘</span><br><span class="line">                        │</span><br><span class="line">                       DP</span><br><span class="line">                 Data Parallel</span><br><span class="line">              不同 GPU 处理不同数据</span><br><span class="line">                        │</span><br><span class="line">            ┌───────────┴───────────┐</span><br><span class="line">            │                       │</span><br><span class="line">       Replicated DP           Sharded DP</span><br><span class="line">        普通 DDP              ZeRO / FSDP</span><br><span class="line">     完整模型副本          分片模型训练状态</span><br></pre></td></tr></table></figure>
+
+<p>DP + TP + PP：Dense LLM 很经典的一种组合</p>
+<p>DP + TP + PP + EP：MoE模型</p>
+<p>总 GPU 数通常可表示为：</p>
+<div class="mathjax-display">
+$$
+\text{Total GPUs} = DP × TP × PP (\times  EP)
+$$
+</div>
+
+<h1 id="参数高效微调"><a href="#参数高效微调" class="headerlink" title="参数高效微调"></a>参数高效微调</h1><h2 id="LoRA"><a href="#LoRA" class="headerlink" title="LoRA"></a>LoRA</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685?utm_source=chatgpt.com">2106.09685] LoRA: Low-Rank Adaptation of Large Language Models</a></p>
+</blockquote>
+<p>LoRA：Low-Rank Adaptation</p>
+<p>传统 <strong>Full Fine-tuning</strong> 需要更新模型全部参数，随着模型规模增大，会带来较高的训练、显存和模型存储成本</p>
+<p><strong>LoRA 的核心假设</strong>：大模型适配下游任务时，权重更新具有较低的 <strong>intrinsic rank</strong>，因此不需要学习完整的参数更新矩阵。</p>
+<p>对于预训练权重：</p>
+<div class="mathjax-display">
+$$
+W_0 \in \mathbb{R}^{d \times k}
+$$
+</div>
+Full Fine-tuning 直接学习完整的 $\Delta W$，而 LoRA 将其限制为低秩分解
+<div class="mathjax-display">
+$$
+\boxed{\Delta W = BA}
+$$
+</div>
+
+<p>其中：</p>
+<div class="mathjax-display">
+$$
+B\in\mathbb{R}^{d\times r},\qquad
+A\in\mathbb{R}^{r\times k},\qquad
+r\ll\min(d,k)
+$$
+</div>
+
+<p>训练时<strong>冻结预训练参数</strong> $W_0$，只更新低秩矩阵 $A$ 和 $B$，前向传播变为：</p>
+<div class="mathjax-display">
+$$
+\boxed{h = W_0 x + BAx}
+$$
+</div>
+即在原始线性层旁增加一条**低秩更新分支**，用少量可训练参数完成模型适配
+
+<p>论文实验表明，在部分模型和任务中，即使使用很小的 rank，例如 $r&#x3D;1$、$r&#x3D;2$ 或 $r&#x3D;4$，也可以获得较好的效果</p>
+<h3 id="Parameter-Reduction"><a href="#Parameter-Reduction" class="headerlink" title="Parameter Reduction"></a>Parameter Reduction</h3><p>对一个 $d\times k$ 的权重矩阵</p>
+<p>Full Fine-tuning 训练参数量为 $dk$</p>
+<p>LoRA 只需要训练 $A$ 和 $B$，参数量为：</p>
+<div class="mathjax-display">
+$$
+rk+dr=r(k+d)
+$$
+</div>
+例如
+<div class="mathjax-display">
+$$
+d = k = 4096,\qquad r = 8
+$$
+</div>
+Full Fine-tuning：$4096^2 = 16,777,216$
+
+<p>LoRA：$4096 \times 8 + 8 \times 4096 &#x3D; 65,536$</p>
+<p>仅约为原参数量的：$\frac{65,536}{16,777,216}\times 100% \approx 0.39%$</p>
+<h3 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h3><p>LoRA 使用：</p>
+<div class="mathjax-display">
+$$
+A\sim\mathcal{N}(0,\sigma^2),\qquad B=0
+$$
+</div>
+因此初始化时
+<div class="mathjax-display">
+$$
+\Delta W=BA=0
+$$
+</div>
+模型开始训练时仍等价于原始预训练模型，不会因为加入 LoRA 而立即改变模型输出
+
+<h3 id="Scaling"><a href="#Scaling" class="headerlink" title="Scaling"></a>Scaling</h3><p>实际前向传播中，LoRA 会对低秩更新加入缩放系数</p>
+<div class="mathjax-display">
+$$
+\boxed{
+h=W_0x+\frac{\alpha}{r}BAx
+}
+$$
+</div>
+这种 scaling 可以减少改变 $r$ 时重新调整其他超参数的需要
+
+<h3 id="Applying-to-Transformer"><a href="#Applying-to-Transformer" class="headerlink" title="Applying to Transformer"></a>Applying to Transformer</h3><p>LoRA 原理上可以应用于任意 Dense &#x2F; Linear Layer</p>
+<p>Transformer Self-Attention 中主要包含：</p>
+<div class="mathjax-display">
+$$
+W_q,\quad W_k,\quad W_v,\quad W_o
+$$
+</div>
+原论文主要研究将 LoRA 应用于 **Attention 权重**，并冻结 MLP。
+
+<p>在大多数实验中将 LoRA 应用于  $W_q$ 和 $W_v$</p>
+<div class="mathjax-display">
+$$
+W_q'=W_q+B_qA_q
+\qquad W_v'=W_v+B_vA_v
+$$
+</div>
+
+<h3 id="Merge-at-Inference"><a href="#Merge-at-Inference" class="headerlink" title="Merge at Inference"></a>Merge at Inference</h3><p>训练完成后，可以将 LoRA 更新直接合并进原始权重</p>
+<div class="mathjax-display">
+$$
+\boxed{
+W'=W_0+BA
+}
+$$
+</div>
+如果考虑 scaling，则实际为：
+<div class="mathjax-display">
+$$
+\boxed{W'=W_0+\frac{\alpha}{r}BA}
+$$
+</div>
+之后推理直接使用：
+<div class="mathjax-display">
+$$
+h=W'x
+$$
+</div>
+因此 LoRA 权重 Merge 后不需要额外的低秩分支计算，不会引入额外的推理延迟
+
+<h3 id="Practical-Issues"><a href="#Practical-Issues" class="headerlink" title="Practical Issues"></a>Practical Issues</h3><p>LoRA 能显著减少可训练参数量，但实际使用中仍存在几个需要重点关注的问题</p>
+<h4 id="Rank-r-的选择"><a href="#Rank-r-的选择" class="headerlink" title="Rank $r$ 的选择"></a>Rank $r$ 的选择</h4><p>$r$  决定了 LoRA 分支的表达能力</p>
+<ul>
+<li>$r$ 太小：参数更新空间受限，可能无法充分适配下游任务，出现欠拟合；</li>
+<li>$r$ 太大：会增加可训练参数和显存占用，也可能增加过拟合风险。</li>
+</ul>
+<p>本质上是在调参效率和适配能力之间进行权衡</p>
+<h4 id="Target-Modules-的选择"><a href="#Target-Modules-的选择" class="headerlink" title="Target Modules 的选择"></a>Target Modules 的选择</h4><p>LoRA 可以应用到 Transformer 中不同的线性层，也可以应用到 MLP 中的 Linear Layer</p>
+<p>不同任务需要调整的参数方向不同，因此 LoRA 插入的位置会直接影响效果</p>
+<p>Target Modules 本身也是 LoRA 的重要超参数</p>
+<h4 id="训练显存"><a href="#训练显存" class="headerlink" title="训练显存"></a>训练显存</h4><p>LoRA 主要减少可训练参数和优化器状态，前向传播仍然需要经过完整模型，因此模型权重和中间 Activation 仍然会占用大量显存</p>
+<p>对于大模型训练，通常还需要结合</p>
+<ul>
+<li>Mixed Precision</li>
+<li>Gradient Checkpointing</li>
+<li>Quantization</li>
+</ul>
+<p>进一步降低显存占用</p>
+<h2 id="QLoRA"><a href="#QLoRA" class="headerlink" title="QLoRA"></a>QLoRA</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.14314">2305.14314] QLoRA: Efficient Finetuning of Quantized LLMs</a></p>
+</blockquote>
+<p>QLoRA：Quantized Low-Rank Adaptation</p>
+<p>QLoRA 在 LoRA 基础上进一步将预训练模型量化为 4-bit，冻结量化后的 Base Model，只训练 LoRA Adapter。</p>
+<h3 id="Quantization"><a href="#Quantization" class="headerlink" title="Quantization"></a>Quantization</h3><p>量化就是把高精度数据表示成更低 bit 的数据</p>
+<p>以 FP32 → Int8 为例</p>
+<div class="mathjax-display">
+$$
+X^{\mathrm{Int8}}
+=
+\operatorname{round}
+\left(
+\frac{127}
+{\operatorname{absmax}(X^{\mathrm{FP32}})}
+X^{\mathrm{FP32}}
+\right)
+$$
+</div>
+其中量化 scale 为：
+<div class="mathjax-display">
+$$
+c=
+\frac{127}
+{\operatorname{absmax}(X)}
+$$
+</div>
+因为
+<div class="mathjax-display">
+$$
+\mathrm{Int8}\in[-128,127]
+$$
+</div>
+ FP32 张量中找到最大值后可以认为有效范围为 $X\in[-M,M]$
+
+<p>而后做一个线性映射到 Int8 的范围，于是就得到上式</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FP32:  -2     -1      0      1      2</span><br><span class="line">        ↓      ↓      ↓      ↓      ↓</span><br><span class="line">Int8: -127    -64     0     64     127</span><br></pre></td></tr></table></figure>
+
+<p>FP32 中，两个很接近的数可以被区分，但Int8 只有有限的整数</p>
+<p>所以原来连续范围里的很多 FP32 数值，都会被映射到同一个 Int8 整数</p>
+<p>那么 Int8 相邻两个量化等级对应的 FP32 间隔，也就是 <strong>quantization step</strong></p>
+<div class="mathjax-display">
+$$
+\Delta=\frac{M}{127}
+$$
+</div>
+ FP32 数值实际上被划分成一个个宽度约为 $\Delta $ 的区间
+
+<p>一个数最多偏离最近量化点半个 step</p>
+<div class="mathjax-display">
+$$
+|x-\hat x|
+\le
+\frac{\Delta}{2}
+=
+\frac{M}{254}
+$$
+</div>
+
+<h3 id="NF4"><a href="#NF4" class="headerlink" title="NF4"></a>NF4</h3><p>4-bit NormalFloat，NF4</p>
+<p>预训练神经网络权重通常近似 <strong>zero-centered normal distribution</strong>(零中心正态分布)</p>
+<p>因此不是简单地把数值范围均匀划成 16 个区间，而是根据正态分布的 quantile 设计 4-bit 表示，使每个量化区间预期包含相近数量的权重值</p>
+<p>论文实验中，NF4 的量化精度优于 FP4 和 Int4</p>
+<h3 id="Double-Quantization"><a href="#Double-Quantization" class="headerlink" title="Double Quantization"></a>Double Quantization</h3><p>量化之后并不是只有 4-bit Weight</p>
+<p>还需要保存每个 block 对应的 Quantization Scale</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Block 1 → scale c₁</span><br><span class="line">Block 2 → scale c₂</span><br><span class="line">Block 3 → scale c₃</span><br></pre></td></tr></table></figure>
+
+<p>假设 block &#x3D; 64，那么每个 block 需要 32 bit</p>
+<p>平均到每个模型参数上</p>
+<div class="mathjax-display">
+$$
+\frac{32}{64}=0.5\text{ bits/parameter}
+$$
+</div>
+权重本身已经压到 4 bit了，加上保存的 scale 大约为 4.5 bits/parameter
+
+<p>QLoRA 提出继续量化第一次量化产生的量化常数</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Weights</span><br><span class="line">   │</span><br><span class="line">   ▼</span><br><span class="line">第一次量化</span><br><span class="line">   │</span><br><span class="line">   ├── 4-bit Weight</span><br><span class="line">   │</span><br><span class="line">   └── FP32 Quantization Constants</span><br><span class="line">                  │</span><br><span class="line">                  ▼</span><br><span class="line">             第二次量化</span><br><span class="line">                  │</span><br><span class="line">                  ▼</span><br><span class="line">            8-bit Constants</span><br></pre></td></tr></table></figure>
+
+<p>把这些 scale 量化成 8 bit，假设第二级 block size 为 256</p>
+<div class="mathjax-display">
+$$
+\frac{8}{64}
++
+\frac{32}{64\times256}
+=
+0.127 \text{ bits/parameter}
+$$
+</div>
+平均节省：
+<div class="mathjax-display">
+$$
+\boxed{0.373\text{ bits/parameter}}
+$$
+</div>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4-bit weights</span><br><span class="line">+</span><br><span class="line">8-bit scales</span><br><span class="line">+</span><br><span class="line">极少量 FP32 scales</span><br></pre></td></tr></table></figure>
+
+<p>但主要贡献还是来自于 Base Model 和训练过程中的 activations</p>
+<p><span style = "color:#7C6DB0">为了尽量恢复 16-bit 微调效果，在 Transformer Block 的所有 Linear Layers 上加入 LoRA 很重要</span></p>
+<h3 id="Paged-Optimizer"><a href="#Paged-Optimizer" class="headerlink" title="Paged Optimizer"></a>Paged Optimizer</h3><p>训练过程中某些长序列或 Gradient Checkpointing 场景可能突然产生显存峰值</p>
+<p>Paged Optimizer 使用 NVIDIA Unified Memory</p>
+<p>当 GPU 显存不足时：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GPU</span><br><span class="line"> │</span><br><span class="line"> │ memory pressure</span><br><span class="line"> ▼</span><br><span class="line">CPU RAM</span><br><span class="line"></span><br><span class="line">需要时</span><br><span class="line"> │</span><br><span class="line"> ▼</span><br><span class="line">GPU</span><br></pre></td></tr></table></figure>
+
+<p>Optimizer State 可以暂时 page 到 CPU RAM，之后再移回 GPU，从而避免偶发的 OOM</p>
+<h1 id="LLM-推理"><a href="#LLM-推理" class="headerlink" title="LLM 推理"></a>LLM 推理</h1><p>LLM 推理的核心特点是 <strong>Autoregressive Generation</strong></p>
+<div class="mathjax-display">
+$$
+P(x)
+=
+P(x_1)
+P(x_2\mid x_1)
+\cdots
+P(x_n\mid x_1,\ldots,x_{n-1})
+$$
+</div>
+一个请求通常分为两个阶段：
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Prompt</span><br><span class="line">  ↓</span><br><span class="line">Prefill</span><br><span class="line">  ↓</span><br><span class="line">生成第一个 Token</span><br><span class="line">  ↓</span><br><span class="line">Decode</span><br><span class="line">  ↓</span><br><span class="line">Token-by-Token Generation</span><br></pre></td></tr></table></figure>
+
+<h2 id="KV-Cache"><a href="#KV-Cache" class="headerlink" title="KV Cache"></a>KV Cache</h2><p>如果不使用 KV Cache，每生成一个新 Token，都需要重新计算历史 Token 的 $K,V$</p>
+<p>因此缓存：</p>
+<div class="mathjax-display">
+$$
+K_1,\ldots,K_T,\qquad
+V_1,\ldots,V_T
+$$
+</div>
+生成第 $T+1$ 个 Token 时，只计算：
+<div class="mathjax-display">
+$$
+K_{T+1},\qquad V_{T+1}
+$$
+</div>
+对于标准 MHA，如果：
+
+<ul>
+<li>Transformer 层数为 $L$</li>
+<li>Context Length 为 $T$</li>
+<li>KV Head 数为 $H_{KV}$</li>
+<li>Head Dimension 为 $d_h$</li>
+<li>每个元素占 $b$ Bytes</li>
+</ul>
+<p>单条 Sequence 的 KV Cache 约为：</p>
+<div class="mathjax-display">
+$$
+M_{\mathrm{KV}}=2LTH_{KV}d_hb
+$$
+</div>
+前面的 $2$ 表示 Key 和 Value
+
+<p>因此长上下文、大 Batch 下，KV Cache 会成为推理显存的重要瓶颈</p>
+<h2 id="FlashAttention"><a href="#FlashAttention" class="headerlink" title="FlashAttention"></a>FlashAttention</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.14135">2205.14135] FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</a></p>
+</blockquote>
+<p>标准 Self-Attention 的时间和显存开销会随序列长度 $N$ 呈平方增长，很多已有方法只关注减少 FLOPs，却忽略了 GPU 中真正影响 wall-clock time 的 <strong>memory access</strong></p>
+<p>FlashAttention 因此提出 <strong>IO-aware Attention</strong></p>
+<h3 id="Standard-Attention"><a href="#Standard-Attention" class="headerlink" title="Standard Attention"></a>Standard Attention</h3><div class="mathjax-display">
+$$
+Q,K,V\in\mathbb{R}^{N\times d}
+$$
+</div>
+
+<p>标准 Attention：</p>
+<div class="mathjax-display">
+$$
+S=QK^T\qquad P=\operatorname{softmax}(S)\qquad  O=PV
+$$
+</div>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">从 HBM 读取 Q、K</span><br><span class="line">    ↓</span><br><span class="line">计算 S = QKᵀ</span><br><span class="line">    ↓</span><br><span class="line">把完整 S 写入 HBM</span><br><span class="line">    ↓</span><br><span class="line">从 HBM 重新读取 S</span><br><span class="line">    ↓</span><br><span class="line">计算 Softmax，得到 P</span><br><span class="line">    ↓</span><br><span class="line">把完整 P 写入 HBM</span><br><span class="line">    ↓</span><br><span class="line">从 HBM 读取 P 和 V</span><br><span class="line">    ↓</span><br><span class="line">计算 O = PV</span><br></pre></td></tr></table></figure>
+
+<p>标准实现会把 $S$ 和 $P$ 以及注意力矩阵反复在 HBM 和片上存储之间搬运</p>
+<h3 id="GPU-Memory-Hierarchy"><a href="#GPU-Memory-Hierarchy" class="headerlink" title="GPU Memory Hierarchy"></a>GPU Memory Hierarchy</h3><table>
+<thead>
+<tr>
+<th align="left">存储</th>
+<th align="left">位置</th>
+<th align="left">容量</th>
+<th align="left">速度 &#x2F; 带宽</th>
+<th align="left">延迟</th>
+<th align="left">存储对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>CPU DRAM</strong></td>
+<td align="left">电脑内存</td>
+<td align="left">几十到几百GB</td>
+<td align="left">最慢</td>
+<td align="left">最高</td>
+<td align="left">未放入 GPU 的模型&#x2F;数据</td>
+</tr>
+<tr>
+<td align="left"><strong>GPU HBM</strong></td>
+<td align="left">GPU 显存</td>
+<td align="left">几十GB</td>
+<td align="left">很快</td>
+<td align="left">中等</td>
+<td align="left">Model Weights、Activations<br />KV Cache、Gradient</td>
+</tr>
+<tr>
+<td align="left"><strong>GPU SRAM</strong></td>
+<td align="left">GPU 芯片内部</td>
+<td align="left">KB～MB 级</td>
+<td align="left">非常快</td>
+<td align="left">很低</td>
+<td align="left">正在计算的小块数据、中间结果</td>
+</tr>
+</tbody></table>
+<p>FlashAttention 的核心问题：怎么尽可能把计算留在 SRAM 里完成，减少访问 HBM</p>
+<h3 id="Tiling"><a href="#Tiling" class="headerlink" title="Tiling"></a>Tiling</h3><p>把 $Q,K,V$ 划分成多个小 block，每次只把一小块从 HBM 加载进 SRAM</p>
+<p>就不会在 HBM 中构造完整的 Attention Matrix</p>
+<p><strong>Softmax分块</strong></p>
+<p>普通 Softmax</p>
+<div class="mathjax-display">
+$$
+\operatorname{softmax}(x_i)=\frac{e^{x_i}}
+{\sum_j e^{x_j}}
+$$
+</div>
+为了数值稳定，通常减去整行最大值：
+<div class="mathjax-display">
+$$
+m(x)=\max_i x_i\qquad \ell(x)
+=
+\sum_i e^{x_i-m(x)}
+$$
+</div>
+那么：
+<div class="mathjax-display">
+$$
+\operatorname{softmax}(x)
+=
+\frac{e^{x-m(x)}}{\ell(x)}
+$$
+</div>
+普通 Softmax 的问题在于：依赖整行所有元素，如果只拿到一块不能直接得到最终 Softmax
+
+<p>FlashAttention 使用可增量更新的 Softmax 统计量</p>
+<ul>
+<li>$m$：当前最大值</li>
+<li>$l$：当前指数和</li>
+<li>$u$：输出累积向量</li>
+</ul>
+<p>就可以一个 block 一个 block 地计算 Softmax，而不需要一次把整行元素全部放进 SRAM</p>
+<p>因为 Softmax 的基准最大值发生改变，旧统计量需要重新缩放：</p>
+<div class="mathjax-display">
+$$
+\boxed{\ell_{\text{new}}
+=
+e^{m_1-m_{\text{new}}}\ell_1
++
+e^{m_2-m_{\text{new}}}\ell_2}
+$$
+</div>
+同时在线更新 Attention Output
+<div class="mathjax-display">
+$$
+u_{\text{new}}
+=
+e^{m-m_{\text{new}}}u
++
+\sum_{j\in\text{block}}
+e^{s_j-m_{\text{new}}}v_j
+$$
+</div>
+所有 Key / Value Block 处理完成后
+<div class="mathjax-display">
+$$
+o=\frac{u}{\ell}
+$$
+</div>
+FlashAttention 不是 Approximate Attention，和普通 Attention 的数学结果相同，但是额外内存只需要随 $N $ 线性增长
+
+<h3 id="Recomputation"><a href="#Recomputation" class="headerlink" title="Recomputation"></a>Recomputation</h3><p>标准 Attention 为了 backward，需要保存 $S, P$ 和 注意力矩阵</p>
+<p>FlashAttention 不保存它们，所以需要通过保存的 $O, m, \ell$ 重新计算来获得梯度</p>
+<p>用额外计算换取更少 HBM 访问和更少显存</p>
+<p>虽然 FLOPs 增加了，但由于减少了 HBM IO，实际反而更快</p>
+<h2 id="vLLM"><a href="#vLLM" class="headerlink" title="vLLM"></a>vLLM</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2309.06180">2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention</a></p>
+</blockquote>
+<p>vLLM 是一个面向大语言模型的 LLM Serving Engine</p>
+<p>LLM 推理过程中，KV Cache 占用大量 GPU 显存，并且会随着生成长度动态增长。</p>
+<p>传统连续显存分配方式通常需要提前预留较大的 KV Cache 空间，同时要求显存连续，容易产生显存浪费和碎片，从而限制 Batch Size 和 Serving Throughput。</p>
+<h3 id="KV-Cache-1"><a href="#KV-Cache-1" class="headerlink" title="KV Cache"></a>KV Cache</h3><p>LLM 使用 Autoregressive Generation</p>
+<div class="mathjax-display">
+$$
+P(x)
+=
+P(x_1)
+P(x_2|x_1)
+\cdots
+P(x_n|x_1,\ldots,x_{n-1})
+$$
+</div>
+每生成一个新 token，都需要使用之前 token 的 Key 和 Value
+
+<p>因此将之前已经计算过的 $K,V$ 缓存下来：</p>
+<div class="mathjax-display">
+$$
+K_{\text{cache}},\quad V_{\text{cache}}
+$$
+</div>
+生成新 token 时只需要计算当前 token 的 $K, V$，之前 token 的直接从 KV Cache 中读取。
+
+<h3 id="PagedAttention"><a href="#PagedAttention" class="headerlink" title="PagedAttention"></a>PagedAttention</h3><p>传统 LLM Serving 通常为每个 Request 分配连续的 KV Cache 空间，并可能按照较大的最大 Sequence Length 提前预留显存</p>
+<p>PagedAttention 借鉴操作系统中的 Virtual Memory &#x2F; Paging</p>
+<p>将一个 Request 的 KV Cache 划分为多个固定大小的 KV Block，而不再要求 KV Cache 在物理显存中连续存储</p>
+<p>逻辑上：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Request A</span><br><span class="line"></span><br><span class="line">Block 0</span><br><span class="line">Block 1</span><br><span class="line">Block 2</span><br></pre></td></tr></table></figure>
+
+<p>在 GPU 显存中可以实际存储为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Logical Block 0 → Physical Block 7</span><br><span class="line">Logical Block 1 → Physical Block 1</span><br><span class="line">Logical Block 2 → Physical Block 3</span><br></pre></td></tr></table></figure>
+
+<p>通过 <strong>Block Table</strong> 保存 Logical Block 到 Physical Block 的映射关系</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-10-03_13-32-48.webp" alt="Snipaste_2026-10-03_13-32-48" style="zoom: 67%;" />
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">token 的逻辑位置</span><br><span class="line">       ↓</span><br><span class="line">算出属于哪个 Logical Block</span><br><span class="line">       ↓</span><br><span class="line">查 Block Table</span><br><span class="line">       ↓</span><br><span class="line">得到 Physical Block Number</span><br><span class="line">       ↓</span><br><span class="line">去 GPU DRAM 读取真正的 K/V</span><br></pre></td></tr></table></figure>
+
+<p>因此一个 Sequence 的 KV Cache 可以分散存储在不连续的 Physical Blocks 中，从而利用零散的空闲显存</p>
+<h3 id="Dynamic-Allocation"><a href="#Dynamic-Allocation" class="headerlink" title="Dynamic Allocation"></a>Dynamic Allocation</h3><p>vLLM 不需要提前按照最大 Sequence Length 分配完整 KV Cache，而是随着 token 生成按需分配新的 Physical KV Block</p>
+<p>例如一个 Block 存 4 个 token</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">token 1 2 3 4</span><br><span class="line">↓</span><br><span class="line">Block 0</span><br><span class="line"></span><br><span class="line">token 5 6 7 8</span><br><span class="line">↓</span><br><span class="line">Block 1</span><br></pre></td></tr></table></figure>
+
+<p>当前 Block 被填满后，如果继续生成 token 9，才申请新的 Block 2</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">需要多少 KV Cache</span><br><span class="line">        ↓</span><br><span class="line">按需申请多少 Physical Block</span><br></pre></td></tr></table></figure>
+
+<p>因此通常只有最后一个未填满的 Block 会产生少量碎片。</p>
+<h3 id="KV-Cache-Sharing"><a href="#KV-Cache-Sharing" class="headerlink" title="KV Cache Sharing"></a>KV Cache Sharing</h3><p>PagedAttention 还支持多个 Sequence 共享相同的 Physical KV Block</p>
+<p>例如多个输出拥有相同 Prompt 时，Prompt 对应的 KV Cache 可以只保存一份</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-10-03_13-48-38.webp" alt="Snipaste_2026-10-03_13-48-38" style="zoom:67%;" />
+
+<p>当某个 Sequence 需要修改共享 Block 时，vLLM 使用 <strong>Copy-on-Write</strong></p>
+<p>这样可以进一步减少重复 KV Cache 的显存占用</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/28392.html">https://yhblogs.cn/posts/28392.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%96%B9LLM/">🖹LLM</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/3388.html" title="Agent Skill自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Agent Skill自演进</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/51337.html" title="大语言系统应用"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">大语言系统应用</div></div></div></a><a class="pagination-related no-desc" href="/posts/6231.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">训练流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pretraining"><span class="toc-number">1.1.</span> <span class="toc-text">Pretraining</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Supervised-Fine-tuning"><span class="toc-number">1.2.</span> <span class="toc-text">Supervised Fine-tuning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Preference-Alignment"><span class="toc-number">1.3.</span> <span class="toc-text">Preference Alignment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF"><span class="toc-number">1.3.1.</span> <span class="toc-text">RLHF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PPO"><span class="toc-number">1.3.2.</span> <span class="toc-text">PPO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DPO"><span class="toc-number">1.3.3.</span> <span class="toc-text">DPO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GRPO"><span class="toc-number">1.3.4.</span> <span class="toc-text">GRPO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%98%BE%E5%AD%98%E4%B8%8E%E6%95%B0%E5%80%BC%E7%B2%BE%E5%BA%A6"><span class="toc-number">2.</span> <span class="toc-text">训练显存与数值精度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E7%B2%BE%E5%BA%A6"><span class="toc-number">2.1.</span> <span class="toc-text">数值精度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mixed-Precision"><span class="toc-number">2.2.</span> <span class="toc-text">Mixed Precision</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FP32-Master-Weights"><span class="toc-number">2.2.1.</span> <span class="toc-text">FP32 Master Weights</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss-Scaling"><span class="toc-number">2.2.2.</span> <span class="toc-text">Loss Scaling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FP16-Multiply-FP32-Accumulation"><span class="toc-number">2.2.3.</span> <span class="toc-text">FP16 Multiply + FP32 Accumulation</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%B9%B6%E8%A1%8C"><span class="toc-number">3.</span> <span class="toc-text">分布式训练与并行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">通信方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AllGather"><span class="toc-number">3.1.1.</span> <span class="toc-text">AllGather</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AllToAll"><span class="toc-number">3.1.2.</span> <span class="toc-text">AllToAll</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReduceScatter"><span class="toc-number">3.1.3.</span> <span class="toc-text">ReduceScatter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%B4%E5%BA%A6"><span class="toc-number">3.2.</span> <span class="toc-text">数据维度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Parallel"><span class="toc-number">3.2.1.</span> <span class="toc-text">Data Parallel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZeRO"><span class="toc-number">3.2.2.</span> <span class="toc-text">ZeRO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ZeRO-1"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">ZeRO-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ZeRO-2"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">ZeRO-2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ZeRO-3"><span class="toc-number">3.2.2.3.</span> <span class="toc-text">ZeRO-3</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FSDP"><span class="toc-number">3.2.3.</span> <span class="toc-text">FSDP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%B4%E5%BA%A6"><span class="toc-number">3.3.</span> <span class="toc-text">模型维度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Tensor-Parallel"><span class="toc-number">3.3.1.</span> <span class="toc-text">Tensor Parallel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pipeline-Parallel"><span class="toc-number">3.3.2.</span> <span class="toc-text">Pipeline Parallel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Expert-Parallel"><span class="toc-number">3.3.3.</span> <span class="toc-text">Expert Parallel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hybrid-Parallelism"><span class="toc-number">3.4.</span> <span class="toc-text">Hybrid Parallelism</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E9%AB%98%E6%95%88%E5%BE%AE%E8%B0%83"><span class="toc-number">4.</span> <span class="toc-text">参数高效微调</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LoRA"><span class="toc-number">4.1.</span> <span class="toc-text">LoRA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Parameter-Reduction"><span class="toc-number">4.1.1.</span> <span class="toc-text">Parameter Reduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Initialization"><span class="toc-number">4.1.2.</span> <span class="toc-text">Initialization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scaling"><span class="toc-number">4.1.3.</span> <span class="toc-text">Scaling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Applying-to-Transformer"><span class="toc-number">4.1.4.</span> <span class="toc-text">Applying to Transformer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-at-Inference"><span class="toc-number">4.1.5.</span> <span class="toc-text">Merge at Inference</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Practical-Issues"><span class="toc-number">4.1.6.</span> <span class="toc-text">Practical Issues</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Rank-r-%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">4.1.6.1.</span> <span class="toc-text">Rank $r$ 的选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Target-Modules-%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">4.1.6.2.</span> <span class="toc-text">Target Modules 的选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%98%BE%E5%AD%98"><span class="toc-number">4.1.6.3.</span> <span class="toc-text">训练显存</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QLoRA"><span class="toc-number">4.2.</span> <span class="toc-text">QLoRA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Quantization"><span class="toc-number">4.2.1.</span> <span class="toc-text">Quantization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NF4"><span class="toc-number">4.2.2.</span> <span class="toc-text">NF4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Double-Quantization"><span class="toc-number">4.2.3.</span> <span class="toc-text">Double Quantization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Paged-Optimizer"><span class="toc-number">4.2.4.</span> <span class="toc-text">Paged Optimizer</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LLM-%E6%8E%A8%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">LLM 推理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#KV-Cache"><span class="toc-number">5.1.</span> <span class="toc-text">KV Cache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlashAttention"><span class="toc-number">5.2.</span> <span class="toc-text">FlashAttention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Standard-Attention"><span class="toc-number">5.2.1.</span> <span class="toc-text">Standard Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU-Memory-Hierarchy"><span class="toc-number">5.2.2.</span> <span class="toc-text">GPU Memory Hierarchy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tiling"><span class="toc-number">5.2.3.</span> <span class="toc-text">Tiling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Recomputation"><span class="toc-number">5.2.4.</span> <span class="toc-text">Recomputation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vLLM"><span class="toc-number">5.3.</span> <span class="toc-text">vLLM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#KV-Cache-1"><span class="toc-number">5.3.1.</span> <span class="toc-text">KV Cache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PagedAttention"><span class="toc-number">5.3.2.</span> <span class="toc-text">PagedAttention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dynamic-Allocation"><span class="toc-number">5.3.3.</span> <span class="toc-text">Dynamic Allocation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KV-Cache-Sharing"><span class="toc-number">5.3.4.</span> <span class="toc-text">KV Cache Sharing</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {

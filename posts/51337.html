@@ -1,0 +1,758 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大语言系统应用 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="LLM 应用概览大语言模型落地到企业场景时，通常不是单独调用一次 LLM，而是将模型与外部知识、检索系统、工具和业务流程组合成完整应用。 常见路线： 1234567891011121314用户问题   ↓Prompt &#x2F; Structured Input   ↓┌─────────────────────────────────────┐│            LLM Application">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大语言系统应用">
+<meta property="og:url" content="https://yhblogs.cn/posts/51337.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="LLM 应用概览大语言模型落地到企业场景时，通常不是单独调用一次 LLM，而是将模型与外部知识、检索系统、工具和业务流程组合成完整应用。 常见路线： 1234567891011121314用户问题   ↓Prompt &#x2F; Structured Input   ↓┌─────────────────────────────────────┐│            LLM Application">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp">
+<meta property="article:published_time" content="2026-08-09T01:30:57.000Z">
+<meta property="article:modified_time" content="2026-10-07T15:28:45.848Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🖹LLM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "大语言系统应用",
+  "url": "https://yhblogs.cn/posts/51337.html",
+  "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp",
+  "datePublished": "2026-08-09T01:30:57.000Z",
+  "dateModified": "2026-10-07T15:28:45.848Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "今天睡够了吗",
+      "url": "https://yhblogs.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yhblogs.cn/posts/51337.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大语言系统应用',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">大语言系统应用</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">大语言系统应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-09T01:30:57.000Z" title="发表于 2026-08-09 09:30:57">2026-08-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="LLM-应用概览"><a href="#LLM-应用概览" class="headerlink" title="LLM 应用概览"></a>LLM 应用概览</h1><p>大语言模型落地到企业场景时，通常不是单独调用一次 LLM，而是将模型与外部知识、检索系统、工具和业务流程组合成完整应用。</p>
+<p>常见路线：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">用户问题</span><br><span class="line">   ↓</span><br><span class="line">Prompt / Structured Input</span><br><span class="line">   ↓</span><br><span class="line">┌─────────────────────────────────────┐</span><br><span class="line">│            LLM Application          │</span><br><span class="line">│                                     │</span><br><span class="line">│  RAG       Tool Calling      Agent  │</span><br><span class="line">│   │             │              │    │</span><br><span class="line">│知识库        外部 API        多步决策 │</span><br><span class="line">│数据库        搜索 / DB       工具编排 │</span><br><span class="line">└─────────────────────────────────────┘</span><br><span class="line">   ↓</span><br><span class="line">最终回答 / 结构化结果 / 业务动作</span><br></pre></td></tr></table></figure>
+
+<p>几个常见概念：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>主要解决的问题</th>
+<th>是否改变模型参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prompt Engineering</td>
+<td>如何更准确地表达任务</td>
+<td>否</td>
+</tr>
+<tr>
+<td>RAG</td>
+<td>如何给模型提供外部知识</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Tool Calling</td>
+<td>如何让模型使用外部能力</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td>如何让模型进行多步决策和工具编排</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Fine-tuning</td>
+<td>如何改变模型行为或领域能力</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<h2 id="Prompt-Engineering"><a href="#Prompt-Engineering" class="headerlink" title="Prompt Engineering"></a>Prompt Engineering</h2><p>Prompt Engineering 的核心不是简单地“把提示词写得更长”，而是尽量降低模型对任务的歧义</p>
+<p>一个完整 Prompt 通常需要明确：</p>
+<ul>
+<li>Task：模型要完成什么任务</li>
+<li>Context：完成任务所需的信息</li>
+<li>Constraints：不能做什么、需要满足什么</li>
+<li>Output Format：输出格式</li>
+<li>Examples：必要时加入 Few-shot 示例</li>
+</ul>
+<h2 id="Zero-shot-Few-shot"><a href="#Zero-shot-Few-shot" class="headerlink" title="Zero-shot &#x2F; Few-shot"></a>Zero-shot &#x2F; Few-shot</h2><p>Zero-shot：只描述任务，不提供示例</p>
+<p>Few-shot：在任务说明外额外提供少量输入输出示例，使模型通过上下文学习任务模式</p>
+<blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.14165">2005.14165] Language Models are Few-Shot Learners</a></p>
+</blockquote>
+<p>Few-shot 示例主要可以帮助模型学习：</p>
+<ul>
+<li>标签含义；</li>
+<li>输出结构；</li>
+<li>任务边界；</li>
+<li>特定表达方式。</li>
+</ul>
+<p>应用中通常不希望模型只返回自然语言，而是要求返回结构化结果</p>
+<p>结构化输出的主要价值：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LLM Output</span><br><span class="line">    ↓</span><br><span class="line">JSON / Schema</span><br><span class="line">    ↓</span><br><span class="line">程序解析</span><br><span class="line">    ↓</span><br><span class="line">Database / API / Workflow</span><br></pre></td></tr></table></figure>
+
+<h2 id="Function-Calling-Tool-Calling"><a href="#Function-Calling-Tool-Calling" class="headerlink" title="Function Calling &#x2F; Tool Calling"></a>Function Calling &#x2F; Tool Calling</h2><p>Function Calling 是模型与外部工具交互的一种接口机制</p>
+<p>模型通常不会直接执行函数，而是生成</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Tool Name：调用哪个工具/函数</span><br><span class="line">+</span><br><span class="line">Tool Arguments：调用这个工具时传入什么参数</span><br></pre></td></tr></table></figure>
+
+<p>程序执行工具后，再将结果返回给模型</p>
+<h1 id="企业知识库与文档处理"><a href="#企业知识库与文档处理" class="headerlink" title="企业知识库与文档处理"></a>企业知识库与文档处理</h1><p>企业知识通常存在于：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PDF</span><br><span class="line">Word</span><br><span class="line">Excel</span><br><span class="line">PPT</span><br><span class="line">HTML</span><br><span class="line">数据库</span><br><span class="line">工单</span><br><span class="line">邮件</span><br><span class="line">图片 / 扫描件</span><br></pre></td></tr></table></figure>
+
+<p>RAG 的效果不仅由 LLM 决定，文档进入检索系统之前的处理往往同样重要</p>
+<p>典型知识库构建流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Raw Documents</span><br><span class="line">      ↓</span><br><span class="line">Document Parsing</span><br><span class="line">      ↓</span><br><span class="line">Cleaning / Normalization</span><br><span class="line">      ↓</span><br><span class="line">Chunking</span><br><span class="line">      ↓</span><br><span class="line">Embedding / Indexing</span><br><span class="line">      ↓</span><br><span class="line">Knowledge Base</span><br></pre></td></tr></table></figure>
+
+<h2 id="Document-Parsing"><a href="#Document-Parsing" class="headerlink" title="Document Parsing"></a>Document Parsing</h2><p>文档解析的目标是把非结构化或半结构化文档转为能够索引和检索的数据</p>
+<h3 id="文本解析"><a href="#文本解析" class="headerlink" title="文本解析"></a>文本解析</h3><p>普通文本 PDF 的基本流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PDF</span><br><span class="line"> ↓</span><br><span class="line">Text Extraction</span><br><span class="line"> ↓</span><br><span class="line">Page / Paragraph</span><br><span class="line"> ↓</span><br><span class="line">Cleaning</span><br><span class="line"> ↓</span><br><span class="line">Chunking</span><br></pre></td></tr></table></figure>
+
+<p>但真实企业文档中经常还包括：</p>
+<ul>
+<li>页眉页脚；</li>
+<li>多栏布局；</li>
+<li>表格；</li>
+<li>公式；</li>
+<li>图片；</li>
+<li>扫描件；</li>
+<li>章节层级；</li>
+</ul>
+<p>如果解析阶段破坏文档结构，后面的 Embedding 和 Retrieval 很难补救</p>
+<h3 id="OCR"><a href="#OCR" class="headerlink" title="OCR"></a>OCR</h3><p>扫描文档首先需要 OCR</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Document Image</span><br><span class="line">      ↓</span><br><span class="line">OCR</span><br><span class="line">      ↓</span><br><span class="line">Text + Bounding Box</span><br><span class="line">      ↓</span><br><span class="line">Layout Understanding</span><br></pre></td></tr></table></figure>
+
+<p>单纯 OCR 只得到文字内容，但对于：</p>
+<ul>
+<li>表格；</li>
+<li>发票；</li>
+<li>合同；</li>
+<li>财报；</li>
+<li>表单；</li>
+</ul>
+<p>位置信息本身也是语义的一部分</p>
+<blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1912.13318">1912.13318] LayoutLM: Pre-training of Text and Layout for Document Image Understanding</a></p>
+</blockquote>
+<p>LayoutLM 的核心思想是联合建模 Text 和 Layout，使模型不仅知道“写了什么”，还知道“写在哪里”</p>
+<h2 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h2><p>企业知识库不应该只有正文 Embedding，还需要保存 Metadata：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Document ID</span><br><span class="line">Title</span><br><span class="line">Author</span><br><span class="line">Department</span><br><span class="line">Timestamp</span><br><span class="line">Version</span><br><span class="line">Permission</span><br><span class="line">Page Number</span><br><span class="line">Section</span><br><span class="line">Source URL</span><br><span class="line">Document Type</span><br></pre></td></tr></table></figure>
+
+<p>Metadata 可以用于过滤：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Semantic Retrieval</span><br><span class="line">        +</span><br><span class="line">Metadata Filter</span><br><span class="line">        ↓</span><br><span class="line">更精确的候选文档</span><br></pre></td></tr></table></figure>
+
+<h2 id="Chunking"><a href="#Chunking" class="headerlink" title="Chunking"></a>Chunking</h2><p>大模型通常不能直接将整个企业知识库放入 Context，因此需要把文档划分成 Chunk</p>
+<p>Chunking 的本质是：在检索粒度和语义完整性之间做权衡</p>
+<h3 id="Fixed-size-Chunk"><a href="#Fixed-size-Chunk" class="headerlink" title="Fixed-size Chunk"></a>Fixed-size Chunk</h3><p>按照固定 Token &#x2F; Character 数切分</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Document</span><br><span class="line">↓</span><br><span class="line">Chunk 1: token 1~500</span><br><span class="line">Chunk 2: token 501~1000</span><br><span class="line">Chunk 3: token 1001~1500</span><br></pre></td></tr></table></figure>
+
+<p>优点：</p>
+<ul>
+<li>简单</li>
+<li>高效</li>
+<li>容易实现</li>
+</ul>
+<p>问题：</p>
+<ul>
+<li>可能从一句话中间切断</li>
+<li>可能破坏段落或表格结构</li>
+</ul>
+<h3 id="Overlap-Window"><a href="#Overlap-Window" class="headerlink" title="Overlap Window"></a>Overlap Window</h3><p>给相邻 Chunk 保留重叠区域：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Chunk 1: 1 -------- 500</span><br><span class="line">Chunk 2:       450 -------- 950</span><br><span class="line">Chunk 3:             900 -------- 1400</span><br></pre></td></tr></table></figure>
+
+<p>Overlap 可以减轻边界信息丢失，但会：</p>
+<ul>
+<li>增加索引量</li>
+<li>增加重复召回</li>
+<li>增加 Context 冗余</li>
+</ul>
+<h3 id="Recursive-Chunking"><a href="#Recursive-Chunking" class="headerlink" title="Recursive Chunking"></a>Recursive Chunking</h3><p>优先按照自然结构切分：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">章节</span><br><span class="line"> ↓</span><br><span class="line">段落</span><br><span class="line"> ↓</span><br><span class="line">句子</span><br><span class="line"> ↓</span><br><span class="line">Token</span><br></pre></td></tr></table></figure>
+
+<p>只有上一级结构过长时，才继续向下切分</p>
+<h3 id="Semantic-Chunking"><a href="#Semantic-Chunking" class="headerlink" title="Semantic Chunking"></a>Semantic Chunking</h3><p>根据相邻文本的语义变化决定切分位置：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Sentence Embeddings</span><br><span class="line">      ↓</span><br><span class="line">相邻语义相似度</span><br><span class="line">      ↓</span><br><span class="line">Similarity 明显下降</span><br><span class="line">      ↓</span><br><span class="line">建立 Chunk Boundary</span><br></pre></td></tr></table></figure>
+
+<p>相比固定长度，Semantic Chunk 更强调内容完整性，但计算成本更高</p>
+<h3 id="Parent-Child-Chunk"><a href="#Parent-Child-Chunk" class="headerlink" title="Parent-Child Chunk"></a>Parent-Child Chunk</h3><p>检索时使用小 Chunk，提高召回精度；最终返回其 Parent Context，保证生成时上下文完整</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Parent Document</span><br><span class="line">│</span><br><span class="line">├── Child Chunk 1</span><br><span class="line">├── Child Chunk 2 ← Retriever 命中</span><br><span class="line">└── Child Chunk 3</span><br><span class="line">        ↓</span><br><span class="line">返回 Parent Context 给 LLM</span><br></pre></td></tr></table></figure>
+
+<h2 id="信息抽取"><a href="#信息抽取" class="headerlink" title="信息抽取"></a>信息抽取</h2><p>知识库和知识图谱构建需要把自由文本转换成结构化信息</p>
+<p>典型任务包括：</p>
+<ul>
+<li>Named Entity Recognition（NER，命名实体识别）</li>
+<li>Relation Extraction（关系抽取）</li>
+<li>Entity Linking（实体链接）</li>
+<li>Event Extraction（事件抽取）</li>
+<li>Structured Extraction（结构化抽取）</li>
+</ul>
+<h3 id="NER"><a href="#NER" class="headerlink" title="NER"></a>NER</h3><p>NER 从文本中找到实体及其类型</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;OpenAI released GPT-4 in 2023.&quot;</span><br><span class="line"></span><br><span class="line">OpenAI → Organization</span><br><span class="line">GPT-4  → Product</span><br><span class="line">2023   → Date</span><br></pre></td></tr></table></figure>
+
+<p>现代 LLM 也可以通过 Prompt + Structured Output 直接执行实体抽取</p>
+<h3 id="Relation-Extraction"><a href="#Relation-Extraction" class="headerlink" title="Relation Extraction"></a>Relation Extraction</h3><p>从实体之间抽取关系：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OpenAI --developed--&gt; GPT-4</span><br></pre></td></tr></table></figure>
+
+<p>结构化为 Triple：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(head, relation, tail)</span><br><span class="line"></span><br><span class="line">(OpenAI, developed, GPT-4)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Entity-Linking"><a href="#Entity-Linking" class="headerlink" title="Entity Linking"></a>Entity Linking</h3><p>NER 解决的是“文本中哪里是实体”，但企业数据中还要解决：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OpenAI</span><br><span class="line">Open AI</span><br><span class="line">OpenAI Inc.</span><br></pre></td></tr></table></figure>
+
+<p>是否指向同一个实体</p>
+<p>因此需要 Entity Linking：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Mention</span><br><span class="line">   ↓</span><br><span class="line">Candidate Generation</span><br><span class="line">   ↓</span><br><span class="line">Entity Matching</span><br><span class="line">   ↓</span><br><span class="line">Canonical Entity ID</span><br></pre></td></tr></table></figure>
+
+<h2 id="Embedding"><a href="#Embedding" class="headerlink" title="Embedding"></a>Embedding</h2><p>Embedding 将文本映射成固定维度向量：</p>
+<div class="mathjax-display">
+$$
+f(x)\in\mathbb{R}^d
+$$
+</div>
+语义相近的文本在向量空间中距离更近
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;如何申请退款？&quot;</span><br><span class="line">        ↓</span><br><span class="line">Embedding Model</span><br><span class="line">        ↓</span><br><span class="line">[0.12, -0.81, ..., 0.37]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1908.10084">1908.10084] Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a></p>
+</blockquote>
+<p>Bi-Encoder 分别编码 Query 和 Document</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Query --------&gt; Query Encoder --------&gt; q</span><br><span class="line">                                      ↘</span><br><span class="line">                                       Similarity</span><br><span class="line">                                      ↗</span><br><span class="line">Document -----&gt; Document Encoder -----&gt; d</span><br></pre></td></tr></table></figure>
+
+<p>因为 Document Embedding 可以提前离线计算，所以适合大规模检索</p>
+<p><strong>Cosine Similarity</strong></p>
+<div class="mathjax-display">
+$$
+\operatorname{cos}(q,d)
+=
+\frac{q^\top d}{\|q\|\|d\|}
+$$
+</div>
+
+<h2 id="Sparse-Retrieval"><a href="#Sparse-Retrieval" class="headerlink" title="Sparse Retrieval"></a>Sparse Retrieval</h2><p>Dense Retrieval 出现之前，信息检索系统主要依赖词项匹配</p>
+<h3 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a>TF-IDF</h3><p>基本思想：</p>
+<ul>
+<li>一个词在当前文档中出现得越多，可能越重要；</li>
+<li>一个词在所有文档中都很常见，则区分能力越弱。</li>
+</ul>
+<h3 id="BM25"><a href="#BM25" class="headerlink" title="BM25"></a>BM25</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables">Practical BM25 - Part 2: The BM25 Algorithm and its Variables | Elastic Blog</a></p>
+</blockquote>
+<p>BM25 是经典 Sparse Retrieval 方法，核心考虑：</p>
+<ul>
+<li>Term Frequency；</li>
+<li>Inverse Document Frequency；</li>
+<li>Document Length Normalization。</li>
+</ul>
+<p>其常见形式：</p>
+<div class="mathjax-display">
+$$
+\operatorname{score}(D,Q)
+=
+\sum_{q_i\in Q}
+\operatorname{IDF}(q_i)
+\cdot
+\frac{
+ f(q_i,D)(k_1+1)
+}{
+ f(q_i,D)+k_1\left(1-b+b\frac{|D|}{\operatorname{avgdl}}\right)
+}
+$$
+</div>
+
+<p>BM25 的优势是：</p>
+<ul>
+<li>对关键词、专业术语、编号、产品型号非常敏感</li>
+<li>不需要训练 Embedding Model</li>
+<li>检索速度快</li>
+<li>可解释性较强</li>
+</ul>
+<p>缺点是：</p>
+<ul>
+<li>难以处理同义表达</li>
+<li>依赖词面匹配</li>
+</ul>
+<h2 id="Dense-Retrieval"><a href="#Dense-Retrieval" class="headerlink" title="Dense Retrieval"></a>Dense Retrieval</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.04906">2004.04906] Dense Passage Retrieval for Open-Domain Question Answering</a></p>
+</blockquote>
+<p>DPR 使用 Dual Encoder 分别编码 Query 和 Passage：</p>
+<div class="mathjax-display">
+$$
+q=E_Q(x),
+\qquad
+p=E_P(z)
+$$
+</div>
+相关性可以使用 Inner Product：
+<div class="mathjax-display">
+$$
+\operatorname{sim}(q,p)=q^\top p
+$$
+</div>
+Dense Retrieval 的优势：即使 Query 和 Document 没有大量相同关键词，只要语义相似，也可能被召回
+
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Query:</span><br><span class="line">&quot;手机进水后应该怎么处理？&quot;</span><br><span class="line"></span><br><span class="line">Document:</span><br><span class="line">&quot;设备受液体侵入后请立即断电，并停止充电。&quot;</span><br></pre></td></tr></table></figure>
+
+<p>词面重合并不高，但语义高度相关</p>
+<h3 id="ANN-Vector-Search"><a href="#ANN-Vector-Search" class="headerlink" title="ANN Vector Search"></a>ANN Vector Search</h3><p>知识库可能包含百万甚至上亿向量，不适合对所有向量执行 Exact Search  $O(Nd)$</p>
+<p>因此通常使用 Approximate Nearest Neighbor（ANN）</p>
+<h4 id="HNSW"><a href="#HNSW" class="headerlink" title="HNSW"></a>HNSW</h4><p>HNSW：Hierarchical Navigable Small World</p>
+<p>核心思想：建立多层近邻图</p>
+<p>查询时：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">高层快速定位大概区域</span><br><span class="line">        ↓</span><br><span class="line">逐层向下</span><br><span class="line">        ↓</span><br><span class="line">底层局部精细搜索</span><br><span class="line"></span><br><span class="line">Layer 3       A ------------------------- Z</span><br><span class="line"></span><br><span class="line">Layer 2       A -------- F -------- M --- Z</span><br><span class="line"></span><br><span class="line">Layer 1       A --- C -- F -- H -- M --- Z</span><br><span class="line"></span><br><span class="line">Layer 0       所有向量节点</span><br></pre></td></tr></table></figure>
+
+<p>在每一层找最相似的，然后下一层看它的邻居</p>
+<p>特点：</p>
+<ul>
+<li>Recall 高</li>
+<li>查询速度快</li>
+<li>内存开销较大</li>
+</ul>
+<h4 id="IVF"><a href="#IVF" class="headerlink" title="IVF"></a>IVF</h4><p>IVF：Inverted File Index</p>
+<p>先把整个向量空间切成很多区域</p>
+<p>先聚类，再只搜索相关的 Cluster</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">All Embeddings</span><br><span class="line">      ↓</span><br><span class="line">Clustering</span><br><span class="line">      ↓</span><br><span class="line">Centroid 1 → vectors...</span><br><span class="line">Centroid 2 → vectors...</span><br><span class="line">Centroid 3 → vectors...</span><br></pre></td></tr></table></figure>
+
+<p>每个 Cluster 有一个 Centroid</p>
+<p>查询时先找到最接近的几个 Cluster，只在这些 Cluster 内搜索</p>
+<h4 id="Product-Quantization"><a href="#Product-Quantization" class="headerlink" title="Product Quantization"></a>Product Quantization</h4><p>PQ 将高维向量拆成多个 Subspace，再分别量化，从而降低向量存储成本</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vector</span><br><span class="line"> ↓</span><br><span class="line">Subspace 1 | Subspace 2 | ... | Subspace M</span><br><span class="line"> ↓            ↓                  ↓</span><br><span class="line">Quantize     Quantize            Quantize</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里类似 VQ-VAE，对每个 Subspace 单独训练 Codebook</p>
+</blockquote>
+<p>常见组合：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IVF + PQ</span><br></pre></td></tr></table></figure>
+
+<p>用于在规模、内存和召回率之间折中</p>
+<h2 id="Hybrid-Search"><a href="#Hybrid-Search" class="headerlink" title="Hybrid Search"></a>Hybrid Search</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">            Query</span><br><span class="line">              │</span><br><span class="line">     ┌────────┴────────┐</span><br><span class="line">     ↓                 ↓</span><br><span class="line">   BM25          Dense Retrieval</span><br><span class="line">     ↓                 ↓</span><br><span class="line">Sparse Results     Dense Results</span><br><span class="line">     └────────┬────────┘</span><br><span class="line">              ↓</span><br><span class="line">        Fusion / RRF</span><br><span class="line">              ↓</span><br><span class="line">        Candidate Set</span><br></pre></td></tr></table></figure>
+
+<p>Hybrid Search 的价值在于：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BM25</span><br><span class="line">擅长：关键词、编号、实体精确匹配</span><br><span class="line"></span><br><span class="line">Dense</span><br><span class="line">擅长：同义词、自然语言、语义匹配</span><br></pre></td></tr></table></figure>
+
+<p>两者互补</p>
+<h3 id="Reciprocal-Rank-Fusion"><a href="#Reciprocal-Rank-Fusion" class="headerlink" title="Reciprocal Rank Fusion"></a>Reciprocal Rank Fusion</h3><p>RRF 不直接比较两套系统的原始分数，而是根据 Ranking Position 融合：</p>
+<div class="mathjax-display">
+$$
+\operatorname{RRF}(d)
+=
+\sum_{r\in R}
+\frac{1}{k+\operatorname{rank}_r(d)}
+$$
+</div>
+这样可以避免 BM25 Score 和 Cosine Similarity 数值尺度不同的问题
+
+<h3 id="Reranking"><a href="#Reranking" class="headerlink" title="Reranking"></a>Reranking</h3><p>但 Top-K Retriever Result 的排序未必足够准确，因此通常增加第二阶段 Reranker</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1,000,000 Documents</span><br><span class="line">        ↓</span><br><span class="line">Retriever</span><br><span class="line">        ↓</span><br><span class="line">Top 50 / Top 100</span><br><span class="line">        ↓</span><br><span class="line">Reranker</span><br><span class="line">        ↓</span><br><span class="line">Top 5</span><br><span class="line">        ↓</span><br><span class="line">LLM</span><br></pre></td></tr></table></figure>
+
+<p>Bi-Encoder：分别编码 Query 和 Document，向量相似度</p>
+<p>Cross-Encoder：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Query ; Document]</span><br><span class="line">        ↓</span><br><span class="line">    Transformer</span><br><span class="line">        ↓</span><br><span class="line">   Relevance Score</span><br></pre></td></tr></table></figure>
+
+<p>进行 Query 和 Document 的 Token-level Interaction，因此通常排序更准确</p>
+<p>但每个 Query-Document Pair 都需要重新前向计算，成本更高</p>
+<p>因此常见设计：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Bi-Encoder Retrieval</span><br><span class="line">      ↓</span><br><span class="line">Cross-Encoder Reranking</span><br></pre></td></tr></table></figure>
+
+<h1 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h1><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.11401">2005.11401] Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a></p>
+</blockquote>
+<p>RAG：Retrieval-Augmented Generation。</p>
+<p>核心思想：将 LLM 的 Parametric Memory 与外部 Non-parametric Memory 结合</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Parametric Memory</span><br><span class="line">= 模型参数中的知识</span><br><span class="line"></span><br><span class="line">Non-parametric Memory</span><br><span class="line">= 外部文档 / 数据库 / Index</span><br></pre></td></tr></table></figure>
+
+<p>标准 RAG：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Documents</span><br><span class="line">   ↓</span><br><span class="line">Chunking</span><br><span class="line">   ↓</span><br><span class="line">Embedding</span><br><span class="line">   ↓</span><br><span class="line">Vector Index</span><br><span class="line"></span><br><span class="line">User Query</span><br><span class="line">   ↓</span><br><span class="line">Query Embedding</span><br><span class="line">   ↓</span><br><span class="line">Retriever</span><br><span class="line">   ↓</span><br><span class="line">Top-K Chunks</span><br><span class="line">   ↓</span><br><span class="line">Prompt Construction</span><br><span class="line">   ↓</span><br><span class="line">LLM</span><br><span class="line">   ↓</span><br><span class="line">Answer</span><br></pre></td></tr></table></figure>
+
+<p>RAG 的主要价值：</p>
+<ul>
+<li>使用企业私有知识</li>
+<li>更新知识无需重新训练模型</li>
+<li>可以提供 Evidence &#x2F; Citation</li>
+<li>降低纯参数知识带来的幻觉风险</li>
+</ul>
+<h2 id="Failure-Modes"><a href="#Failure-Modes" class="headerlink" title="Failure Modes"></a>Failure Modes</h2><p>可以把 RAG 的错误拆成三个阶段：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Query</span><br><span class="line"> ↓</span><br><span class="line">Retrieval Error</span><br><span class="line"> ↓</span><br><span class="line">Context Error</span><br><span class="line"> ↓</span><br><span class="line">Generation Error</span><br></pre></td></tr></table></figure>
+
+<h3 id="Retrieval-Error"><a href="#Retrieval-Error" class="headerlink" title="Retrieval Error"></a>Retrieval Error</h3><p>正确文档根本没有被召回</p>
+<p>可能原因：</p>
+<ul>
+<li>Chunk 太大 &#x2F; 太小</li>
+<li>Query 与 Document 表述差异大（最常见原因）</li>
+<li>Embedding Model 不适合</li>
+<li>Top-K 太小</li>
+<li>缺少 Keyword Retrieval</li>
+<li>Metadata Filter 错误</li>
+</ul>
+<h3 id="Context-Error"><a href="#Context-Error" class="headerlink" title="Context Error"></a>Context Error</h3><p>正确文档已经召回，但最终送入模型的 Context 不合适</p>
+<p>可能原因：</p>
+<ul>
+<li>overlap 很大，大量内容重复</li>
+<li>无关内容太多</li>
+<li>Chunk 顺序差</li>
+<li>重要 Evidence 被截断</li>
+</ul>
+<h3 id="Generation-Error"><a href="#Generation-Error" class="headerlink" title="Generation Error"></a>Generation Error</h3><p>Evidence 已经正确，但模型仍然：</p>
+<ul>
+<li>忽略证 Evidence</li>
+<li>错误归纳</li>
+<li>混合多个文档</li>
+<li>产生无来源事实</li>
+</ul>
+<p>因此 RAG 优化不能只看最终答案，必须分别评估 Retriever、Reranker 和 Generator</p>
+<h2 id="Query-Transformation"><a href="#Query-Transformation" class="headerlink" title="Query Transformation"></a>Query Transformation</h2><p>用户问题不一定适合直接用于 Retrieval</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User Query</span><br><span class="line">    ↓</span><br><span class="line">Query Transformation</span><br><span class="line">    ↓</span><br><span class="line">Retrieval Query</span><br></pre></td></tr></table></figure>
+
+<h3 id="Query-Rewrite"><a href="#Query-Rewrite" class="headerlink" title="Query Rewrite"></a>Query Rewrite</h3><p>例如用户存在上下文省略：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">上一轮：QLoRA 是什么？</span><br><span class="line">当前：它和 LoRA 有什么区别？</span><br></pre></td></tr></table></figure>
+
+<p>Retrieval Query 可以改写成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QLoRA 和 LoRA 有什么区别？</span><br></pre></td></tr></table></figure>
+
+<h3 id="Multi-Query"><a href="#Multi-Query" class="headerlink" title="Multi-Query"></a>Multi-Query</h3><p>让 LLM 生成多个不同角度的 Query</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Original Query</span><br><span class="line">      ↓</span><br><span class="line"> ┌────┼────┐</span><br><span class="line"> ↓    ↓    ↓</span><br><span class="line">Q1   Q2   Q3</span><br><span class="line"> ↓    ↓    ↓</span><br><span class="line">Retrieval</span><br><span class="line"> └────┼────┘</span><br><span class="line">      ↓</span><br><span class="line">Merge Results</span><br></pre></td></tr></table></figure>
+
+<p>可以提高 Recall，但同时增加检索成本和噪声</p>
+<h3 id="HyDE"><a href="#HyDE" class="headerlink" title="HyDE"></a>HyDE</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.10496">2212.10496] Precise Zero-Shot Dense Retrieval without Relevance Labels</a></p>
+</blockquote>
+<p>Hypothetical Document Embeddings</p>
+<p>核心思路：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">User Query</span><br><span class="line">    ↓</span><br><span class="line">LLM 生成一个 Hypothetical Document</span><br><span class="line">    ↓</span><br><span class="line">Embedding</span><br><span class="line">    ↓</span><br><span class="line">Vector Search</span><br><span class="line">    ↓</span><br><span class="line">Real Documents</span><br></pre></td></tr></table></figure>
+
+<p>不直接 Embed 短 Query，而是先生成一个“可能的答案文档”，再用它的语义空间去搜索真实语料</p>
+<h2 id="Context-Construction"><a href="#Context-Construction" class="headerlink" title="Context Construction"></a>Context Construction</h2><p>Retriever 输出 Top-K 之后，还需要构造最终 Prompt Context</p>
+<h3 id="Lost-in-the-Middle"><a href="#Lost-in-the-Middle" class="headerlink" title="Lost in the Middle"></a>Lost in the Middle</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.03172">2307.03172] Lost in the Middle: How Language Models Use Long Contexts</a></p>
+</blockquote>
+<p>长 Context 并不意味着模型能够均匀利用所有位置的信息</p>
+<p>模型对长上下文中信息的位置非常敏感：当关键信息位于上下文开头或结尾时，任务性能通常最高；位于中间时，性能显著下降</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Question</span><br><span class="line">   ↓</span><br><span class="line">Document 1</span><br><span class="line">Document 2</span><br><span class="line">...</span><br><span class="line">Document k</span><br><span class="line">   ↓</span><br><span class="line">其中只有一个 Document 真正包含答案</span><br></pre></td></tr></table></figure>
+
+<p>保持：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Question 不变</span><br><span class="line">Documents 内容不变</span><br><span class="line">正确答案不变</span><br></pre></td></tr></table></figure>
+
+<p>只改变包含答案的 Document 在 Context 中的位置</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-10-04_18-33-34.webp" alt="Snipaste_2026-10-04_18-33-34" style="zoom:80%;" />
+
+<p>即使正确信息确实已经进入 Context，模型也不一定能够稳定地访问和利用它</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-10-04_18-39-31.webp" alt="Snipaste_2026-10-04_18-39-31" style="zoom:67%;" />
+
+<p>并且模型的性能在文档数量达到一定时就饱和了</p>
+<h2 id="Advanced-RAG"><a href="#Advanced-RAG" class="headerlink" title="Advanced RAG"></a>Advanced RAG</h2><h3 id="Self-RAG"><a href="#Self-RAG" class="headerlink" title="Self-RAG"></a>Self-RAG</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.11511">2310.11511] Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection</a></p>
+</blockquote>
+<p>传统 Naive RAG 通常采用固定流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Query</span><br><span class="line">  ↓</span><br><span class="line">Retrieve Top-K Passages</span><br><span class="line">  ↓</span><br><span class="line">Generator</span><br><span class="line">  ↓</span><br><span class="line">Answer</span><br></pre></td></tr></table></figure>
+
+<p>但不是所有问题都需要检索，而且 Retrieval Result 也不一定相关</p>
+<p>Self-RAG 引入 Self-Reflection，使模型能够学习判断</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Query</span><br><span class="line">  ↓</span><br><span class="line">判断是否需要 Retrieval</span><br><span class="line">  │</span><br><span class="line">  ├─ 不需要</span><br><span class="line">  │     ↓</span><br><span class="line">  │   直接生成</span><br><span class="line">  │</span><br><span class="line">  └─ 需要</span><br><span class="line">        ↓</span><br><span class="line">     Retrieve Passages</span><br><span class="line">        ↓</span><br><span class="line">     判断 Passage 是否相关</span><br><span class="line">        ↓</span><br><span class="line">     基于 Evidence 生成</span><br><span class="line">        ↓</span><br><span class="line">     判断生成内容是否被 Evidence 支持</span><br><span class="line">        ↓</span><br><span class="line">     评估回答质量</span><br></pre></td></tr></table></figure>
+
+<p>Retrieval 不再是固定步骤，而是可根据问题和证据质量动态触发</p>
+<h3 id="CRAG"><a href="#CRAG" class="headerlink" title="CRAG"></a>CRAG</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.15884">2401.15884] Corrective Retrieval Augmented Generation</a></p>
+</blockquote>
+<p>CRAG 关注的问题是：如果 Retriever 本身找错了文档怎么办？</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-10-04_18-48-24.webp" alt="Snipaste_2026-10-04_18-48-24" style="zoom: 67%;" />
+
+<p>加一个 Retrieval Evaluator</p>
+<p>去判断这些 Retrieved Documents 对 Query 到底靠不靠谱，只保留与问题相关的知识片段</p>
+<h2 id="Retrieval-Metrics"><a href="#Retrieval-Metrics" class="headerlink" title="Retrieval Metrics"></a>Retrieval Metrics</h2><h3 id="Recall-K"><a href="#Recall-K" class="headerlink" title="Recall@K"></a>Recall@K</h3><p>如果一共存在 $N_{rel}$ 个 Relevant Documents，Top-K 中找到了 $N_{hit}$ 个：</p>
+<div class="mathjax-display">
+$$
+\operatorname{Recall@K}
+=
+\frac{N_{hit}}{N_{rel}}
+$$
+</div>
+在 RAG 中通常首先保证 Recall，因为正确文档没有进入候选集，后面的 Reranker 和 LLM 都无法补救
+
+<h3 id="Precision-K"><a href="#Precision-K" class="headerlink" title="Precision@K"></a>Precision@K</h3><div class="mathjax-display">
+$$
+\operatorname{Precision@K}
+=
+\frac{
+\text{Relevant Documents in Top-K}
+}{K}
+$$
+</div>
+
+<h3 id="MRR"><a href="#MRR" class="headerlink" title="MRR"></a>MRR</h3><p>MRR：Mean Reciprocal Rank。</p>
+<p>对每个 Query，关注第一个 Relevant Document 的排名：</p>
+<div class="mathjax-display">
+$$
+\operatorname{RR}=\frac{1}{\operatorname{rank}}
+$$
+</div>
+整体：
+<div class="mathjax-display">
+$$
+\operatorname{MRR}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+\frac{1}{\operatorname{rank}_i}
+$$
+</div>
+
+<h2 id="GraphRAG"><a href="#GraphRAG" class="headerlink" title="GraphRAG"></a>GraphRAG</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.16130">2404.16130] From Local to Global: A Graph RAG Approach to Query-Focused Summarization</a></p>
+</blockquote>
+<p>普通 RAG 主要依赖：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Query</span><br><span class="line"> ↓</span><br><span class="line">Top-K Chunk Retrieval</span><br></pre></td></tr></table></figure>
+
+<p>非常适合局部事实问题</p>
+<p>但对于 Global Question 单纯 Top-K Chunk 很难覆盖整个 Corpus</p>
+<p>GraphRAG 的核心思路：先从文档中抽取 Entity 和 Relation，构建知识图谱，再利用图结构进行检索和聚合</p>
+<p>GraphRAG 最重要的是 Indexing 阶段，索引构建比普通 RAG复杂很多</p>
+<p><strong>Local Search</strong></p>
+<p>围绕某个 Entity 的具体问题</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Local Question</span><br><span class="line">    ↓</span><br><span class="line">Entity / Neighborhood</span><br><span class="line">    ↓</span><br><span class="line">Local Graph Context</span><br></pre></td></tr></table></figure>
+
+<p>先定位节点，再沿图扩展邻居</p>
+<p><strong>Global Search</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Query</span><br><span class="line"> ↓</span><br><span class="line">Community Summaries</span><br><span class="line"> ↓</span><br><span class="line">Partial Answers</span><br><span class="line"> ↓</span><br><span class="line">Aggregate</span><br><span class="line"> ↓</span><br><span class="line">Global Answer</span><br></pre></td></tr></table></figure>
+
+<p>适合：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“整个数据集有哪些主要主题？”</span><br></pre></td></tr></table></figure>
+
+<h2 id="Multimodal-RAG"><a href="#Multimodal-RAG" class="headerlink" title="Multimodal RAG"></a>Multimodal RAG</h2><p>传统 RAG：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PDF</span><br><span class="line"> ↓</span><br><span class="line">Extract Text</span><br><span class="line"> ↓</span><br><span class="line">Chunk</span><br><span class="line"> ↓</span><br><span class="line">Text Embedding</span><br></pre></td></tr></table></figure>
+
+<p>这种方式可能丢失：</p>
+<ul>
+<li>表格结构</li>
+<li>图像语义</li>
+<li>页面布局</li>
+<li>文本与图像对应关系</li>
+</ul>
+<h3 id="Visual-Document-Retrieval"><a href="#Visual-Document-Retrieval" class="headerlink" title="Visual Document Retrieval"></a>Visual Document Retrieval</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.01449">2407.01449] ColPali: Efficient Document Retrieval with Vision Language Models</a></p>
+</blockquote>
+<p>ColPali 的思路不再要求先将页面完全转换成纯文本，而是直接对 Document Page Image 生成 Multi-vector Representation</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-10-04_20-02-18.webp" alt="Snipaste_2026-10-04_20-02-18" style="zoom:67%;" />
+
+<p>这样能够保留：</p>
+<ul>
+<li>Layout；</li>
+<li>Table；</li>
+<li>Figures；</li>
+</ul>
+<p>直接将 Document Page 作为 Image 编码，在 Vision Space 中执行 Retrieval</p>
+<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><h2 id="LangChain"><a href="#LangChain" class="headerlink" title="LangChain"></a>LangChain</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/learn">Learn - Docs by LangChain</a></p>
+</blockquote>
+<p>LangChain 更偏通用 LLM Application &#x2F; Agent 编排：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Model</span><br><span class="line">Prompt</span><br><span class="line">Tool</span><br><span class="line">Retriever</span><br><span class="line">Agent</span><br><span class="line">Workflow</span><br></pre></td></tr></table></figure>
+
+<h2 id="LlamaIndex"><a href="#LlamaIndex" class="headerlink" title="LlamaIndex"></a>LlamaIndex</h2><p>LlamaIndex 更强调 Data &#x2F; Index &#x2F; Retrieval：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Data Loader</span><br><span class="line"> ↓</span><br><span class="line">Node / Chunk</span><br><span class="line"> ↓</span><br><span class="line">Index</span><br><span class="line"> ↓</span><br><span class="line">Retriever</span><br><span class="line"> ↓</span><br><span class="line">Query Engine</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/51337.html">https://yhblogs.cn/posts/51337.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%96%B9LLM/">🖹LLM</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/20094.html" title="编程系统学习"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-w5mgxr_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">编程系统学习</div></div></div></a><a class="pagination-related  no-desc" href="/posts/6231.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/6231.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/21831.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/28392.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LLM-%E5%BA%94%E7%94%A8%E6%A6%82%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">LLM 应用概览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Prompt-Engineering"><span class="toc-number">1.1.</span> <span class="toc-text">Prompt Engineering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Zero-shot-Few-shot"><span class="toc-number">1.2.</span> <span class="toc-text">Zero-shot &#x2F; Few-shot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Function-Calling-Tool-Calling"><span class="toc-number">1.3.</span> <span class="toc-text">Function Calling &#x2F; Tool Calling</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93%E4%B8%8E%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">企业知识库与文档处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Document-Parsing"><span class="toc-number">2.1.</span> <span class="toc-text">Document Parsing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E8%A7%A3%E6%9E%90"><span class="toc-number">2.1.1.</span> <span class="toc-text">文本解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OCR"><span class="toc-number">2.1.2.</span> <span class="toc-text">OCR</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Metadata"><span class="toc-number">2.2.</span> <span class="toc-text">Metadata</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunking"><span class="toc-number">2.3.</span> <span class="toc-text">Chunking</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fixed-size-Chunk"><span class="toc-number">2.3.1.</span> <span class="toc-text">Fixed-size Chunk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Overlap-Window"><span class="toc-number">2.3.2.</span> <span class="toc-text">Overlap Window</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Recursive-Chunking"><span class="toc-number">2.3.3.</span> <span class="toc-text">Recursive Chunking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Semantic-Chunking"><span class="toc-number">2.3.4.</span> <span class="toc-text">Semantic Chunking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parent-Child-Chunk"><span class="toc-number">2.3.5.</span> <span class="toc-text">Parent-Child Chunk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%8A%BD%E5%8F%96"><span class="toc-number">2.4.</span> <span class="toc-text">信息抽取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NER"><span class="toc-number">2.4.1.</span> <span class="toc-text">NER</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relation-Extraction"><span class="toc-number">2.4.2.</span> <span class="toc-text">Relation Extraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Entity-Linking"><span class="toc-number">2.4.3.</span> <span class="toc-text">Entity Linking</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Embedding"><span class="toc-number">2.5.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sparse-Retrieval"><span class="toc-number">2.6.</span> <span class="toc-text">Sparse Retrieval</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TF-IDF"><span class="toc-number">2.6.1.</span> <span class="toc-text">TF-IDF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BM25"><span class="toc-number">2.6.2.</span> <span class="toc-text">BM25</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dense-Retrieval"><span class="toc-number">2.7.</span> <span class="toc-text">Dense Retrieval</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ANN-Vector-Search"><span class="toc-number">2.7.1.</span> <span class="toc-text">ANN Vector Search</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HNSW"><span class="toc-number">2.7.1.1.</span> <span class="toc-text">HNSW</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IVF"><span class="toc-number">2.7.1.2.</span> <span class="toc-text">IVF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Product-Quantization"><span class="toc-number">2.7.1.3.</span> <span class="toc-text">Product Quantization</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hybrid-Search"><span class="toc-number">2.8.</span> <span class="toc-text">Hybrid Search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reciprocal-Rank-Fusion"><span class="toc-number">2.8.1.</span> <span class="toc-text">Reciprocal Rank Fusion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reranking"><span class="toc-number">2.8.2.</span> <span class="toc-text">Reranking</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RAG"><span class="toc-number">3.</span> <span class="toc-text">RAG</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Failure-Modes"><span class="toc-number">3.1.</span> <span class="toc-text">Failure Modes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrieval-Error"><span class="toc-number">3.1.1.</span> <span class="toc-text">Retrieval Error</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Context-Error"><span class="toc-number">3.1.2.</span> <span class="toc-text">Context Error</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generation-Error"><span class="toc-number">3.1.3.</span> <span class="toc-text">Generation Error</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Query-Transformation"><span class="toc-number">3.2.</span> <span class="toc-text">Query Transformation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Query-Rewrite"><span class="toc-number">3.2.1.</span> <span class="toc-text">Query Rewrite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multi-Query"><span class="toc-number">3.2.2.</span> <span class="toc-text">Multi-Query</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HyDE"><span class="toc-number">3.2.3.</span> <span class="toc-text">HyDE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Context-Construction"><span class="toc-number">3.3.</span> <span class="toc-text">Context Construction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Lost-in-the-Middle"><span class="toc-number">3.3.1.</span> <span class="toc-text">Lost in the Middle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advanced-RAG"><span class="toc-number">3.4.</span> <span class="toc-text">Advanced RAG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Self-RAG"><span class="toc-number">3.4.1.</span> <span class="toc-text">Self-RAG</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRAG"><span class="toc-number">3.4.2.</span> <span class="toc-text">CRAG</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Retrieval-Metrics"><span class="toc-number">3.5.</span> <span class="toc-text">Retrieval Metrics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Recall-K"><span class="toc-number">3.5.1.</span> <span class="toc-text">Recall@K</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Precision-K"><span class="toc-number">3.5.2.</span> <span class="toc-text">Precision@K</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MRR"><span class="toc-number">3.5.3.</span> <span class="toc-text">MRR</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GraphRAG"><span class="toc-number">3.6.</span> <span class="toc-text">GraphRAG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multimodal-RAG"><span class="toc-number">3.7.</span> <span class="toc-text">Multimodal RAG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Visual-Document-Retrieval"><span class="toc-number">3.7.1.</span> <span class="toc-text">Visual Document Retrieval</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">4.</span> <span class="toc-text">框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LangChain"><span class="toc-number">4.1.</span> <span class="toc-text">LangChain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LlamaIndex"><span class="toc-number">4.2.</span> <span class="toc-text">LlamaIndex</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/js/vendor/twopeople1.js"></script><script src="/js/vendor/zdog.dist.js"></script><script id="rendered-js" src="/js/vendor/twopeople.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>

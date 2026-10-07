@@ -1,24 +1,24 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>视觉表征架构演进 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="VIT [2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale  核心思想：将图像划分为多个固定大小的 patch，并将每个 patch 看作 NLP 中的 token，经过线性映射后输入标准 Transformer Encoder 传统 CNN： 1234567Image ↓C">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>视觉表征、生成与多模态模型演进 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="视觉表征VIT [2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale  核心思想：将图像划分为多个固定大小的 Patch，把每个 Patch 看作 NLP 中的一个 Token，通过 线性映射为固定维度的 Patch Embedding，再直接输入标准 Transformer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="视觉表征架构演进">
+<meta property="og:title" content="视觉表征、生成与多模态模型演进">
 <meta property="og:url" content="https://yhblogs.cn/posts/32726.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="VIT [2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale  核心思想：将图像划分为多个固定大小的 patch，并将每个 patch 看作 NLP 中的 token，经过线性映射后输入标准 Transformer Encoder 传统 CNN： 1234567Image ↓C">
+<meta property="og:description" content="视觉表征VIT [2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale  核心思想：将图像划分为多个固定大小的 Patch，把每个 Patch 看作 NLP 中的一个 Token，通过 线性映射为固定维度的 Patch Embedding，再直接输入标准 Transformer">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp">
 <meta property="article:published_time" content="2026-08-13T02:30:57.000Z">
-<meta property="article:modified_time" content="2026-09-21T16:01:51.434Z">
+<meta property="article:modified_time" content="2026-10-07T15:28:45.850Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="📝Paper">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "视觉表征架构演进",
+  "headline": "视觉表征、生成与多模态模型演进",
   "url": "https://yhblogs.cn/posts/32726.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp",
   "datePublished": "2026-08-13T02:30:57.000Z",
-  "dateModified": "2026-09-21T16:01:51.434Z",
+  "dateModified": "2026-10-07T15:28:45.850Z",
   "author": [
     {
       "@type": "Person",
@@ -155,82 +155,76 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '视觉表征架构演进',
+  title: '视觉表征、生成与多模态模型演进',
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">视觉表征架构演进</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">视觉表征架构演进</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-13T02:30:57.000Z" title="发表于 2026-08-13 10:30:57">2026-08-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="VIT"><a href="#VIT" class="headerlink" title="VIT"></a>VIT</h2><blockquote>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">视觉表征、生成与多模态模型演进</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">视觉表征、生成与多模态模型演进</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-13T02:30:57.000Z" title="发表于 2026-08-13 10:30:57">2026-08-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">7.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>32分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="视觉表征"><a href="#视觉表征" class="headerlink" title="视觉表征"></a>视觉表征</h1><h2 id="VIT"><a href="#VIT" class="headerlink" title="VIT"></a>VIT</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.11929">2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a></p>
 </blockquote>
-<p>核心思想：将图像划分为多个固定大小的 patch，并将每个 patch 看作 NLP 中的 token，经过线性映射后输入标准 Transformer Encoder</p>
+<p>核心思想：将图像划分为多个固定大小的 <strong>Patch</strong>，把每个 Patch 看作 NLP 中的一个 Token，通过 线性映射为固定维度的 Patch Embedding，再直接输入标准 Transformer Encoder</p>
 <p>传统 CNN：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line"> ↓</span><br><span class="line">Convolution</span><br><span class="line"> ↓</span><br><span class="line">Feature Map</span><br><span class="line"> ↓</span><br><span class="line">Classification</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line"> ↓</span><br><span class="line">Convolution</span><br><span class="line"> ↓</span><br><span class="line">Feature Map</span><br><span class="line"> ↓</span><br><span class="line">Classification</span><br></pre></td></tr></table></figure>
 
 <p>ViT</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line"> ↓</span><br><span class="line">Patch Tokenization</span><br><span class="line"> ↓</span><br><span class="line">Transformer Encoder</span><br><span class="line"> ↓</span><br><span class="line">Classification</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">↓</span><br><span class="line">Patchify</span><br><span class="line">↓</span><br><span class="line">Patch Embedding</span><br><span class="line">↓</span><br><span class="line">[CLS] + Position Embedding</span><br><span class="line">↓</span><br><span class="line">Transformer Encoder</span><br><span class="line">↓</span><br><span class="line">Classification</span><br></pre></td></tr></table></figure>
 
-<p>把图像理解问题转化为一个序列建模问题</p>
+<p>将二维图像转化成一维 Patch Token Sequence，把图像识别转化为序列建模问题</p>
 <h3 id="Patch-Embedding"><a href="#Patch-Embedding" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>给定输入图像</p>
 <div class="mathjax-display">
 $$
-\mathbf{x}\in\mathbb{R}^{H\times W\times C}
+x\in\mathbb{R}^{H\times W\times C}
 $$
 </div>
-把图片切成 $P\times P$
+把图片切成 $P\times P$ 的互不重叠图像块 (`non-overlapping patches`)
 
-<p>patch 总数为</p>
+<p>Patch 数量：</p>
 <div class="mathjax-display">
 $$
 N=\frac{HW}{P^2}=\frac{H}{P}\frac{W}{P}
 $$
 </div>
-在原文ViT-B/16：
+对于 ViT-B/16：
 <div class="mathjax-display">
 $$
-H = W = 224, P = 16
+H = W = 224, P = 16 \rightarrow N = 196
 $$
 </div>
-则 $N = 196$
+把每个 Patch 展平成一个向量
 
-<p>把每个 Patch 展平成一个向量</p>
 <div class="mathjax-display">
 $$
 {x}_p\in\mathbb{R}^{N\times(P^2C)}
 $$
 </div>
-为了使 patch 可以输入 Transformer，需要将其映射到固定隐藏维度 D
-
-<p>通过线性投影</p>
+通过线性投影对 Patch 维度进行压缩，固定到 $D$，，再输入 Transformer
 <div class="mathjax-display">
 $$
 {z_i} = x_i {E}\qquad {E}\in\mathbb{R}^{(P^2C)\times D}
 $$
 </div>
-把每个 patch 的维度进行压缩得到 **Patch Embedding**
-<div class="mathjax-display">
-$$
-P^2C\rightarrow D
-$$
-</div>
-每个 patch 就对应 Transformer 中的一个 token
+每个 Patch 就对应 Transformer 中的一个 token
 <div class="mathjax-display">
 $$
 z \in \mathbb{R}^{N\times D}
 $$
 </div>
 
-<h3 id="Position-Embedding"><a href="#Position-Embedding" class="headerlink" title="Position Embedding"></a>Position Embedding</h3><p>ViT 添加可学习的位置编码</p>
-<p>原始 ViT 延续 BERT 的设计，在 patch token 前增加一个可学习的 [CLS] 用于聚合整张图片的信息</p>
+<h3 id="Position-Embedding"><a href="#Position-Embedding" class="headerlink" title="Position Embedding"></a>Position Embedding</h3><p>ViT 在 Patch Embedding 上加入 Position Embedding</p>
+<p>原始 ViT 延续 BERT 的设计，在 Patch Token 前加入一个可学习的 <code>[CLS]</code> Token</p>
 <div class="mathjax-display">
 $$
  z_0=[x_{cls};x_1E;x_2E;...;x_NE]+E_{pos} \qquad  E_{pos}\in\mathbb R^{(N+1)\times D}
 $$
 </div>
 
-<h3 id="ViT-B-16"><a href="#ViT-B-16" class="headerlink" title="ViT-B&#x2F;16"></a>ViT-B&#x2F;16</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">输入图片</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">        ↓ Patchify: 16×16</span><br><span class="line"></span><br><span class="line">[B, 196, 3, 16, 16]</span><br><span class="line"></span><br><span class="line">        ↓ Flatten 每个 Patch</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Linear Projection [这里只是刚好语义维度也是768]</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ 添加 CLS Token</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ 加 Position Embedding</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Transformer Encoder × 12</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ 取 CLS Token</span><br><span class="line"></span><br><span class="line">[B, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Classification Head</span><br><span class="line"></span><br><span class="line">[B, num_classes]</span><br></pre></td></tr></table></figure>
+<p>默认使用<strong>可学习的一维位置编码</strong></p>
+<p>序列中的每个位置都有一个独立的、可学习的 $D$ 维位置向量</p>
+<p>经过多层 Self-Attention 后，<code>[CLS]</code> Token 可以与所有 Patch Token 进行信息交互，最终其输出作为整张图像的表示，用于分类</p>
+<h3 id="ViT-B-16-完整流程"><a href="#ViT-B-16-完整流程" class="headerlink" title="ViT-B&#x2F;16 完整流程"></a>ViT-B&#x2F;16 完整流程</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Input Image</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">        ↓ Patchify: 16×16</span><br><span class="line"></span><br><span class="line">196 Patches</span><br><span class="line">Each: [3,16,16]</span><br><span class="line"></span><br><span class="line">        ↓ Flatten</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Linear Projection</span><br><span class="line">        D = 768</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Add CLS Token</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Add Position Embedding</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Transformer Encoder × 12</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Take CLS Token</span><br><span class="line"></span><br><span class="line">[B, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Classification Head</span><br><span class="line"></span><br><span class="line">[B, num_classes]</span><br></pre></td></tr></table></figure>
 
-<h3 id="现代-VIT"><a href="#现代-VIT" class="headerlink" title="现代 VIT"></a>现代 VIT</h3><p>对于视觉任务，Self-Attention 本身已经能够实现 patch 间的信息交互，因此 CLS 并不是必须</p>
-<p>很多现代 ViT 使用平均池化代替 CLS</p>
+<h3 id="现代-VIT"><a href="#现代-VIT" class="headerlink" title="现代 VIT"></a>现代 VIT</h3><p>CLS Token 只是获得全局图像表示的一种方式，并不是 Transformer 的必要组成部分</p>
+<p>一些后续视觉 Transformer 会直接对 Patch Tokens 进行 Global Average Pooling：</p>
 <div class="mathjax-display">
 $$
 z=\frac1N\sum_{i=1}^{N}z_i
@@ -243,23 +237,22 @@ $$
 <li>训练更加稳定</li>
 <li>与 CNN 的 Global Average Pooling 类似</li>
 </ul>
-<h3 id="VIT-的局限"><a href="#VIT-的局限" class="headerlink" title="VIT 的局限"></a>VIT 的局限</h3><p>虽然 ViT 将 Transformer 引入视觉领域，但存在两个问题：</p>
+<h3 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h3><p>虽然 ViT 将 Transformer 引入视觉领域，但存在两个问题：</p>
 <ol>
-<li>计算复杂度随图片尺寸平方增长</li>
+<li>Self-Attention 计算量高，随着图像分辨率提高，计算和显存开销增长很快</li>
 <li>缺少 CNN 的层次化结构</li>
 </ol>
 <p>因此后续提出Swin Transformer：通过窗口注意力和层次化结构，让 Transformer 更适合视觉任务</p>
 <h2 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.14030">2103.14030] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows</a></p>
 </blockquote>
-<p>核心设计：</p>
-<ol>
-<li>Window Attention 降低计算量</li>
-<li>Shifted Window 实现跨窗口通信</li>
-<li>Patch Merging 构建层次化结构</li>
-</ol>
-<h3 id="Patch-Embedding-1"><a href="#Patch-Embedding-1" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>首先将图片划分为 patch</p>
-<p>输入：</p>
+<p>核心思想：通过三个核心设计解决VIT的问题</p>
+<ul>
+<li>Window Attention：降低 Self-Attention 计算量</li>
+<li>Shifted Window：实现不同 Window 之间的信息交互</li>
+<li>Patch Merging：建立层次化信息结构</li>
+</ul>
+<h3 id="Patch-Embedding-1"><a href="#Patch-Embedding-1" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>输入图像</p>
 <div class="mathjax-display">
 $$
 {x}\in\mathbb{R}^{H\times W\times C}
@@ -271,80 +264,100 @@ $$
 H\times W\rightarrow\frac H4\times\frac W4
 $$
 </div>
-每个 Patch 原始维度为 $4\times4\times C$
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">        ↓ Patchify 4×4</span><br><span class="line"></span><br><span class="line">[B, 56, 56, 48] </span><br><span class="line"></span><br><span class="line">        ↓ Linear Projection</span><br><span class="line">           48 → 96</span><br><span class="line"></span><br><span class="line">[B, 56, 56, 96]</span><br></pre></td></tr></table></figure>
 
-<p>再通过 Linear Projection 转换到定义的特征维度</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">      ↓ Patchify 4×4</span><br><span class="line"></span><br><span class="line">[B, 56, 56, 48]</span><br><span class="line"></span><br><span class="line">      ↓ Linear Projection</span><br><span class="line"></span><br><span class="line">[B, 56, 56, 96]</span><br></pre></td></tr></table></figure>
-
-<p>与 ViT 最大区别：</p>
-<ul>
-<li>VIT 在这里已经直接转化为 token sequence</li>
-<li>Swin 保留二维空间结构 [B, H, W, C]</li>
-</ul>
-<h3 id="Window-Partition"><a href="#Window-Partition" class="headerlink" title="Window Partition"></a>Window Partition</h3><p>Swin 不进行全局 Attention，而是在二维 feature map 上划分窗口</p>
-<p>例如</p>
+<blockquote>
+<p>每个 $4\times4\times3$ 的 Patch 被展平成一个长度为 48 的向量</p>
+</blockquote>
+<p>ViT 强调全局的一维 Token sequence；Swin 则保留 Patch 的二维网格结构</p>
+<h3 id="Window-Partition"><a href="#Window-Partition" class="headerlink" title="Window Partition"></a>Window Partition</h3><p>Swin 不进行全局 Attention，而是划分局部窗口</p>
 <div class="mathjax-display">
 $$
 M = 7
 $$
 </div>
-每个 Window $7\times 7 = 49$ 个 token
+每个 Window有 $7\times 7 = 49$ 个 token
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[B, 56, 56, 96]</span><br><span class="line"></span><br><span class="line">       ↓ Window Partition 7×7</span><br><span class="line"></span><br><span class="line">[B,8,8,7,7,96]</span><br><span class="line"></span><br><span class="line">       ↓ Window Flatten</span><br><span class="line"></span><br><span class="line">[B, 64, 49, 96]</span><br><span class="line"></span><br><span class="line">       ↓ 把 Window 合并到 Batch</span><br><span class="line"></span><br><span class="line">[B×64, 49, 96]</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[B, 56, 56, 96]</span><br><span class="line"></span><br><span class="line">       ↓ Window Partition 7×7</span><br><span class="line"></span><br><span class="line">[B,8,8,7,7,96]</span><br><span class="line"></span><br><span class="line">       ↓ Window Flatten</span><br><span class="line"></span><br><span class="line">[B, 64, 49, 96]</span><br><span class="line"></span><br><span class="line">       ↓ 把 Window 合并到 Batch</span><br><span class="line"></span><br><span class="line">[B×64, 49, 96]</span><br></pre></td></tr></table></figure>
 
+<p>每张图有 64 个 window，每个 window 有 49 个 token，每个 token 是 96 维</p>
+<p>把 Window 合并进 Batch 后就可以把每个 window 当成一个独立的小序列做 Self-Attention</p>
 <h3 id="W-MSA"><a href="#W-MSA" class="headerlink" title="W-MSA"></a>W-MSA</h3><p>W-MSA：Window Multi-head Self-Attention</p>
-<p>第一个 Swin Block 使用 W-MSA</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌───────┬───────┐</span><br><span class="line">│Window │Window │</span><br><span class="line">│   A   │   B   │</span><br><span class="line">├───────┼───────┤</span><br><span class="line">│Window │Window │</span><br><span class="line">│   C   │   D   │</span><br><span class="line">└───────┴───────┘</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌───────┬───────┐</span><br><span class="line">│Window │Window │</span><br><span class="line">│   A   │   B   │</span><br><span class="line">├───────┼───────┤</span><br><span class="line">│Window │Window │</span><br><span class="line">│   C   │   D   │</span><br><span class="line">└───────┴───────┘</span><br></pre></td></tr></table></figure>
 
-<p>不同窗口内部进行 Self-Attention，不同窗口之间不发生交互</p>
+<p>每个 Window 内部进行 Self-Attention，不同窗口之间不发生交互，使得计算量显著下降 ($O(M^2N)$)，也因此需要 Shifted Window</p>
 <h3 id="SW-MSA"><a href="#SW-MSA" class="headerlink" title="SW-MSA"></a>SW-MSA</h3><p>SW-MSA：Shifted Window Multi-head Self-Attention</p>
-<p>问题：如果所有 Block 都使用固定窗口，不同窗口之间无法交互，模型只能理解局部区域，无法建立跨区域关系</p>
-<p>解决方法：第二个 Block 对窗口进行移动，移动大小为  $\left\lfloor M&#x2F;2\right\rfloor$</p>
-<p>Shift 之后，一个新的 Window 就同时包含多个 Window 的一部分 token</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">原窗口</span><br><span class="line"></span><br><span class="line">┌───┬───┐</span><br><span class="line">│ A │ B │</span><br><span class="line">├───┼───┤</span><br><span class="line">│ C │ D │</span><br><span class="line">└───┴───┘</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">移动后</span><br><span class="line"></span><br><span class="line">┌───┬───┐</span><br><span class="line">│A/B│B/C│</span><br><span class="line">├───┼───┤</span><br><span class="line">│C/D│D/A│</span><br><span class="line">└───┴───┘</span><br></pre></td></tr></table></figure>
+<p>下一层不继续使用相同窗口，而是将 Window Partition 平移，移动大小为  $\left\lfloor M&#x2F;2\right\rfloor$</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">原窗口</span><br><span class="line">┌───┬───┐</span><br><span class="line">│ A │ B │</span><br><span class="line">├───┼───┤</span><br><span class="line">│ C │ D │</span><br><span class="line">└───┴───┘</span><br><span class="line"></span><br><span class="line">移动后</span><br><span class="line">┌───┬───┐</span><br><span class="line">│A/B│B/C│</span><br><span class="line">├───┼───┤</span><br><span class="line">│C/D│D/A│</span><br><span class="line">└───┴───┘</span><br></pre></td></tr></table></figure>
 
 <p>实现跨 Window 信息交流</p>
-<h3 id="Swin-Block"><a href="#Swin-Block" class="headerlink" title="Swin Block"></a>Swin Block</h3><p>一个完整 Swin Block 通常是 W-MSA 和 SW-MSA 成对出现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Block 1</span><br><span class="line">LN</span><br><span class="line">↓</span><br><span class="line">W-MSA</span><br><span class="line">↓</span><br><span class="line">Residual</span><br><span class="line">↓</span><br><span class="line">LN</span><br><span class="line">↓</span><br><span class="line">MLP</span><br><span class="line">↓</span><br><span class="line">Residual</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Block 2</span><br><span class="line">LN</span><br><span class="line">↓</span><br><span class="line">SW-MSA</span><br><span class="line">↓</span><br><span class="line">Residual</span><br><span class="line">↓</span><br><span class="line">LN</span><br><span class="line">↓</span><br><span class="line">MLP</span><br><span class="line">↓</span><br><span class="line">Residual</span><br></pre></td></tr></table></figure>
+<h3 id="Swin-Block"><a href="#Swin-Block" class="headerlink" title="Swin Block"></a>Swin Block</h3><p>W-MSA 负责窗口内部建模，SW-MSA 负责跨窗口信息传播</p>
+<p>连续两个 Block 分别使用 W-MSA 和 SW-MSA</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Swin Block L</span><br><span class="line">↓</span><br><span class="line">W-MSA</span><br><span class="line"></span><br><span class="line">Swin Block L+1</span><br><span class="line">↓</span><br><span class="line">SW-MSA</span><br></pre></td></tr></table></figure>
 
-<h3 id="Patch-Merging"><a href="#Patch-Merging" class="headerlink" title="Patch Merging"></a>Patch Merging</h3><p>这是 Swin 和 ViT 非常大的另一个区别</p>
-<p>ViT 基本一直保持 token 数不变，而 Swin 会逐阶段降低空间尺寸，提高通道数，类似 CNN</p>
+<h3 id="相对位置偏置"><a href="#相对位置偏置" class="headerlink" title="相对位置偏置"></a>相对位置偏置</h3><p>Swin 的 Attention 中加入了相对位置偏置 (<code>Relative Position Bias</code>)</p>
+<p>Attention 可以写成：</p>
+<div class="mathjax-display">
+$$
+\operatorname{Attention}(Q,K,V)=\operatorname{Softmax}
+\left(\frac{QK^T}{\sqrt d}+B\right)V
+$$
+</div>
+表示窗口内部不同 token 之间的相对位置偏置
+
+<p>对于视觉空间，这种相对关系非常自然</p>
+<div class="mathjax-display">
+$$
+\hat B=
+\begin{bmatrix}
+b_{-(M-1),-(M-1)} &amp; \cdots &amp; b_{-(M-1),M-1}\\
+\vdots &amp; &amp; \vdots\\
+b_{M-1,-(M-1)} &amp; \cdots &amp; b_{M-1,M-1}
+\end{bmatrix}
+\in \mathbb{R}^{(2M-1)\times(2M-1)}
+$$
+</div>
+
+<h3 id="Patch-Merging"><a href="#Patch-Merging" class="headerlink" title="Patch Merging"></a>Patch Merging</h3><p>ViT 基本保持同一尺度，而 Swin 逐渐降低空间尺寸，同时提升 channel</p>
 <p>会在 Swin Block 后下采，下采采用拼接 + Linear 的实现方式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">原特征图</span><br><span class="line"></span><br><span class="line">x00  x01  x02  x03</span><br><span class="line">x10  x11  x12  x13</span><br><span class="line">x20  x21  x22  x23</span><br><span class="line">x30  x31  x32  x33</span><br><span class="line"></span><br><span class="line">取 2 × 2</span><br><span class="line">x00 x01</span><br><span class="line">x10 x11</span><br><span class="line"></span><br><span class="line">拼接 Channel，再经过 Linear </span><br><span class="line">4C -&gt; 2C</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">特征图</span><br><span class="line">x00  x01  x02  x03</span><br><span class="line">x10  x11  x12  x13</span><br><span class="line">x20  x21  x22  x23</span><br><span class="line">x30  x31  x32  x33</span><br><span class="line"></span><br><span class="line">取 2 × 2</span><br><span class="line">x00 x01</span><br><span class="line">x10 x11</span><br><span class="line"></span><br><span class="line">Concatenate 通道维度</span><br><span class="line">[x00 | x01 | x10 | x11]</span><br><span class="line">4C</span><br><span class="line">↓</span><br><span class="line">Linear Projection</span><br><span class="line">4C → 2C</span><br></pre></td></tr></table></figure>
 
-<h3 id="Swin-T"><a href="#Swin-T" class="headerlink" title="Swin-T"></a>Swin-T</h3><table>
+<p>产生了 CNN 模式的特征金字塔</p>
+<h3 id="Swin-T-Architecture"><a href="#Swin-T-Architecture" class="headerlink" title="Swin-T Architecture"></a>Swin-T Architecture</h3><table>
 <thead>
 <tr>
-<th></th>
-<th>Block</th>
-<th>shape</th>
+<th>Stage</th>
+<th>Resolution</th>
+<th>Channels</th>
+<th>Blocks</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>stage1</td>
-<td>×2</td>
-<td>[B,56,56,48]</td>
+<td>Stage 1</td>
+<td>56×56</td>
+<td>96</td>
+<td>2</td>
 </tr>
 <tr>
-<td>stage2</td>
-<td>×2</td>
-<td>[B,28,28,192]</td>
+<td>Stage 2</td>
+<td>28×28</td>
+<td>192</td>
+<td>2</td>
 </tr>
 <tr>
-<td>stage3</td>
-<td>×6</td>
-<td>[B,14,14,384]</td>
+<td>Stage 3</td>
+<td>14×14</td>
+<td>384</td>
+<td>6</td>
 </tr>
 <tr>
-<td>stage4</td>
-<td>×2</td>
-<td>[B,7,7,768]</td>
+<td>Stage 4</td>
+<td>7×7</td>
+<td>768</td>
+<td>2</td>
 </tr>
 </tbody></table>
 <p>在 stage 后 再 Merge</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Swin-T_50kb.webp" style="zoom: 67%;" />
-
-<p>对比 VIT</p>
 <table>
 <thead>
 <tr>
@@ -392,116 +405,71 @@ $$
 <h2 id="ConvNeXt"><a href="#ConvNeXt" class="headerlink" title="ConvNeXt"></a>ConvNeXt</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.03545">2201.03545] A ConvNet for the 2020s</a></p>
 </blockquote>
-<p>核心思想：以经典 ResNet 为基础，引入 Transformer 时代的设计思想，对 CNN 进行现代化改造，使纯 CNN 达到与 Swin Transformer 相近的性能</p>
-<p>ConvNeXt 和 ResNeXt 没有直接继承关系。</p>
+<p>核心思想：以经典 ResNet 为基础，引入 Transformer 时代的设计思想，对传统 ConvNet 进行现代化改造，使纯 CNN 达到与 Swin Transformer 相近的性能</p>
+<p>与 ResNeXt 没有直接继承关系：</p>
 <ul>
 <li>ResNeXt：通过 Cardinality（多分支）增强 ResNet</li>
 <li>ConvNeXt：重新设计 CNN Block，使其适应现代训练方式</li>
 </ul>
 <h3 id="Patchify-Stem"><a href="#Patchify-Stem" class="headerlink" title="Patchify Stem"></a>Patchify Stem</h3><p>传统 ResNet：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">7×7 Conv, stride=2</span><br><span class="line">↓</span><br><span class="line">MaxPool</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">↓</span><br><span class="line">7×7 Conv, stride=2</span><br><span class="line">↓</span><br><span class="line">MaxPool, stride=2</span><br><span class="line">↓</span><br><span class="line">56×56</span><br></pre></td></tr></table></figure>
 
 <p>ConvNeXt 修改为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4×4 Conv stride=4</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">↓</span><br><span class="line">4×4 Conv, stride=4</span><br><span class="line">↓</span><br><span class="line">56×56</span><br></pre></td></tr></table></figure>
 
 <p>类似 ViT &#x2F; Swin 的 Patch Embedding</p>
-<h3 id="ConvNeXt-Block"><a href="#ConvNeXt-Block" class="headerlink" title="ConvNeXt Block"></a>ConvNeXt Block</h3><p>传统 ResNet Block：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">3×3 Conv</span><br><span class="line">↓</span><br><span class="line">BN</span><br><span class="line">↓</span><br><span class="line">ReLU</span><br><span class="line">↓</span><br><span class="line">3×3 Conv</span><br><span class="line">↓</span><br><span class="line">BN</span><br><span class="line">↓</span><br><span class="line">Residual</span><br></pre></td></tr></table></figure>
-
-<p>ConvNeXt Block：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">↓</span><br><span class="line">7×7 Depthwise Conv</span><br><span class="line">↓</span><br><span class="line">LayerNorm</span><br><span class="line">↓</span><br><span class="line">1×1 Conv (C-&gt;4C)</span><br><span class="line">↓</span><br><span class="line">GELU</span><br><span class="line">↓</span><br><span class="line">1×1 Conv (4C-&gt;C)</span><br><span class="line">↓</span><br><span class="line">Residual</span><br></pre></td></tr></table></figure>
-
-<p>升维到 4C 就是借鉴 FFN 的思想，用 1 ×1 卷积代替FFN</p>
-<h3 id="Large-Kernel-Depthwise-Convolution"><a href="#Large-Kernel-Depthwise-Convolution" class="headerlink" title="Large Kernel Depthwise Convolution"></a>Large Kernel Depthwise Convolution</h3><p>ConvNeXt 使用 $7\times 7$ Depthwise Conv</p>
-<p>通过扩大卷积核增加感受野</p>
-<p>普通卷积同时完成：</p>
+<h3 id="Depthwise-Convolution"><a href="#Depthwise-Convolution" class="headerlink" title="Depthwise Convolution"></a>Depthwise Convolution</h3><p>传统卷积同时完成：</p>
 <ul>
-<li>空间信息提取</li>
-<li>通道融合</li>
+<li>Spatial Mixing：融合邻域空间信息</li>
+<li>Channel Mixing：融合不同通道的信息</li>
 </ul>
-<p>相比普通卷积，Depthwise Conv在每个通道独立卷积，再通过 1 × 1 卷积完成通道融合</p>
-<p>从参数量上来看</p>
-<p>普通卷积：</p>
+<p>ConvNeXt 将两种操作显式拆开</p>
+<ul>
+<li><strong>Depthwise Conv</strong>：每个 Channel 独立进行空间卷积，Channel 之间不发生信息融合</li>
+<li><strong>1 × 1 Conv</strong>：进行 Channel 之间的信息融合</li>
+</ul>
+<p>从参数量上来看：</p>
+<ul>
+<li><p>普通卷积</p>
 <div class="mathjax-display">
 $$
 Params=K^2C_{in}C_{out}
 $$
 </div>
-Group Conv：
+</li>
+<li><p>Group Conv (分组 $G &#x3D; Cardinality$)</p>
 <div class="mathjax-display">
 $$
-Params=K^2C_{in}C_{out}/Cardinality
+\mathrm{Params}=\frac{K^2C_{in}C_{out}}{G}
 $$
 </div>
-Depthwise Conv 其实可以看作是Group Conv 的极端情况
-
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>groups</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>普通卷积</td>
-<td>1</td>
-</tr>
-<tr>
-<td>Group Conv</td>
-<td>Cardinality</td>
-</tr>
-<tr>
-<td>Depthwise Conv</td>
-<td>$C_{in}$</td>
-</tr>
-</tbody></table>
-<p>所以相当于没有混合通道，默认情况下输出通道数等于输入通道数</p>
+</li>
+<li><p>Depthwise Conv 可以看作 $G&#x3D;C_{\text{in}}$，并且通常 $C_{\text{out}}&#x3D;C_{\text{in}}$</p>
 <div class="mathjax-display">
 $$
 Params=K^2C_{in}
 $$
-</div>
+</div></li>
+</ul>
+<p>相比普通卷积，Depthwise Conv 可以用较少的参数和计算量完成 Spatial Mixing</p>
+<p>传统 ResNet Block 主要使用 $3\times3$ Conv，而 ConvNeXt 采用 $7\times7$ Depthwise Conv</p>
+<p>使用更大的卷积核，以较低额外计算成本扩大空间感受野</p>
+<h3 id="Inverted-Bottleneck"><a href="#Inverted-Bottleneck" class="headerlink" title="Inverted Bottleneck"></a>Inverted Bottleneck</h3><p>传统 ResNet Bottleneck</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input C</span><br><span class="line">↓</span><br><span class="line">1×1 Conv</span><br><span class="line">↓</span><br><span class="line">C/4</span><br><span class="line">↓</span><br><span class="line">3×3 Conv</span><br><span class="line">↓</span><br><span class="line">C/4</span><br><span class="line">↓</span><br><span class="line">1×1 Conv</span><br><span class="line">↓</span><br><span class="line">C</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>这一部分可以关联分组注意力</p>
-</blockquote>
-<p>Depthwise Conv 负责空间建模，后续的 1×1 卷积负责通道混合</p>
-<p>类似Transformer中 Attention 实现 token 空间交互，FFN 完成 channel 变换</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>普通Conv</th>
-<th>Depthwise Conv</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>空间信息</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>通道融合</td>
-<td>√</td>
-<td>×</td>
-</tr>
-<tr>
-<td>参数量</td>
-<td>大</td>
-<td>小</td>
-</tr>
-<tr>
-<td>计算量</td>
-<td>大</td>
-<td>小</td>
-</tr>
-<tr>
-<td>输出channel</td>
-<td>可改变</td>
-<td>通常不变</td>
-</tr>
-</tbody></table>
-<h3 id="ConvNeXt-T"><a href="#ConvNeXt-T" class="headerlink" title="ConvNeXt-T"></a>ConvNeXt-T</h3><p>和 Swin 基本一致</p>
+<p>先降维 → Spatial Mixing → 再升维</p>
+<p>ConvNeXt 在 Channel Mixing 部分采用类似 Transformer FFN 的 <strong>Inverted Bottleneck</strong>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input C</span><br><span class="line">   ↓</span><br><span class="line">7×7 Depthwise Conv</span><br><span class="line">   ↓</span><br><span class="line">LayerNorm</span><br><span class="line">   ↓</span><br><span class="line">1×1 Conv / Linear</span><br><span class="line">C → 4C</span><br><span class="line">   ↓</span><br><span class="line">GELU</span><br><span class="line">   ↓</span><br><span class="line">1×1 Conv / Linear</span><br><span class="line">4C → C</span><br></pre></td></tr></table></figure>
+
+<p>先升维 → 非线性变换 → 再降维</p>
+<p>类比Transformer：</p>
+<ul>
+<li>$7\times7$ Depthwise Conv：负责 Spatial Mixing</li>
+<li>$1\times1$ Conv &#x2F; Linear：构成类似 FFN 的 Channel Mixing</li>
+</ul>
+<h3 id="ConvNeXt-T-Architecture"><a href="#ConvNeXt-T-Architecture" class="headerlink" title="ConvNeXt-T Architecture"></a>ConvNeXt-T Architecture</h3><p>和 Swin 基本一致</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-09-23_12-13-09.webp" alt="Snipaste_2026-09-23_12-13-09" style="zoom:50%;" />
+
 <table>
 <thead>
 <tr>
@@ -536,157 +504,810 @@ $$
 <td>3</td>
 </tr>
 </tbody></table>
+<h1 id="视觉-Tokenizer"><a href="#视觉-Tokenizer" class="headerlink" title="视觉 Tokenizer"></a>视觉 Tokenizer</h1><p>最基础的 Autoencoder (<strong>自编码器，AE</strong>) 可以写成</p>
+<div class="mathjax-display">
+$$
+x \xrightarrow{\text{Encoder}} z \xrightarrow{\text{Decoder}} \hat{x}
+$$
+</div>
+
+<ul>
+<li>$x$ ：输入图像</li>
+<li>$z$：潜在表示（Latent Representation）</li>
+<li>$\hat{x}$：重建得到的图像</li>
+</ul>
+<p>训练目标是使重建结果尽可能接近原始输入</p>
+<h2 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1312.6114">1312.6114] Auto-Encoding Variational Bayes</a></p>
+</blockquote>
+<p>Variational Autoencoder 变分自编码器</p>
+<p>核心：与普通 Autoencoder 把输入编码为一个确定的 latent vector 不同，将输入编码为一个潜变量概率分布</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x</span><br><span class="line">↓</span><br><span class="line">Encoder</span><br><span class="line">↓</span><br><span class="line">μ, σ</span><br><span class="line">↓</span><br><span class="line">Gaussian Sampling</span><br><span class="line">↓</span><br><span class="line">连续 z</span><br><span class="line">↓</span><br><span class="line">Decoder</span><br><span class="line">↓</span><br><span class="line">x̂</span><br></pre></td></tr></table></figure>
+
+<p>经过 Encoder 后得到一组分布参数，从该分布中采样</p>
+<div class="mathjax-display">
+$$
+z\sim \mathcal N(\mu,\sigma^2)
+$$
+</div>
+实际训练时通常写成
+<div class="mathjax-display">
+$$
+z=\mu+\sigma\odot\epsilon,\qquad\epsilon\sim\mathcal N(0,I)
+$$
+</div>
+随机性被转移到 $ \epsilon$ 上，而 $ \mu$ 和 $\sigma$ 仍然可以通过梯度进行学习
+
+<p>VAE 的训练不仅要求 Decoder 能够重建输入，还会约束潜变量分布</p>
+<div class="mathjax-display">
+$$
+\mathcal L=\mathcal L_{\text{recon}}+D_{\mathrm{KL}}\left(q_\phi(z|x)\,\|\,p(z)\right)
+$$
+</div>
+
+<ul>
+<li>Reconstruction Loss：保证 $z$  中保留足够的信息来重建输入</li>
+<li>KL 散度：约束使不同样本的潜在分布整体接近 $\mathcal N(0,I)$</li>
+</ul>
+<p>最终得到一个连续且较规整的 Latent Space</p>
+<h2 id="VQ-VAE"><a href="#VQ-VAE" class="headerlink" title="VQ-VAE"></a>VQ-VAE</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.00937">1711.00937] Neural Discrete Representation Learning</a></p>
+</blockquote>
+<p>Vector Quantized Variational AutoEncoder 向量量化变分自编码器</p>
+<p>核心：将 Encoder 得到的连续特征通过 Vector Quantization（向量量化） 映射到有限 Codebook 中，从而得到<span style = "color:#7C6DB0">离散的潜在表示（Discrete Latent Representation）</span></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">x</span><br><span class="line">↓</span><br><span class="line">Encoder</span><br><span class="line">↓</span><br><span class="line">连续特征 z_e(x)</span><br><span class="line">↓</span><br><span class="line">Vector Quantization</span><br><span class="line">↓</span><br><span class="line">离散 Code Index k</span><br><span class="line">↓</span><br><span class="line">Codebook Lookup</span><br><span class="line">↓</span><br><span class="line">z_q(x) = e_k</span><br><span class="line">↓</span><br><span class="line">Decoder</span><br><span class="line">↓</span><br><span class="line">x̂</span><br></pre></td></tr></table></figure>
+
+<h3 id="Vector-Quantization"><a href="#Vector-Quantization" class="headerlink" title="Vector Quantization"></a>Vector Quantization</h3><p>VQ-VAE 维护一个可以学习的 embedding table</p>
+<div class="mathjax-display">
+$$
+E=\{e_1,e_2,\ldots,e_K\},
+\qquad e_i\in\mathbb R^D
+$$
+</div>
+
+<ul>
+<li>$K$：离散 latent space 的大小，也就是 Codebook Size</li>
+<li>$D$：每个 embedding vector 的维度</li>
+</ul>
+<p>对于 Encoder 输出的每一个向量 $z_e(x)$，在 Codebook 中寻找距离最近的 embedding</p>
+<div class="mathjax-display">
+$$
+k=\operatorname*{argmin}_{j}\left\|z_e(x)-e_j\right\|_2
+$$
+</div>
+然后令：
+<div class="mathjax-display">
+$$
+z_q(x) = e_k
+$$
+</div>
+定义成一个确定性的 one-hot categorical distribution
+<div class="mathjax-display">
+$$
+q(z=k\mid x)=\begin{cases}
+1,
+&amp;
+k=
+\operatorname*{argmin}_j
+\|z_e(x)-e_j\|_2
+\\
+0,
+&amp;
+\text{otherwise}
+\end{cases}
+$$
+</div>
+本质上很像 NLP 中的
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Token ID</span><br><span class="line">   ↓</span><br><span class="line">Embedding Table</span><br><span class="line">   ↓</span><br><span class="line">Token Embedding</span><br></pre></td></tr></table></figure>
+
+<p>而 VQ-VAE 在编码阶段相当于反过来</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Encoder Feature</span><br><span class="line">      ↓</span><br><span class="line">寻找最近的 Embedding</span><br><span class="line">      ↓</span><br><span class="line">得到 Code Index</span><br></pre></td></tr></table></figure>
+
+<p>模型自己学习了一套离散表示，使得连续空间变成了有限的离散状态</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/image-20260922215138414_50kb.webp" alt="image-20260922215138414" style="zoom: 33%;" />
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">[128, 128, 3]</span><br><span class="line"></span><br><span class="line">        ↓ Encoder</span><br><span class="line"></span><br><span class="line">z_e(x) [32, 32, D]</span><br><span class="line"></span><br><span class="line">        ↓ Vector Quantization K=512</span><br><span class="line"></span><br><span class="line">Code Index z</span><br><span class="line">[32, 32，1]</span><br><span class="line"></span><br><span class="line">        ↓ Codebook Lookup</span><br><span class="line"></span><br><span class="line">z_q(x) [32, 32, D]</span><br><span class="line"></span><br><span class="line">        ↓ Decoder</span><br><span class="line">        </span><br><span class="line">Reconstruction</span><br><span class="line">[128, 128, 3]  </span><br></pre></td></tr></table></figure>
+
+<h3 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h3><p>问题：Quantization 使用 <code>argmin</code> ，没有真正的梯度，所以无法正常反向传播</p>
+<p>使用  <strong>Straight-Through Estimator，STE</strong> (直通估计器)的方法：</p>
+<ul>
+<li>Forward ：使用量化后的 $z_q (x) &#x3D; e_k$</li>
+<li>Backward ：把 Decoder 输入 $z_q(x)$ 的梯度复制给 Encoder 输出 $z_e(x)$</li>
+</ul>
+<div class="mathjax-display">
+$$
+\frac{\partial z_q}{\partial z_e}\approx 1
+$$
+</div>
+
+<p>把 Quantization 在反向传播时近似当作 Identity</p>
+<p>在Pytorch中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z_q = z_e + (e_k - z_e).detach()</span><br></pre></td></tr></table></figure>
+
+<p>利用 <code>.detach()</code> 切断梯度，且前向传播中 $z_q &#x3D; e_k$</p>
+<p>反向传播时相当于 <code>z_q = z_e + 常数</code></p>
+<h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>VQ-VAE 的训练目标包含三个部分：</p>
+<div class="mathjax-display">
+$$
+\mathcal L=\mathcal L_{\text{recon}}+\mathcal L_{\text{codebook}}+\beta\mathcal L_{\text{commit}}
+$$
+</div>
+**Reconstruction Loss**
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{recon}}=-\log p(x\mid z_q(x))
+$$
+</div>
+衡量重建损失，具体展开取决于 Decoder 的输出分布
+
+<p>常见的就是MSE</p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{recon}}=\|x-D(z_q(x))\|_2^2
+$$
+</div>
+**Codebook Loss**
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{codebook}}=\left\|\operatorname{sg}[z_e]-e_k\right\|_2^2
+$$
+</div>
+$z_e$ 被 Stop Gradient，所以只更新 $e_k$
+
+<p>目标是让 Codebook 中被选中的 embedding 向 Encoder 输出靠近</p>
+<p><strong>Commitment Loss</strong></p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{commit}}=\left\|z_e-\operatorname{sg}[e_k]
+\right\|_2^2
+$$
+</div>
+$e_k$ 被 Stop Gradient，所以只更新 $z_e$
+
+<p>Encoder 去追 Codebook Embedding</p>
+<p><strong>训练目标</strong></p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th>Swin Transformer</th>
-<th>ConvNeXt</th>
+<th>Loss</th>
+<th>Encoder</th>
+<th>Codebook</th>
+<th>Decoder</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>类型</td>
-<td>Transformer</td>
-<td>CNN</td>
+<td>Reconstruction Loss</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
 </tr>
 <tr>
-<td>核心操作</td>
-<td>Window Attention</td>
-<td>Large Kernel Conv</td>
+<td>Codebook Loss</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
 </tr>
 <tr>
-<td>信息交互</td>
-<td>Self-Attention</td>
-<td>卷积感受野</td>
-</tr>
-<tr>
-<td>Stem</td>
-<td>Patch Embedding</td>
-<td>4×4 Conv</td>
-</tr>
-<tr>
-<td>Stage结构</td>
-<td>有</td>
-<td>有</td>
-</tr>
-<tr>
-<td>Downsampling</td>
-<td>Patch Merging</td>
-<td>Conv Downsample</td>
-</tr>
-<tr>
-<td>Norm</td>
-<td>LayerNorm</td>
-<td>LayerNorm</td>
+<td>Commitment Loss</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
 </tr>
 </tbody></table>
-<h2 id="CLIP"><a href="#CLIP" class="headerlink" title="CLIP"></a>CLIP</h2><blockquote>
+<ul>
+<li>Encoder 学习如何把输入映射到有用的离散表示</li>
+<li>Codebook 学习 embedding space</li>
+<li>Decoder 学习如何根据量化后的 latent 重建输入</li>
+</ul>
+<p>相比VAE，无需KL散度，因为潜空间不再连续</p>
+<h3 id="Prior"><a href="#Prior" class="headerlink" title="Prior"></a>Prior</h3><p>前面训练解决的是给定图片，如何得到离散 latent</p>
+<p>但生成时并没有输入 $x$ ，因此还需要学习离散 latent 的概率分布  $p(z)$</p>
+<p>VQ-VAE 采用 <strong>Two-Stage</strong> 的训练方式</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Stage 1</span><br><span class="line"></span><br><span class="line">训练 VQ-VAE</span><br><span class="line">Image ↔ Discrete Latent</span><br><span class="line"></span><br><span class="line">Stage 2</span><br><span class="line"></span><br><span class="line">固定已经训练好的 VQ-VAE</span><br><span class="line">↓</span><br><span class="line">收集离散 latent z</span><br><span class="line">↓</span><br><span class="line">学习真正的 Prior p(z)</span><br></pre></td></tr></table></figure>
+
+<p>feature map 中不同位置的 latent 并不是独立的，因此可以使用自回归模型学习</p>
+<div class="mathjax-display">
+$$
+p(z)=\prod_{i=1}^{N}p(z_i\mid z_1,\ldots,z_{i-1})
+$$
+</div>
+每一个 latent token 根据前面已经生成的 latent token 进行预测
+
+<p>论文中：</p>
+<ul>
+<li>图像使用 <strong>PixelCNN</strong></li>
+<li>Raw Audio 使用 <strong>WaveNet</strong></li>
+</ul>
+<p>在生成阶段其实就用不到Encoder了</p>
+<div class="mathjax-display">
+$$
+\text { PixelCNN prior } \rightarrow z_{1}, z_{2}, \ldots, z_{N} \rightarrow \text { Decoder } \rightarrow x
+$$
+</div>
+
+<h2 id="VQGAN"><a href="#VQGAN" class="headerlink" title="VQGAN"></a>VQGAN</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.09841">2012.09841] Taming Transformers for High-Resolution Image Synthesis</a></p>
+</blockquote>
+<p>核心：先使用 VQGAN 将图像压缩成由有限 Codebook 构成的离散视觉表示，再使用 Transformer 建模这些离散视觉 Token 的组合关系</p>
+<h4 id="Loss-1"><a href="#Loss-1" class="headerlink" title="Loss"></a>Loss</h4><p>继承 VQ-VAE 的量化训练方式</p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\mathrm{VQ}}(E,G,Z)
+=
+\|x-\hat x\|_2^2
++
+\|\operatorname{sg}[E(x)]-z_q\|_2^2
++
+\|\operatorname{sg}[z_q]-E(x)\|_2^2
+$$
+</div>
+
+<p>VQ-VAE 的 Reconstruction Loss 更关注像素级重建，但如果压缩率进一步提高，仅使用 Pixel-level Reconstruction Loss 容易导致图像纹理和细节的感知质量下降</p>
+<p>将原本的 $L_2$ Reconstruction Loss 替换成 Perceptual Loss（感知损失）</p>
+<hr>
+<p>额外引入一个  Patch 二分类判别器 $D$，关注图像局部 Patch 的真实性</p>
+<p>希望真实图 $D(x)$ 接近1，重建图 $D(\hat x)$ 接近0</p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\mathrm{GAN}}
+(\{E,G,Z\},D)
+=
+\log D(x)
++
+\log(1-D(\hat x))
+$$
+</div>
+将 VQ 重建目标与 GAN 目标形成对抗
+
+<p>最后完整目标：</p>
+<div class="mathjax-display">
+$$
+Q^*
+=
+\operatorname*{argmin}_{E,G,Z}
+\operatorname*{max}_{D}
+\mathbb E_{x\sim p(x)}
+\left[
+\mathcal L_{\mathrm{VQ}}(E,G,Z)
++
+\lambda
+\mathcal L_{\mathrm{GAN}}
+(\{E,G,Z\},D)
+\right]
+$$
+</div>
+$\lambda$ 用于平衡两组损失，根据两个 Loss 对 Decoder 最后一层产生的梯度，自适应调整 GAN Loss 的权重
+<div class="mathjax-display">
+$$
+\lambda=\frac{\nabla_{G_L}[\mathcal L_{\mathrm{rec}}]}{\nabla_{G_L}[\mathcal L_{\mathrm{GAN}}]+\delta}
+$$
+</div>
+VQ-VAE：Pixel Reconstruction → 重建容易偏平滑
+
+<p>VQGAN：Perceptual Loss + Patch-based GAN → 允许更强压缩</p>
+<h4 id="Prior-1"><a href="#Prior-1" class="headerlink" title="Prior"></a>Prior</h4><p>VQGAN 仍然采用和 VQ-VAE 类似的 Two-Stage 思路</p>
+<p>但第二阶段不再使用 PixelCNN 建模离散 latent，而是使用 Transformer</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/VQGAN_50kb.webp" style="zoom: 50%;" />
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{Transformer}}=\mathbb E_{x\sim p(x)}[-\log p(s)]
+$$
+</div>
+
+<h1 id="扩散模型"><a href="#扩散模型" class="headerlink" title="扩散模型"></a>扩散模型</h1><h3 id="U-Net"><a href="#U-Net" class="headerlink" title="U-Net"></a>U-Net</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1505.04597">1505.04597] U-Net: Convolutional Networks for Biomedical Image Segmentation</a></p>
+</blockquote>
+<p>U-Net 是一种用于图像分割的 <strong>Encoder-Decoder</strong> 结构</p>
+<p>论文将网络分为：</p>
+<ul>
+<li>Contracting Path：收缩路径，对应 Encoder</li>
+<li>Expansive Path：扩张路径，对应 Decoder</li>
+</ul>
+<p>核心思想：收缩路径用于捕获上下文信息，扩张路径则用于恢复空间分辨率，从而实现精确的定位</p>
+<p>整体结构：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">[Encoder 1] ─────────────────────→ [Decoder 1]</span><br><span class="line">      │                               ▲</span><br><span class="line">      ▼                               │</span><br><span class="line">[Encoder 2] ───────────────→ [Decoder 2]</span><br><span class="line">      │                         ▲</span><br><span class="line">      ▼                         │</span><br><span class="line">[Encoder 3] ─────────→ [Decoder 3]</span><br><span class="line">      │                   ▲</span><br><span class="line">      ▼                   │</span><br><span class="line">        [ Bottleneck ]</span><br></pre></td></tr></table></figure>
+
+<p>Encoder 和 Decoder 对应层之间通过 Skip Connection 连接</p>
+<h4 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h4><p>逐渐降低空间分辨率，同时提取更高层的语义和上下文特征</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">3×3 Conv</span><br><span class="line">   │</span><br><span class="line"> ReLU</span><br><span class="line">   │</span><br><span class="line">3×3 Conv</span><br><span class="line">   │</span><br><span class="line"> ReLU</span><br><span class="line">   │</span><br><span class="line">2×2 Max Pool Stride = 2</span><br><span class="line">   │</span><br><span class="line">   ▼</span><br><span class="line">下一层</span><br></pre></td></tr></table></figure>
+
+<h4 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h4><p>将低分辨率的高级语义特征逐步恢复到高分辨率，并完成精确定位</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  Upsampling</span><br><span class="line">      │</span><br><span class="line">2×2 Up-Conv 通道数减半</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">与对应 Encoder 特征 Concat</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">  3×3 Conv</span><br><span class="line">      │</span><br><span class="line">     ReLU</span><br><span class="line">      │</span><br><span class="line">  3×3 Conv</span><br><span class="line">      │</span><br><span class="line">     ReLU</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">    下一层</span><br></pre></td></tr></table></figure>
+
+<h4 id="Skip-Connection"><a href="#Skip-Connection" class="headerlink" title="Skip Connection"></a>Skip Connection</h4><p>如果只使用普通 Encoder-Decoder</p>
+<p>在不断下采样过程中，精确的位置信息可能逐渐丢失</p>
+<p>因此 U-Net 把 Encoder 中的高分辨率特征直接送给 Decoder</p>
+<p>沿着 Channel 维拼接后通过 Conv 融合这些特征</p>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>原始 U-Net 用于图像分割</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Feature Map</span><br><span class="line">    │</span><br><span class="line">    ▼</span><br><span class="line">1×1 Conv</span><br><span class="line">    │</span><br><span class="line">    ▼</span><br><span class="line">Segmentation Map</span><br></pre></td></tr></table></figure>
+
+<p>将每一个像素位置上的特性向量映射到目标类别数</p>
+<h3 id="DDPM"><a href="#DDPM" class="headerlink" title="DDPM"></a>DDPM</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.11239">2006.11239] Denoising Diffusion Probabilistic Models</a></p>
+</blockquote>
+<p>DDPM 包含两个方向相反的 Markov Process</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Forward Process</span><br><span class="line">x₀ → x₁ → x₂ → ... → x_T ≈ N(0,I)</span><br><span class="line"></span><br><span class="line">Reverse Process</span><br><span class="line">x_T → x_&#123;T-1&#125; → ... → x₁ → x₀</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li><strong>Forward Process</strong>：人为定义的逐步加噪过程</li>
+<li><strong>Reverse Process</strong>：由神经网络学习，从 Gaussian Noise 逐步恢复数据</li>
+</ul>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/image-20260923195554651.png" alt="image-20260923195554651" style="zoom: 67%;" />
+
+<h4 id="Forward-Process"><a href="#Forward-Process" class="headerlink" title="Forward Process"></a>Forward Process</h4><p>每一步向数据加入少量 Gaussian Noise</p>
+<div class="mathjax-display">
+$$
+q(x_t|x_{t-1})=\mathcal N\left(x_t;\sqrt{1-\beta_t}x_{t-1},
+\beta_t I
+\right)
+$$
+</div>
+
+<ul>
+<li>$q$：人为定义的 Forward Process</li>
+<li>$\beta$：第 $t$ 步加入噪声的 variance schedule</li>
+</ul>
+<p>定义：</p>
+<div class="mathjax-display">
+$$
+\alpha_t = 1-\beta_t \qquad \bar\alpha_t=\prod_{s=1}^{t}\alpha_s
+$$
+</div>
+由于 Gaussian Distribution 的性质，<span style = "color:#7C6DB0">可以直接从 $x_0$ 得到任意 timestep 的 $x_t$</span>
+<div class="mathjax-display">
+$$
+q(x_t\mid x_0)=\mathcal N
+\left(
+\sqrt{\bar\alpha_t}x_0,
+(1-\bar\alpha_t)I
+\right)
+$$
+</div>
+通过重参数化：
+<div class="mathjax-display">
+$$
+\boxed{x_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon \qquad
+\varepsilon\sim\mathcal N(0,I)}
+$$
+</div>
+因此训练时可以直接随机采样到任一时间步的位置
+
+<p>训练阶段知道原始数据 $x_0$，因此 Forward Process 的一步反向可以解析求出，并且仍然是 Gaussian：</p>
+<div class="mathjax-display">
+$$
+q(x_{t-1}\mid x_t,x_0)=\mathcal N
+\left(
+x_{t-1};
+\tilde\mu_t(x_t,x_0),
+\tilde\beta_t I
+\right)
+$$
+</div>
+但是生成时无法已知，所以需要学习 Reverse Process
+
+<h4 id="Reverse-Process"><a href="#Reverse-Process" class="headerlink" title="Reverse Process"></a>Reverse Process</h4><p>逆过程希望学习：</p>
+<div class="mathjax-display">
+$$
+p_\theta(x_{t-1}\mid x_t)
+=
+\mathcal N
+\left(
+x_{t-1};
+\mu_\theta(x_t,t),
+\Sigma_\theta(x_t,t)
+\right)
+$$
+</div>
+原则上 Gaussian 有两个需要确定的部分
+
+<ul>
+<li>均值：$\mu_\theta(x_t,t)$</li>
+<li>协方差：$\sum_\theta(x_t,t)$</li>
+</ul>
+<p>但在论文里直接规定</p>
+<div class="mathjax-display">
+$$
+\Sigma_\theta(x_t,t)=\sigma_t^2I
+$$
+</div>
+明确 $\sigma_t^2$ 是随 $t$ 变化，但不参与训练的常数
+
+<p>因此问题简化为只需要学习 mean </p>
+<h4 id="Loss-2"><a href="#Loss-2" class="headerlink" title="Loss"></a>Loss</h4><p>在 variance 固定之后，对应的 KL term 可以写成：</p>
+<div class="mathjax-display">
+$$
+L_{t-1}
+=
+\mathbb E_q
+\left[
+\frac{1}{2\sigma_t^2}
+\left\|
+\tilde\mu_t(x_t,x_0)
+-
+\mu_\theta(x_t,t)
+\right\|^2
+\right]
++C
+$$
+</div>
+最直观的训练方式就是：
+<div class="mathjax-display">
+$$
+\mu_\theta(x_t,t)
+\approx
+\tilde\mu_t(x_t,x_0)
+$$
+</div>
+但是 DDPM 没有直接让网络预测 mean
+
+<p>通过将 mean 重新参数化为：</p>
+<div class="mathjax-display">
+$$
+\boxed{\mu_\theta(x_t,t)
+=
+\frac{1}{\sqrt{\alpha_t}}
+\left(
+x_t-
+\frac{\beta_t}
+{\sqrt{1-\bar\alpha_t}}
+\epsilon_\theta(x_t,t)
+\right)}
+$$
+</div>
+于是只需要预测噪声 $\varepsilon _\theta$
+<div class="mathjax-display">
+$$
+\boxed{
+\varepsilon_\theta
+\rightarrow
+\mu_\theta
+\rightarrow
+p_\theta(x_{t-1}\mid x_t)
+}
+$$
+</div>
+
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>来源</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$\varepsilon$</td>
+<td>Forward Process</td>
+<td>真正加到 $x_0$ 上的 Gaussian noise</td>
+</tr>
+<tr>
+<td>$\varepsilon_\theta(x_t,t)$</td>
+<td>U-Net</td>
+<td>网络预测出来的噪声</td>
+</tr>
+</tbody></table>
+<p>因此可以直接训练</p>
+<div class="mathjax-display">
+$$
+\epsilon_\theta(x_t,t)
+\approx
+\epsilon
+$$
+</div>
+最终采用训练 Loss：
+<div class="mathjax-display">
+$$
+\boxed{
+L_{\text{simple}}
+=
+\mathbb E
+\left[
+\|\varepsilon-\varepsilon_\theta(x_t,t)\|^2
+\right]
+}
+$$
+</div>
+DDPM 表面上训练的是 Noise Predictor，本质上是在学习 Reverse Process
+
+<h4 id="Timestep"><a href="#Timestep" class="headerlink" title="Timestep"></a>Timestep</h4><p>不同的 $t $ 对应不同的 Noise Level，但所有 timestep 共用同一个 U-Net 参数</p>
+<p>因此网络不仅需要输入 $x_t$ 还需要知道 $t$</p>
+<p>用 Transformer 风格的 sinusoidal position embedding 来编码 timestep</p>
+<h3 id="LDM"><a href="#LDM" class="headerlink" title="LDM"></a>LDM</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.10752">2112.10752] High-Resolution Image Synthesis with Latent Diffusion Models</a></p>
+</blockquote>
+<p>Latent Diffusion Model，<strong>潜空间扩散模型</strong></p>
+<p>Pixel-space Diffusion Model 直接在高维 RGB 图像上进行反复去噪，训练和采样都需要大量计算</p>
+<p>核心思想：使用 Autoencoder 将图像压缩到一个低维、感知上近似等价的 Latent Space，再在 Latent Space 中训练 Diffusion Model</p>
+<h4 id="Perceptual-Compression"><a href="#Perceptual-Compression" class="headerlink" title="Perceptual Compression"></a>Perceptual Compression</h4><p>目的是去掉高频、感知上不重要的信息，同时尽量保留图像的语义和视觉细节</p>
+<p>训练一个 Autoencoder：</p>
+<div class="mathjax-display">
+$$
+z=E(x)\\
+\tilde{x}=D(z)=D(E(x))
+$$
+</div>
+但也不能压缩的太狠，论文实验中 LDM-4 和 LDM-8 表现出了较好的效率和质量平衡
+
+<p>LDM 的第一阶段与 VQGAN 的 Perceptual Compression 思想非常接近</p>
+<h4 id="Latent-Diffusion"><a href="#Latent-Diffusion" class="headerlink" title="Latent Diffusion"></a>Latent Diffusion</h4><p>训练好 Encoder $E$ 和 Decoder $D$ 后，将它们固定</p>
+<p>不再对 Pixel $x$ 做 Diffusion，而是在 Latent $z$ 中执行</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z₀ → z₁ → z₂ → ... → z_T</span><br></pre></td></tr></table></figure>
+
+<p>与 DDPM 完全相同，可以写成</p>
+<div class="mathjax-display">
+$$
+\boxed{
+L_{\text{LDM}}
+=
+\mathbb E_{E(x),\varepsilon,t}
+\left[
+\left\|
+\varepsilon-
+\varepsilon_\theta(z_t,t)
+\right\|_2^2
+\right]
+}
+$$
+</div>
+
+<ul>
+<li>DDPM：预测 Pixel Space 中的噪声</li>
+<li>LDM：预测 Latent Space 中的噪声</li>
+</ul>
+<p>LDM 的 Diffusion Backbone 仍然采用 Time-Conditional U-Net</p>
+<h3 id="DiT"><a href="#DiT" class="headerlink" title="DiT"></a>DiT</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.09748">2212.09748] Scalable Diffusion Models with Transformers</a></p>
+</blockquote>
+<p>核心：用 Transformer 替换 Diffusion Model 中传统的 U-Net Backbone</p>
+<h4 id="Latent-Diffusion-1"><a href="#Latent-Diffusion-1" class="headerlink" title="Latent Diffusion"></a>Latent Diffusion</h4><p>DiT 并不是直接在高分辨率 Pixel Space 上运行 Transformer，而是建立在 LDM 框架之上</p>
+<p>先使用预训练 Autoencoder</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">256 × 256 × 3</span><br><span class="line"></span><br><span class="line">       ↓ Encoder</span><br><span class="line"></span><br><span class="line">Latent</span><br><span class="line">32 × 32 × 4</span><br></pre></td></tr></table></figure>
+
+<p>整个 Diffusion Process 都发生在这个 Latent Space</p>
+<p>可以理解为：</p>
+<ul>
+<li>LDM：Latent Diffusion + U-Net</li>
+<li>DiT：Latent Diffusion + Transformer</li>
+</ul>
+<p>Diffusion 数学过程基本没有发生变化</p>
+<h4 id="Patchify"><a href="#Patchify" class="headerlink" title="Patchify"></a>Patchify</h4><p>Latent $z_t$ 仍然是二维 Feature Map：</p>
+<p>Transformer 不能直接按照二维 Feature Map 的形式处理，所以与 ViT 类似，DiT 首先对 Latent 进行 Patchify</p>
+<p>假设 Patch Size 为</p>
+<div class="mathjax-display">
+$$
+p \times p
+$$
+</div>
+那么 Token 数量为：
+<div class="mathjax-display">
+$$
+\boxed{
+T=\left(\frac{I}{p}\right)^2
+}
+$$
+</div>
+每个 Patch 经过 Linear Projection，映射成一个 $d$ 维 token
+
+<p>对于位于二维网格坐标 $(x,y)$ 的 Patch，分别对 $x$ 和纵坐标 $y$ 使用不同频率的 sine &#x2F; cosine 函数进行编码</p>
+<p>单个坐标的位置编码形式与 sinusoidal positional encoding 类似</p>
+<div class="mathjax-display">
+$$
+PE_x(x)\in\mathbb{R}^{D/2},
+\qquad
+PE_y(y)\in\mathbb{R}^{D/2}
+$$
+</div>
+拼接得到最终位置编码
+<div class="mathjax-display">
+$$
+PE(x,y)\in\mathbb{R}^{D}
+$$
+</div>
+2D sine-cosine positional embedding 由固定数学公式生成，通常不作为模型参数参与训练
+
+<h4 id="DiT-Block"><a href="#DiT-Block" class="headerlink" title="DiT Block"></a>DiT Block</h4><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-09-26_22-12-13.webp" alt="Snipaste_2026-09-26_22-12-13" style="zoom: 50%;" />
+
+<p>基本结构是标准 Transformer，所以 DiT 没有 U-Net 的 Downsample → Bottleneck → Upsample，尺寸始终保持一致</p>
+<p>Diffusion Model 除了输入 Noisy Latent 还需要知道</p>
+<ul>
+<li>timestep $t$</li>
+<li>class label $y$</li>
+</ul>
+<p>论文比较了多种方法</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Condition</span><br><span class="line">   │</span><br><span class="line">   ├── In-Context Conditioning</span><br><span class="line">   │</span><br><span class="line">   ├── Cross-Attention</span><br><span class="line">   │</span><br><span class="line">   ├── adaLN</span><br><span class="line">   │</span><br><span class="line">   └── adaLN-Zero   ← 最终效果最好</span><br></pre></td></tr></table></figure>
+
+<p><strong>In-Context Conditioning</strong></p>
+<p>分别得到：</p>
+<div class="mathjax-display">
+$$
+e_t=\operatorname{Embed}(t),\qquad e_y=\operatorname{Embed}(y)
+$$
+</div>
+然后直接作为两个 Token
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens:</span><br><span class="line">[x₁, x₂, ..., xₙ]</span><br><span class="line"></span><br><span class="line">Condition Tokens:</span><br><span class="line">[e_t, e_y]</span><br><span class="line"></span><br><span class="line">拼接：</span><br><span class="line">[x₁, x₂, ..., xₙ, e_t, e_y]</span><br></pre></td></tr></table></figure>
+
+<p>最后一个 Transformer Block 后，再把Condition Tokens 删除</p>
+<p><strong>Cross-Attention</strong></p>
+<p>在 Self-Attention 后加入一个 Cross-Attention Layer</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens</span><br><span class="line">    ↓</span><br><span class="line">Self-Attention</span><br><span class="line">    ↓</span><br><span class="line">Cross-Attention ← [e_t, e_y]</span><br></pre></td></tr></table></figure>
+
+<p>这种方式与 LDM 中的思路比较类似</p>
+<p>但是额外的 Cross-Attention 会增加计算量</p>
+<h4 id="adaLN"><a href="#adaLN" class="headerlink" title="adaLN"></a>adaLN</h4><p>Adaptive Layer Normalization</p>
+<p>不把 $t$、$y$ 当作普通 token，而是利用它们去控制 LayerNorm</p>
+<div class="mathjax-display">
+$$
+c=e_t+e_y
+$$
+</div>
+然后由 Conditioning $c $ 预测 LayerNorm 的 Dimension-wise Scale 和 Shift
+<div class="mathjax-display">
+$$
+\gamma(c),\beta(c)
+$$
+</div>
+LayerNorm 的输出经过 scale 和 shift
+<div class="mathjax-display">
+$$
+\operatorname{adaLN}(x,c)=\gamma(c)\odot \operatorname{LN}(x)+
+\beta(c)
+$$
+</div>
+Condition 不作为 Token 参与 Attention，而是动态改变 Transformer 中归一化后的 Feature
+
+<p>相比 Cross-Attention，adaLN 引入的额外 Gflops(十亿次浮点运算) 最少</p>
+<h4 id="adaLN-Zero"><a href="#adaLN-Zero" class="headerlink" title="adaLN-Zero"></a>adaLN-Zero</h4><p>论文使用的不是普通 adaLN</p>
+<p>在 adaLN 的基础上继续加入一个可学习的 Scale</p>
+<p>初始化时：</p>
+<div class="mathjax-display">
+$$
+\alpha=0
+$$
+</div>
+因此
+<div class="mathjax-display">
+$$
+\operatorname{DiTBlock}(x)\approx x
+$$
+</div>
+每一个 DiT Block 初始化时近似 Identity Function
+
+<p>借鉴了 ResNet 和 Diffusion U-Net 中将 Residual Branch 初始化为零的思想，这种设计有利于深层网络训练</p>
+<p>后续工作基本全部采用 adaLN-Zero</p>
+<h1 id="多模态"><a href="#多模态" class="headerlink" title="多模态"></a>多模态</h1><h2 id="CLIP"><a href="#CLIP" class="headerlink" title="CLIP"></a>CLIP</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020] Learning Transferable Visual Models From Natural Language Supervision</a></p>
 </blockquote>
-<p>传统视觉模型训练目标通常是 Image -&gt; Label</p>
-<p>这种方式存在问题：</p>
+<p>CLIP：Contrastive Language-Image Pre-training</p>
+<p>传统视觉分类模型通常学习：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">  ↓</span><br><span class="line">Image Encoder</span><br><span class="line">  ↓</span><br><span class="line">Feature</span><br><span class="line">  ↓</span><br><span class="line">Linear Classifier</span><br><span class="line">  ↓</span><br><span class="line">Labels</span><br></pre></td></tr></table></figure>
+
+<p>这类方法通常需要预先定义固定类别，并依赖人工标注的分类数据</p>
+<p>核心思想：使用自然语言作为视觉监督信号，同时训练 Image Encoder 和 Text Encoder，将图像和文本映射到同一个 Multimodal Embedding Space，通过对比学习使匹配的图文表示靠近、不匹配的图文表示远离</p>
+<h3 id="Natural-Language-Supervision"><a href="#Natural-Language-Supervision" class="headerlink" title="Natural Language Supervision"></a>Natural Language Supervision</h3><p>CLIP 使用大规模互联网图文对作为训练数据，包含约 $400 \text{million}$ 个 <code>(image, text)</code> pair </p>
+<p>重要优势是：自然语言能够表达比固定类别标签更加广泛的视觉概念，同时可以直接利用互联网中大量已经存在的图文数据</p>
+<h3 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h3><p>CLIP 由两个 Encoder 构成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                 CLIP</span><br><span class="line"></span><br><span class="line">        ┌─────────────────┐</span><br><span class="line">Image → │  Image Encoder  │ → Image Embedding</span><br><span class="line">        └─────────────────┘</span><br><span class="line">                              ↘</span><br><span class="line">                          Shared Space</span><br><span class="line">                              ↗</span><br><span class="line">        ┌─────────────────┐</span><br><span class="line">Text  → │  Text Encoder   │ → Text Embedding</span><br><span class="line">        └─────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>Image Encoder</strong></p>
+<p>实验了两类 Image Encoder</p>
 <ul>
-<li>只能识别训练时出现的类别</li>
-<li>需要大量人工标注标签</li>
-<li>学到的是类别级别信息，而不是更通用的语义关系</li>
+<li>Modified ResNet</li>
+<li>Vision Transformer (ViT)</li>
 </ul>
-<p>CLIP（Contrastive Language-Image Pre-training）的核心思想：使用大量图像-文本对进行对比学习，让图像和文本映射到同一个语义空间</p>
-<p>模型学习：图片和描述它的文字应该接近，不匹配的图片和文字应该远离</p>
-<p>CLIP由两个独立 Encoder 组成：</p>
-<ol>
-<li>Image Encoder</li>
-<li>Text Encoder</li>
-</ol>
-<p>CLIP 的关键：两个 Encoder 输出维度相同</p>
-<h3 id="Contrastive-Learning"><a href="#Contrastive-Learning" class="headerlink" title="Contrastive Learning"></a>Contrastive Learning</h3><p>CLIP使用对比学习，训练数据是大量的 (image, text) 对</p>
-<p>计算所有图片和文本之间的相似度</p>
+<p><strong>Text Encoder</strong></p>
+<p>使用 Transformer</p>
+<p>文本首先使用 lower-cased BPE（Byte Pair Encoding）Tokenizer</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Text</span><br><span class="line"> ↓</span><br><span class="line">BPE Tokenizer</span><br><span class="line"> ↓</span><br><span class="line">[SOS] token₁ token₂ ... tokenₙ [EOS]</span><br><span class="line"> ↓</span><br><span class="line">Transformer</span><br></pre></td></tr></table></figure>
+
+<p>使用最高 Transformer Layer 中 <code>[EOS] Token</code> 的 Hidden State 作为文本 Feature</p>
+<h3 id="Contrastive-Learning"><a href="#Contrastive-Learning" class="headerlink" title="Contrastive Learning"></a>Contrastive Learning</h3><p>训练数据由大量匹配的 (image, text) Pair 构成</p>
+<p>一个 Batch 中</p>
 <div class="mathjax-display">
 $$
-S_{ij} = \frac{z_I^i\cdot z_T^j}
-{||z_I^i||||z_T^j||}
+(I_1,T_1),(I_2,T_2),\ldots,(I_N,T_N)
 $$
 </div>
-得到 $B \times B$ 的相似度矩阵
+总共可以组成 $N^2$ 个 Image-Text Pairing，只有 $N$ 个是Positive Pair，其余均为 Negative Pair
+
+<p>分别提取视觉和文本 Feature，进行 L2 归一化，两个 Embedding 的 Dot Product 就等价于 Cosine Similarity</p>
+<div class="mathjax-display">
+$$
+S_{ij}=z_I^i\cdot z_T^j=\frac{z_I^i\cdot z_T^j
+}{
+\|z_I^i\|_2\|z_T^j\|_2
+}
+$$
+</div>
+得到 Similarity Matrix
 
 <p>理论上对角线位置的相似度应该最高</p>
-<h3 id="CLIP-Loss"><a href="#CLIP-Loss" class="headerlink" title="CLIP Loss"></a>CLIP Loss</h3><p>CLIP同时优化两个方向：</p>
+<h3 id="Contrastive-Loss"><a href="#Contrastive-Loss" class="headerlink" title="Contrastive Loss"></a>Contrastive Loss</h3><p>Similarity 在进入 Softmax 前还会经过 Temperature Scaling</p>
+<div class="mathjax-display">
+$$
+\ell_{ij}=\frac{S_{ij}}{\tau}
+$$
+</div>
+<span style = "color:#DC5A5A">CLIP 中的 Temperature 是可学习的，而不是固定超参数</span>
+
+<p>训练时同时优化两个方向：</p>
 <p><strong>Image → Text</strong></p>
-<p>给定图片找到正确文本</p>
+<p>给定一张图片 $I_i$，在 batch 中所有文本里找到与它匹配的 $T_i$：</p>
 <div class="mathjax-display">
 $$
-L_I=-\frac1B
+L_I
+=
+-\frac{1}{N}
 \sum_i
 \log
 \frac{
-e^{S_{ii}/\tau}
-}
-{
-\sum_j e^{S_{ij}/\tau}
+\exp(S_{ii}/\tau)
+}{
+\sum_j
+\exp(S_{ij}/\tau)
 }
 $$
 </div>
-**Text → Image**
+可以理解为对 Similarity Matrix 的每一行做 Classification
 
-<p>给定文本找到正确图片</p>
+<p><strong>Text → Image</strong></p>
+<p>给定文本 $ T_i$，在所有图片中找到 $ I_i$：</p>
 <div class="mathjax-display">
 $$
-L_T=-\frac1B
+L_T
+=
+-\frac{1}{N}
 \sum_i
 \log
 \frac{
-e^{S_{ii}/\tau}
-}
-{
-\sum_j e^{S_{ji}/\tau}
+\exp(S_{ii}/\tau)
+}{
+\sum_j
+\exp(S_{ji}/\tau)
 }
 $$
 </div>
-最终
+相当于对 Similarity Matrix 的另一维做 Classification
+
+<p>最终</p>
 <div class="mathjax-display">
 $$
-L=\frac{L_I+L_T}{2}
+\boxed{
+L
+=
+\frac{L_I+L_T}{2}
+}
 $$
 </div>
 
-<h3 id="Zero-shot-Classification"><a href="#Zero-shot-Classification" class="headerlink" title="Zero-shot Classification"></a>Zero-shot Classification</h3><p>CLIP最大的特点是不需要针对每个类别重新训练</p>
-<p>传统 Image Classification如果出现训练时没有的类就会失效</p>
-<p>Zero-shot Classification 并不学习 Image → Label，而是学习 Image → Embedding 和 Text → Embedding，最重要的是让图片和文字进入同一个语义空间</p>
-<p>CLIP就是典型Zero-shot模型</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>传统分类</th>
-<th>Zero-shot分类</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>输入</td>
-<td>图片</td>
-<td>图片+类别文本</td>
-</tr>
-<tr>
-<td>输出</td>
-<td>固定类别编号</td>
-<td>文本类别</td>
-</tr>
-<tr>
-<td>训练类别</td>
-<td>必须固定</td>
-<td>可以扩展</td>
-</tr>
-<tr>
-<td>最后层</td>
-<td>Linear classifier</td>
-<td>相似度匹配</td>
-</tr>
-<tr>
-<td>代表模型</td>
-<td>ResNet</td>
-<td>CLIP</td>
-</tr>
-</tbody></table>
-<p>CLIP 和大语言模型（LLM）的  Zero-shot&#x2F;Few-shot 是同一个范式，模型通过预训练获得通用能力，推理时不需要（或只需要少量）任务数据</p>
+<p>CLIP 同时优化，形成一个对称的 Contrastive Objective</p>
+<p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-09-23_11-49-30.webp" alt="Snipaste_2026-09-23_11-49-30"></p>
+<h3 id="Zero-shot-Classification"><a href="#Zero-shot-Classification" class="headerlink" title="Zero-shot Classification"></a>Zero-shot Classification</h3><p>CLIP 最重要的能力之一是：下游分类时不需要重新训练一个固定的 Linear Classifier，而是直接使用自然语言描述目标类别</p>
+<p>假设一个数据集包含：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dog</span><br><span class="line">cat</span><br><span class="line">car</span><br><span class="line">plane</span><br></pre></td></tr></table></figure>
+
+<p>传统分类器：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Image Feature</span><br><span class="line">     ↓</span><br><span class="line">Learned Linear Classifier</span><br><span class="line"></span><br><span class="line">W_dog</span><br><span class="line">W_cat</span><br><span class="line">W_car</span><br><span class="line">W_plane</span><br></pre></td></tr></table></figure>
+
+<p>而 CLIP 可以直接构造：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;a photo of a dog.&quot;</span><br><span class="line">&quot;a photo of a cat.&quot;</span><br><span class="line">&quot;a photo of a car.&quot;</span><br><span class="line">&quot;a photo of a plane.&quot;</span><br></pre></td></tr></table></figure>
+
+<p>分别经过 Text Encoder</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Text Prompt</span><br><span class="line">     ↓</span><br><span class="line">Text Encoder</span><br><span class="line">     ↓</span><br><span class="line">Class Embedding</span><br></pre></td></tr></table></figure>
+
+<p>这些 Text Embedding 就可以看成 Classification Weight</p>
+<p><span style = "color:#DC5A5A">Text Encoder 可以理解为根据自然语言动态生成 Linear Classifier 的权重</span></p>
+<h3 id="Prompt-Engineering"><a href="#Prompt-Engineering" class="headerlink" title="Prompt Engineering"></a>Prompt Engineering</h3><p>如果直接将 <code>dog</code> 输入 Text Encoder，效果并不是最好</p>
+<p>因为 CLIP 预训练时遇到的文本通常是自然语言描述，而不是孤立的类别名称</p>
+<p>因此论文使用：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;A photo of a &#123;label&#125;.&quot;</span><br></pre></td></tr></table></figure>
+
+<p>作为一个效果较好的默认模板</p>
+<p>Prompt 实际上是在利用自然语言更加准确地定义视觉类别</p>
+<h3 id="CLIP-与-LLM"><a href="#CLIP-与-LLM" class="headerlink" title="CLIP 与 LLM"></a>CLIP 与 LLM</h3><p>Zero-shot：</p>
+<p>两者共同的范式可以理解为：通过大规模预训练获得通用能力，在下游任务中通过自然语言指定任务，而不重新训练模型参数</p>
 <table>
 <thead>
 <tr>
@@ -697,63 +1318,205 @@ $$
 </thead>
 <tbody><tr>
 <td>输入</td>
-<td>图片+文本</td>
-<td>文本</td>
+<td>Image + Text</td>
+<td>Text</td>
 </tr>
 <tr>
 <td>预训练任务</td>
-<td>图文对比学习</td>
+<td>Image-Text Contrastive Learning</td>
 <td>Next Token Prediction</td>
 </tr>
 <tr>
-<td>学习目标</td>
-<td>跨模态对齐</td>
-<td>语言分布建模</td>
-</tr>
-<tr>
-<td>知识表示</td>
-<td>Embedding空间</td>
-<td>参数+上下文</td>
+<td>核心能力</td>
+<td>Visual-Language Alignment</td>
+<td>Language Modeling</td>
 </tr>
 <tr>
 <td>Zero-shot</td>
-<td>文本类别直接分类</td>
-<td>Prompt直接完成任务</td>
+<td>Prompt 定义 Classification Class</td>
+<td>Prompt 描述 Task</td>
 </tr>
 <tr>
-<td>Few-shot</td>
-<td>少量图文示例</td>
-<td>Prompt示例</td>
-</tr>
-<tr>
-<td>是否训练参数</td>
-<td>否</td>
-<td>否</td>
+<td>推理方式</td>
+<td>Similarity Matching</td>
+<td>Autoregressive Generation</td>
 </tr>
 </tbody></table>
-<p>共同思想：不为每个任务训练一个模型，而是训练一个拥有通用表示能力的基础模型，通过提示或少量示例完成新任务</p>
-<p>最终都走向：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">预训练获得通用能力</span><br><span class="line">          ↓</span><br><span class="line">Prompt / 少量示例</span><br><span class="line">          ↓</span><br><span class="line">Zero-shot / Few-shot</span><br></pre></td></tr></table></figure>
+<p>Few-shot：</p>
+<p>CLIP：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">少量标注图片</span><br><span class="line">(cat, dog, car)</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">Frozen Image Encoder</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">Image Features</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">训练 Linear Classifier</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">cat / dog / car</span><br></pre></td></tr></table></figure>
 
-<p>可以把 CLIP 看成<strong>视觉领域的大模型雏形</strong>：</p>
-<ul>
-<li>CLIP 让模型从“分类器”变成“视觉语义理解模型”</li>
-<li>GPT 让模型从“语言模型”变成“通用任务模型”</li>
-</ul>
-<p>因此 CLIP 成为了多模态模型的基础</p>
-<h3 id="补充思考"><a href="#补充思考" class="headerlink" title="补充思考"></a>补充思考</h3><blockquote>
-<p>写于2026.9.6 </p>
+<p>LLM 的 few-shot 不影响模型参数</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CLIP</th>
+<th>LLM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Example 的形式</td>
+<td>标注图像</td>
+<td>Prompt 中的示例</td>
+</tr>
+<tr>
+<td>是否更新 Backbone</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>是否训练新参数</td>
+<td>训练分类头</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Adaptation 方式</td>
+<td>Parameter Learning</td>
+<td>In-Context Learning</td>
+</tr>
+</tbody></table>
+<h2 id="BLIP"><a href="#BLIP" class="headerlink" title="BLIP"></a>BLIP</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.12086">2201.12086] BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation</a></p>
 </blockquote>
-<p>现在的大模型都在追求 AGI(通用人工智能)，但距离严格意义上的还有差距</p>
-<p>目前已经能够有一定的迁移能力，但跨任务迁移还不稳定</p>
-<p>争议：模型是真的理解语义还是学习了大量文本中的统计规律</p>
-<p>当前大模型距离 AGI 的主要差距：</p>
+<p><strong>Vision-Language Pre-training (VLP)</strong> 视觉-语言预训练</p>
+<p>BLIP 是一个统一的 VLP 框架，同时支持：</p>
+<ul>
+<li>Vision-Language Understanding</li>
+<li>Vision-Language Generation</li>
+</ul>
+<p>已有 VLP 存在两个主要问题：</p>
 <ol>
-<li>缺少持续学习能力，如何让 AI 像人一样持续成长？</li>
-<li>缺少自主规划能力，目前Agent在多步任务中容易偏离目标、忘记目标或者规划错误</li>
-<li>缺少真实世界交互能力，期待世界模型的效果</li>
+<li>模型层面：Encoder-based 模型擅长理解，但不方便直接做文本生成；Encoder-Decoder 模型擅长生成，但不适合直接做图文检索</li>
+<li>数据层面：大规模 Web Image-Text Pair 中存在大量噪声文本，Web Text 并不一定准确描述图像内容</li>
 </ol>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/32726.html">https://yhblogs.cn/posts/32726.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%93%9DPaper/">📝Paper</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/5414.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related  no-desc" href="/posts/46539.html" title="无线网络仿真技术"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">无线网络仿真技术</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/3388.html" title="Agent Skill自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">Agent Skill自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/40766.html" title="视觉生成与多模态模型演"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-21</div><div class="info-item-2">视觉生成与多模态模型演</div></div></div></a><a class="pagination-related no-desc" href="/posts/1918.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a><a class="pagination-related no-desc" href="/posts/5414.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VIT"><span class="toc-number">1.</span> <span class="toc-text">VIT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding"><span class="toc-number">1.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Position-Embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Position Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViT-B-16"><span class="toc-number">1.3.</span> <span class="toc-text">ViT-B&#x2F;16</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3-VIT"><span class="toc-number">1.4.</span> <span class="toc-text">现代 VIT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VIT-%E7%9A%84%E5%B1%80%E9%99%90"><span class="toc-number">1.5.</span> <span class="toc-text">VIT 的局限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swin-Transformer"><span class="toc-number">2.</span> <span class="toc-text">Swin Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding-1"><span class="toc-number">2.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window-Partition"><span class="toc-number">2.2.</span> <span class="toc-text">Window Partition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#W-MSA"><span class="toc-number">2.3.</span> <span class="toc-text">W-MSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SW-MSA"><span class="toc-number">2.4.</span> <span class="toc-text">SW-MSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swin-Block"><span class="toc-number">2.5.</span> <span class="toc-text">Swin Block</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Merging"><span class="toc-number">2.6.</span> <span class="toc-text">Patch Merging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swin-T"><span class="toc-number">2.7.</span> <span class="toc-text">Swin-T</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConvNeXt"><span class="toc-number">3.</span> <span class="toc-text">ConvNeXt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patchify-Stem"><span class="toc-number">3.1.</span> <span class="toc-text">Patchify Stem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConvNeXt-Block"><span class="toc-number">3.2.</span> <span class="toc-text">ConvNeXt Block</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Large-Kernel-Depthwise-Convolution"><span class="toc-number">3.3.</span> <span class="toc-text">Large Kernel Depthwise Convolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConvNeXt-T"><span class="toc-number">3.4.</span> <span class="toc-text">ConvNeXt-T</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CLIP"><span class="toc-number">4.</span> <span class="toc-text">CLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Contrastive-Learning"><span class="toc-number">4.1.</span> <span class="toc-text">Contrastive Learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLIP-Loss"><span class="toc-number">4.2.</span> <span class="toc-text">CLIP Loss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zero-shot-Classification"><span class="toc-number">4.3.</span> <span class="toc-text">Zero-shot Classification</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E6%80%9D%E8%80%83"><span class="toc-number">4.4.</span> <span class="toc-text">补充思考</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+<p>提出两个核心设计：</p>
+<ul>
+<li>Multimodal Mixture of Encoder-Decoder（MED） 多模态混合编码器-解码器</li>
+<li>Captioning and Filtering（CapFilt）</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">                 BLIP</span><br><span class="line">                  │</span><br><span class="line">        ┌─────────┴─────────┐</span><br><span class="line">        │                   │</span><br><span class="line">       MED                CapFilt</span><br><span class="line">        │                   │</span><br><span class="line">统一 Understanding       清洗并扩充</span><br><span class="line">和 Generation             Web Data</span><br></pre></td></tr></table></figure>
+
+<h3 id="MED"><a href="#MED" class="headerlink" title="MED"></a>MED</h3><p>使用 <strong>ViT</strong> 作为 Image Encoder</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">  ↓</span><br><span class="line">Patchify</span><br><span class="line">  ↓</span><br><span class="line">[CLS] + Image Patches</span><br><span class="line">  ↓</span><br><span class="line">ViT</span><br><span class="line">  ↓</span><br><span class="line">Visual Features</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>[CLS]</code> 表示全局图像特征</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-09-29_22-21-22.webp" alt="Snipaste_2026-09-29_22-21-22" style="zoom: 50%;" />
+
+<p>真正变化的是文本这一侧，可以切换三种模式：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">                    Image Encoder</span><br><span class="line">                         │</span><br><span class="line">                    Visual Feature</span><br><span class="line">                         │</span><br><span class="line">        ┌────────────────┼─────────────────┐</span><br><span class="line">        │                │                 │</span><br><span class="line">Unimodal Encoder   Image-grounded     Image-grounded</span><br><span class="line">                   Text Encoder       Text Decoder</span><br><span class="line">        │                │                 │</span><br><span class="line">       ITC              ITM                LM</span><br><span class="line">        │                │                 │</span><br><span class="line">    图文全局对齐      图文细粒度融合         文本生成</span><br></pre></td></tr></table></figure>
+
+<p><strong>Unimodal Encoder</strong></p>
+<p>单模态，图像和文本分别编码，不进行跨模态融合</p>
+<p>通过 Image-Text Contrastive Learning（ITC）对齐图像和文本的表示空间，和 CLIP 很像</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Image                              Text</span><br><span class="line">  ↓                                 ↓</span><br><span class="line">[CLS] + Image Patches        [CLS] + Text Tokens</span><br><span class="line">  ↓                                 ↓</span><br><span class="line">Image Encoder                  Text Encoder</span><br><span class="line">  ↓                                 ↓</span><br><span class="line">[CLS] Image Feature           [CLS] Text Feature</span><br><span class="line">          \                     /</span><br><span class="line">           \                   /</span><br><span class="line">            cosine similarity</span><br></pre></td></tr></table></figure>
+
+<p>但这种模式对细粒度关系不够强，因为各算各的</p>
+<p><strong>Image-grounded Text Encoder</strong></p>
+<p>加入 Cross-Attention，使 Text Token 可以读取 Image Encoder 输出的视觉特征</p>
+<p>让文本读取图像，用于学习细粒度图文融合和匹配</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">  ↓</span><br><span class="line">Image Encoder</span><br><span class="line">  ↓</span><br><span class="line">Image Features ──────── K, V</span><br><span class="line">                          │</span><br><span class="line">[Encode] + Text Tokens    │</span><br><span class="line">  ↓                       │</span><br><span class="line">Bi-directional            │</span><br><span class="line">Self-Attention            │</span><br><span class="line">  ↓                       │</span><br><span class="line">Text Feature  ───── Q ────┘</span><br><span class="line">  ↓</span><br><span class="line">Cross-Attention</span><br><span class="line">  ↓</span><br><span class="line">Image-grounded Text Features</span><br></pre></td></tr></table></figure>
+
+<p> <code>[Encode]</code> 的代表 Image-Text 的联合表示</p>
+<p><strong>Image-grounded Text Decoder</strong></p>
+<p>结构与上面类似</p>
+<p>把双向 Self-Attention 改成 Causal Self-Attention，在图像条件下自回归生成文本</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">  ↓</span><br><span class="line">Image Encoder</span><br><span class="line">  ↓</span><br><span class="line">Image Features ─────────── K, V</span><br><span class="line">                            │</span><br><span class="line">[Decode] + Text Tokens      │</span><br><span class="line">  ↓                         │</span><br><span class="line">Causal Self-Attention       │</span><br><span class="line">  ↓                         │</span><br><span class="line">Text Features ──── Q ───────┘</span><br><span class="line">  ↓</span><br><span class="line">Cross-Attention</span><br><span class="line">  ↓</span><br><span class="line">FFN</span><br><span class="line">  ↓</span><br><span class="line">Predict Next Token</span><br></pre></td></tr></table></figure>
+
+<p> <code>[Decode]</code> 表示序列开始</p>
+<p>为了降低参数量，Text Encoder 和 Text Decoder共享除 Self-Attention 之外的所有参数</p>
+<p>因为 Encoder 和 Decoder 最核心的区别就在 Self-Attention，Embedding、Cross-Attention 和 FFN 在两个任务中的作用较为一致，因此可以共享</p>
+<h3 id="CapFilt"><a href="#CapFilt" class="headerlink" title="CapFilt"></a>CapFilt</h3><p>BLIP 不直接完全相信原始 Web Text，因为其中存在较多与图像内容不匹配的噪声文本</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-09-29_23-12-09.webp" alt="Snipaste_2026-09-29_23-12-09" style="zoom:67%;" />
+
+<p>CapFilt 包含两个模块</p>
+<p><strong>Captioner</strong></p>
+<p>使用 Image-grounded Text Decoder，从已经预训练好的 MED 初始化，在少量人工标注数据上使用 LM Objective 进行 Fine-tune（论文使用 COCO）</p>
+<p>而后对每张 Web Image 自动生成一个新的图片描述，即 <strong>Synthetic Caption</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Web Image</span><br><span class="line">    ↓</span><br><span class="line">Captioner</span><br><span class="line">    ↓</span><br><span class="line">Synthetic Caption</span><br></pre></td></tr></table></figure>
+
+<p><strong>Filter</strong></p>
+<p>使用 Image-grounded Text Encoder，同样从预训练好的 MED 初始化，并在人工标注数据上使用 ITC + ITM 进行 Fine-tune</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Image + Text</span><br><span class="line">     ↓</span><br><span class="line">Filter</span><br><span class="line">     ↓</span><br><span class="line">Matched / Unmatched</span><br></pre></td></tr></table></figure>
+
+<p>Filter 会同时过滤：</p>
+<ul>
+<li>原始 Web Text</li>
+<li>Captioner 生成的 Synthetic Caption</li>
+</ul>
+<p>如果 ITM Head 判断Image-Text Pair 不匹配，就将该文本删除</p>
+<p>再使用这个 Dataset 重新 Pre-train 一个新的 BLIP 模型</p>
+<h2 id="Flamingo"><a href="#Flamingo" class="headerlink" title="Flamingo"></a>Flamingo</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2204.14198">2204.14198] Flamingo: a Visual Language Model for Few-Shot Learning</a></p>
+</blockquote>
+<p>Flamingo 是一种 <strong>Visual Language Model（VLM）</strong></p>
+<p>核心目标：让视觉语言模型获得类似 GPT-3 的 In-Context Few-Shot Learning 能力</p>
+<p>面对一个新的视觉任务，不需要针对这个任务重新 Fine-tune，而是直接在 Prompt 中给模型几个示例，模型根据前面的示例理解当前任务，并生成 Query 的答案</p>
+<p>任务统一成给定视觉条件的 Next Token Prediction</p>
+<h3 id="Model-Architecture-1"><a href="#Model-Architecture-1" class="headerlink" title="Model Architecture"></a>Model Architecture</h3><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-10-01_14-27-55.webp" alt="Snipaste_2026-10-01_14-27-55" style="zoom:67%;" />
+
+<p>可以把 Flamingo 的设计理解成</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">强大的视觉模型</span><br><span class="line">      +</span><br><span class="line">强大的语言模型</span><br><span class="line">      ↓</span><br><span class="line">冻结原模型</span><br><span class="line">      ↓</span><br><span class="line">学习一个 Vision → Language 接口</span><br></pre></td></tr></table></figure>
+
+<p>Flamingo 本质上仍然是一个 <strong>Autoregressive Language Model</strong></p>
+<p>给定视觉输入 $x$ 和文本 $y$，模型学习：</p>
+<div class="mathjax-display">
+$$
+p(y \mid x) = \prod_{\ell=1}^{L} p\left(y_{\ell} \mid y_{&lt;\ell}, x_{\leq \ell}\right)
+$$
+</div>
+其中：
+
+<ul>
+<li>$y_\ell$：当前需要预测的 Text Token</li>
+<li>$y_{&lt;\ell}$：之前所有 Text Tokens</li>
+<li>$x_{\leq \ell}$：当前 Token 之前出现的 Image &#x2F; Video</li>
+</ul>
+<p>把各种视觉任务统一为 Language Generation</p>
+<h3 id="Vision-Encoder"><a href="#Vision-Encoder" class="headerlink" title="Vision Encoder"></a>Vision Encoder</h3><h1 id="视觉生成"><a href="#视觉生成" class="headerlink" title="视觉生成"></a>视觉生成</h1><h3 id="DALL-E"><a href="#DALL-E" class="headerlink" title="DALL-E"></a>DALL-E</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2102.12092">2102.12092] Zero-Shot Text-to-Image Generation</a></p>
+</blockquote>
+<p>核心：把文本 token 和图像 token 拼成一个序列，用一个自回归 Transformer 统一建模，从而实现 text-to-image generation</p>
+<h4 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h4><p>仍然是一个<strong>两阶段模型</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Stage 1：学习 Image Tokenizer</span><br><span class="line"></span><br><span class="line">Image</span><br><span class="line">[256, 256, 3]</span><br><span class="line"></span><br><span class="line">        ↓ dVAE Encoder</span><br><span class="line"></span><br><span class="line">Image Token Logits</span><br><span class="line">[32, 32, 8192]</span><br><span class="line"></span><br><span class="line">        ↓ Gumbel-Softmax Relaxation</span><br><span class="line"></span><br><span class="line">[32, 32, 8192]</span><br><span class="line"></span><br><span class="line">        ↓ dVAE Decoder</span><br><span class="line"></span><br><span class="line">Reconstruction</span><br><span class="line">[256, 256, 3]</span><br></pre></td></tr></table></figure>
+
+<p>依旧沿用了离散 codebook，但和之前Kmeans的选法不太一样了，输出的是概率</p>
+<blockquote>
+<p>Gumbel-Softmax 不改变张量尺寸，而是把每个位置的 8192 个 logits 变成“接近 one-hot、但仍然可导”的 8192 维向量</p>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1611.01144">1611.01144] Categorical Reparameterization with Gumbel-Softmax</a></p>
+</blockquote>
+<p>Stage 1 完成后会提取 Image Tokens，这是为了给 Stage 2 Transformer 准备数据</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">[256, 256, 3]</span><br><span class="line"></span><br><span class="line">        ↓ Frozen dVAE Encoder</span><br><span class="line"></span><br><span class="line">Image Token Logits</span><br><span class="line">[32, 32, 8192]</span><br><span class="line"></span><br><span class="line">        ↓ Argmax over 8192</span><br><span class="line"></span><br><span class="line">Image Token IDs</span><br><span class="line">[32, 32]</span><br><span class="line"></span><br><span class="line">        ↓ Flatten</span><br><span class="line"></span><br><span class="line">Image Tokens</span><br><span class="line">[1024]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Stage 2：学习 Text-to-Image Prior</span><br><span class="line"></span><br><span class="line">Text</span><br><span class="line"></span><br><span class="line">        ↓ BPE Tokenizer</span><br><span class="line">        </span><br><span class="line">Text Token IDs [≤ 256]</span><br><span class="line">Vocabulary Size = 16,384</span><br><span class="line"></span><br><span class="line">Image Tokens [1024]</span><br><span class="line">Vocabulary Size = 8,192</span><br><span class="line"></span><br><span class="line">        ↓ Concatenate</span><br><span class="line"></span><br><span class="line">[Text Tokens | Image Tokens]</span><br><span class="line">[≤ 256 + 1024]</span><br><span class="line"></span><br><span class="line">        ↓ Decoder-only</span><br><span class="line">        </span><br><span class="line">Next-Token Prediction</span><br><span class="line"></span><br><span class="line">        ↓</span><br><span class="line"></span><br><span class="line">Image Token IDs </span><br><span class="line">[1024]</span><br><span class="line"></span><br><span class="line">        ↓ Reshape</span><br><span class="line"></span><br><span class="line">Image Token Grid </span><br><span class="line">[32, 32]</span><br><span class="line"></span><br><span class="line">        ↓ dVAE Decoder</span><br><span class="line"></span><br><span class="line">Generated Image</span><br><span class="line">[256, 256, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Prior-2"><a href="#Prior-2" class="headerlink" title="Prior"></a>Prior</h4><p>文本先经过 <strong>BPE tokenizer</strong>，得到最多 256 个文本 token</p>
+<p>图像经过训练好的 dVAE encoder，得到固定 32×32 &#x3D; 1024 个 image tokens</p>
+<p>然后把它们拼接成一个长序列</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[t1, t2, ..., t_m, z1, z2, ..., z1024]</span><br></pre></td></tr></table></figure>
+
+<p>通过拼接将 Text-to-Image 转化成一个序列建模问题</p>
+<p><span style = "color:#7C6DB0">在生成第一个图像 token $z_1$ 时 Transformer 已经看到了全部文本 token</span></p>
+<p>因此图像的每一步自回归生成都受到完整文本条件控制</p>
+<p>完整生成流程：</p>
+<ol>
+<li>输入文本，BPE后得到 <code>[t1, t2, ..., tm]</code></li>
+<li>把文本 token 送进 Transformer</li>
+<li>自回归生成 image tokens</li>
+<li>把生成的1024个 token reshape</li>
+<li>送入 dVAE Decoder</li>
+</ol>
+<h4 id="Loss-3"><a href="#Loss-3" class="headerlink" title="Loss"></a>Loss</h4><p>分别归一化 text 和 image 的 CE</p>
+<div class="mathjax-display">
+$$
+\mathcal L=\frac18\mathcal L_{\text{text}}+\frac78\mathcal L_{\text{image}}
+$$
+</div>
+主要关注 image modeling，所以 image loss 权重更大
+
+<h4 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h4><p>在生成过程中其实会生成多个 Image Token Sequences，获得多张候选图片</p>
+<p>需要额外训练一个 contrastive model(对比模型) 根据图文匹配程度 rerank</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/32726.html">https://yhblogs.cn/posts/32726.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%93%9DPaper/">📝Paper</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/5414.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related  no-desc" href="/posts/46539.html" title="无线网络仿真技术"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">无线网络仿真技术</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/5414.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related no-desc" href="/posts/3388.html" title="Agent Skill自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">Agent Skill自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/1918.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E8%A1%A8%E5%BE%81"><span class="toc-number">1.</span> <span class="toc-text">视觉表征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VIT"><span class="toc-number">1.1.</span> <span class="toc-text">VIT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding"><span class="toc-number">1.1.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Position-Embedding"><span class="toc-number">1.1.2.</span> <span class="toc-text">Position Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViT-B-16-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text">ViT-B&#x2F;16 完整流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3-VIT"><span class="toc-number">1.1.4.</span> <span class="toc-text">现代 VIT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%99%90"><span class="toc-number">1.1.5.</span> <span class="toc-text">局限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swin-Transformer"><span class="toc-number">1.2.</span> <span class="toc-text">Swin Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window-Partition"><span class="toc-number">1.2.2.</span> <span class="toc-text">Window Partition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#W-MSA"><span class="toc-number">1.2.3.</span> <span class="toc-text">W-MSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SW-MSA"><span class="toc-number">1.2.4.</span> <span class="toc-text">SW-MSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swin-Block"><span class="toc-number">1.2.5.</span> <span class="toc-text">Swin Block</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E5%81%8F%E7%BD%AE"><span class="toc-number">1.2.6.</span> <span class="toc-text">相对位置偏置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Merging"><span class="toc-number">1.2.7.</span> <span class="toc-text">Patch Merging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swin-T-Architecture"><span class="toc-number">1.2.8.</span> <span class="toc-text">Swin-T Architecture</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConvNeXt"><span class="toc-number">1.3.</span> <span class="toc-text">ConvNeXt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patchify-Stem"><span class="toc-number">1.3.1.</span> <span class="toc-text">Patchify Stem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depthwise-Convolution"><span class="toc-number">1.3.2.</span> <span class="toc-text">Depthwise Convolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inverted-Bottleneck"><span class="toc-number">1.3.3.</span> <span class="toc-text">Inverted Bottleneck</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConvNeXt-T-Architecture"><span class="toc-number">1.3.4.</span> <span class="toc-text">ConvNeXt-T Architecture</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89-Tokenizer"><span class="toc-number">2.</span> <span class="toc-text">视觉 Tokenizer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VAE"><span class="toc-number">2.1.</span> <span class="toc-text">VAE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQ-VAE"><span class="toc-number">2.2.</span> <span class="toc-text">VQ-VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector-Quantization"><span class="toc-number">2.2.1.</span> <span class="toc-text">Vector Quantization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Train"><span class="toc-number">2.2.2.</span> <span class="toc-text">Train</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss"><span class="toc-number">2.2.3.</span> <span class="toc-text">Loss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prior"><span class="toc-number">2.2.4.</span> <span class="toc-text">Prior</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQGAN"><span class="toc-number">2.3.</span> <span class="toc-text">VQGAN</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Loss-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">Loss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Prior-1"><span class="toc-number">2.3.2.</span> <span class="toc-text">Prior</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">扩散模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#U-Net"><span class="toc-number">3.1.</span> <span class="toc-text">U-Net</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Encoder"><span class="toc-number">3.1.1.</span> <span class="toc-text">Encoder</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Decoder"><span class="toc-number">3.1.2.</span> <span class="toc-text">Decoder</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Skip-Connection"><span class="toc-number">3.1.3.</span> <span class="toc-text">Skip Connection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%87%BA"><span class="toc-number">3.1.4.</span> <span class="toc-text">输出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DDPM"><span class="toc-number">3.2.</span> <span class="toc-text">DDPM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Forward-Process"><span class="toc-number">3.2.1.</span> <span class="toc-text">Forward Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reverse-Process"><span class="toc-number">3.2.2.</span> <span class="toc-text">Reverse Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Loss-2"><span class="toc-number">3.2.3.</span> <span class="toc-text">Loss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Timestep"><span class="toc-number">3.2.4.</span> <span class="toc-text">Timestep</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LDM"><span class="toc-number">3.3.</span> <span class="toc-text">LDM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Perceptual-Compression"><span class="toc-number">3.3.1.</span> <span class="toc-text">Perceptual Compression</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Latent-Diffusion"><span class="toc-number">3.3.2.</span> <span class="toc-text">Latent Diffusion</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DiT"><span class="toc-number">3.4.</span> <span class="toc-text">DiT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Latent-Diffusion-1"><span class="toc-number">3.4.1.</span> <span class="toc-text">Latent Diffusion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Patchify"><span class="toc-number">3.4.2.</span> <span class="toc-text">Patchify</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DiT-Block"><span class="toc-number">3.4.3.</span> <span class="toc-text">DiT Block</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adaLN"><span class="toc-number">3.4.4.</span> <span class="toc-text">adaLN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adaLN-Zero"><span class="toc-number">3.4.5.</span> <span class="toc-text">adaLN-Zero</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81"><span class="toc-number">4.</span> <span class="toc-text">多模态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CLIP"><span class="toc-number">4.1.</span> <span class="toc-text">CLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Natural-Language-Supervision"><span class="toc-number">4.1.1.</span> <span class="toc-text">Natural Language Supervision</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-Architecture"><span class="toc-number">4.1.2.</span> <span class="toc-text">Model Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contrastive-Learning"><span class="toc-number">4.1.3.</span> <span class="toc-text">Contrastive Learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contrastive-Loss"><span class="toc-number">4.1.4.</span> <span class="toc-text">Contrastive Loss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zero-shot-Classification"><span class="toc-number">4.1.5.</span> <span class="toc-text">Zero-shot Classification</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prompt-Engineering"><span class="toc-number">4.1.6.</span> <span class="toc-text">Prompt Engineering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLIP-%E4%B8%8E-LLM"><span class="toc-number">4.1.7.</span> <span class="toc-text">CLIP 与 LLM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BLIP"><span class="toc-number">4.2.</span> <span class="toc-text">BLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MED"><span class="toc-number">4.2.1.</span> <span class="toc-text">MED</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CapFilt"><span class="toc-number">4.2.2.</span> <span class="toc-text">CapFilt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flamingo"><span class="toc-number">4.3.</span> <span class="toc-text">Flamingo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-Architecture-1"><span class="toc-number">4.3.1.</span> <span class="toc-text">Model Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vision-Encoder"><span class="toc-number">4.3.2.</span> <span class="toc-text">Vision Encoder</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E7%94%9F%E6%88%90"><span class="toc-number">5.</span> <span class="toc-text">视觉生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DALL-E"><span class="toc-number">5.1.</span> <span class="toc-text">DALL-E</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-number">5.1.1.</span> <span class="toc-text">整体流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Prior-2"><span class="toc-number">5.1.2.</span> <span class="toc-text">Prior</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Loss-3"><span class="toc-number">5.1.3.</span> <span class="toc-text">Loss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Inference"><span class="toc-number">5.1.4.</span> <span class="toc-text">Inference</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
