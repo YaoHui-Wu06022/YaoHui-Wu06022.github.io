@@ -1,24 +1,24 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>算法基础概念 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="算法梯度消失和梯度爆炸梯度消失是深层神经网络中梯度逐层衰减接近于零的现象，导致浅层参数无法更新； 梯度爆炸则是梯度指数级增长至无穷大，造成训练不稳定甚至数值溢出 二者均源于反向传播的链式连乘效应 梯度消失的典型原因：  激活函数  Sigmoid&#x2F;Tanh：导数最大仅0.25 &#x2F; 1，多层叠加后梯度指数衰减   $$ \sigma(x)&#x3D;\frac{1}{1+e^{-x}}\q">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI Agent 系统设计 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Agent 基础Agent 通常指能够感知环境、根据目标选择行动，并通过行动影响环境的系统 LLM-based Agent 则把大语言模型引入决策过程，使系统可以通过自然语言理解任务、选择工具、利用反馈调整后续行动。 Agent 与 LLM Application普通 LLM 主要完成一次输入到输出的映射： 1Input → LLM → Output  Agent 的区别是存在一个可重复的 Obs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法基础概念">
+<meta property="og:title" content="AI Agent 系统设计">
 <meta property="og:url" content="https://yhblogs.cn/posts/20813.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="算法梯度消失和梯度爆炸梯度消失是深层神经网络中梯度逐层衰减接近于零的现象，导致浅层参数无法更新； 梯度爆炸则是梯度指数级增长至无穷大，造成训练不稳定甚至数值溢出 二者均源于反向传播的链式连乘效应 梯度消失的典型原因：  激活函数  Sigmoid&#x2F;Tanh：导数最大仅0.25 &#x2F; 1，多层叠加后梯度指数衰减   $$ \sigma(x)&#x3D;\frac{1}{1+e^{-x}}\q">
+<meta property="og:description" content="Agent 基础Agent 通常指能够感知环境、根据目标选择行动，并通过行动影响环境的系统 LLM-based Agent 则把大语言模型引入决策过程，使系统可以通过自然语言理解任务、选择工具、利用反馈调整后续行动。 Agent 与 LLM Application普通 LLM 主要完成一次输入到输出的映射： 1Input → LLM → Output  Agent 的区别是存在一个可重复的 Obs">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rqjg21_1280x720.webp">
-<meta property="article:published_time" content="2026-09-01T03:30:57.000Z">
-<meta property="article:modified_time" content="2026-10-11T15:09:58.435Z">
+<meta property="article:published_time" content="2026-10-10T03:30:57.000Z">
+<meta property="article:modified_time" content="2026-10-21T13:51:28.308Z">
 <meta property="article:author" content="今天睡够了吗">
-<meta property="article:tag" content="⌨️python">
+<meta property="article:tag" content="U0001F5B9LLM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rqjg21_1280x720.webp"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "算法基础概念",
+  "headline": "AI Agent 系统设计",
   "url": "https://yhblogs.cn/posts/20813.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rqjg21_1280x720.webp",
-  "datePublished": "2026-09-01T03:30:57.000Z",
-  "dateModified": "2026-10-11T15:09:58.435Z",
+  "datePublished": "2026-10-10T03:30:57.000Z",
+  "dateModified": "2026-10-21T13:51:28.308Z",
   "author": [
     {
       "@type": "Person",
@@ -155,110 +155,328 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '算法基础概念',
+  title: 'AI Agent 系统设计',
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">算法基础概念</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">算法基础概念</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-09-01T03:30:57.000Z" title="发表于 2026-09-01 11:30:57">2026-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="梯度消失和梯度爆炸"><a href="#梯度消失和梯度爆炸" class="headerlink" title="梯度消失和梯度爆炸"></a>梯度消失和梯度爆炸</h2><p>梯度消失是深层神经网络中梯度逐层衰减接近于零的现象，导致浅层参数无法更新；</p>
-<p>梯度爆炸则是梯度指数级增长至无穷大，造成训练不稳定甚至数值溢出</p>
-<p>二者均源于反向传播的链式连乘效应</p>
-<p>梯度消失的典型原因：</p>
-<ol>
-<li><p>激活函数</p>
-<ul>
-<li><strong>Sigmoid&#x2F;Tanh</strong>：导数最大仅0.25 &#x2F; 1，多层叠加后梯度指数衰减</li>
-</ul>
-<div class="mathjax-display">
-$$
-\sigma(x)=\frac{1}{1+e^{-x}}\qquad \sigma'(x)=\sigma(x)(1-\sigma(x))\\
-\tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}} \qquad \tanh'(x)=\frac{4}{(e^x+e^{-x})^2}
-$$
-</div>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">AI Agent 系统设计</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">AI Agent 系统设计</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-10-10T03:30:57.000Z" title="发表于 2026-10-10 11:30:57">2026-10-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="Agent-基础"><a href="#Agent-基础" class="headerlink" title="Agent 基础"></a>Agent 基础</h1><p>Agent 通常指能够感知环境、根据目标选择行动，并通过行动影响环境的系统</p>
+<p>LLM-based Agent 则把大语言模型引入决策过程，使系统可以通过自然语言理解任务、选择工具、利用反馈调整后续行动。</p>
+<h2 id="Agent-与-LLM-Application"><a href="#Agent-与-LLM-Application" class="headerlink" title="Agent 与 LLM Application"></a>Agent 与 LLM Application</h2><p>普通 LLM 主要完成一次输入到输出的映射：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Input → LLM → Output</span><br></pre></td></tr></table></figure>
 
+<p>Agent 的区别是存在一个可重复的 Observe → Decide → Act 反馈循环</p>
+<p>LLM 的一次回答可以是最终结果，也可以是中间行动</p>
+<p>是否具有 Agent 特征，取决于模型是否能够在既定边界内动态决定执行过程</p>
+<h2 id="Workflow-与-Agent"><a href="#Workflow-与-Agent" class="headerlink" title="Workflow 与 Agent"></a>Workflow 与 Agent</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic — Building effective agents</a></p>
+</blockquote>
+<p>Anthropic 在这篇工程博客中使用了一个很有用的区分：</p>
 <ul>
-<li><strong>ReLU</strong>：正区间导数为1，但负区间导数为0，可能导致神经元“死亡”引发梯度消失</li>
+<li><strong>Workflow</strong>：LLM 和工具通过预先定义的代码路径进行编排</li>
+<li><strong>Agent</strong>：LLM 根据任务状态动态决定执行流程和工具使用方式</li>
 </ul>
-</li>
-<li><p>网络层数太深</p>
-</li>
-<li><p>权重初始化不当</p>
-<ul>
-<li><strong>过小权重</strong>：前向输出小 → 激活函数饱和区→ 梯度消失；</li>
-<li><strong>过大权重</strong>：前向输出大 → ReLU输出爆炸 → 梯度爆炸；</li>
-</ul>
-</li>
-</ol>
-<h1 id="大模型"><a href="#大模型" class="headerlink" title="大模型"></a>大模型</h1><h2 id="弱模型无法结构化输出，怎么改进？"><a href="#弱模型无法结构化输出，怎么改进？" class="headerlink" title="弱模型无法结构化输出，怎么改进？"></a>弱模型无法结构化输出，怎么改进？</h2><p>从 Prompt 约束、输出约束、错误重试和模型优化解决</p>
-<p>可以通过 System Prompt 明确输出格式，并提供 Few-shot 示例，让模型学习字段结构和输出规范</p>
-<p>如果推理框架支持，可以使用 Structured Outputs，将 JSON Schema 转换为生成过程中的语法约束，限制模型只能生成符合格式要求的 Token</p>
-<p>在程序侧对输出的JSON进行校验，判断字段是否缺失、数据类型是否异常</p>
-<p>如果校验失败，可以将错误信息反馈给模型，让它修复输出，并设置最大重试次数，避免 Agent 无限循环</p>
-<h2 id="提示词里的约束怎么设计？"><a href="#提示词里的约束怎么设计？" class="headerlink" title="提示词里的约束怎么设计？"></a>提示词里的约束怎么设计？</h2><ul>
-<li>规则具体化</li>
-<li>规定正向与失败行为</li>
-<li>减少冲突，明确优先级</li>
-<li>将关键约束放到程序层执行</li>
-</ul>
-<h1 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h1><h2 id="为什么既要-Embedding-又要-Rerank"><a href="#为什么既要-Embedding-又要-Rerank" class="headerlink" title="为什么既要 Embedding 又要 Rerank"></a>为什么既要 Embedding 又要 Rerank</h2><ul>
-<li>Embedding（向量检索）：负责从海量文档中快速召回可能相关的候选文档，强调召回率（Recall）和检索效率</li>
-<li>Reranker（重排序）：负责对召回的候选文档进行更精细的相关性判断，强调排序质量和准确率</li>
-</ul>
-<p>Embedding 通常使用双编码器（Bi-Encoder），将 Query 和 Document 分别编码成向量，通过向量相似度进行快速检索</p>
-<p>但这种方式将文本压缩成固定维度向量，可能损失细粒度信息，导致语义相似但无法回答问题的文档排名靠前</p>
-<p>因此，我们使用 Reranker 对候选文档进行更细致的 Query-Document 相关性评估，把真正包含答案的证据排在前面</p>
-<p>核心就是：Embedding 负责快速找到候选，Reranker 负责精细排序</p>
-<p><strong>为什么不能全部 Rerank</strong></p>
-<p>理论上可以，但在大规模文档库中计算成本过高</p>
-<h1 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h1><h2 id="Agent-loop"><a href="#Agent-loop" class="headerlink" title="Agent loop"></a>Agent loop</h2><p>最典型的是 Reasoning → Action → Observation → Reasoning，也就是常说的 ReAct 模式</p>
-<p>一个完整的 Agent Loop 包含</p>
 <table>
 <thead>
 <tr>
-<th>阶段</th>
-<th>负责方</th>
-<th>主要操作</th>
+<th>维度</th>
+<th>Workflow</th>
+<th>Agent</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>1. Context</td>
-<td>Runtime</td>
-<td>组织 Prompt、历史信息和工具定义</td>
+<td>执行路径</td>
+<td>提前定义，允许少量条件分支</td>
+<td>由模型与运行时状态共同决定</td>
 </tr>
 <tr>
-<td>2. Reasoning</td>
-<td>LLM</td>
-<td>分析任务，决定下一步行动</td>
+<td>可预测性</td>
+<td>较强</td>
+<td>较弱</td>
 </tr>
 <tr>
-<td>3. Tool Selection</td>
-<td>LLM</td>
-<td>输出 Tool Name 和 Tool Arguments</td>
+<td>调试难度</td>
+<td>相对较低</td>
+<td>需要分析完整执行轨迹</td>
 </tr>
 <tr>
-<td>4. Tool Execution</td>
-<td>Runtime</td>
-<td>检查权限并执行工具</td>
+<td>成本与延迟</td>
+<td>通常容易估计</td>
+<td>与行动次数、工具结果有关</td>
 </tr>
 <tr>
-<td>5. Observation</td>
-<td>Runtime → LLM</td>
-<td>返回工具结果、报错等</td>
-</tr>
-<tr>
-<td>6. Iteration</td>
-<td>Runtime</td>
-<td>更新消息历史，再次调用 LLM</td>
-</tr>
-<tr>
-<td>7. Termination</td>
-<td>LLM &#x2F; Runtime</td>
-<td>完成回答、请求用户介入或停止执行</td>
+<td>适合任务</td>
+<td>步骤清晰、流程稳定</td>
+<td>路径未知、需要动态探索</td>
 </tr>
 </tbody></table>
-<p>LLM 负责决定调用什么工具，但工具并不是由 LLM 自己执行的</p>
-<h2 id="Agent任务结束"><a href="#Agent任务结束" class="headerlink" title="Agent任务结束"></a>Agent任务结束</h2><p>正常情况下，Agent 在每一轮根据当前上下文决定是否继续调用工具。当 LLM 认为信息足够、不再发起 Tool Call，而是生成 Final Answer 时，Agent Loop 就可以正常结束。</p>
-<p>另外，Runtime 通常会设置最大迭代次数、超时、Token 预算等限制，防止 Agent 陷入无限循环。用户主动中断或不可恢复的工具错误也可能导致任务终止。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/20813.html">https://yhblogs.cn/posts/20813.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E2%8C%A8%EF%B8%8Fpython/">⌨️python</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rqjg21_1280x720.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/3388.html" title="Agent Skill自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Agent Skill自演进</div></div></div></a><a class="pagination-related  no-desc" href="/posts/5414.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Everything is a Plugin</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/58676.html" title="Leetcode100记录"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-9ozdyx_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="info-item-2">Leetcode100记录</div></div></div></a><a class="pagination-related no-desc" href="/posts/24333.html" title="FunRec推荐系统_召回模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-vpp725_1280x720_(1).webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-14</div><div class="info-item-2">FunRec推荐系统_召回模型</div></div></div></a><a class="pagination-related no-desc" href="/posts/35959.html" title="python信号处理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-pokg2e.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-18</div><div class="info-item-2">python信号处理</div></div></div></a><a class="pagination-related no-desc" href="/posts/22642.html" title="windows安装ROCm"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/ROCm_logo.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-10</div><div class="info-item-2">windows安装ROCm</div></div></div></a><a class="pagination-related no-desc" href="/posts/12373.html" title="OpenCV基础"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-pok5v9.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-22</div><div class="info-item-2">OpenCV基础</div></div></div></a><a class="pagination-related no-desc" href="/posts/31208.html" title="FunRec 推荐系统_精排模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1) (1).png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-18</div><div class="info-item-2">FunRec 推荐系统_精排模型</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1%E5%92%8C%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8"><span class="toc-number">1.1.</span> <span class="toc-text">梯度消失和梯度爆炸</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">大模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%B1%E6%A8%A1%E5%9E%8B%E6%97%A0%E6%B3%95%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA%EF%BC%8C%E6%80%8E%E4%B9%88%E6%94%B9%E8%BF%9B%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">弱模型无法结构化输出，怎么改进？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E9%87%8C%E7%9A%84%E7%BA%A6%E6%9D%9F%E6%80%8E%E4%B9%88%E8%AE%BE%E8%AE%A1%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">提示词里的约束怎么设计？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RAG"><span class="toc-number">3.</span> <span class="toc-text">RAG</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%A2%E8%A6%81-Embedding-%E5%8F%88%E8%A6%81-Rerank"><span class="toc-number">3.1.</span> <span class="toc-text">为什么既要 Embedding 又要 Rerank</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Agent"><span class="toc-number">4.</span> <span class="toc-text">Agent</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent-loop"><span class="toc-number">4.1.</span> <span class="toc-text">Agent loop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent%E4%BB%BB%E5%8A%A1%E7%BB%93%E6%9D%9F"><span class="toc-number">4.2.</span> <span class="toc-text">Agent任务结束</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+<h1 id="Agent-的发展脉络"><a href="#Agent-的发展脉络" class="headerlink" title="Agent 的发展脉络"></a>Agent 的发展脉络</h1><h2 id="从-Reasoning-到-Acting"><a href="#从-Reasoning-到-Acting" class="headerlink" title="从 Reasoning 到 Acting"></a>从 Reasoning 到 Acting</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">[2210.03629] ReAct: Synergizing Reasoning and Acting in Language Models</a></p>
+</blockquote>
+<p>在只生成推理文本的设定中，模型无法直接获取执行后的新证据，也不能自行调用环境中的能力</p>
+<p>ReAct 的重要性在于提出了一个可以交替进行推理与行动的模式：</p>
+<p>它使模型的下一步决策建立在新获得的环境反馈之上，而不是完全依赖最初 Prompt 中的信息</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Question</span><br><span class="line">  ↓</span><br><span class="line">Reason about next step</span><br><span class="line">  ↓</span><br><span class="line">Action</span><br><span class="line">  ↓</span><br><span class="line">Observation</span><br><span class="line">  ↓</span><br><span class="line">Reason about new evidence</span><br><span class="line">  ↓</span><br><span class="line">Action / Final Answer</span><br></pre></td></tr></table></figure>
+
+<p><strong>ReAct 的关键是行动与反馈的闭环</strong></p>
+<h2 id="从-Tool-Use-到-Tool-Learning"><a href="#从-Tool-Use-到-Tool-Learning" class="headerlink" title="从 Tool Use 到 Tool Learning"></a>从 Tool Use 到 Tool Learning</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">[2302.04761] Toolformer: Language Models Can Teach Themselves to Use Tools</a></p>
+</blockquote>
+<p>Toolformer 研究如何让语言模型学习：</p>
+<ul>
+<li>何时调用 API；</li>
+<li>选择哪个 API；</li>
+<li>如何构造 API 参数；</li>
+<li>如何将工具结果用于后续预测。</li>
+</ul>
+<p>与在应用层通过 Prompt 或 Function Calling 选择工具不同，Toolformer 重点研究通过自监督数据构造和训练，使模型习得工具使用行为</p>
+<h2 id="从单次尝试到-Reflection"><a href="#从单次尝试到-Reflection" class="headerlink" title="从单次尝试到 Reflection"></a>从单次尝试到 Reflection</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.11366">[2303.11366] Reflexion: Language Agents with Verbal Reinforcement Learning</a></p>
+</blockquote>
+<p>Reflexion 的核心思想是：将任务失败、反馈和改进建议写成文本反思，保存在记忆中，供后续尝试使用</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-10-19_22-33-23.webp" alt="Snipaste_2026-10-19_22-33-23" style="zoom: 67%;" />
+
+<p>主要通过语言反馈和外部记忆改善下一次决策，而不是直接优化模型权重</p>
+<h2 id="从对话历史到可检索的记忆"><a href="#从对话历史到可检索的记忆" class="headerlink" title="从对话历史到可检索的记忆"></a>从对话历史到可检索的记忆</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.03442">[2304.03442] Generative Agents: Interactive Simulacra of Human Behavior</a></p>
+</blockquote>
+<p>Generative Agents 使用 Memory Stream、Reflection、Planning 组织模拟角色的行为</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Observations</span><br><span class="line">     ↓</span><br><span class="line">Memory Stream</span><br><span class="line">     ↓</span><br><span class="line">Relevant Memory Retrieval</span><br><span class="line">     ↓</span><br><span class="line">Reflection / Planning</span><br><span class="line">     ↓</span><br><span class="line">Behavior</span><br></pre></td></tr></table></figure>
+
+<p>长时间运行的 Agent 不必把全部历史原样塞入上下文，而可以从历史事件中提取记忆、形成抽象认识，再用于后续行动</p>
+<p>论文设计了三个检索指标：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+<th>计算方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Recency（时效性）</td>
+<td>最近访问过的记忆更容易被检索</td>
+<td>指数衰减，衰减系数 0.995</td>
+</tr>
+<tr>
+<td>Relevance（相关性）</td>
+<td>与当前情境越相关，分数越高</td>
+<td>Embedding 余弦相似度</td>
+</tr>
+<tr>
+<td>Importance（重要性）</td>
+<td>重要事件应比普通事件优先</td>
+<td>LLM 给出 1～10 分</td>
+</tr>
+</tbody></table>
+<h2 id="从单-Agent-到-Multi-Agent"><a href="#从单-Agent-到-Multi-Agent" class="headerlink" title="从单 Agent 到 Multi-Agent"></a>从单 Agent 到 Multi-Agent</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2308.08155">[2308.08155] AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation</a></p>
+</blockquote>
+<p>AutoGen 探索通过多个可对话的 Agent 组合模型、工具和人类参与者，由不同角色通过消息交互完成任务</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Agent A ←→ Agent B</span><br><span class="line">   │          │</span><br><span class="line"> Tool A     Tool B</span><br><span class="line">   └────┬─────┘</span><br><span class="line">        ↓</span><br><span class="line">   Shared Result</span><br></pre></td></tr></table></figure>
+
+<p>将 Agent 统一抽象为能够发送、接收和响应消息的实体</p>
+<h1 id="Agent-的运行机制"><a href="#Agent-的运行机制" class="headerlink" title="Agent 的运行机制"></a>Agent 的运行机制</h1><h2 id="Augmented-LLM"><a href="#Augmented-LLM" class="headerlink" title="Augmented LLM"></a>Augmented LLM</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic — Building effective agents</a></p>
+</blockquote>
+<p>Agent 的基本构件可以理解为一个经过增强的 LLM：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">            LLM</span><br><span class="line">             │</span><br><span class="line">   ┌─────────┼─────────┐</span><br><span class="line">   ↓         ↓         ↓</span><br><span class="line">Retrieval   Tools     Memory</span><br><span class="line">   │         │         │</span><br><span class="line">   └─────────┼─────────┘</span><br><span class="line">             ↓</span><br><span class="line">      Augmented LLM</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Retrieval</strong>：获取模型参数以外的信息；</li>
+<li><strong>Tools</strong>：让模型发起外部查询、计算或修改；</li>
+<li><strong>Memory</strong>：保存和恢复跨步骤或跨会话的信息。</li>
+</ul>
+<p>这三个能力不一定同时存在</p>
+<h2 id="Agent-Loop"><a href="#Agent-Loop" class="headerlink" title="Agent Loop"></a>Agent Loop</h2><p>可以把一个通用 Agent 的外部运行逻辑理解为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Initialize: goal, tools, state</span><br><span class="line"></span><br><span class="line">while not finished:</span><br><span class="line">    context = build_context(goal, state)</span><br><span class="line">    decision = model(context, tool_schemas)</span><br><span class="line"></span><br><span class="line">    if decision is final_answer:</span><br><span class="line">        finished = True</span><br><span class="line">    else:</span><br><span class="line">        validate(decision)</span><br><span class="line">        observation = execute_tool(decision)</span><br><span class="line">        state = update_state(state, decision, observation)</span><br></pre></td></tr></table></figure>
+
+<p>实际运行时还需要超时、异常、权限、最大步数和人工审批机制</p>
+<p>关键不是 <code>while</code>，而是 <strong>环境反馈会改变下一步行动</strong></p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Goal: 找到某个软件故障的原因</span><br><span class="line"></span><br><span class="line">Step 1: 读取错误日志</span><br><span class="line">Step 2: 根据日志决定搜索对应模块的源码</span><br><span class="line">Step 3: 修改一个候选问题</span><br><span class="line">Step 4: 执行测试</span><br><span class="line">Step 5: 根据测试结果决定继续修改或结束</span><br></pre></td></tr></table></figure>
+
+<p>Step 5 的选择无法仅凭任务最初的输入可靠确定，必须结合测试反馈</p>
+<h2 id="State-与-Context"><a href="#State-与-Context" class="headerlink" title="State 与 Context"></a>State 与 Context</h2><p><strong>State</strong> 是系统保存的真实执行状态，可以包含：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Task Goal</span><br><span class="line">Step Counter</span><br><span class="line">Tool Results</span><br><span class="line">Working Files</span><br><span class="line">Current Plan</span><br><span class="line">Completed Subtasks</span><br><span class="line">Pending Approvals</span><br><span class="line">Errors / Retries</span><br></pre></td></tr></table></figure>
+
+<p><strong>Context</strong> 是当前这一次 LLM 调用实际能看到的信息，是从 State、工具说明、外部检索、系统约束等来源组织出来的内容</p>
+<p>State 不等于完整 Prompt；Context 也不等于长期记忆</p>
+<h2 id="终止条件"><a href="#终止条件" class="headerlink" title="终止条件"></a>终止条件</h2><p>Agent 必须知道何时停止，常见条件包括：</p>
+<ul>
+<li><strong>Task Complete</strong>：目标已经达到，并获得必要的验证结果；</li>
+<li><strong>Max Iterations &#x2F; Budget</strong>：超过预设步骤或资源上限；</li>
+<li><strong>Tool Failure</strong>：工具不可用或重试次数用尽；</li>
+<li><strong>Human Handoff</strong>：需要人工授权或进一步信息；</li>
+<li><strong>Unrecoverable Error</strong>：当前状态下无法安全继续。</li>
+</ul>
+<p>如果只有“模型自己觉得完成了”，长期运行时可能出现提前结束、反复执行或无意义调用。</p>
+<h1 id="Decision-与-Planning"><a href="#Decision-与-Planning" class="headerlink" title="Decision 与 Planning"></a>Decision 与 Planning</h1><h2 id="ReAct"><a href="#ReAct" class="headerlink" title="ReAct"></a>ReAct</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">2210.03629] ReAct: Synergizing Reasoning and Acting in Language Models</a></p>
+</blockquote>
+<p>ReAct 并不要求在任务开始时生成完整路线，而是在每次反馈后决定下一步</p>
+<p>优势是灵活、容易利用新的证据；局限是局部决策可能反复探索，或者缺少全局任务约束。</p>
+<h2 id="Chain-of-Thought-与-Tree-of-Thoughts"><a href="#Chain-of-Thought-与-Tree-of-Thoughts" class="headerlink" title="Chain of Thought 与 Tree of Thoughts"></a>Chain of Thought 与 Tree of Thoughts</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.11903">[2201.11903] Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</a></p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.10601">[2305.10601] Tree of Thoughts: Deliberate Problem Solving with Large Language Models</a></p>
+</blockquote>
+<p><strong>CoT</strong> 通过中间推理步骤组织问题求解，常见形式是一条推理路径</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Problem → Step 1 → Step 2 → Answer</span><br></pre></td></tr></table></figure>
+
+<p><strong>ToT</strong> 将问题求解视为对多个候选思路的搜索，可以评估、选择、回溯不同路径</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">         Problem</span><br><span class="line">            │</span><br><span class="line">   ┌────────┼────────┐</span><br><span class="line">   ↓        ↓        ↓</span><br><span class="line">Thought A Thought B Thought C</span><br><span class="line">   │        │        │</span><br><span class="line">Explore   Evaluate  Prune</span><br><span class="line">   └────────┼────────┘</span><br><span class="line">         Solution</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>解决问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CoT</td>
+<td>如何组织单条多步推理路径</td>
+</tr>
+<tr>
+<td>ToT</td>
+<td>如何搜索、评估多个候选思路</td>
+</tr>
+<tr>
+<td>ReAct</td>
+<td>如何将决策与外部环境行动交替结合</td>
+</tr>
+</tbody></table>
+<h2 id="Plan-and-Execute"><a href="#Plan-and-Execute" class="headerlink" title="Plan-and-Execute"></a>Plan-and-Execute</h2><p>与每一步只考虑下一动作不同，Plan-and-Execute 先将任务拆成一组子目标，再逐步执行。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Goal</span><br><span class="line"> ↓</span><br><span class="line">Planner</span><br><span class="line"> ↓</span><br><span class="line">Plan: A → B → C</span><br><span class="line"> ↓</span><br><span class="line">Executor A</span><br><span class="line"> ↓</span><br><span class="line">Executor B</span><br><span class="line"> ↓</span><br><span class="line">Executor C</span><br><span class="line"> ↓</span><br><span class="line">Final Result</span><br></pre></td></tr></table></figure>
+
+<p>固定计划的局限是：前面一步失败或发现新信息后，后续步骤可能已经不合适</p>
+<p>因此实际系统经常加入 <strong>Replanning</strong>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Initial Plan</span><br><span class="line">     ↓</span><br><span class="line">Execute Next Step</span><br><span class="line">     ↓</span><br><span class="line">Observation</span><br><span class="line">     ↓</span><br><span class="line">Check Progress</span><br><span class="line">  ├─ Plan valid   → Continue</span><br><span class="line">  └─ Plan invalid → Replan</span><br></pre></td></tr></table></figure>
+
+<p>ReAct 强调逐步反馈，Plan-and-Execute 强调任务分解，两种思路可以组合</p>
+<h1 id="Tool-Use"><a href="#Tool-Use" class="headerlink" title="Tool Use"></a>Tool Use</h1><h2 id="Function-Calling"><a href="#Function-Calling" class="headerlink" title="Function Calling"></a>Function Calling</h2><p>Function Calling 是 LLM 与软件执行环境之间的一种接口模式。</p>
+<p>模型通常负责<strong>产生工具选择和结构化参数</strong>，真正的函数调用由外部运行完成</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">User Request</span><br><span class="line">     ↓</span><br><span class="line">LLM + Tool Schemas</span><br><span class="line">     ↓</span><br><span class="line">Tool Call Proposal</span><br><span class="line">     ↓</span><br><span class="line">Validation / Permission</span><br><span class="line">     ↓</span><br><span class="line">Runtime Executes Tool</span><br><span class="line">     ↓</span><br><span class="line">Tool Result</span><br><span class="line">     ↓</span><br><span class="line">LLM Continues</span><br></pre></td></tr></table></figure>
+
+<p>模型可以输出：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;get_weather&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;arguments&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;city&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Beijing&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这一 JSON 是工具调用请求的示意，不是一次真正的网络访问。</p>
+<h2 id="Tool-Schema"><a href="#Tool-Schema" class="headerlink" title="Tool Schema"></a>Tool Schema</h2><p>工具定义通常包括：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Tool Name</span><br><span class="line">Tool Description</span><br><span class="line">Parameter Names</span><br><span class="line">Parameter Types</span><br><span class="line">Required Fields</span><br><span class="line">Constraints</span><br><span class="line">Output / Error Contract</span><br></pre></td></tr></table></figure>
+
+<p>工具描述会影响模型是否选择该工具、如何填写参数，以及如何处理返回信息</p>
+<h2 id="MCP"><a href="#MCP" class="headerlink" title="MCP"></a>MCP</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture">Architecture overview - Model Context Protocol</a></p>
+<p><a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2026-07-28">Specification - Model Context Protocol</a></p>
+</blockquote>
+<p><strong>MCP（Model Context Protocol）</strong> 是让 AI 应用以统一协议连接外部工具和上下文资源的开放协议</p>
+<p>基本结构：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">         MCP Host</span><br><span class="line">     (Agent / AI App)</span><br><span class="line">              │</span><br><span class="line">     ┌────────┴────────┐</span><br><span class="line">     ↓                 ↓</span><br><span class="line">  MCP Client A      MCP Client B</span><br><span class="line">     │                 │</span><br><span class="line">  MCP Server A      MCP Server B</span><br><span class="line">     │                 │</span><br><span class="line">Local Files         External API</span><br></pre></td></tr></table></figure>
+
+<p>三个角色：</p>
+<ul>
+<li><strong>Host</strong>：用户交互的 AI 应用或 Agent 运行环境；</li>
+<li><strong>Client</strong>：运行在 Host 内，负责与某个 MCP Server 通信；</li>
+<li><strong>Server</strong>：对外提供可发现的能力或上下文。</li>
+</ul>
+<p>MCP 与 Function Calling 不在同一抽象层：</p>
+<ul>
+<li>Function Calling 关注模型如何提出工具调用；</li>
+<li>MCP 关注外部能力如何被发现、描述并通过协议连接；</li>
+<li>Agent 运行时负责决定何时调用，并处理结果和权限。</li>
+</ul>
+<h2 id="Agent-Skills"><a href="#Agent-Skills" class="headerlink" title="Agent Skills"></a>Agent Skills</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">Anthropic — Equipping agents for the real world with Agent Skills</a></p>
+</blockquote>
+<p>Agent Skills 是将特定任务的程序性知识封装成可复用资源的一种方式</p>
+<p>Anthropic 在 2025 年提出相关实践，并在之后将格式开放为跨平台标准</p>
+<p>一个 Skill 一般包含：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">XX-skill/</span><br><span class="line">├── SKILL.md</span><br><span class="line">├── scripts/</span><br><span class="line">├── references/</span><br><span class="line">└── assets/</span><br></pre></td></tr></table></figure>
+
+<p><code>SKILL.md</code> 用于描述能力、使用条件、操作方式和注意事项，必要时再加载关联的脚本与资料</p>
+<p>其关键设计是 <strong>Progressive Disclosure（渐进式披露）</strong>：</p>
+<p>与每次把所有专业说明塞进 System Prompt 不同，Skills 能够按需加载上下文</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>主要解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tool</td>
+<td>Agent 可以执行什么操作</td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>如何以通用接口连接工具与资源</td>
+</tr>
+<tr>
+<td>Skill</td>
+<td>Agent 应当如何完成某类任务</td>
+</tr>
+</tbody></table>
+<h1 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h1><p>LLM 的每次推理只能利用当次传入的上下文及模型参数中的知识</p>
+<p>对于多步或跨会话任务，系统需要保留之前发生了什么</p>
+<p>如果一直追加完整历史，上下文会持续增长，并混入越来越多与当前问题无关的信息</p>
+<p>Memory 的核心不是单纯“保存更多”，而是在适当时机记录、检索、更新和遗忘信息。</p>
+<h2 id="Short-term-Memory"><a href="#Short-term-Memory" class="headerlink" title="Short-term Memory"></a>Short-term Memory</h2><p>保存当前对话、任务状态、最近的工具调用结果、临时推理信息等</p>
+<ul>
+<li>生命周期：通常随当前任务或会话结束而清理，也可以按需保留。</li>
+<li>常见载体：对话历史、上下文窗口、任务状态对象。</li>
+</ul>
+<p>让 Agent 知道当前在做什么、已经做了什么、下一步应该做什么</p>
+<h2 id="Long-term-Memory"><a href="#Long-term-Memory" class="headerlink" title="Long-term Memory"></a>Long-term Memory</h2><p>保存未来可能再次使用的用户偏好、历史经验、项目背景、已验证的事实和工作流程</p>
+<ul>
+<li>生命周期：可以跨会话持久化，直到过期、被更新或删除</li>
+<li>常见载体：关系数据库、向量数据库、知识图谱、文件或持久化存储</li>
+</ul>
+<p>让 Agent 在后续任务中复用历史信息，减少重复沟通和重复工作</p>
+<h2 id="Memory-Retrieval"><a href="#Memory-Retrieval" class="headerlink" title="Memory Retrieval"></a>Memory Retrieval</h2><p>长期记忆需要选择性检索，可能使用：</p>
+<ul>
+<li>Embedding Similarity；</li>
+<li>Keyword Search；</li>
+</ul>
+<p>长期记忆的难点不只有检索，还包括写入错误、信息过时、记忆冲突和隐私边界</p>
+<h1 id="Jev：面向决策的模型"><a href="#Jev：面向决策的模型" class="headerlink" title="Jev：面向决策的模型"></a>Jev：面向决策的模型</h1><p>Jev 是 TypeSafe AI 于 2026 年 9 月 15 日发布的决策模型</p>
+<p>与 GPT、Qwen 等以自回归文本生成为主要输出方式的 LLM 不同，Jev 面向限定形式的判断任务，直接输出选项、评分及其对应的概率分布。</p>
+<p>核心思想：对于可以拆解为明确判断的问题，不必让 LLM 生成一段文本再解析，而是直接获取结构化的决策结果和概率</p>
+<h2 id="核心能力"><a href="#核心能力" class="headerlink" title="核心能力"></a>核心能力</h2><p>Jev 支持三类判断任务：</p>
+<table>
+<thead>
+<tr>
+<th>任务类型</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Choice</td>
+<td>从给定选项中选择一个</td>
+<td>判断客服工单应该分配给哪个部门</td>
+</tr>
+<tr>
+<td>Score</td>
+<td>在有序等级中进行评分</td>
+<td>判断客户的不满程度</td>
+</tr>
+<tr>
+<td>Noul</td>
+<td>判断一个陈述是否成立</td>
+<td>判断一封邮件是否具有紧急性</td>
+</tr>
+</tbody></table>
+<p>模型直接返回结构化结果及相应概率，而不是生成完整的自然语言解释</p>
+<h2 id="核心技术特点"><a href="#核心技术特点" class="headerlink" title="核心技术特点"></a>核心技术特点</h2><p><strong>直接输出概率，减少文本生成开销</strong></p>
+<p>传统 LLM 通常需要经过逐 Token 解码才能生成 JSON 或文本，即使最终只需要一个分类结果，也可能产生不必要的生成开销</p>
+<p>Jev不进行常规的逐 Token 文本生成，其多数查询的延迟约为 100 ms</p>
+<p><strong>支持通过自然语言定义任务</strong></p>
+<p>传统 BERT 分类器通常需要针对具体任务训练分类头，类别集合相对固定</p>
+<p>Jev 允许调用方在请求中提供判断问题、选项和判定标准，从而支持多种判断任务，而不必为每个任务单独训练分类器</p>
+<h2 id="核心价值"><a href="#核心价值" class="headerlink" title="核心价值"></a>核心价值</h2><p>将一部分 Agent 决策任务从通用文本生成转化为直接的概率判断</p>
+<p>适合高频、低延迟、可拆解且具有明确判定标准的任务</p>
+<p>在 Agent 工程中，可以采用“LLM 负责复杂推理与规划、Jev 负责快速判断、代码负责流程控制与确定性执行”的分工方式，减少不必要的文本生成开销，并为自动执行和人工接管提供概率参考</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/20813.html">https://yhblogs.cn/posts/20813.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/U0001F5B9LLM/">U0001F5B9LLM</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rqjg21_1280x720.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/28392.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Agent-%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">Agent 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent-%E4%B8%8E-LLM-Application"><span class="toc-number">1.1.</span> <span class="toc-text">Agent 与 LLM Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Workflow-%E4%B8%8E-Agent"><span class="toc-number">1.2.</span> <span class="toc-text">Workflow 与 Agent</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Agent-%E7%9A%84%E5%8F%91%E5%B1%95%E8%84%89%E7%BB%9C"><span class="toc-number">2.</span> <span class="toc-text">Agent 的发展脉络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E-Reasoning-%E5%88%B0-Acting"><span class="toc-number">2.1.</span> <span class="toc-text">从 Reasoning 到 Acting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E-Tool-Use-%E5%88%B0-Tool-Learning"><span class="toc-number">2.2.</span> <span class="toc-text">从 Tool Use 到 Tool Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E5%8D%95%E6%AC%A1%E5%B0%9D%E8%AF%95%E5%88%B0-Reflection"><span class="toc-number">2.3.</span> <span class="toc-text">从单次尝试到 Reflection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E5%AF%B9%E8%AF%9D%E5%8E%86%E5%8F%B2%E5%88%B0%E5%8F%AF%E6%A3%80%E7%B4%A2%E7%9A%84%E8%AE%B0%E5%BF%86"><span class="toc-number">2.4.</span> <span class="toc-text">从对话历史到可检索的记忆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E5%8D%95-Agent-%E5%88%B0-Multi-Agent"><span class="toc-number">2.5.</span> <span class="toc-text">从单 Agent 到 Multi-Agent</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Agent-%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">Agent 的运行机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Augmented-LLM"><span class="toc-number">3.1.</span> <span class="toc-text">Augmented LLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent-Loop"><span class="toc-number">3.2.</span> <span class="toc-text">Agent Loop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#State-%E4%B8%8E-Context"><span class="toc-number">3.3.</span> <span class="toc-text">State 与 Context</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E6%AD%A2%E6%9D%A1%E4%BB%B6"><span class="toc-number">3.4.</span> <span class="toc-text">终止条件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Decision-%E4%B8%8E-Planning"><span class="toc-number">4.</span> <span class="toc-text">Decision 与 Planning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ReAct"><span class="toc-number">4.1.</span> <span class="toc-text">ReAct</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chain-of-Thought-%E4%B8%8E-Tree-of-Thoughts"><span class="toc-number">4.2.</span> <span class="toc-text">Chain of Thought 与 Tree of Thoughts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plan-and-Execute"><span class="toc-number">4.3.</span> <span class="toc-text">Plan-and-Execute</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tool-Use"><span class="toc-number">5.</span> <span class="toc-text">Tool Use</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Function-Calling"><span class="toc-number">5.1.</span> <span class="toc-text">Function Calling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tool-Schema"><span class="toc-number">5.2.</span> <span class="toc-text">Tool Schema</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MCP"><span class="toc-number">5.3.</span> <span class="toc-text">MCP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent-Skills"><span class="toc-number">5.4.</span> <span class="toc-text">Agent Skills</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Memory"><span class="toc-number">6.</span> <span class="toc-text">Memory</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Short-term-Memory"><span class="toc-number">6.1.</span> <span class="toc-text">Short-term Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Long-term-Memory"><span class="toc-number">6.2.</span> <span class="toc-text">Long-term Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Memory-Retrieval"><span class="toc-number">6.3.</span> <span class="toc-text">Memory Retrieval</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Jev%EF%BC%9A%E9%9D%A2%E5%90%91%E5%86%B3%E7%AD%96%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.</span> <span class="toc-text">Jev：面向决策的模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B"><span class="toc-number">7.1.</span> <span class="toc-text">核心能力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%89%B9%E7%82%B9"><span class="toc-number">7.2.</span> <span class="toc-text">核心技术特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%B7%E5%80%BC"><span class="toc-number">7.3.</span> <span class="toc-text">核心价值</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
