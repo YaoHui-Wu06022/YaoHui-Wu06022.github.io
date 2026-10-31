@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>视觉表征与多模态 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="视觉表征VIT [2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale  核心思想：将图像划分为多个固定大小的 Patch，把每个 Patch 看作 NLP 中的一个 Token，通过 线性映射为固定维度的 Patch Embedding，再直接输入标准 Transformer">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>视觉表征与多模态 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="视觉 Backbone [1512.03385] Deep Residual Learning for Image Recognition  ResNet 通过残差连接改善深层网络的优化问题，使网络能够在增加深度的同时持续获得性能提升，成为后续视觉 Backbone 的重要基础 VIT [2010.11929] An Image is Worth 16x16 Words: Transformers">
 <meta property="og:type" content="article">
 <meta property="og:title" content="视觉表征与多模态">
 <meta property="og:url" content="https://yhblogs.cn/posts/3897182270.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="视觉表征VIT [2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale  核心思想：将图像划分为多个固定大小的 Patch，把每个 Patch 看作 NLP 中的一个 Token，通过 线性映射为固定维度的 Patch Embedding，再直接输入标准 Transformer">
+<meta property="og:description" content="视觉 Backbone [1512.03385] Deep Residual Learning for Image Recognition  ResNet 通过残差连接改善深层网络的优化问题，使网络能够在增加深度的同时持续获得性能提升，成为后续视觉 Backbone 的重要基础 VIT [2010.11929] An Image is Worth 16x16 Words: Transformers">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp">
 <meta property="article:published_time" content="2026-08-13T02:30:57.000Z">
-<meta property="article:modified_time" content="2026-10-31T08:21:12.936Z">
+<meta property="article:modified_time" content="2026-10-31T12:15:51.040Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🍭AI">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/3897182270.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp",
   "datePublished": "2026-08-13T02:30:57.000Z",
-  "dateModified": "2026-10-31T08:21:12.936Z",
+  "dateModified": "2026-10-31T12:15:51.040Z",
   "author": [
     {
       "@type": "Person",
@@ -159,35 +159,27 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-m9k578_1280x720.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">视觉表征与多模态</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">视觉表征与多模态</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-13T02:30:57.000Z" title="发表于 2026-08-13 10:30:57">2026-08-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="视觉表征"><a href="#视觉表征" class="headerlink" title="视觉表征"></a>视觉表征</h1><h2 id="VIT"><a href="#VIT" class="headerlink" title="VIT"></a>VIT</h2><blockquote>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-m9k578_1280x720.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">视觉表征与多模态</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">视觉表征与多模态</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-13T02:30:57.000Z" title="发表于 2026-08-13 10:30:57">2026-08-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="视觉-Backbone"><a href="#视觉-Backbone" class="headerlink" title="视觉 Backbone"></a>视觉 Backbone</h1><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1512.03385">1512.03385] Deep Residual Learning for Image Recognition</a></p>
+</blockquote>
+<p>ResNet 通过残差连接改善深层网络的优化问题，使网络能够在增加深度的同时持续获得性能提升，成为后续视觉 Backbone 的重要基础</p>
+<h2 id="VIT"><a href="#VIT" class="headerlink" title="VIT"></a>VIT</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.11929">2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a></p>
 </blockquote>
-<p>核心思想：将图像划分为多个固定大小的 <strong>Patch</strong>，把每个 Patch 看作 NLP 中的一个 Token，通过 线性映射为固定维度的 Patch Embedding，再直接输入标准 Transformer Encoder</p>
-<p>传统 CNN：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line"> ↓</span><br><span class="line">Convolution</span><br><span class="line"> ↓</span><br><span class="line">Feature Map</span><br><span class="line"> ↓</span><br><span class="line">Classification</span><br></pre></td></tr></table></figure>
-
-<p>ViT</p>
+<p>核心思想：将图像划分为多个固定大小的 Patch，把每个 Patch 看作 NLP 中的一个 Token，通过 线性映射为固定维度的 Patch Embedding，再直接输入标准 Transformer Encoder，实现图像的序列建模</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">↓</span><br><span class="line">Patchify</span><br><span class="line">↓</span><br><span class="line">Patch Embedding</span><br><span class="line">↓</span><br><span class="line">[CLS] + Position Embedding</span><br><span class="line">↓</span><br><span class="line">Transformer Encoder</span><br><span class="line">↓</span><br><span class="line">Classification</span><br></pre></td></tr></table></figure>
 
-<p>将二维图像转化成一维 Patch Token Sequence，把图像识别转化为序列建模问题</p>
-<h3 id="Patch-Embedding"><a href="#Patch-Embedding" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>给定输入图像</p>
+<h3 id="Patch-Embedding"><a href="#Patch-Embedding" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>将输入图像划分为互不重叠的 $P\times P$ Patch，每个 Patch 展平后通过线性层映射到固定维度 $D$</p>
 <div class="mathjax-display">
 $$
-x\in\mathbb{R}^{H\times W\times C}
-$$
-</div>
-把图片切成 $P\times P$ 的互不重叠图像块 (`non-overlapping patches`)
-
-<p>Patch 数量：</p>
-<div class="mathjax-display">
-$$
+x\in\mathbb{R}^{H\times W\times C}\qquad 
 N=\frac{HW}{P^2}=\frac{H}{P}\frac{W}{P}
 $$
 </div>
 对于 ViT-B/16：
 <div class="mathjax-display">
 $$
-H = W = 224, P = 16 \rightarrow N = 196
+H = W = 224\quad  P = 16 \rightarrow N = 196
 $$
 </div>
 把每个 Patch 展平成一个向量
@@ -198,115 +190,89 @@ $$
 $$
 </div>
 通过线性投影对 Patch 维度进行压缩，固定到 $D$，，再输入 Transformer
-<div class="mathjax-display">
-$$
-{z_i} = x_i {E}\qquad {E}\in\mathbb{R}^{(P^2C)\times D}
-$$
-</div>
-每个 Patch 就对应 Transformer 中的一个 token
+
+<p>每个 Patch 就对应 Transformer 中的一个 token</p>
 <div class="mathjax-display">
 $$
 z \in \mathbb{R}^{N\times D}
 $$
 </div>
 
-<h3 id="Position-Embedding"><a href="#Position-Embedding" class="headerlink" title="Position Embedding"></a>Position Embedding</h3><p>ViT 在 Patch Embedding 上加入 Position Embedding</p>
-<p>原始 ViT 延续 BERT 的设计，在 Patch Token 前加入一个可学习的 <code>[CLS]</code> Token</p>
-<div class="mathjax-display">
-$$
- z_0=[x_{cls};x_1E;x_2E;...;x_NE]+E_{pos} \qquad  E_{pos}\in\mathbb R^{(N+1)\times D}
-$$
-</div>
-
-<p>默认使用<strong>可学习的一维位置编码</strong></p>
-<p>序列中的每个位置都有一个独立的、可学习的 $D$ 维位置向量</p>
-<p>经过多层 Self-Attention 后，<code>[CLS]</code> Token 可以与所有 Patch Token 进行信息交互，最终其输出作为整张图像的表示，用于分类</p>
-<h3 id="ViT-B-16-完整流程"><a href="#ViT-B-16-完整流程" class="headerlink" title="ViT-B&#x2F;16 完整流程"></a>ViT-B&#x2F;16 完整流程</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Input Image</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">        ↓ Patchify: 16×16</span><br><span class="line"></span><br><span class="line">196 Patches</span><br><span class="line">Each: [3,16,16]</span><br><span class="line"></span><br><span class="line">        ↓ Flatten</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Linear Projection</span><br><span class="line">        D = 768</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Add CLS Token</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Add Position Embedding</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Transformer Encoder × 12</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Take CLS Token</span><br><span class="line"></span><br><span class="line">[B, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Classification Head</span><br><span class="line"></span><br><span class="line">[B, num_classes]</span><br></pre></td></tr></table></figure>
-
-<h3 id="现代-VIT"><a href="#现代-VIT" class="headerlink" title="现代 VIT"></a>现代 VIT</h3><p>CLS Token 只是获得全局图像表示的一种方式，并不是 Transformer 的必要组成部分</p>
-<p>一些后续视觉 Transformer 会直接对 Patch Tokens 进行 Global Average Pooling：</p>
-<div class="mathjax-display">
-$$
-z=\frac1N\sum_{i=1}^{N}z_i
-$$
-</div>
-优势：
-
+<h3 id="Position-Embedding"><a href="#Position-Embedding" class="headerlink" title="Position Embedding"></a>Position Embedding</h3><p>原始 ViT 延续 BERT 的设计</p>
 <ul>
-<li>不需要额外学习 CLS token</li>
-<li>训练更加稳定</li>
-<li>与 CNN 的 Global Average Pooling 类似</li>
+<li>CLS Token：在 Patch Tokens 前加入一个可学习的 <code>[CLS]</code> Token，用于聚合全局图像信息，最终用于分类</li>
+<li>Position Embedding：为每个 Token 添加可学习的一维位置编码，保留 Patch 的位置信息</li>
 </ul>
-<h3 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h3><p>虽然 ViT 将 Transformer 引入视觉领域，但存在两个问题：</p>
-<ol>
-<li>Self-Attention 计算量高，随着图像分辨率提高，计算和显存开销增长很快</li>
-<li>缺少 CNN 的层次化结构</li>
-</ol>
-<p>因此后续提出Swin Transformer：通过窗口注意力和层次化结构，让 Transformer 更适合视觉任务</p>
+<p>输入序列：</p>
+<div class="mathjax-display">
+$$
+z_0=[x_{cls};x_1E;x_2E;...;x_NE]+E_{pos} \qquad  E_{pos}\in\mathbb R^{(N+1)\times D}
+$$
+</div>
+
+<h3 id="Transformer-Encoder"><a href="#Transformer-Encoder" class="headerlink" title="Transformer Encoder"></a>Transformer Encoder</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Input Image</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">        ↓ Patchify: 16×16</span><br><span class="line"></span><br><span class="line">196 Patches</span><br><span class="line">Each: [3,16,16]</span><br><span class="line"></span><br><span class="line">        ↓ Flatten</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Linear Projection</span><br><span class="line">        D = 768</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Add CLS Token + Position Embedding</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Transformer Encoder × 12</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Take CLS Token</span><br><span class="line"></span><br><span class="line">[B, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Classification Head</span><br><span class="line"></span><br><span class="line">[B, num_classes]</span><br></pre></td></tr></table></figure>
+
+<h3 id="核心特点与局限"><a href="#核心特点与局限" class="headerlink" title="核心特点与局限"></a>核心特点与局限</h3><p><strong>特点：</strong></p>
+<ul>
+<li>将视觉任务转化为序列建模问题，直接利用 Transformer 的 Self-Attention 建模全局关系</li>
+<li>不再依赖 CNN 的局部卷积结构，可以统一处理不同 Patch 之间的信息交互</li>
+</ul>
+<p><strong>局限：</strong></p>
+<ul>
+<li>Global Self-Attention 的计算复杂度随 Token 数量呈平方增长，处理高分辨率图像时计算和显存开销较大</li>
+<li>缺少 CNN 的层次化特征结构，不利于直接适配检测、分割等需要多尺度特征的任务</li>
+</ul>
 <h2 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.14030">2103.14030] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows</a></p>
 </blockquote>
 <p>核心思想：通过三个核心设计解决VIT的问题</p>
 <ul>
-<li>Window Attention：降低 Self-Attention 计算量</li>
-<li>Shifted Window：实现不同 Window 之间的信息交互</li>
-<li>Patch Merging：建立层次化信息结构</li>
+<li>Window Attention：降低全局 Self-Attention 的计算开销</li>
+<li>Shifted Window：实现跨窗口信息交互</li>
+<li>Patch Merging：构建层次化特征结构</li>
 </ul>
-<h3 id="Patch-Embedding-1"><a href="#Patch-Embedding-1" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>输入图像</p>
-<div class="mathjax-display">
-$$
-{x}\in\mathbb{R}^{H\times W\times C}
-$$
-</div>
-Swin 原论文使用 $P=4$
-<div class="mathjax-display">
-$$
-H\times W\rightarrow\frac H4\times\frac W4
-$$
-</div>
-
+<h3 id="Patch-Embedding-1"><a href="#Patch-Embedding-1" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>Swin 保留图像的二维空间结构，而不是像 ViT 一样直接将图像作为一维序列处理</p>
+<p>原论文使用 $P&#x3D;4$，将输入图像划分为二维网格，再通过 Linear Projection 映射到特征维度</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">        ↓ Patchify 4×4</span><br><span class="line"></span><br><span class="line">[B, 56, 56, 48] </span><br><span class="line"></span><br><span class="line">        ↓ Linear Projection</span><br><span class="line">           48 → 96</span><br><span class="line"></span><br><span class="line">[B, 56, 56, 96]</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>每个 $4\times4\times3$ 的 Patch 被展平成一个长度为 48 的向量</p>
 </blockquote>
-<p>ViT 强调全局的一维 Token sequence；Swin 则保留 Patch 的二维网格结构</p>
-<h3 id="Window-Partition"><a href="#Window-Partition" class="headerlink" title="Window Partition"></a>Window Partition</h3><p>Swin 不进行全局 Attention，而是划分局部窗口</p>
-<div class="mathjax-display">
-$$
-M = 7
-$$
-</div>
-每个 Window有 $7\times 7 = 49$ 个 token
-
+<p>实现空间下采样</p>
+<h3 id="Window-Attention"><a href="#Window-Attention" class="headerlink" title="Window Attention"></a>Window Attention</h3><p>Swin 将特征图划分为多个固定大小的 Window，只在每个 Window 内部执行 Self-Attention</p>
+<p>原论文默认窗口大小为 ($7\times7$)</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[B, 56, 56, 96]</span><br><span class="line"></span><br><span class="line">       ↓ Window Partition 7×7</span><br><span class="line"></span><br><span class="line">[B,8,8,7,7,96]</span><br><span class="line"></span><br><span class="line">       ↓ Window Flatten</span><br><span class="line"></span><br><span class="line">[B, 64, 49, 96]</span><br><span class="line"></span><br><span class="line">       ↓ 把 Window 合并到 Batch</span><br><span class="line"></span><br><span class="line">[B×64, 49, 96]</span><br></pre></td></tr></table></figure>
 
 <p>每张图有 64 个 window，每个 window 有 49 个 token，每个 token 是 96 维</p>
-<p>把 Window 合并进 Batch 后就可以把每个 window 当成一个独立的小序列做 Self-Attention</p>
-<h3 id="W-MSA"><a href="#W-MSA" class="headerlink" title="W-MSA"></a>W-MSA</h3><p>W-MSA：Window Multi-head Self-Attention</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌───────┬───────┐</span><br><span class="line">│Window │Window │</span><br><span class="line">│   A   │   B   │</span><br><span class="line">├───────┼───────┤</span><br><span class="line">│Window │Window │</span><br><span class="line">│   C   │   D   │</span><br><span class="line">└───────┴───────┘</span><br></pre></td></tr></table></figure>
-
-<p>每个 Window 内部进行 Self-Attention，不同窗口之间不发生交互，使得计算量显著下降 ($O(M^2N)$)，也因此需要 Shifted Window</p>
-<h3 id="SW-MSA"><a href="#SW-MSA" class="headerlink" title="SW-MSA"></a>SW-MSA</h3><p>SW-MSA：Shifted Window Multi-head Self-Attention</p>
-<p>下一层不继续使用相同窗口，而是将 Window Partition 平移，移动大小为  $\left\lfloor M&#x2F;2\right\rfloor$</p>
+<p>将 Window 合并到 Batch 维度后，各窗口可以独立执行 Attention，显著降低计算量</p>
+<h3 id="Shifted-Window"><a href="#Shifted-Window" class="headerlink" title="Shifted Window"></a>Shifted Window</h3><p>Window Attention 存在一个问题：不同 Window 之间无法直接进行信息交互</p>
+<p>因此，Swin 引入 Shifted Window：在下一层将窗口划分整体平移，使原本属于不同窗口的 Token 能够进入同一个窗口，从而实现跨窗口信息传递</p>
+<ul>
+<li>W-MSA：Window Multi-head Self-Attention，负责窗口内部的信息交互</li>
+<li>SW-MSA：Shifted Window Multi-head Self-Attention，负责跨窗口的信息交互</li>
+</ul>
+<p>连续两个 Swin Block 交替使用 W-MSA 和 SW-MSA</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">原窗口</span><br><span class="line">┌───┬───┐</span><br><span class="line">│ A │ B │</span><br><span class="line">├───┼───┤</span><br><span class="line">│ C │ D │</span><br><span class="line">└───┴───┘</span><br><span class="line"></span><br><span class="line">移动后</span><br><span class="line">┌───┬───┐</span><br><span class="line">│A/B│B/C│</span><br><span class="line">├───┼───┤</span><br><span class="line">│C/D│D/A│</span><br><span class="line">└───┴───┘</span><br></pre></td></tr></table></figure>
 
 <p>实现跨 Window 信息交流</p>
-<h3 id="Swin-Block"><a href="#Swin-Block" class="headerlink" title="Swin Block"></a>Swin Block</h3><p>W-MSA 负责窗口内部建模，SW-MSA 负责跨窗口信息传播</p>
-<p>连续两个 Block 分别使用 W-MSA 和 SW-MSA</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Swin Block L</span><br><span class="line">↓</span><br><span class="line">W-MSA</span><br><span class="line"></span><br><span class="line">Swin Block L+1</span><br><span class="line">↓</span><br><span class="line">SW-MSA</span><br></pre></td></tr></table></figure>
+<h3 id="Patch-Merging"><a href="#Patch-Merging" class="headerlink" title="Patch Merging"></a>Patch Merging</h3><p>为了构建类似 CNN 的层次化特征结构，Swin 引入 Patch Merging，逐层降低空间分辨率，同时增加特征维度</p>
+<p>具体过程：</p>
+<ol>
+<li>将相邻 $2\times2$ 的四个 Token 在 Channel 维度拼接。</li>
+<li>通过 Linear Projection 将维度从 $4C$ 降至 $2C$</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">特征图</span><br><span class="line">x00  x01  x02  x03</span><br><span class="line">x10  x11  x12  x13</span><br><span class="line">x20  x21  x22  x23</span><br><span class="line">x30  x31  x32  x33</span><br><span class="line"></span><br><span class="line">取 2 × 2</span><br><span class="line">x00 x01</span><br><span class="line">x10 x11</span><br><span class="line"></span><br><span class="line">Concatenate 通道维度</span><br><span class="line">[x00 | x01 | x10 | x11]</span><br><span class="line">4C</span><br><span class="line">↓</span><br><span class="line">Linear Projection</span><br><span class="line">4C → 2C</span><br></pre></td></tr></table></figure>
 
-<h3 id="相对位置偏置"><a href="#相对位置偏置" class="headerlink" title="相对位置偏置"></a>相对位置偏置</h3><p>Swin 的 Attention 中加入了相对位置偏置 (<code>Relative Position Bias</code>)</p>
-<p>Attention 可以写成：</p>
+<p>最终形成多阶段特征金字塔，使模型能够提取不同空间尺度的视觉特征</p>
+<h3 id="相对位置偏置"><a href="#相对位置偏置" class="headerlink" title="相对位置偏置"></a>相对位置偏置</h3><p>Swin 在 Attention 中引入 Relative Position Bias（相对位置偏置），将 Token 之间的相对空间位置关系加入 Attention 计算</p>
 <div class="mathjax-display">
 $$
 \operatorname{Attention}(Q,K,V)=\operatorname{Softmax}
 \left(\frac{QK^T}{\sqrt d}+B\right)V
 $$
 </div>
-表示窗口内部不同 token 之间的相对位置偏置
+其中 $B$ 表示可学习的相对位置偏置，使模型能够利用窗口内部的空间位置信息
 
-<p>对于视觉空间，这种相对关系非常自然</p>
 <div class="mathjax-display">
 $$
 \hat B=
@@ -319,64 +285,10 @@ b_{M-1,-(M-1)} &amp; \cdots &amp; b_{M-1,M-1}
 $$
 </div>
 
-<h3 id="Patch-Merging"><a href="#Patch-Merging" class="headerlink" title="Patch Merging"></a>Patch Merging</h3><p>ViT 基本保持同一尺度，而 Swin 逐渐降低空间尺寸，同时提升 channel</p>
-<p>会在 Swin Block 后下采，下采采用拼接 + Linear 的实现方式</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">特征图</span><br><span class="line">x00  x01  x02  x03</span><br><span class="line">x10  x11  x12  x13</span><br><span class="line">x20  x21  x22  x23</span><br><span class="line">x30  x31  x32  x33</span><br><span class="line"></span><br><span class="line">取 2 × 2</span><br><span class="line">x00 x01</span><br><span class="line">x10 x11</span><br><span class="line"></span><br><span class="line">Concatenate 通道维度</span><br><span class="line">[x00 | x01 | x10 | x11]</span><br><span class="line">4C</span><br><span class="line">↓</span><br><span class="line">Linear Projection</span><br><span class="line">4C → 2C</span><br></pre></td></tr></table></figure>
-
-<p>产生了 CNN 模式的特征金字塔</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>ViT</th>
-<th>Swin</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Token形式</td>
-<td>一维序列</td>
-<td>二维Feature Map</td>
-</tr>
-<tr>
-<td>Attention</td>
-<td>Global Attention</td>
-<td>Window Attention</td>
-</tr>
-<tr>
-<td>复杂度</td>
-<td>$O(N^2)$</td>
-<td>$O(NM^2)$</td>
-</tr>
-<tr>
-<td>空间结构</td>
-<td>弱</td>
-<td>强</td>
-</tr>
-<tr>
-<td>多尺度</td>
-<td>无</td>
-<td>有</td>
-</tr>
-<tr>
-<td>Patch数量</td>
-<td>固定</td>
-<td>逐层减少</td>
-</tr>
-<tr>
-<td>适合任务</td>
-<td>分类</td>
-<td>分类&#x2F;检测&#x2F;分割</td>
-</tr>
-</tbody></table>
 <h2 id="ConvNeXt"><a href="#ConvNeXt" class="headerlink" title="ConvNeXt"></a>ConvNeXt</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.03545">2201.03545] A ConvNet for the 2020s</a></p>
 </blockquote>
-<p>核心思想：以经典 ResNet 为基础，引入 Transformer 时代的设计思想，对传统 ConvNet 进行现代化改造，使纯 CNN 达到与 Swin Transformer 相近的性能</p>
-<p>与 ResNeXt 没有直接继承关系：</p>
-<ul>
-<li>ResNeXt：通过 Cardinality（多分支）增强 ResNet</li>
-<li>ConvNeXt：重新设计 CNN Block，使其适应现代训练方式</li>
-</ul>
+<p>核心思想：以 ResNet 为基础，引入 Transformer 时代的设计思想，对传统 CNN 进行现代化改造，使纯 CNN 获得与 Swin Transformer 相近的性能</p>
 <h3 id="Depthwise-Convolution"><a href="#Depthwise-Convolution" class="headerlink" title="Depthwise Convolution"></a>Depthwise Convolution</h3><p>传统卷积同时完成：</p>
 <ul>
 <li>Spatial Mixing：融合邻域空间信息</li>
@@ -384,8 +296,8 @@ $$
 </ul>
 <p>ConvNeXt 将两种操作显式拆开</p>
 <ul>
-<li><strong>Depthwise Conv</strong>：每个 Channel 独立进行空间卷积，Channel 之间不发生信息融合</li>
-<li><strong>1 × 1 Conv</strong>：进行 Channel 之间的信息融合</li>
+<li><strong>Depthwise Conv</strong>：每个 Channel 独立进行空间卷积，提取局部空间特征</li>
+<li><strong>1 × 1 Conv</strong>：融合不同 Channel 的信息</li>
 </ul>
 <p>从参数量上来看：</p>
 <ul>
@@ -410,60 +322,45 @@ Params=K^2C_{in}
 $$
 </div></li>
 </ul>
-<p>相比普通卷积，Depthwise Conv 可以用较少的参数和计算量完成 Spatial Mixing</p>
-<p>传统 ResNet Block 主要使用 $3\times3$ Conv，而 ConvNeXt 采用 $7\times7$ Depthwise Conv</p>
-<p>使用更大的卷积核，以较低额外计算成本扩大空间感受野</p>
-<h3 id="Inverted-Bottleneck"><a href="#Inverted-Bottleneck" class="headerlink" title="Inverted Bottleneck"></a>Inverted Bottleneck</h3><p>传统 ResNet Bottleneck</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input C</span><br><span class="line">↓</span><br><span class="line">1×1 Conv</span><br><span class="line">↓</span><br><span class="line">C/4</span><br><span class="line">↓</span><br><span class="line">3×3 Conv</span><br><span class="line">↓</span><br><span class="line">C/4</span><br><span class="line">↓</span><br><span class="line">1×1 Conv</span><br><span class="line">↓</span><br><span class="line">C</span><br></pre></td></tr></table></figure>
-
-<p>先降维 → Spatial Mixing → 再升维</p>
-<p>ConvNeXt 在 Channel Mixing 部分采用类似 Transformer FFN 的 <strong>Inverted Bottleneck</strong>：</p>
+<p>相比普通卷积，Depthwise Conv 参数量和计算量更低，因此 ConvNeXt 使用较大的 $7\times7$ 卷积核，在较低计算开销下扩大感受野</p>
+<h3 id="Inverted-Bottleneck"><a href="#Inverted-Bottleneck" class="headerlink" title="Inverted Bottleneck"></a>Inverted Bottleneck</h3><p>传统 ResNet Bottleneck 采用先降维、再进行空间卷积、最后升维的结构</p>
+<p>ConvNeXt 则采用类似 Transformer FFN 的 Inverted Bottleneck</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input C</span><br><span class="line">   ↓</span><br><span class="line">7×7 Depthwise Conv</span><br><span class="line">   ↓</span><br><span class="line">LayerNorm</span><br><span class="line">   ↓</span><br><span class="line">1×1 Conv / Linear</span><br><span class="line">C → 4C</span><br><span class="line">   ↓</span><br><span class="line">GELU</span><br><span class="line">   ↓</span><br><span class="line">1×1 Conv / Linear</span><br><span class="line">4C → C</span><br></pre></td></tr></table></figure>
 
-<p>先升维 → 非线性变换 → 再降维</p>
-<p>类比Transformer：</p>
-<ul>
-<li>$7\times7$ Depthwise Conv：负责 Spatial Mixing</li>
-<li>$1\times1$ Conv &#x2F; Linear：构成类似 FFN 的 Channel Mixing</li>
-</ul>
-<h3 id="ConvNeXt-T-Architecture"><a href="#ConvNeXt-T-Architecture" class="headerlink" title="ConvNeXt-T Architecture"></a>ConvNeXt-T Architecture</h3><p>和 Swin 基本一致</p>
+<p>先升维，再进行非线性变换，最后降维，增强 Channel Mixing 能力</p>
+<h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p>采用类似 Swin Transformer 的四阶段层次化结构</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-23_12-13-09.webp" alt="Snipaste_2026-09-23_12-13-09" style="zoom:50%;" />
 
-<table>
-<thead>
-<tr>
-<th>Stage</th>
-<th>Feature Size</th>
-<th>Channel</th>
-<th>Block数量</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Stage 1</td>
-<td>56×56</td>
-<td>96</td>
-<td>3</td>
-</tr>
-<tr>
-<td>Stage 2</td>
-<td>28×28</td>
-<td>192</td>
-<td>3</td>
-</tr>
-<tr>
-<td>Stage 3</td>
-<td>14×14</td>
-<td>384</td>
-<td>9</td>
-</tr>
-<tr>
-<td>Stage 4</td>
-<td>7×7</td>
-<td>768</td>
-<td>3</td>
-</tr>
-</tbody></table>
-<h1 id="视觉语言对齐"><a href="#视觉语言对齐" class="headerlink" title="视觉语言对齐"></a>视觉语言对齐</h1><h2 id="CLIP"><a href="#CLIP" class="headerlink" title="CLIP"></a>CLIP</h2><blockquote>
+<p>ConvNeXt 并没有引入 Transformer，而是通过 Depthwise Conv、Inverted Bottleneck、LayerNorm 等现代化设计，重新构建纯 CNN 架构</p>
+<p>证明传统 CNN 经过现代化改造后，依然能够达到与视觉 Transformer 相近的性能</p>
+<h1 id="自监督视觉表征"><a href="#自监督视觉表征" class="headerlink" title="自监督视觉表征"></a>自监督视觉表征</h1><h2 id="MAE"><a href="#MAE" class="headerlink" title="MAE"></a>MAE</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.06377">2111.06377] Masked Autoencoders Are Scalable Vision Learners</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 将图像随机划分为 Patch，并 Mask 掉大部分 Patch，让模型根据剩余可见区域重建原始图像，通过重建任务学习视觉表征</p>
+<h3 id="Masking-Strategy"><a href="#Masking-Strategy" class="headerlink" title="Masking Strategy"></a>Masking Strategy</h3><p>MAE 在输入阶段随机 Mask 大部分图像 Patch</p>
+<ul>
+<li>将图像划分为固定大小的 Patch</li>
+<li>随机选择一部分 Patch 保留，其余 Patch 被 Mask</li>
+<li>默认 Masking Ratio 为 <strong>75%</strong>，即只保留 25% 的可见 Patch</li>
+</ul>
+<p>高比例 Masking 可以减少图像中的冗余信息，使模型必须利用有限的可见区域理解整体图像结构</p>
+<h3 id="Asymmetric-Encoder-Decoder"><a href="#Asymmetric-Encoder-Decoder" class="headerlink" title="Asymmetric Encoder-Decoder"></a>Asymmetric Encoder-Decoder</h3><p>MAE 最重要的设计是非对称 Encoder-Decoder 架构</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-10-31_20-14-06.webp" alt="Snipaste_2026-10-31_20-14-06" style="zoom: 50%;" />
+
+<p><strong>Encoder</strong></p>
+<ul>
+<li>使用标准 ViT 作为视觉编码器</li>
+<li>只处理可见 Patch，不输入 Mask Token</li>
+<li>提取可见区域的视觉特征</li>
+</ul>
+<p><strong>Decoder</strong></p>
+<ul>
+<li>将 Encoder 输出与 Mask Token 组合，恢复完整 Token 序列</li>
+<li>使用轻量级 Transformer Decoder 重建原始图像</li>
+<li>预测每个 Patch 的像素值</li>
+</ul>
+<p>关键在于：计算量较大的 Encoder 只处理少量可见 Token，而 Decoder 相对轻量，因此能够显著降低预训练成本</p>
+<h2 id="DINOv2"><a href="#DINOv2" class="headerlink" title="DINOv2"></a>DINOv2</h2><h1 id="视觉语言对齐"><a href="#视觉语言对齐" class="headerlink" title="视觉语言对齐"></a>视觉语言对齐</h1><h2 id="CLIP"><a href="#CLIP" class="headerlink" title="CLIP"></a>CLIP</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020] Learning Transferable Visual Models From Natural Language Supervision</a></p>
 </blockquote>
 <p>CLIP：Contrastive Language-Image Pre-training</p>
@@ -648,7 +545,7 @@ $$
 <td>In-Context Learning</td>
 </tr>
 </tbody></table>
-<h2 id="BLIP"><a href="#BLIP" class="headerlink" title="BLIP"></a>BLIP</h2><blockquote>
+<h1 id="视觉语言预训练"><a href="#视觉语言预训练" class="headerlink" title="视觉语言预训练"></a>视觉语言预训练</h1><h2 id="BLIP"><a href="#BLIP" class="headerlink" title="BLIP"></a>BLIP</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.12086">2201.12086] BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation</a></p>
 </blockquote>
 <p>在 CLIP 图文对齐思路的基础上，进一步统一了视觉语言理解（Understanding）和生成（Generation）两类任务</p>
@@ -964,7 +861,7 @@ $$
 </tr>
 </tbody></table>
 <p>这样模型不仅能够描述图像中的物体，还可以将文本描述与具体的图像区域关联起来</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/3897182270.html">https://yhblogs.cn/posts/3897182270.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related  no-desc" href="/posts/3948618638.html" title="无线网络仿真技术"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">无线网络仿真技术</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a><a class="pagination-related no-desc" href="/posts/1222747289.html" title="视觉生成与世界模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-31</div><div class="info-item-2">视觉生成与世界模型</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E8%A1%A8%E5%BE%81"><span class="toc-number">1.</span> <span class="toc-text">视觉表征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VIT"><span class="toc-number">1.1.</span> <span class="toc-text">VIT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding"><span class="toc-number">1.1.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Position-Embedding"><span class="toc-number">1.1.2.</span> <span class="toc-text">Position Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViT-B-16-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text">ViT-B&#x2F;16 完整流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3-VIT"><span class="toc-number">1.1.4.</span> <span class="toc-text">现代 VIT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%99%90"><span class="toc-number">1.1.5.</span> <span class="toc-text">局限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swin-Transformer"><span class="toc-number">1.2.</span> <span class="toc-text">Swin Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window-Partition"><span class="toc-number">1.2.2.</span> <span class="toc-text">Window Partition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#W-MSA"><span class="toc-number">1.2.3.</span> <span class="toc-text">W-MSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SW-MSA"><span class="toc-number">1.2.4.</span> <span class="toc-text">SW-MSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swin-Block"><span class="toc-number">1.2.5.</span> <span class="toc-text">Swin Block</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E5%81%8F%E7%BD%AE"><span class="toc-number">1.2.6.</span> <span class="toc-text">相对位置偏置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Merging"><span class="toc-number">1.2.7.</span> <span class="toc-text">Patch Merging</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConvNeXt"><span class="toc-number">1.3.</span> <span class="toc-text">ConvNeXt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Depthwise-Convolution"><span class="toc-number">1.3.1.</span> <span class="toc-text">Depthwise Convolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inverted-Bottleneck"><span class="toc-number">1.3.2.</span> <span class="toc-text">Inverted Bottleneck</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConvNeXt-T-Architecture"><span class="toc-number">1.3.3.</span> <span class="toc-text">ConvNeXt-T Architecture</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E5%AF%B9%E9%BD%90"><span class="toc-number">2.</span> <span class="toc-text">视觉语言对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CLIP"><span class="toc-number">2.1.</span> <span class="toc-text">CLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-number">2.1.1.</span> <span class="toc-text">模型结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0"><span class="toc-number">2.1.2.</span> <span class="toc-text">对比学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E6%8D%9F%E5%A4%B1"><span class="toc-number">2.1.3.</span> <span class="toc-text">对比损失</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zero-shot-%E5%88%86%E7%B1%BB"><span class="toc-number">2.1.4.</span> <span class="toc-text">Zero-shot 分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prompt-Engineering"><span class="toc-number">2.1.5.</span> <span class="toc-text">Prompt Engineering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLIP-%E4%B8%8E-LLM"><span class="toc-number">2.1.6.</span> <span class="toc-text">CLIP 与 LLM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BLIP"><span class="toc-number">2.2.</span> <span class="toc-text">BLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MED"><span class="toc-number">2.2.1.</span> <span class="toc-text">MED</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E7%9B%AE%E6%A0%87"><span class="toc-number">2.2.2.</span> <span class="toc-text">训练目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CapFilt"><span class="toc-number">2.2.3.</span> <span class="toc-text">CapFilt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BLIP2"><span class="toc-number">2.3.</span> <span class="toc-text">BLIP2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-Former"><span class="toc-number">2.3.1.</span> <span class="toc-text">Q-Former</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="toc-number">2.3.2.</span> <span class="toc-text">两阶段预训练</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">多模态大模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LLaVA"><span class="toc-number">3.1.</span> <span class="toc-text">LLaVA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">3.1.1.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE%E6%9E%84%E5%BB%BA"><span class="toc-number">3.1.2.</span> <span class="toc-text">多模态指令数据构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E8%AE%AD%E7%BB%83"><span class="toc-number">3.1.3.</span> <span class="toc-text">两阶段训练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qwen2-VL"><span class="toc-number">3.2.</span> <span class="toc-text">Qwen2-VL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E8%BE%A8%E7%8E%87"><span class="toc-number">3.2.1.</span> <span class="toc-text">动态分辨率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#M-RoPE"><span class="toc-number">3.2.2.</span> <span class="toc-text">M-RoPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%E7%9A%84%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1"><span class="toc-number">3.2.3.</span> <span class="toc-text">图像视频的统一建模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E9%98%B6%E6%AE%B5%E8%AE%AD%E7%BB%83"><span class="toc-number">3.2.4.</span> <span class="toc-text">三阶段训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E6%95%B0%E6%8D%AE%E6%A0%87%E8%AF%86"><span class="toc-number">3.2.5.</span> <span class="toc-text">多模态数据标识</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/3897182270.html">https://yhblogs.cn/posts/3897182270.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related  no-desc" href="/posts/3948618638.html" title="无线网络仿真技术"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">无线网络仿真技术</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a><a class="pagination-related no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89-Backbone"><span class="toc-number">1.</span> <span class="toc-text">视觉 Backbone</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VIT"><span class="toc-number">1.1.</span> <span class="toc-text">VIT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding"><span class="toc-number">1.1.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Position-Embedding"><span class="toc-number">1.1.2.</span> <span class="toc-text">Position Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer-Encoder"><span class="toc-number">1.1.3.</span> <span class="toc-text">Transformer Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9%E4%B8%8E%E5%B1%80%E9%99%90"><span class="toc-number">1.1.4.</span> <span class="toc-text">核心特点与局限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swin-Transformer"><span class="toc-number">1.2.</span> <span class="toc-text">Swin Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window-Attention"><span class="toc-number">1.2.2.</span> <span class="toc-text">Window Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shifted-Window"><span class="toc-number">1.2.3.</span> <span class="toc-text">Shifted Window</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Merging"><span class="toc-number">1.2.4.</span> <span class="toc-text">Patch Merging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E5%81%8F%E7%BD%AE"><span class="toc-number">1.2.5.</span> <span class="toc-text">相对位置偏置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConvNeXt"><span class="toc-number">1.3.</span> <span class="toc-text">ConvNeXt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Depthwise-Convolution"><span class="toc-number">1.3.1.</span> <span class="toc-text">Depthwise Convolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inverted-Bottleneck"><span class="toc-number">1.3.2.</span> <span class="toc-text">Inverted Bottleneck</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.3.</span> <span class="toc-text">网络结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E7%9B%91%E7%9D%A3%E8%A7%86%E8%A7%89%E8%A1%A8%E5%BE%81"><span class="toc-number">2.</span> <span class="toc-text">自监督视觉表征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MAE"><span class="toc-number">2.1.</span> <span class="toc-text">MAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Masking-Strategy"><span class="toc-number">2.1.1.</span> <span class="toc-text">Masking Strategy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Asymmetric-Encoder-Decoder"><span class="toc-number">2.1.2.</span> <span class="toc-text">Asymmetric Encoder-Decoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DINOv2"><span class="toc-number">2.2.</span> <span class="toc-text">DINOv2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E5%AF%B9%E9%BD%90"><span class="toc-number">3.</span> <span class="toc-text">视觉语言对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CLIP"><span class="toc-number">3.1.</span> <span class="toc-text">CLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-number">3.1.1.</span> <span class="toc-text">模型结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.1.2.</span> <span class="toc-text">对比学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E6%8D%9F%E5%A4%B1"><span class="toc-number">3.1.3.</span> <span class="toc-text">对比损失</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zero-shot-%E5%88%86%E7%B1%BB"><span class="toc-number">3.1.4.</span> <span class="toc-text">Zero-shot 分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prompt-Engineering"><span class="toc-number">3.1.5.</span> <span class="toc-text">Prompt Engineering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLIP-%E4%B8%8E-LLM"><span class="toc-number">3.1.6.</span> <span class="toc-text">CLIP 与 LLM</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="toc-number">4.</span> <span class="toc-text">视觉语言预训练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BLIP"><span class="toc-number">4.1.</span> <span class="toc-text">BLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MED"><span class="toc-number">4.1.1.</span> <span class="toc-text">MED</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E7%9B%AE%E6%A0%87"><span class="toc-number">4.1.2.</span> <span class="toc-text">训练目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CapFilt"><span class="toc-number">4.1.3.</span> <span class="toc-text">CapFilt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BLIP2"><span class="toc-number">4.2.</span> <span class="toc-text">BLIP2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-Former"><span class="toc-number">4.2.1.</span> <span class="toc-text">Q-Former</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="toc-number">4.2.2.</span> <span class="toc-text">两阶段预训练</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">多模态大模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LLaVA"><span class="toc-number">5.1.</span> <span class="toc-text">LLaVA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">5.1.1.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE%E6%9E%84%E5%BB%BA"><span class="toc-number">5.1.2.</span> <span class="toc-text">多模态指令数据构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E8%AE%AD%E7%BB%83"><span class="toc-number">5.1.3.</span> <span class="toc-text">两阶段训练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qwen2-VL"><span class="toc-number">5.2.</span> <span class="toc-text">Qwen2-VL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E8%BE%A8%E7%8E%87"><span class="toc-number">5.2.1.</span> <span class="toc-text">动态分辨率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#M-RoPE"><span class="toc-number">5.2.2.</span> <span class="toc-text">M-RoPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%E7%9A%84%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1"><span class="toc-number">5.2.3.</span> <span class="toc-text">图像视频的统一建模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E9%98%B6%E6%AE%B5%E8%AE%AD%E7%BB%83"><span class="toc-number">5.2.4.</span> <span class="toc-text">三阶段训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E6%95%B0%E6%8D%AE%E6%A0%87%E8%AF%86"><span class="toc-number">5.2.5.</span> <span class="toc-text">多模态数据标识</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
