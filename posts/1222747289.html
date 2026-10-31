@@ -1,0 +1,908 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>视觉生成与世界模型 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="视觉 Tokenizer最基础的 Autoencoder (自编码器，AE) 可以写成  $$ x \xrightarrow{\text{Encoder}} z \xrightarrow{\text{Decoder}} \hat{x} $$    $x$ ：输入图像 $z$：潜在表示（Latent Representation） $\hat{x}$：重建得到的图像  训练目标是使重建结果尽可能接近">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视觉生成与世界模型">
+<meta property="og:url" content="https://yhblogs.cn/posts/1222747289.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="视觉 Tokenizer最基础的 Autoencoder (自编码器，AE) 可以写成  $$ x \xrightarrow{\text{Encoder}} z \xrightarrow{\text{Decoder}} \hat{x} $$    $x$ ：输入图像 $z$：潜在表示（Latent Representation） $\hat{x}$：重建得到的图像  训练目标是使重建结果尽可能接近">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp">
+<meta property="article:published_time" content="2026-10-31T01:30:57.000Z">
+<meta property="article:modified_time" content="2026-10-31T07:04:17.492Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🍭AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "视觉生成与世界模型",
+  "url": "https://yhblogs.cn/posts/1222747289.html",
+  "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp",
+  "datePublished": "2026-10-31T01:30:57.000Z",
+  "dateModified": "2026-10-31T07:04:17.492Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "今天睡够了吗",
+      "url": "https://yhblogs.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yhblogs.cn/posts/1222747289.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '视觉生成与世界模型',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">视觉生成与世界模型</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">视觉生成与世界模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-10-31T01:30:57.000Z" title="发表于 2026-10-31 09:30:57">2026-10-31</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="视觉-Tokenizer"><a href="#视觉-Tokenizer" class="headerlink" title="视觉 Tokenizer"></a>视觉 Tokenizer</h1><p>最基础的 Autoencoder (<strong>自编码器，AE</strong>) 可以写成</p>
+<div class="mathjax-display">
+$$
+x \xrightarrow{\text{Encoder}} z \xrightarrow{\text{Decoder}} \hat{x}
+$$
+</div>
+
+<ul>
+<li>$x$ ：输入图像</li>
+<li>$z$：潜在表示（Latent Representation）</li>
+<li>$\hat{x}$：重建得到的图像</li>
+</ul>
+<p>训练目标是使重建结果尽可能接近原始输入</p>
+<h2 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1312.6114">1312.6114] Auto-Encoding Variational Bayes</a></p>
+</blockquote>
+<p>Variational Autoencoder 变分自编码器</p>
+<p>核心：与普通 Autoencoder 把输入编码为一个确定的 latent vector 不同，将输入编码为一个潜变量概率分布</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x</span><br><span class="line">↓</span><br><span class="line">Encoder</span><br><span class="line">↓</span><br><span class="line">μ, σ</span><br><span class="line">↓</span><br><span class="line">Gaussian Sampling</span><br><span class="line">↓</span><br><span class="line">连续 z</span><br><span class="line">↓</span><br><span class="line">Decoder</span><br><span class="line">↓</span><br><span class="line">x̂</span><br></pre></td></tr></table></figure>
+
+<p>经过 Encoder 后得到一组分布参数，从该分布中采样</p>
+<div class="mathjax-display">
+$$
+z\sim \mathcal N(\mu,\sigma^2)
+$$
+</div>
+实际训练时通常写成
+<div class="mathjax-display">
+$$
+z=\mu+\sigma\odot\epsilon,\qquad\epsilon\sim\mathcal N(0,I)
+$$
+</div>
+随机性被转移到 $ \epsilon$ 上，而 $ \mu$ 和 $\sigma$ 仍然可以通过梯度进行学习
+
+<p>VAE 的训练不仅要求 Decoder 能够重建输入，还会约束潜变量分布</p>
+<div class="mathjax-display">
+$$
+\mathcal L=\mathcal L_{\text{recon}}+D_{\mathrm{KL}}\left(q_\phi(z|x)\,\|\,p(z)\right)
+$$
+</div>
+
+<ul>
+<li>Reconstruction Loss：保证 $z$  中保留足够的信息来重建输入</li>
+<li>KL 散度：约束使不同样本的潜在分布整体接近 $\mathcal N(0,I)$</li>
+</ul>
+<p>最终得到一个连续且较规整的 Latent Space</p>
+<h2 id="VQ-VAE"><a href="#VQ-VAE" class="headerlink" title="VQ-VAE"></a>VQ-VAE</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.00937">1711.00937] Neural Discrete Representation Learning</a></p>
+</blockquote>
+<p>Vector Quantized Variational AutoEncoder 向量量化变分自编码器</p>
+<p>核心：将 Encoder 得到的连续特征通过 Vector Quantization（向量量化） 映射到有限 Codebook 中，从而得到<span style = "color:#7C6DB0">离散的潜在表示（Discrete Latent Representation）</span></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">x</span><br><span class="line">↓</span><br><span class="line">Encoder</span><br><span class="line">↓</span><br><span class="line">连续特征 z_e(x)</span><br><span class="line">↓</span><br><span class="line">Vector Quantization</span><br><span class="line">↓</span><br><span class="line">离散 Code Index k</span><br><span class="line">↓</span><br><span class="line">Codebook Lookup</span><br><span class="line">↓</span><br><span class="line">z_q(x) = e_k</span><br><span class="line">↓</span><br><span class="line">Decoder</span><br><span class="line">↓</span><br><span class="line">x̂</span><br></pre></td></tr></table></figure>
+
+<h3 id="Vector-Quantization"><a href="#Vector-Quantization" class="headerlink" title="Vector Quantization"></a>Vector Quantization</h3><p>VQ-VAE 维护一个可以学习的 embedding table</p>
+<div class="mathjax-display">
+$$
+E=\{e_1,e_2,\ldots,e_K\},
+\qquad e_i\in\mathbb R^D
+$$
+</div>
+
+<ul>
+<li>$K$：离散 latent space 的大小，也就是 Codebook Size</li>
+<li>$D$：每个 embedding vector 的维度</li>
+</ul>
+<p>对于 Encoder 输出的每一个向量 $z_e(x)$，在 Codebook 中寻找距离最近的 embedding</p>
+<div class="mathjax-display">
+$$
+k=\operatorname*{argmin}_{j}\left\|z_e(x)-e_j\right\|_2
+$$
+</div>
+然后令：
+<div class="mathjax-display">
+$$
+z_q(x) = e_k
+$$
+</div>
+定义成一个确定性的 one-hot categorical distribution
+<div class="mathjax-display">
+$$
+q(z=k\mid x)=\begin{cases}
+1,
+&amp;
+k=
+\operatorname*{argmin}_j
+\|z_e(x)-e_j\|_2
+\\
+0,
+&amp;
+\text{otherwise}
+\end{cases}
+$$
+</div>
+本质上很像 NLP 中的
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Token ID</span><br><span class="line">   ↓</span><br><span class="line">Embedding Table</span><br><span class="line">   ↓</span><br><span class="line">Token Embedding</span><br></pre></td></tr></table></figure>
+
+<p>而 VQ-VAE 在编码阶段相当于反过来</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Encoder Feature</span><br><span class="line">      ↓</span><br><span class="line">寻找最近的 Embedding</span><br><span class="line">      ↓</span><br><span class="line">得到 Code Index</span><br></pre></td></tr></table></figure>
+
+<p>模型自己学习了一套离散表示，使得连续空间变成了有限的离散状态</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/image-20260922215138414_50kb.webp" alt="image-20260922215138414" style="zoom: 33%;" />
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">[128, 128, 3]</span><br><span class="line"></span><br><span class="line">        ↓ Encoder</span><br><span class="line"></span><br><span class="line">z_e(x) [32, 32, D]</span><br><span class="line"></span><br><span class="line">        ↓ Vector Quantization K=512</span><br><span class="line"></span><br><span class="line">Code Index z</span><br><span class="line">[32, 32，1]</span><br><span class="line"></span><br><span class="line">        ↓ Codebook Lookup</span><br><span class="line"></span><br><span class="line">z_q(x) [32, 32, D]</span><br><span class="line"></span><br><span class="line">        ↓ Decoder</span><br><span class="line">        </span><br><span class="line">Reconstruction</span><br><span class="line">[128, 128, 3]  </span><br></pre></td></tr></table></figure>
+
+<h3 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h3><p>问题：Quantization 使用 <code>argmin</code> ，没有真正的梯度，所以无法正常反向传播</p>
+<p>使用  <strong>Straight-Through Estimator，STE</strong> (直通估计器)的方法：</p>
+<ul>
+<li>Forward ：使用量化后的 $z_q (x) &#x3D; e_k$</li>
+<li>Backward ：把 Decoder 输入 $z_q(x)$ 的梯度复制给 Encoder 输出 $z_e(x)$</li>
+</ul>
+<div class="mathjax-display">
+$$
+\frac{\partial z_q}{\partial z_e}\approx 1
+$$
+</div>
+
+<p>把 Quantization 在反向传播时近似当作 Identity</p>
+<p>在Pytorch中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z_q = z_e + (e_k - z_e).detach()</span><br></pre></td></tr></table></figure>
+
+<p>利用 <code>.detach()</code> 切断梯度，且前向传播中 $z_q &#x3D; e_k$</p>
+<p>反向传播时相当于 <code>z_q = z_e + 常数</code></p>
+<h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>VQ-VAE 的训练目标包含三个部分：</p>
+<div class="mathjax-display">
+$$
+\mathcal L=\mathcal L_{\text{recon}}+\mathcal L_{\text{codebook}}+\beta\mathcal L_{\text{commit}}
+$$
+</div>
+**Reconstruction Loss**
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{recon}}=-\log p(x\mid z_q(x))
+$$
+</div>
+衡量重建损失，具体展开取决于 Decoder 的输出分布
+
+<p>常见的就是MSE</p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{recon}}=\|x-D(z_q(x))\|_2^2
+$$
+</div>
+**Codebook Loss**
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{codebook}}=\left\|\operatorname{sg}[z_e]-e_k\right\|_2^2
+$$
+</div>
+$z_e$ 被 Stop Gradient，所以只更新 $e_k$
+
+<p>目标是让 Codebook 中被选中的 embedding 向 Encoder 输出靠近</p>
+<p><strong>Commitment Loss</strong></p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{commit}}=\left\|z_e-\operatorname{sg}[e_k]
+\right\|_2^2
+$$
+</div>
+$e_k$ 被 Stop Gradient，所以只更新 $z_e$
+
+<p>Encoder 去追 Codebook Embedding</p>
+<p><strong>训练目标</strong></p>
+<table>
+<thead>
+<tr>
+<th>Loss</th>
+<th>Encoder</th>
+<th>Codebook</th>
+<th>Decoder</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Reconstruction Loss</td>
+<td>✓</td>
+<td>×</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Codebook Loss</td>
+<td>×</td>
+<td>✓</td>
+<td>×</td>
+</tr>
+<tr>
+<td>Commitment Loss</td>
+<td>✓</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Encoder 学习如何把输入映射到有用的离散表示</li>
+<li>Codebook 学习 embedding space</li>
+<li>Decoder 学习如何根据量化后的 latent 重建输入</li>
+</ul>
+<p>相比VAE，无需KL散度，因为潜空间不再连续</p>
+<h3 id="Prior"><a href="#Prior" class="headerlink" title="Prior"></a>Prior</h3><p>前面训练解决的是给定图片，如何得到离散 latent</p>
+<p>但生成时并没有输入 $x$ ，因此还需要学习离散 latent 的概率分布  $p(z)$</p>
+<p>VQ-VAE 采用 <strong>Two-Stage</strong> 的训练方式</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Stage 1</span><br><span class="line"></span><br><span class="line">训练 VQ-VAE</span><br><span class="line">Image ↔ Discrete Latent</span><br><span class="line"></span><br><span class="line">Stage 2</span><br><span class="line"></span><br><span class="line">固定已经训练好的 VQ-VAE</span><br><span class="line">↓</span><br><span class="line">收集离散 latent z</span><br><span class="line">↓</span><br><span class="line">学习真正的 Prior p(z)</span><br></pre></td></tr></table></figure>
+
+<p>feature map 中不同位置的 latent 并不是独立的，因此可以使用自回归模型学习</p>
+<div class="mathjax-display">
+$$
+p(z)=\prod_{i=1}^{N}p(z_i\mid z_1,\ldots,z_{i-1})
+$$
+</div>
+每一个 latent token 根据前面已经生成的 latent token 进行预测
+
+<p>论文中：</p>
+<ul>
+<li>图像使用 <strong>PixelCNN</strong></li>
+<li>Raw Audio 使用 <strong>WaveNet</strong></li>
+</ul>
+<p>在生成阶段其实就用不到Encoder了</p>
+<div class="mathjax-display">
+$$
+\text { PixelCNN prior } \rightarrow z_{1}, z_{2}, \ldots, z_{N} \rightarrow \text { Decoder } \rightarrow x
+$$
+</div>
+
+<h2 id="VQGAN"><a href="#VQGAN" class="headerlink" title="VQGAN"></a>VQGAN</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.09841">2012.09841] Taming Transformers for High-Resolution Image Synthesis</a></p>
+</blockquote>
+<p>核心：先使用 VQGAN 将图像压缩成由有限 Codebook 构成的离散视觉表示，再使用 Transformer 建模这些离散视觉 Token 的组合关系</p>
+<h4 id="Loss-1"><a href="#Loss-1" class="headerlink" title="Loss"></a>Loss</h4><p>继承 VQ-VAE 的量化训练方式</p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\mathrm{VQ}}(E,G,Z)
+=
+\|x-\hat x\|_2^2
++
+\|\operatorname{sg}[E(x)]-z_q\|_2^2
++
+\|\operatorname{sg}[z_q]-E(x)\|_2^2
+$$
+</div>
+
+<p>VQ-VAE 的 Reconstruction Loss 更关注像素级重建，但如果压缩率进一步提高，仅使用 Pixel-level Reconstruction Loss 容易导致图像纹理和细节的感知质量下降</p>
+<p>将原本的 $L_2$ Reconstruction Loss 替换成 Perceptual Loss（感知损失）</p>
+<hr>
+<p>额外引入一个  Patch 二分类判别器 $D$，关注图像局部 Patch 的真实性</p>
+<p>希望真实图 $D(x)$ 接近1，重建图 $D(\hat x)$ 接近0</p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\mathrm{GAN}}
+(\{E,G,Z\},D)
+=
+\log D(x)
++
+\log(1-D(\hat x))
+$$
+</div>
+将 VQ 重建目标与 GAN 目标形成对抗
+
+<p>最后完整目标：</p>
+<div class="mathjax-display">
+$$
+Q^*
+=
+\operatorname*{argmin}_{E,G,Z}
+\operatorname*{max}_{D}
+\mathbb E_{x\sim p(x)}
+\left[
+\mathcal L_{\mathrm{VQ}}(E,G,Z)
++
+\lambda
+\mathcal L_{\mathrm{GAN}}
+(\{E,G,Z\},D)
+\right]
+$$
+</div>
+$\lambda$ 用于平衡两组损失，根据两个 Loss 对 Decoder 最后一层产生的梯度，自适应调整 GAN Loss 的权重
+<div class="mathjax-display">
+$$
+\lambda=\frac{\nabla_{G_L}[\mathcal L_{\mathrm{rec}}]}{\nabla_{G_L}[\mathcal L_{\mathrm{GAN}}]+\delta}
+$$
+</div>
+VQ-VAE：Pixel Reconstruction → 重建容易偏平滑
+
+<p>VQGAN：Perceptual Loss + Patch-based GAN → 允许更强压缩</p>
+<h4 id="Prior-1"><a href="#Prior-1" class="headerlink" title="Prior"></a>Prior</h4><p>VQGAN 仍然采用和 VQ-VAE 类似的 Two-Stage 思路</p>
+<p>但第二阶段不再使用 PixelCNN 建模离散 latent，而是使用 Transformer</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/VQGAN_50kb.webp" style="zoom: 50%;" />
+<div class="mathjax-display">
+$$
+\mathcal L_{\text{Transformer}}=\mathbb E_{x\sim p(x)}[-\log p(s)]
+$$
+</div>
+
+<h1 id="扩散模型"><a href="#扩散模型" class="headerlink" title="扩散模型"></a>扩散模型</h1><h3 id="U-Net"><a href="#U-Net" class="headerlink" title="U-Net"></a>U-Net</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1505.04597">1505.04597] U-Net: Convolutional Networks for Biomedical Image Segmentation</a></p>
+</blockquote>
+<p>U-Net 是一种用于图像分割的 <strong>Encoder-Decoder</strong> 结构</p>
+<p>论文将网络分为：</p>
+<ul>
+<li>Contracting Path：收缩路径，对应 Encoder</li>
+<li>Expansive Path：扩张路径，对应 Decoder</li>
+</ul>
+<p>核心思想：收缩路径用于捕获上下文信息，扩张路径则用于恢复空间分辨率，从而实现精确的定位</p>
+<p>整体结构：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">[Encoder 1] ─────────────────────→ [Decoder 1]</span><br><span class="line">      │                               ▲</span><br><span class="line">      ▼                               │</span><br><span class="line">[Encoder 2] ───────────────→ [Decoder 2]</span><br><span class="line">      │                         ▲</span><br><span class="line">      ▼                         │</span><br><span class="line">[Encoder 3] ─────────→ [Decoder 3]</span><br><span class="line">      │                   ▲</span><br><span class="line">      ▼                   │</span><br><span class="line">        [ Bottleneck ]</span><br></pre></td></tr></table></figure>
+
+<p>Encoder 和 Decoder 对应层之间通过 Skip Connection 连接</p>
+<h4 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h4><p>逐渐降低空间分辨率，同时提取更高层的语义和上下文特征</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">3×3 Conv</span><br><span class="line">   │</span><br><span class="line"> ReLU</span><br><span class="line">   │</span><br><span class="line">3×3 Conv</span><br><span class="line">   │</span><br><span class="line"> ReLU</span><br><span class="line">   │</span><br><span class="line">2×2 Max Pool Stride = 2</span><br><span class="line">   │</span><br><span class="line">   ▼</span><br><span class="line">下一层</span><br></pre></td></tr></table></figure>
+
+<h4 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h4><p>将低分辨率的高级语义特征逐步恢复到高分辨率，并完成精确定位</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  Upsampling</span><br><span class="line">      │</span><br><span class="line">2×2 Up-Conv 通道数减半</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">与对应 Encoder 特征 Concat</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">  3×3 Conv</span><br><span class="line">      │</span><br><span class="line">     ReLU</span><br><span class="line">      │</span><br><span class="line">  3×3 Conv</span><br><span class="line">      │</span><br><span class="line">     ReLU</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">    下一层</span><br></pre></td></tr></table></figure>
+
+<h4 id="Skip-Connection"><a href="#Skip-Connection" class="headerlink" title="Skip Connection"></a>Skip Connection</h4><p>如果只使用普通 Encoder-Decoder</p>
+<p>在不断下采样过程中，精确的位置信息可能逐渐丢失</p>
+<p>因此 U-Net 把 Encoder 中的高分辨率特征直接送给 Decoder</p>
+<p>沿着 Channel 维拼接后通过 Conv 融合这些特征</p>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>原始 U-Net 用于图像分割</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Feature Map</span><br><span class="line">    │</span><br><span class="line">    ▼</span><br><span class="line">1×1 Conv</span><br><span class="line">    │</span><br><span class="line">    ▼</span><br><span class="line">Segmentation Map</span><br></pre></td></tr></table></figure>
+
+<p>将每一个像素位置上的特性向量映射到目标类别数</p>
+<h3 id="DDPM"><a href="#DDPM" class="headerlink" title="DDPM"></a>DDPM</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.11239">2006.11239] Denoising Diffusion Probabilistic Models</a></p>
+</blockquote>
+<p>DDPM 包含两个方向相反的 Markov Process</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Forward Process</span><br><span class="line">x₀ → x₁ → x₂ → ... → x_T ≈ N(0,I)</span><br><span class="line"></span><br><span class="line">Reverse Process</span><br><span class="line">x_T → x_&#123;T-1&#125; → ... → x₁ → x₀</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li><strong>Forward Process</strong>：人为定义的逐步加噪过程</li>
+<li><strong>Reverse Process</strong>：由神经网络学习，从 Gaussian Noise 逐步恢复数据</li>
+</ul>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/image-20260923195554651.png" alt="image-20260923195554651" style="zoom: 67%;" />
+
+<h4 id="Forward-Process"><a href="#Forward-Process" class="headerlink" title="Forward Process"></a>Forward Process</h4><p>每一步向数据加入少量 Gaussian Noise</p>
+<div class="mathjax-display">
+$$
+q(x_t|x_{t-1})=\mathcal N\left(x_t;\sqrt{1-\beta_t}x_{t-1},
+\beta_t I
+\right)
+$$
+</div>
+
+<ul>
+<li>$q$：人为定义的 Forward Process</li>
+<li>$\beta$：第 $t$ 步加入噪声的 variance schedule</li>
+</ul>
+<p>定义：</p>
+<div class="mathjax-display">
+$$
+\alpha_t = 1-\beta_t \qquad \bar\alpha_t=\prod_{s=1}^{t}\alpha_s
+$$
+</div>
+由于 Gaussian Distribution 的性质，<span style = "color:#7C6DB0">可以直接从 $x_0$ 得到任意 timestep 的 $x_t$</span>
+<div class="mathjax-display">
+$$
+q(x_t\mid x_0)=\mathcal N
+\left(
+\sqrt{\bar\alpha_t}x_0,
+(1-\bar\alpha_t)I
+\right)
+$$
+</div>
+通过重参数化：
+<div class="mathjax-display">
+$$
+\boxed{x_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon \qquad
+\varepsilon\sim\mathcal N(0,I)}
+$$
+</div>
+因此训练时可以直接随机采样到任一时间步的位置
+
+<p>训练阶段知道原始数据 $x_0$，因此 Forward Process 的一步反向可以解析求出，并且仍然是 Gaussian：</p>
+<div class="mathjax-display">
+$$
+q(x_{t-1}\mid x_t,x_0)=\mathcal N
+\left(
+x_{t-1};
+\tilde\mu_t(x_t,x_0),
+\tilde\beta_t I
+\right)
+$$
+</div>
+但是生成时无法已知，所以需要学习 Reverse Process
+
+<h4 id="Reverse-Process"><a href="#Reverse-Process" class="headerlink" title="Reverse Process"></a>Reverse Process</h4><p>逆过程希望学习：</p>
+<div class="mathjax-display">
+$$
+p_\theta(x_{t-1}\mid x_t)
+=
+\mathcal N
+\left(
+x_{t-1};
+\mu_\theta(x_t,t),
+\Sigma_\theta(x_t,t)
+\right)
+$$
+</div>
+原则上 Gaussian 有两个需要确定的部分
+
+<ul>
+<li>均值：$\mu_\theta(x_t,t)$</li>
+<li>协方差：$\sum_\theta(x_t,t)$</li>
+</ul>
+<p>但在论文里直接规定</p>
+<div class="mathjax-display">
+$$
+\Sigma_\theta(x_t,t)=\sigma_t^2I
+$$
+</div>
+明确 $\sigma_t^2$ 是随 $t$ 变化，但不参与训练的常数，因此问题简化为只需要学习 mean 
+
+<h4 id="Loss-2"><a href="#Loss-2" class="headerlink" title="Loss"></a>Loss</h4><p>在 variance 固定之后，对应的 KL term 可以写成：</p>
+<div class="mathjax-display">
+$$
+L_{t-1}
+=
+\mathbb E_q
+\left[
+\frac{1}{2\sigma_t^2}
+\left\|
+\tilde\mu_t(x_t,x_0)
+-
+\mu_\theta(x_t,t)
+\right\|^2
+\right]
++C
+$$
+</div>
+最直观的训练方式就是：
+<div class="mathjax-display">
+$$
+\mu_\theta(x_t,t)
+\approx
+\tilde\mu_t(x_t,x_0)
+$$
+</div>
+但是 DDPM 没有直接让网络预测 mean
+
+<p>通过将 mean 重新参数化为：</p>
+<div class="mathjax-display">
+$$
+\boxed{\mu_\theta(x_t,t)
+=
+\frac{1}{\sqrt{\alpha_t}}
+\left(
+x_t-
+\frac{\beta_t}
+{\sqrt{1-\bar\alpha_t}}
+\epsilon_\theta(x_t,t)
+\right)}
+$$
+</div>
+于是只需要预测噪声 $\varepsilon _\theta$
+<div class="mathjax-display">
+$$
+\boxed{
+\varepsilon_\theta
+\rightarrow
+\mu_\theta
+\rightarrow
+p_\theta(x_{t-1}\mid x_t)
+}
+$$
+</div>
+
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>来源</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$\varepsilon$</td>
+<td>Forward Process</td>
+<td>真正加到 $x_0$ 上的 Gaussian noise</td>
+</tr>
+<tr>
+<td>$\varepsilon_\theta(x_t,t)$</td>
+<td>U-Net</td>
+<td>网络预测出来的噪声</td>
+</tr>
+</tbody></table>
+<p>因此可以直接训练</p>
+<div class="mathjax-display">
+$$
+\epsilon_\theta(x_t,t)
+\approx
+\epsilon
+$$
+</div>
+最终采用训练 Loss：
+<div class="mathjax-display">
+$$
+\boxed{
+L_{\text{simple}}
+=
+\mathbb E
+\left[
+\|\varepsilon-\varepsilon_\theta(x_t,t)\|^2
+\right]
+}
+$$
+</div>
+DDPM 表面上训练的是 Noise Predictor，本质上是在学习 Reverse Process
+
+<h4 id="Timestep"><a href="#Timestep" class="headerlink" title="Timestep"></a>Timestep</h4><p>不同的 $t $ 对应不同的 Noise Level，但所有 timestep 共用同一个 U-Net 参数</p>
+<p>因此网络不仅需要输入 $x_t$ 还需要知道 $t$</p>
+<p>用 Transformer 的位置编码方式来编码 timestep</p>
+<h3 id="LDM"><a href="#LDM" class="headerlink" title="LDM"></a>LDM</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.10752">2112.10752] High-Resolution Image Synthesis with Latent Diffusion Models</a></p>
+</blockquote>
+<p>Latent Diffusion Model，<strong>潜空间扩散模型</strong></p>
+<p>Pixel-space Diffusion Model 直接在高维 RGB 图像上进行反复去噪，训练和采样都需要大量计算</p>
+<p>核心思想：使用 Autoencoder 将图像压缩到一个低维、感知上近似等价的 Latent Space，再在 Latent Space 中训练 Diffusion Model</p>
+<h4 id="感知压缩"><a href="#感知压缩" class="headerlink" title="感知压缩"></a>感知压缩</h4><p>目的是去掉高频、感知上不重要的信息，同时尽量保留图像的语义和视觉细节</p>
+<p>训练一个 Autoencoder：</p>
+<div class="mathjax-display">
+$$
+z=E(x)\\
+\tilde{x}=D(z)=D(E(x))
+$$
+</div>
+但也不能压缩的太狠，论文实验中 LDM-4 和 LDM-8 表现出了较好的效率和质量平衡
+
+<p>LDM 的第一阶段与 VQGAN 的 Perceptual Compression 思想非常接近</p>
+<h4 id="Latent-Diffusion"><a href="#Latent-Diffusion" class="headerlink" title="Latent Diffusion"></a>Latent Diffusion</h4><p>训练好 Encoder $E$ 和 Decoder $D$ 后，将它们固定</p>
+<p>不再对 Pixel $x$ 做 Diffusion，而是在 Latent $z$ 中执行</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z₀ → z₁ → z₂ → ... → z_T</span><br></pre></td></tr></table></figure>
+
+<p>与 DDPM 完全相同，可以写成</p>
+<div class="mathjax-display">
+$$
+\boxed{
+L_{\text{LDM}}
+=
+\mathbb E_{E(x),\varepsilon,t}
+\left[
+\left\|
+\varepsilon-
+\varepsilon_\theta(z_t,t)
+\right\|_2^2
+\right]
+}
+$$
+</div>
+
+<ul>
+<li>DDPM：预测 Pixel Space 中的噪声</li>
+<li>LDM：预测 Latent Space 中的噪声</li>
+</ul>
+<p>LDM 的 Diffusion Backbone 仍然采用 Time-Conditional U-Net</p>
+<h3 id="DiT"><a href="#DiT" class="headerlink" title="DiT"></a>DiT</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.09748">2212.09748] Scalable Diffusion Models with Transformers</a></p>
+</blockquote>
+<p>核心：用 Transformer 替换 Diffusion Model 中传统的 U-Net Backbone</p>
+<h4 id="Latent-Diffusion-1"><a href="#Latent-Diffusion-1" class="headerlink" title="Latent Diffusion"></a>Latent Diffusion</h4><p>DiT 并不是直接在高分辨率 Pixel Space 上运行 Transformer，而是建立在 LDM 框架之上</p>
+<p>先使用预训练 Autoencoder</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">256 × 256 × 3</span><br><span class="line"></span><br><span class="line">       ↓ Encoder</span><br><span class="line"></span><br><span class="line">Latent</span><br><span class="line">32 × 32 × 4</span><br></pre></td></tr></table></figure>
+
+<p>整个 Diffusion Process 都发生在这个 Latent Space</p>
+<p>可以理解为：</p>
+<ul>
+<li>LDM：Latent Diffusion + U-Net</li>
+<li>DiT：Latent Diffusion + Transformer</li>
+</ul>
+<p>Diffusion 数学过程基本没有发生变化</p>
+<h4 id="Patchify"><a href="#Patchify" class="headerlink" title="Patchify"></a>Patchify</h4><p>Latent $z_t$ 仍然是二维 Feature Map：</p>
+<p>Transformer 不能直接按照二维 Feature Map 的形式处理，所以与 ViT 类似，DiT 首先对 Latent 进行 Patchify</p>
+<p>假设 Patch Size 为</p>
+<div class="mathjax-display">
+$$
+p \times p
+$$
+</div>
+那么 Token 数量为：
+<div class="mathjax-display">
+$$
+\boxed{
+T=\left(\frac{I}{p}\right)^2
+}
+$$
+</div>
+每个 Patch 经过 Linear Projection，映射成一个 $d$ 维 token
+
+<p>对于位于二维网格坐标 $(x,y)$ 的 Patch，分别对 $x$ 和纵坐标 $y$ 使用不同频率的 sine &#x2F; cosine 函数进行编码</p>
+<p>单个坐标的位置编码形式与 sinusoidal positional encoding 类似</p>
+<div class="mathjax-display">
+$$
+PE_x(x)\in\mathbb{R}^{D/2},
+\qquad
+PE_y(y)\in\mathbb{R}^{D/2}
+$$
+</div>
+拼接得到最终位置编码
+<div class="mathjax-display">
+$$
+PE(x,y)\in\mathbb{R}^{D}
+$$
+</div>
+2D sine-cosine positional embedding 由固定数学公式生成，通常不作为模型参数参与训练
+
+<h4 id="DiT-Block"><a href="#DiT-Block" class="headerlink" title="DiT Block"></a>DiT Block</h4><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/2026/Snipaste_2026-09-26_22-12-13.webp" alt="Snipaste_2026-09-26_22-12-13" style="zoom: 50%;" />
+
+<p>基本结构是标准 Transformer，所以 DiT 没有 U-Net 的 Downsample → Bottleneck → Upsample，尺寸始终保持一致</p>
+<p>Diffusion Model 除了输入 Noisy Latent 还需要知道</p>
+<ul>
+<li>timestep $t$</li>
+<li>class label $y$</li>
+</ul>
+<p>论文比较了多种方法</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Condition</span><br><span class="line">   │</span><br><span class="line">   ├── In-Context Conditioning</span><br><span class="line">   │</span><br><span class="line">   ├── Cross-Attention</span><br><span class="line">   │</span><br><span class="line">   ├── adaLN</span><br><span class="line">   │</span><br><span class="line">   └── adaLN-Zero   ← 最终效果最好</span><br></pre></td></tr></table></figure>
+
+<p><strong>In-Context Conditioning</strong></p>
+<p>分别得到：</p>
+<div class="mathjax-display">
+$$
+e_t=\operatorname{Embed}(t),\qquad e_y=\operatorname{Embed}(y)
+$$
+</div>
+然后直接作为两个 Token
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens:</span><br><span class="line">[x₁, x₂, ..., xₙ]</span><br><span class="line"></span><br><span class="line">Condition Tokens:</span><br><span class="line">[e_t, e_y]</span><br><span class="line"></span><br><span class="line">拼接：</span><br><span class="line">[x₁, x₂, ..., xₙ, e_t, e_y]</span><br></pre></td></tr></table></figure>
+
+<p>最后一个 Transformer Block 后，再把Condition Tokens 删除</p>
+<p><strong>Cross-Attention</strong></p>
+<p>在 Self-Attention 后加入一个 Cross-Attention Layer</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens</span><br><span class="line">    ↓</span><br><span class="line">Self-Attention</span><br><span class="line">    ↓</span><br><span class="line">Cross-Attention ← [e_t, e_y]</span><br></pre></td></tr></table></figure>
+
+<p>这种方式与 LDM 中的思路比较类似</p>
+<p>但是额外的 Cross-Attention 会增加计算量</p>
+<h4 id="adaLN"><a href="#adaLN" class="headerlink" title="adaLN"></a>adaLN</h4><p>Adaptive Layer Normalization</p>
+<p>不把 $t$、$y$ 当作普通 token，而是利用它们去控制 LayerNorm</p>
+<div class="mathjax-display">
+$$
+c=e_t+e_y
+$$
+</div>
+然后由 Conditioning $c $ 预测 LayerNorm 的 Dimension-wise Scale 和 Shift
+<div class="mathjax-display">
+$$
+\gamma(c),\beta(c)
+$$
+</div>
+LayerNorm 的输出经过 scale 和 shift
+<div class="mathjax-display">
+$$
+\operatorname{adaLN}(x,c)=\gamma(c)\odot \operatorname{LN}(x)+
+\beta(c)
+$$
+</div>
+Condition 不作为 Token 参与 Attention，而是动态改变 Transformer 中归一化后的 Feature
+
+<p>相比 Cross-Attention，adaLN 引入的额外 Gflops(十亿次浮点运算) 最少</p>
+<h4 id="adaLN-Zero"><a href="#adaLN-Zero" class="headerlink" title="adaLN-Zero"></a>adaLN-Zero</h4><p>论文使用的不是普通 adaLN</p>
+<p>在 adaLN 的基础上继续加入一个可学习的 Scale</p>
+<p>初始化时：</p>
+<div class="mathjax-display">
+$$
+\alpha=0
+$$
+</div>
+因此
+<div class="mathjax-display">
+$$
+\operatorname{DiTBlock}(x)\approx x
+$$
+</div>
+每一个 DiT Block 初始化时近似 Identity Function
+
+<p>借鉴了 ResNet 和 Diffusion U-Net 中将 Residual Branch 初始化为零的思想，这种设计有利于深层网络训练</p>
+<p>后续工作基本全部采用 adaLN-Zero</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1222747289.html">https://yhblogs.cn/posts/1222747289.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related no-desc" href="/posts/1716427693.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89-Tokenizer"><span class="toc-number">1.</span> <span class="toc-text">视觉 Tokenizer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VAE"><span class="toc-number">1.1.</span> <span class="toc-text">VAE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQ-VAE"><span class="toc-number">1.2.</span> <span class="toc-text">VQ-VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector-Quantization"><span class="toc-number">1.2.1.</span> <span class="toc-text">Vector Quantization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Train"><span class="toc-number">1.2.2.</span> <span class="toc-text">Train</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss"><span class="toc-number">1.2.3.</span> <span class="toc-text">Loss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prior"><span class="toc-number">1.2.4.</span> <span class="toc-text">Prior</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQGAN"><span class="toc-number">1.3.</span> <span class="toc-text">VQGAN</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Loss-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Loss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Prior-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">Prior</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">扩散模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#U-Net"><span class="toc-number">2.1.</span> <span class="toc-text">U-Net</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Encoder"><span class="toc-number">2.1.1.</span> <span class="toc-text">Encoder</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Decoder"><span class="toc-number">2.1.2.</span> <span class="toc-text">Decoder</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Skip-Connection"><span class="toc-number">2.1.3.</span> <span class="toc-text">Skip Connection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%87%BA"><span class="toc-number">2.1.4.</span> <span class="toc-text">输出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DDPM"><span class="toc-number">2.2.</span> <span class="toc-text">DDPM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Forward-Process"><span class="toc-number">2.2.1.</span> <span class="toc-text">Forward Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reverse-Process"><span class="toc-number">2.2.2.</span> <span class="toc-text">Reverse Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Loss-2"><span class="toc-number">2.2.3.</span> <span class="toc-text">Loss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Timestep"><span class="toc-number">2.2.4.</span> <span class="toc-text">Timestep</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LDM"><span class="toc-number">2.3.</span> <span class="toc-text">LDM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.3.1.</span> <span class="toc-text">感知压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Latent-Diffusion"><span class="toc-number">2.3.2.</span> <span class="toc-text">Latent Diffusion</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DiT"><span class="toc-number">2.4.</span> <span class="toc-text">DiT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Latent-Diffusion-1"><span class="toc-number">2.4.1.</span> <span class="toc-text">Latent Diffusion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Patchify"><span class="toc-number">2.4.2.</span> <span class="toc-text">Patchify</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DiT-Block"><span class="toc-number">2.4.3.</span> <span class="toc-text">DiT Block</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adaLN"><span class="toc-number">2.4.4.</span> <span class="toc-text">adaLN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adaLN-Zero"><span class="toc-number">2.4.5.</span> <span class="toc-text">adaLN-Zero</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/js/vendor/twopeople1.js"></script><script src="/js/vendor/zdog.dist.js"></script><script id="rendered-js" src="/js/vendor/twopeople.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>

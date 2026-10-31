@@ -1,0 +1,1164 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大语言模型架构与注意力 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="TokenizerTokenizer 的作用是：将原始文本转换为模型可以处理的离散 Token ID 序列，并在生成后将 Token ID 重新解码为文本 常见切分方式：  Word-level Character-level Subword-level Byte-level  目前大多数大语言模型采用子词切分 Word-level Tokenization将文本按空格和标点符号分割成单词 英文中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大语言模型架构与注意力">
+<meta property="og:url" content="https://yhblogs.cn/posts/1812287226.html">
+<meta property="og:site_name" content="がんばろう">
+<meta property="og:description" content="TokenizerTokenizer 的作用是：将原始文本转换为模型可以处理的离散 Token ID 序列，并在生成后将 Token ID 重新解码为文本 常见切分方式：  Word-level Character-level Subword-level Byte-level  目前大多数大语言模型采用子词切分 Word-level Tokenization将文本按空格和标点符号分割成单词 英文中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp">
+<meta property="article:published_time" content="2026-07-16T13:57:57.000Z">
+<meta property="article:modified_time" content="2026-10-31T07:04:17.490Z">
+<meta property="article:author" content="今天睡够了吗">
+<meta property="article:tag" content="🍭AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "大语言模型架构与注意力",
+  "url": "https://yhblogs.cn/posts/1812287226.html",
+  "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp",
+  "datePublished": "2026-07-16T13:57:57.000Z",
+  "dateModified": "2026-10-31T07:04:17.490Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "今天睡够了吗",
+      "url": "https://yhblogs.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yhblogs.cn/posts/1812287226.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大语言模型架构与注意力',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/freecompress-wallhaven-m9k578.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">大语言模型架构与注意力</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">大语言模型架构与注意力</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-07-16T13:57:57.000Z" title="发表于 2026-07-16 21:57:57">2026-07-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="Tokenizer"><a href="#Tokenizer" class="headerlink" title="Tokenizer"></a>Tokenizer</h1><p>Tokenizer 的作用是：将原始文本转换为模型可以处理的离散 Token ID 序列，并在生成后将 Token ID 重新解码为文本</p>
+<p>常见切分方式：</p>
+<ul>
+<li>Word-level</li>
+<li>Character-level</li>
+<li>Subword-level</li>
+<li>Byte-level</li>
+</ul>
+<p>目前大多数大语言模型采用子词切分</p>
+<h2 id="Word-level-Tokenization"><a href="#Word-level-Tokenization" class="headerlink" title="Word-level Tokenization"></a>Word-level Tokenization</h2><p>将文本按空格和标点符号分割成单词</p>
+<p>英文中可以近似按照空格和标点切分，但中文、日文等语言通常需要额外的分词算法</p>
+<ul>
+<li>优点：简单直接；</li>
+<li>缺点：词表通常较大，单词形态变化会占用不同词表项，遇到词表外单词时只能映射为 <code>[UNK]</code></li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I love machine learning</span><br><span class="line">[&quot;I&quot;, &quot;love&quot;, &quot;machine&quot;, &quot;learning&quot;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Character-level-Tokenization"><a href="#Character-level-Tokenization" class="headerlink" title="Character-level Tokenization"></a>Character-level Tokenization</h2><p>将每个字符作为一个 Token</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line">[&quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>优点：</p>
+<ul>
+<li>词表很小；</li>
+<li>几乎不会出现未知 Token；</li>
+<li>对拼写错误、罕见单词较鲁棒。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>Token 序列明显变长；</li>
+<li>增加模型计算复杂度和训练时间。</li>
+</ul>
+<h2 id="Subword-Tokenization"><a href="#Subword-Tokenization" class="headerlink" title="Subword Tokenization"></a>Subword Tokenization</h2><p>现代 LLM 最常使用的方案</p>
+<ul>
+<li>高频词或高频片段保留为一个 Token</li>
+<li>低频词拆成多个较小的 Token</li>
+</ul>
+<p>常见方法包括 BPE、WordPiece 和 Unigram</p>
+<h3 id="BPE"><a href="#BPE" class="headerlink" title="BPE"></a>BPE</h3><p>BPE：Byte Pair Encoding</p>
+<p>核心思想：从较小的基本单位开始，不断合并训练语料中最常出现的相邻 Token Pair</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Initial Units</span><br><span class="line">    ↓</span><br><span class="line">统计相邻 Pair Frequency</span><br><span class="line">    ↓</span><br><span class="line">选择最高频 Pair</span><br><span class="line">    ↓</span><br><span class="line">Merge</span><br><span class="line">    ↓</span><br><span class="line">加入 Vocabulary</span><br><span class="line">    ↓</span><br><span class="line">重复</span><br></pre></td></tr></table></figure>
+
+<p>直到达到指定的 Vocabulary Size</p>
+<h3 id="WordPiece"><a href="#WordPiece" class="headerlink" title="WordPiece"></a>WordPiece</h3><p>和 BPE 很像，核心区别在于：</p>
+<ul>
+<li>BPE 主要根据 Pair Frequency 决定合并，</li>
+<li>WordPiece 更倾向选择能够提高训练语料语言建模效果的 Subword 合并</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">playing</span><br></pre></td></tr></table></figure>
+
+<p>可能被切成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">play</span><br><span class="line">##ing</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>##</code>表示当前 Subword 位于一个单词内部，而不是新单词开头</p>
+<h3 id="Unigram"><a href="#Unigram" class="headerlink" title="Unigram"></a>Unigram</h3><p>和 BPE 的思路相反</p>
+<p>从较大的候选 Vocabulary 开始，不断删除不重要 Token</p>
+<p>Unigram 会根据 Token 概率选择概率较高的切分</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>核心思想</th>
+<th>典型特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BPE</td>
+<td>反复合并高频 Pair</td>
+<td>简单、常见</td>
+</tr>
+<tr>
+<td>WordPiece</td>
+<td>根据训练目标选择 Subword</td>
+<td>BERT 中经典</td>
+</tr>
+<tr>
+<td>Unigram</td>
+<td>从大词表逐步删除 Token</td>
+<td>可以考虑多种切分方案</td>
+</tr>
+</tbody></table>
+<h1 id="现代大模型核心组件"><a href="#现代大模型核心组件" class="headerlink" title="现代大模型核心组件"></a>现代大模型核心组件</h1><p>现代大模型通常会在原始 Transformer 上采用一组工程化改进</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RMSNorm</td>
+<td>简化归一化计算并稳定激活尺度</td>
+</tr>
+<tr>
+<td>SwiGLU</td>
+<td>使用门控结构增强 FFN 表达能力</td>
+</tr>
+<tr>
+<td>RoPE</td>
+<td>旋转 Q&#x2F;K，使注意力分数包含相对位置关系</td>
+</tr>
+<tr>
+<td>MoE</td>
+<td>通过稀疏激活扩大模型参数容量</td>
+</tr>
+</tbody></table>
+<h2 id="RMSNorm"><a href="#RMSNorm" class="headerlink" title="RMSNorm"></a>RMSNorm</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1910.07467">1910.07467] Root Mean Square Layer Normalization</a></p>
+</blockquote>
+<p>LayerNorm：</p>
+<div class="mathjax-display">
+$$
+\operatorname{LayerNorm}(x)
+=
+\gamma
+\frac{x-\mu}
+{\sqrt{\sigma^2+\epsilon}}
++
+\beta
+$$
+</div>
+RMSNorm 可以看作 LayerNorm 的简化版本：
+<div class="mathjax-display">
+$$
+\operatorname{RMSNorm}(x)=\gamma\odot\frac{x}{\sqrt{\frac{1}{d}\sum_{i=1}^{d}x_i^2+\epsilon}}
+$$
+</div>
+
+<p>相比 LayerNorm，RMSNorm：</p>
+<ul>
+<li>减少了均值计算和相关运算；</li>
+<li>保留输入的整体方向信息；</li>
+<li>对输入的正比例缩放具有不变性；</li>
+<li>在许多模型中能以更低计算成本取得与 LayerNorm 相近的效果</li>
+</ul>
+<p>RMSNorm 已被 Llama、Mistral、Qwen、Gemma 等许多现代 Decoder-only LLM 广泛采用</p>
+<h2 id="SwiGLU"><a href="#SwiGLU" class="headerlink" title="SwiGLU"></a>SwiGLU</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.05202">2002.05202] GLU Variants Improve Transformer</a></p>
+</blockquote>
+<p>传统 Transformer FFN 通常写成：</p>
+<div class="mathjax-display">
+$$
+\operatorname{FFN}(x)=W_2\phi(W_1x+b_1)+b_2
+$$
+</div>
+普通 FFN 只有一条升维分支
+
+<p>SwiGLU加入门控，使用两条分支</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">           +--&gt; ---------内容分支 ----------+</span><br><span class="line">           |                              |</span><br><span class="line">输入 x ----+                               * --&gt; 降维 --&gt; 输出</span><br><span class="line">           |                              |</span><br><span class="line">           +--&gt; 门控分支 --&gt; 激活函数 -------+</span><br></pre></td></tr></table></figure>
+
+<p>一条分支产生内容，一条分支决定这些内容应该保留、放大还是抑制</p>
+<p>标准 GLU：</p>
+<div class="mathjax-display">
+$$
+\operatorname{GLU}(x)=(W_v x+b_v)\odot\sigma(W_g x+b_g)
+$$
+</div>
+SwiGLU 将门控分支中的激活函数换成 SiLU：
+<div class="mathjax-display">
+$$
+\operatorname{SwiGLU}(x)=\operatorname{SiLU}(W_g x)\odot(W_u x)
+$$
+</div>
+
+<h2 id="混合专家结构-MoE"><a href="#混合专家结构-MoE" class="headerlink" title="混合专家结构 MoE"></a>混合专家结构 MoE</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.03961">2101.03961] Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity</a></p>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.06066">2401.06066] DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models</a></p>
+</blockquote>
+<p>在普通稠密 Transformer 中，每个 Token 都经过同一个 FFN</p>
+<p>主要问题：</p>
+<ul>
+<li>所有 Token 使用相同参数；</li>
+<li>增大 FFN 参数量时，每个 Token 的计算量同步增加；</li>
+<li>总参数量与单 Token 计算量紧密绑定。</li>
+</ul>
+<p>MoE 的目标是：增加模型总参数容量，但每个 Token 只激活其中少量专家，使总参数量大幅增长，而单 Token 计算量不按相同比例增长。</p>
+<p>可以把 Transformer 粗略理解为：Attention 做跨 Token 的信息混合，FFN 做 Token 内的通道&#x2F;特征变换</p>
+<p>因此 FFN 很适合进行专家化</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">输入 Token x</span><br><span class="line">      ↓</span><br><span class="line">    Router</span><br><span class="line">      |</span><br><span class="line">      +--------&gt; Expert 1</span><br><span class="line">      +--------&gt; Expert 2</span><br><span class="line">      +--------&gt; Expert 3</span><br><span class="line">      |</span><br><span class="line">      ...</span><br><span class="line">      |</span><br><span class="line">      +--------&gt; Expert N</span><br><span class="line">      ↓</span><br><span class="line">Router 选择 Top-K Experts</span><br><span class="line">      ↓</span><br><span class="line">专家输出加权求和</span><br></pre></td></tr></table></figure>
+
+<p>Router 通常是一个较小的线性层：</p>
+<div class="mathjax-display">
+$$
+z=W_rx,
+\qquad
+W_r\in\mathbb{R}^{E\times d}
+$$
+</div>
+其中 $z$ 包含每个专家的路由分数，再根据具体模型使用 Softmax、Sigmoid 或其他方式选择 Top-K
+
+<p>第 $i$ 个专家可以写成：</p>
+<div class="mathjax-display">
+$$
+E_i(x)
+=
+W_{\mathrm{down},i}
+\left[
+\operatorname{SiLU}(W_{\mathrm{gate},i}x)
+\odot
+(W_{\mathrm{up},i}x)
+\right]
+\qquad \text{SiLU} = x\sigma(x) 
+$$
+</div>
+最终输出：
+<div class="mathjax-display">
+$$
+y(x)
+=
+\sum_{i\in\operatorname{TopK}(g(x))}
+p_i(x)E_i(x)
+$$
+</div>
+一个 Token 可以经过：
+
+<ol>
+<li>始终启用的 <strong>Shared Expert，共享专家</strong>（非必须）</li>
+<li>Router 选择的 <strong>Routed Expert，路由专家</strong></li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">                    +--&gt; Router --&gt; Routed FFN Experts --+</span><br><span class="line">x --&gt; RMSNorm ------+                                    +--&gt; 相加</span><br><span class="line">                    +--&gt; Shared FFN Experts -------------+</span><br></pre></td></tr></table></figure>
+
+<p>忽略残差连接时：</p>
+<div class="mathjax-display">
+$$
+y(x)
+=
+\sum_{j=1}^{N_s}E_j^{\mathrm{shared}}(x)
++
+\sum_{i\in\operatorname{TopK}(g(x))}
+p_i(x)E_i^{\mathrm{routed}}(x)
+$$
+</div>
+DeepSeekMoE 将这种设计称为 Shared Expert Isolation，共享专家隔离
+
+<p>MoE 的主要训练问题是：路由不均衡，热门专家可能过载，而冷门专家得不到充分训练</p>
+<h2 id="旋转位置编码-RoPE"><a href="#旋转位置编码-RoPE" class="headerlink" title="旋转位置编码 RoPE"></a>旋转位置编码 RoPE</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.09864">2104.09864] RoFormer: Enhanced Transformer with Rotary Position Embedding</a></p>
+</blockquote>
+<p>位置编码的目标是让 Attention 感知 Token 顺序和位置关系</p>
+<p>RoPE 不把位置向量直接加到 Token 表示上，而是根据 Token 的位置，对 Query 和 Key 的二维子空间进行旋转</p>
+<p>假设 Query 中有两个维度，RoPE 根据位置 $m$，将它旋转 $m\theta$</p>
+<div class="mathjax-display">
+$$
+R_{m,\theta}=\begin{bmatrix}\cos(m\theta)&amp;-\sin(m\theta)\\\sin(m\theta)&amp;\cos(m\theta)\end{bmatrix}
+$$
+</div>
+旋转后的 Query：
+<div class="mathjax-display">
+$$
+\widetilde q_m
+=
+R_{m,\theta}q_m
+$$
+</div>
+位置 $n$ 的 Key：
+<div class="mathjax-display">
+$$
+\widetilde k_n
+=
+R_{n,\theta}k_n
+$$
+</div>
+二维旋转矩阵是正交矩阵，因此 RoPE 改变向量方向和相位，但不改变其欧氏范数
+
+<p>利用：</p>
+<div class="mathjax-display">
+$$
+R_m^\top R_n
+=
+R_{n-m}
+$$
+</div>
+得到：
+<div class="mathjax-display">
+$$
+\boxed{\widetilde q_m^\top
+\widetilde k_n
+=
+q_m^\top
+R_{n-m}
+k_n}
+$$
+</div>
+这意味着 RoPE  之后的 Attention 内积自然包含相对位置  $n-m$
+
+<p>实际 Query &#x2F; Key 是 $d_h$ 维，RoPE 会把相邻维度两两分组</p>
+<div class="mathjax-display">
+$$
+(q_0,q_1),
+\quad
+(q_2,q_3),
+\quad
+\dots,
+\quad
+(q_{d_h-2},q_{d_h-1})
+$$
+</div>
+
+<blockquote>
+<p>省略了位置下标，其实应该是 $(q_{m,2i},q_{m,2i+1})$</p>
+</blockquote>
+<p>第 $i$ 个二维分组的常见频率：</p>
+<div class="mathjax-display">
+$$
+\theta_i
+=
+10000^{-\frac{2i}{d_h}},
+\qquad
+i=0,1,\dots,\frac{d_h}{2}-1
+$$
+</div>
+不同频率承担不同尺度的位置表示：
+
+<ul>
+<li>高频维度：相邻位置相位变化明显，提供较细的位置分辨率；</li>
+<li>低频维度：相位变化较慢，更适合表达较长距离关系。</li>
+</ul>
+<p>可以类比：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">高频 → 秒针</span><br><span class="line">中频 → 分针</span><br><span class="line">低频 → 时针</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Attention 分数自然包含相对位置关系</td>
+<td><font color='DarkViolet'>超出训练长度时外推性能下降</font></td>
+</tr>
+<tr>
+<td>不引入额外可学习位置参数</td>
+<td>不同位置可能产生相似的组合相位</td>
+</tr>
+<tr>
+<td>只需旋转 Q、K，计算简单</td>
+<td>长序列下可能出现相位混叠</td>
+</tr>
+<tr>
+<td>保持旋转部分的欧氏范数</td>
+<td>更偏向相对位置表示</td>
+</tr>
+<tr>
+<td>兼容 MHA、MQA、GQA 等标准点积注意力</td>
+<td>与 MLA 的低秩矩阵吸收存在结构冲突</td>
+</tr>
+</tbody></table>
+<h1 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h1><p>不同注意力结构的核心区别之一，是如何保存和访问历史信息</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>历史信息组织方式</th>
+<th>缓存特点</th>
+<th>核心目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MHA</td>
+<td>每个 Query 头独立使用 K&#x2F;V</td>
+<td>最大</td>
+<td>保留完整多头表达能力</td>
+</tr>
+<tr>
+<td>MQA</td>
+<td>所有 Query 头共享一组 K&#x2F;V</td>
+<td>最小</td>
+<td>最大程度降低 KV Cache</td>
+</tr>
+<tr>
+<td>GQA</td>
+<td>每组 Query 头共享一组 K&#x2F;V</td>
+<td>中等</td>
+<td>折中表达能力与缓存</td>
+</tr>
+<tr>
+<td>MLA</td>
+<td>每个 token 保存压缩 KV 潜变量</td>
+<td>显著小于 MHA</td>
+<td>低秩压缩并保留多头表达</td>
+</tr>
+<tr>
+<td>线性注意力</td>
+<td>全部历史压缩为固定状态</td>
+<td>不随序列长度增长</td>
+<td>同时降低计算量和缓存量</td>
+</tr>
+</tbody></table>
+<p>可以把结构优化大致分成两条路线：</p>
+<table>
+<thead>
+<tr>
+<th align="left">模型结构路线</th>
+<th align="left">代表方法</th>
+<th align="left">主要目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Token KV 压缩</td>
+<td align="left">MQA、GQA、MLA</td>
+<td align="left">保留 Softmax 检索并减少 KV Cache</td>
+</tr>
+<tr>
+<td align="left">固定状态压缩</td>
+<td align="left">线性注意力、GLA</td>
+<td align="left">同时降低序列计算量和缓存量</td>
+</tr>
+</tbody></table>
+<p>FlashAttention 属于计算实现优化，主要减少中间张量存储和 HBM IO</p>
+<h2 id="标准多头注意力-MHA"><a href="#标准多头注意力-MHA" class="headerlink" title="标准多头注意力 MHA"></a>标准多头注意力 MHA</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">1706.03762] Attention Is All You Need</a></p>
+</blockquote>
+<p>标准 MHA 对第 $t$ 个 Token 的 Query、Key、Value 拆分为多个 Head：</p>
+<div class="mathjax-display">
+$$
+q_t=[q_{t,1};\ldots;q_{t,n_h}],\qquad k_t=[k_{t,1};\ldots;k_{t,n_h}],\qquad v_t=[v_{t,1};\ldots;v_{t,n_h}]
+$$
+</div>
+每个 Head 独立执行：
+<div class="mathjax-display">
+$$
+o_{t,i}=\sum_{j=1}^{t}\operatorname{softmax}_j\left(\frac{q_{t,i}^{\top}k_{j,i}}{\sqrt{d_h}}\right)v_{j,i}
+$$
+</div>
+自回归生成时，每生成一个新 Token，都需要让当前 Query 与全部历史 Key 计算相似度，并读取相应的 Value
+
+<p>因此所有历史 Token 的 $(K,V)$ 都必须保存在 KV Cache 中</p>
+<p>如果：</p>
+<ul>
+<li>Transformer 层数为 $L$</li>
+<li>Context Length 为 $T$</li>
+<li>KV Head 数为 $H_{KV}$</li>
+<li>Head Dimension 为 $d_h$</li>
+<li>每个元素占 $b$ Bytes</li>
+</ul>
+<p>单条 Sequence 的 KV Cache 约为：</p>
+<div class="mathjax-display">
+$$
+M_{\mathrm{KV}}=2LTH_{KV}d_hb
+$$
+</div>
+前面的 $2$ 表示 Key 和 Value
+
+<p>因此长上下文、大 Batch 推理时，KV Cache 会占用大量显存和显存带宽</p>
+<h2 id="MQA"><a href="#MQA" class="headerlink" title="MQA"></a>MQA</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.02150">1911.02150] Fast Transformer Decoding: One Write-Head is All You Need</a></p>
+</blockquote>
+<p>保留多个 Query Head，但所有 Query Head 共享同一组 Key 和 Value</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Q1 ─┐</span><br><span class="line">Q2 ─┤</span><br><span class="line">Q3 ─┤</span><br><span class="line">Q4 ─┤</span><br><span class="line">Q5 ─┤──&gt; K1, V1</span><br><span class="line">Q6 ─┤</span><br><span class="line">Q7 ─┤</span><br><span class="line">Q8 ─┘</span><br></pre></td></tr></table></figure>
+
+<p>显著减少自回归推理时 KV Cache 的大小和 HBM 访存，从而提高 Decode 吞吐</p>
+<p>假设：</p>
+<ul>
+<li>Batch Size：$B$</li>
+<li>Sequence Length：$L$</li>
+<li>Attention Heads：$H$</li>
+<li>Head Dimension：$d_h$</li>
+</ul>
+<p>MHA 中  KV Cache大小为</p>
+<div class="mathjax-display">
+$$
+2BLHd_h
+$$
+</div>
+MQA 只有 1 个 KV Head
+<div class="mathjax-display">
+$$
+2BLd_h
+$$
+</div>
+但共享程度较高，也可能限制不同注意力头表达不同类型的信息
+
+<h2 id="GQA"><a href="#GQA" class="headerlink" title="GQA"></a>GQA</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.13245">2305.13245] GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints</a></p>
+</blockquote>
+<p>GQA不改变注意力本身公式，但 Query Head 数量和 Key &#x2F; Value Head 数量不再要求相同</p>
+<p>多个 Query Head 被划分成若干组，每组共享一个 Key Head 和一个 Value Head。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">MHA</span><br><span class="line">Q1 → K1,V1</span><br><span class="line">Q2 → K2,V2</span><br><span class="line">Q3 → K3,V3</span><br><span class="line">Q4 → K4,V4</span><br><span class="line"></span><br><span class="line">MQA</span><br><span class="line">Q1 ─┐</span><br><span class="line">Q2 ─┤</span><br><span class="line">Q3 ─┤→ K1,V1</span><br><span class="line">Q4 ─┘</span><br><span class="line"></span><br><span class="line">GQA</span><br><span class="line">Q1 ─┐</span><br><span class="line">Q2 ─┤→ K1,V1</span><br><span class="line">Q3 ─┐</span><br><span class="line">Q4 ─┤→ K2,V2</span><br></pre></td></tr></table></figure>
+
+<p>每个 KV Head 对应的 Query Head 数量：</p>
+<div class="mathjax-display">
+$$
+G=\frac{H_Q}{H_{KV}}
+$$
+</div>
+GQA 可以理解成 MHA 与 MQA 的折中：
+
+<ul>
+<li>MHA：KV Head 最多，表达能力完整，但 KV Cache 最大；</li>
+<li>MQA：只保留一组 KV，缓存最小，但共享程度最高；</li>
+<li>GQA：多个 Query Head 分组共享 KV，在表达能力与缓存开销之间折中。</li>
+</ul>
+<h2 id="多头潜在注意力-MLA"><a href="#多头潜在注意力-MLA" class="headerlink" title="多头潜在注意力 MLA"></a>多头潜在注意力 MLA</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.04434">2405.04434] DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model</a></p>
+</blockquote>
+<p>核心思路：不直接缓存完整的 Multi-Head Key &#x2F; Value，先把隐藏状态压缩到一个低维的共享 KV Latent，再在计算 Attention 时恢复需要的 Key 和 Value</p>
+<blockquote>
+<p>类似 LDM 的思路，将高维表示压缩到低维潜在空间，在保留任务所需信息的前提下降低计算或存储成本</p>
+</blockquote>
+<h3 id="KV-低秩压缩"><a href="#KV-低秩压缩" class="headerlink" title="KV 低秩压缩"></a>KV 低秩压缩</h3><p> 对于第 $t$ 个 Token 的隐藏状态</p>
+<div class="mathjax-display">
+$$
+h_t\in\mathbb R^d
+$$
+</div>
+会直接通过两个大的线性投影得到 Key 和 Value
+<div class="mathjax-display">
+$$
+k_t=W_Kh_t,\qquad v_t=W_Vh_t
+$$
+</div>
+其中
+<div class="mathjax-display">
+$$
+W_K,W_V\in\mathbb R^{n_hd_h\times d}
+$$
+</div>
+MLA 先通过一个 Down Projection
+<div class="mathjax-display">
+$$
+c_t^{KV}
+=
+W^{DKV}h_t \in\mathbb R^{d_c}\qquad 
+W^{DKV}\in\mathbb R^{d_c\times d}
+$$
+</div>
+得到的 $c_t^{KV}$ 称为 KV Latent
+
+<p>然后分别通过两个 Up Projection 恢复 Content Key 和 Content Value</p>
+<div class="mathjax-display">
+$$
+k_t^C=W^{UK}c_t^{KV},
+\qquad
+v_t^C=W^{UV}c_t^{KV}
+\qquad W^{UK},W^{UV}
+\in
+\mathbb R^{n_hd_h\times d_c}
+$$
+</div>
+整体过程
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">          h_t</span><br><span class="line">           │</span><br><span class="line">         W_DKV</span><br><span class="line">           │</span><br><span class="line">           ▼</span><br><span class="line">        c_t^KV</span><br><span class="line">       KV Latent</span><br><span class="line">       /       \</span><br><span class="line">    W_UK       W_UV</span><br><span class="line">      ↓           ↓</span><br><span class="line">Content Key   Content Value</span><br></pre></td></tr></table></figure>
+
+<p>可以将它理解为对原来的 $K&#x2F;V$ 投影进行低秩分解：</p>
+<div class="mathjax-display">
+$$
+W_K=W^{UK}W^{DKV},
+\qquad
+W_V=W^{UV}W^{DKV}
+$$
+</div>
+
+<div class="mathjax-display">
+$$
+\operatorname{rank}
+\left(
+W^{UK}W^{DKV}
+\right)
+\le d_c
+$$
+</div>
+
+<p>利用一个低维 Bottleneck代替原来的直接高维映射</p>
+<blockquote>
+<p>这与 LoRA 在数学思路上非常类似，都利用低维 Bottleneck，将一个大的矩阵映射表示成两个小矩阵的乘积</p>
+</blockquote>
+<h3 id="Query-低秩压缩"><a href="#Query-低秩压缩" class="headerlink" title="Query 低秩压缩"></a>Query 低秩压缩</h3><p>KV 压缩是 MLA 降低 KV Cache 的核心</p>
+<p>Query 并不必须压缩，因为 Query 只在当前计算步骤使用，不需要作为历史缓存长期保存</p>
+<p>DeepSeek-V2 进一步对 Query 投影进行低秩分解</p>
+<div class="mathjax-display">
+$$
+c_t^Q=W^{DQ}h_t \qquad W^{DQ}
+\in
+\mathbb R^{d_c'\times d}
+$$
+</div>
+从 Query 潜变量生成 Content Query：
+<div class="mathjax-display">
+$$
+q_t^C=W^{UQ}c_t^Q \qquad W^{UQ}
+\in
+\mathbb R^{n_hd_h\times d_c'}
+$$
+</div>
+投影完成后切分多个 Head：
+<div class="mathjax-display">
+$$
+q_t^C
+=
+\left[
+q_{t,1}^C;
+\ldots;
+q_{t,n_h}^C
+\right]
+$$
+</div>
+
+<h3 id="解耦-RoPE"><a href="#解耦-RoPE" class="headerlink" title="解耦 RoPE"></a>解耦 RoPE</h3><p>Content Key 的 Up Projection 可以通过矩阵结合律吸收到 Query 一侧</p>
+<div class="mathjax-display">
+$$
+(q_{t,i}^C)^\top W_i^{UK}c_j^{KV}
+=
+\left((W_i^{UK})^\top q_{t,i}^C\right)^\top c_j^{KV}
+$$
+</div>
+因此推理时可以直接让 Query 与缓存的低维  $c_j^{KV}$ 计算，而不需要为所有历史 Token 显式恢复完整 Key
+
+<p>但如果直接对恢复后的 Content Key 应用 RoPE</p>
+<p>那么 Attention 中会出现</p>
+<div class="mathjax-display">
+$$
+q_t^\top R_jW^{UK}c_j^{KV}
+$$
+</div>
+$R_j$ 是与第 $j$ 个 Token 的位置有关的 RoPE 旋转矩阵
+
+<p>问题在于由于 $R_j$ 随位置变化，无法简单将 $W^{UK}$ 吸收到 Query 一侧</p>
+<p>这样就会破坏 MLA 只缓存低维 KV Latent 的优势</p>
+<p>MLA 将 Query 和 Key 拆分为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Query</span><br><span class="line">├── Content Query</span><br><span class="line">└── RoPE Query</span><br><span class="line"></span><br><span class="line">Key</span><br><span class="line">├── Content Key</span><br><span class="line">└── RoPE Key</span><br></pre></td></tr></table></figure>
+
+<p><strong>Content 部分负责语义匹配，RoPE 部分单独负责位置信息</strong></p>
+<h4 id="Content-部分"><a href="#Content-部分" class="headerlink" title="Content 部分"></a>Content 部分</h4><div class="mathjax-display">
+$$
+q_t^C=W^{UQ}c_t^Q\qquad k_t^C=W^{UK}c_t^{KV}
+$$
+</div>
+
+<p>并进一步按照 Attention Head 切分</p>
+<div class="mathjax-display">
+$$
+[q_{t,1}^C;\ldots;q_{t,n_h}^C]\qquad [k_{t,1}^C;\ldots;k_{t,n_h}^C]
+$$
+</div>
+Content 部分不直接应用 RoPE，因此仍然可以进行矩阵吸收
+
+<h4 id="RoPE-部分"><a href="#RoPE-部分" class="headerlink" title="RoPE 部分"></a>RoPE 部分</h4><p>位置 Query 单独生成</p>
+<div class="mathjax-display">
+$$
+q_t^R
+=
+\operatorname{RoPE}_t
+\left(
+W^{QR}c_t^Q
+\right)
+$$
+</div>
+并按照多个 Attention Head 得到对应的位置 Query
+<div class="mathjax-display">
+$$
+[q_{t,1}^R;\ldots;q_{t,n_h}^R]
+$$
+</div>
+位置 Key 则直接从隐藏状态生成
+<div class="mathjax-display">
+$$
+k_t^R
+=
+\operatorname{RoPE}_t
+\left(
+W^{KR}h_t
+\right)
+$$
+</div>
+其中 $k_t^R$ 可以在多个 Attention Head 之间共享
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">                    h_t</span><br><span class="line">                 /       \</span><br><span class="line">                /         \</span><br><span class="line">             W_DQ         W_DKV</span><br><span class="line">               ↓             ↓</span><br><span class="line">             c_t^Q         c_t^KV</span><br><span class="line">            /     \         /   \</span><br><span class="line">         W_UQ    W_QR    W_UK  W_UV</span><br><span class="line">           ↓       ↓       ↓      ↓</span><br><span class="line">          Q^C     RoPE    K^C    V^C</span><br><span class="line">                   ↓</span><br><span class="line">                  Q^R</span><br><span class="line"></span><br><span class="line">h_t</span><br><span class="line"> ↓</span><br><span class="line">W_KR</span><br><span class="line"> ↓</span><br><span class="line">RoPE</span><br><span class="line"> ↓</span><br><span class="line">K^R</span><br></pre></td></tr></table></figure>
+
+<p>第 $i$ 个注意力头实际使用：</p>
+<div class="mathjax-display">
+$$
+q_{t,i}
+=
+\left[
+q_{t,i}^C;
+q_{t,i}^R
+\right],
+\qquad
+k_{j,i}
+=
+\left[
+k_{j,i}^C;
+k_j^R
+\right]
+$$
+</div>
+内积可以自然拆成两项
+<div class="mathjax-display">
+$$
+\boxed{
+q_{t,i}^{\top}k_{j,i}
+=
+\left(q_{t,i}^C\right)^\top k_{j,i}^C
++
+\left(q_{t,i}^R\right)^\top k_j^R
+}
+$$
+</div>
+两项分别承担：
+
+<ul>
+<li>Content Matching</li>
+<li>Position Matching</li>
+</ul>
+<h2 id="线性注意力"><a href="#线性注意力" class="headerlink" title="线性注意力"></a>线性注意力</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.16236">2006.16236] Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention</a></p>
+</blockquote>
+<p>线性注意力和 MQA &#x2F; GQA &#x2F; MLA 不属于同一种压缩思路</p>
+<ul>
+<li><strong>MQA &#x2F; GQA &#x2F; MLA</strong>：减少每个 Token 需要保存的 KV 信息量，但历史 Token 仍然分别存在，因此缓存大小仍然随序列长度增长</li>
+<li><strong>Linear Attention</strong>：不再保存每个历史 Token 的独立 (K,V)，而是不断把历史信息累积进一个固定大小的状态（state）</li>
+</ul>
+<h3 id="改变计算顺序"><a href="#改变计算顺序" class="headerlink" title="改变计算顺序"></a>改变计算顺序</h3><p>线性注意力要求相似度函数可以写成</p>
+<div class="mathjax-display">
+$$
+\operatorname{sim}(q,k)
+=
+\phi(q)^\top\phi(k)
+$$
+</div>
+其中
+<div class="mathjax-display">
+$$
+\phi:\mathbb R^{d_k}\rightarrow\mathbb R^m
+$$
+</div>
+先分别对 Query 和 Key 做一个特征映射，然后相似度直接写成二者的内积
+
+<p>代入 Attention</p>
+<div class="mathjax-display">
+$$
+y_t
+=
+\frac{
+\sum_{i=1}^{t}
+\phi(q_t)^\top\phi(k_i)v_i
+}{
+\sum_{i=1}^{t}
+\phi(q_t)^\top\phi(k_i)
+}
+$$
+</div>
+因为对于固定的 $t$，$\phi(q_t)$ 与求和下标 $i$ 无关，所以可以提到求和外面
+<div class="mathjax-display">
+$$
+y_t
+=
+\frac{
+\phi(q_t)^\top
+\left(
+\sum_{i=1}^{t}
+\phi(k_i)v_i^\top
+\right)
+}{
+\phi(q_t)^\top
+\left(
+\sum_{i=1}^{t}
+\phi(k_i)
+\right)
+}
+$$
+</div>
+**利用矩阵乘法结合律，把“Query 分别和所有历史 Key 计算改成先把历史 Key-Value 汇总起来**
+
+<p>定义：</p>
+<div class="mathjax-display">
+$$
+S_t
+=
+\sum_{i=1}^{t}
+\phi(k_i)v_i^\top\qquad 
+z_t
+=
+\sum_{i=1}^{t}\phi(k_i)
+$$
+</div>
+那么 Attention 输出就变成
+<div class="mathjax-display">
+$$
+y_t
+=
+\frac{
+\phi(q_t)^\top S_t
+}{
+\phi(q_t)^\top z_t
+}
+$$
+</div>
+$S_t$ 和 $z_t$ 的大小不随序列长度 $t$ 增长
+
+<p>历史最终都被压缩进</p>
+<div class="mathjax-display">
+$$
+S_t\in\mathbb R^{m\times d_v}
+\qquad
+z_t\in\mathbb R^m
+$$
+</div>
+复杂度约为
+<div class="mathjax-display">
+$$
+O(Nd^2)
+$$
+</div>
+
+<h3 id="递归更新"><a href="#递归更新" class="headerlink" title="递归更新"></a>递归更新</h3><div class="mathjax-display">
+$$
+q'_t=\phi(q_t),
+\qquad
+k'_t=\phi(k_t)
+$$
+</div>
+
+<p>状态更新：</p>
+<div class="mathjax-display">
+$$
+S_t=S_{t-1}+k'_tv_t^\top\\
+z_t=z_{t-1}+k'_t
+$$
+</div>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">当前 Token x_t</span><br><span class="line">      │</span><br><span class="line">      ├──&gt; q_t</span><br><span class="line">      ├──&gt; k_t</span><br><span class="line">      └──&gt; v_t</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">历史状态 S_&#123;t-1&#125;, z_&#123;t-1&#125;</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">S_t = S_&#123;t-1&#125; + φ(k_t)v_t^T</span><br><span class="line">z_t = z_&#123;t-1&#125; + φ(k_t)</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">        用 q_t 读取状态</span><br><span class="line">             │</span><br><span class="line">             ▼</span><br><span class="line">            y_t</span><br></pre></td></tr></table></figure>
+
+<p>和 RNN 非常像</p>
+<p>普通 RNN</p>
+<div class="mathjax-display">
+$$
+h_t=F(h_{t-1},x_t)\qquad y_t=G(h_t,x_t)
+$$
+</div>
+因此，可以把线性注意力的隐藏状态定义为：
+<div class="mathjax-display">
+$$
+h_t^{\mathrm{LA}}=(S_t,z_t)
+$$
+</div>
+其状态更新函数为：
+<div class="mathjax-display">
+$$
+h_t^{\mathrm{LA}}=F(h_{t-1}^{\mathrm{LA}},x_t)=\left(S_{t-1}+k'_tv_t^\top,z_{t-1}+k'_t\right)
+$$
+</div>
+从这个角度看，线性注意力本质上是一个具有<span style = "color:#7C6DB0">矩阵隐藏状态的 RNN</span>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RNN：</span><br><span class="line">历史 → 压进一个向量</span><br><span class="line"></span><br><span class="line">Linear Attention：</span><br><span class="line">历史 → 压进一个 Key-Value 统计矩阵</span><br></pre></td></tr></table></figure>
+
+<p>Linear Attention 在自回归推理时可以使用 RNN 式递归更新；<strong>训练时则可以利用矩阵计算、前缀扫描或分块方法进行并行计算</strong></p>
+<h3 id="特征映射"><a href="#特征映射" class="headerlink" title="特征映射"></a>特征映射</h3><p>标准 Softmax Attention 使用</p>
+<div class="mathjax-display">
+$$
+\operatorname{sim}(q,k) = \exp(q^Tk)
+$$
+</div>
+Linear Attention 将相似度函数替换成另一个可以显式分解的 Kernel，并选择：
+<div class="mathjax-display">
+$$
+\phi(x)
+=
+\operatorname{ELU}(x)+1 =
+\begin{cases}
+x+1,&amp;x>0,\\
+e^x,&amp;x\leq0
+\end{cases}
+$$
+</div>
+可以保证 $\phi(x)>0$，作为一种非负的 Attention 相似度
+
+<p>从 Kernel 的角度，指数点积核理论上可以写成某个特征空间中的内积，但对应的特征空间通常是无限维的</p>
+<p>因此 Linear Attention 与标准 Softmax Attention 并不完全等价，而是定义了一种新的 Attention 机制</p>
+<h2 id="GLA"><a href="#GLA" class="headerlink" title="GLA"></a>GLA</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.06635">2312.06635] Gated Linear Attention Transformers with Hardware-Efficient Training</a></p>
+</blockquote>
+<p>基础线性注意力：</p>
+<div class="mathjax-display">
+$$
+S_t
+=
+S_{t-1}
++
+k_tv_t^\top
+$$
+</div>
+
+<p>旧状态只能持续累积，不能根据当前输入选择性遗忘</p>
+<p>一种简单方式是加入固定衰减：</p>
+<div class="mathjax-display">
+$$
+S_t
+=
+\gamma S_{t-1}
++
+k_tv_t^\top,
+\qquad
+0&lt;\gamma&lt;1
+$$
+</div>
+更一般地：
+<div class="mathjax-display">
+$$
+S_t
+=
+G_t\odot S_{t-1}
++
+k_tv_t^\top
+$$
+</div>
+GLA 根据当前输入计算遗忘门：
+<div class="mathjax-display">
+$$
+\alpha_t
+=
+f_\alpha(x_t),
+\qquad
+\alpha_t\in(0,1)^{d_k}
+$$
+</div>
+状态更新：
+<div class="mathjax-display">
+$$
+S_t
+=
+\operatorname{Diag}(\alpha_t)
+S_{t-1}
++
+k_tv_t^\top
+$$
+</div>
+因此：GLA 仍然是一个具有矩阵隐藏状态的 RNN，只是其状态转移由当前输入动态控制
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1812287226.html">https://yhblogs.cn/posts/1812287226.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/919604021.html" title="编程系统学习"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-w5mgxr_1280x720.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">编程系统学习</div></div></div></a><a class="pagination-related  no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Swift框架</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1222747289.html" title="视觉生成与世界模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-31</div><div class="info-item-2">视觉生成与世界模型</div></div></div></a><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Tokenizer"><span class="toc-number">1.</span> <span class="toc-text">Tokenizer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Word-level-Tokenization"><span class="toc-number">1.1.</span> <span class="toc-text">Word-level Tokenization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Character-level-Tokenization"><span class="toc-number">1.2.</span> <span class="toc-text">Character-level Tokenization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Subword-Tokenization"><span class="toc-number">1.3.</span> <span class="toc-text">Subword Tokenization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BPE"><span class="toc-number">1.3.1.</span> <span class="toc-text">BPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WordPiece"><span class="toc-number">1.3.2.</span> <span class="toc-text">WordPiece</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unigram"><span class="toc-number">1.3.3.</span> <span class="toc-text">Unigram</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">现代大模型核心组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RMSNorm"><span class="toc-number">2.1.</span> <span class="toc-text">RMSNorm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SwiGLU"><span class="toc-number">2.2.</span> <span class="toc-text">SwiGLU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E7%BB%93%E6%9E%84-MoE"><span class="toc-number">2.3.</span> <span class="toc-text">混合专家结构 MoE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81-RoPE"><span class="toc-number">2.4.</span> <span class="toc-text">旋转位置编码 RoPE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">注意力机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B-MHA"><span class="toc-number">3.1.</span> <span class="toc-text">标准多头注意力 MHA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MQA"><span class="toc-number">3.2.</span> <span class="toc-text">MQA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GQA"><span class="toc-number">3.3.</span> <span class="toc-text">GQA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%A4%B4%E6%BD%9C%E5%9C%A8%E6%B3%A8%E6%84%8F%E5%8A%9B-MLA"><span class="toc-number">3.4.</span> <span class="toc-text">多头潜在注意力 MLA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#KV-%E4%BD%8E%E7%A7%A9%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.4.1.</span> <span class="toc-text">KV 低秩压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Query-%E4%BD%8E%E7%A7%A9%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.4.2.</span> <span class="toc-text">Query 低秩压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E8%80%A6-RoPE"><span class="toc-number">3.4.3.</span> <span class="toc-text">解耦 RoPE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Content-%E9%83%A8%E5%88%86"><span class="toc-number">3.4.3.1.</span> <span class="toc-text">Content 部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RoPE-%E9%83%A8%E5%88%86"><span class="toc-number">3.4.3.2.</span> <span class="toc-text">RoPE 部分</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="toc-number">3.5.</span> <span class="toc-text">线性注意力</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E5%8F%98%E8%AE%A1%E7%AE%97%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.5.1.</span> <span class="toc-text">改变计算顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%9B%B4%E6%96%B0"><span class="toc-number">3.5.2.</span> <span class="toc-text">递归更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E6%98%A0%E5%B0%84"><span class="toc-number">3.5.3.</span> <span class="toc-text">特征映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GLA"><span class="toc-number">3.6.</span> <span class="toc-text">GLA</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/js/vendor/twopeople1.js"></script><script src="/js/vendor/zdog.dist.js"></script><script id="rendered-js" src="/js/vendor/twopeople.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>
