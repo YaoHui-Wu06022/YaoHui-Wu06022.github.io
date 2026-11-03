@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp">
 <meta property="article:published_time" content="2026-08-18T02:30:57.000Z">
-<meta property="article:modified_time" content="2026-10-31T12:15:51.035Z">
+<meta property="article:modified_time" content="2026-11-03T03:55:40.987Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🍭AI">
 <meta property="article:tag" content="📝Paper">
@@ -19,7 +19,7 @@
   "url": "https://yhblogs.cn/posts/3007212310.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp",
   "datePublished": "2026-08-18T02:30:57.000Z",
-  "dateModified": "2026-10-31T12:15:51.035Z",
+  "dateModified": "2026-11-03T03:55:40.987Z",
   "author": [
     {
       "@type": "Person",
@@ -213,20 +213,20 @@
 <li>时间问题：基本所有拓展的激活或卸载都需要重启</li>
 <li>空间问题：拓展之间基本没有明确依赖关系</li>
 </ul>
-<p>现代系统越来越需要 <span style = "color:#3B82F6">动态组合 Dynamic Composition</span> ，组件可以在运行时被加载、卸载和重新配置</p>
+<p>现代系统越来越需要 <span style = "color:#6486A6">动态组合 Dynamic Composition</span> ，组件可以在运行时被加载、卸载和重新配置</p>
 <p>把动态组合分成两个正交维度：</p>
 <ul>
-<li><span style = "color:#7C6DB0">时间可组合性 Temporal Composability</span>：组件卸载后，对共享环境造成的影响能够被安全撤销</li>
-<li><span style = "color:#7C6DB0">空间可组合性 Spatial Composability</span>：组件能够声明、发现和解析彼此的依赖，并且在依赖变化时协调组件生命周期</li>
+<li><span style = "color:#8B75A8">时间可组合性 Temporal Composability</span>：组件卸载后，对共享环境造成的影响能够被安全撤销</li>
+<li><span style = "color:#8B75A8">空间可组合性 Spatial Composability</span>：组件能够声明、发现和解析彼此的依赖，并且在依赖变化时协调组件生命周期</li>
 </ul>
 <p>映射到两个已有的程序语言理论概念</p>
 <ul>
-<li><span style = "color:#7C6DB0">Effect</span>：如何修改运行环境</li>
-<li><span style = "color:#7C6DB0">Coffect</span>：对运行环境有什么要求</li>
+<li><span style = "color:#8B75A8">Effect</span>：如何修改运行环境</li>
+<li><span style = "color:#8B75A8">Coffect</span>：对运行环境有什么要求</li>
 </ul>
 <p>传统 Effect &#x2F; Coeffect 用于静态类型系统和编译期分析</p>
-<p><font color='Violetred'>关键是把 Effect 和 Coeffect 从静态分析概念提升成 Runtime 可操作的机制</font></p>
-<h2 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h2><h3 id="Revertible-Effects"><a href="#Revertible-Effects" class="headerlink" title="Revertible Effects"></a><span style = "color:#7C6DB0">Revertible Effects</span></h3><p>假设插件 A 加载后做了一系列行为，卸载 A 时不能要求开发者再手工写，这种 <code>activate()</code> &#x2F; <code>deactivate()</code> 分离的模式很容易漏</p>
+<p><span style = "color:#DC5A5A">关键是把 Effect 和 Coeffect 从静态分析概念提升成 Runtime 可操作的机制</span></p>
+<h2 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h2><h3 id="Revertible-Effects"><a href="#Revertible-Effects" class="headerlink" title="Revertible Effects"></a><span style = "color:#8B75A8">Revertible Effects</span></h3><p>假设插件 A 加载后做了一系列行为，卸载 A 时不能要求开发者再手工写，这种 <code>activate()</code> &#x2F; <code>deactivate()</code> 分离的模式很容易漏</p>
 <p>核心想法：效应函数返回的不只是新状态，还带一个逆操作</p>
 <p>把</p>
 <div class="mathjax-display">
@@ -247,14 +247,14 @@ $$
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">effect()</span><br><span class="line">    ↓</span><br><span class="line">执行修改</span><br><span class="line">    ↓</span><br><span class="line">同时生成 inverse</span><br><span class="line">    ↓</span><br><span class="line">Runtime 保存 inverse</span><br></pre></td></tr></table></figure>
 
-<p><span style = "color:#DC5A5A">inverse</span> 必须在 effect 实际执行时产生，<font color='DarkViolet'>因为撤销操作往往依赖当时的现场状态</font></p>
-<p>提出 <span style = "color:#C9823D">Effect Context</span> 用于管理 <code>inverse</code></p>
+<p><span style = "color:#DC5A5A">inverse</span> 必须在 effect 实际执行时产生，<span style = "color:#8B75A8">因为撤销操作往往依赖当时的现场状态</span></p>
+<p>提出 <span style = "color:#C99A45">Effect Context</span> 用于管理 <code>inverse</code></p>
 <div class="mathjax-display">
 $$
 \partial\Gamma=\Gamma\times(\Gamma\rightarrow\Gamma)
 $$
 </div>
-在运行过程中会不断把 `inverse` 加进逆的累加器 <span style = "color:#C9823D">Accumulator</span>，使得 `inverse` 不需要额外维护，强制跟踪自动组合
+在运行过程中会不断把 `inverse` 加进逆的累加器 <span style = "color:#C99A45">Accumulator</span>，使得 `inverse` 不需要额外维护，强制跟踪自动组合
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Component A</span><br><span class="line">effect 1</span><br><span class="line">effect 2</span><br><span class="line">effect 3</span><br><span class="line"></span><br><span class="line">Accumulator</span><br><span class="line">[g1, g2, g3] (按照 LIFO )</span><br></pre></td></tr></table></figure>
 
@@ -264,7 +264,7 @@ $$
 
 <p>如果只卸载 A，由于 B 穿插在中间，A 的 <code>inverse</code> 接触到的 <code>Context</code> 已经不是 <code>A.effect</code> 结束时那个原始 <code>Context</code></p>
 <blockquote>
-<p>在 3.3 <span style = "color:#7C6DB0">Context Paradigm</span> 中证明了 <span style = "color:#7C6DB0">Observational Equivalence</span>，只要观察到的环境相同就视为 <code>context</code> 等价，无须严格相等</p>
+<p>在 3.3 <span style = "color:#8B75A8">Context Paradigm</span> 中证明了 <span style = "color:#8B75A8">Observational Equivalence</span>，只要观察到的环境相同就视为 <code>context</code> 等价，无须严格相等</p>
 </blockquote>
 <p><code>Effect</code> 可逆的两种实现方式 [Definition 27]</p>
 <table>
@@ -301,13 +301,13 @@ $$
 <td>空间上的逆</td>
 </tr>
 </tbody></table>
-<h3 id="Reactive-Coeffects"><a href="#Reactive-Coeffects" class="headerlink" title="Reactive Coeffects"></a><span style = "color:#7C6DB0">Reactive Coeffects</span></h3><p>传统的控制反转 (IoC) 通常把依赖建模成一个 key → value 的表</p>
+<h3 id="Reactive-Coeffects"><a href="#Reactive-Coeffects" class="headerlink" title="Reactive Coeffects"></a><span style = "color:#8B75A8">Reactive Coeffects</span></h3><p>传统的控制反转 (IoC) 通常把依赖建模成一个 key → value 的表</p>
 <div class="mathjax-display">
 $$
 \Sigma\equiv(k:K)\rightharpoonup V_k
 $$
 </div>
-其中 $\Sigma$ 表示 Context 中存储的具体依赖映射 <span style = "color:#C9823D">Coeffect Context</span>，或者说是 <span style = "color:#C9823D">Coeffect Table</span>，主要维护的是依赖表
+其中 $\Sigma$ 表示 Context 中存储的具体依赖映射 <span style = "color:#C99A45">Coeffect Context</span>，或者说是 <span style = "color:#C99A45">Coeffect Table</span>，主要维护的是依赖表
 
 <p>定义的四个基础操作</p>
 <table>
@@ -339,14 +339,14 @@ $$
 <td>membership</td>
 </tr>
 </tbody></table>
-<p>在 <code>set</code> 后同时返回 <code>inverse</code>，因为注册插件后相当于修改了 <code>Context</code>，所以本身就是 <span style = "color:#C9823D">Revertible Effect</span></p>
+<p>在 <code>set</code> 后同时返回 <code>inverse</code>，因为注册插件后相当于修改了 <code>Context</code>，所以本身就是 <span style = "color:#C99A45">Revertible Effect</span></p>
 <p>假设组件 B 依赖</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Database</span><br><span class="line">Search</span><br><span class="line">Memory</span><br></pre></td></tr></table></figure>
 
 <p>如果 <code>Database</code> 还没有被其他组件提供，此时启动 B：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">B activate</span><br><span class="line">    ↓</span><br><span class="line">ctx.get(&quot;Database&quot;)</span><br><span class="line">    ↓</span><br><span class="line">不存在</span><br><span class="line">    ↓</span><br><span class="line">runtime failure</span><br></pre></td></tr></table></figure>
 
-<p>所以组件运行前需要先声明自己需要哪些依赖 <span style = "color:#C9823D">Coeffect Specification</span></p>
+<p>所以组件运行前需要先声明自己需要哪些依赖 <span style = "color:#C99A45">Coeffect Specification</span></p>
 <div class="mathjax-display">
 $$
 \Omega_{\Sigma} = \operatorname{Set}(K)
@@ -380,14 +380,14 @@ $$
 <p>但在真实系统中不同插件可能需要同一个 key，但需要的 value 不一样</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Plugin A -&gt; Database → MySQL</span><br><span class="line">Plugin B -&gt; Database → PostgreSQL</span><br></pre></td></tr></table></figure>
 
-<p>加入 <span style = "color:#C9823D">Isolation</span>[隔离] 让同一个 key，在不同 <code>Context</code> 中解析成不同 value</p>
-<p>采用 <code>Derived</code> 派生实现 <span style = "color:#3B82F6">isolation realm</span> 隔离域</p>
+<p>加入 <span style = "color:#C99A45">Isolation</span>[隔离] 让同一个 key，在不同 <code>Context</code> 中解析成不同 value</p>
+<p>采用 <code>Derived</code> 派生实现 <span style = "color:#6486A6">isolation realm</span> 隔离域</p>
 <div class="mathjax-display">
 $$
 k\rightarrow\rho(k)\rightarrow\sigma(\rho(k))
 $$
 </div>
-加入 <span style = "color:#C9823D">Interception</span>[拦截]，类似 Java 的 AOP (Aspect Oriented Programming)，在原行为执行过程中插入控制逻辑
+加入 <span style = "color:#C99A45">Interception</span>[拦截]，类似 Java 的 AOP (Aspect Oriented Programming)，在原行为执行过程中插入控制逻辑
 
 <p>可增加的信息有两部分</p>
 <ul>
@@ -404,10 +404,10 @@ $$
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Search Plugin:</span><br><span class="line">&#123;</span><br><span class="line">  &quot;cache&quot;: false,</span><br><span class="line">  &quot;timeout&quot;: 10</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Context：</span><br><span class="line">&#123;</span><br><span class="line">  &quot;cache&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">↓</span><br><span class="line">&#123;</span><br><span class="line">  &quot;cache&quot;: true,</span><br><span class="line">  &quot;timeout&quot;: 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这些主要是为后面权限控制、sandbox 等场景铺路</p>
-<h3 id="Context-Paradigm"><a href="#Context-Paradigm" class="headerlink" title="Context Paradigm"></a><font color='DarkViolet'>Context Paradigm</font></h3><p>通过上面的理论可知</p>
+<h3 id="Context-Paradigm"><a href="#Context-Paradigm" class="headerlink" title="Context Paradigm"></a><span style = "color:#8B75A8">Context Paradigm</span></h3><p>通过上面的理论可知</p>
 <ul>
-<li><span style = "color:#C9823D">Effect Context</span>：关注「组件改变了什么」</li>
-<li><span style = "color:#C9823D">Coeffect Context</span>：关注「组件需要什么」</li>
+<li><span style = "color:#C99A45">Effect Context</span>：关注「组件改变了什么」</li>
+<li><span style = "color:#C99A45">Coeffect Context</span>：关注「组件需要什么」</li>
 </ul>
 <p>论文指出一个真正的 Runtime Context 应该同时包含 Effect 和 Coeffect</p>
 <p>定义：</p>
@@ -419,10 +419,10 @@ $$
 $$
 </div>
 - $\mu\Gamma.\Gamma$：递归的环境
-- $\Gamma\rightarrow\Gamma$：<span style = "color:#C9823D">Accumulator</span> 
-- $\sum$：<span style = "color:#C9823D">Coeffect Context</span>
+- $\Gamma\rightarrow\Gamma$：<span style = "color:#C99A45">Accumulator</span> 
+- $\sum$：<span style = "color:#C99A45">Coeffect Context</span>
 
-<p>Unified Context 支持树状结构 <span style = "color:#3B82F6">Hierarchical composition</span>，这个说法很像 python 里的类继承</p>
+<p>Unified Context 支持树状结构 <span style = "color:#6486A6">Hierarchical composition</span>，这个说法很像 python 里的类继承</p>
 <p>$\Gamma_\infty$ 的递归结构支持分层控制，父 Context 聚合多个子 Context，在保持模块化的同时实现跨层统一管理</p>
 <p>这种层级结构使得 Plugin 能够形成层级化、可加载、可卸载的组合系统</p>
 <p>把前面的逻辑拼接起来</p>
@@ -434,7 +434,7 @@ $$
 </ul>
 <p>Harness 想同时获得函数式的显式状态传递，也想获得命令式的隐式修改</p>
 <p>状态放入 <code>Context</code>，但通过 Effect&#x2F;Coeffect 管理</p>
-<p><font color='DarkViolet'>Context Paradigm</font> 是介于函数式和命令式之间的一种范式</p>
+<p><span style = "color:#8B75A8">Context Paradigm</span> 是介于函数式和命令式之间的一种范式</p>
 <h2 id="动态组合演算"><a href="#动态组合演算" class="headerlink" title="动态组合演算"></a>动态组合演算</h2><p>理论部分解决了一个组件如何描述自己的依赖（Coeffect）和修改（Effect），以及 Context 如何管理它们</p>
 <p>接下来需要考虑多个的交互</p>
 <h3 id="Fiber状态机"><a href="#Fiber状态机" class="headerlink" title="Fiber状态机"></a>Fiber状态机</h3><p><a id="Fiber"></a></p>
@@ -453,7 +453,7 @@ $$
 <blockquote>
 <p><strong>Fibers</strong>： One component may be instantiated many times over, each instantiation carrying a lifecycle state of its own.</p>
 </blockquote>
-<p><span style = "color:#7C6DB0">Fiber </span> 是 <code>Component</code> 的运行实例，在 <code>Component</code> 基础上增加运行时状态</p>
+<p><span style = "color:#8B75A8">Fiber </span> 是 <code>Component</code> 的运行实例，在 <code>Component</code> 基础上增加运行时状态</p>
 <div class="mathjax-display">
 $$
 f=(\pi,\tau,\sigma,\theta)
@@ -463,7 +463,7 @@ $$
 <ul>
 <li><p>$\pi$：父 Context &#x2F; 父 Fiber，表示层级关系</p>
 </li>
-<li><p>$\tau$：<span style = "color:#3B82F6">retirement flag</span>，表示 Fiber 是否进入退休阶段</p>
+<li><p>$\tau$：<span style = "color:#6486A6">retirement flag</span>，表示 Fiber 是否进入退休阶段</p>
 <ul>
 <li>$\bot$：正常存在</li>
 <li>$\top$：准备删除，不再接受新的生命周期变化</li>
@@ -481,7 +481,7 @@ $$
 <hr>
 <p><a href="#Cordis">回到Corids</a></p>
 <p>最简单情况下，Fiber 只有两个运行状态</p>
-<p><span style = "color:#3B82F6">基础生命周期</span></p>
+<p><span style = "color:#6486A6">基础生命周期</span></p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20260821092426343.png" alt="image-20260821092426343" style="zoom: 80%;" />
 
 <ul>
@@ -535,8 +535,8 @@ $$
 </tr>
 </tbody></table>
 <p>在这里 Inactive  &lt;----&gt;  Active 是假设生命周期切换瞬间完成，但是实际情况中中途可能失败、等待</p>
-<p>于是引入 <span style = "color:#C9823D">Transition state</span>，重新定义生命周期状态</p>
-<p><span style = "color:#3B82F6">动态生命周期</span></p>
+<p>于是引入 <span style = "color:#C99A45">Transition state</span>，重新定义生命周期状态</p>
+<p><span style = "color:#6486A6">动态生命周期</span></p>
 <div class="mathjax-display">
 $$
 \theta_n \in
@@ -674,11 +674,11 @@ $$
 
 <p>支持</p>
 <ul>
-<li><span style = "color:#C9823D">self-disposal</span>：dispose 后停止继续收集 inverse</li>
-<li><span style = "color:#C9823D">parent composition</span>：当前 Effect 的 dispose 会加入父 Context 的 dispose 链</li>
+<li><span style = "color:#C99A45">self-disposal</span>：dispose 后停止继续收集 inverse</li>
+<li><span style = "color:#C99A45">parent composition</span>：当前 Effect 的 dispose 会加入父 Context 的 dispose 链</li>
 </ul>
 <blockquote>
-<p><span style = "color:#3B82F6">Algorithm 1 Effect tracking</span> p56</p>
+<p><span style = "color:#6486A6">Algorithm 1 Effect tracking</span> p56</p>
 </blockquote>
 <h4 id="Coeffect-Operations"><a href="#Coeffect-Operations" class="headerlink" title="Coeffect Operations"></a>Coeffect Operations</h4><blockquote>
 <p>All coeffect operations act on three symbol-keyed slots that each context carries</p>
@@ -773,7 +773,7 @@ $$
 <li>Reconciliation</li>
 <li>Managed Realms</li>
 </ol>
-<p><span style = "color:#7C6DB0">Entry</span>：Loader 管理的基本单位</p>
+<p><span style = "color:#8B75A8">Entry</span>：Loader 管理的基本单位</p>
 <blockquote>
 <p>Every configuration consists of entries. Each entry specifies a fiber and manages it.</p>
 </blockquote>
@@ -812,7 +812,7 @@ $$
 </tbody></table>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">id: database</span><br><span class="line"></span><br><span class="line">url: database-plugin</span><br><span class="line"></span><br><span class="line">config:</span><br><span class="line">  host: localhost</span><br><span class="line"></span><br><span class="line">disabled: false</span><br></pre></td></tr></table></figure>
 
-<p><span style = "color:#7C6DB0">Reconciliation</span>：配置变化如何同步 Fiber</p>
+<p><span style = "color:#8B75A8">Reconciliation</span>：配置变化如何同步 Fiber</p>
 <p>Loader 不会每次重新创建整个 Fiber 树，在Cordis 中会比较 旧配置与新配置 diff 的区域，只修改变化部分</p>
 <p>变化判断：</p>
 <table>
@@ -895,13 +895,13 @@ $$
 <td>inject key 的 Component</td>
 </tr>
 </tbody></table>
-<p>方案一：<span style = "color:#3B82F6">Exclusive Binding</span></p>
+<p>方案一：<span style = "color:#6486A6">Exclusive Binding</span></p>
 <p>多个 Provider 共享一个接口，但同一时间最多只有一个 Provider 被绑定</p>
 <p>切换需要 unload 原来的和 load 另一个 Provider，但这样 Consumer 会受到影响</p>
 <blockquote>
 <p>switching between them requires unloading one provider and loading another, momentarily perturbing every consumer’s dependency.</p>
 </blockquote>
-<p>方案二：<span style = "color:#3B82F6">Service Broker</span></p>
+<p>方案二：<span style = "color:#6486A6">Service Broker</span></p>
 <p>不要让 Consumer 直接依赖 Provider，在中间加一个 Component</p>
 <p>使得多个 Provider 共存， Provider 更新时 Consumer 不受影响</p>
 <blockquote>
@@ -952,7 +952,7 @@ $$
 <p><strong>Mutual Dependencies</strong></p>
 <p>组件循环依赖怎么办？</p>
 <p>需要拆组件才行，这也会导致复杂度的提高</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/3007212310.html">https://yhblogs.cn/posts/3007212310.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a><a class="post-meta__tags" href="/tags/%F0%9F%93%9DPaper/">📝Paper</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related  no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">视觉表征与多模态</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1716427693.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-13</div><div class="info-item-2">视觉表征与多模态</div></div></div></a><a class="pagination-related no-desc" href="/posts/1222747289.html" title="视觉生成与世界模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-31</div><div class="info-item-2">视觉生成与世界模型</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">问题背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">3.</span> <span class="toc-text">理论基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Revertible-Effects"><span class="toc-number">3.1.</span> <span class="toc-text">Revertible Effects</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactive-Coeffects"><span class="toc-number">3.2.</span> <span class="toc-text">Reactive Coeffects</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Context-Paradigm"><span class="toc-number">3.3.</span> <span class="toc-text">Context Paradigm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E4%BC%A0%E7%BB%9F%E8%8C%83%E5%BC%8F"><span class="toc-number">3.4.</span> <span class="toc-text">对比传统范式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%BB%84%E5%90%88%E6%BC%94%E7%AE%97"><span class="toc-number">4.</span> <span class="toc-text">动态组合演算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fiber%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="toc-number">4.1.</span> <span class="toc-text">Fiber状态机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%BB%84%E5%90%88%E7%90%86%E8%AE%BA"><span class="toc-number">4.2.</span> <span class="toc-text">动态组合理论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6-Cordis"><span class="toc-number">5.</span> <span class="toc-text">框架 Cordis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Core-Library"><span class="toc-number">5.1.</span> <span class="toc-text">Core Library</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Effect-Tracking"><span class="toc-number">5.1.1.</span> <span class="toc-text">Effect Tracking</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Coeffect-Operations"><span class="toc-number">5.1.2.</span> <span class="toc-text">Coeffect Operations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Component-Lifecycle"><span class="toc-number">5.1.3.</span> <span class="toc-text">Component Lifecycle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Context-Access"><span class="toc-number">5.1.4.</span> <span class="toc-text">Context Access</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Component-Loader"><span class="toc-number">5.2.</span> <span class="toc-text">Component Loader</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hot-Module-Replacement"><span class="toc-number">5.2.1.</span> <span class="toc-text">Hot Module Replacement</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA"><span class="toc-number">6.</span> <span class="toc-text">讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E8%87%AA%E7%9C%81"><span class="toc-number">6.1.</span> <span class="toc-text">论文自省</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/3007212310.html">https://yhblogs.cn/posts/3007212310.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a><a class="post-meta__tags" href="/tags/%F0%9F%93%9DPaper/">📝Paper</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related  no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">视觉表征与多模态</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1716427693.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a><a class="pagination-related no-desc" href="/posts/1222747289.html" title="扩散模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-31</div><div class="info-item-2">扩散模型</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-13</div><div class="info-item-2">视觉表征与多模态</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">问题背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">3.</span> <span class="toc-text">理论基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Revertible-Effects"><span class="toc-number">3.1.</span> <span class="toc-text">Revertible Effects</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactive-Coeffects"><span class="toc-number">3.2.</span> <span class="toc-text">Reactive Coeffects</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Context-Paradigm"><span class="toc-number">3.3.</span> <span class="toc-text">Context Paradigm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E4%BC%A0%E7%BB%9F%E8%8C%83%E5%BC%8F"><span class="toc-number">3.4.</span> <span class="toc-text">对比传统范式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%BB%84%E5%90%88%E6%BC%94%E7%AE%97"><span class="toc-number">4.</span> <span class="toc-text">动态组合演算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fiber%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="toc-number">4.1.</span> <span class="toc-text">Fiber状态机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%BB%84%E5%90%88%E7%90%86%E8%AE%BA"><span class="toc-number">4.2.</span> <span class="toc-text">动态组合理论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6-Cordis"><span class="toc-number">5.</span> <span class="toc-text">框架 Cordis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Core-Library"><span class="toc-number">5.1.</span> <span class="toc-text">Core Library</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Effect-Tracking"><span class="toc-number">5.1.1.</span> <span class="toc-text">Effect Tracking</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Coeffect-Operations"><span class="toc-number">5.1.2.</span> <span class="toc-text">Coeffect Operations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Component-Lifecycle"><span class="toc-number">5.1.3.</span> <span class="toc-text">Component Lifecycle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Context-Access"><span class="toc-number">5.1.4.</span> <span class="toc-text">Context Access</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Component-Loader"><span class="toc-number">5.2.</span> <span class="toc-text">Component Loader</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hot-Module-Replacement"><span class="toc-number">5.2.1.</span> <span class="toc-text">Hot Module Replacement</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA"><span class="toc-number">6.</span> <span class="toc-text">讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E8%87%AA%E7%9C%81"><span class="toc-number">6.1.</span> <span class="toc-text">论文自省</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {

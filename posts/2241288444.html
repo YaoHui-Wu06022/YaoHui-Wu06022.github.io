@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5yd6d5%20(1).png">
 <meta property="article:published_time" content="2025-07-20T04:45:57.000Z">
-<meta property="article:modified_time" content="2026-10-31T12:15:51.035Z">
+<meta property="article:modified_time" content="2026-11-03T03:55:40.987Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="💻编程">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/2241288444.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5yd6d5 (1).png",
   "datePublished": "2025-07-20T04:45:57.000Z",
-  "dateModified": "2026-10-31T12:15:51.035Z",
+  "dateModified": "2026-11-03T03:55:40.987Z",
   "author": [
     {
       "@type": "Person",
@@ -488,8 +488,8 @@
 <p>程序员手动申请和释放的内存（<code>new</code>&#x2F;<code>delete</code>、<code>malloc</code>&#x2F;<code>free</code>）</p>
 <p>需要手动管理，否则会造成内存泄漏；</p>
 <p><strong>栈区（Stack）</strong></p>
-<p>存放函数的<font color='Violetred'>局部变量</font>、参数、返回地址等</p>
-<p><font color='Violetred'>自动管理</font>：变量在作用域结束时自动释放，如果想保留需要加上static关键字放入全局区</p>
+<p>存放函数的<span style = "color:#DC5A5A">局部变量</span>、参数、返回地址等</p>
+<p><span style = "color:#DC5A5A">自动管理</span>：变量在作用域结束时自动释放，如果想保留需要加上static关键字放入全局区</p>
 <p>空间小（通常1~8MB），但访问速度最快</p>
 <p><strong>常量区</strong></p>
 <p>存储字符串常量和编译期确定的常量，通常和只读数据段在一起</p>
@@ -557,7 +557,7 @@
 <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组是C++中用于存储相同类型元素的连续内存数据结构</p>
 <p>C++中既有传统的 C 风格数组（<code>T a[N]</code>），也有更安全&#x2F;便利的类型：<code>std::array</code>（固定长度）和 <code>std::vector</code>（动态长度）[vector放到容器部分讲]</p>
 <p>优先用 <code>std::array</code>&#x2F;<code>std::vector</code>&#x2F;<code>std::span</code> 来写更安全，现代的C++只有必要时才用裸数组</p>
-<h3 id="T-a-N"><a href="#T-a-N" class="headerlink" title="T a[N]"></a>T a[N]</h3><p><font color='Violetred'>数组名是首元素地址的常量指针</font>，所以数组作为函数参数时，函数参数写成 <code>T arr[]</code> 时会衰退为 <code>T*</code></p>
+<h3 id="T-a-N"><a href="#T-a-N" class="headerlink" title="T a[N]"></a>T a[N]</h3><p><span style = "color:#DC5A5A">数组名是首元素地址的常量指针</span>，所以数组作为函数参数时，函数参数写成 <code>T arr[]</code> 时会衰退为 <code>T*</code></p>
 <p>如果要在参数里保留数组大小，需要使用模板引用</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="type">size_t</span> N&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printArray</span><span class="params">(T (&amp;arr)[N])</span> </span>&#123; <span class="comment">// 保留大小信息</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; N; ++i) cout &lt;&lt; arr[i] &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a[] = &#123;<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">5</span>&#125;;</span><br><span class="line">    <span class="built_in">printArray</span>(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -608,7 +608,7 @@
 <ul>
 <li>不存在空引用，引用必须连接到一块合法的内存；但存在空指针</li>
 <li>引用被初始化后就不能被指向到另一个对象；指针可以在任何时候指向到另一个对象</li>
-<li><font color='Violetred'>引用必须在创建时被初始化</font>，指针可以在任何时间被初始化</li>
+<li><span style = "color:#DC5A5A">引用必须在创建时被初始化</span>，指针可以在任何时间被初始化</li>
 </ul>
 <p>引用的本质是一个<strong>指针常量</strong></p>
 <table>
@@ -735,7 +735,7 @@
 <p>统计文件行数程序：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> file_closer = [](FILE* fp) &#123; <span class="keyword">if</span> (fp) <span class="built_in">fclose</span>(fp); &#125;; <span class="comment">// 定义文件关闭器</span></span><br><span class="line">    <span class="keyword">auto</span> file = <span class="built_in">unique_ptr</span>&lt;FILE,<span class="keyword">decltype</span>(file_closer)&gt;(<span class="built_in">fopen</span>(<span class="string">&quot;test.txt&quot;</span>, <span class="string">&quot;r&quot;</span>), file_closer); <span class="comment">// 用 unique_ptr 管理 FILE</span></span><br><span class="line">    <span class="keyword">if</span> (!file) &#123;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Error opening file&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 统计行数</span></span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">1024</span>];</span><br><span class="line">    <span class="type">int</span> line_count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">fgets</span>(buffer, <span class="built_in">sizeof</span>(buffer), file.<span class="built_in">get</span>())) &#123;</span><br><span class="line">        line_count++;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; line_count &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>在 C++中用 <code>struct</code> 关键字定义一个结构体类型，<font color='Violetred'>别忘了结尾的分号;</font> </p>
+<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>在 C++中用 <code>struct</code> 关键字定义一个结构体类型，<span style = "color:#DC5A5A">别忘了结尾的分号;</span> </p>
 <ul>
 <li><p>对于结构体&#x2F;类使用点运算符<code>.</code>来访问或修改对象的成员变量</p>
 </li>
@@ -748,7 +748,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">int</span> chinese, math, english, total_score;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 使用初始化列表的构造函数</span></span><br><span class="line">    <span class="built_in">Student</span>(string s, <span class="type">int</span> c, <span class="type">int</span> m, <span class="type">int</span> e) : <span class="built_in">name</span>(std::<span class="built_in">move</span>(s)), <span class="built_in">chinese</span>(c), <span class="built_in">math</span>(m), <span class="built_in">english</span>(e) &#123;</span><br><span class="line">        total_score = chinese + math + english; <span class="comment">// 可以在函数体进行别的运算</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;; <span class="comment">// &lt;-- 注意分号</span></span><br></pre></td></tr></table></figure>
 
 <p>优先用 <code>struct</code> 表示纯数据集合（如坐标、配置项）</p>
-<h2 id="类和对象的构造"><a href="#类和对象的构造" class="headerlink" title="类和对象的构造"></a>类和对象的构造</h2><p>面向对象的三大特性为：<font color='Violetred'>封装、继承、多态</font></p>
+<h2 id="类和对象的构造"><a href="#类和对象的构造" class="headerlink" title="类和对象的构造"></a>类和对象的构造</h2><p>面向对象的三大特性为：<span style = "color:#DC5A5A">封装、继承、多态</span></p>
 <ul>
 <li>类（class）：一种用户自定义的类型（类型模板），把数据（成员变量）和操作这些数据的代码（成员函数）封装在一起</li>
 <li>对象（object）：类的实例，是运行时分配的实体，有自己的状态（成员变量值）</li>
@@ -766,7 +766,7 @@
 
 <h3 id="类的访问权限"><a href="#类的访问权限" class="headerlink" title="类的访问权限"></a>类的访问权限</h3><p>类成员的访问限制是通过在类主体内部对各个区域标记<code>public、private、protected</code>来指定的</p>
 <p>默认情况下，类的所有成员是私有的</p>
-<p><font color='Violetred'>一般会在私有区域定义数据，在公有区域定义相关的函数</font>，以便在类的外部也可以调用这些函数</p>
+<p><span style = "color:#DC5A5A">一般会在私有区域定义数据，在公有区域定义相关的函数</span>，以便在类的外部也可以调用这些函数</p>
 <p>类的公有部分(<code>public</code>)只暴露必要的接口，私有部分(<code>private</code>)隐藏具体实现</p>
 <ul>
 <li><p>public：在类的外部是可访问的，可以不使用任何成员函数来设置和获取公有变量的值</p>
@@ -811,7 +811,7 @@
 <h3 id="构造和析构函数"><a href="#构造和析构函数" class="headerlink" title="构造和析构函数"></a>构造和析构函数</h3><p>类的构造和析构函数都是类的一种特殊的成员函数，都是可以手动调用的，允许但不建议</p>
 <ul>
 <li><p>构造函数：对象创建时调用；可用初始化列表初始化成员（推荐）</p>
-<p><font color='Violetred'>构造函数的名称与类的名称是完全相同的</font>，并且不会返回任何类型，也不会返回 void</p>
+<p><span style = "color:#DC5A5A">构造函数的名称与类的名称是完全相同的</span>，并且不会返回任何类型，也不会返回 void</p>
 </li>
 <li><p>析构函数：对象销毁时调用，用于释放堆区开辟的资源（文件、内存、锁等）</p>
 <p>不会返回任何值，也不能带有任何参数</p>
@@ -826,7 +826,7 @@
 <li><p>如果提供了拷贝构造函数，就不再提供其它构造函数</p>
 </li>
 </ul>
-<p><font color='Violetred'>默认的拷贝构造函数为浅拷贝</font></p>
+<p><span style = "color:#DC5A5A">默认的拷贝构造函数为浅拷贝</span></p>
 <p>浅拷贝是简单的赋值拷贝操作(<code>=</code>操作) -&gt; 带来的问题是内存的重复释放</p>
 <blockquote>
 <p>先进后出，释放的时候拷贝的析构函数已经把new出来的区域delete，但是原类释放析构函数又delete相同区域，报错</p>
@@ -839,7 +839,7 @@
 <ul>
 <li><p>普通成员函数：可以直接读写类的成员变量，调用时隐式传递一个 <code>this</code> 指针给它，<code>this</code> 的类型是 <code>Class* const</code>(指针常量)</p>
 </li>
-<li><p>const 成员函数：在函数声明后加<code>const</code>，表示<font color='Violetred'>不会修改对象的成员变量</font>，函数调用时 <code>this</code>为<code>const Class* const</code>(指向常量的常量指针)</p>
+<li><p>const 成员函数：在函数声明后加<code>const</code>，表示<span style = "color:#DC5A5A">不会修改对象的成员变量</span>，函数调用时 <code>this</code>为<code>const Class* const</code>(指向常量的常量指针)</p>
 <p>在 const 对象上，只能调用 const 成员函数</p>
 </li>
 <li><p>static 静态成员函数：与对象无关，没有 <code>this</code> 指针，只能访问类的<strong>静态数据成员</strong>或通过对象&#x2F;参数访问数据</p>
@@ -949,7 +949,7 @@
 <li>private 成员只能被本类成员和友元访问，不能被派生类访问</li>
 <li>protected 成员可以被派生类访问</li>
 </ul>
-<p>父类中所有<font color='Violetred'>非静态成员属性</font>都会被子类继承下去，私有成员是被编译器给隐藏了，因此访问不到，但是被继承下去了</p>
+<p>父类中所有<span style = "color:#DC5A5A">非静态成员属性</span>都会被子类继承下去，私有成员是被编译器给隐藏了，因此访问不到，但是被继承下去了</p>
 <h3 id="构造-析构顺序"><a href="#构造-析构顺序" class="headerlink" title="构造&#x2F;析构顺序"></a>构造&#x2F;析构顺序</h3><p>构造：</p>
 <ol>
 <li>先构造基类（如果有多个基类，按声明顺序，虚基类先）</li>
@@ -994,7 +994,7 @@
 </ol>
 <h3 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h3><p>在成员函数前加上 <code>virtual</code> 关键字，该函数就变成了虚函数</p>
 <p>派生类可以重写这个虚函数，并且在用<strong>基类指针&#x2F;引用</strong>调用时，根据对象的真实类型执行对应的版本</p>
-<p><font color='Violetred'>常常先创建一个父类空指针，在后续过程再让其指向new开辟子类的区域</font></p>
+<p><span style = "color:#DC5A5A">常常先创建一个父类空指针，在后续过程再让其指向new开辟子类的区域</span></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">speak</span><span class="params">()</span> </span>&#123; cout &lt;&lt; <span class="string">&quot;Animal sound\n&quot;</span>; &#125; <span class="comment">// 虚函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> : <span class="keyword">public</span> Animal &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">speak</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; cout &lt;&lt; <span class="string">&quot;Woof!\n&quot;</span>; &#125; <span class="comment">// 重写虚函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Animal* a = <span class="keyword">new</span> Dog;   <span class="comment">// 基类指针指向派生类对象</span></span><br><span class="line">    a-&gt;<span class="built_in">speak</span>();            <span class="comment">// 调用 Dog::speak()，而不是 Animal::speak()</span></span><br><span class="line">    <span class="keyword">delete</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>纯虚函数</strong></p>
@@ -1004,16 +1004,16 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">draw</span><span class="params">()</span> </span>= <span class="number">0</span>;  <span class="comment">// 纯虚函数</span></span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Shape</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span> : <span class="keyword">public</span> Shape &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">draw</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; cout &lt;&lt; <span class="string">&quot;Draw Circle\n&quot;</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Square</span> : <span class="keyword">public</span> Shape &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">draw</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; cout &lt;&lt; <span class="string">&quot;Draw Square\n&quot;</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Shape s;   // 报错：抽象类不能实例化</span></span><br><span class="line">    Shape* p1 = <span class="keyword">new</span> <span class="built_in">Circle</span>();</span><br><span class="line">    Shape* p2 = <span class="keyword">new</span> <span class="built_in">Square</span>();</span><br><span class="line"></span><br><span class="line">    p1-&gt;<span class="built_in">draw</span>();  <span class="comment">// Draw Circle</span></span><br><span class="line">    p2-&gt;<span class="built_in">draw</span>();  <span class="comment">// Draw Square</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> p1;</span><br><span class="line">    <span class="keyword">delete</span> p2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="虚析构"><a href="#虚析构" class="headerlink" title="虚析构"></a>虚析构</h3><p>如果基类的析构函数不是虚的，那么通过基类指针删除一个派生类对象会导致派生部分的析构函数不被调用，从而引发<strong>资源泄漏</strong></p>
-<p><font color='Violetred'>如果一个类有任何虚函数，它就应该有一个虚析构函数</font>，即使基类不需要自定义析构，也提供一个空的虚析构函数</p>
+<p><span style = "color:#DC5A5A">如果一个类有任何虚函数，它就应该有一个虚析构函数</span>，即使基类不需要自定义析构，也提供一个空的虚析构函数</p>
 <p>推荐写法：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Base</span>() = <span class="keyword">default</span>;  <span class="comment">// 默认实现</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><font color='Violetred'>拥有纯虚析构函数的类属于抽象类</font></p>
+<p><span style = "color:#DC5A5A">拥有纯虚析构函数的类属于抽象类</span></p>
 <h2 id="重载运算符"><a href="#重载运算符" class="headerlink" title="重载运算符"></a>重载运算符</h2><p>在同一个作用域内，可以声明几个功能类似的同名函数，但是这些同名函数的形式参数（指参数的个数、类型或者顺序）必须不同</p>
 <p>最主要就是区分输入的参数能够唯一地满足某个函数</p>
 <p>重载运算符规则：函数名是由关键字 operator 和其后要重载的运算符符号构成的</p>
 <p>只能重载 C++ 已有的运算符，不能新增运算符，也不能改变优先级或结合性</p>
-<p><font color='Violetred'>不能重载的运算符：</font> </p>
+<p><span style = "color:#DC5A5A">不能重载的运算符：</span> </p>
 <p><code>::</code>（域&#x2F;作用域解析）、<code>.</code>（点成员访问）、<code>.*</code>（成员指针访问）、<code>?:</code>（三目条件）</p>
 <p><code>sizeof</code>（大小运算符）</p>
 <p>重载为成员函数 or 非成员函数的规则：</p>
@@ -1081,7 +1081,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vec</span> &#123;</span><br><span class="line">    <span class="type">int</span> x, y;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Vec</span>(<span class="type">int</span> x, <span class="type">int</span> y): <span class="built_in">x</span>(x), <span class="built_in">y</span>(y) &#123;&#125;</span><br><span class="line">    <span class="comment">// +=</span></span><br><span class="line">    Vec&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> Vec&amp; rhs) &#123;</span><br><span class="line">        x += rhs.x;</span><br><span class="line">        y += rhs.y;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="前缀-后缀"><a href="#前缀-后缀" class="headerlink" title="前缀&#x2F;后缀 ++&#x2F;--"></a>前缀&#x2F;后缀 ++&#x2F;--</h3><p>前缀：<code>T&amp; operator++()</code> 返回 <code>*this</code> 的引用（效率高）</p>
-<p>后缀：<code>T operator++(int)</code> 参数 <code>int</code> 用以区分前++和后++（<font color='Violetred'>只能int</font>），返回修改前的值（通常返回值）</p>
+<p>后缀：<code>T operator++(int)</code> 参数 <code>int</code> 用以区分前++和后++（<span style = "color:#DC5A5A">只能int</span>），返回修改前的值（通常返回值）</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Counter</span> &#123;</span><br><span class="line">    <span class="type">int</span> v;</span><br><span class="line">    Counter&amp; <span class="keyword">operator</span>++() &#123; ++v; <span class="keyword">return</span> *<span class="keyword">this</span>; &#125;  <span class="comment">// prefix</span></span><br><span class="line">    Counter <span class="keyword">operator</span>++(<span class="type">int</span>) &#123; Counter tmp = *<span class="keyword">this</span>; ++v; <span class="keyword">return</span> tmp; &#125; <span class="comment">// postfix</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>同样<code>-</code>和<code>!</code>都是操作本身，返回this方便，通常是成员函数</p>
@@ -1095,14 +1095,14 @@
 <h3 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用()"></a>函数调用()</h3><p>重载函数调用操作符()的类，其对象常称为函数对象</p>
 <p>行为和函数调用类似，称为仿函数</p>
 <p>仿函数的优势是非常灵活，没有固定写法</p>
-<p><font color='Violetred'>类后面直接带()称为匿名函数对象</font>，适用于只需要一下的结果</p>
+<p><span style = "color:#DC5A5A">类后面直接带()称为匿名函数对象</span>，适用于只需要一下的结果</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Print</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> string&amp; test)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; test &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Add</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; x, <span class="type">const</span> <span class="type">int</span>&amp; y)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x + y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Print myprint;</span><br><span class="line">    <span class="built_in">myprint</span>(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">    cout &lt;&lt; <span class="built_in">Add</span>()(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>函数对象在使用时，可以像普通函数那样调用，可以有参数，可以有返回值</li>
 <li>函数对象超出普通函数的概念，函数对象可以有自己的状态</li>
 </ul>
-<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><p>返回bool类型的仿函数称为谓词，<font color='Violetred'>谓词不应修改元素</font></p>
+<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><p>返回bool类型的仿函数称为谓词，<span style = "color:#DC5A5A">谓词不应修改元素</span></p>
 <p>如果operator接受一个参数，那么叫做一元谓词</p>
 <p>如果operator接受两个参数，那么叫做二元谓词</p>
 <h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><p>iostream 标准库，它提供了 cin 和 cout 方法分别用于从标准输入读取流和向标准输出写入流</p>
@@ -1472,7 +1472,7 @@
 <li>函数模板调用时，如果利用自动类型推导，不会发生隐式类型转换</li>
 <li>如果利用显示指定类型的方式，可以发生隐式类型转换</li>
 </ul>
-<p><font color='Violetred'>如果函数复杂尽量显式指定类型</font></p>
+<p><span style = "color:#DC5A5A">如果函数复杂尽量显式指定类型</span></p>
 <p>普通函数与函数模板的调用规则：</p>
 <ol>
 <li>如果函数模板和普通函数都可以调用，优先调用普通函数(所以尽量不要写同名)</li>
@@ -1509,7 +1509,7 @@
 </ul>
 <h2 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h2><p>标准模板库（Standard Template Library，STL）</p>
 <p>STL几乎所有代码都采用了模板</p>
-<p>STL 分为多个组件，包括<font color='Violetred'>容器、算法、迭代器</font>、函数对象和适配器等</p>
+<p>STL 分为多个组件，包括<span style = "color:#DC5A5A">容器、算法、迭代器</span>、函数对象和适配器等</p>
 <p>容器和算法通过迭代器无缝连接</p>
 <table>
 <thead>
@@ -1637,7 +1637,7 @@
 </tr>
 <tr>
 <td><code>resize(num, (elem))</code></td>
-<td>size变为num，变多填充默认&#x2F;(elem)值<br />变小则超出部分删除，<font color='Violetred'>容量不变</font></td>
+<td>size变为num，变多填充默认&#x2F;(elem)值<br />变小则超出部分删除，<span style = "color:#DC5A5A">容量不变</span></td>
 </tr>
 <tr>
 <td><code>capacity()</code></td>
@@ -1693,7 +1693,7 @@
 <p>栈的元素是线性排列的，但只允许在一端(栈顶)进行添加和移除操作，另一端是封闭的(栈底)</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Data_stack.svg" alt="Data_stack" style="zoom: 67%;" />
 
-<p>只能访问栈顶元素，<font color='Violetred'>因此栈不允许有遍历的行为</font></p>
+<p>只能访问栈顶元素，<span style = "color:#DC5A5A">因此栈不允许有遍历的行为</span></p>
 <p>常用操作：</p>
 <table>
 <thead>
@@ -1729,7 +1729,7 @@
 <td>O(1)</td>
 </tr>
 </tbody></table>
-<p><font color='Violetred'>栈没有clear()方法，清空栈需要循环出栈</font></p>
+<p><span style = "color:#DC5A5A">栈没有clear()方法，清空栈需要循环出栈</span></p>
 <h4 id="queue"><a href="#queue" class="headerlink" title="queue"></a>queue</h4><p>队列是一种先进先出（First In First Out，FIFO）的数据结构</p>
 <p>它遵循以下规则：</p>
 <ul>
@@ -1737,7 +1737,7 @@
 <li>元素只能从队首移除</li>
 </ul>
 <p>类比：在超市收银台前排队结账，这就是一个典型的队列，先来的人先结账（先进先出）</p>
-<p>只有队头和队尾可以访问，<font color='Violetred'>因此不允许有遍历行为</font></p>
+<p>只有队头和队尾可以访问，<span style = "color:#DC5A5A">因此不允许有遍历行为</span></p>
 <p>常用操作：</p>
 <table>
 <thead>
@@ -1778,7 +1778,7 @@
 <td>O(1)</td>
 </tr>
 </tbody></table>
-<p><font color='Violetred'>队列没有clear()方法，清空队列需要循环出队</font></p>
+<p><span style = "color:#DC5A5A">队列没有clear()方法，清空队列需要循环出队</span></p>
 <h4 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h4><p>底层容器默认 <code>vector</code>，也可用 <code>deque</code>（需支持随机访问迭代器）</p>
 <p>顶部元素始终为优先级最高者（默认最大元素），但整体无序，设计上只允许访问顶部元素</p>
 <p>和stack以及queue相同，不支持遍历</p>
@@ -1821,8 +1821,8 @@
 <li>只需访问当前最高优先级元素</li>
 <li>数据动态插入且需高效维护优先级</li>
 </ul>
-<h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><p>list 是一种序列容器，允许在容器的任意位置快速插入和删除元素，<font color='Violetred'>双向链表</font></p>
-<p>由于链表的存储方式并不是连续的内存空间，迭代器只支持前移和后移，属于双向迭代器(<font color='Violetred'>支持++与--，不支持+n</font>)</p>
+<h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><p>list 是一种序列容器，允许在容器的任意位置快速插入和删除元素，<span style = "color:#DC5A5A">双向链表</span></p>
+<p>由于链表的存储方式并不是连续的内存空间，迭代器只支持前移和后移，属于双向迭代器(<span style = "color:#DC5A5A">支持++与--，不支持+n</span>)</p>
 <p>常用操作：</p>
 <table>
 <thead>
@@ -1888,17 +1888,17 @@
 <td>O(1)</td>
 </tr>
 <tr>
-<td><font color='Violetred'>sort()</font></td>
+<td><span style = "color:#DC5A5A">sort()</span></td>
 <td>排序链表</td>
 <td><strong>O(n log n)</strong></td>
 </tr>
 <tr>
-<td><font color='Violetred'>merge(list)</font></td>
+<td><span style = "color:#DC5A5A">merge(list)</span></td>
 <td>合并另一个链表(置于链头)<br />两个链表必须<strong>按相同规则排序（默认小→大）</strong></td>
 <td>O(m+n)</td>
 </tr>
 <tr>
-<td><font color='Violetred'>splice(it,list)</font></td>
+<td><span style = "color:#DC5A5A">splice(it,list)</span></td>
 <td>移动另一个链表到此链表的指定位置</td>
 <td></td>
 </tr>
@@ -1911,7 +1911,7 @@
 <p>对list来说，merge和sort需要使用自己的成员函数</p>
 <p><code>splice()</code> 仅修改节点的指针（<code>next</code>&#x2F;<code>prev</code>），不复制或移动节点数据，使得被移动节点的迭代器&#x2F;引用保持有效</p>
 <p>操作代价极低，性能远超&quot;复制数据+删除原节点&quot;的方式</p>
-<h3 id="关联式容器"><a href="#关联式容器" class="headerlink" title="关联式容器"></a>关联式容器</h3><h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4><p>set是一种关联容器，它存储了一组唯一的元素，所有元素在插入时自动被排序<font color='Violetred'>(默认小→大)</font>，底层结构是用二叉树实现(如果不需要排序，可以用unordered_set)</p>
+<h3 id="关联式容器"><a href="#关联式容器" class="headerlink" title="关联式容器"></a>关联式容器</h3><h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4><p>set是一种关联容器，它存储了一组唯一的元素，所有元素在插入时自动被排序<span style = "color:#DC5A5A">(默认小→大)</span>，底层结构是用二叉树实现(如果不需要排序，可以用unordered_set)</p>
 <p>set容器中存储的元素类型必须满足以下条件：</p>
 <ul>
 <li><p>元素类型必须可以比较大小，默认使用严格弱序的比较规则（即 <code>std::less&lt;T&gt;</code>），这等价于 <code>operator&lt;</code></p>
@@ -1971,7 +1971,7 @@
 <h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><p>map是一种关联容器，所有元素都是键值对(pair)</p>
 <p>在创建pair对象时，必须提供两个类型名，两个类型不必相同</p>
 <p>pair中第一个元素为key(键值)起到索引作用，第二个元素为value(实值)</p>
-<p><font color='Violetred'>(默认键值小→大)</font> (如果不需要排序，可以用unordered_map)</p>
+<p><span style = "color:#DC5A5A">(默认键值小→大)</span> (如果不需要排序，可以用unordered_map)</p>
 <p>map的指针指向first和second分别对应pair的两个值</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;T1, T2&gt; p = <span class="built_in">make_pair</span>(T1 val, T2 val);</span><br></pre></td></tr></table></figure>
 
@@ -2305,7 +2305,7 @@
 <li><p><code>binary_search()</code>  查找指定的元素，查到返回true否则false</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">binary_search</span><span class="params">(vec.begin(), vec.end(), value)</span></span>;</span><br></pre></td></tr></table></figure>
 
-<p>要求序列有序，<font color='Violetred'>在无序序列中不可用</font>，使用前先sort</p>
+<p>要求序列有序，<span style = "color:#DC5A5A">在无序序列中不可用</span>，使用前先sort</p>
 </li>
 <li><p><code>count()</code>  查找元素个数</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n = <span class="built_in">count</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), value);</span><br></pre></td></tr></table></figure>
@@ -2318,7 +2318,7 @@
 <li><p><code>sort()</code>  对容器内的元素进行排序，谓词非必须，默认小→大</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sort</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>()(, _Pred()));</span><br></pre></td></tr></table></figure>
 
-<p><font color='Violetred'>对于支持随机访问的迭代器的容器(vector,deque)，可以用sort算法直接进行排序</font></p>
+<p><span style = "color:#DC5A5A">对于支持随机访问的迭代器的容器(vector,deque)，可以用sort算法直接进行排序</span></p>
 </li>
 <li><p><code>shuffle()</code>  对指定范围内的元素随机调整次序</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shuffle</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), <span class="built_in">random_device</span>());</span><br></pre></td></tr></table></figure>
@@ -2377,7 +2377,7 @@
 <li><p><code>partial_sum()</code>  计算前缀和，并将结果存储在另一个容器中</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">partial_sum</span>(iterator beg, iterator end, iterator dest);</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="集合算法"><a href="#集合算法" class="headerlink" title="集合算法"></a>集合算法</h4><p><font color='Violetred'>以下算法都要求容器内元素有序，并且唯一</font> sort 配合 unique</p>
+<h4 id="集合算法"><a href="#集合算法" class="headerlink" title="集合算法"></a>集合算法</h4><p><span style = "color:#DC5A5A">以下算法都要求容器内元素有序，并且唯一</span> sort 配合 unique</p>
 <ul>
 <li><p><code>set_intersection</code>  计算两个容器的交集</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dest.<span class="built_in">resize</span>(<span class="built_in">min</span>(container<span class="number">1.</span><span class="built_in">size</span>(),container<span class="number">2.</span><span class="built_in">size</span>())); <span class="comment">// 容量设为较小值</span></span><br><span class="line"><span class="built_in">set_intersection</span>(iterator beg1, iterator end1, iterator beg2, iterator end2, <span class="built_in">back_inserter</span>(dest));</span><br></pre></td></tr></table></figure>

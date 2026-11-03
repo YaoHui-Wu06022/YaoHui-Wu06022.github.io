@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1)%20(1).png">
 <meta property="article:published_time" content="2026-01-18T11:27:57.000Z">
-<meta property="article:modified_time" content="2026-10-31T12:15:51.035Z">
+<meta property="article:modified_time" content="2026-11-03T03:55:40.989Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🎯推荐系统">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/3367740977.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-7j931e_1280x720_(1) (1).png",
   "datePublished": "2026-01-18T11:27:57.000Z",
-  "dateModified": "2026-10-31T12:15:51.035Z",
+  "dateModified": "2026-11-03T03:55:40.989Z",
   "author": [
     {
       "@type": "Person",
@@ -164,7 +164,7 @@
 <p>随着对特征交互的重视，从 FM 到 DeepFM、xDeepFM，再到基于注意力机制的自动交互建模，模型逐步提升了对复杂特征关系的刻画能力</p>
 <p>为了刻画用户兴趣的多样性和变化过程，序列建模被引入精排，DIN 关注不同兴趣的匹配，DIEN 建模兴趣的演化，DSIN 进一步利用会话信息，使模型能够更好地理解用户的动态行为</p>
 <p>在实际业务中，精排模型往往需要同时优化多个目标，并适配不同场景。通过多目标和多场景建模，结合合理的架构设计和动态权重策略，模型可以在复杂环境中取得更优的整体效果</p>
-<h2 id="记忆与泛化"><a href="#记忆与泛化" class="headerlink" title="记忆与泛化"></a>记忆与泛化</h2><p>在构建推荐模型时，常常追求两个看似矛盾的目标：<font color='DarkViolet'>记忆(Memorization)与泛化(Generalization)</font></p>
+<h2 id="记忆与泛化"><a href="#记忆与泛化" class="headerlink" title="记忆与泛化"></a>记忆与泛化</h2><p>在构建推荐模型时，常常追求两个看似矛盾的目标：<span style = "color:#8B75A8">记忆(Memorization)与泛化(Generalization)</span></p>
 <ul>
 <li><strong>记忆能力</strong>：模型能够学习并记住那些在历史数据中频繁共同出现的特征组合。例如，模型记住“买了A的用户，通常也会买B”，这种能力可以精准地捕捉显性、高频的关联，为用户提供与他们历史行为高度相关的推荐</li>
 <li><strong>泛化能力</strong>：模型能学到特征间的深层关系，处理训练时很少见到的特征组合。例如，模型发现“物品A和物品C都是同一类的，用户喜欢这类东西”，那就可以给喜欢A的用户推荐C，哪怕用户以前没见过C，这能让推荐更丰富一些</li>
@@ -181,7 +181,7 @@ $$
 y=\mathbf w^T \mathbf x+b
 $$
 </div>
-Wide部分的关键在于其输入的特征向量，不仅包含原始特征，更重要的是<font color='Violetred'>包含了大量人工设计的交叉特征(Cross-product Features)</font>
+Wide部分的关键在于其输入的特征向量，不仅包含原始特征，更重要的是<span style = "color:#DC5A5A">包含了大量人工设计的交叉特征(Cross-product Features)</span>
 
 <p>交叉特征可以将多个独立的特征组合成一个新的特征，用于捕捉特定的共现模式</p>
 <p>核心代码：</p>
@@ -278,7 +278,7 @@ $\sigma$是Sigmoid函数，$[\mathbf{x}, \phi(\mathbf{x})]$代表Wide部分的�
 <p>关键是要找到一种巧妙的方法，既能自动学习特征交叉，又不会让参数太多</p>
 <h3 id="二阶特征交叉"><a href="#二阶特征交叉" class="headerlink" title="二阶特征交叉"></a>二阶特征交叉</h3><h4 id="FM-从召回到精排"><a href="#FM-从召回到精排" class="headerlink" title="FM: 从召回到精排"></a>FM: 从召回到精排</h4><p>在召回时，FM主要解决的是“如何快速从海量物品中找到候选集”的问题</p>
 <p>但在精排阶段问题是：如何自动学习特征之间的交叉关系，而不用手工一个个去设计</p>
-<p>FM的核心思想发挥作用：<font color='DarkViolet'>给每个特征学一个向量表示，然后用向量内积来捕捉特征间的关系</font></p>
+<p>FM的核心思想发挥作用：<span style = "color:#8B75A8">给每个特征学一个向量表示，然后用向量内积来捕捉特征间的关系</span></p>
 <p>为了捕捉特征间的交互关系，一个直接的想法是在线性模型的基础上增加所有特征的二阶组合项，即多项式模型：</p>
 <div class="mathjax-display">
 $$
@@ -299,7 +299,7 @@ $$
 </div>
 其中$\mathbf v_i,\mathbf v_j$ 分别是特征 $i$ 和特征 $j$ 的 $k$ 维隐向量(Embedding)，$k$ 是一个远小于特征数量 $n$ 的超参数
 
-<p><font color='DarkViolet'>FM 的核心在于参数共享</font>，相比直接为每一对特征学习独立的交叉权重 $w_{ij}$(复杂度为$O(n^2) $)，FM 只需为每个特征学习一个 $k$ 维隐向量，总参数量降低为 $O(nk)$</p>
+<p><span style = "color:#8B75A8">FM 的核心在于参数共享</span>，相比直接为每一对特征学习独立的交叉权重 $w_{ij}$(复杂度为$O(n^2) $)，FM 只需为每个特征学习一个 $k$ 维隐向量，总参数量降低为 $O(nk)$</p>
 <p>这种设计显著缓解了数据稀疏问题，即使特征 $i$ 和 $j$ 在训练样本中从未同时出现过，模型也能通过它们与其他特征的共现关系学到各自的隐向量，从而对二者的交叉效应进行合理预测</p>
 <p>另外通过数学重写，FM 的二阶交叉项计算复杂度可从$O(kn^2)$优化到线性的$O(kn)$，使其在工业界得到了广泛应用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># FM层的核心计算：0.5 * ((sum(v))^2 - sum(v^2))</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, field_num, embedding_size]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先求和再平方：(∑v_i)^2</span></span><br><span class="line">square_of_sum = tf.square(</span><br><span class="line">    tf.reduce_sum(inputs, axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span><br><span class="line">)  <span class="comment"># [B, 1, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先平方再求和：∑(v_i^2)</span></span><br><span class="line">sum_of_square = tf.reduce_sum(</span><br><span class="line">    inputs * inputs, axis=<span class="number">1</span>, keepdims=<span class="literal">True</span></span><br><span class="line">)  <span class="comment"># [B, 1, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># FM二阶交互项</span></span><br><span class="line">cross_term = <span class="number">0.5</span> * tf.reduce_sum(</span><br><span class="line">    square_of_sum - sum_of_square, axis=<span class="number">2</span></span><br><span class="line">)  <span class="comment"># [B, 1]</span></span><br></pre></td></tr></table></figure>
@@ -308,7 +308,7 @@ $$
 <p>AFM<u>(Xiao <em>et al.</em>, 2017)</u> 在 FM 的基础上引入注意力机制，为不同的特征交叉分配不同权重，使模型能够重点关注更有价值的交互</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/afm_architecture_%281%29.webp" alt="afm_architecture_(1)" style="zoom:67%;" />
 
-<p>AFM 将所有成对特征的隐向量进行元素积(Hadamard Product)，得到保留向量信息的二阶交叉表示而不是像 FM 那样直接求内积，为后续的注意力计算提供了输入，这一步称为<font color='Violetred'>成对交互层</font>(Pair-wise Interaction Layer)</p>
+<p>AFM 将所有成对特征的隐向量进行元素积(Hadamard Product)，得到保留向量信息的二阶交叉表示而不是像 FM 那样直接求内积，为后续的注意力计算提供了输入，这一步称为<span style = "color:#DC5A5A">成对交互层</span>(Pair-wise Interaction Layer)</p>
 <div class="mathjax-display">
 $$
 \color{purple}f_{PI}(\mathcal E)
@@ -347,15 +347,15 @@ $$
 </div>
 其中 $\textbf{p}$ 是一个投影向量，用于将最终的交叉结果映射为标量
 
-<p>通过引入注意力机制，AFM 不仅提升了模型的表达能力，还<font color='Violetred'>通过可视化注意力权重 $a_{ij}$ 赋予了模型更好的可解释性</font>，可以洞察哪些特征交叉对预测结果的贡献最大</p>
+<p>通过引入注意力机制，AFM 不仅提升了模型的表达能力，还<span style = "color:#DC5A5A">通过可视化注意力权重 $a_{ij}$ 赋予了模型更好的可解释性</span>，可以洞察哪些特征交叉对预测结果的贡献最大</p>
 <p><strong>核心代码</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 计算所有特征对的元素积交互</span></span><br><span class="line"><span class="comment"># num_pairs = n(n-1)/2</span></span><br><span class="line"><span class="comment"># group_pairwise: [batch_size, num_pairs, embedding_dim]</span></span><br><span class="line">group_pairwise = pairwise_feature_interactions(</span><br><span class="line">    group_feature, drop_rate=dropout_rate</span><br><span class="line">) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 注意力权重计算：h^T · ReLU(W · (v_i ⊙ v_j) + b) </span></span><br><span class="line"><span class="comment"># 这个过程是FM没有的</span></span><br><span class="line">weighted_inputs = tf.matmul(</span><br><span class="line">    group_pairwise, attention_weight</span><br><span class="line">) + attention_bias  <span class="comment"># [B, num_pairs, attention_factor]</span></span><br><span class="line"></span><br><span class="line">activation = tf.nn.relu(weighted_inputs)</span><br><span class="line"><span class="comment"># attention_projection是一个可学习的投影向量，用来把交互特征压缩成一个标量注意力分数</span></span><br><span class="line">projected = tf.matmul(activation, attention_projection)  <span class="comment"># [B, num_pairs, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Softmax归一化得到注意力权重</span></span><br><span class="line">attention_weights = tf.nn.softmax(projected, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 加权求和：∑ a_ij · (v_i ⊙ v_j)</span></span><br><span class="line">attention_output = tf.reduce_sum(</span><br><span class="line">    tf.multiply(group_pairwise, attention_weights), axis=<span class="number">1</span></span><br><span class="line">)  <span class="comment"># [B, D]</span></span><br></pre></td></tr></table></figure>
 
 <p>相比FM对所有特征交叉一视同仁，AFM通过注意力机制自动识别重要的交互模式，提升了模型的表达能力和可解释性</p>
 <h4 id="NFM-交叉特征的深度学习"><a href="#NFM-交叉特征的深度学习" class="headerlink" title="NFM: 交叉特征的深度学习"></a>NFM: 交叉特征的深度学习</h4><p>NFM(Neural Factorization Machine) <u>(He and Chua, 2017)</u> 通过进一步利用特征交叉信息，在 FM 的基础上引入了深度网络。它将 FM 中得到的二阶交叉结果(以哈达玛积向量表示)作为输入，送入 DNN，从而学习更高阶、非线性的特征关系</p>
-<p>其核心思想是：<font color='Violetred'>FM 学到的二阶交叉本身就是高质量特征，可作为 DNN 的输入，由深度网络自动建模这些交叉特征之间的复杂组合关系</font></p>
+<p>其核心思想是：<span style = "color:#DC5A5A">FM 学到的二阶交叉本身就是高质量特征，可作为 DNN 的输入，由深度网络自动建模这些交叉特征之间的复杂组合关系</span></p>
 <p>NFM 的结构可以分为两个部分：先做特征交叉，再用深度网络学习</p>
-<p>关键创新是引入<font color='Violetred'>“特征交叉池化层”</font>(Bi-Interaction Pooling Layer)，把所有特征对的交叉信息汇总成一个向量，然后送给后面的神经网络去学习更复杂的模式。具体的计算过程如下：</p>
+<p>关键创新是引入<span style = "color:#DC5A5A">“特征交叉池化层”</span>(Bi-Interaction Pooling Layer)，把所有特征对的交叉信息汇总成一个向量，然后送给后面的神经网络去学习更复杂的模式。具体的计算过程如下：</p>
 <div class="mathjax-display">
 $$
 \color{purple}f_{BI}(V_x) = \sum_{i=1}^n \sum_{j=i+1}^n (\mathbf v_i \odot \mathbf v_j) x_i x_j
@@ -426,7 +426,7 @@ $$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 双交互池化层：1/2 * ((∑v_i)^2 - ∑(v_i^2))</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, num_features, embedding_dim]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># (∑v_i)^2：先求和再平方</span></span><br><span class="line">sum_of_embeds = tf.reduce_sum(inputs, axis=<span class="number">1</span>)  <span class="comment"># [B, D]</span></span><br><span class="line">square_of_sum = tf.square(sum_of_embeds)  <span class="comment"># [B, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ∑(v_i^2)：先平方再求和</span></span><br><span class="line">square_of_embeds = tf.square(inputs)  <span class="comment"># [B, N, D]</span></span><br><span class="line">sum_of_square = tf.reduce_sum(square_of_embeds, axis=<span class="number">1</span>)  <span class="comment"># [B, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 双交互池化输出</span></span><br><span class="line">bi_interaction = <span class="number">0.5</span> * (square_of_sum - sum_of_square)  <span class="comment"># [B, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 送入深度神经网络</span></span><br><span class="line">dnn_output = DNNs(</span><br><span class="line">    units=[<span class="number">64</span>, <span class="number">32</span>], activation=<span class="string">&quot;relu&quot;</span>, use_bn=<span class="literal">True</span>, dropout_rate=<span class="number">0.1</span></span><br><span class="line">)(bi_interaction)</span><br></pre></td></tr></table></figure>
 
 <h4 id="PNN-多样化的乘积操作"><a href="#PNN-多样化的乘积操作" class="headerlink" title="PNN: 多样化的乘积操作"></a>PNN: 多样化的乘积操作</h4><p>PNN <u>(Qu et al., 2016)</u> 的核心动机很直接：单一的内积或元素积难以充分刻画特征交互，因此引入多种“乘积”操作，让模型更全面地建模特征之间的关系</p>
-<p>PNN 的关键组件是<font color='Violetred'>乘积层(Product Layer)</font>，该层以特征 Embedding 为输入，一方面保留线性信息，另一方面显式建模特征之间的二阶交互，并将两部分结果送入后续的全连接网络进行高阶非线性学习</p>
+<p>PNN 的关键组件是<span style = "color:#DC5A5A">乘积层(Product Layer)</span>，该层以特征 Embedding 为输入，一方面保留线性信息，另一方面显式建模特征之间的二阶交互，并将两部分结果送入后续的全连接网络进行高阶非线性学习</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/pnn-%281%29.webp" alt="pnn (1)" style="zoom:67%;" />
 
 <p>PNN 的乘积层会产生两部分信号</p>
@@ -442,15 +442,15 @@ $$
 <p>另一部分是二次信号 $\mathbf l_p$，用于刻画特征间的交互。根据交互方式不同，PNN 有两种主要变体</p>
 <ul>
 <li><p><strong>IPNN (Inner Product-based Neural Network)</strong>:</p>
-<p>使用<font color='Violetred'>特征 Embedding 之间的内积来计算二次信号</font></p>
+<p>使用<span style = "color:#DC5A5A">特征 Embedding 之间的内积来计算二次信号</span></p>
 <div class="mathjax-display">
 $$
 \mathbf l_p^n = \sum_{i=1}^N \sum_{j=1}^N (\textbf W_p^n)_{i,j} \langle \mathbf f_i, \mathbf f_j \rangle
 $$
 </div>
-<font color='DarkViolet'>$\mathbf W_p^n \in \mathbb R^{M \times M}$ 是第 $n$ 个神经元对应的权重矩阵</font>，计算的复杂度是 $O(N^2)$，$N$ 为特征字段数量，复杂度太高
+<span style = "color:#8B75A8">$\mathbf W_p^n \in \mathbb R^{M \times M}$ 是第 $n$ 个神经元对应的权重矩阵</span>，计算的复杂度是 $O(N^2)$，$N$ 为特征字段数量，复杂度太高
 
-<p><font color='DarkViolet'>利用将交互权重矩阵分解为向量外积的形式</font>，$\textbf W_p^n$ 分解为 $\theta_n \theta_n^T$</p>
+<p><span style = "color:#8B75A8">利用将交互权重矩阵分解为向量外积的形式</span>，$\textbf W_p^n$ 分解为 $\theta_n \theta_n^T$</p>
 <div class="mathjax-display">
 $$
 \mathbf l_p^n = \sum_{i=1}^N \sum_{j=1}^N \theta_i^n \theta_j^n \langle \mathbf f_i, \mathbf f_j \rangle = \sum_{i=1}^N \sum_{j=1}^N \langle \theta_i^n \mathbf f_i, \theta_j^n \mathbf f_j \rangle = \langle \sum_{i=1}^N \theta_i^n \mathbf f_i, \sum_{j=1}^N \theta_j^n \mathbf f_j \rangle = \left\|\sum_{i=1}^N \theta_i^n \mathbf f_i\right\|^2
@@ -464,7 +464,7 @@ $$
 </div>
 </li>
 <li><p><strong>OPNN (Outer Product-based Neural Network)</strong>:</p>
-<p>使用<font color='Violetred'>特征 Embedding 之间的外积来捕捉更丰富的交互信息</font></p>
+<p>使用<span style = "color:#DC5A5A">特征 Embedding 之间的外积来捕捉更丰富的交互信息</span></p>
 <p>如果对所有外积对进行加权求和$\sum_{i&#x3D;1}^N \sum_{j&#x3D;1}^N \mathbf{f}_i \mathbf{f}_j^T$，计算复杂度太高$O(N^2M^2)$</p>
 <p>OPNN 采用了一种称为“叠加”(superposition)的近似方法来大幅降低复杂度</p>
 <p>先将所有特征的 Embedding 向量相加，然后再计算一次外积</p>
@@ -547,7 +547,7 @@ $$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. SENET特征重要性学习</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, num_features, embedding_dim]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Squeeze：全局平均池化</span></span><br><span class="line">squeeze = tf.reduce_mean(inputs, axis=-<span class="number">1</span>)  <span class="comment"># [B, N]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Excitation：两层全连接网络</span></span><br><span class="line">excitation = tf.matmul(squeeze, w1)  <span class="comment"># [B, reduction_size]</span></span><br><span class="line">excitation = tf.nn.relu(excitation)</span><br><span class="line">excitation = tf.matmul(excitation, w2)  <span class="comment"># [B, N]</span></span><br><span class="line">excitation = tf.nn.sigmoid(excitation)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Re-weight：应用注意力权重</span></span><br><span class="line">excitation = tf.expand_dims(excitation, axis=<span class="number">2</span>)  <span class="comment"># [B, N, 1]</span></span><br><span class="line">senet_output = tf.multiply(inputs, excitation)  <span class="comment"># [B, N, D]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 双线性交互：v_i · W ⊙ v_j</span></span><br><span class="line">interaction_outputs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_features):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, num_features):</span><br><span class="line">        <span class="comment"># 对特征i应用变换矩阵</span></span><br><span class="line">        vi_transformed = tf.matmul(inputs[:, i, :], W_list[idx])  <span class="comment"># [B, D]</span></span><br><span class="line">        <span class="comment"># 与特征j做元素积</span></span><br><span class="line">        interaction = tf.multiply(vi_transformed, inputs[:, j, :])  <span class="comment"># [B, D]</span></span><br><span class="line">        interaction_outputs.append(interaction)</span><br></pre></td></tr></table></figure>
 
 <h4 id="DeepFM-低阶高阶的统一建模"><a href="#DeepFM-低阶高阶的统一建模" class="headerlink" title="DeepFM: 低阶高阶的统一建模"></a>DeepFM: 低阶高阶的统一建模</h4><p>DeepFM <u>(Guo et al., 2017)</u> 是在 Wide &amp; Deep 架构上的直接改进，用 FM 模型替代了需要大量人工特征工程的 Wide 部分，从而实现了真正的端到端训练</p>
-<p>DeepFM 的一个关键设计：<font color='DarkViolet'>FM 组件和 Deep 组件共享同一套特征 Embedding</font></p>
+<p>DeepFM 的一个关键设计：<span style = "color:#8B75A8">FM 组件和 Deep 组件共享同一套特征 Embedding</span></p>
 <p>模型可以在同一表示空间中同时学习低阶和高阶特征交互，不仅减少了参数冗余，也提升了训练效率</p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/deepfm_architecture.png" alt="deepfm_architecture"></p>
 <p>DeepFM 由两个并行组件构成：</p>
@@ -669,7 +669,7 @@ DeepFM 的核心思路很简单：用 FM 自动学习低阶特征交互，用 DN
 </ul>
 <h3 id="高阶特征交叉"><a href="#高阶特征交叉" class="headerlink" title="高阶特征交叉"></a>高阶特征交叉</h3><p>深度网络虽然能学到高阶交互，但不知道它具体学到了什么，也不清楚这些交互是怎么影响预测的</p>
 <p>能不能像 FM 处理二阶交叉那样，设计出能够明确捕捉高阶交叉的网络结构？</p>
-<h4 id="DCN-残差连接的高阶交叉"><a href="#DCN-残差连接的高阶交叉" class="headerlink" title="DCN: 残差连接的高阶交叉"></a>DCN: 残差连接的高阶交叉</h4><p>Deep &amp; Cross Network (DCN) <u>(Wang et al., 2017)</u> 用Cross Network替代了Wide &amp; Deep模型中需要人工构造特征的 Wide 部分，实现了<font color='DarkViolet'>显式、高效的高阶特征交叉建模</font></p>
+<h4 id="DCN-残差连接的高阶交叉"><a href="#DCN-残差连接的高阶交叉" class="headerlink" title="DCN: 残差连接的高阶交叉"></a>DCN: 残差连接的高阶交叉</h4><p>Deep &amp; Cross Network (DCN) <u>(Wang et al., 2017)</u> 用Cross Network替代了Wide &amp; Deep模型中需要人工构造特征的 Wide 部分，实现了<span style = "color:#8B75A8">显式、高效的高阶特征交叉建模</span></p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/deepcross.webp" alt="deepcross"></p>
 <p>DCN 的整体结构由两条并行分支组成：</p>
 <ul>
@@ -685,7 +685,7 @@ $$
 </div>
 这个初始向量会被同时送入Cross Network和Deep Network
 
-<p><font color='DarkViolet'>Cross Network是DCN的核心创新，它由多个交叉层堆叠而成，其精妙之处在于每一层的计算都会与原始输入$\mathbf x_0$的直接交互</font></p>
+<p><span style = "color:#8B75A8">Cross Network是DCN的核心创新，它由多个交叉层堆叠而成，其精妙之处在于每一层的计算都会与原始输入$\mathbf x_0$的直接交互</span></p>
 <div class="mathjax-display">
 $$
 \mathbf x_{l+1} = \mathbf x_0 \mathbf x_l^T \mathbf w_l + \mathbf b_l + \mathbf x_l
@@ -705,8 +705,8 @@ $$
 <p>最后模型将Cross Network的输出 $\mathbf x_{L_1}$ 和Deep Network的输出 $\mathbf h_{L_2}$ 拼接起来，通过一个逻辑回归层得到最终的预测概率</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Cross Network的交叉层：x_&#123;l+1&#125; = x_0 * (x_l^T * w_l) + b_l + x_l</span></span><br><span class="line"><span class="comment"># 输入 x_0: [batch_size, feature_dim]</span></span><br><span class="line"></span><br><span class="line">x_l = x_0  <span class="comment"># 初始化为原始输入</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_cross_layers):</span><br><span class="line">    <span class="comment"># 计算 x_l^T * w_l：得到一个标量权重</span></span><br><span class="line">    xlw = tf.matmul(x_l, w_l)  <span class="comment"># [B, 1]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算 x_0 * (x_l^T * w_l)：交叉项</span></span><br><span class="line">    cross_term = tf.multiply(x_0, xlw)  <span class="comment"># [B, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 残差连接：x_&#123;l+1&#125; = cross_term + b_l + x_l</span></span><br><span class="line">    x_l = cross_term + b_l + x_l  <span class="comment"># [B, D]</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="xDeepFM-向量级别的特征交互"><a href="#xDeepFM-向量级别的特征交互" class="headerlink" title="xDeepFM: 向量级别的特征交互"></a>xDeepFM: 向量级别的特征交互</h4><p><font color='Violetred'>DCN 虽然能够显式构建高阶特征交叉，但其交叉发生在元素级别(bit-wise)</font>，Embedding向量中的每个元素都单独和其他特征的元素交互，这样就把Embedding向量拆散了，没有把它当作一个完整的特征来看待</p>
-<p>为此，xDeepFM 提出了压缩交互网络(Compressed Interaction Network, CIN)<u>(Lian et al., 2018)</u> ，<font color='DarkViolet'>以向量级别(vector-wise)的方式进行显式特征交叉</font></p>
+<h4 id="xDeepFM-向量级别的特征交互"><a href="#xDeepFM-向量级别的特征交互" class="headerlink" title="xDeepFM: 向量级别的特征交互"></a>xDeepFM: 向量级别的特征交互</h4><p><span style = "color:#DC5A5A">DCN 虽然能够显式构建高阶特征交叉，但其交叉发生在元素级别(bit-wise)</span>，Embedding向量中的每个元素都单独和其他特征的元素交互，这样就把Embedding向量拆散了，没有把它当作一个完整的特征来看待</p>
+<p>为此，xDeepFM 提出了压缩交互网络(Compressed Interaction Network, CIN)<u>(Lian et al., 2018)</u> ，<span style = "color:#8B75A8">以向量级别(vector-wise)的方式进行显式特征交叉</span></p>
 <p>xDeepFM 由三部分并行组成：</p>
 <ul>
 <li>线性部分：建模一阶特征</li>
@@ -773,7 +773,7 @@ $$
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CIN层的向量级别交互</span></span><br><span class="line"><span class="comment"># inputs: [batch_size, field_num, embed_dim]</span></span><br><span class="line"></span><br><span class="line">cin_layers = [inputs]  <span class="comment"># X^0：原始输入</span></span><br><span class="line">pooled_outputs = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> layer_size <span class="keyword">in</span> cin_layer_sizes: <span class="comment"># cin_layer_sizes = [H1, H2, H3]</span></span><br><span class="line">    <span class="comment"># 获取上一层输出 X^&#123;k-1&#125; 和原始输入 X^0</span></span><br><span class="line">    x_k_minus_1 = cin_layers[-<span class="number">1</span>]  <span class="comment"># [B, H_&#123;k-1&#125;, D]</span></span><br><span class="line">    x_0 = cin_layers[<span class="number">0</span>]  <span class="comment"># [B, m, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 扩展维度以便进行广播计算</span></span><br><span class="line">    x_k_minus_1_expand = tf.expand_dims(x_k_minus_1, axis=<span class="number">2</span>)  <span class="comment"># [B, H_&#123;k-1&#125;, 1, D]</span></span><br><span class="line">    x_0_expand = tf.expand_dims(x_0, axis=<span class="number">1</span>)  <span class="comment"># [B, 1, m, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 向量级别的哈达玛积交互</span></span><br><span class="line">    z_k = tf.multiply(x_k_minus_1_expand, x_0_expand)  <span class="comment"># [B, H_&#123;k-1&#125;, m, D]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 压缩：通过线性变换将 H_&#123;k-1&#125;*m 个交互向量压缩为 H_k 个</span></span><br><span class="line">    z_k_reshape = tf.reshape(z_k, [batch_size, -<span class="number">1</span>, embed_dim])  <span class="comment"># [B, H_&#123;k-1&#125;*m, D]</span></span><br><span class="line">    x_k = dense_layer(tf.transpose(z_k_reshape, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>]))  <span class="comment"># [B, D, H_k]</span></span><br><span class="line">    x_k = tf.transpose(x_k, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>])  <span class="comment"># [B, H_k, D]</span></span><br><span class="line"></span><br><span class="line">    cin_layers.append(x_k)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 求和池化：将向量维度聚合为标量</span></span><br><span class="line">    pooled_outputs.append(tf.reduce_sum(x_k, axis=-<span class="number">1</span>))  <span class="comment"># [B, H_k]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接所有层的输出</span></span><br><span class="line">cin_output = tf.concat(pooled_outputs, axis=<span class="number">1</span>)  <span class="comment"># [B, sum(H_k)]</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="AutoInt-自注意力的自适应交互"><a href="#AutoInt-自注意力的自适应交互" class="headerlink" title="AutoInt: 自注意力的自适应交互"></a>AutoInt: 自注意力的自适应交互</h4><p>DCN 通过残差结构实现了元素级别的显式高阶特征交叉，xDeepFM 通过 CIN 实现了向量级别的显式高阶交叉，但<font color='DarkViolet'>二者都有一个共同局限：高阶特征交互的构建方式是预先固定的</font></p>
+<h4 id="AutoInt-自注意力的自适应交互"><a href="#AutoInt-自注意力的自适应交互" class="headerlink" title="AutoInt: 自注意力的自适应交互"></a>AutoInt: 自注意力的自适应交互</h4><p>DCN 通过残差结构实现了元素级别的显式高阶特征交叉，xDeepFM 通过 CIN 实现了向量级别的显式高阶交叉，但<span style = "color:#8B75A8">二者都有一个共同局限：高阶特征交互的构建方式是预先固定的</span></p>
 <ul>
 <li>DCN：每一层都必须与原始输入交叉</li>
 <li>CIN：交互对象和交互形式由网络结构提前定义</li>
@@ -821,7 +821,7 @@ $$
 \mathbf{e_m^{\text{Res}}}= \text{ReLU}(\mathbf e_m + \mathbf W_{\text{Res}} \mathbf{\tilde{e}_m)}
 $$
 </div>
-<font color='DarkViolet'>AutoInt 的关键创新在于其高阶特征交互的构建方式</font>
+<span style = "color:#8B75A8">AutoInt 的关键创新在于其高阶特征交互的构建方式</span>
 
 <p>通过堆叠多个这样的交互层，AutoInt 能够显式地构建任意高阶的特征交互，每一层的输出都代表了更高一阶的、自适应学习到的特征组合</p>
 <p>与 DCN、xDeepFM 不同，AutoInt 中的高阶交互：</p>
@@ -936,11 +936,11 @@ $$
 <h3 id="DIN-局部激活的注意力机制"><a href="#DIN-局部激活的注意力机制" class="headerlink" title="DIN:局部激活的注意力机制"></a>DIN:局部激活的注意力机制</h3><p>在传统的深度学习模型(即Embedding&amp;MLP范式)中，通常的做法是将用户所有的历史行为(如点击过的商品ID)对应的Embedding向量通过池化(Pooling)操作，压缩成一个固定长度的向量来代表该用户</p>
 <p>这个固定长度的用户向量，很快就成为了表达用户多样兴趣的瓶颈</p>
 <p>为了增强表达能力而粗暴地增加向量维度，又会带来参数量爆炸和过拟合的风险</p>
-<p><font color='DarkViolet'>DIN的核心思想：局部激活 (Local Activation)</font></p>
+<p><span style = "color:#8B75A8">DIN的核心思想：局部激活 (Local Activation)</span></p>
 <p>深度兴趣网络(Deep Interest Network, DIN)<u>(Zhou et al., 2018)</u>发现，用户的某一次具体点击行为，通常只由其历史兴趣中的一部分所“激活”，所以用户的兴趣表示不应该是固定的，而应是根据当前的候选广告(Candidate Ad)不同而动态变化的</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/din_architecture.webp" alt="din_architecture" style="zoom: 67%;" />
 
-<p>为了实现“局部激活”这一思想，DIN引入了<font color='Violetred'>局部激活单元(Local Activation Unit)</font>，其本质就是注意力机制</p>
+<p>为了实现“局部激活”这一思想，DIN引入了<span style = "color:#DC5A5A">局部激活单元(Local Activation Unit)</span>，其本质就是注意力机制</p>
 <p>与基准模型对用户历史行为 Embedding 做简单池化不同，DIN 会根据候选广告对历史行为进行加权求和，从而得到与当前广告相关的用户兴趣表示</p>
 <p>具体来说，对于一个给定的用户$U$和候选广告$A$，用户的兴趣表示向量$\boldsymbol v_{U}(A)$定义为</p>
 <div class="mathjax-display">
@@ -959,7 +959,7 @@ $$
 </li>
 </ul>
 <p>DIN 学到的用户兴趣表示不再是固定向量，而是随候选广告动态变化的</p>
-<p>需要注意的是，<font color='DarkViolet'>DIN 中的注意力权重未使用 Softmax 归一化</font>，$\sum \boldsymbol w_{j}$不一定等于1，这种设计可以保留用户兴趣的绝对强度信息：当大量历史行为与广告高度相关时，加权后的兴趣向量模长更大；反之则更小</p>
+<p>需要注意的是，<span style = "color:#8B75A8">DIN 中的注意力权重未使用 Softmax 归一化</span>，$\sum \boldsymbol w_{j}$不一定等于1，这种设计可以保留用户兴趣的绝对强度信息：当大量历史行为与广告高度相关时，加权后的兴趣向量模长更大；反之则更小</p>
 <p>这样不仅能刻画兴趣的方向，还能反映兴趣的强弱</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># DIN注意力层的核心计算</span></span><br><span class="line"><span class="comment"># query: 候选广告 [batch_size, 1, embedding_dim]</span></span><br><span class="line"><span class="comment"># keys: 历史行为序列 [batch_size, seq_len, embedding_dim]</span></span><br><span class="line"></span><br><span class="line">query = tf.squeeze(query, axis=<span class="number">1</span>)  <span class="comment"># [B, H]</span></span><br><span class="line">length = tf.shape(keys)[-<span class="number">2</span>]</span><br><span class="line">query = tf.expand_dims(query, axis=<span class="number">1</span>)  <span class="comment"># [B, 1, H]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建多角度交互特征：query, keys, query-keys, query*keys</span></span><br><span class="line">att_inputs = tf.concat([</span><br><span class="line">    tf.tile(query, [<span class="number">1</span>, length, <span class="number">1</span>]),  <span class="comment"># 重复query以匹配序列长度</span></span><br><span class="line">    keys,                             <span class="comment"># 历史行为</span></span><br><span class="line">    query - keys,                     <span class="comment"># 差异特征</span></span><br><span class="line">    query * keys                      <span class="comment"># 元素积特征</span></span><br><span class="line">], axis=-<span class="number">1</span>)  <span class="comment"># [B, L, 4*H]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过前馈网络计算注意力分数</span></span><br><span class="line">hidden_layer = ffn_layer(att_inputs)  <span class="comment"># [B, L, hidden_units]</span></span><br><span class="line">scores = tf.keras.layers.Dense(<span class="number">1</span>)(hidden_layer)  <span class="comment"># [B, L, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用mask并进行加权求和(注意：不使用softmax归一化)</span></span><br><span class="line">attention_weights = scores * mask  <span class="comment"># [B, L, 1]</span></span><br><span class="line">user_interest = tf.reduce_sum(keys * attention_weights, axis=<span class="number">1</span>)  <span class="comment"># [B, H]</span></span><br></pre></td></tr></table></figure>
 
@@ -992,7 +992,7 @@ $$
 <p><strong>第二阶段：兴趣演化层 (Interest Evolving Layer)</strong></p>
 <p>经过第一阶段，模型获得了兴趣状态序列$\boldsymbol h_1, \boldsymbol h_2, \dots, \boldsymbol h_T$</p>
 <p>第二阶段的目标，就是对这个兴趣序列的演化过程进行建模</p>
-<p>现实中，<font color='DarkViolet'>用户兴趣常伴随兴趣漂移</font>，即在不同兴趣点之间切换</p>
+<p>现实中，<span style = "color:#8B75A8">用户兴趣常伴随兴趣漂移</span>，即在不同兴趣点之间切换</p>
 <p>如果直接用标准 GRU 建模，历史中不相关的兴趣可能会干扰当前兴趣的演化</p>
 <p>DIEN 设计了带注意力更新门的AUGRU(Attention-based GRU)，将 DIN 的注意力思想引入 GRU 的更新过程</p>
 <p>注意力得分$a_t$由$t$时刻的兴趣状态$\boldsymbol h_t$和候选广告$\boldsymbol e_a$共同决定</p>
@@ -1235,7 +1235,7 @@ $$
 <p>该设计通过提升底层特征表示的多样性，在一定程度上缓解了任务相关性较低时的负迁移问题</p>
 <p>然而，由于 OMoE 的门控机制对所有任务共享，不同任务的梯度仍会同时作用于同一组专家</p>
 <p>当任务目标存在冲突时，专家参数依然受到多任务梯度的直接干扰，因此并未从根本上解决多任务冲突问题</p>
-<p>为进一步缓解这一问题，<font color='Violetred'>MMoE（Multi-gate Mixture-of-Experts）为每个任务引入独立的门控网络</font>，将门控机制从“全局共享”升级为“任务自适应”，数学表达式可以表示为：</p>
+<p>为进一步缓解这一问题，<span style = "color:#DC5A5A">MMoE（Multi-gate Mixture-of-Experts）为每个任务引入独立的门控网络</span>，将门控机制从“全局共享”升级为“任务自适应”，数学表达式可以表示为：</p>
 <div class="mathjax-display">
 $$
 \begin{aligned}

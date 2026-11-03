@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-vpp725_1280x720_(1).webp">
 <meta property="article:published_time" content="2026-01-14T09:27:57.000Z">
-<meta property="article:modified_time" content="2026-10-31T12:15:51.035Z">
+<meta property="article:modified_time" content="2026-11-03T03:55:40.988Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🎯推荐系统">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/2654772227.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-vpp725_1280x720_(1).webp",
   "datePublished": "2026-01-14T09:27:57.000Z",
-  "dateModified": "2026-10-31T12:15:51.035Z",
+  "dateModified": "2026-11-03T03:55:40.988Z",
   "author": [
     {
       "@type": "Person",
@@ -229,7 +229,7 @@
 <p><strong>序列召回</strong>：把用户看成随时间演化的状态，用最近行为预测下一步</p>
 <h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><p>核心思想基于一个朴素的假设：相似的用户会喜欢相似的物品</p>
 <p>首先收集用户的历史行为数据(如评分、点击、购买记录)，然后计算用户之间或物品之间的相似度，最后基于这些相似度为用户生成推荐</p>
-<p>根据计算相似度的对象不同，协同过滤可以分为两种基本类型<font color='Violetred'>(邻域法)</font>：</p>
+<p>根据计算相似度的对象不同，协同过滤可以分为两种基本类型<span style = "color:#DC5A5A">(邻域法)</span>：</p>
 <ul>
 <li><p><strong>基于物品的协同过滤(Item-based CF)</strong>：推荐与用户历史偏好物品相似的其他物品</p>
 <p>ItemCF在工业界应用广泛，因物品规模更小、属性更稳定，维护成本较低</p>
@@ -239,10 +239,10 @@
 <p>UserCF能够挖掘潜在兴趣、提升新颖性，但受限于用户规模大、兴趣变化快和行为稀疏等问题，在工业场景中应用受限</p>
 </li>
 </ul>
-<p><strong>矩阵分解(Matrix Factorization, MF)</strong>：现代CF，直接建模用户-物品交互矩阵，通过学习用户和物品的低维向量表示来预测偏好，实现了U2I的直接召回，属于<font color='Violetred'>模型法协同过滤</font>，为后续向量召回奠定基础</p>
+<p><strong>矩阵分解(Matrix Factorization, MF)</strong>：现代CF，直接建模用户-物品交互矩阵，通过学习用户和物品的低维向量表示来预测偏好，实现了U2I的直接召回，属于<span style = "color:#DC5A5A">模型法协同过滤</span>，为后续向量召回奠定基础</p>
 <h3 id="ItemCF"><a href="#ItemCF" class="headerlink" title="ItemCF"></a>ItemCF</h3><p>ItemCF的思路建立在一个简单的假设上：用户的兴趣具有一定的连贯性，喜欢某个物品的用户往往也会对相似的物品感兴趣</p>
 <p>实现流程主要包含两个步骤</p>
-<p><font color='Violetred'>步骤一：物品相似度计算</font></p>
+<p><span style = "color:#DC5A5A">步骤一：物品相似度计算</span></p>
 <p>在大多数实际应用场景中通常只有用户是否对物品有过交互行为的数据(如点击、购买、收藏等)，而没有具体的评分信息</p>
 <p>理论上可以将每个物品表示为一个向量，然后计算向量间的相似度，但当商品数量巨大时，计算所有物品对之间的相似度会变成一个巨大的工程，时间复杂度达到$O(|I|^2)$</p>
 <p>因此从用户出发找物品组合，采用更高效的实现方式：</p>
@@ -267,14 +267,14 @@ $$
 <li><strong>优化方法</strong>：每个用户交互$|N(u)|$个物品，只计算有共同用户的物品对，$O(\sum_{u} |N(u)|^2)$</li>
 </ul>
 <p>定义$\sum_{u} |N(u)| &#x3D; R$(总交互数)，且用户平均交互物品数$\bar{m} &#x3D; R&#x2F;|U|$，那么$\sum_{u} |N(u)|^2\approx \sum_{u} \bar m^2 &#x3D; |U|\cdot \bar m^2$</p>
-<p><font color='DarkViolet'>总复杂度可以表示为$O(R \cdot \bar{m})$</font></p>
+<p><span style = "color:#8B75A8">总复杂度可以表示为$O(R \cdot \bar{m})$</span></p>
 <p>现实推荐数据的典型特征：</p>
 <ul>
 <li>$\bar m\ll|I|$(用户只看极少数物品)</li>
 <li>交互矩阵极度稀疏</li>
 </ul>
 <p>优化方法效率远高于暴力计算，只计算真正有意义的物品对，避免了大量无效计算</p>
-<p><font color='Violetred'>步骤二：候选物品推荐</font></p>
+<p><span style = "color:#DC5A5A">步骤二：候选物品推荐</span></p>
 <p>获得物品相似度矩阵后就可以预测用户对未接触物品的喜好程度了</p>
 <p>选取用户最近交互的物品作为兴趣种子，为每个种子物品找到最相似的若干个候选物品，快速生成大量候选集合</p>
 <p>用用户$u$过去看过的所有物品$j\in N(u)$，按它们和目标物品 $i$ 的相似度加权，得到用户对物品 $i$ 的兴趣评分</p>
@@ -283,12 +283,12 @@ $$
 \color{red} p(u, i) = \sum_{j \in N(u)} w_{ij} \cdot r_{uj}
 $$
 </div>
-$w_{ij}$是物品之间的相似度，<font color='DarkViolet'>$r_{uj}$表示用户对物品$j$的兴趣强度(可以是简单的1，也可以根据交互时间、类型等设置不同权重)</font>
+$w_{ij}$是物品之间的相似度，<span style = "color:#8B75A8">$r_{uj}$表示用户对物品$j$的兴趣强度(可以是简单的1，也可以根据交互时间、类型等设置不同权重)</span>
 
 <p>最终系统对所有候选物品按兴趣分数排序，选择Top-N物品作为ItemCF通道的推荐结果</p>
 <p><strong>拓展：处理评分数据的相似度计算</strong></p>
 <p>余弦相似度适用于隐式反馈场景(如点击、浏览)，但在某些应用中还有显式评分数据(如5星评分、点赞数等)，对于这类数据，可以使用更精细的相似度计算方法</p>
-<p>当有评分数据时，<font color='DarkViolet'>皮尔逊相关系数</font>能更好地捕获物品间的相似性模式：</p>
+<p>当有评分数据时，<span style = "color:#8B75A8">皮尔逊相关系数</span>能更好地捕获物品间的相似性模式：</p>
 <div class="mathjax-display">
 $$
 w_{ij} = \frac{\sum_{u \in U_{ij}}(r_{ui} - \bar r_i)(r_{uj} - \bar r_j)}{\sqrt{\sum_{u \in U_{ij}}(r_{ui} - \bar r_i)^2}\sqrt{\sum_{u \in U_{ij}}(r_{uj} - \bar r_j)^2}}
@@ -319,7 +319,7 @@ $$
 <li>对稀疏数据不稳定，$U_{ij}$很小，相关系数噪声大</li>
 </ol>
 <p>工业界更常见的是简化的余弦相似度，并通过其他方式(如加权、归一化)来处理评分差异</p>
-<p><font color='Violetred'>举例</font></p>
+<p><span style = "color:#DC5A5A">举例</span></p>
 <p>预测用户1对物品5的评分</p>
 <table>
 <thead>
@@ -413,9 +413,9 @@ $$
 </ol>
 <h4 id="Swing"><a href="#Swing" class="headerlink" title="Swing"></a>Swing</h4><p>ItemCF 虽然简单有效，但在工业场景中存在明显不足：热门物品因高频占据主导，随机点击等噪声行为会干扰相似度计算，且不同类型的用户行为被一视同仁，难以区分真实兴趣与偶然行为，也无法刻画物品的替代性和互补性关系</p>
 <p>Swing 算法从用户–物品二部图结构出发，不再单纯依赖共现次数，而是通过挖掘更具鲁棒性的共同购买关系来过滤噪声，更准确地刻画物品之间的真实关联，实现可以分为两个主要步骤：</p>
-<p><font color='Violetred'>步骤一：用户-物品二部图构建</font></p>
+<p><span style = "color:#DC5A5A">步骤一：用户-物品二部图构建</span></p>
 <p>首先将用户与物品的交互数据转化为一个二部图，一边是所有用户节点，另一边是所有物品节点，如果用户对某个物品发生了点击、购买等行为，就在对应的用户节点与物品节点之间添加一条边，为后续的相似度计算提供了结构化的数据基础</p>
-<p><font color='Violetred'>步骤二：物品相似度计算</font></p>
+<p><span style = "color:#DC5A5A">步骤二：物品相似度计算</span></p>
 <p>计算任意一对物品 $ i $ 与 $ j $ 的相似度</p>
 <p>设 $ U_{i} $ 和 $ U_{j} $ 分别表示与物品 $ i $ 和 $ j $ 有过交互的用户集合，$I_{u}$表示用户$ u $交互过的所有物品集合</p>
 <p>首先找到同时与物品 $ i $ 和 $ j $ 相连的用户集合 $ U_{i} \cap U_{j} $，然后对集合中的每一对用户$(u, v)$统计他们的其他共同购买行为，如果用户 $ u  $ 与 $ v $ 的其他交互行为重合较少(即 $ \left|I_{u} \cap I_{v}\right| $ 较小)，则认为他们在共同选择物品 $ i $ 和 $ j $ 上的行为更具特异性，应该为这对物品贡献更高的相似度得分</p>
@@ -453,7 +453,7 @@ $$
 <h3 id="UserCF"><a href="#UserCF" class="headerlink" title="UserCF"></a>UserCF</h3><p>UserCF基于一个简单假设：具有相似历史行为的用户，未来偏好也相似</p>
 <p>尽管实践中更偏向 ItemCF，但 UserCF 提出的用户向量化思想为后续的矩阵分解模型奠定了基础</p>
 <p>实现过程可以分解为两个核心步骤</p>
-<p><font color='Violetred'>步骤一：用户相似度计算</font></p>
+<p><span style = "color:#DC5A5A">步骤一：用户相似度计算</span></p>
 <p>假设用户$u$和用户$v$分别对应物品集合$N(u)$和$N(v)$(即他们各自有过行为的物品)</p>
 <p><strong>杰卡德相似系数</strong>：</p>
 <p>如果系统只记录用户是否对物品有过行为(比如是否点击、购买)，而没有具体的评分，这个系数是个不错的选择</p>
@@ -471,7 +471,7 @@ $$
 w_{uv} = \frac{|N(u) \cap N(v)|}{\sqrt{|N(u)|\cdot|N(v)|}}
 $$
 </div>
-<font color='DarkViolet'>余弦相似度已经考虑了用户活跃度的差异</font>
+<span style = "color:#8B75A8">余弦相似度已经考虑了用户活跃度的差异</span>
 
 <p><strong>皮尔逊相关系数</strong></p>
 <p>有评分数据时</p>
@@ -484,7 +484,7 @@ $$
 
 <p>皮尔逊系数通过中心化处理，有效消除了个人评分习惯的差异</p>
 <p>通常选择相似度最高的K个用户作为“邻居”</p>
-<p><font color='Violetred'>步骤二：候选物品推荐</font></p>
+<p><span style = "color:#DC5A5A">步骤二：候选物品推荐</span></p>
 <p>有了相似用户，下一步就是利用他们的偏好来预测目标用户对未交互过的物品的兴趣</p>
 <p><strong>简单加权平均</strong></p>
 <div class="mathjax-display">
@@ -591,7 +591,7 @@ $$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">user_data = &#123;</span><br><span class="line">    <span class="string">&#x27;user1&#x27;</span>: &#123;<span class="string">&#x27;item1&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;item2&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;item3&#x27;</span>: <span class="number">4</span>, <span class="string">&#x27;item4&#x27;</span>: <span class="number">4</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;user2&#x27;</span>: &#123;<span class="string">&#x27;item1&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;item2&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;item3&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;item4&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;item5&#x27;</span>: <span class="number">3</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;user3&#x27;</span>: &#123;<span class="string">&#x27;item1&#x27;</span>: <span class="number">4</span>, <span class="string">&#x27;item2&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;item3&#x27;</span>: <span class="number">4</span>, <span class="string">&#x27;item4&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;item5&#x27;</span>: <span class="number">5</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;user4&#x27;</span>: &#123;<span class="string">&#x27;item1&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;item2&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;item3&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;item4&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;item5&#x27;</span>: <span class="number">4</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;user5&#x27;</span>: &#123;<span class="string">&#x27;item1&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;item2&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;item3&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;item4&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;item5&#x27;</span>: <span class="number">1</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>使用字典来建立用户-物品的交互表</p>
-<p><font color='DarkViolet'>由于现实场景中，用户对物品的评分比较稀疏，如果直接使用矩阵进行存储，会存在大量空缺值，故此处使用了字典</font></p>
+<p><span style = "color:#8B75A8">由于现实场景中，用户对物品的评分比较稀疏，如果直接使用矩阵进行存储，会存在大量空缺值，故此处使用了字典</span></p>
 </li>
 <li><p>基于皮尔逊相关系数，计算用户相似性矩阵</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化相似性矩阵</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">similarity_matrix = pd.DataFrame(</span><br><span class="line">    np.identity(<span class="built_in">len</span>(user_data)),</span><br><span class="line">    index=user_data.keys(),</span><br><span class="line">    columns=user_data.keys(),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历每条用户-物品评分数据</span></span><br><span class="line"><span class="keyword">for</span> u1, items1 <span class="keyword">in</span> user_data.items():</span><br><span class="line">    <span class="keyword">for</span> u2, items2 <span class="keyword">in</span> user_data.items():</span><br><span class="line">        <span class="keyword">if</span> u1 == u2:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        vec1, vec2 = [], []</span><br><span class="line">        <span class="keyword">for</span> item, rating1 <span class="keyword">in</span> items1.items():</span><br><span class="line">            rating2 = items2.get(item, -<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> rating2 == -<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            vec1.append(rating1)</span><br><span class="line">            vec2.append(rating2)</span><br><span class="line">        <span class="comment"># 计算不同用户之间的皮尔逊相关系数</span></span><br><span class="line">        similarity_matrix[u1][u2] = np.corrcoef(vec1, vec2)[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(similarity_matrix)</span><br></pre></td></tr></table></figure>
@@ -608,11 +608,11 @@ $$
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户user1对物品item5的预测评分为：4.8720</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="矩阵分解"><a href="#矩阵分解" class="headerlink" title="矩阵分解"></a>矩阵分解</h3><p>UserCF 和 ItemCF 虽然直观易懂，但在真实场景中都会受到<font color='DarkViolet'>数据稀疏性</font>的限制：大多数用户只与很少的物品发生过交互</p>
+<h3 id="矩阵分解"><a href="#矩阵分解" class="headerlink" title="矩阵分解"></a>矩阵分解</h3><p>UserCF 和 ItemCF 虽然直观易懂，但在真实场景中都会受到<span style = "color:#8B75A8">数据稀疏性</span>的限制：大多数用户只与很少的物品发生过交互</p>
 <p>这使得相似度既难以可靠计算，即便找到邻居，覆盖的物品也十分有限</p>
 <p>邻域方法通常先计算相似度、再进行推荐，这种两阶段流程缺乏对整体交互数据的全局建模</p>
-<p>转向另一种思路：不再显式计算相似度，而是通过学习<font color='DarkViolet'>用户和物品的隐向量表示</font>，让相似性在向量空间中自然体现</p>
-<p>矩阵分解正是这一思想的代表，也标志着<font color='Violetred'>协同过滤从传统统计方法走向机器学习方法</font></p>
+<p>转向另一种思路：不再显式计算相似度，而是通过学习<span style = "color:#8B75A8">用户和物品的隐向量表示</span>，让相似性在向量空间中自然体现</p>
+<p>矩阵分解正是这一思想的代表，也标志着<span style = "color:#DC5A5A">协同过滤从传统统计方法走向机器学习方法</span></p>
 <p>矩阵分解的核心想法建立在两个关键假设上：</p>
 <ol>
 <li>低秩假设：看似复杂的评分矩阵实际上只由少数几个隐含因素主导，比如“面向男性vs面向女性”、“严肃vs逃避现实”等维度</li>
@@ -627,7 +627,7 @@ $$
 </div>
 $p_{u,k}$表示用户$u$在第$k$个隐含因子上的偏好程度，$q_{i,k}$表示物品$i$在第$k$个隐含因子上的特征强度
 
-<p><font color='Violetred'>现在问题变成了：如何找到这些隐含因子？</font></p>
+<p><span style = "color:#DC5A5A">现在问题变成了：如何找到这些隐含因子？</span></p>
 <p>采用一个很自然的思路——让预测评分尽可能接近真实评分，也就是要最小化所有已知评分的预测误差</p>
 <div class="mathjax-display">
 $$
@@ -766,8 +766,8 @@ $$
 </tbody></table>
 <h2 id="向量召回"><a href="#向量召回" class="headerlink" title="向量召回"></a>向量召回</h2><p>矩阵分解奠定了推荐系统中向量化建模的基础，但矩阵分解是线性模型，表达能力有限，主要依赖<strong>用户–物品交互矩阵</strong>，在超大规模场景下面临数据稀疏以及计算与存储压力</p>
 <p>向量召回延续矩阵分解的向量表示思想，用更复杂的模型(DNN)学习向量，融合多源特征，提升表达能力</p>
-<p>加上NLP领域的嵌入(Embedding)技术，将离散符号映射到连续向量空间，<font color='Violetred'>向量距离具备语义意义(Word2Vec)</font></p>
-<p>向量召回借鉴该思想，<font color='DarkViolet'>用户和物品共享向量空间</font>，距离表示相似度，<font color='DarkViolet'>推荐问题转化为向量检索</font></p>
+<p>加上NLP领域的嵌入(Embedding)技术，将离散符号映射到连续向量空间，<span style = "color:#DC5A5A">向量距离具备语义意义(Word2Vec)</span></p>
+<p>向量召回借鉴该思想，<span style = "color:#8B75A8">用户和物品共享向量空间</span>，距离表示相似度，<span style = "color:#8B75A8">推荐问题转化为向量检索</span></p>
 <p>向量召回技术主要沿着两条路径发展</p>
 <ul>
 <li><strong>I2I(Item-to-Item)召回</strong>：用“物品向量”去检索“相似物品向量”</li>
@@ -777,7 +777,7 @@ $$
 <h4 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h4><p>Word2Vec是序列建模的理论基础</p>
 <p>主要包含两种模型架构：</p>
 <ul>
-<li>Skip-Gram：用中心词 → 预测上下文，<strong>对低频词更友好</strong>，<font color='DarkViolet'>推荐系统广泛采用 Skip-gram 视角</font></li>
+<li>Skip-Gram：用中心词 → 预测上下文，<strong>对低频词更友好</strong>，<span style = "color:#8B75A8">推荐系统广泛采用 Skip-gram 视角</span></li>
 <li>CBOW(Continuous Bag of Words)：用上下文 → 预测中心词，对高频词友好</li>
 </ul>
 <p><strong>Skip-Gram模型</strong></p>
@@ -792,18 +792,18 @@ $$
 其中$v_{w_i}$表示词$w_i$的向量表示，$V$是词汇表，分子中的内积$v_{w_{t+j}}^T v_{w_t}$衡量了中心词与上下文词的相似度
 
 <p><strong>负采样优化</strong></p>
-<p>在 Word2Vec 中，直接计算 softmax 分母需要遍历整个词表，计算代价极高，为此引入了负采样(Negative Sampling)来进行优化，<font color='DarkViolet'>从多分类 → 多个二分类</font>，其目标函数为：</p>
+<p>在 Word2Vec 中，直接计算 softmax 分母需要遍历整个词表，计算代价极高，为此引入了负采样(Negative Sampling)来进行优化，<span style = "color:#8B75A8">从多分类 → 多个二分类</span>，其目标函数为：</p>
 <div class="mathjax-display">
 $$
 \color{red}\log \sigma(v_{w_{t+j}}^T v_{w_t}) + \sum_{i=1}^{k} \mathbb E_{w_i \sim P_n(w)} \log \sigma(-v_{w_i}^T v_{w_t})
 $$
 </div>
-其中$\color{purple}\sigma(x) = \frac{1}{1 + e^{-x}}$是sigmoid函数(<font color='DarkViolet'>二分类问题常用</font>)，$k$是负样本数量，$P_n(w)$是负采样分布
+其中$\color{purple}\sigma(x) = \frac{1}{1 + e^{-x}}$是sigmoid函数(<span style = "color:#8B75A8">二分类问题常用</span>)，$k$是负样本数量，$P_n(w)$是负采样分布
 
 <p>负采样的直观解释是：对于真实的词对，希望增加它们的相似度；对于随机采样的负样本词对，希望降低它们的相似度</p>
 <h4 id="Item2Vec"><a href="#Item2Vec" class="headerlink" title="Item2Vec"></a>Item2Vec</h4><p>Item2Vec<u>(Barkan and Koenigstein, 2016)</u>的核心洞察在于发现了用户行为数据与文本数据的结构相似性</p>
 <p>在文本中，一个句子由多个词语组成，词语之间的共现关系反映了语义相似性</p>
-<p><font color='Violetred'>在推荐系统中，每个用户的交互历史可以看作一个“句子”，其中包含的物品就是“词语”</font></p>
+<p><span style = "color:#DC5A5A">在推荐系统中，每个用户的交互历史可以看作一个“句子”，其中包含的物品就是“词语”</span></p>
 <p>这种映射关系可以表示为：</p>
 <ul>
 <li>词语 → 物品</li>
@@ -824,7 +824,7 @@ $$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> gensim.models <span class="keyword">import</span> Word2Vec</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Item2Vec</span>:  </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fit</span>(<span class="params">self, train_hist_movie_id_list</span>):</span><br><span class="line">        <span class="comment"># train_hist_movie_id_list: 用户交互序列列表</span></span><br><span class="line">        <span class="comment"># 每个元素是一个用户的物品ID序列</span></span><br><span class="line">        <span class="variable language_">self</span>.model = Word2Vec(</span><br><span class="line">            train_hist_movie_id_list,                     <span class="comment"># 用户交互数据集</span></span><br><span class="line">            vector_size=<span class="variable language_">self</span>.model_config[<span class="string">&quot;EmbDim&quot;</span>],      <span class="comment"># 嵌入维度</span></span><br><span class="line">            window=<span class="variable language_">self</span>.model_config[<span class="string">&quot;Window&quot;</span>],           <span class="comment"># 上下文窗口大小</span></span><br><span class="line">            min_count=<span class="variable language_">self</span>.model_config[<span class="string">&quot;MinCount&quot;</span>],      <span class="comment"># 最小出现次数</span></span><br><span class="line">            workers=<span class="variable language_">self</span>.model_config[<span class="string">&quot;Workers&quot;</span>],         <span class="comment"># 并行线程数</span></span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
 
 <hr>
-<p>Item2Vec使用了序列形式的数据，但训练目标<font color='DarkViolet'>只关心是否共现</font>，不关心先后顺序</p>
+<p>Item2Vec使用了序列形式的数据，但训练目标<span style = "color:#8B75A8">只关心是否共现</span>，不关心先后顺序</p>
 <p>U1：手机 → 手机壳 → 钢化膜 → 充电线 → 移动电源  (标准购买路径)</p>
 <p>U2：手机 → 蓝牙耳机 → 手机壳 → 充电线  (跳跃 + 回退)</p>
 <p>U3：手机 → 游戏手柄 → 电竞耳机   (冷启动 + 小众)</p>
@@ -845,7 +845,7 @@ $$
 </ol>
 <p><strong>构建商品关系图</strong></p>
 <p>EGES的第一个创新是将物品序列的概念从简单的用户交互扩展为更精细的会话级序列</p>
-<p>在固定时间窗口内，当两个商品在用户行为序列中连续出现时，便在它们之间建立一条<font color='Violetred'>有向边</font>，其权重由该转移关系在所有用户历史中出现的频率决定</p>
+<p>在固定时间窗口内，当两个商品在用户行为序列中连续出现时，便在它们之间建立一条<span style = "color:#DC5A5A">有向边</span>，其权重由该转移关系在所有用户历史中出现的频率决定</p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/eges_item_graph-%281%29.webp" alt="eges_item_graph (1)"></p>
 <p>相比将整个用户历史视为一个序列，这种基于会话的商品图能够更准确地刻画用户在短时间内的连续兴趣转移</p>
 <p>在此基础上，EGES 在商品图上进行采用带权随机游走策略生成训练序列，转移概率由边权重决定：</p>
@@ -862,7 +862,7 @@ $$
 <p>通过随机游走过程，可以生成大量的商品序列用于后续的embedding学习</p>
 <p><strong>融合辅助信息解决稀疏性问题</strong></p>
 <p>引入商品的辅助信息(如类别、品牌、价格区间等)来增强商品的向量表示</p>
-<p><font color='DarkViolet'>GES的核心思想</font>是将商品本身的Embedding与其各种属性的Embedding进行平均聚合</p>
+<p><span style = "color:#8B75A8">GES的核心思想</span>是将商品本身的Embedding与其各种属性的Embedding进行平均聚合</p>
 <div class="mathjax-display">
 $$
 H_v=\frac{1}{n+1} \sum_{s=0}^n{W_v^s}
@@ -871,7 +871,7 @@ $$
 其中$W_v^s$表示商品$v$的第$s$种属性的向量表示，$W_v^0$表示商品ID的向量表示
 
 <p>这种方法虽然有效缓解了冷启动问题，但它假设所有类型的辅助信息对商品表示的贡献是相等的，这显然不符合实际情况</p>
-<p><font color='DarkViolet'>EGES的核心创新</font>在于认识到不同类型的辅助信息应该有不同的重要性</p>
+<p><span style = "color:#8B75A8">EGES的核心创新</span>在于认识到不同类型的辅助信息应该有不同的重要性</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/eges_model.webp" alt="eges_model" style="zoom: 33%;" />
 
 <p>对于具有$n$种辅助信息的商品$v$，EGES为其维护$n+1$个向量表示：一个商品ID的向量表示，以及$n$个属性的向量表示</p>
@@ -884,14 +884,14 @@ $$
 其中$a_v^j$是可学习的权重参数，这种设计体现了不同类型的辅助信息对不同商品的重要性
 
 <p><strong>核心代码</strong></p>
-<p>EGES的核心在于商品<font color='Violetred'>特定注意力层(ItemSpecificAttentionLayer)</font>，它为每个商品学习一组特征权重</p>
+<p>EGES的核心在于商品<span style = "color:#DC5A5A">特定注意力层(ItemSpecificAttentionLayer)</span>，它为每个商品学习一组特征权重</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">call</span>(<span class="params">self, inputs, item_indices</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">        inputs: 特征嵌入 [batch_size, n+1, emb_dim]</span></span><br><span class="line"><span class="string">        item_indices: 商品索引 [batch_size]</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取每个商品的索引取出对应的权重参数 a_v^j</span></span><br><span class="line">    <span class="comment"># self.attention_weights：[num_items, n+1]</span></span><br><span class="line">    batch_attention_weights = tf.gather(<span class="variable language_">self</span>.attention_weights, item_indices)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算 e^(a_v^j)</span></span><br><span class="line">    exp_attention = tf.exp(batch_attention_weights)  <span class="comment"># [batch_size, n+1]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 归一化权重: e^(a_v^j) / sum(e^(a_v^j))</span></span><br><span class="line">    attention_sum = tf.reduce_sum(exp_attention, axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span><br><span class="line">    normalized_attention = exp_attention / attention_sum</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 应用权重到特征嵌入</span></span><br><span class="line">    normalized_attention = tf.expand_dims(normalized_attention, axis=-<span class="number">1</span>) <span class="comment"># [batch_size, n+1, 1]</span></span><br><span class="line">    weighted_embedding = inputs * normalized_attention  <span class="comment"># [batch_size, n+1, emb_dim]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 求和得到最终的商品表示 H_v</span></span><br><span class="line">    output = tf.reduce_sum(weighted_embedding, axis=<span class="number">1</span>)  <span class="comment"># [batch_size, emb_dim]</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> output, normalized_attention</span><br></pre></td></tr></table></figure>
 
 <p>这里的<code>attention_weights</code>是一个形状为$|V| \times (n+1)$的参数矩阵，其中$|V|$是商品总数，$n+1$特征数量(商品ID + $n$种辅助信息)</p>
 <p>对于每个商品，模型会学习到一组特定的权重，自动发现哪些特征对该商品更重要，这种商品特定的注意力机制是EGES相比简单平均聚合的关键优势</p>
 <p><strong>冷启动商品的处理</strong></p>
 <p>对于无任何用户行为的新商品，既无法学习 item ID 向量，也没有对应的注意力权重</p>
-<p><font color='DarkViolet'>EGES 采用 mean pooling 策略</font>，将商品的各类辅助特征向量(如类目、品牌、价格区间等)直接取平均，构造商品表示</p>
+<p><span style = "color:#8B75A8">EGES 采用 mean pooling 策略</span>，将商品的各类辅助特征向量(如类目、品牌、价格区间等)直接取平均，构造商品表示</p>
 <p>虽然忽略了属性重要性的差异，但能有效利用内容信息，使冷启动商品仍可参与向量相似度召回</p>
 <p><strong>训练优化</strong></p>
 <p>EGES采用与Word2Vec类似的负采样策略，但损失函数经过了优化：</p>
@@ -905,7 +905,7 @@ $$
 <p>$H_v$是商品$v$的向量表示，$Z_u$是上下文节点$u$的向量表示，$H_v^TZ_u$衡量商品$v$和上下文商品$u$是否“应该有关联”</p>
 <p>EGES在淘宝的实际部署效果显著</p>
 <hr>
-<p><font color='Violetred'>为什么EGES 不属于“序列召回&quot;？</font></p>
+<p><span style = "color:#DC5A5A">为什么EGES 不属于“序列召回&quot;？</span></p>
 <p>因为有向序列只是用于“构图”，不会作为模型输入序列去建模时间顺序</p>
 <p>A → B → C → D 模型看到的只是 (A, B), (B, C), (C, D)，路径结构在这里消失了，方向信息没有形成状态差异</p>
 <p>同样的例子：</p>
@@ -945,7 +945,7 @@ $$
 <p>关键的创新在于第三项，$l_b$表示用户在该会话中最终预订的房源，预订房源为序列中的每个房源都提供了额外的学习信号</p>
 <p><strong>市场感知的负采样</strong></p>
 <p>传统负采样通常从全量房源中随机选择负样本，但在 Airbnb 场景下，用户的预订行为高度受地理位置约束，跨市场的负样本过于“容易区分”，会导致模型过度依赖地理特征而忽略房源本身差异</p>
-<p>Airbnb 引入了<font color='Violetred'>同市场负采样</font>：在负样本中加入与正样本处于同一城市或地区的房源，迫使模型在相同市场内学习更细粒度的房源差异，从而提升推荐精度，对应的损失项为：</p>
+<p>Airbnb 引入了<span style = "color:#DC5A5A">同市场负采样</span>：在负样本中加入与正样本处于同一城市或地区的房源，迫使模型在相同市场内学习更细粒度的房源差异，从而提升推荐精度，对应的损失项为：</p>
 <div class="mathjax-display">
 $$
 \sum_{(l, l_m^-) \in \mathcal D_m} \log \frac{1}{1 + e^{v_{l_m^-}^T v_l}}
@@ -955,15 +955,15 @@ $$
 
 <h3 id="U2I召回"><a href="#U2I召回" class="headerlink" title="U2I召回"></a>U2I召回</h3><p>U2I 召回的核心目标是在海量物品中，高效找到与用户兴趣匹配的候选集</p>
 <p>其演进过程，本质上是将复杂的用户–物品匹配问题，转化为高效的向量搜索问题</p>
-<p>这一转变的关键突破来自于一个统一的架构思想：<font color='DarkViolet'>双塔模型(Two-Tower Model)</font></p>
-<p>无论是经典的因子分解机FM、深度结构化语义模型DSSM，还是YouTube的深度神经网络YouTubeDNN，虽然结构不同，但本质一致：<font color='Violetred'>分别将用户和物品编码为向量，通过向量相似度衡量匹配程度</font></p>
+<p>这一转变的关键突破来自于一个统一的架构思想：<span style = "color:#8B75A8">双塔模型(Two-Tower Model)</span></p>
+<p>无论是经典的因子分解机FM、深度结构化语义模型DSSM，还是YouTube的深度神经网络YouTubeDNN，虽然结构不同，但本质一致：<span style = "color:#DC5A5A">分别将用户和物品编码为向量，通过向量相似度衡量匹配程度</span></p>
 <h4 id="双塔模型"><a href="#双塔模型" class="headerlink" title="双塔模型"></a>双塔模型</h4><p>双塔模型将推荐问题拆解为两个相对独立的子问题：</p>
 <ul>
 <li><strong>用户塔(User Tower)</strong>：专注于理解用户——处理用户的历史行为、人口统计学特征、上下文信息等，最终输出一个代表用户兴趣的向量$u$</li>
 <li><strong>物品塔(Item Tower)</strong>：专注于刻画物品——整合物品的ID、类别、属性、内容特征等，输出一个表征物品特性的向量$v$</li>
 </ul>
-<p><font color='DarkViolet'>在训练完成后，所有物品的向量都可以离线预计算并存储在高效的向量检索系统中</font>(如Faiss、Annoy等)</p>
-<p>当用户发起推荐请求时，<font color='DarkViolet'>系统只需实时计算用户向量，然后通过近似最近邻(ANN)搜索获取相似物品</font></p>
+<p><span style = "color:#8B75A8">在训练完成后，所有物品的向量都可以离线预计算并存储在高效的向量检索系统中</span>(如Faiss、Annoy等)</p>
+<p>当用户发起推荐请求时，<span style = "color:#8B75A8">系统只需实时计算用户向量，然后通过近似最近邻(ANN)搜索获取相似物品</span></p>
 <p>该架构将匹配复杂度从全量匹配$O(U \times I)$转化为向量计算$$O(U + I)$$与近邻搜索</p>
 <p>用户与物品的匹配度通常通过点积或余弦相似度计算</p>
 <div class="mathjax-display">
@@ -994,7 +994,7 @@ $$
 \left\langle\mathbf v_{i}, \mathbf v_{j}\right\rangle=\sum_{f=1}^{k} v_{i, f} v_{j, f}
 $$
 </div>
-原本二阶交互项的计算复杂度为$O(kn^2)$复杂度的二阶交互项，可以通过代数运算重写为(<font color='Violetred'>一维的平方展开</font>)
+原本二阶交互项的计算复杂度为$O(kn^2)$复杂度的二阶交互项，可以通过代数运算重写为(<span style = "color:#DC5A5A">一维的平方展开</span>)
 <div class="mathjax-display">
 $$
 \sum_{i=1}^{n} \sum_{j=i+1}^{n}\left\langle\mathbf v_{i}, \mathbf v_{j}\right\rangle x_{i} x_{j}  =\sum_{f=1}^{k} \sum_{i=1}^{n} \sum_{j=i+1}^{n} v_{i, f} v_{j, f} x_{i} x_{j}=\sum_{f=1}^{k} \sum_{i&lt;j} v_{i, f} v_{j, f} x_{i} x_{j}=\frac{1}{2} \sum_{f=1}^{k}\left(\left(\sum_{i=1}^{n} v_{i, f} x_{i}\right)^{2}-\sum_{i=1}^{n} v_{i, f}^{2} x_{i}^{2}\right)
@@ -1046,7 +1046,7 @@ $$
 <blockquote>
 <p>物品一阶项 + 物品内部二阶交互项 + 用户物品交互项</p>
 </blockquote>
-<p><font color='DarkViolet'>可以将整个匹配分数重新组织为两个向量的内积形式</font></p>
+<p><span style = "color:#8B75A8">可以将整个匹配分数重新组织为两个向量的内积形式</span></p>
 <div class="mathjax-display">
 $$
 \color{red}score_{FM} = V_{item} \cdot V_{user}^T
@@ -1080,7 +1080,7 @@ $$
 
 <p>这种设计使得物品向量可以离线预计算，用户向量实时计算，从而支持高效的召回检索</p>
 <h4 id="DSSM"><a href="#DSSM" class="headerlink" title="DSSM"></a>DSSM</h4><p>虽然 FM 通过向量分解高效建模特征交互，但其本质仍是线性模型，对复杂的非线性用户–物品关系表达能力有限</p>
-<p><font color='Darkviolet'>深度结构化语义模型(Deep Structured Semantic Model, DSSM)</font> <u>(Huang <em>et al.</em>, 2013)</u> 引入深度神经网络分别对用户和物品进行建模，以非线性变换替代线性映射，显著增强了双塔模型的特征表达与表示学习能力</p>
+<p><span style = "color:#8B75A8">深度结构化语义模型(Deep Structured Semantic Model, DSSM)</span> <u>(Huang <em>et al.</em>, 2013)</u> 引入深度神经网络分别对用户和物品进行建模，以非线性变换替代线性映射，显著增强了双塔模型的特征表达与表示学习能力</p>
 <p>其核心思想是通过深度神经网络将用户和物品映射到共同的语义空间中，通过向量间的相似度计算来衡量匹配程度</p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/dssm_architecture.jpg" alt="dssm_architecture"></p>
 <p>DSSM 采用双塔结构，用户塔与物品塔分别由独立的 DNN 构成</p>
@@ -1105,13 +1105,13 @@ $$
 <blockquote>
 <p>Yi X, Yang J, Hong L, et al. Sampling-bias-corrected neural modeling for large corpus item recommendations[C]&#x2F;&#x2F;Proceedings of the 13th ACM conference on recommender systems. 2019: 269-277.</p>
 </blockquote>
-<p><font color='Violetred'>向量归一化</font>：对用户塔和物品塔输出的Embedding进行<strong>L2归一化</strong></p>
+<p><span style = "color:#DC5A5A">向量归一化</span>：对用户塔和物品塔输出的Embedding进行<strong>L2归一化</strong></p>
 <div class="mathjax-display">
 $$
 u \leftarrow \frac{u}{||u||_2}, \quad v \leftarrow \frac{v}{||v||_2}
 $$
 </div>
-归一化的主要作用在于<font color='DarkViolet'>解决向量点积不具备度量性质的问题</font>
+归一化的主要作用在于<span style = "color:#8B75A8">解决向量点积不具备度量性质的问题</span>
 
 <p>原始点积既不满足三角不等式，也无法作为稳定的距离度量，可能导致相似性排序与几何直觉不一致</p>
 <blockquote>
@@ -1125,7 +1125,7 @@ $$
 </div>
 对单位向量而言，最大化点积等价于最小化欧式距离
 
-<p>这种转换的关键意义在于<font color='Violetred'>训练与检索的一致性</font>：</p>
+<p>这种转换的关键意义在于<span style = "color:#DC5A5A">训练与检索的一致性</span>：</p>
 <p>模型训练阶段使用归一化后的点积作为相似度目标，而线上 ANN 检索系统通常基于欧式距离进行近邻搜索。二者在数学上等价，从而保证了离线训练学到的向量关系能够在线上检索阶段被正确保留，避免训练–服务不一致问题</p>
 <p><strong>温度系数调节</strong></p>
 <p>在归一化后的向量计算内积后，除以温度系数$\tau$：</p>
@@ -1151,7 +1151,7 @@ $$
 <p>YouTubeDNN在架构上延续了双塔设计，但引入了一个关键的思想转变：将召回任务重新定义为“预测用户下一个会观看的视频”</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/youtubednn_candidate.webp" alt="youtubednn_candidate" style="zoom: 50%;" />
 
-<p>YouTubeDNN 采用了一种<font color='DarkViolet'>非对称双塔结构</font></p>
+<p>YouTubeDNN 采用了一种<span style = "color:#8B75A8">非对称双塔结构</span></p>
 <ul>
 <li><p>用户塔融合了观看历史、搜索行为和人口统计等多源特征，其中历史观看视频的 ID 经嵌入层映射后通过平均池化进行聚合，并引入时间相关因素(Example Age)以建模内容新鲜度的影响</p>
 <p>本质是把“用户最近看过的一堆视频”压缩成一个兴趣向量</p>
@@ -1174,7 +1174,7 @@ $$
 <p><strong>关键的工程技巧</strong></p>
 <ul>
 <li><p><strong>非对称的时序分割</strong>：不同于随机划分验证集的做法，YouTubeDNN 采用严格的时序分割策略</p>
-<p>对每个预测目标，<font color='Violetred'>仅使用其发生之前的用户行为作为输入特征</font>，从而避免未来信息泄露(类似Attention Mask)</p>
+<p>对每个预测目标，<span style = "color:#DC5A5A">仅使用其发生之前的用户行为作为输入特征</span>，从而避免未来信息泄露(类似Attention Mask)</p>
 <p>基于时间回滚的样本构造方式更符合真实的推荐场景，也更贴合视频消费中存在的顺序性与不对称性</p>
 <blockquote>
 <p>虽然这里考虑了历史，但YouTubeDNN不属于序列召回，是因为在考虑历史特征时只是简单的pooling</p>
@@ -1283,9 +1283,9 @@ $$
 <td>证明双塔模型可在超大规模场景落地</td>
 </tr>
 </tbody></table>
-<h2 id="序列召回"><a href="#序列召回" class="headerlink" title="序列召回"></a>序列召回</h2><p><font color='Violetred'>协同过滤和向量召回将用户的历史行为汇总成一个静态表示</font>(比如一个向量)，然后基于这个表示进行推荐</p>
+<h2 id="序列召回"><a href="#序列召回" class="headerlink" title="序列召回"></a>序列召回</h2><p><span style = "color:#DC5A5A">协同过滤和向量召回将用户的历史行为汇总成一个静态表示</span>(比如一个向量)，然后基于这个表示进行推荐</p>
 <p>但是用户的行为其实是有时间顺序的，而且这个顺序往往包含了重要的信息，如果只是简单地把这些行为加起来或者平均，就丢失了这种时间顺序的信息</p>
-<p><font color='DarkViolet'>序列召回的核心思想在于显式利用用户行为的时间顺序进行建模</font>，相较于静态表示方法，序列召回能够更准确、全面地理解用户兴趣</p>
+<p><span style = "color:#8B75A8">序列召回的核心思想在于显式利用用户行为的时间顺序进行建模</span>，相较于静态表示方法，序列召回能够更准确、全面地理解用户兴趣</p>
 <p>两类具有代表性的方法：</p>
 <ul>
 <li><strong>多兴趣用户表示方法</strong>：通过多个向量或动态结构来更好地刻画用户的复杂兴趣模式，如 MIND 和 SDM</li>
@@ -1302,8 +1302,8 @@ $$
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/mind_model.webp" alt="mind_model" style="zoom: 50%;" />
 
 <p>从整体架构来看，除了常规的Embedding层，MIND模型还包含了两个重要的组件：多兴趣提取层和Label-Aware注意力层</p>
-<p><strong><font color='Violetred'>多兴趣提取</font></strong></p>
-<p>胶囊网络<u>(Sabour <em>et al.</em>, 2017)</u>最初提出于计算机视觉领域，其核心思想是用向量而非标量表示特征，<font color='Violetred'>其中向量的方向编码属性信息，长度表示该特征存在的概率</font>。动态路由算法用于确定不同层级胶囊之间的连接强度，通过迭代更新实现对输入特征的软聚类</p>
+<p><strong><span style = "color:#DC5A5A">多兴趣提取</span></strong></p>
+<p>胶囊网络<u>(Sabour <em>et al.</em>, 2017)</u>最初提出于计算机视觉领域，其核心思想是用向量而非标量表示特征，<span style = "color:#DC5A5A">其中向量的方向编码属性信息，长度表示该特征存在的概率</span>。动态路由算法用于确定不同层级胶囊之间的连接强度，通过迭代更新实现对输入特征的软聚类</p>
 <p>这种软聚类机制无需预先定义类别数量或明确的边界，而是由数据本身驱动分组过程，正好契合了用户兴趣发现的需求</p>
 <p>MIND 模型将胶囊网络的思想引入推荐系统，提出了行为到兴趣(Behavior to Interest，B2I)的动态路由机制：将用户历史行为建模为行为胶囊，将用户的多重兴趣建模为兴趣胶囊，并通过动态路由将相关行为自动聚合到对应的兴趣表示中</p>
 <p>针对推荐场景的特点，MIND 对原始动态路由算法进行了若干关键改进：</p>
@@ -1312,7 +1312,7 @@ $$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">self</span>.bilinear_mapping_matrix = <span class="variable language_">self</span>.add_weight(</span><br><span class="line">    shape=[<span class="variable language_">self</span>.input_units, <span class="variable language_">self</span>.out_units], </span><br><span class="line">    initializer=tf.keras.initializers.RandomNormal(stddev=<span class="variable language_">self</span>.init_std), </span><br><span class="line">    name=<span class="string">&quot;S&quot;</span>, dtype=tf.float32)</span><br></pre></td></tr></table></figure>
 
 <p>MIND训练的就是$S$矩阵</p>
-<p><font color='DarkViolet'>$S$ 是把“物品行为空间”映射到“兴趣聚合空间”的全局线性规则</font></p>
+<p><span style = "color:#8B75A8">$S$ 是把“物品行为空间”映射到“兴趣聚合空间”的全局线性规则</span></p>
 <p>这种设计有两个重要考虑</p>
 <ul>
 <li>用户行为序列长度变化很大，从几十到几百不等，共享矩阵确保了算法的通用性</li>
@@ -1324,7 +1324,7 @@ $$
 b_{ij} = \boldsymbol u_j^T \boldsymbol S \boldsymbol e_i
 $$
 </div>
-其中<font color='Violetred'> $\boldsymbol e_i$ 表示用户历史行为 $i$ 的物品向量</font>，$\boldsymbol u_j$ 表示第 $j$ 个兴趣胶囊的向量，$b_{ij}$ 衡量行为 $i$ 与兴趣 $j$ 的关联程度
+其中<span style = "color:#DC5A5A"> $\boldsymbol e_i$ 表示用户历史行为 $i$ 的物品向量</span>，$\boldsymbol u_j$ 表示第 $j$ 个兴趣胶囊的向量，$b_{ij}$ 衡量行为 $i$ 与兴趣 $j$ 的关联程度
 </li>
 <li><p><strong>随机初始化策略</strong>：为避免所有兴趣胶囊收敛到相同状态，算法采用高斯分布随机初始化路由系数 $b_{ij}$</p>
 <p>这一策略类似于K-Means聚类中的随机中心初始化，确保不同兴趣胶囊能够捕捉用户兴趣的不同方面</p>
@@ -1367,10 +1367,10 @@ $$
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2. 通过共享的双线性映射矩阵 S 把所有行为投影到兴趣空间</span></span><br><span class="line">behavior_embdding_mapping = tf.tensordot(</span><br><span class="line">    behavior_embddings, <span class="variable language_">self</span>.bilinear_mapping_matrix, axes=<span class="number">1</span></span><br><span class="line">)  <span class="comment"># [B, max_len, out_units] 对应Se_i</span></span><br></pre></td></tr></table></figure>
 
-<p><font color='DarkViolet'>不同的行为序列映射到兴趣空间的结果不一样，也就是从行为序列中建模用户状态</font></p>
+<p><span style = "color:#8B75A8">不同的行为序列映射到兴趣空间的结果不一样，也就是从行为序列中建模用户状态</span></p>
 </li>
 <li><p><strong>非线性压缩</strong>：在完成行为聚合后，模型通过非线性的squash函数对中间向量$\boldsymbol z_j$进行压缩，得到本轮迭代的最终兴趣胶囊向量$\boldsymbol u_j$</p>
-<p><font color='Violetred'>squash函数</font>在不改变向量方向的前提下，将其模长约束到$[0, 1)$区间内，使向量长度可解释为兴趣存在的强度，而方向编码具体的兴趣语义</p>
+<p><span style = "color:#DC5A5A">squash函数</span>在不改变向量方向的前提下，将其模长约束到$[0, 1)$区间内，使向量长度可解释为兴趣存在的强度，而方向编码具体的兴趣语义</p>
 <div class="mathjax-display">
 $$
 \boldsymbol u_j = \text{squash}(\boldsymbol z_j) = \frac{\left\lVert \boldsymbol z_j \right\rVert ^ 2}{1 + \left\lVert \boldsymbol z_j \right\rVert ^ 2} \frac{\boldsymbol z_j}{\left\lVert \boldsymbol z_j \right\rVert}
@@ -1461,11 +1461,11 @@ $$
 <p>这里的squash函数实现了向量长度的非线性压缩，确保输出向量的模长在$[0, 1)$区间内：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">squash</span>(<span class="params">inputs</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;非线性压缩函数，将向量长度映射到 [0, 1) 区间&quot;&quot;&quot;</span></span><br><span class="line">    vec_squared_norm = tf.reduce_sum(tf.square(inputs), axis=-<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span><br><span class="line">    scalar_factor = vec_squared_norm / (<span class="number">1</span> + vec_squared_norm) / tf.sqrt(vec_squared_norm + <span class="number">1e-9</span>)</span><br><span class="line">    <span class="keyword">return</span> scalar_factor * inputs</span><br></pre></td></tr></table></figure>
 
-<p><strong><font color='Violetred'>标签感知的注意力机制</font></strong></p>
+<p><strong><span style = "color:#DC5A5A">标签感知的注意力机制</span></strong></p>
 <p>多兴趣提取层会为用户生成多个兴趣向量${u_1,u_2,\cdots,u_K  }$，刻画用户在不同行为模式下的潜在兴趣</p>
 <p>在训练阶段需要确定哪个兴趣向量与当前目标商品最相关</p>
-<p>由于训练时已知用户真实点击的下一个商品，MIND 利用该标签信息，引入<font color='Violetred'>标签感知注意力(Label-aware Attention)</font>，指导模型在多个兴趣向量中选择最匹配的一项</p>
-<p><font color='DarkViolet'>标签感知注意力以目标商品向量作为查询(Query)，以用户的多个兴趣向量作为键和值(Key&#x2F;Value)</font>，计算过程为</p>
+<p>由于训练时已知用户真实点击的下一个商品，MIND 利用该标签信息，引入<span style = "color:#DC5A5A">标签感知注意力(Label-aware Attention)</span>，指导模型在多个兴趣向量中选择最匹配的一项</p>
+<p><span style = "color:#8B75A8">标签感知注意力以目标商品向量作为查询(Query)，以用户的多个兴趣向量作为键和值(Key&#x2F;Value)</span>，计算过程为</p>
 <div class="mathjax-display">
 $$
 v_u = V_u \cdot \text{Softmax}(\text{pow}(V_u^T e_i, p))
@@ -1492,12 +1492,12 @@ $$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">call</span>(<span class="params">self, inputs, training=<span class="literal">None</span>, **kwargs</span>):</span><br><span class="line">    keys = inputs[<span class="number">0</span>]  <span class="comment"># 多个兴趣胶囊向量 [batch_size, k_max, dim] u_j (interest_capsules)</span></span><br><span class="line">    query = inputs[<span class="number">1</span>]  <span class="comment"># 目标商品向量 [batch_size, dim]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算每个兴趣向量与目标商品的相似度</span></span><br><span class="line">    <span class="comment"># 广播点积，把dim维消去</span></span><br><span class="line">    weight = tf.reduce_sum(keys * query, axis=-<span class="number">1</span>, keepdims=<span class="literal">True</span>)  <span class="comment"># [batch_size, k_max, 1]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过幂次运算控制注意力集中度</span></span><br><span class="line">    weight = tf.<span class="built_in">pow</span>(weight, <span class="variable language_">self</span>.pow_p)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果 pow_p 很大(&gt;= 100)，直接选择最相似的兴趣</span></span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.pow_p &gt;= <span class="number">100</span>:</span><br><span class="line">        idx = tf.argmax(weight, axis=<span class="number">1</span>, output_type=tf.int32)</span><br><span class="line">        output = tf.gather_nd(keys, idx)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 否则使用 softmax 进行加权聚合</span></span><br><span class="line">        weight = tf.nn.softmax(weight, axis=<span class="number">1</span>)</span><br><span class="line">        output = tf.reduce_sum(keys * weight, axis=<span class="number">1</span>)  <span class="comment"># [batch_size, dim]</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
 
 <h4 id="SDM"><a href="#SDM" class="headerlink" title="SDM"></a>SDM</h4><p>MIND 通过多兴趣建模有效缓解了用户兴趣过于单一的问题，能够刻画用户在不同主题下的潜在兴趣结构</p>
-<p><font color='DarkViolet'>虽然MIND能捕捉多个兴趣，但并未在结构上显式地区分它们的时效性</font>，对历史行为的建模未引入明确的时间权重</p>
+<p><span style = "color:#8B75A8">虽然MIND能捕捉多个兴趣，但并未在结构上显式地区分它们的时效性</span>，对历史行为的建模未引入明确的时间权重</p>
 <p>序列深度匹配模型(Sequential Deep Matching，SDM)<u>(Lv <em>et al.</em>, 2019)</u> 正是为了解决这一问题而提出的</p>
 <p>SDM模型的核心思想是分别建模用户的短期即时兴趣和长期稳定偏好，然后智能地融合它们</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/sdm_model_architecture-%281%29.webp" alt="sdm_model_architecture (1)" style="zoom:80%;" />
 
-<p><strong><font color='Violetred'>捕捉短期兴趣</font></strong></p>
+<p><strong><span style = "color:#DC5A5A">捕捉短期兴趣</span></strong></p>
 <p>为了精准捕捉短期兴趣，SDM 设计了一套三层结构来处理用户的当前会话序列**(左下角)**</p>
 <p>首先，将用户在当前会话中的商品点击序列输入 LSTM 网络，以建模行为之间的时序依赖关系</p>
 <blockquote>
@@ -1534,7 +1534,7 @@ $$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 序列信息学习层：使用LSTM处理序列依赖</span></span><br><span class="line">lstm_layer = tf.keras.layers.LSTM(</span><br><span class="line">    emb_dim,</span><br><span class="line">    return_sequences=<span class="literal">True</span>,  <span class="comment"># 返回所有时间步的输出</span></span><br><span class="line">    recurrent_initializer=<span class="string">&#x27;glorot_uniform&#x27;</span></span><br><span class="line">)</span><br><span class="line">sequence_output = lstm_layer(short_history_item_emb)  <span class="comment"># [batch_size, seq_len, dim]</span></span><br></pre></td></tr></table></figure>
 
 <p>在获得序列表示后，SDM 引入多头自注意力机制以刻画短期兴趣的多样性</p>
-<p>通过对序列表示$\boldsymbol X^{u}$进行多组线性映射，模型在不同注意力头中并行关注序列的不同兴趣模式，每个注意力头独立计算序列内部的相关性(<font color='Violetred'>这里是自注意力</font>)，并生成对应的兴趣表示</p>
+<p>通过对序列表示$\boldsymbol X^{u}$进行多组线性映射，模型在不同注意力头中并行关注序列的不同兴趣模式，每个注意力头独立计算序列内部的相关性(<span style = "color:#DC5A5A">这里是自注意力</span>)，并生成对应的兴趣表示</p>
 <blockquote>
 <p>不需要位置编码是因为LSTM的隐藏状态里已经包含了时序信息</p>
 </blockquote>
@@ -1560,7 +1560,7 @@ $W^{O}$是输出权重矩阵
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2. 多兴趣提取层：多头自注意力捕捉序列内的复杂关系</span></span><br><span class="line">norm_sequence_output = tf.keras.layers.LayerNormalization()(sequence_output)</span><br><span class="line">sequence_output = tf.keras.layers.MultiHeadAttention(</span><br><span class="line">    num_heads=num_heads,</span><br><span class="line">    key_dim=emb_dim // num_heads,</span><br><span class="line">    dropout=<span class="number">0.1</span></span><br><span class="line">)(norm_sequence_output, sequence_output)  <span class="comment"># [batch_size, seq_len, dim]</span></span><br><span class="line"></span><br><span class="line">short_term_output = tf.keras.layers.LayerNormalization()(sequence_output)</span><br></pre></td></tr></table></figure>
 
-<p>在此基础上 SDM 进一步引入个性化注意力层，利用用户画像向量$\boldsymbol e_u$作为查询(<font color='Violetred'>这里不是自注意力</font>)，对多头注意力输出进行加权，从而突出与用户长期偏好更一致的会话行为</p>
+<p>在此基础上 SDM 进一步引入个性化注意力层，利用用户画像向量$\boldsymbol e_u$作为查询(<span style = "color:#DC5A5A">这里不是自注意力</span>)，对多头注意力输出进行加权，从而突出与用户长期偏好更一致的会话行为</p>
 <div class="mathjax-display">
 $$
 \begin{aligned}
@@ -1581,7 +1581,7 @@ $\hat{\boldsymbol h_{k}^{u}}$是多头注意力输出$\hat{X}^{u}$中第$k$个�
 <p>个性化注意力层的实现通过用户画像与序列特征的点积来计算注意力权重：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserAttention</span>(tf.keras.layers.Layer):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;用户注意力层，使用用户基础表示作为查询向量&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">call</span>(<span class="params">self, query_vector, key_vectors</span>):</span><br><span class="line">        <span class="comment"># 计算注意力分数：query · key^T</span></span><br><span class="line">        attention_scores = tf.matmul(</span><br><span class="line">            query_vector,  <span class="comment"># [batch_size, 1, dim]</span></span><br><span class="line">            tf.transpose(key_vectors, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>])  <span class="comment"># [batch_size, dim, seq_len]</span></span><br><span class="line">        )  <span class="comment"># [batch_size, 1, seq_len]</span></span><br><span class="line"></span><br><span class="line">        attention_scores = tf.squeeze(attention_scores, axis=<span class="number">1</span>) <span class="comment"># [batch_size, seq_len]</span></span><br><span class="line">        attention_weights = tf.nn.softmax(attention_scores, axis=-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 加权求和得到上下文向量</span></span><br><span class="line">        context_vector = tf.matmul(</span><br><span class="line">            tf.expand_dims(attention_weights, axis=<span class="number">1</span>),</span><br><span class="line">            key_vectors <span class="comment"># # [batch_size, seq_len, dim]</span></span><br><span class="line">        )  <span class="comment"># [batch_size, 1, dim]</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> context_vector</span><br></pre></td></tr></table></figure>
 
-<p><strong><font color='Violetred'>捕捉长期兴趣</font></strong></p>
+<p><strong><span style = "color:#DC5A5A">捕捉长期兴趣</span></strong></p>
 <p>长期行为蕴含着稳定而丰富的偏好信息，但这类偏好并不依赖严格的时间顺序，更适合从特征维度进行建模</p>
 <p>SDM 不再将长期行为视为单一序列，而是按照不同特征类型对历史行为进行拆分，形成多个特征子集**(左上角)**：</p>
 <div class="mathjax-display">
@@ -1630,9 +1630,9 @@ $$
 <p>长期兴趣的建模采用特征维度聚合的方式，对每个特征维度分别应用注意力机制</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从不同特征维度对长期行为进行聚合</span></span><br><span class="line">long_history_features = group_embedding_feature_dict[<span class="string">&#x27;raw_hist_seq_long&#x27;</span>] </span><br><span class="line"><span class="comment"># [batch_size, max_len_long, dim]</span></span><br><span class="line"></span><br><span class="line">long_term_interests = []</span><br><span class="line"><span class="keyword">for</span> name, long_history_feature <span class="keyword">in</span> long_history_features.items():</span><br><span class="line">    <span class="comment"># 为每个特征维度生成 mask，找到padding embedding</span></span><br><span class="line">    long_history_mask = tf.keras.layers.Lambda(</span><br><span class="line">        <span class="keyword">lambda</span> x: tf.expand_dims(</span><br><span class="line">            tf.cast(tf.not_equal(x, <span class="number">0</span>), dtype=tf.float32), axis=-<span class="number">1</span></span><br><span class="line">        )</span><br><span class="line">    )(input_layer_dict[name])  <span class="comment"># [batch_size, max_len_long, 1]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 应用 mask 到特征嵌入</span></span><br><span class="line">    long_history_item_emb = tf.keras.layers.Lambda(<span class="keyword">lambda</span> x: x[<span class="number">0</span>] * x[<span class="number">1</span>])(</span><br><span class="line">        [long_history_feature, long_history_mask]</span><br><span class="line">    )  <span class="comment"># [batch_size, max_len_long, dim]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对每个特征维度应用用户注意力</span></span><br><span class="line">    user_attention = UserAttention(name=<span class="string">f&#x27;user_attention_long_<span class="subst">&#123;name&#125;</span>&#x27;</span>)</span><br><span class="line">    long_term_interests.append(</span><br><span class="line">        user_attention(</span><br><span class="line">            user_embedding,   <span class="comment"># [batch_size, 1, dim] 用户画像作为查询</span></span><br><span class="line">            long_history_item_emb</span><br><span class="line">        )</span><br><span class="line">    )  <span class="comment"># [batch_size, 1, dim]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接所有特征维度的表示</span></span><br><span class="line">long_term_interests_concat = tf.keras.layers.Concatenate(axis=-<span class="number">1</span>)(</span><br><span class="line">    long_term_interests</span><br><span class="line">)  <span class="comment"># [batch_size, 1, dim * len(long_history_features)]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过全连接层融合</span></span><br><span class="line">long_term_interest = tf.keras.layers.Dense(emb_dim, activation=<span class="string">&#x27;tanh&#x27;</span>)(</span><br><span class="line">    long_term_interests_concat</span><br><span class="line">)  <span class="comment"># [batch_size, 1, dim]</span></span><br></pre></td></tr></table></figure>
 
-<p><strong><font color='Violetred'>长短期兴趣融合</font></strong></p>
+<p><strong><span style = "color:#DC5A5A">长短期兴趣融合</span></strong></p>
 <p>用户的长期兴趣包含大量稳定偏好信息，但在具体推荐场景中，只有其中一部分与当前决策相关，简单的拼接或加权求和难以准确提取相关信息</p>
-<p>SDM设计了<font color='DarkViolet'>门控融合机制</font>，类似LSTM中的门控思想(<strong>中间部分</strong>)，对长期兴趣和短期兴趣进行自适应融合</p>
+<p>SDM设计了<span style = "color:#8B75A8">门控融合机制</span>，类似LSTM中的门控思想(<strong>中间部分</strong>)，对长期兴趣和短期兴趣进行自适应融合</p>
 <p>门控网络接收三个输入：用户画像$\boldsymbol e_{u}$、短期兴趣$\boldsymbol s_{t}^{u}$和长期兴趣$\boldsymbol p^{u}$，生成门控向量$\boldsymbol G_{t}^{u} \in \mathbb R^{d \times 1}$，取值范围在[0,1]</p>
 <div class="mathjax-display">
 $$
@@ -1656,12 +1656,12 @@ $$
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 短期兴趣建模</span></span><br><span class="line">short_term_interest = build_short_term_interest(</span><br><span class="line">    short_history_item_emb, user_embedding</span><br><span class="line">)  <span class="comment"># [batch_size, 1, dim]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 长期兴趣建模</span></span><br><span class="line">long_term_interest = build_long_term_interest(</span><br><span class="line">    long_history_features, user_embedding</span><br><span class="line">)  <span class="comment"># [batch_size, 1, dim]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 门控融合</span></span><br><span class="line">gated_fusion = GatedFusion(name=<span class="string">&#x27;gated_fusion&#x27;</span>)</span><br><span class="line">final_interest = gated_fusion(</span><br><span class="line">    [user_embedding, short_term_interest, long_term_interest]</span><br><span class="line">)  <span class="comment"># [batch_size, 1, dim]</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="生成式召回方法"><a href="#生成式召回方法" class="headerlink" title="生成式召回方法"></a>生成式召回方法</h3><p>序列召回方法的核心目标是分析用户的历史行为，并将其总结成一个或多个能够代表用户兴趣的向量，好比是为用户拍摄一张静态的“兴趣快照”，用以在海量物品中进行检索</p>
-<p><strong>生成式召回</strong>不再总结用户兴趣，而是将推荐问题建模为<font color='DarkViolet'>序列预测任务</font>，直接学习物品之间的动态依赖关系，并预测用户在当前状态下最可能交互的下一个物品</p>
-<p><font color='Violetred'>SASRec</font>是生成式召回的代表性起点，它首次将 Transformer 架构引入推荐序列建模，通过<font color='Violetred'>自注意力机制</font>对用户行为序列进行建模，并以“预测下一个物品 ID”为目标，验证了该范式在召回任务中的有效性</p>
+<p><strong>生成式召回</strong>不再总结用户兴趣，而是将推荐问题建模为<span style = "color:#8B75A8">序列预测任务</span>，直接学习物品之间的动态依赖关系，并预测用户在当前状态下最可能交互的下一个物品</p>
+<p><span style = "color:#DC5A5A">SASRec</span>是生成式召回的代表性起点，它首次将 Transformer 架构引入推荐序列建模，通过<span style = "color:#DC5A5A">自注意力机制</span>对用户行为序列进行建模，并以“预测下一个物品 ID”为目标，验证了该范式在召回任务中的有效性</p>
 <p>SASRec后续研究主要沿着两个方向进一步深化这一范式：</p>
 <ol>
-<li><strong>增强输入的信息</strong>：<font color='Violetred'>HSTU</font>将用户属性、行为类型、时间等多源异构信息统一建模为连续的“事件流”，为模型提供更加丰富的上下文信息</li>
-<li><strong>增强物品的信息</strong>：传统推荐系统中，物品通常用简单的ID来表示，这种方式虽然直观，但缺乏语义信息。<font color='Violetred'>TIGER</font> 摒弃了单一物品 ID 表示方式，引入由多个码本组成的“语义 ID”，使物品表示具备更强的语义表达能力，同时适用于序列输入和预测目标</li>
+<li><strong>增强输入的信息</strong>：<span style = "color:#DC5A5A">HSTU</span>将用户属性、行为类型、时间等多源异构信息统一建模为连续的“事件流”，为模型提供更加丰富的上下文信息</li>
+<li><strong>增强物品的信息</strong>：传统推荐系统中，物品通常用简单的ID来表示，这种方式虽然直观，但缺乏语义信息。<span style = "color:#DC5A5A">TIGER</span> 摒弃了单一物品 ID 表示方式，引入由多个码本组成的“语义 ID”，使物品表示具备更强的语义表达能力，同时适用于序列输入和预测目标</li>
 </ol>
 <h4 id="SASRec"><a href="#SASRec" class="headerlink" title="SASRec"></a>SASRec</h4><p>在SASRec出现之前，序列推荐方法主要依赖马尔可夫链和 RNN 等模型，但存在明显缺陷</p>
 <ul>
@@ -1716,7 +1716,7 @@ $$
 </div>
 这里复用了物品Embedding矩阵,既减少了参数量又提高了性能
 
-<p><font color='Violetred'>SASRec属于Decoder Only的Transformer模型</font>，对于时间步$t$，期望输出 $o_t$ 定义为：</p>
+<p><span style = "color:#DC5A5A">SASRec属于Decoder Only的Transformer模型</span>，对于时间步$t$，期望输出 $o_t$ 定义为：</p>
 <div class="mathjax-display">
 $$
 o_t=\begin{cases}
@@ -1745,7 +1745,7 @@ $$
 <p>HSTU(<u>Zhai <em>et al.</em>, 2024</u>) 正是对这一问题的系统探索。该模型代表了生成式推荐范式的重要演进方向：不再将序列视为简单的物品 ID 列表，而是将所有异构特征统一编码为一个更复杂的事件流(Event Stream)，并以此作为模型输入</p>
 <p>HSTU 的目标是学习这一复杂事件序列的结构，并预测下一个可能发生的事件</p>
 <p>尽管这种统一化建模方式在概念上更为优雅，但在实现层面面临特征处理、模型架构和信号传递等多重挑战</p>
-<p><font color='Violetred'>HSTU旨在以单一模块取代传统推荐系统中特征提取、交互和预测等多个异构组件</font></p>
+<p><span style = "color:#DC5A5A">HSTU旨在以单一模块取代传统推荐系统中特征提取、交互和预测等多个异构组件</span></p>
 <p><strong>特征处理</strong></p>
 <p>HSTU的特征处理分为两个策略</p>
 <p>对于类别特征，它将所有信息按时间戳“拉平”成一个统一的序列</p>
@@ -1775,7 +1775,7 @@ $$
 <li>首先用户可能对推荐的物品产生负面反应，因此监督信号不总是下一个物品</li>
 <li>其次当序列中包含非交互相关的特征(如人口统计学信息)时，对应的输出标签是未定义的</li>
 </ul>
-<p><font color='DarkViolet'>所以HSTU不是每个时间步都提供监督，只有“有效交互事件”才产生训练信号，并且用 ∅ 表示这个位置不训练、不预测</font></p>
+<p><span style = "color:#8B75A8">所以HSTU不是每个时间步都提供监督，只有“有效交互事件”才产生训练信号，并且用 ∅ 表示这个位置不训练、不预测</span></p>
 <p>通过这种方式，HSTU将复杂的推荐问题转化为序列到序列的学习问题，使得模型能够基于用户的历史行为序列预测其未来可能感兴趣的内容</p>
 <p><strong>架构统一：HSTU单元</strong></p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-01-19_22-38-59.webp" alt="Snipaste_2026-01-19_22-38-59"></p>
@@ -1825,11 +1825,11 @@ $$
 \text{SiLU}(x) = x\cdot \sigma(x) = \frac{x}{1+e^{-x}}
 $$
 </div>
-这种设计使模型不仅能够进行排序，还能更好地<font color='DarkViolet'>服务于点击率、观看时长等对数值强度敏感的推荐目标</font>
+这种设计使模型不仅能够进行排序，还能更好地<span style = "color:#8B75A8">服务于点击率、观看时长等对数值强度敏感的推荐目标</span>
 
 <p><strong>训练与召回</strong></p>
 <p>HSTU 的整体流程分为训练与召回两个阶段</p>
-<p>在训练阶段，模型按照前述的输入–输出定义，采用标准的 Transformer 训练方式，通过预测用户行为序列中的<font color='Violetred'>下一个正向交互物品</font>，学习用户偏好演化和物品之间的依赖关系</p>
+<p>在训练阶段，模型按照前述的输入–输出定义，采用标准的 Transformer 训练方式，通过预测用户行为序列中的<span style = "color:#DC5A5A">下一个正向交互物品</span>，学习用户偏好演化和物品之间的依赖关系</p>
 <p>在召回阶段，经过多层HSTU编码器处理后，用户的历史行为事件序列被压缩为一个能够概括长期兴趣并反映当前状态的动态表示向量$u_i$。基于该表示，召回过程转化为向量检索问题：将$u_i$与物品语料库中所有物品的嵌入向量进行高效的相似度计算，并结合近似最近邻(ANN)搜索，从大规模物品集合中高效检索出与用户兴趣最匹配的 Top-K 物品，形成召回候选集</p>
 <p>如果说 SASRec 将推荐序列建模为由物品 ID 构成的“句子”，那么 HSTU 则将用户属性、行为类型、物品信息和上下文统一视为一种更复杂的“语言”，并通过 HSTU 单元这一新的“语法规则”进行建模。其核心创新在于显著丰富了输入表达能力，从而实现对用户行为更深入、更细粒度的理解</p>
 <p><strong>核心代码</strong></p>
@@ -1838,13 +1838,13 @@ $$
 <p>HSTU的关键设计在于用SiLU激活代替Softmax归一化</p>
 <p>传统Softmax会将注意力权重归一化使其和为1，这抹平了不同用户兴趣强度的差异</p>
 <p>而HSTU通过 <code>weights = self.silu(outputs)</code> 保持了原始的相关性强度，使得历史行为丰富的用户能够产生更强的激活信号，更准确地反映用户的真实偏好强度</p>
-<h4 id="TIGER"><a href="#TIGER" class="headerlink" title="TIGER"></a>TIGER</h4><p>HSTU 通过丰富输入信息增强了模型对用户行为上下文的理解能力，但生成式召回的演进还存在另一条同样重要的路径：<font color='DarkViolet'>对“物品表示方式”本身的重新思考</font></p>
+<h4 id="TIGER"><a href="#TIGER" class="headerlink" title="TIGER"></a>TIGER</h4><p>HSTU 通过丰富输入信息增强了模型对用户行为上下文的理解能力，但生成式召回的演进还存在另一条同样重要的路径：<span style = "color:#8B75A8">对“物品表示方式”本身的重新思考</span></p>
 <p>在传统推荐系统中，物品通常被表示为彼此独立、无语义的原子 ID，无论作为输入还是预测目标，这种表示方式都存在存在两个固有局限</p>
 <ul>
 <li><strong>语义鸿沟</strong>：模型难以理解物品间的内在联系，例如两款耐克篮球鞋在语义上高度接近，但模型只能通过大量共现数据间接学习这种关系，效率较低</li>
 <li><strong>泛化难题</strong>：对于训练阶段未出现的新物品，模型由于词表中不存在对应 ID，无法进行推荐，从而导致冷启动困难</li>
 </ul>
-<p>TIGER(Transformer Index for GEnerative Recommenders) <u>(Rajput et al., 2023)</u> 正是针对这一问题提出的解决方案，其核心思想是：<font color='Violetred'>不再让模型生成无语义的原子 ID，而是生成能够描述物品语义的“语义 ID”</font></p>
+<p>TIGER(Transformer Index for GEnerative Recommenders) <u>(Rajput et al., 2023)</u> 正是针对这一问题提出的解决方案，其核心思想是：<span style = "color:#DC5A5A">不再让模型生成无语义的原子 ID，而是生成能够描述物品语义的“语义 ID”</span></p>
 <p>通过语义 ID，相似物品可以共享表示和知识，即使是从未出现过的新物品，也能基于其语义特征被合理推荐</p>
 <p>TIGER 的整体实现分为两步：</p>
 <ol>
@@ -1855,7 +1855,7 @@ $$
 <p><strong>语义ID的生成 (RQ-VAE)</strong></p>
 <p>语义 ID 的目标是为每个物品构建一个具有语义结构的离散表示：内容特征相似的物品，其语义 ID 在多个维度上应具有部分重叠，从而使模型能够显式建模物品之间的深层语义关系</p>
 <p>TIGER采用残差量化变分自编码器 (RQ-VAE) <u>(Zeghidour <em>et al.</em>, 2021)</u> 来实现这一目标</p>
-<p>RQ-VAE 是一种<font color='Violetred'>多层向量量化模型</font>，通过对潜在表示的残差进行逐层量化，将连续语义空间映射为一个由多个码本索引组成的语义 ID 元组</p>
+<p>RQ-VAE 是一种<span style = "color:#DC5A5A">多层向量量化模型</span>，通过对潜在表示的残差进行逐层量化，将连续语义空间映射为一个由多个码本索引组成的语义 ID 元组</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/tiger_rqvae-%281%29.webp" alt="tiger_rqvae (1)" style="zoom: 50%;" />
 
 <p>RQ-VAE量化方法的具体过程：</p>
