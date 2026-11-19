@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp">
 <meta property="article:published_time" content="2026-10-31T01:30:57.000Z">
-<meta property="article:modified_time" content="2026-11-03T03:55:40.995Z">
+<meta property="article:modified_time" content="2026-11-19T13:50:06.895Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🍭AI">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/1222747289.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp",
   "datePublished": "2026-10-31T01:30:57.000Z",
-  "dateModified": "2026-11-03T03:55:40.995Z",
+  "dateModified": "2026-11-19T13:50:06.895Z",
   "author": [
     {
       "@type": "Person",
@@ -571,13 +571,12 @@ $$
 </blockquote>
 <p>**核心思想：**不改变 DDPM 的训练目标，而是重新设计反向生成过程，使模型可以跳过部分去噪步骤，在更少的采样步数下生成图像</p>
 <p>DDPM 通常需要执行数百甚至上千次反向去噪，每一步都需要调用一次 U-Net，生成效率较低</p>
-<p>DDIM 通过构造一种非马尔可夫的扩散过程，改变反向采样轨迹，使其能够使用更少的去噪步骤</p>
+<p><span style = "color:#DC5A5A">DDIM 通过构造一种非马尔可夫的扩散过程，改变反向采样轨迹，使其能够使用更少的去噪步骤</span></p>
 <h3 id="非马尔可夫扩散过程"><a href="#非马尔可夫扩散过程" class="headerlink" title="非马尔可夫扩散过程"></a>非马尔可夫扩散过程</h3><p>DDPM 的前向过程是一个 Markov Chain：</p>
 <div class="mathjax-display">
 $$
 q(x_t|x_{t-1})
-
-<p>$$</p>
+$$
 </div>
 DDPM 的训练目标实际上只依赖每个时间步的边缘分布  $q(x_t|x_0)$，而不一定要求前向过程必须是马尔可夫链
 
@@ -629,7 +628,7 @@ $$
 </div>
 直接在选定的时间步之间进行反向采样，跳过中间部分时间步，从而减少 U-Net 的调用次数
 
-<p>因此，DDIM 可以在不重新训练模型的情况下，通过减少采样步数提高生成速度</p>
+<p><span style = "color:#8B75A8">DDIM 可以在不重新训练模型的情况下，通过减少采样步数提高生成速度</span></p>
 <h2 id="Score-SDE"><a href="#Score-SDE" class="headerlink" title="Score SDE"></a>Score SDE</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.13456">2011.13456] Score-Based Generative Modeling through Stochastic Differential Equations</a></p>
 </blockquote>
@@ -798,22 +797,52 @@ $$
 </blockquote>
 <p>Latent Diffusion Model，<strong>潜空间扩散模型</strong></p>
 <p><strong>核心思想：</strong> 使用 Autoencoder 将图像压缩到低维、感知上近似等价的 Latent Space，再在 Latent Space 中训练 Diffusion Model，从而降低计算成本，同时尽可能保留图像的感知质量</p>
-<h4 id="感知压缩"><a href="#感知压缩" class="headerlink" title="感知压缩"></a>感知压缩</h4><p>目的是去掉高频、感知上不重要的信息，同时尽量保留图像的语义和视觉细节</p>
-<p>训练一个 Autoencoder：</p>
+<p>LDM 将扩散过程从 Pixel Space 转移到 Latent Space，在降低计算复杂度的同时保留扩散模型的生成能力</p>
+<h4 id="感知压缩"><a href="#感知压缩" class="headerlink" title="感知压缩"></a>感知压缩</h4><p>LDM 将整体训练分为两个阶段：</p>
+<ol>
+<li><strong>Perceptual Compression：</strong> 训练 Autoencoder，将图像压缩到低维潜空间，同时保留主要的视觉信息</li>
+<li><strong>Latent Diffusion：</strong> 在压缩后的潜空间中训练 Diffusion Model，学习潜变量的分布</li>
+</ol>
+<p>第一阶段训练一个 Autoencoder：</p>
 <div class="mathjax-display">
 $$
 z=E(x)\\
 \tilde{x}=D(z)=D(E(x))
 $$
 </div>
-但也不能压缩的太狠，论文实验中 LDM-4 和 LDM-8 表现出了较好的效率和质量平衡
+与普通 VAE 不同，论文采用 Perceptual Loss 和 Patch-based Adversarial Loss 训练 Autoencoder，使重建结果在保留主要信息的同时，具有更好的感知质量
 
-<p>LDM 的第一阶段与 VQGAN 的 Perceptual Compression 思想非常接近</p>
-<h4 id="Latent-Diffusion"><a href="#Latent-Diffusion" class="headerlink" title="Latent Diffusion"></a>Latent Diffusion</h4><p>训练好 Encoder $E$ 和 Decoder $D$ 后，将它们固定</p>
-<p>不再对 Pixel $x$ 做 Diffusion，而是在 Latent $z$ 中执行</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z₀ → z₁ → z₂ → ... → z_T</span><br></pre></td></tr></table></figure>
+<p>论文研究了两种潜空间正则化方式：</p>
+<ul>
+<li><strong>KL-reg：</strong> 引入 KL 散度，使潜变量分布接近标准正态分布</li>
+<li><strong>VQ-reg：</strong> 引入 Vector Quantization，属于 VQGAN 风格的正则化方案</li>
+</ul>
+<p>Encoder 将图像空间分辨率压缩为原来的 $1&#x2F;f$：</p>
+<div class="mathjax-display">
+$$
+x\in\mathbb R^{H\times W\times 3} \qquad z\in\mathbb R^{h\times w\times c} \qquad  f=\frac{H}{h}=\frac{W}{w}
+$$
+</div>
+压缩率也不能过高，否则会损失过多图像信息。论文实验中，LDM-4 和 LDM-8 在计算效率与图像重建质量之间取得了较好的平衡
 
-<p>与 DDPM 完全相同，可以写成</p>
+<h3 id="潜空间扩散"><a href="#潜空间扩散" class="headerlink" title="潜空间扩散"></a>潜空间扩散</h3><p>训练好 Encoder $E$ 和 Decoder $D$ 后，将其固定</p>
+<p>不再直接对原始图像 $x$ 执行扩散，而是在潜变量 $z$ 中执行与 DDPM 相同的扩散过程</p>
+<div class="mathjax-display">
+$$
+z_0=E(x)
+$$
+</div>
+前向加噪过程：
+<div class="mathjax-display">
+$$
+
+<p>\boxed{
+z_t&#x3D;\sqrt{\bar\alpha_t}z_0+
+\sqrt{1-\bar\alpha_t}\epsilon
+}
+$$</p>
+</div>
+训练目标与 DDPM 完全相同，仍然是噪声预测：
 <div class="mathjax-display">
 $$
 \boxed{
@@ -830,131 +859,110 @@ L_{\text{LDM}}
 $$
 </div>
 
+<p>因此：</p>
 <ul>
-<li>DDPM：预测 Pixel Space 中的噪声</li>
-<li>LDM：预测 Latent Space 中的噪声</li>
+<li>DDPM：在 Pixel Space 中预测噪声</li>
+<li>LDM：在 Latent Space 中预测噪声</li>
 </ul>
-<p>LDM 的 Diffusion Backbone 仍然采用 Time-Conditional U-Net</p>
+<p>LDM 的 Diffusion Backbone 仍然采用 Time-Conditional U-Net，保留二维潜特征图的空间结构，而不是将其展平为离散 Token 序列再使用自回归 Transformer 建模</p>
+<h3 id="条件生成"><a href="#条件生成" class="headerlink" title="条件生成"></a>条件生成</h3><p>另一个重要改进是引入 Cross-Attention（交叉注意力），使扩散模型能够接收不同类型的条件信息，实现灵活的条件生成</p>
+<p>例如：</p>
+<ul>
+<li>Text：文本描述</li>
+<li>Semantic Map：语义分割图</li>
+<li>Image：图像条件，用于图像到图像的生成任务</li>
+</ul>
+<p>具体来说，首先使用条件编码器 $\tau_\theta$ 将条件信息 $y$ 转换为特征表示：</p>
+<div class="mathjax-display">
+$$
+\tau_\theta(y)\in\mathbb R^{M\times d_\tau}
+$$
+</div>
+然后通过 Cross-Attention 将条件信息注入 U-Net
+
+<ul>
+<li><strong>Query：</strong> 来自 U-Net 当前层的图像特征</li>
+<li><strong>Key、Value：</strong> 来自条件编码器输出的条件特征</li>
+</ul>
+<p>通过这种方式，U-Net 的图像特征可以主动查询条件信息，动态获取与当前特征相关的语义内容</p>
+<p>例如在文本生成图像时，不同图像空间位置可以关注文本中的不同 Token，从而利用文本语义引导图像生成</p>
 <h2 id="DiT"><a href="#DiT" class="headerlink" title="DiT"></a>DiT</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.09748">2212.09748] Scalable Diffusion Models with Transformers</a></p>
 </blockquote>
-<p>核心：用 Transformer 替换 Diffusion Model 中传统的 U-Net Backbone</p>
-<h4 id="Latent-Diffusion-1"><a href="#Latent-Diffusion-1" class="headerlink" title="Latent Diffusion"></a>Latent Diffusion</h4><p>DiT 并不是直接在高分辨率 Pixel Space 上运行 Transformer，而是建立在 LDM 框架之上</p>
-<p>先使用预训练 Autoencoder</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">256 × 256 × 3</span><br><span class="line"></span><br><span class="line">       ↓ Encoder</span><br><span class="line"></span><br><span class="line">Latent</span><br><span class="line">32 × 32 × 4</span><br></pre></td></tr></table></figure>
+<p><strong>核心思想：</strong> 将传统 Diffusion Model 中的 U-Net Backbone 替换为 Transformer，使扩散模型能够继承 Transformer 的 Scaling 能力</p>
+<p>传统扩散模型主要采用 U-Net 作为去噪网络，通过 Downsample → Bottleneck → Upsample 提取多尺度特征</p>
+<p>DiT 则采用 ViT 的架构设计，将图像潜变量转换为 Token 序列，再通过一系列 Transformer Block 完成去噪</p>
+<h3 id="Latent-Space-与-Patchify"><a href="#Latent-Space-与-Patchify" class="headerlink" title="Latent Space 与 Patchify"></a>Latent Space 与 Patchify</h3><p>DiT 沿用 LDM 的潜空间扩散框架，使用预训练 VAE 将图像压缩到低维 Latent Space，整个 Diffusion Process 都发生在该空间</p>
+<p>论文使用 Stable Diffusion 的预训练 VAE，压缩倍数为 8：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">256 × 256 × 3</span><br><span class="line">       ↓ VAE Encoder</span><br><span class="line">Latent</span><br><span class="line">32 × 32 × 4</span><br><span class="line">       ↓ Diffusion</span><br><span class="line">Denoised Latent</span><br><span class="line">       ↓ VAE Decoder</span><br><span class="line">Generated Image</span><br><span class="line">256 × 256 × 3</span><br></pre></td></tr></table></figure>
 
-<p>整个 Diffusion Process 都发生在这个 Latent Space</p>
-<p>可以理解为：</p>
+<p>与 LDM 不同的是，DiT 不再使用 U-Net 处理二维 Latent Feature Map，而是采用 ViT 的 Patchify 操作，将其转换为 Token 序列</p>
+<p>假设输入 Latent 的空间尺寸为 $I\times I$，Patch Size 为 $p\times p$，则 Token 数量为：</p>
+<div class="mathjax-display">
+$$
+\boxed{T=\left(\frac{I}{p}\right)^2}
+$$
+</div>
+减小 Patch Size 可以增加 Token 数量，使 Transformer 能够处理更细粒度的空间信息，但同时会增加计算量
+
+<h3 id="DiT-Block"><a href="#DiT-Block" class="headerlink" title="DiT Block"></a>DiT Block</h3><p>完成 Patchify 后，将 Token 序列输入多个标准 Transformer Block</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-26_22-12-13.webp" alt="Snipaste_2026-09-26_22-12-13" style="zoom: 50%;" />
+
+<p>与 U-Net 不同，DiT 没有 Downsample、Bottleneck 和 Upsample 结构，Token 序列在 Transformer Block 中保持相同的长度和隐藏维度</p>
+<p>Diffusion Model 除了输入 Noisy Latent，还需要知道：</p>
 <ul>
-<li>LDM：Latent Diffusion + U-Net</li>
-<li>DiT：Latent Diffusion + Transformer</li>
+<li><strong>Timestep $t$：</strong> 当前扩散时间步</li>
+<li><strong>Class Label $y$：</strong> 目标生成类别</li>
 </ul>
-<p>Diffusion 数学过程基本没有发生变化</p>
-<h4 id="Patchify"><a href="#Patchify" class="headerlink" title="Patchify"></a>Patchify</h4><p>Latent $z_t$ 仍然是二维 Feature Map：</p>
-<p>Transformer 不能直接按照二维 Feature Map 的形式处理，所以与 ViT 类似，DiT 首先对 Latent 进行 Patchify</p>
-<p>假设 Patch Size 为</p>
-<div class="mathjax-display">
-$$
-p \times p
-$$
-</div>
-那么 Token 数量为：
-<div class="mathjax-display">
-$$
-\boxed{
-T=\left(\frac{I}{p}\right)^2
-}
-$$
-</div>
-每个 Patch 经过 Linear Projection，映射成一个 $d$ 维 token
-
-<p>对于位于二维网格坐标 $(x,y)$ 的 Patch，分别对 $x$ 和纵坐标 $y$ 使用不同频率的 sine &#x2F; cosine 函数进行编码</p>
-<p>单个坐标的位置编码形式与 sinusoidal positional encoding 类似</p>
-<div class="mathjax-display">
-$$
-PE_x(x)\in\mathbb{R}^{D/2},
-\qquad
-PE_y(y)\in\mathbb{R}^{D/2}
-$$
-</div>
-拼接得到最终位置编码
-<div class="mathjax-display">
-$$
-PE(x,y)\in\mathbb{R}^{D}
-$$
-</div>
-2D sine-cosine positional embedding 由固定数学公式生成，通常不作为模型参数参与训练
-
-<h4 id="DiT-Block"><a href="#DiT-Block" class="headerlink" title="DiT Block"></a>DiT Block</h4><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-26_22-12-13.webp" alt="Snipaste_2026-09-26_22-12-13" style="zoom: 50%;" />
-
-<p>基本结构是标准 Transformer，所以 DiT 没有 U-Net 的 Downsample → Bottleneck → Upsample，尺寸始终保持一致</p>
-<p>Diffusion Model 除了输入 Noisy Latent 还需要知道</p>
-<ul>
-<li>timestep $t$</li>
-<li>class label $y$</li>
-</ul>
-<p>论文比较了多种方法</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Condition</span><br><span class="line">   │</span><br><span class="line">   ├── In-Context Conditioning</span><br><span class="line">   │</span><br><span class="line">   ├── Cross-Attention</span><br><span class="line">   │</span><br><span class="line">   ├── adaLN</span><br><span class="line">   │</span><br><span class="line">   └── adaLN-Zero   ← 最终效果最好</span><br></pre></td></tr></table></figure>
-
-<p><strong>In-Context Conditioning</strong></p>
-<p>分别得到：</p>
+<p>因此，DiT 需要将条件信息注入 Transformer</p>
+<p>论文比较了四种不同的 Conditioning 方式</p>
+<h4 id="1-In-Context-Conditioning"><a href="#1-In-Context-Conditioning" class="headerlink" title="1. In-Context Conditioning"></a><strong>1. In-Context Conditioning</strong></h4><p>分别对 Timestep 和 Class Label 进行 Embedding</p>
 <div class="mathjax-display">
 $$
 e_t=\operatorname{Embed}(t),\qquad e_y=\operatorname{Embed}(y)
 $$
 </div>
-然后直接作为两个 Token
+然后将两个 Condition Embedding 作为额外 Token，直接拼接到图像 Token 序列中：
 
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens:</span><br><span class="line">[x₁, x₂, ..., xₙ]</span><br><span class="line"></span><br><span class="line">Condition Tokens:</span><br><span class="line">[e_t, e_y]</span><br><span class="line"></span><br><span class="line">拼接：</span><br><span class="line">[x₁, x₂, ..., xₙ, e_t, e_y]</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens:</span><br><span class="line">[x₁, x₂, ..., xₙ]</span><br><span class="line"></span><br><span class="line">Condition Tokens:</span><br><span class="line">[eₜ, eᵧ]</span><br><span class="line"></span><br><span class="line">拼接：</span><br><span class="line">[x₁, x₂, ..., xₙ, eₜ, eᵧ]</span><br></pre></td></tr></table></figure>
 
-<p>最后一个 Transformer Block 后，再把Condition Tokens 删除</p>
-<p><strong>Cross-Attention</strong></p>
-<p>在 Self-Attention 后加入一个 Cross-Attention Layer</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens</span><br><span class="line">    ↓</span><br><span class="line">Self-Attention</span><br><span class="line">    ↓</span><br><span class="line">Cross-Attention ← [e_t, e_y]</span><br></pre></td></tr></table></figure>
+<p>直接使用标准 Transformer 处理，最后移除 Condition Tokens</p>
+<h4 id="2-Cross-Attention"><a href="#2-Cross-Attention" class="headerlink" title="2. Cross-Attention"></a><strong>2. Cross-Attention</strong></h4><p>将 Timestep 和 Class Label 的 Embedding 组成独立的条件序列，在 Transformer 中额外加入 Cross-Attention</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens</span><br><span class="line">     ↓</span><br><span class="line">Self-Attention</span><br><span class="line">     ↓</span><br><span class="line">Cross-Attention ← Condition Tokens</span><br><span class="line">     ↓</span><br><span class="line">MLP</span><br></pre></td></tr></table></figure>
 
-<p>这种方式与 LDM 中的思路比较类似</p>
-<p>但是额外的 Cross-Attention 会增加计算量</p>
-<h4 id="adaLN"><a href="#adaLN" class="headerlink" title="adaLN"></a>adaLN</h4><p>Adaptive Layer Normalization</p>
-<p>不把 $t$、$y$ 当作普通 token，而是利用它们去控制 LayerNorm</p>
+<p>与 LDM 中通过 Cross-Attention 注入文本条件的思路类似，但会增加额外的计算量</p>
+<h4 id="3-adaLN"><a href="#3-adaLN" class="headerlink" title="3. adaLN"></a><strong>3. adaLN</strong></h4><p>Adaptive Layer Normalization（自适应层归一化）</p>
+<p>不再将条件信息作为 Token 输入，而是利用条件信息动态调节 LayerNorm</p>
+<p>首先将 Timestep 和 Class Label 的 Embedding 相加：</p>
 <div class="mathjax-display">
 $$
 c=e_t+e_y
 $$
 </div>
-然后由 Conditioning $c $ 预测 LayerNorm 的 Dimension-wise Scale 和 Shift
-<div class="mathjax-display">
-$$
-\gamma(c),\beta(c)
-$$
-</div>
-LayerNorm 的输出经过 scale 和 shift
+然后通过 MLP 预测 LayerNorm 的 Scale $\gamma(c)$ 和 Shift $ \beta(c)$
+
+<p>最终：</p>
 <div class="mathjax-display">
 $$
 \operatorname{adaLN}(x,c)=\gamma(c)\odot \operatorname{LN}(x)+
 \beta(c)
 $$
 </div>
-Condition 不作为 Token 参与 Attention，而是动态改变 Transformer 中归一化后的 Feature
+这样，条件信息就可以动态调节 Transformer 内部的特征，而不需要额外增加 Attention 层
 
-<p>相比 Cross-Attention，adaLN 引入的额外 Gflops(十亿次浮点运算) 最少</p>
-<h4 id="adaLN-Zero"><a href="#adaLN-Zero" class="headerlink" title="adaLN-Zero"></a>adaLN-Zero</h4><p>论文使用的不是普通 adaLN</p>
-<p>在 adaLN 的基础上继续加入一个可学习的 Scale</p>
-<p>初始化时：</p>
+<h4 id="4-adaLN-Zero"><a href="#4-adaLN-Zero" class="headerlink" title="4. adaLN-Zero"></a>4. adaLN-Zero</h4><p>论文最终采用的方案</p>
+<p>在 adaLN 的基础上，进一步为每个 Residual Branch 引入一个可学习的缩放系数 $\alpha$，控制残差分支对输出的影响</p>
 <div class="mathjax-display">
 $$
-\alpha=0
+y=x+\alpha(c)\odot F(\operatorname{adaLN}(x,c))
 $$
 </div>
-因此
-<div class="mathjax-display">
-$$
-\operatorname{DiTBlock}(x)\approx x
-$$
-</div>
-每一个 DiT Block 初始化时近似 Identity Function
+初始化时 $\alpha = 0$，相当于 $y = x$
 
-<p>借鉴了 ResNet 和 Diffusion U-Net 中将 Residual Branch 初始化为零的思想，这种设计有利于深层网络训练</p>
-<p>后续工作基本全部采用 adaLN-Zero</p>
+<p>每个 Residual Branch 初始时不改变输入特征，整个 DiT Block 近似 Identity Function</p>
+<p>这种设计借鉴了 ResNet 中将残差分支零初始化的思想，有利于深层网络的稳定训练</p>
+<p>每一个 DiT Block 初始化时近似 Identity Function</p>
+<p><strong>实验结论：</strong> adaLN-Zero 在生成质量和计算效率上均优于论文比较的其他条件注入方案，因此后续实验统一采用 adaLN-Zero</p>
 <h1 id="生成范式演进"><a href="#生成范式演进" class="headerlink" title="生成范式演进"></a>生成范式演进</h1><h2 id="Flow-Matching"><a href="#Flow-Matching" class="headerlink" title="Flow Matching"></a>Flow Matching</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.02747">2210.02747] Flow Matching for Generative Modeling</a></p>
 </blockquote>
@@ -964,7 +972,7 @@ $$
 <h1 id="现代扩散架构"><a href="#现代扩散架构" class="headerlink" title="现代扩散架构"></a>现代扩散架构</h1><h2 id="MMDiT"><a href="#MMDiT" class="headerlink" title="MMDiT"></a>MMDiT</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.03206">2403.03206] Scaling Rectified Flow Transformers for High-Resolution Image Synthesis</a></p>
 </blockquote>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1222747289.html">https://yhblogs.cn/posts/1222747289.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/1716427693.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a><a class="pagination-related no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-13</div><div class="info-item-2">视觉表征与多模态</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E6%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.</span> <span class="toc-text">视觉潜空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VAE"><span class="toc-number">1.1.</span> <span class="toc-text">VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Autoencoder"><span class="toc-number">1.1.1.</span> <span class="toc-text">Autoencoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD"><span class="toc-number">1.1.2.</span> <span class="toc-text">变分推断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%8F%82%E6%95%B0%E5%8C%96"><span class="toc-number">1.1.3.</span> <span class="toc-text">重参数化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.4.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQ-VAE"><span class="toc-number">1.2.</span> <span class="toc-text">VQ-VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector-Quantization"><span class="toc-number">1.2.1.</span> <span class="toc-text">Vector Quantization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E9%80%9A%E6%A2%AF%E5%BA%A6%E4%BC%B0%E8%AE%A1"><span class="toc-number">1.2.2.</span> <span class="toc-text">直通梯度估计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQGAN"><span class="toc-number">1.3.</span> <span class="toc-text">VQGAN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E9%87%8D%E5%BB%BA"><span class="toc-number">1.3.1.</span> <span class="toc-text">感知重建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer-%E5%BB%BA%E6%A8%A1"><span class="toc-number">1.3.3.</span> <span class="toc-text">Transformer 建模</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">经典扩散模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#U-Net"><span class="toc-number">2.1.</span> <span class="toc-text">U-Net</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">2.1.1.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder"><span class="toc-number">2.1.2.</span> <span class="toc-text">Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decoder"><span class="toc-number">2.1.3.</span> <span class="toc-text">Decoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Skip-Connection"><span class="toc-number">2.1.4.</span> <span class="toc-text">Skip Connection</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDPM"><span class="toc-number">2.2.</span> <span class="toc-text">DDPM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Forward-Process"><span class="toc-number">2.2.1.</span> <span class="toc-text">Forward Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reverse-Process"><span class="toc-number">2.2.2.</span> <span class="toc-text">Reverse Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E9%A2%84%E6%B5%8B"><span class="toc-number">2.2.3.</span> <span class="toc-text">噪声预测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%87%87%E6%A0%B7"><span class="toc-number">2.2.4.</span> <span class="toc-text">训练与采样</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="toc-number">2.2.5.</span> <span class="toc-text">网络架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDIM"><span class="toc-number">2.3.</span> <span class="toc-text">DDIM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%89%A9%E6%95%A3%E8%BF%87%E7%A8%8B"><span class="toc-number">2.3.1.</span> <span class="toc-text">非马尔可夫扩散过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E9%87%87%E6%A0%B7%E8%BF%87%E7%A8%8B"><span class="toc-number">2.3.2.</span> <span class="toc-text">反向采样过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%87%87%E6%A0%B7"><span class="toc-number">2.3.3.</span> <span class="toc-text">确定性采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E9%87%87%E6%A0%B7"><span class="toc-number">2.3.4.</span> <span class="toc-text">加速采样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Score-SDE"><span class="toc-number">2.4.</span> <span class="toc-text">Score SDE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SMLD"><span class="toc-number">2.4.1.</span> <span class="toc-text">SMLD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Score-Function"><span class="toc-number">2.4.2.</span> <span class="toc-text">Score Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-SDE"><span class="toc-number">2.4.3.</span> <span class="toc-text">Forward SDE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-SDE"><span class="toc-number">2.4.4.</span> <span class="toc-text">Reverse SDE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Probability-Flow-ODE"><span class="toc-number">2.4.5.</span> <span class="toc-text">Probability Flow ODE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E6%A1%86%E6%9E%B6"><span class="toc-number">2.4.6.</span> <span class="toc-text">统一框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CFG"><span class="toc-number">2.5.</span> <span class="toc-text">CFG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E5%99%A8%E5%BC%95%E5%AF%BC"><span class="toc-number">2.5.1.</span> <span class="toc-text">分类器引导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E4%B8%A2%E5%BC%83"><span class="toc-number">2.5.2.</span> <span class="toc-text">条件丢弃</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%AF%BC%E9%87%87%E6%A0%B7"><span class="toc-number">2.5.3.</span> <span class="toc-text">引导采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Guidance-Scale"><span class="toc-number">2.5.4.</span> <span class="toc-text">Guidance Scale</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B"><span class="toc-number">3.</span> <span class="toc-text">架构演进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LDM"><span class="toc-number">3.1.</span> <span class="toc-text">LDM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.1.1.</span> <span class="toc-text">感知压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Latent-Diffusion"><span class="toc-number">3.1.2.</span> <span class="toc-text">Latent Diffusion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DiT"><span class="toc-number">3.2.</span> <span class="toc-text">DiT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Latent-Diffusion-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">Latent Diffusion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Patchify"><span class="toc-number">3.2.2.</span> <span class="toc-text">Patchify</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DiT-Block"><span class="toc-number">3.2.3.</span> <span class="toc-text">DiT Block</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adaLN"><span class="toc-number">3.2.4.</span> <span class="toc-text">adaLN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adaLN-Zero"><span class="toc-number">3.2.5.</span> <span class="toc-text">adaLN-Zero</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%8C%83%E5%BC%8F%E6%BC%94%E8%BF%9B"><span class="toc-number">4.</span> <span class="toc-text">生成范式演进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flow-Matching"><span class="toc-number">4.1.</span> <span class="toc-text">Flow Matching</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rectified-Flow"><span class="toc-number">4.2.</span> <span class="toc-text">Rectified Flow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E6%89%A9%E6%95%A3%E6%9E%B6%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">现代扩散架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MMDiT"><span class="toc-number">5.1.</span> <span class="toc-text">MMDiT</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1222747289.html">https://yhblogs.cn/posts/1222747289.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-13</div><div class="info-item-2">视觉表征与多模态</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1716427693.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E6%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.</span> <span class="toc-text">视觉潜空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VAE"><span class="toc-number">1.1.</span> <span class="toc-text">VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Autoencoder"><span class="toc-number">1.1.1.</span> <span class="toc-text">Autoencoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD"><span class="toc-number">1.1.2.</span> <span class="toc-text">变分推断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%8F%82%E6%95%B0%E5%8C%96"><span class="toc-number">1.1.3.</span> <span class="toc-text">重参数化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.4.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQ-VAE"><span class="toc-number">1.2.</span> <span class="toc-text">VQ-VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector-Quantization"><span class="toc-number">1.2.1.</span> <span class="toc-text">Vector Quantization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E9%80%9A%E6%A2%AF%E5%BA%A6%E4%BC%B0%E8%AE%A1"><span class="toc-number">1.2.2.</span> <span class="toc-text">直通梯度估计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQGAN"><span class="toc-number">1.3.</span> <span class="toc-text">VQGAN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E9%87%8D%E5%BB%BA"><span class="toc-number">1.3.1.</span> <span class="toc-text">感知重建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer-%E5%BB%BA%E6%A8%A1"><span class="toc-number">1.3.3.</span> <span class="toc-text">Transformer 建模</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">经典扩散模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#U-Net"><span class="toc-number">2.1.</span> <span class="toc-text">U-Net</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">2.1.1.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder"><span class="toc-number">2.1.2.</span> <span class="toc-text">Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decoder"><span class="toc-number">2.1.3.</span> <span class="toc-text">Decoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Skip-Connection"><span class="toc-number">2.1.4.</span> <span class="toc-text">Skip Connection</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDPM"><span class="toc-number">2.2.</span> <span class="toc-text">DDPM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Forward-Process"><span class="toc-number">2.2.1.</span> <span class="toc-text">Forward Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reverse-Process"><span class="toc-number">2.2.2.</span> <span class="toc-text">Reverse Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E9%A2%84%E6%B5%8B"><span class="toc-number">2.2.3.</span> <span class="toc-text">噪声预测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%87%87%E6%A0%B7"><span class="toc-number">2.2.4.</span> <span class="toc-text">训练与采样</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="toc-number">2.2.5.</span> <span class="toc-text">网络架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDIM"><span class="toc-number">2.3.</span> <span class="toc-text">DDIM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%89%A9%E6%95%A3%E8%BF%87%E7%A8%8B"><span class="toc-number">2.3.1.</span> <span class="toc-text">非马尔可夫扩散过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E9%87%87%E6%A0%B7%E8%BF%87%E7%A8%8B"><span class="toc-number">2.3.2.</span> <span class="toc-text">反向采样过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%87%87%E6%A0%B7"><span class="toc-number">2.3.3.</span> <span class="toc-text">确定性采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E9%87%87%E6%A0%B7"><span class="toc-number">2.3.4.</span> <span class="toc-text">加速采样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Score-SDE"><span class="toc-number">2.4.</span> <span class="toc-text">Score SDE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SMLD"><span class="toc-number">2.4.1.</span> <span class="toc-text">SMLD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Score-Function"><span class="toc-number">2.4.2.</span> <span class="toc-text">Score Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-SDE"><span class="toc-number">2.4.3.</span> <span class="toc-text">Forward SDE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-SDE"><span class="toc-number">2.4.4.</span> <span class="toc-text">Reverse SDE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Probability-Flow-ODE"><span class="toc-number">2.4.5.</span> <span class="toc-text">Probability Flow ODE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E6%A1%86%E6%9E%B6"><span class="toc-number">2.4.6.</span> <span class="toc-text">统一框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CFG"><span class="toc-number">2.5.</span> <span class="toc-text">CFG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E5%99%A8%E5%BC%95%E5%AF%BC"><span class="toc-number">2.5.1.</span> <span class="toc-text">分类器引导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E4%B8%A2%E5%BC%83"><span class="toc-number">2.5.2.</span> <span class="toc-text">条件丢弃</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%AF%BC%E9%87%87%E6%A0%B7"><span class="toc-number">2.5.3.</span> <span class="toc-text">引导采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Guidance-Scale"><span class="toc-number">2.5.4.</span> <span class="toc-text">Guidance Scale</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B"><span class="toc-number">3.</span> <span class="toc-text">架构演进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LDM"><span class="toc-number">3.1.</span> <span class="toc-text">LDM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.1.1.</span> <span class="toc-text">感知压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E7%A9%BA%E9%97%B4%E6%89%A9%E6%95%A3"><span class="toc-number">3.1.2.</span> <span class="toc-text">潜空间扩散</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%94%9F%E6%88%90"><span class="toc-number">3.1.3.</span> <span class="toc-text">条件生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DiT"><span class="toc-number">3.2.</span> <span class="toc-text">DiT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Latent-Space-%E4%B8%8E-Patchify"><span class="toc-number">3.2.1.</span> <span class="toc-text">Latent Space 与 Patchify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DiT-Block"><span class="toc-number">3.2.2.</span> <span class="toc-text">DiT Block</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-In-Context-Conditioning"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">1. In-Context Conditioning</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Cross-Attention"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">2. Cross-Attention</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-adaLN"><span class="toc-number">3.2.2.3.</span> <span class="toc-text">3. adaLN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-adaLN-Zero"><span class="toc-number">3.2.2.4.</span> <span class="toc-text">4. adaLN-Zero</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%8C%83%E5%BC%8F%E6%BC%94%E8%BF%9B"><span class="toc-number">4.</span> <span class="toc-text">生成范式演进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flow-Matching"><span class="toc-number">4.1.</span> <span class="toc-text">Flow Matching</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rectified-Flow"><span class="toc-number">4.2.</span> <span class="toc-text">Rectified Flow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E6%89%A9%E6%95%A3%E6%9E%B6%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">现代扩散架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MMDiT"><span class="toc-number">5.1.</span> <span class="toc-text">MMDiT</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
