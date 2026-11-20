@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>扩散模型 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="视觉潜空间VAE [1312.6114] Auto-Encoding Variational Bayes  核心思想： 将输入映射为潜变量的概率分布，通过从分布中采样获得 Latent Representation，并利用 Decoder 重建数据，同时通过 KL 散度约束潜空间，使其形成连续且规整的分布 Autoencoder最基础的 Autoencoder（自编码器，AE）采用 Encoder">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>扩散模型 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="视觉潜空间   模型 任务目标 训练损失    VAE 图像压缩与重建，学习连续潜空间 Reconstruction Loss + KL Loss   VQ-VAE 图像压缩与重建，学习离散潜空间 Reconstruction Loss + Codebook Loss + Commitment Loss   VQGAN 高质量图像压缩与重建，学习离散视觉 Token Perceptual Loss">
 <meta property="og:type" content="article">
 <meta property="og:title" content="扩散模型">
 <meta property="og:url" content="https://yhblogs.cn/posts/1222747289.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="视觉潜空间VAE [1312.6114] Auto-Encoding Variational Bayes  核心思想： 将输入映射为潜变量的概率分布，通过从分布中采样获得 Latent Representation，并利用 Decoder 重建数据，同时通过 KL 散度约束潜空间，使其形成连续且规整的分布 Autoencoder最基础的 Autoencoder（自编码器，AE）采用 Encoder">
+<meta property="og:description" content="视觉潜空间   模型 任务目标 训练损失    VAE 图像压缩与重建，学习连续潜空间 Reconstruction Loss + KL Loss   VQ-VAE 图像压缩与重建，学习离散潜空间 Reconstruction Loss + Codebook Loss + Commitment Loss   VQGAN 高质量图像压缩与重建，学习离散视觉 Token Perceptual Loss">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp">
 <meta property="article:published_time" content="2026-10-31T01:30:57.000Z">
-<meta property="article:modified_time" content="2026-11-19T13:50:06.895Z">
+<meta property="article:modified_time" content="2026-11-20T14:22:20.793Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🍭AI">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/1222747289.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp",
   "datePublished": "2026-10-31T01:30:57.000Z",
-  "dateModified": "2026-11-19T13:50:06.895Z",
+  "dateModified": "2026-11-20T14:22:20.793Z",
   "author": [
     {
       "@type": "Person",
@@ -159,63 +159,65 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-m9k578_1280x720.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">扩散模型</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">扩散模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-10-31T01:30:57.000Z" title="发表于 2026-10-31 09:30:57">2026-10-31</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="视觉潜空间"><a href="#视觉潜空间" class="headerlink" title="视觉潜空间"></a>视觉潜空间</h1><h2 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h2><blockquote>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-m9k578_1280x720.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">扩散模型</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">扩散模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-10-31T01:30:57.000Z" title="发表于 2026-10-31 09:30:57">2026-10-31</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="视觉潜空间"><a href="#视觉潜空间" class="headerlink" title="视觉潜空间"></a>视觉潜空间</h1><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>任务目标</th>
+<th>训练损失</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VAE</td>
+<td>图像压缩与重建，学习连续潜空间</td>
+<td>Reconstruction Loss + KL Loss</td>
+</tr>
+<tr>
+<td>VQ-VAE</td>
+<td>图像压缩与重建，学习离散潜空间</td>
+<td>Reconstruction Loss + Codebook Loss + Commitment Loss</td>
+</tr>
+<tr>
+<td>VQGAN</td>
+<td>高质量图像压缩与重建，学习离散视觉 Token</td>
+<td>Perceptual Loss + Codebook Loss + Adversarial Loss</td>
+</tr>
+</tbody></table>
+<h2 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1312.6114">1312.6114] Auto-Encoding Variational Bayes</a></p>
 </blockquote>
-<p>核心思想： 将输入映射为潜变量的概率分布，通过从分布中采样获得 Latent Representation，并利用 Decoder 重建数据，同时通过 KL 散度约束潜空间，使其形成连续且规整的分布</p>
-<h3 id="Autoencoder"><a href="#Autoencoder" class="headerlink" title="Autoencoder"></a>Autoencoder</h3><p>最基础的 Autoencoder（自编码器，AE）采用 Encoder-Decoder 结构：</p>
-<div class="mathjax-display">
-$$
-x \xrightarrow{\text{Encoder}} z \xrightarrow{\text{Decoder}} \hat{x}
-$$
-</div>
-
+<p><strong>核心思想：</strong> 将输入映射为潜变量的概率分布，通过采样获得 Latent Representation，再利用 Decoder 重建数据，同时通过 KL Divergence 约束潜空间，使其形成连续且规整的分布，从而实现数据生成</p>
+<blockquote>
+<p>后续扩散模型其实大部分还是采用预训练 VAE</p>
+</blockquote>
+<h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h3><p>VAE 采用 Encoder-Decoder 结构：</p>
 <ul>
-<li>$x$：输入图像</li>
-<li>$z$：潜在表示（Latent Representation）</li>
-<li>$\hat{x}$：重建得到的图像</li>
+<li><strong>Encoder</strong>：将输入映射为高斯分布的参数，包括均值 $\mu$ 和标准差 $\sigma$</li>
+<li><strong>Sampling</strong>：通过重参数化技巧，从潜变量分布中采样得到 $z$</li>
+<li><strong>Decoder</strong>：根据潜变量 $z$ 重建原始输入。</li>
 </ul>
-<p>训练目标是使重建结果尽可能接近原始输入</p>
-<p>普通 AE 将输入映射为一个确定的 Latent Vector，而 VAE 进一步将其扩展为一个概率分布</p>
-<h3 id="变分推断"><a href="#变分推断" class="headerlink" title="变分推断"></a>变分推断</h3><p>VAE 的 Encoder 不再直接输出一个确定的 $z$，而是输出潜变量分布的参数：</p>
-<ul>
-<li>$\mu$：均值</li>
-<li>$\sigma$：标准差</li>
-</ul>
-<p>通常假设潜变量服从 Gaussian 分布：</p>
+<p>与普通 Autoencoder 不同，VAE 输出的是概率分布，而不是确定性的特征向量</p>
+<h3 id="重参数化"><a href="#重参数化" class="headerlink" title="重参数化"></a>重参数化</h3><p>为了使随机采样过程能够进行梯度反向传播，VAE 将采样过程表示为：</p>
 <div class="mathjax-display">
 $$
-q_\phi(z|x)=\mathcal N\left(\mu_\phi(x),\operatorname{diag}(\sigma_\phi^2(x))\right)
+z=\mu+\sigma\odot\epsilon,\quad
+\epsilon\sim\mathcal N(0,I)
 $$
 </div>
-从而通过采样获得潜在表示：
-<div class="mathjax-display">
-$$
-z\sim q_\phi(z|x)
-$$
-</div>
-$q_\phi(z|x)$ 是对真实后验分布 $p_\theta(z|x)$ 的近似
+其中，$\mu$ 和 $\sigma$ 由 Encoder 输出，$\epsilon$ 从标准正态分布中随机采样
 
-<h3 id="重参数化"><a href="#重参数化" class="headerlink" title="重参数化"></a>重参数化</h3><p>直接从概率分布中采样，不便于对分布参数进行梯度反向传播，因此 VAE 引入重参数化技巧（Reparameterization Trick）</p>
-<p>将随机采样表示为一个确定性变换：</p>
+<p><strong>核心作用：</strong> 将随机性转移到独立噪声变量，使模型能够通过反向传播更新 Encoder 参数</p>
+<h3 id="Loss-Function（ELBO）"><a href="#Loss-Function（ELBO）" class="headerlink" title="Loss Function（ELBO）"></a>Loss Function（ELBO）</h3><p>VAE 通过最大化 ELBO 进行训练，实际通常最小化其负值：</p>
 <div class="mathjax-display">
 $$
-\boxed{z=\mu+\sigma\odot\epsilon,\quad \epsilon\sim\mathcal N(0,I)}
-$$
-</div>
-通过将随机性转移到 $\epsilon$，使采样过程能够对 $\mu$ 和 $\sigma$ 进行梯度反向传播
-
-<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>VAE 通过最大化证据下界进行训练：</p>
-<div class="mathjax-display">
-$$
-\mathcal L_{\mathrm{ELBO}}=\mathbb E_{q_\phi(z|x)}[\log p_\theta(x|z)]-D_{\mathrm{KL}}(q_\phi(z|x)\|p(z))
+\mathcal L_{\mathrm{VAE}}=\mathcal L_{\mathrm{recon}}+D_{\mathrm{KL}}(q_\phi(z|x)\|p(z))
 $$
 </div>
 包含两个部分：
 
 <ul>
-<li><strong>Reconstruction Loss</strong>：保证 Decoder 能够根据 $z$ 重建原始输入。</li>
-<li><strong>KL Divergence</strong>：约束近似后验分布 $q_\phi(z|x)$ 接近先验分布 $p(z)$，使潜空间更加规整</li>
+<li><strong>Reconstruction Loss</strong>：保证 Decoder 能够根据潜变量重建原始数据</li>
+<li><strong>KL Divergence</strong>：约束近似后验分布接近标准正态先验，使潜空间更加连续、规整</li>
 </ul>
 <p>通常采用标准正态分布作为先验：</p>
 <div class="mathjax-display">
@@ -223,45 +225,35 @@ $$
 p(z)=\mathcal N(0,I)
 $$
 </div>
-训练完成后，可以直接从标准正态分布中采样，不再需要 Encoder
+### 生成过程
 
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Gaussian Noise</span><br><span class="line">      ↓</span><br><span class="line">  z ~ N(0, I)</span><br><span class="line">      ↓</span><br><span class="line">   Decoder</span><br><span class="line">      ↓</span><br><span class="line"> Generated Image</span><br></pre></td></tr></table></figure>
+<p>训练完成后，可以直接从标准正态分布采样潜变量，再输入 Decoder 生成新数据：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">z ~ N(0, I)</span><br><span class="line">     ↓</span><br><span class="line">   Decoder</span><br><span class="line">     ↓</span><br><span class="line"> Generated Data</span><br></pre></td></tr></table></figure>
 
 <h2 id="VQ-VAE"><a href="#VQ-VAE" class="headerlink" title="VQ-VAE"></a>VQ-VAE</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.00937">1711.00937] Neural Discrete Representation Learning</a></p>
 </blockquote>
-<p>核心思想： 将 Encoder 输出的连续特征映射到 Codebook 中最近的 Embedding，得到离散潜变量，再通过 Decoder 重建输入，从而学习具有压缩性和表达能力的离散潜空间</p>
-<p>与 VAE 使用 Gaussian 分布建模连续潜变量不同，VQ-VAE 引入 Vector Quantization（向量量化），将潜变量表示为离散的 Codebook 索引</p>
-<h3 id="Vector-Quantization"><a href="#Vector-Quantization" class="headerlink" title="Vector Quantization"></a>Vector Quantization</h3><p>VQ-VAE 保留 Encoder-Decoder 结构，但在 Encoder 和 Decoder 之间引入离散的 Codebook 索引</p>
-<p>具体过程：</p>
+<p><strong>核心思想：</strong> 将 Encoder 输出的连续特征映射到 Codebook 中距离最近的 Embedding，得到离散潜变量，再通过 Decoder 重建输入，从而学习离散潜空间</p>
+<h3 id="Vector-Quantization（向量量化）"><a href="#Vector-Quantization（向量量化）" class="headerlink" title="Vector Quantization（向量量化）"></a>Vector Quantization（向量量化）</h3><p>VQ-VAE 保留 Encoder-Decoder 结构，但在两者之间引入 Codebook：</p>
 <ol>
 <li>Encoder 将输入映射为连续特征 $z_e(x)$</li>
 <li>通过 Codebook 查找距离最近的 Embedding</li>
 <li>将对应的 Embedding 作为离散化后的潜变量 $z_q(x)$</li>
 <li>Decoder 根据量化后的潜变量重建输入</li>
 </ol>
-<p>Codebook 定义为：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20260922215138414_50kb.webp" alt="image-20260922215138414" style="zoom: 33%;" />
+
+<p>Codebook 包含 $K$ 个 $D$ 维 Embedding：</p>
 <div class="mathjax-display">
 $$
 e\in\mathbb R^{K\times D}
 $$
 </div>
 
-<ul>
-<li>$K$：Codebook 中 Embedding 的数量</li>
-<li>$D$：每个 Embedding 的维度</li>
-<li>$e_k$：Codebook 中第 $k$ 个 Embedding</li>
-</ul>
-<p>对于 Encoder 输出的每一个向量 $z_e(x)$，在 Codebook 中选择与 Encoder 输出欧氏距离最近的 Embedding</p>
+<p>最近邻量化过程：</p>
 <div class="mathjax-display">
 $$
-k=\operatorname*{argmin}_{j}\left\|z_e(x)-e_j\right\|_2
-$$
-</div>
-得到量化后的潜变量：
-<div class="mathjax-display">
-$$
-\boxed{z_q(x)=e_k}
+k=\arg\min_j\|z_e(x)-e_j\|_2,\quad z_q(x)=e_k
 $$
 </div>
 本质上很像 NLP 中的
@@ -272,40 +264,34 @@ $$
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Encoder Feature</span><br><span class="line">      ↓</span><br><span class="line">寻找最近的 Embedding</span><br><span class="line">      ↓</span><br><span class="line">得到 Code Index</span><br></pre></td></tr></table></figure>
 
 <p>模型自己学习了一套离散表示，使得连续空间变成了有限的离散状态</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20260922215138414_50kb.webp" alt="image-20260922215138414" style="zoom: 33%;" />
-
-<h3 id="直通梯度估计"><a href="#直通梯度估计" class="headerlink" title="直通梯度估计"></a>直通梯度估计</h3><p>由于最近邻量化操作涉及 $\arg\min$ 和离散索引选择，无法直接进行梯度反向传播</p>
-<p>VQ-VAE 引入 Straight-Through Estimator，STE（直通梯度估计器）</p>
+<h3 id="Straight-Through-Estimator（直通梯度估计）"><a href="#Straight-Through-Estimator（直通梯度估计）" class="headerlink" title="Straight-Through Estimator（直通梯度估计）"></a>Straight-Through Estimator（直通梯度估计）</h3><p>最近邻量化涉及离散索引选择，无法直接进行梯度反向传播</p>
+<p>VQ-VAE 引入 STE：</p>
 <ul>
 <li><strong>Forward：</strong> 正常执行最近邻量化，将 $z_q(x)$ 输入 Decoder</li>
 <li><strong>Backward：</strong> 将 Decoder 输入端的梯度直接复制到 Encoder 输出 $z_e(x)$，跳过量化操作</li>
 </ul>
-<p>即近似认为：</p>
+<p>近似认为：</p>
 <div class="mathjax-display">
 $$
 \frac{\partial z_q}{\partial z_e}\approx 1
 $$
 </div>
 
-<p>把 Quantization 在反向传播时近似当作 Identity</p>
-<h3 id="损失函数-1"><a href="#损失函数-1" class="headerlink" title="损失函数"></a>损失函数</h3><p>VQ-VAE 的训练目标包含三个部分：</p>
+<p><strong>核心作用：</strong> 使梯度能够跨越不可微分的量化操作，更新 Encoder 参数</p>
+<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>VQ-VAE 的训练目标包含三个部分：</p>
 <div class="mathjax-display">
 $$
 \mathcal L_{\mathrm{VQ-VAE}}=\mathcal L_{\mathrm{recon}}+\|\operatorname{sg}[z_e(x)]-e_k\|_2^2+\beta\|z_e(x)-\operatorname{sg}[e_k]\|_2^2
 $$
 </div>
-> 其中 $\operatorname{sg}$ 表示 Stop Gradient，前向计算保持恒等映射，反向传播时不传递梯度
+其中 $\operatorname{sg}$ 表示 Stop Gradient，前向计算保持恒等映射，反向传播时不传递梯度
 
-<p>三个部分分别是：</p>
 <ul>
-<li><p><strong>Reconstruction Loss</strong>：保证 Decoder 能够根据量化后的潜变量重建原始输入，通过 Straight-Through Estimator 更新 Encoder 和 Decoder</p>
-<blockquote>
-<p>$\log p\left(x\mid z_q(x)\right)$：因为是Gaussian，负对数似然可以转化为 L2 重建损失</p>
-</blockquote>
+<li><p><strong>Reconstruction Loss</strong>：保证 Decoder 能够根据量化后的潜变量重建原始输入，通过 STE 更新 Encoder 和 Decoder</p>
 </li>
-<li><p><strong>Codebook Loss</strong>：通过最小化 Encoder 输出与对应 Embedding 之间的距离，使 Codebook 中的向量逐渐靠近 Encoder 输出</p>
+<li><p><strong>Codebook Loss</strong>：使 Codebook 中的 Embedding 向 Encoder 输出靠近</p>
 </li>
-<li><p><strong>Commitment Loss</strong>：约束 Encoder 输出靠近选中的 Embedding，避免 Encoder 输出不断偏离 Codebook 中的向量</p>
+<li><p><strong>Commitment Loss</strong>：约束 Encoder 输出靠近选中的 Embedding，避免 Encoder 特征不断偏离 Codebook</p>
 </li>
 </ul>
 <table>
@@ -336,219 +322,212 @@ $$
 <td>×</td>
 </tr>
 </tbody></table>
-<p>相比VAE，无需KL散度，因为潜空间不再连续</p>
+<p>相比 VAE，不再使用标准正态分布的 KL 正则化，而是通过 Codebook 学习离散潜变量</p>
+<p><strong>VQ-VAE 的核心：</strong> 通过可学习的 Codebook 将连续视觉特征离散化，使图像能够表示为离散 Token 序列，为后续 VQGAN 和基于 Transformer 的视觉生成模型奠定基础</p>
 <h2 id="VQGAN"><a href="#VQGAN" class="headerlink" title="VQGAN"></a>VQGAN</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.09841">2012.09841] Taming Transformers for High-Resolution Image Synthesis</a></p>
 </blockquote>
-<p>核心思想： 在 VQ-VAE 的离散潜空间基础上，引入 Perceptual Loss 和 GAN 对抗训练，提高图像压缩后的感知质量，再使用 Transformer 对离散视觉 Token 之间的组合关系进行建模，实现高分辨率图像生成</p>
-<h3 id="感知重建"><a href="#感知重建" class="headerlink" title="感知重建"></a>感知重建</h3><p>VQ-VAE 使用 Pixel-level Reconstruction Loss（像素级重建损失），直接约束重建图像与原始图像之间的像素差异</p>
-<p>但在较高压缩率下，仅使用像素级重建损失难以充分保留图像的感知质量</p>
-<p>VQGAN 对 VQ-VAE 的训练目标进行改进</p>
-<ol>
-<li>将原来的 $L_2$ Reconstruction Loss 替换为 Perceptual Loss（感知损失），关注图像的感知质量</li>
-<li>引入 Patch-based Discriminator（基于图像块的判别器），通过对抗训练提高重建图像的真实性</li>
-</ol>
-<h3 id="损失函数-2"><a href="#损失函数-2" class="headerlink" title="损失函数"></a>损失函数</h3><div class="mathjax-display">
-$$
-\mathcal L_{\mathrm{VQ}}=\mathcal L_{\mathrm{rec}}+\|\operatorname{sg}[E(x)]-z_q\|_2^2+\|\operatorname{sg}[z_q]-E(x)\|_2^2
-$$
-</div>
-
-<p>$\mathcal L_{\mathrm{rec}}$ 在 VQGAN 中替换为 Perceptual Loss</p>
-<p>进一步引入判别器 $D$，区分真实图像 $x$ 和重建图像 $\hat{x}$</p>
-<blockquote>
-<p>真实图 $D(x)$ 接近1，重建图 $D(\hat x)$ 接近0</p>
-</blockquote>
-<div class="mathjax-display">
-$$
-\mathcal L_{\mathrm{GAN}}
-(\{E,G,Z\},D)
-=
-\log D(x)
-+
-\log(1-D(\hat x))
-$$
-</div>
-将 VQ 重建目标与 GAN 对抗目标结合：
-
-<div class="mathjax-display">
-$$
-\boxed{
-\begin{aligned}
-Q^*=\arg\min_{E,G,Z}\max_D
-\mathbb E_{x\sim p(x)}
-\big[
-\mathcal L_{\mathrm{VQ}}
-+\lambda\mathcal L_{\mathrm{GAN}}
-\big]
-\end{aligned}
-}
-$$
-</div>
-其中 $\lambda$ 用于平衡重建损失和 GAN 损失，根据两者在 Decoder 最后一层产生的梯度，自适应调整对抗损失的权重
-<div class="mathjax-display">
-$$
-\lambda=\frac{\nabla_{G_L}[\mathcal L_{\mathrm{rec}}]}{\nabla_{G_L}[\mathcal L_{\mathrm{GAN}}]+\delta}
-$$
-</div>
-- VQ-VAE：Pixel Reconstruction → 重建容易偏平滑
-- VQGAN：Perceptual Loss + Patch-based GAN → 允许更强压缩
-
-<h3 id="Transformer-建模"><a href="#Transformer-建模" class="headerlink" title="Transformer 建模"></a>Transformer 建模</h3><p>VQGAN 的另一个重要变化是使用 Transformer 建模离散潜变量之间的依赖关系</p>
-<p>VQ-VAE 主要使用 PixelCNN 等自回归模型学习离散潜变量的分布，而 VQGAN 将量化后的空间特征转换为离散 Token 序列，使用 Transformer 建模其组合关系</p>
-<p>具体过程：</p>
-<ol>
-<li><strong>Stage 1：</strong> 使用 CNN Encoder 将图像编码为连续特征，通过 Codebook 进行向量量化，得到离散潜变量</li>
-<li><strong>Stage 2：</strong> 将离散潜变量转换为 Token 序列，使用自回归 Transformer 学习 Token 之间的依赖关系</li>
-</ol>
+<p><strong>核心思想：</strong> 在 VQ-VAE 的离散潜空间基础上，引入 Perceptual Loss 和 GAN 对抗训练，提高图像压缩后的感知质量，再使用 Transformer 建模离散视觉 Token 之间的关系，实现高分辨率图像生成</p>
+<h3 id="Perceptual-Compression（感知压缩）"><a href="#Perceptual-Compression（感知压缩）" class="headerlink" title="Perceptual Compression（感知压缩）"></a>Perceptual Compression（感知压缩）</h3><p>VQ-VAE 使用 Pixel-level Reconstruction Loss，直接约束重建图像与原始图像之间的像素差异，但在较高压缩率下容易损失细节，产生模糊的重建结果</p>
+<p>VQGAN 对此进行了两项改进：</p>
+<ul>
+<li><strong>Perceptual Loss</strong>：利用预训练特征网络提取图像特征，约束重建图像与原始图像在感知特征空间中的差异。</li>
+<li><strong>Patch-based Discriminator</strong>：引入基于图像块的判别器，通过对抗训练提高重建图像的真实性</li>
+</ul>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/VQGAN_50kb.webp" style="zoom: 50%;" />
 
-<p>训练完成后，生成阶段不再需要 Encoder，而是先通过 Transformer 自回归生成离散 Token，再通过 Codebook 查找对应 Embedding，最后由 Decoder 还原为图像</p>
-<h1 id="经典扩散模型"><a href="#经典扩散模型" class="headerlink" title="经典扩散模型"></a>经典扩散模型</h1><h2 id="U-Net"><a href="#U-Net" class="headerlink" title="U-Net"></a>U-Net</h2><blockquote>
+<h3 id="Loss-Function-1"><a href="#Loss-Function-1" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>VQGAN 在原有 VQ-VAE 损失基础上，将像素级重建损失替换为感知重建损失，并增加 GAN 对抗损失：</p>
+<div class="mathjax-display">
+$$
+\mathcal L=
+\mathcal L_{\mathrm{VQ-VAE}}
++\lambda\mathcal L_{\mathrm{GAN}}
+$$
+</div>
+
+<p>其中：</p>
+<ul>
+<li>$\mathcal L_{\mathrm{VQ}}$：包含感知重建损失、Codebook Loss 和 Commitment Loss</li>
+<li>$\mathcal L_{\mathrm{GAN}}$：通过判别器区分真实图像和重建图像</li>
+<li>$\lambda$：自适应调整对抗损失的权重，根据 Decoder 最后一层的梯度平重建目标与对抗目标</li>
+</ul>
+<p><strong>核心作用：</strong> 在较高压缩率下，尽可能保留图像的感知质量和细节真实性</p>
+<h3 id="Transformer-建模"><a href="#Transformer-建模" class="headerlink" title="Transformer 建模"></a>Transformer 建模</h3><p>VQGAN 的另一个重要贡献是使用 Transformer 建模离散视觉 Token 之间的依赖关系</p>
+<p>整体分为两个阶段：</p>
+<p><strong>Stage 1：训练 VQGAN</strong></p>
+<ol>
+<li>CNN Encoder 提取图像特征</li>
+<li>通过 Codebook 进行向量量化，得到离散视觉 Token</li>
+<li>Decoder 根据量化特征重建图像</li>
+</ol>
+<p><strong>Stage 2：训练 Transformer</strong></p>
+<ol>
+<li>将图像转换为离散 Token 序列(Codebook编号序列)</li>
+<li>使用自回归 Transformer 学习 Token 之间的组合关系</li>
+<li>根据前面的 Token 预测下一个 Token</li>
+</ol>
+<p>其生成过程可以表示为：</p>
+<div class="mathjax-display">
+$$
+p(s)=\prod_i p(s_i|s_{&lt;i})
+$$
+</div>
+生成时，先由 Transformer 自回归生成离散 Token，再通过 Codebook 查找对应 Embedding，最后输入 Decoder 还原图像
+
+<h1 id="经典扩散模型"><a href="#经典扩散模型" class="headerlink" title="经典扩散模型"></a>经典扩散模型</h1><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>任务目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>U-Net</td>
+<td>图像分割，提取多尺度特征并预测像素类别</td>
+</tr>
+<tr>
+<td>DDPM</td>
+<td>无条件图像生成</td>
+</tr>
+<tr>
+<td>Improved DDPM</td>
+<td>改善 DDPM 生成质量</td>
+</tr>
+<tr>
+<td>DDIM</td>
+<td>加速 DDPM 采样</td>
+</tr>
+<tr>
+<td>Score SDE</td>
+<td>基于连续时间 Score Matching 的生成建模</td>
+</tr>
+</tbody></table>
+<h2 id="U-Net"><a href="#U-Net" class="headerlink" title="U-Net"></a>U-Net</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1505.04597">1505.04597] U-Net: Convolutional Networks for Biomedical Image Segmentation</a></p>
 </blockquote>
-<p>U-Net 是一种经典的 Encoder-Decoder 卷积神经网络架构，最初用于医学图像分割</p>
-<p><strong>核心思想：</strong> 通过 Encoder 逐渐降低空间分辨率，提取更高层次的上下文信息；再通过 Decoder 逐渐恢复空间分辨率，并利用 Skip Connection 将 Encoder 中的高分辨率特征传递给 Decoder，从而兼顾全局上下文信息和精确的空间定位</p>
+<p><strong>核心思想：</strong> 采用对称的 Encoder-Decoder 架构，通过 Encoder 提取多尺度上下文特征，再利用 Skip Connection 将浅层空间细节传递给 Decoder，实现高层语义信息与低层空间信息的融合</p>
 <h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><p>U-Net 主要由三个部分组成：</p>
 <ul>
-<li>Contracting Path：收缩路径，对应 Encoder</li>
-<li>Expansive Path：扩张路径，对应 Decoder</li>
-<li>Skip Connection：连接 Encoder 和 Decoder 对应层的特征</li>
+<li><strong>Encoder（Contracting Path）</strong>：逐步降低特征图分辨率，提取高层语义和上下文信息</li>
+<li><strong>Decoder（Expansive Path）</strong>：逐步恢复特征图分辨率，生成目标输出</li>
+<li><strong>Skip Connection</strong>：将 Encoder 对应层的特征传递给 Decoder，通过 Concatenation 融合不同层级的信息</li>
 </ul>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">      Input</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">┌─────────────┐</span><br><span class="line">│  Encoder 1  │──────────────┐</span><br><span class="line">└──────┬──────┘              │</span><br><span class="line">       ▼                     │</span><br><span class="line">┌─────────────┐              │</span><br><span class="line">│  Encoder 2  │──────────┐   │</span><br><span class="line">└──────┬──────┘          │   │</span><br><span class="line">       ▼                 │   │</span><br><span class="line">┌─────────────┐          │   │</span><br><span class="line">│  Encoder 3  │──────┐   │   │</span><br><span class="line">└──────┬──────┘      │   │   │</span><br><span class="line">       ▼             │   │   │</span><br><span class="line">   Bottleneck        │   │   │</span><br><span class="line">       │             │   │   │</span><br><span class="line">       ▼             │   │   │</span><br><span class="line">┌─────────────┐      │   │   │</span><br><span class="line">│  Decoder 3  │◀─────┘   │   │</span><br><span class="line">└──────┬──────┘          │   │</span><br><span class="line">       ▼                 │   │</span><br><span class="line">┌─────────────┐          │   │</span><br><span class="line">│  Decoder 2  │◀─────────┘   │</span><br><span class="line">└──────┬──────┘              │</span><br><span class="line">       ▼                     │</span><br><span class="line">┌─────────────┐              │</span><br><span class="line">│  Decoder 1  │◀─────────────┘</span><br><span class="line">└──────┬──────┘</span><br><span class="line">       ▼</span><br><span class="line">     Output</span><br></pre></td></tr></table></figure>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120110232747.png" alt="image-20261120110232747" style="zoom:67%;" />
 
-<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>Encoder 逐渐降低特征图的空间分辨率，同时增加通道数，从而扩大感受野，提取更高层次的上下文信息</p>
-<p>原论文中每个下采样阶段包含：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">3×3 Conv</span><br><span class="line">    ↓</span><br><span class="line">   ReLU</span><br><span class="line">    ↓</span><br><span class="line">3×3 Conv</span><br><span class="line">    ↓</span><br><span class="line">   ReLU</span><br><span class="line">    ↓</span><br><span class="line">2×2 Max Pooling (Stride=2)</span><br></pre></td></tr></table></figure>
-
-<p>每次下采样后，特征图的高和宽缩小为原来的一半，通道数增加为原来的两倍</p>
-<h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>Decoder 逐渐恢复特征图的空间分辨率，同时融合 Encoder 对应层的高分辨率特征</p>
-<p>每个上采样阶段包含：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">2×2 Up-Conv (Upsampling)</span><br><span class="line">          ↓</span><br><span class="line">通道数减半</span><br><span class="line">          ↓</span><br><span class="line">Concat Encoder Feature</span><br><span class="line">          ↓</span><br><span class="line">       3×3 Conv</span><br><span class="line">          ↓</span><br><span class="line">         ReLU</span><br><span class="line">          ↓</span><br><span class="line">       3×3 Conv</span><br><span class="line">          ↓</span><br><span class="line">         ReLU</span><br></pre></td></tr></table></figure>
-
-<p>最终通过 $1\times1$ Conv 将特征映射到目标类别数量，得到每个像素的分类结果</p>
-<h3 id="Skip-Connection"><a href="#Skip-Connection" class="headerlink" title="Skip Connection"></a>Skip Connection</h3><p>Skip Connection 是 U-Net 最重要的结构设计之一</p>
-<p>Encoder 在下采样过程中，虽然能够逐渐提取更大范围的上下文信息，但空间分辨率不断降低，会损失部分精细的位置信息</p>
-<p>Decoder 仅通过逐级上采样，很难完全恢复这些细节</p>
-<p>U-Net 将 Encoder 对应层的高分辨率特征图直接传递给 Decoder，与上采样后的特征图进行 Concatenation</p>
-<p>这样 Decoder 既能利用深层特征中的上下文信息，又能获得浅层特征中的空间细节，从而实现更精确的定位</p>
-<p><span style = "color:#8B75A8">U-Net 最初用于图像分割，后来成为早期扩散模型的重要 Backbone</span></p>
+<h3 id="Encoder-Decoder"><a href="#Encoder-Decoder" class="headerlink" title="Encoder-Decoder"></a>Encoder-Decoder</h3><p><strong>Encoder：</strong></p>
+<ul>
+<li>使用卷积提取局部特征</li>
+<li>通过 Max Pooling 逐步降低空间分辨率</li>
+<li>随着分辨率降低，增加特征通道数，扩大感受野</li>
+</ul>
+<p><strong>Decoder：</strong></p>
+<ul>
+<li>通过上采样逐步恢复空间分辨率</li>
+<li>融合 Encoder 对应层的特征</li>
+<li>通过卷积进一步提取融合后的特征</li>
+</ul>
+<h3 id="Skip-Connection"><a href="#Skip-Connection" class="headerlink" title="Skip Connection"></a>Skip Connection</h3><p>这是 U-Net 最重要的设计</p>
+<p>Encoder 在下采样过程，虽然能够提取更大范围的上下文信息，但空间分辨率降低会导致部分细节丢失</p>
+<p>Decoder 仅依靠上采样难以完全恢复这些细节</p>
+<p>因此，U-Net 将 Encoder 对应层的高分辨率特征直接传递给 Decoder，并通过 Concatenation 进行融合</p>
+<p><strong>核心作用：</strong> 同时利用深层特征的语义信息和浅层特征的空间细节，提高输出的精细程度</p>
+<h3 id="在扩散模型中的应用"><a href="#在扩散模型中的应用" class="headerlink" title="在扩散模型中的应用"></a>在扩散模型中的应用</h3><p>DDPM 将 U-Net 作为去噪网络（Denoising Network），输入带噪图像$ x_t$ 和时间步 $t$，预测其中包含的噪声</p>
+<p>相比原始 U-Net，扩散模型中的 U-Net 增加了时间步 Embedding，使网络能够根据不同噪声程度执行对应的去噪任务</p>
 <h2 id="DDPM"><a href="#DDPM" class="headerlink" title="DDPM"></a>DDPM</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.11239">2006.11239] Denoising Diffusion Probabilistic Models</a></p>
 </blockquote>
-<p><span style = "color:#8B75A8">建立扩散模型的经典生成范式</span></p>
-<p><strong>核心思想：</strong> 通过定义一个逐步向数据添加高斯噪声的前向扩散过程，再训练神经网络学习对应的反向去噪过程，从而实现从随机噪声到真实图像的生成</p>
-<p>DDPM 将生成过程建模为一个 Markov Chain（马尔可夫链）</p>
+<p><strong>核心思想：</strong> 通过前向过程（Forward Process）逐步向数据添加高斯噪声，再训练神经网络学习反向去噪过程（Reverse Process），使模型能够从随机噪声逐步恢复出真实图像</p>
+<p>DDPM 将生成过程建模为一个 Markov Chain（马尔可夫链），包含两个过程：</p>
 <ul>
-<li>Forward Process：逐渐向原始图像添加噪声，直至其接近标准高斯分布 $N(0,I)$</li>
-<li>Reverse Process：学习逐步去除噪声，从随机噪声中恢复图像</li>
+<li>Forward Process：逐步破坏原始图像，最终得到标准高斯噪声。</li>
+<li>Reverse Process：学习逐步去除噪声，从随机噪声恢复图像。</li>
 </ul>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20260923195554651.png" alt="image-20260923195554651" style="zoom: 67%;" />
+<p>与 VAE 不同，DDPM 中的 $x_t$ 与原始图像 $x_0$ 具有相同维度，并不是经过 Encoder 压缩得到的低维潜变量</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120111305728.png" alt="image-20261120111305728" style="zoom:67%;" />
 
-<p>与 VAE 不同，DDPM 中的中间变量 $x_t$ 与原始数据 $x_0$ 具有相同的维度，并不是经过 Encoder 压缩得到的低维潜变量</p>
-<h4 id="Forward-Process"><a href="#Forward-Process" class="headerlink" title="Forward Process"></a>Forward Process</h4><p>通过不断向原始图像添加少量高斯噪声，逐渐破坏图像中的信息</p>
-<p>给定原始图像 $x_0$，每个时间步的转移过程定义为</p>
+<h3 id="Forward-Process"><a href="#Forward-Process" class="headerlink" title="Forward Process"></a>Forward Process</h3><p>通过不断向原始图像添加高斯噪声，使图像逐渐失去原有信息。</p>
+<p>每个时间步的加噪过程定义为：</p>
 <div class="mathjax-display">
 $$
-q(x_t|x_{t-1})=\mathcal N(x_t;\sqrt{1-\beta_t}x_{t-1},\beta_t I)
+q(x_t|x_{t-1})=
+\mathcal N(\sqrt{1-\beta_t}x_{t-1},\beta_t I)
 $$
 </div>
 
-<ul>
-<li>$t$：扩散时间步，$t&#x3D;1,\ldots,T$</li>
-<li>$\beta_t$：当前时间步的噪声方差，控制每一步添加的噪声强度</li>
-</ul>
+<p>其中，$\beta_t$ 为噪声调度参数（Noise Schedule），控制每一步添加的噪声强度</p>
 <p>定义：</p>
 <div class="mathjax-display">
 $$
 \alpha_t = 1-\beta_t \qquad \bar\alpha_t=\prod_{s=1}^{t}\alpha_s
 $$
 </div>
-可以将连续多个时间步的加噪过程合并，直接得到任意时间步 $t$ 的带噪图像分布：
+利用高斯分布的性质，可以将多步加噪合并，直接得到任意时间步的带噪图像：
 <div class="mathjax-display">
 $$
-q(x_t|x_0)=\mathcal N(x_t;\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)
+\boxed{
+x_t=\sqrt{\bar\alpha_t}x_0+
+\sqrt{1-\bar\alpha_t}\epsilon
+}
 $$
 </div>
-通过重参数化，可以直接得到：
-<div class="mathjax-display">
-$$
-\boxed{x_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon \qquad
-\varepsilon\sim\mathcal N(0,I)}
-$$
-</div>
-> <span style = "color:#DC5A5A">多次加噪其加权和在分布上等价于一个标准高斯随机变量乘以累计噪声系数</span>
+其中 $\epsilon\sim\mathcal N(0,I)$
 
-<p>因此，不需要从 $x_0$ 开始逐步执行 $t$ 次加噪操作，就可以直接采样任意时间步的带噪图像</p>
-<p>随着时间步增加，原始图像信息逐渐被噪声取代，最终 $x_T$ 近似服从标准高斯分布</p>
-<h4 id="Reverse-Process"><a href="#Reverse-Process" class="headerlink" title="Reverse Process"></a>Reverse Process</h4><p>逆过程学习前向扩散的逆过程，即从随机高斯噪声逐步恢复原始图像</p>
-<p>定义初始分布：</p>
+<p><strong>核心作用：</strong> 不需要逐步执行加噪过程，可以直接从原始图像构造任意时间步的带噪图像</p>
+<h3 id="Reverse-Process"><a href="#Reverse-Process" class="headerlink" title="Reverse Process"></a>Reverse Process</h3><p>反向过程从标准高斯噪声开始，逐步恢复原始图像</p>
+<p>定义反向转移分布：</p>
 <div class="mathjax-display">
 $$
-p(x_T)=\mathcal N(x_T;0,I)
+p_\theta(x_{t-1}|x_t)=
+\mathcal N(\mu_\theta(x_t,t),\sigma_t^2 I)
 $$
 </div>
-建立参数化的反向马尔可夫链：
-<div class="mathjax-display">
-$$
-p_\theta(x_{0:T})=p(x_T)\prod_{t=1}^{T}p_\theta(x_{t-1}|x_t)
-$$
-</div>
-每一步反向转移定义为高斯分布：
-<div class="mathjax-display">
-$$
-p_\theta(x_{t-1}|x_t)=\mathcal N(x_{t-1};\mu_\theta(x_t,t),\Sigma_\theta(x_t,t))
-$$
-</div>
-论文在具体实现中将反向过程的协方差固定为时间相关的常数矩阵 $\sigma_t^2 I$，主要学习反向过程的均值
+其中，模型需要学习反向过程的均值  $\mu_\theta$，论文将方差设置为预先定义的时间相关常数
 
-<h4 id="噪声预测"><a href="#噪声预测" class="headerlink" title="噪声预测"></a>噪声预测</h4><p><span style = "color:#8B75A8">DDPM 的关键设计：不直接预测反向过程的均值，而是让神经网络预测前向过程中添加的噪声 $\epsilon$，再通过参数化公式计算反向过程的均值</span></p>
-<p>根据前向过程，可以得到真实的后验分布：</p>
+<h3 id="Noise-Prediction"><a href="#Noise-Prediction" class="headerlink" title="Noise Prediction"></a>Noise Prediction</h3><p>DDPM 最重要的设计：不直接预测去噪后的图像，而是让网络预测前向过程中添加的噪声 $\epsilon$</p>
+<p>通过噪声预测结果，可以计算反向过程的均值：</p>
 <div class="mathjax-display">
 $$
-q(x_{t-1}|x_t,x_0)=\mathcal N(x_{t-1};\tilde\mu_t(x_t,x_0),\tilde\beta_t I)
+\boxed{
+\mu_\theta(x_t,t)=
+\frac{1}{\sqrt{\alpha_t}}
+\left(
+x_t-
+\frac{\beta_t}{\sqrt{1-\bar\alpha_t}}
+\epsilon_\theta(x_t,t)
+\right)
+}
 $$
 </div>
-但该后验分布依赖原始图像 $x_0$，而生成时 $x_0$ 未知，无法直接使用
-
-<p>因此，将反向过程的均值参数化为噪声预测形式：</p>
-<div class="mathjax-display">
-$$
-\boxed{\mu_\theta(x_t,t)=\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{\beta_t}{\sqrt{1-\bar\alpha_t}}\epsilon_\theta(x_t,t)\right)}
-$$
-</div>
-其中 $\epsilon_\theta(x_t,t)$ 是神经网络预测的噪声
+其中 $\epsilon_\theta(x_t,t)$ 是U-Net 预测的噪声
 
 <blockquote>
 <p>$\mu_\theta$ 就是模型认为下一步图像应该处于的位置</p>
 </blockquote>
-<p>于是，反向采样过程为：</p>
+<p>得到反向采样公式：</p>
 <div class="mathjax-display">
 $$
 \boxed{x_{t-1}=\mu_\theta(x_t,t)+\sigma_t z}
 $$
 </div>
-其中，$z\sim\mathcal N(0,I)$，用于引入反向采样的随机性
+其中，$z\sim\mathcal N(0,I)$，用于引入反向采样的随机性，最后一步不再添加随机噪声
 
-<blockquote>
-<p>反向过程不是一个完全确定的映射，而是一个概率采样过程，所以也服从高斯分布</p>
-</blockquote>
-<p>当 $t&#x3D;1$ 时令 $z&#x3D;0$，不再添加随机噪声</p>
-<p>通过这种方式，模型只需要学习预测噪声，就可以计算反向过程的均值，逐步恢复原始图像</p>
-<h4 id="训练与采样"><a href="#训练与采样" class="headerlink" title="训练与采样"></a>训练与采样</h4><p><strong>Training：</strong></p>
-<p>训练时不需要逐步执行完整的前向扩散过程，而是利用闭式公式直接构造任意时间步的带噪图像</p>
-<p>具体过程：</p>
+<h3 id="Training-Sampling"><a href="#Training-Sampling" class="headerlink" title="Training &amp; Sampling"></a>Training &amp; Sampling</h3><p><strong>Training：</strong></p>
 <ol>
 <li>从数据集中采样原始图像 $x_0$</li>
 <li>随机采样时间步 $t$ 和高斯噪声 $\epsilon$</li>
-<li>根据前向扩散公式构造带噪图像 $x_t$</li>
+<li>根据 Forward Process 构造带噪图像 $x_t$</li>
 <li>将 $(x_t,t)$ 输入 U-Net，预测噪声</li>
 <li>使用 MSE Loss 优化预测噪声与真实噪声之间的误差</li>
 </ol>
 <p>训练目标：</p>
 <div class="mathjax-display">
 $$
-\mathcal L_{\mathrm{simple}}=\mathbb E_{t,x_0,\epsilon}\left[\|\epsilon-\epsilon_\theta(x_t,t)\|_2^2\right]
+\mathcal L_{\mathrm{simple}}
+=
+\mathbb E_{x_0,t,\epsilon}
+\left[
+\|\epsilon-\epsilon_\theta(x_t,t)\|_2^2
+\right]
 $$
 </div>
 **Sampling：**
@@ -559,44 +538,133 @@ $$
 <li>根据反向采样公式计算 $x_{t-1}$</li>
 <li>从 $T$ 逐步迭代至 $1$，得到最终图像 $x_0$</li>
 </ol>
-<h4 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h4><p>DDPM 使用 U-Net 作为噪声预测网络，并在经典 U-Net 的基础上引入 Residual Block、Self-Attention 和 Time Embedding</p>
+<h3 id="U-Net-Architecture"><a href="#U-Net-Architecture" class="headerlink" title="U-Net Architecture"></a>U-Net Architecture</h3><p>DDPM 使用 U-Net 作为噪声预测网络，在经典 U-Net 基础上增加三个重要模块：</p>
 <ul>
 <li><strong>Residual Block：</strong> 通过残差结构提取特征，构建更深的网络</li>
 <li><strong>Self-Attention：</strong> 建模不同空间位置之间的全局依赖</li>
 <li><strong>Time Embedding：</strong> 将扩散时间步 $t$ 编码为正弦位置嵌入，并注入每个 Residual Block，使网络能够感知当前噪声水平</li>
 </ul>
 <p>不同时间步对应不同程度的噪声，网络需要根据时间步调整去噪行为</p>
+<h2 id="Improved-DDPM"><a href="#Improved-DDPM" class="headerlink" title="Improved DDPM"></a>Improved DDPM</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2102.09672">2102.09672] Improved Denoising Diffusion Probabilistic Models</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 在 DDPM 的基础上，通过学习反向过程的方差、改进噪声调度策略和优化训练目标，提高模型的生成质量、似然估计能力和采样效率</p>
+<h3 id="Learned-Variance"><a href="#Learned-Variance" class="headerlink" title="Learned Variance"></a>Learned Variance</h3><p>原始 DDPM 将反向过程的方差固定为预设值，只学习反向过程的均值</p>
+<p>Improved DDPM 让模型同时预测反向过程的均值和方差：</p>
+<div class="mathjax-display">
+$$
+p_\theta(x_{t-1}|x_t)=
+\mathcal N(\mu_\theta(x_t,t),\Sigma_\theta(x_t,t))
+$$
+</div>
+其中，方差采用两个边界之间的插值形式：
+<div class="mathjax-display">
+$$
+\Sigma_\theta=
+\exp\left(
+v\log\beta_t+(1-v)\log\tilde\beta_t
+\right)
+$$
+</div>
+
+<ul>
+<li>$\beta_t$：前向过程的噪声方差</li>
+<li>$\tilde\beta_t$：真实后验分布的方差</li>
+<li>$v$：网络预测的插值系数</li>
+</ul>
+<p>因此，U-Net 除了预测噪声，还需要额外预测方差参数</p>
+<p><strong>核心作用：</strong> 让模型自适应学习每一步反向去噪的不确定性，使模型能够在较少采样步数下保持较好的生成质量</p>
+<h3 id="Cosine-Noise-Schedule"><a href="#Cosine-Noise-Schedule" class="headerlink" title="Cosine Noise Schedule"></a>Cosine Noise Schedule</h3><p>原始 DDPM 使用 Linear Schedule，随着时间步增加，噪声逐渐增强</p>
+<p>但在低分辨率图像上，Linear Schedule 可能过早破坏图像信息，导致扩散后期的大量时间步输入几乎都是纯噪声</p>
+<p>Improved DDPM 提出 Cosine Schedule，通过余弦函数控制累计信号保留比例：</p>
+<div class="mathjax-display">
+$$
+\bar\alpha_t=
+\frac{f(t)}{f(0)}
+$$
+</div>
+其中
+<div class="mathjax-display">
+$$
+f(t)=
+\cos^2\left(
+\frac{t/T+s}{1+s}\cdot\frac{\pi}{2}
+\right)
+$$
+</div>
+
+<ul>
+<li>$T$：总扩散步数。</li>
+<li>$s$：平滑偏移量，论文设置为 0.008</li>
+</ul>
+<p>再根据累计信号保留比例计算每一步的噪声方差：</p>
+<div class="mathjax-display">
+$$
+\beta_t=
+1-\frac{\bar\alpha_t}{\bar\alpha_{t-1}}
+$$
+</div>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120152021167.webp" alt="image-20261120152021167" style="zoom:67%;" />
+
+<blockquote>
+<p>上为线性加噪，下为余弦加噪</p>
+</blockquote>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120142749402.png" alt="image-20261120142749402" style="zoom:67%;" />
+
+<h3 id="Hybrid-Loss"><a href="#Hybrid-Loss" class="headerlink" title="Hybrid Loss"></a>Hybrid Loss</h3><p>原始 DDPM 采用简化的噪声预测 MSE Loss，训练稳定，但并不直接优化完整的 Variational Lower Bound（VLB）</p>
+<p>Improved DDPM 将简化损失与 VLB 结合：</p>
+<div class="mathjax-display">
+$$
+\mathcal L_{\mathrm{hybrid}}=
+\mathcal L_{\mathrm{simple}}
++\lambda\mathcal L_{\mathrm{vlb}}
+$$
+</div>
+其中：
+
+<ul>
+<li><strong>Simple Loss</strong>：通过噪声预测训练反向过程的均值</li>
+<li><strong>VLB Loss</strong>：通过变分下界优化模型的概率分布，特别是学习反向过程的方差</li>
+</ul>
+<p>在计算 VLB 时对均值预测分支使用 Stop Gradient，避免高方差梯度干扰噪声预测</p>
+<h3 id="Importance-Sampling"><a href="#Importance-Sampling" class="headerlink" title="Importance Sampling"></a>Importance Sampling</h3><p>直接优化 VLB 时，不同时间步的 Loss 差异较大，均匀采样时间步容易产生较大的梯度噪声</p>
+<p>引入 Importance Sampling，根据不同时间步 Loss 的历史统计量调整采样概率</p>
+<div class="mathjax-display">
+$$
+p_t\propto\sqrt{\mathbb E[L_t^2]}
+$$
+</div>
+降低 VLB 训练过程中的梯度方差，使似然优化更加稳定
+
 <h2 id="DDIM"><a href="#DDIM" class="headerlink" title="DDIM"></a>DDIM</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.02502">2010.02502] Denoising Diffusion Implicit Models</a></p>
 </blockquote>
-<p>**核心思想：**不改变 DDPM 的训练目标，而是重新设计反向生成过程，使模型可以跳过部分去噪步骤，在更少的采样步数下生成图像</p>
-<p>DDPM 通常需要执行数百甚至上千次反向去噪，每一步都需要调用一次 U-Net，生成效率较低</p>
-<p><span style = "color:#DC5A5A">DDIM 通过构造一种非马尔可夫的扩散过程，改变反向采样轨迹，使其能够使用更少的去噪步骤</span></p>
-<h3 id="非马尔可夫扩散过程"><a href="#非马尔可夫扩散过程" class="headerlink" title="非马尔可夫扩散过程"></a>非马尔可夫扩散过程</h3><p>DDPM 的前向过程是一个 Markov Chain：</p>
+<p><strong>核心思想：</strong> 在保留 DDPM 噪声预测训练目标的基础上，构造非马尔可夫扩散过程，重新设计反向采样轨迹，使模型能够跳过部分去噪步骤，实现更快的图像生成</p>
+<h3 id="Non-Markovian-Diffusion"><a href="#Non-Markovian-Diffusion" class="headerlink" title="Non-Markovian Diffusion"></a>Non-Markovian Diffusion</h3><p>DDPM 的 Forward Process 是一个 Markov Chain，每个时间步只依赖前一个时间步：</p>
 <div class="mathjax-display">
 $$
 q(x_t|x_{t-1})
 $$
 </div>
-DDPM 的训练目标实际上只依赖每个时间步的边缘分布  $q(x_t|x_0)$，而不一定要求前向过程必须是马尔可夫链
+DDIM 发现，DDPM 的训练目标实际上只依赖每个时间步的边缘分布：
 
-<p>因此，只要保持这个边缘分布不变，就可以构造其他不同的前向过程</p>
 <div class="mathjax-display">
 $$
 q(x_t|x_0)=\mathcal N(\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)
 $$
 </div>
-这样就可以将原来的马尔可夫前向过程扩展为 Non-Markovian Forward Process，同时保持与 DDPM 相同的噪声预测训练目标
+因此，可以构造不同的非马尔可夫前向过程，只要保持上述边缘分布不变，就可以使用与 DDPM 相同的噪声预测训练目标
 
-<h3 id="反向采样过程"><a href="#反向采样过程" class="headerlink" title="反向采样过程"></a>反向采样过程</h3><p>DDIM 改变的是反向生成过程，首先沿用 DDPM 的噪声预测网络，利用噪声预测网络估计原始图像：</p>
+<h3 id="Reverse-Process-1"><a href="#Reverse-Process-1" class="headerlink" title="Reverse Process"></a>Reverse Process</h3><p>DDIM 沿用 DDPM 训练好的噪声预测网络，首先根据当前带噪图像估计原始图像：</p>
 <div class="mathjax-display">
 $$
-\boxed{\hat x_0=
-\frac{x_t-\sqrt{1-\bar\alpha_t}\epsilon_\theta(x_t,t)}
-{\sqrt{\bar\alpha_t}}}
+\hat x_0=
+\frac{x_t-\sqrt{1-\bar\alpha_t}
+\epsilon_\theta(x_t,t)}
+{\sqrt{\bar\alpha_t}}
 $$
 </div>
-然后根据估计的原始图像和噪声预测结果，计算下一个选定时间步($s<t$)
+然后利用预测的原始图像和噪声，计算下一个选定时间步($s<t$)
 <div class="mathjax-display">
 $$
 x_{s}=\sqrt{\bar\alpha_{s}}\hat x_0+\sqrt{1-\bar\alpha_{s}-\sigma_t^2}\epsilon_\theta(x_t,t)+\sigma_t z
@@ -606,11 +674,13 @@ $$
 
 <ul>
 <li>第一项：预测的原始图像所对应的信号部分</li>
-<li>第二项：根据当前预测噪声，确定从当前状态到下一状态的变化方向</li>
-<li>第三项：额外采样的随机噪声</li>
+<li>第二项：根据当前预测噪声确定去噪方向</li>
+<li>第三项：额外引入的随机噪声，控制采样随机性，$z\sim\mathcal N(0,I)$</li>
 </ul>
-<p>通过调整 $\sigma_t$，可以控制生成过程的随机程度</p>
-<h3 id="确定性采样"><a href="#确定性采样" class="headerlink" title="确定性采样"></a>确定性采样</h3><p>当设置 $\sigma_t&#x3D;0$ 时，反向过程不再引入额外随机噪声：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120153406833.png" alt="image-20261120153406833" style="zoom: 67%;" />
+
+<h3 id="确定性采样"><a href="#确定性采样" class="headerlink" title="确定性采样"></a>确定性采样</h3><p>DDIM 最重要的特点是可以通过调整 $ \sigma_t$ 控制反向过程的随机程度</p>
+<p>当设置 $\sigma_t&#x3D;0$ 时</p>
 <div class="mathjax-display">
 $$
 x_{s}=\sqrt{\bar\alpha_{s}}\hat x_0+\sqrt{1-\bar\alpha_{s}}\epsilon_\theta(x_t,t)
@@ -618,7 +688,7 @@ $$
 </div>
 此时没有额外的随机噪声，整个反向过程变成确定性的
 
-<p>给定相同的初始噪声使用相同的模型和时间步序列，每次都会得到相同的生成结果</p>
+<p>给定相同的初始噪声、模型和时间步序列，每次都会得到相同的生成结果</p>
 <h3 id="加速采样"><a href="#加速采样" class="headerlink" title="加速采样"></a>加速采样</h3><p>DDPM 通常需要按照完整时间步逐步去噪，例如 $T&#x3D;1000$ 时需要执行 1000 次网络推理</p>
 <p>DDIM 可以选择一个较短的时间步子序列：</p>
 <div class="mathjax-display">
@@ -628,29 +698,32 @@ $$
 </div>
 直接在选定的时间步之间进行反向采样，跳过中间部分时间步，从而减少 U-Net 的调用次数
 
-<p><span style = "color:#8B75A8">DDIM 可以在不重新训练模型的情况下，通过减少采样步数提高生成速度</span></p>
+<p><span style = "color:#A678D1">DDIM 可以在不重新训练模型的情况下，通过减少采样步数提高生成速度</span></p>
+<p>但无法一次到位：因为高噪声状态下预测噪声存在误差，直接反推原始图像会放大误差，多次迭代可以不断修正</p>
 <h2 id="Score-SDE"><a href="#Score-SDE" class="headerlink" title="Score SDE"></a>Score SDE</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.13456">2011.13456] Score-Based Generative Modeling through Stochastic Differential Equations</a></p>
 </blockquote>
-<p><strong>核心思想：</strong> 将离散时间的噪声扰动过程推广到连续时间，通过学习不同噪声水平下数据分布的 Score Function，构造反向 SDE，从而实现从随机噪声到真实数据的生成</p>
+<p><strong>核心思想：</strong> 将离散时间的噪声扰动过程推广到连续时间，通过学习不同噪声水平下数据分布的 Score Function，构造反向 SDE(随机微分方程)，从而实现从随机噪声到真实数据的生成</p>
+<p><span style = "color:#DC5A5A"><strong>Score 表示当前数据点在概率分布中，朝向概率密度更高区域的梯度方向</strong></span></p>
 <h3 id="SMLD"><a href="#SMLD" class="headerlink" title="SMLD"></a>SMLD</h3><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1907.05600">1907.05600] Generative Modeling by Estimating Gradients of the Data Distribution</a></p>
 </blockquote>
-<p>SMLD（Score Matching with Langevin Dynamics）是 DDPM 之前的重要 Score-based Generative Model</p>
+<p>SMLD（Score Matching with Langevin Dynamics）是 DDPM 之前的重要 Score-based Generative Model，采用离散噪声等级进行训练</p>
 <p><strong>主要过程：</strong></p>
 <ol>
-<li><strong>Noise Perturbation：</strong> 设置多个噪声等级 $\sigma_1&lt;\cdots&lt;\sigma_L$，分别向原始图像添加不同强度的高斯噪声</li>
-<li><strong>Score Matching：</strong> 训练 Noise Conditional Score Network（NCSN），根据输入图像和噪声等级预测对应的 Score</li>
-<li><strong>Annealed Langevin Dynamics：</strong> 从较大噪声等级开始，逐渐降低噪声等级，利用 Score 引导样本向真实数据分布移动</li>
+<li><strong>Noise Perturbation：</strong> 设置多个递增的噪声等级，分别向原始数据添加高斯噪声</li>
+<li><strong>Score Matching：</strong> 训练 Noise Conditional Score Network（NCSN），预测不同噪声等级下的 Score Function</li>
+<li><strong>Annealed Langevin Dynamics：</strong> 从较大噪声等级开始，逐渐降低噪声，利用 Score 引导样本向真实数据分布移动</li>
 </ol>
-<p><span style = "color:#DC5A5A">SMLD 使用离散噪声等级，而 Score SDE 将其推广到连续时间，对应 VE SDE</span></p>
+<p>SMLD 使用离散噪声等级，需要设计多个噪声尺度</p>
+<p>Score SDE 则将噪声扰动推广到连续时间，建立统一的数学框架</p>
 <h3 id="Score-Function"><a href="#Score-Function" class="headerlink" title="Score Function"></a>Score Function</h3><p>Score Function 定义为数据分布对数概率密度关于输入的梯度：</p>
 <div class="mathjax-display">
 $$
 s(x)=\nabla_x\log p(x)
 $$
 </div>
-它描述了当前样本在概率密度空间中的变化方向，即指向概率密度增大的方向
+表示当前噪声水平下，当前位置应该朝哪个方向移动，才能让概率密度增加
 
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261102231446476.webp" alt="image-20261102231446476" style="zoom: 50%;" />
 
@@ -660,14 +733,14 @@ $$
 s_\theta(x,t)\approx\nabla_x\log p_t(x)
 $$
 </div>
-$p_t(x)$ 表示时间 $t$ 下的扰动数据分布
+其中 $p_t(x)$ 表示时间 $t$ 下的扰动数据分布
 
-<p>通过 Denoising Score Matching（去噪分数匹配）训练神经网络，使其能够估计不同时间步下的 Score Function</p>
-<blockquote>
-<p>只需要知道添加噪声时使用的高斯噪声，就能计算条件 Score，作为网络的监督信号，让网络预测的 Score 接近刚才计算出的真实条件 Score</p>
-</blockquote>
-<h3 id="Forward-SDE"><a href="#Forward-SDE" class="headerlink" title="Forward SDE"></a>Forward SDE</h3><p>DDPM 使用离散时间步逐渐添加噪声，而 Score SDE 将这一过程推广到连续时间</p>
-<p>前向过程定义为：</p>
+<p><strong>Denoising Score Matching（DSM）：</strong></p>
+<p>直接计算真实数据分布的 Score 通常比较困难，因此使用加噪时的高斯条件分布构造监督信号，让网络学习扰动数据分布的 Score。</p>
+<p>对于高斯扰动，可以根据已知的噪声计算条件 Score，从而训练 Score Network</p>
+<p>模型不是预测原始图像，而是预测当前噪声水平下的数据分布梯度</p>
+<h3 id="Forward-SDE"><a href="#Forward-SDE" class="headerlink" title="Forward SDE"></a>Forward SDE</h3><p>DDPM 和 SMLD 都通过逐步添加高斯噪声破坏数据，但它们采用不同的噪声调度方式</p>
+<p>Score SDE 将这些离散扰动过程统一推广为连续时间随机微分方程：</p>
 <div class="mathjax-display">
 $$
 \boxed{
@@ -682,9 +755,9 @@ $$
 <li>$g(t)$：Diffusion Coefficient（扩散系数），控制噪声强度</li>
 <li>$w(t)$：标准 Wiener Process（布朗运动），$dw$ 表示其随机增量</li>
 </ul>
-<p>随着时间 $t$ 从 $0$ 增加到 $T$，数据分布逐渐转变为已知的先验分布，通常为标准高斯分布</p>
-<h3 id="Reverse-SDE"><a href="#Reverse-SDE" class="headerlink" title="Reverse SDE"></a>Reverse SDE</h3><p>Score SDE 的核心是利用学习到的 Score Function，构造前向 SDE 对应的反向 SDE</p>
-<p>反向过程从先验分布出发，逐渐去除噪声，恢复原始数据：</p>
+<p>随着时间 $t$ 从 $0$ 增加到 $T$，数据分布逐渐被噪声扰动，最终接近已知的先验分布，通常为标准高斯分布</p>
+<h3 id="Reverse-SDE"><a href="#Reverse-SDE" class="headerlink" title="Reverse SDE"></a>Reverse SDE</h3><p>前向 SDE 负责将真实数据逐渐扰动为噪声，而生成过程需要反向执行这一过程</p>
+<p>可以利用数据分布的 Score Function 构造对应的反向 SDE</p>
 <div class="mathjax-display">
 $$
 \boxed{
@@ -703,8 +776,8 @@ $$
 <li>$d\bar w$：反向时间的 Wiener Process 增量</li>
 <li>$dt$：反向积分时为负的时间增量，整个过程从 $T$ 积分到 0</li>
 </ul>
-<p>只要能够准确估计不同时间步的 Score Function，就可以利用数值 SDE Solver 求解反向过程，从随机噪声逐步生成数据</p>
-<h3 id="Probability-Flow-ODE"><a href="#Probability-Flow-ODE" class="headerlink" title="Probability Flow ODE"></a>Probability Flow ODE</h3><p>论文进一步推导出与反向 SDE 对应的确定性过程，即 Probability Flow ODE：</p>
+<p> Score Function 提供反向去噪所需的分布梯度，使模型能够从先验噪声逐步恢复真实数据</p>
+<h3 id="Probability-Flow-ODE（概率流常微分方程）"><a href="#Probability-Flow-ODE（概率流常微分方程）" class="headerlink" title="Probability Flow ODE（概率流常微分方程）"></a>Probability Flow ODE（概率流常微分方程）</h3><p>论文进一步证明，可以构造一个与 Forward SDE 具有相同边缘概率分布的确定性 ODE：</p>
 <div class="mathjax-display">
 $$
 \boxed{
@@ -715,40 +788,98 @@ f(x,t)-\frac{1}{2}g(t)^2\nabla_x\log p_t(x)
 }
 $$
 </div>
-它与对应的 SDE 具有相同的边缘概率分布，但不再包含随机噪声项
+它与对应的 Reverse SDE 具有相同的边缘概率分布，但不再包含随机噪声项
 
-<p>因此：</p>
-<ul>
-<li>Reverse SDE： 随机生成过程，每一步包含额外随机噪声</li>
-<li>Probability Flow ODE： 确定性生成过程，给定初始噪声后，生成轨迹唯一</li>
-</ul>
-<h3 id="统一框架"><a href="#统一框架" class="headerlink" title="统一框架"></a>统一框架</h3><p>论文进一步证明，DDPM 和 Score-based Models 可以看作不同连续时间 SDE 的离散化形式：</p>
-<ul>
-<li><strong>VP-SDE（Variance Preserving）：</strong> 对应 DDPM，将数据逐渐扰动为高斯噪声，同时保持方差在一定范围内</li>
-<li><strong>VE-SDE（Variance Exploding）：</strong> 对应 SMLD，通过不断增加噪声方差实现数据扰动</li>
-<li><strong>sub-VP-SDE：</strong> 在 VP-SDE 基础上提出的变体，用于改善似然估计</li>
-</ul>
-<p>因此，Score SDE 将原本不同的扩散生成方法统一到了连续时间的 SDE 框架中</p>
+<p>两者的区别：</p>
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>Reverse SDE</th>
+<th>Probability Flow ODE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数学形式</td>
+<td>随机微分方程</td>
+<td>常微分方程</td>
+</tr>
+<tr>
+<td>随机噪声</td>
+<td>包含</td>
+<td>不包含</td>
+</tr>
+<tr>
+<td>生成轨迹</td>
+<td>随机</td>
+<td>确定性</td>
+</tr>
+<tr>
+<td>初始噪声相同</td>
+<td>轨迹仍受随机项影响</td>
+<td>轨迹唯一</td>
+</tr>
+</tbody></table>
+<p><strong>核心作用：</strong> 提供了一种确定性生成路径，也使扩散模型可以使用 ODE Solver 进行采样和似然计算</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120154822122.webp" alt="image-20261120154822122" style="zoom:67%;" />
+
+<h3 id="统一框架"><a href="#统一框架" class="headerlink" title="统一框架"></a>统一框架</h3><p>Score SDE 将 DDPM 和 SMLD 统一到连续时间 SDE 框架中：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>对应模型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VP-SDE（Variance Preserving）</td>
+<td>DDPM</td>
+<td>原始信号逐渐衰减，向零收缩；<br />控制信号与噪声的比例，方差保持在一定范围内</td>
+</tr>
+<tr>
+<td>VE-SDE（Variance Exploding）</td>
+<td>SMLD</td>
+<td>不主动衰减原始信号，逐渐增大噪声方差</td>
+</tr>
+</tbody></table>
+<p>通过不同的 Drift Coefficient（漂移系数）和 Diffusion Coefficient（扩散系数），可以构造不同的前向扰动过程，并统一使用 Score Function 建立反向生成过程</p>
+<h1 id="条件生成与潜空间扩散"><a href="#条件生成与潜空间扩散" class="headerlink" title="条件生成与潜空间扩散"></a>条件生成与潜空间扩散</h1><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>任务目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CFG</td>
+<td>提高条件生成的可控性</td>
+</tr>
+<tr>
+<td>LDM</td>
+<td>在低维潜空间进行扩散生成</td>
+</tr>
+</tbody></table>
 <h2 id="CFG"><a href="#CFG" class="headerlink" title="CFG"></a>CFG</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2207.12598">2207.12598] Classifier-Free Diffusion Guidance</a></p>
 </blockquote>
 <p><strong>核心思想：</strong> 在训练阶段随机丢弃条件信息，使同一个模型同时学习条件生成和无条件生成；在采样阶段组合两种预测结果，增强生成结果对条件信息的遵循程度</p>
-<h3 id="分类器引导"><a href="#分类器引导" class="headerlink" title="分类器引导"></a>分类器引导</h3><p>早期的 Classifier Guidance 通过引入额外训练的分类器，利用分类器预测当前带噪图像属于目标类别的概率，并计算其梯度</p>
+<h3 id="Classifier-Guidance（分类器引导）"><a href="#Classifier-Guidance（分类器引导）" class="headerlink" title="Classifier Guidance（分类器引导）"></a>Classifier Guidance（分类器引导）</h3><p>早期的 Classifier Guidance 需要额外训练一个分类器，利用分类器预测当前带噪图像属于目标类别的概率，并计算其梯度</p>
 <div class="mathjax-display">
 $$
 \nabla_{x_t}\log p_\phi(y|x_t,t)
 $$
 </div>
-将该梯度加入扩散模型的 Score Function，引导生成过程朝着目标类别的方向移动，从而提高生成结果与条件的匹配程度
+将该梯度加入扩散模型的 Score Function，引导生成过程朝目标类别移动
 
-<p>但这种方法需要额外训练分类器，增加了训练成本和模型复杂度</p>
-<p>因此，CFG 提出不再依赖额外分类器，而是直接利用扩散模型自身的条件和无条件预测结果实现引导</p>
-<h3 id="条件丢弃"><a href="#条件丢弃" class="headerlink" title="条件丢弃"></a>条件丢弃</h3><p>CFG 使用同一个网络同时学习两种生成模式：</p>
+<p>但这种方法需要额外训练分类器，并在采样过程中计算分类器梯度，增加了模型复杂度和计算开销</p>
+<p>CFG 的核心改进是：不再依赖额外分类器，而是利用扩散模型自身的条件和无条件预测实现引导</p>
+<h3 id="Classifier-Free-Training（无分类器训练）"><a href="#Classifier-Free-Training（无分类器训练）" class="headerlink" title="Classifier-Free Training（无分类器训练）"></a>Classifier-Free Training（无分类器训练）</h3><p>CFG 使用同一个网络学习两种生成模式：</p>
 <ul>
-<li><strong>Conditional Generation：</strong> 输入图像和条件信息 $c$，预测条件噪声</li>
-<li><strong>Unconditional Generation：</strong> 丢弃条件信息，输入空条件 $\varnothing$，预测无条件噪声</li>
+<li><strong>Conditional Generation：</strong> 输入带噪图像 $x_t$、时间步 $t$ 和条件 $c$</li>
+<li><strong>Unconditional Generation：</strong> 将条件替换为空条件 $\varnothing$，学习无条件生成</li>
 </ul>
-<p>训练时，以一定概率 $p_{\mathrm{uncond}}$ 将条件替换为空条件</p>
+<p>训练时，以一定概率 $p_{\mathrm{uncond}}$ 随机丢弃条件信息</p>
 <div class="mathjax-display">
 $$
 c'=\begin{cases}\varnothing,&amp;p_{\mathrm{uncond}}\\c,&amp;1-p_{\mathrm{uncond}}\end{cases}
@@ -760,219 +891,529 @@ $$
 \mathcal L=\mathbb E[\|\epsilon-\epsilon_\theta(x_t,t,c')\|_2^2]
 $$
 </div>
-这样，同一个网络就能够根据是否提供条件信息，分别输出条件噪声和无条件噪声的预测结果
+这样，同一个网络就能够根据条件是否存在，分别预测条件噪声和无条件噪声
 
-<h3 id="引导采样"><a href="#引导采样" class="headerlink" title="引导采样"></a>引导采样</h3><p>在采样阶段，分别计算条件和无条件预测结果：</p>
+<h3 id="Guidance-Sampling（引导采样）"><a href="#Guidance-Sampling（引导采样）" class="headerlink" title="Guidance Sampling（引导采样）"></a>Guidance Sampling（引导采样）</h3><p>采样阶段，分别计算条件和无条件噪声预测：</p>
 <div class="mathjax-display">
 $$
 \epsilon_{\mathrm{cond}}=\epsilon_\theta(x_t,t,c)\\
 \epsilon_{\mathrm{uncond}}=\epsilon_\theta(x_t,t,\varnothing)
 $$
 </div>
-然后将两者进行线性组合，得到引导后的噪声预测：
+然后进行线性组合，得到引导后的噪声预测：
 <div class="mathjax-display">
 $$
-\tilde\epsilon_\theta=(1+w)\epsilon_{\mathrm{cond}}-w\epsilon_{\mathrm{uncond}}
+\boxed{
+\tilde\epsilon_\theta=
+(1+w)\epsilon_{\mathrm{cond}}
+-w\epsilon_{\mathrm{uncond}}
+}
 $$
 </div>
 也可以写成
 <div class="mathjax-display">
 $$
-\tilde\epsilon_\theta=\epsilon_{\mathrm{cond}}+w(\epsilon_{\mathrm{cond}}-\epsilon_{\mathrm{uncond}})
+\tilde\epsilon_\theta=
+\epsilon_{\mathrm{cond}}
++w(\epsilon_{\mathrm{cond}}-\epsilon_{\mathrm{uncond}})
 $$
 </div>
-即以条件预测为基础，沿着条件预测与无条件预测之间的差异方向进一步移动，从而增强条件引导效果
+其含义是：以条件预测为基础，沿着条件预测与无条件预测之间的差异方向进一步外推，增强模型对条件信息的响应
 
 <p>最后将引导后的噪声预测代入原有反向采样过程，完成去噪生成</p>
-<p>注意：每个采样步骤需要分别进行一次条件预测和一次无条件预测，因此需要两次网络前向计算</p>
-<h3 id="Guidance-Scale"><a href="#Guidance-Scale" class="headerlink" title="Guidance Scale"></a>Guidance Scale</h3><p>通过调整 $w$，可以控制条件引导的强度：</p>
+<h3 id="Guidance-Scale（引导强度）"><a href="#Guidance-Scale（引导强度）" class="headerlink" title="Guidance Scale（引导强度）"></a>Guidance Scale（引导强度）</h3><p>通过调整 $w$，可以控制条件引导的强度：</p>
 <ul>
-<li>$w&#x3D;0$：不额外引导，使用普通条件预测结果</li>
-<li>$w$ 增大：增强引导效果，提高单个样本的生成质量，但通常会降低生成多样性</li>
+<li>$w&#x3D;0$：仅使用条件预测，不进行额外引导</li>
+<li>$w$ 增大：增强条件引导，提高生成结果与条件的匹配程度，但通常会降低生成多样性</li>
 <li>$w$ 过大：可能导致生成结果过度饱和，影响图像质量</li>
 </ul>
 <p>CFG 实现了生成质量（Sample Fidelity）与生成多样性（Sample Diversity）之间的权衡</p>
-<h1 id="架构演进"><a href="#架构演进" class="headerlink" title="架构演进"></a>架构演进</h1><h2 id="LDM"><a href="#LDM" class="headerlink" title="LDM"></a>LDM</h2><blockquote>
+<h2 id="LDM（Latent-Diffusion-Models）"><a href="#LDM（Latent-Diffusion-Models）" class="headerlink" title="LDM（Latent Diffusion Models）"></a>LDM（Latent Diffusion Models）</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.10752">2112.10752] High-Resolution Image Synthesis with Latent Diffusion Models</a></p>
 </blockquote>
-<p>Latent Diffusion Model，<strong>潜空间扩散模型</strong></p>
-<p><strong>核心思想：</strong> 使用 Autoencoder 将图像压缩到低维、感知上近似等价的 Latent Space，再在 Latent Space 中训练 Diffusion Model，从而降低计算成本，同时尽可能保留图像的感知质量</p>
-<p>LDM 将扩散过程从 Pixel Space 转移到 Latent Space，在降低计算复杂度的同时保留扩散模型的生成能力</p>
-<h4 id="感知压缩"><a href="#感知压缩" class="headerlink" title="感知压缩"></a>感知压缩</h4><p>LDM 将整体训练分为两个阶段：</p>
-<ol>
-<li><strong>Perceptual Compression：</strong> 训练 Autoencoder，将图像压缩到低维潜空间，同时保留主要的视觉信息</li>
-<li><strong>Latent Diffusion：</strong> 在压缩后的潜空间中训练 Diffusion Model，学习潜变量的分布</li>
-</ol>
-<p>第一阶段训练一个 Autoencoder：</p>
-<div class="mathjax-display">
-$$
-z=E(x)\\
-\tilde{x}=D(z)=D(E(x))
-$$
-</div>
-与普通 VAE 不同，论文采用 Perceptual Loss 和 Patch-based Adversarial Loss 训练 Autoencoder，使重建结果在保留主要信息的同时，具有更好的感知质量
-
-<p>论文研究了两种潜空间正则化方式：</p>
+<p><strong>核心思想：</strong> 将扩散模型从高维 Pixel Space 转移到低维 Latent Space，先通过预训练 Autoencoder 压缩图像，再在潜空间中执行扩散和去噪，最后通过 Decoder 恢复图像，从而降低计算成本，同时保留较好的生成质量</p>
+<h3 id="Perceptual-Compression（感知压缩）-1"><a href="#Perceptual-Compression（感知压缩）-1" class="headerlink" title="Perceptual Compression（感知压缩）"></a>Perceptual Compression（感知压缩）</h3><p>传统 DDPM 直接在 Pixel Space 中进行扩散，需要对高维图像反复执行 U-Net，计算成本较高</p>
+<p>LDM 将图像生成分为两个阶段：</p>
 <ul>
-<li><strong>KL-reg：</strong> 引入 KL 散度，使潜变量分布接近标准正态分布</li>
-<li><strong>VQ-reg：</strong> 引入 Vector Quantization，属于 VQGAN 风格的正则化方案</li>
+<li><strong>Perceptual Compression：</strong> 使用 Autoencoder 压缩图像，去除部分不重要的高频细节，保留主要视觉信息</li>
+<li><strong>Semantic Compression：</strong> 使用 Diffusion Model 在低维潜空间中学习数据的语义和概念组合关系</li>
 </ul>
-<p>Encoder 将图像空间分辨率压缩为原来的 $1&#x2F;f$：</p>
+<p>训练完成后，冻结 Autoencoder，在其潜空间中训练扩散模型</p>
+<h3 id="Latent-Diffusion（潜空间扩散）"><a href="#Latent-Diffusion（潜空间扩散）" class="headerlink" title="Latent Diffusion（潜空间扩散）"></a>Latent Diffusion（潜空间扩散）</h3><p>假设输入图像为 $x$，通过 Encoder 得到潜变量：</p>
 <div class="mathjax-display">
 $$
-x\in\mathbb R^{H\times W\times 3} \qquad z\in\mathbb R^{h\times w\times c} \qquad  f=\frac{H}{h}=\frac{W}{w}
+z=E(x)
 $$
 </div>
-压缩率也不能过高，否则会损失过多图像信息。论文实验中，LDM-4 和 LDM-8 在计算效率与图像重建质量之间取得了较好的平衡
-
-<h3 id="潜空间扩散"><a href="#潜空间扩散" class="headerlink" title="潜空间扩散"></a>潜空间扩散</h3><p>训练好 Encoder $E$ 和 Decoder $D$ 后，将其固定</p>
-<p>不再直接对原始图像 $x$ 执行扩散，而是在潜变量 $z$ 中执行与 DDPM 相同的扩散过程</p>
+随后不再对原始图像进行加噪，而是在潜空间中执行 DDPM 的扩散过程：
 <div class="mathjax-display">
 $$
-z_0=E(x)
-$$
-</div>
-前向加噪过程：
-<div class="mathjax-display">
-$$
-
-<p>\boxed{
-z_t&#x3D;\sqrt{\bar\alpha_t}z_0+
+z_t=\sqrt{\bar\alpha_t}z_0+
 \sqrt{1-\bar\alpha_t}\epsilon
-}
-$$</p>
+$$
 </div>
-训练目标与 DDPM 完全相同，仍然是噪声预测：
+使用 U-Net 预测潜变量中的噪声，训练目标仍然是 MSE：
 <div class="mathjax-display">
 $$
-\boxed{
-L_{\text{LDM}}
-=
-\mathbb E_{E(x),\varepsilon,t}
+\mathcal L_{\mathrm{LDM}}=
+\mathbb E_{z_0,\epsilon,t}
 \left[
-\left\|
-\varepsilon-
-\varepsilon_\theta(z_t,t)
-\right\|_2^2
+\|\epsilon-\epsilon_\theta(z_t,t)\|_2^2
 \right]
-}
 $$
 </div>
 
-<p>因此：</p>
-<ul>
-<li>DDPM：在 Pixel Space 中预测噪声</li>
-<li>LDM：在 Latent Space 中预测噪声</li>
-</ul>
-<p>LDM 的 Diffusion Backbone 仍然采用 Time-Conditional U-Net，保留二维潜特征图的空间结构，而不是将其展平为离散 Token 序列再使用自回归 Transformer 建模</p>
-<h3 id="条件生成"><a href="#条件生成" class="headerlink" title="条件生成"></a>条件生成</h3><p>另一个重要改进是引入 Cross-Attention（交叉注意力），使扩散模型能够接收不同类型的条件信息，实现灵活的条件生成</p>
-<p>例如：</p>
-<ul>
-<li>Text：文本描述</li>
-<li>Semantic Map：语义分割图</li>
-<li>Image：图像条件，用于图像到图像的生成任务</li>
-</ul>
-<p>具体来说，首先使用条件编码器 $\tau_\theta$ 将条件信息 $y$ 转换为特征表示：</p>
+<p>**生成过程：**随机噪声 → Latent Diffusion 去噪 → Decoder 解码 → 生成图像</p>
+<p><strong>核心作用：</strong> 将原本在高维像素空间进行的扩散计算转移到低维潜空间，大幅降低训练和推理成本</p>
+<h3 id="Cross-Attention（条件注入）"><a href="#Cross-Attention（条件注入）" class="headerlink" title="Cross-Attention（条件注入）"></a>Cross-Attention（条件注入）</h3><p>为了实现文本到图像等条件生成，LDM 在 U-Net 中引入 Cross-Attention，使模型能够接收不同模态的条件信息</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120163001736.webp" alt="image-20261120163001736" style="zoom:67%;" />
+
+<p>首先使用条件编码器 $\tau_\theta$ 将条件信息 $y$ 转换为特征表示：</p>
 <div class="mathjax-display">
 $$
 \tau_\theta(y)\in\mathbb R^{M\times d_\tau}
 $$
 </div>
 然后通过 Cross-Attention 将条件信息注入 U-Net
+<div class="mathjax-display">
+$$
+Q=W_Q\varphi(z_t),\quad
+K=W_K\tau_\theta(y),\quad
+V=W_V\tau_\theta(y)
+$$
+</div>
+通过 Attention 计算，让 U-Net 在去噪过程中根据条件信息调整生成结果
+
+<p>这种机制支持多种条件输入，例如：</p>
+<ul>
+<li>Text-to-Image：文本生成图像</li>
+<li>Class-Conditional Generation：类别条件生成</li>
+<li>Layout-to-Image：根据布局生成图像</li>
+</ul>
+<h3 id="Training-Sampling-1"><a href="#Training-Sampling-1" class="headerlink" title="Training &amp; Sampling"></a>Training &amp; Sampling</h3><p>LDM 采用两个阶段进行训练：</p>
+<p><strong>Stage 1：训练 Autoencoder</strong></p>
+<ul>
+<li>使用 Perceptual Loss 和 Patch-based Adversarial Loss，提高重建图像的感知质量</li>
+<li>使用 KL-Regularization 或 VQ-Regularization 约束潜空间</li>
+<li>获得 Encoder 和 Decoder</li>
+</ul>
+<p><strong>Stage 2：训练 Latent Diffusion</strong></p>
+<ul>
+<li>冻结预训练 Autoencoder</li>
+<li>将图像编码为潜变量</li>
+<li>在潜空间中执行扩散和去噪训练</li>
+<li>根据任务需求引入 Cross-Attention，学习条件生成</li>
+</ul>
+<h2 id="Stable-Diffusion"><a href="#Stable-Diffusion" class="headerlink" title="Stable Diffusion"></a>Stable Diffusion</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/CompVis/stable-diffusion">CompVis&#x2F;stable-diffusion: A latent text-to-image diffusion model</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 基于 LDM，将图像压缩到低维潜空间进行扩散，并结合 CLIP 文本编码器和 Cross-Attention，实现文本条件图像生成（Text-to-Image）</p>
+<p>给定文本 Prompt，生成过程如下：</p>
+<ol>
+<li><strong>Text Encoding：</strong> CLIP 将 Prompt 转换为文本特征</li>
+<li><strong>Latent Initialization：</strong> 从随机高斯噪声初始化 Latent</li>
+<li><strong>Denoising：</strong> U-Net 在文本条件引导下逐步预测噪声，完成潜空间去噪</li>
+<li><strong>Decoding：</strong> 将最终 Latent 输入 VAE Decoder，恢复为图像</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">             Text Prompt</span><br><span class="line">                  ↓</span><br><span class="line">             CLIP Encoder</span><br><span class="line">                  ↓</span><br><span class="line">             Text Features</span><br><span class="line">                  │</span><br><span class="line">                  ↓</span><br><span class="line">Random Noise → U-Net ← Cross-Attention</span><br><span class="line">                  ↓</span><br><span class="line">           Denoised Latent</span><br><span class="line">                  ↓</span><br><span class="line">              VAE Decoder</span><br><span class="line">                  ↓</span><br><span class="line">            Generated Image</span><br></pre></td></tr></table></figure>
+
+<h1 id="生成范式演进"><a href="#生成范式演进" class="headerlink" title="生成范式演进"></a>生成范式演进</h1><table>
+<thead>
+<tr>
+<th>对比</th>
+<th>Flow Matching（FM）</th>
+<th>Rectified Flow（RF）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心目标</td>
+<td>学习概率路径对应的速度场</td>
+<td>学习并优化噪声到数据的运输轨迹</td>
+</tr>
+<tr>
+<td>路径设计</td>
+<td>支持多种概率路径</td>
+<td>重点采用线性插值</td>
+</tr>
+<tr>
+<td>训练方式</td>
+<td>Conditional Flow Matching</td>
+<td>速度回归 + Rectification</td>
+</tr>
+<tr>
+<td>关键设计</td>
+<td>通用速度场匹配框架</td>
+<td>Reflow 进一步拉直轨迹</td>
+</tr>
+<tr>
+<td>主要优势</td>
+<td>路径设计灵活、训练无需 ODE 模拟</td>
+<td>轨迹更加平直，有利于减少采样步数</td>
+</tr>
+</tbody></table>
+<h2 id="Flow-Matching"><a href="#Flow-Matching" class="headerlink" title="Flow Matching"></a>Flow Matching</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.02747">2210.02747] Flow Matching for Generative Modeling</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 不再像 DDPM 一样预测需要去除的噪声，而是直接学习从噪声到真实数据的运动方向和速度，通过 ODE 数值积分完成生成</p>
+<h3 id="Flow-Matching-1"><a href="#Flow-Matching-1" class="headerlink" title="Flow Matching"></a>Flow Matching</h3><p>传统扩散模型通过逐步去噪，将随机噪声转换为真实图像</p>
+<p>Flow Matching 则将生成过程理解为一个连续运动过程：</p>
+<ul>
+<li>起点：随机高斯噪声</li>
+<li>终点：真实图像</li>
+<li>中间过程：噪声逐渐向真实图像转变</li>
+</ul>
+<p>首先，构造从噪声到真实图像的 Probability Path，然后训练神经网络学习这条路径上的运动规律，即 Velocity Field</p>
+<p><strong>训练过程：</strong></p>
+<ol>
+<li>从噪声分布和真实数据集中分别采样样本</li>
+<li>随机选择一个时间步，构造噪声与真实数据之间的中间状态</li>
+<li>计算该状态对应的目标运动方向和速度</li>
+<li>输入神经网络，让模型预测当前应该如何移动</li>
+<li>使用 MSE Loss，让预测速度接近目标速度</li>
+</ol>
+<p><strong>核心：</strong> 模型学习的是 Velocity，而不是 DDPM 中的 Noise</p>
+<h3 id="Conditional-Flow-Matching"><a href="#Conditional-Flow-Matching" class="headerlink" title="Conditional Flow Matching"></a>Conditional Flow Matching</h3><p>这是论文最重要的训练设计</p>
+<p>直接计算整体概率路径对应的速度场比较困难，因为它涉及对所有真实数据样本对应的条件概率路径进行整合</p>
+<p>论文通过给定具体的数据样本，构造更容易计算的条件概率路径，让模型学习对应的条件速度场</p>
+<p>这样就可以利用简单的样本和速度计算完成训练，而不需要直接求解复杂的整体概率分布</p>
+<p>将难以计算的 Flow Matching 训练目标转化为容易实现的监督学习问题，而且不需要在训练过程中运行 ODE 数值积分</p>
+<h3 id="Probability-Path"><a href="#Probability-Path" class="headerlink" title="Probability Path"></a>Probability Path</h3><p>Flow Matching 的重要特点是：不限定生成过程必须采用某一种固定路径，可以根据需要选择不同的概率路径</p>
+<p>论文主要研究两类：</p>
+<ul>
+<li><p><strong>Diffusion Path：</strong> 采用类似传统扩散模型的概率路径，通过逐渐改变数据与噪声的比例实现分布转换</p>
+</li>
+<li><p><strong>Optimal Transport Path：</strong> 基于最优传输，为噪声与真实数据构造直线形式的条件概率路径，使样本运动轨迹更加简单</p>
+<div class="mathjax-display">
+$$
+x_t=
+\left[1-(1-\sigma_{\min})t\right]x_0+tx_1
+$$
+</div>
+其中：
 
 <ul>
-<li><strong>Query：</strong> 来自 U-Net 当前层的图像特征</li>
-<li><strong>Key、Value：</strong> 来自条件编码器输出的条件特征</li>
+<li>$x_0$：标准高斯噪声</li>
+<li>$x_1$：真实数据样本</li>
+<li>$\sigma_{\min}$：终点保留的最小噪声标准差</li>
 </ul>
-<p>通过这种方式，U-Net 的图像特征可以主动查询条件信息，动态获取与当前特征相关的语义内容</p>
-<p>例如在文本生成图像时，不同图像空间位置可以关注文本中的不同 Token，从而利用文本语义引导图像生成</p>
-<h2 id="DiT"><a href="#DiT" class="headerlink" title="DiT"></a>DiT</h2><blockquote>
+<p>对应的目标速度为：</p>
+<div class="mathjax-display">
+$$
+u_t=x_1-(1-\sigma_{\min})x_0
+$$
+</div>
+当 $\sigma_{\min}$ 足够小时，路径近似为从噪声到数据的直线</li>
+</ul>
+<p>相比 Diffusion Path，Optimal Transport Path 的条件轨迹更加直接，能够减少不必要的弯曲和回退，有利于模型学习和采样效率</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120215641611.webp" alt="image-20261120215641611" style="zoom:67%;" />
+
+<h3 id="Sampling"><a href="#Sampling" class="headerlink" title="Sampling"></a>Sampling</h3><p>训练完成后，模型已经学会从噪声到数据的速度场</p>
+<p>生成时，从随机高斯噪声出发，根据模型预测的速度不断更新样本，最终得到生成结果</p>
+<p>其核心过程由 ODE（常微分方程）描述：</p>
+<div class="mathjax-display">
+$$
+\frac{dx_t}{dt}=v_\theta(x_t,t)
+$$
+</div>
+通过数值积分，逐步更新样本，完成从噪声到图像的生成
+
+<p>与传统随机反向扩散过程不同，Flow Matching 通常通过确定性 ODE 描述生成过程。给定相同的初始噪声、模型参数和条件输入，速度场及其积分轨迹在理论上是确定的。但由于初始噪声来自随机分布，不同次采样仍然可以生成不同结果</p>
+<h2 id="Rectified-Flow"><a href="#Rectified-Flow" class="headerlink" title="Rectified Flow"></a>Rectified Flow</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.03003">2209.03003] Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow</a></p>
+</blockquote>
+<ul>
+<li><strong>Flow Matching：</strong> 研究如何通过学习速度场，实现从噪声分布到数据分布的生成</li>
+<li><strong>Rectified Flow：</strong> 进一步关注如何让生成轨迹尽可能直，从而减少生成时的数值积分步数</li>
+</ul>
+<p><strong>核心思想：</strong> 在 Flow Matching 的速度场学习基础上，采用噪声与真实数据之间的线性插值构造生成路径，并通过 Reflow（重新流化）不断优化噪声与数据之间的配对关系，使生成轨迹更加接近直线，从而减少采样步数</p>
+<h3 id="Rectified-Flow-1"><a href="#Rectified-Flow-1" class="headerlink" title="Rectified Flow"></a>Rectified Flow</h3><p>Rectified Flow 将噪声与真实数据之间的生成过程构造成直线路径：</p>
+<ul>
+<li>起点：随机高斯噪声 $ x_0$</li>
+<li>终点：真实数据 $x_1$</li>
+<li>中间状态：通过线性插值得到</li>
+</ul>
+<div class="mathjax-display">
+$$
+x_t=(1-t)x_0+tx_1,\qquad u_t=x_1-x_0
+$$
+</div>
+
+<p>训练时，使用 MSE Loss，让神经网络学习当前样本应该移动的方向和速度</p>
+<p><strong>需要注意：</strong> 虽然最初构造的是直线路径，但不同样本的路径可能发生交叉</p>
+<p>当多条路径经过同一位置时，可能存在不同的运动方向，模型需要对这些方向进行学习和整合。因此，最终学习到的 ODE 轨迹不一定完全是直线</p>
+<h3 id="Rectification-Reflow（轨迹整流）"><a href="#Rectification-Reflow（轨迹整流）" class="headerlink" title="Rectification &amp; Reflow（轨迹整流）"></a>Rectification &amp; Reflow（轨迹整流）</h3><p>这是 Rectified Flow 最重要的设计</p>
+<p><strong>第一次训练（Rectification）：</strong></p>
+<ol>
+<li>随机采样噪声和真实图像，构造线性插值路径</li>
+<li>训练网络预测路径对应的速度</li>
+<li>得到能够将噪声分布映射到数据分布的 ODE</li>
+</ol>
+<p><strong>再次训练（Reflow）：</strong></p>
+<ol>
+<li>使用第一次训练好的模型，从随机噪声出发，通过 ODE 生成对应的图像</li>
+<li>将初始噪声与生成图像组成新的配对</li>
+<li>使用新的配对重新构造线性插值路径</li>
+<li>重新训练速度场，使生成轨迹进一步趋于直线</li>
+</ol>
+<p>通过重复 Reflow，可以逐渐减少轨迹交叉和弯曲，使生成路径更加直接</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120221431812.webp" alt="image-20261120221431812" style="zoom:67%;" />
+
+<h3 id="Sampling-1"><a href="#Sampling-1" class="headerlink" title="Sampling"></a>Sampling</h3><p>Rectified Flow 的主要优势是生成轨迹更加接近直线</p>
+<p>传统扩散模型通常需要较多步数完成去噪，而弯曲的 ODE 轨迹也需要较密集的数值积分</p>
+<p>当生成轨迹接近直线时，可以使用更大的时间步长进行数值积分，减少模型调用次数</p>
+<p>理想情况下，如果轨迹完全是直线，甚至可以通过一次 Euler Step 完成生成</p>
+<p>原论文实验表明，经过 Reflow 后，模型能够使用极少的采样步数生成高质量图像，部分实验甚至可以使用单步采样</p>
+<h1 id="现代扩散架构"><a href="#现代扩散架构" class="headerlink" title="现代扩散架构"></a>现代扩散架构</h1><h2 id="DiT（Diffusion-Transformer）"><a href="#DiT（Diffusion-Transformer）" class="headerlink" title="DiT（Diffusion Transformer）"></a>DiT（Diffusion Transformer）</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.09748">2212.09748] Scalable Diffusion Models with Transformers</a></p>
 </blockquote>
-<p><strong>核心思想：</strong> 将传统 Diffusion Model 中的 U-Net Backbone 替换为 Transformer，使扩散模型能够继承 Transformer 的 Scaling 能力</p>
-<p>传统扩散模型主要采用 U-Net 作为去噪网络，通过 Downsample → Bottleneck → Upsample 提取多尺度特征</p>
-<p>DiT 则采用 ViT 的架构设计，将图像潜变量转换为 Token 序列，再通过一系列 Transformer Block 完成去噪</p>
-<h3 id="Latent-Space-与-Patchify"><a href="#Latent-Space-与-Patchify" class="headerlink" title="Latent Space 与 Patchify"></a>Latent Space 与 Patchify</h3><p>DiT 沿用 LDM 的潜空间扩散框架，使用预训练 VAE 将图像压缩到低维 Latent Space，整个 Diffusion Process 都发生在该空间</p>
-<p>论文使用 Stable Diffusion 的预训练 VAE，压缩倍数为 8：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">256 × 256 × 3</span><br><span class="line">       ↓ VAE Encoder</span><br><span class="line">Latent</span><br><span class="line">32 × 32 × 4</span><br><span class="line">       ↓ Diffusion</span><br><span class="line">Denoised Latent</span><br><span class="line">       ↓ VAE Decoder</span><br><span class="line">Generated Image</span><br><span class="line">256 × 256 × 3</span><br></pre></td></tr></table></figure>
+<p><strong>核心思想：</strong> 将传统扩散模型的 U-Net 替换为 Transformer，通过 Patchify 将潜变量转换为 Token 序列，利用标准 Transformer Block 完成去噪，并验证 Transformer 的 Scaling 能力可以迁移到扩散模型</p>
+<p><strong>任务目标</strong>：<span style = "color:#C99A45">ImageNet 类别条件图像生成</span></p>
+<h3 id="整体架构-1"><a href="#整体架构-1" class="headerlink" title="整体架构"></a>整体架构</h3><p>传统扩散模型主要使用 U-Net 作为去噪网络，通过 Encoder-Decoder 和 Skip Connection 提取多尺度特征</p>
+<p>DiT 则采用 ViT 的架构设计，在 LDM 的基础上，将二维 Latent Feature Map 转换为 Token 序列，再输入 Transformer 进行去噪</p>
+<p>整体流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">  ↓</span><br><span class="line">Pretrained VAE Encoder</span><br><span class="line">  ↓</span><br><span class="line">Latent Feature Map</span><br><span class="line">  ↓</span><br><span class="line">Patchify + Position Embedding</span><br><span class="line">  ↓</span><br><span class="line">Transformer Blocks</span><br><span class="line">  ↓</span><br><span class="line">Linear + Unpatchify</span><br><span class="line">  ↓</span><br><span class="line">Denoised Latent</span><br><span class="line">  ↓</span><br><span class="line">VAE Decoder</span><br><span class="line">  ↓</span><br><span class="line">Generated Image</span><br></pre></td></tr></table></figure>
 
-<p>与 LDM 不同的是，DiT 不再使用 U-Net 处理二维 Latent Feature Map，而是采用 ViT 的 Patchify 操作，将其转换为 Token 序列</p>
+<h3 id="Patchify"><a href="#Patchify" class="headerlink" title="Patchify"></a>Patchify</h3><p>DiT 沿用 LDM 的潜空间扩散框架，使用预训练 VAE 将图像压缩到低维 Latent Space，扩散和去噪过程均在潜空间中进行</p>
+<p>与 LDM 使用 U-Net 直接处理二维特征图不同，DiT 使用 Patchify 将 Latent Feature Map 划分为多个 Patch，并通过线性映射转换为 Token Embedding</p>
 <p>假设输入 Latent 的空间尺寸为 $I\times I$，Patch Size 为 $p\times p$，则 Token 数量为：</p>
 <div class="mathjax-display">
 $$
-\boxed{T=\left(\frac{I}{p}\right)^2}
+T=\left(\frac{I}{p}\right)^2
 $$
 </div>
-减小 Patch Size 可以增加 Token 数量，使 Transformer 能够处理更细粒度的空间信息，但同时会增加计算量
+减小 Patch Size 会增加 Token 数量，使模型能够处理更细粒度的空间信息，但也会增加 Transformer 的计算量
 
-<h3 id="DiT-Block"><a href="#DiT-Block" class="headerlink" title="DiT Block"></a>DiT Block</h3><p>完成 Patchify 后，将 Token 序列输入多个标准 Transformer Block</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-26_22-12-13.webp" alt="Snipaste_2026-09-26_22-12-13" style="zoom: 50%;" />
-
-<p>与 U-Net 不同，DiT 没有 Downsample、Bottleneck 和 Upsample 结构，Token 序列在 Transformer Block 中保持相同的长度和隐藏维度</p>
-<p>Diffusion Model 除了输入 Noisy Latent，还需要知道：</p>
-<ul>
-<li><strong>Timestep $t$：</strong> 当前扩散时间步</li>
-<li><strong>Class Label $y$：</strong> 目标生成类别</li>
-</ul>
-<p>因此，DiT 需要将条件信息注入 Transformer</p>
-<p>论文比较了四种不同的 Conditioning 方式</p>
-<h4 id="1-In-Context-Conditioning"><a href="#1-In-Context-Conditioning" class="headerlink" title="1. In-Context Conditioning"></a><strong>1. In-Context Conditioning</strong></h4><p>分别对 Timestep 和 Class Label 进行 Embedding</p>
+<p>Transformer 输出的 Token 最后经过线性映射和 Unpatchify，恢复为原始 Latent 的空间结构</p>
+<h3 id="Conditioning（条件注入）"><a href="#Conditioning（条件注入）" class="headerlink" title="Conditioning（条件注入）"></a>Conditioning（条件注入）</h3><p>扩散模型除了需要输入带噪 Latent，还需要知道当前时间步 $t$ 和生成条件 $y$</p>
+<p>DiT 研究了四种条件注入方式：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>实现思路</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>In-Context Conditioning</td>
+<td>将条件 Embedding 作为额外 Token 拼接</td>
+<td>直接使用标准 Transformer</td>
+</tr>
+<tr>
+<td>Cross-Attention</td>
+<td>通过额外 Cross-Attention 注入条件</td>
+<td>增加计算开销</td>
+</tr>
+<tr>
+<td>adaLN</td>
+<td>利用条件动态调节 LayerNorm</td>
+<td>不增加额外 Attention</td>
+</tr>
+<tr>
+<td><span style = "color:#A678D1">adaLN-Zero</span></td>
+<td>在 adaLN 基础上增加零初始化的残差门控</td>
+<td>有利于训练稳定性</td>
+</tr>
+</tbody></table>
+<p>首先将时间步 $t$ 和类别 $y$ 编码后相加($c$ 代表条件)：</p>
 <div class="mathjax-display">
 $$
-e_t=\operatorname{Embed}(t),\qquad e_y=\operatorname{Embed}(y)
+e_t=\operatorname{Embed}(t)\qquad e_y=\operatorname{Embed}(y)\qquad c=e_t+e_y
 $$
 </div>
-然后将两个 Condition Embedding 作为额外 Token，直接拼接到图像 Token 序列中：
-
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens:</span><br><span class="line">[x₁, x₂, ..., xₙ]</span><br><span class="line"></span><br><span class="line">Condition Tokens:</span><br><span class="line">[eₜ, eᵧ]</span><br><span class="line"></span><br><span class="line">拼接：</span><br><span class="line">[x₁, x₂, ..., xₙ, eₜ, eᵧ]</span><br></pre></td></tr></table></figure>
-
-<p>直接使用标准 Transformer 处理，最后移除 Condition Tokens</p>
-<h4 id="2-Cross-Attention"><a href="#2-Cross-Attention" class="headerlink" title="2. Cross-Attention"></a><strong>2. Cross-Attention</strong></h4><p>将 Timestep 和 Class Label 的 Embedding 组成独立的条件序列，在 Transformer 中额外加入 Cross-Attention</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image Tokens</span><br><span class="line">     ↓</span><br><span class="line">Self-Attention</span><br><span class="line">     ↓</span><br><span class="line">Cross-Attention ← Condition Tokens</span><br><span class="line">     ↓</span><br><span class="line">MLP</span><br></pre></td></tr></table></figure>
-
-<p>与 LDM 中通过 Cross-Attention 注入文本条件的思路类似，但会增加额外的计算量</p>
-<h4 id="3-adaLN"><a href="#3-adaLN" class="headerlink" title="3. adaLN"></a><strong>3. adaLN</strong></h4><p>Adaptive Layer Normalization（自适应层归一化）</p>
-<p>不再将条件信息作为 Token 输入，而是利用条件信息动态调节 LayerNorm</p>
-<p>首先将 Timestep 和 Class Label 的 Embedding 相加：</p>
+然后通过 MLP 生成 LayerNorm 的缩放、偏移参数，以及 Attention 和 MLP 两个残差分支的 Gate
 <div class="mathjax-display">
 $$
-c=e_t+e_y
+(\gamma,\beta,\alpha)=\operatorname{MLP}(c)
 $$
 </div>
-然后通过 MLP 预测 LayerNorm 的 Scale $\gamma(c)$ 和 Shift $ \beta(c)$
-
-<p>最终：</p>
+其中，$\gamma$ 和 $\beta$ 用于调节归一化特征，$\alpha$ 用于控制残差分支的输出
 <div class="mathjax-display">
 $$
 \operatorname{adaLN}(x,c)=\gamma(c)\odot \operatorname{LN}(x)+
 \beta(c)
 $$
 </div>
-这样，条件信息就可以动态调节 Transformer 内部的特征，而不需要额外增加 Attention 层
-
-<h4 id="4-adaLN-Zero"><a href="#4-adaLN-Zero" class="headerlink" title="4. adaLN-Zero"></a>4. adaLN-Zero</h4><p>论文最终采用的方案</p>
-<p>在 adaLN 的基础上，进一步为每个 Residual Branch 引入一个可学习的缩放系数 $\alpha$，控制残差分支对输出的影响</p>
+最终采用 adaLN-Zero，在 adaLN 的基础上，进一步为每个 Residual Branch 引入一个可学习的缩放系数
 <div class="mathjax-display">
 $$
 y=x+\alpha(c)\odot F(\operatorname{adaLN}(x,c))
 $$
 </div>
-初始化时 $\alpha = 0$，相当于 $y = x$
+其核心特点是对调制参数进行零初始化，使 Transformer Block 在训练开始时近似 Identity Function，有利于深层网络稳定训练
 
-<p>每个 Residual Branch 初始时不改变输入特征，整个 DiT Block 近似 Identity Function</p>
-<p>这种设计借鉴了 ResNet 中将残差分支零初始化的思想，有利于深层网络的稳定训练</p>
-<p>每一个 DiT Block 初始化时近似 Identity Function</p>
-<p><strong>实验结论：</strong> adaLN-Zero 在生成质量和计算效率上均优于论文比较的其他条件注入方案，因此后续实验统一采用 adaLN-Zero</p>
-<h1 id="生成范式演进"><a href="#生成范式演进" class="headerlink" title="生成范式演进"></a>生成范式演进</h1><h2 id="Flow-Matching"><a href="#Flow-Matching" class="headerlink" title="Flow Matching"></a>Flow Matching</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.02747">2210.02747] Flow Matching for Generative Modeling</a></p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-26_22-12-13.webp" alt="Snipaste_2026-09-26_22-12-13" style="zoom: 50%;" />
+
+<p><strong>核心作用：</strong> 不需要额外增加 Cross-Attention，就能将时间步和类别条件动态注入 Transformer</p>
+<h3 id="Scaling"><a href="#Scaling" class="headerlink" title="Scaling"></a>Scaling</h3><p>DiT 的另一项重要贡献是研究 Transformer 的 Scaling 能力能否迁移到扩散模型</p>
+<p>论文主要研究两个变量：</p>
+<ul>
+<li><strong>Model Size：</strong> 增加 Transformer 的深度和隐藏维度</li>
+<li><strong>Patch Size：</strong> 减小 Patch Size，增加 Token 数量</li>
+</ul>
+<p>实验发现：</p>
+<ol>
+<li><p>增大 Transformer 规模，生成质量持续提升</p>
+</li>
+<li><p>减小 Patch Size，增加 Token 数量，也能够改善生成质量</p>
+</li>
+<li><p>模型计算量（GFlops）与生成质量存在明显关联，计算量增加通常伴随着 FID 下降</p>
+<blockquote>
+<p>FID 越低，通常说明生成图像的整体质量和真实图像分布的接近程度越好</p>
 </blockquote>
-<h2 id="Rectified-Flow"><a href="#Rectified-Flow" class="headerlink" title="Rectified Flow"></a>Rectified Flow</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.03003">2209.03003] Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow</a></p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120202735551.webp" alt="image-20261120202735551" style="zoom:50%;" /></li>
+</ol>
+<p><strong>核心结论：</strong> Transformer 的 Scaling 能力同样适用于扩散模型，增加模型容量和计算量能够持续改善生成质量</p>
+<h2 id="PixArt-alpha"><a href="#PixArt-alpha" class="headerlink" title="PixArt-$\alpha$"></a>PixArt-$\alpha$</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.00426">2310.00426] PixArt-$α$: Fast Training of Diffusion Transformer for Photorealistic Text-to-Image Synthesis</a></p>
 </blockquote>
-<h1 id="现代扩散架构"><a href="#现代扩散架构" class="headerlink" title="现代扩散架构"></a>现代扩散架构</h1><h2 id="MMDiT"><a href="#MMDiT" class="headerlink" title="MMDiT"></a>MMDiT</h2><blockquote>
+<p><strong>核心思想：</strong> 基于 DiT 构建文本到图像生成模型，通过引入 Cross-Attention、优化条件调制结构，以及将训练过程拆分为不同阶段，在降低训练成本的同时实现高质量文本生成图像</p>
+<h3 id="整体架构-2"><a href="#整体架构-2" class="headerlink" title="整体架构"></a>整体架构</h3><p>PixArt-α 沿用 DiT 的 Latent Diffusion 框架，主要包含三个部分：</p>
+<ul>
+<li><strong>VAE：</strong> 将图像压缩为低维 Latent，使用预训练并冻结的 VAE</li>
+<li><strong>Text Encoder：</strong> 使用 Flan-T5-XXL 提取文本特征</li>
+<li><strong>DiT：</strong> 以 DiT-XL&#x2F;2 为基础，在 Transformer Block 中加入 Cross-Attention，实现文本条件去噪</li>
+</ul>
+<p>与原始 DiT 的类别条件生成不同，PixArt-α 将条件输入扩展为自然语言文本</p>
+<h3 id="Efficient-T2I-Transformer"><a href="#Efficient-T2I-Transformer" class="headerlink" title="Efficient T2I Transformer"></a>Efficient T2I Transformer</h3><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120205257400.webp" alt="image-20261120205257400" style="zoom:67%;" />
+
+<p>PixArt-α 对 DiT 的主要改进有两个</p>
+<p><strong>1. Cross-Attention</strong></p>
+<p>原始 DiT 主要通过 adaLN-Zero 注入时间步和类别条件，而文本生成需要处理更丰富的 Token-level 语义信息</p>
+<p>因此 PixArt-α 在 Transformer Block 中增加 Cross-Attention</p>
+<ul>
+<li>Query：来自图像 Latent Token。</li>
+<li>Key、Value：来自 T5 文本特征</li>
+</ul>
+<p>使图像 Token 能够动态关注不同文本 Token，实现细粒度的文本条件控制</p>
+<p>为了保留预训练 DiT 的生成能力，Cross-Attention 的输出投影层采用零初始化，使其在训练初期近似恒等映射</p>
+<p><strong>2. adaLN-single</strong></p>
+<p>原始 DiT 的 adaLN 在每个 Transformer Block 中分别使用 MLP 生成条件调制参数，存在较多重复参数</p>
+<p>PixArt-α 提出 adaLN-single：</p>
+<ul>
+<li>使用一个共享 MLP，根据时间步生成全局调制参数</li>
+<li>为不同 Transformer Block 引入独立的可学习 Layer Embedding</li>
+<li>通过两者组合得到各层所需的调制参数</li>
+</ul>
+<p>这样可以减少重复的条件映射参数，同时保留不同 Transformer Block 的特征调制能力</p>
+<h3 id="Training-Strategy-Decomposition"><a href="#Training-Strategy-Decomposition" class="headerlink" title="Training Strategy Decomposition"></a>Training Strategy Decomposition</h3><p>论文认为，文本生成图像实际上包含三个不同的学习任务：</p>
+<ol>
+<li>学习自然图像的视觉分布</li>
+<li>学习文本与图像之间的语义对齐</li>
+<li>学习图像的审美质量</li>
+</ol>
+<p>如果直接从头联合训练，需要大量数据和计算资源</p>
+<p>因此，PixArt-α 将训练拆分为三个阶段：</p>
+<p><strong>Stage 1：Pixel Dependency Learning</strong></p>
+<ul>
+<li>使用 ImageNet 预训练类别条件 DiT</li>
+<li>学习自然图像的视觉分布和像素依赖关系</li>
+<li>为后续文本生成任务提供预训练权重初始化</li>
+</ul>
+<p><strong>Stage 2：Text-Image Alignment Learning</strong></p>
+<ul>
+<li>将类别条件模型转换为文本条件模型</li>
+<li>引入 T5 文本编码器和 Cross-Attention</li>
+<li>使用 SAM-LLaVA 生成的高信息密度图文数据进行训练</li>
+<li>重点学习文本概念与图像内容之间的对应关系</li>
+</ul>
+<p><strong>Stage 3：High-resolution &amp; Aesthetic Fine-tuning</strong></p>
+<ul>
+<li>使用高质量审美数据进行微调</li>
+<li>引入多分辨率、多宽高比训练</li>
+<li>提升高分辨率生成能力和图像审美质量</li>
+</ul>
+<p><span style = "color:#DC5A5A"><strong>先建立基础表示能力，再学习不同模态之间的关联，最后针对目标任务进行能力强化</strong></span></p>
+<p>和多模态大模型的训练方法是类似的，特征对齐，再指令对齐</p>
+<h2 id="MMDIT"><a href="#MMDIT" class="headerlink" title="MMDIT"></a>MMDIT</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.03206">2403.03206] Scaling Rectified Flow Transformers for High-Resolution Image Synthesis</a></p>
 </blockquote>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1222747289.html">https://yhblogs.cn/posts/1222747289.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-13</div><div class="info-item-2">视觉表征与多模态</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1716427693.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E6%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.</span> <span class="toc-text">视觉潜空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VAE"><span class="toc-number">1.1.</span> <span class="toc-text">VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Autoencoder"><span class="toc-number">1.1.1.</span> <span class="toc-text">Autoencoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD"><span class="toc-number">1.1.2.</span> <span class="toc-text">变分推断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%8F%82%E6%95%B0%E5%8C%96"><span class="toc-number">1.1.3.</span> <span class="toc-text">重参数化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.4.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQ-VAE"><span class="toc-number">1.2.</span> <span class="toc-text">VQ-VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector-Quantization"><span class="toc-number">1.2.1.</span> <span class="toc-text">Vector Quantization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E9%80%9A%E6%A2%AF%E5%BA%A6%E4%BC%B0%E8%AE%A1"><span class="toc-number">1.2.2.</span> <span class="toc-text">直通梯度估计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">损失函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQGAN"><span class="toc-number">1.3.</span> <span class="toc-text">VQGAN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E9%87%8D%E5%BB%BA"><span class="toc-number">1.3.1.</span> <span class="toc-text">感知重建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer-%E5%BB%BA%E6%A8%A1"><span class="toc-number">1.3.3.</span> <span class="toc-text">Transformer 建模</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">经典扩散模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#U-Net"><span class="toc-number">2.1.</span> <span class="toc-text">U-Net</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">2.1.1.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder"><span class="toc-number">2.1.2.</span> <span class="toc-text">Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decoder"><span class="toc-number">2.1.3.</span> <span class="toc-text">Decoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Skip-Connection"><span class="toc-number">2.1.4.</span> <span class="toc-text">Skip Connection</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDPM"><span class="toc-number">2.2.</span> <span class="toc-text">DDPM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Forward-Process"><span class="toc-number">2.2.1.</span> <span class="toc-text">Forward Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reverse-Process"><span class="toc-number">2.2.2.</span> <span class="toc-text">Reverse Process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E9%A2%84%E6%B5%8B"><span class="toc-number">2.2.3.</span> <span class="toc-text">噪声预测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%87%87%E6%A0%B7"><span class="toc-number">2.2.4.</span> <span class="toc-text">训练与采样</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="toc-number">2.2.5.</span> <span class="toc-text">网络架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDIM"><span class="toc-number">2.3.</span> <span class="toc-text">DDIM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%89%A9%E6%95%A3%E8%BF%87%E7%A8%8B"><span class="toc-number">2.3.1.</span> <span class="toc-text">非马尔可夫扩散过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E9%87%87%E6%A0%B7%E8%BF%87%E7%A8%8B"><span class="toc-number">2.3.2.</span> <span class="toc-text">反向采样过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%87%87%E6%A0%B7"><span class="toc-number">2.3.3.</span> <span class="toc-text">确定性采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E9%87%87%E6%A0%B7"><span class="toc-number">2.3.4.</span> <span class="toc-text">加速采样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Score-SDE"><span class="toc-number">2.4.</span> <span class="toc-text">Score SDE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SMLD"><span class="toc-number">2.4.1.</span> <span class="toc-text">SMLD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Score-Function"><span class="toc-number">2.4.2.</span> <span class="toc-text">Score Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-SDE"><span class="toc-number">2.4.3.</span> <span class="toc-text">Forward SDE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-SDE"><span class="toc-number">2.4.4.</span> <span class="toc-text">Reverse SDE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Probability-Flow-ODE"><span class="toc-number">2.4.5.</span> <span class="toc-text">Probability Flow ODE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E6%A1%86%E6%9E%B6"><span class="toc-number">2.4.6.</span> <span class="toc-text">统一框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CFG"><span class="toc-number">2.5.</span> <span class="toc-text">CFG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E5%99%A8%E5%BC%95%E5%AF%BC"><span class="toc-number">2.5.1.</span> <span class="toc-text">分类器引导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E4%B8%A2%E5%BC%83"><span class="toc-number">2.5.2.</span> <span class="toc-text">条件丢弃</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%AF%BC%E9%87%87%E6%A0%B7"><span class="toc-number">2.5.3.</span> <span class="toc-text">引导采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Guidance-Scale"><span class="toc-number">2.5.4.</span> <span class="toc-text">Guidance Scale</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B"><span class="toc-number">3.</span> <span class="toc-text">架构演进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LDM"><span class="toc-number">3.1.</span> <span class="toc-text">LDM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.1.1.</span> <span class="toc-text">感知压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E7%A9%BA%E9%97%B4%E6%89%A9%E6%95%A3"><span class="toc-number">3.1.2.</span> <span class="toc-text">潜空间扩散</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%94%9F%E6%88%90"><span class="toc-number">3.1.3.</span> <span class="toc-text">条件生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DiT"><span class="toc-number">3.2.</span> <span class="toc-text">DiT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Latent-Space-%E4%B8%8E-Patchify"><span class="toc-number">3.2.1.</span> <span class="toc-text">Latent Space 与 Patchify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DiT-Block"><span class="toc-number">3.2.2.</span> <span class="toc-text">DiT Block</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-In-Context-Conditioning"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">1. In-Context Conditioning</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Cross-Attention"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">2. Cross-Attention</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-adaLN"><span class="toc-number">3.2.2.3.</span> <span class="toc-text">3. adaLN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-adaLN-Zero"><span class="toc-number">3.2.2.4.</span> <span class="toc-text">4. adaLN-Zero</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%8C%83%E5%BC%8F%E6%BC%94%E8%BF%9B"><span class="toc-number">4.</span> <span class="toc-text">生成范式演进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flow-Matching"><span class="toc-number">4.1.</span> <span class="toc-text">Flow Matching</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rectified-Flow"><span class="toc-number">4.2.</span> <span class="toc-text">Rectified Flow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E6%89%A9%E6%95%A3%E6%9E%B6%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">现代扩散架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MMDiT"><span class="toc-number">5.1.</span> <span class="toc-text">MMDiT</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+<p><strong>核心思想：</strong> 在 DiT 的基础上，为文本和图像两种模态分别设置独立的 Transformer 参数，并通过 Joint Attention 将两种模态的 Token 连接起来，实现双向信息交互</p>
+<h3 id="研究动机"><a href="#研究动机" class="headerlink" title="研究动机"></a>研究动机</h3><p>DiT 主要面向 ImageNet 类别条件生成，通过 adaLN-Zero 将类别标签和时间步注入 Transformer</p>
+<p>PixArt-α 将 DiT 扩展到文本生成图像，采用 Cross-Attention，这种方式本质上是图像特征主动查询文本特征，文本表示通常保持不变</p>
+<p>但文本和图像属于不同模态，其特征分布和表示方式存在差异，直接共享 Transformer 参数，或者仅将文本作为外部条件，都可能限制两种模态的特征表达</p>
+<p>SD3 提出 MMDiT，让文本和图像拥有独立的参数化分支，同时通过联合 Attention 实现信息交互</p>
+<h3 id="MMDiT-Architecture"><a href="#MMDiT-Architecture" class="headerlink" title="MMDiT Architecture"></a>MMDiT Architecture</h3><p>MMDiT 主要包含两个独立的特征处理分支：</p>
+<ul>
+<li><strong>Text Stream：</strong> 处理文本 Token，保留文本模态自身的特征表示</li>
+<li><strong>Image Stream：</strong> 处理图像 Latent Token，学习视觉特征</li>
+</ul>
+<p>两个分支分别拥有独立的参数，但在 Attention 阶段，两个分支的 Q、K、V 会被拼接起来，执行统一的 Joint Attention</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261120211514600.webp" alt="image-20261120211514600" style="zoom:67%;" />
+
+<h3 id="Joint-Attention"><a href="#Joint-Attention" class="headerlink" title="Joint Attention"></a>Joint Attention</h3><p>这是 MMDiT 最核心的设计</p>
+<p>假设文本 Token 和图像 Token 分别为：</p>
+<div class="mathjax-display">
+$$
+X\in\mathbb R^{N_x\times d},\qquad
+C\in\mathbb R^{N_c\times d}
+$$
+</div>
+两个分支分别通过各自的线性层计算 Q、K、V：
+<div class="mathjax-display">
+$$
+\begin{aligned}
+Q_x&amp;=XW_Q^x,\quad K_x=XW_K^x,\quad V_x=XW_V^x\\
+Q_c&amp;=CW_Q^c,\quad K_c=CW_K^c,\quad V_c=CW_V^c
+\end{aligned}
+$$
+</div>
+随后，将两种模态的 Q、K、V 分别拼接
+<div class="mathjax-display">
+$$
+Q=[Q_x;Q_c],\quad
+K=[K_x;K_c],\quad
+V=[V_x;V_c]
+$$
+</div>
+执行统一的 Self-Attention
+
+<p>最后，将 Attention 输出按照原来的 Token 顺序拆分，分别返回文本和图像分支，继续执行各自的后续处理</p>
+<p>Joint Attention 使两种模态能够同时进行：</p>
+<ul>
+<li>Image → Image：图像 Token 之间的信息交互</li>
+<li>Text → Text：文本 Token 之间的信息交互</li>
+<li>Image → Text：图像 Token 读取文本信息</li>
+<li>Text → Image：文本 Token 读取图像信息</li>
+</ul>
+<p><span style = "color:#DC5A5A">避免不同模态完全共享同一套特征变换参数，同时建立更充分的文本与图像信息交互</span></p>
+<h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><p>SD3 在 MMDiT 中使用三个预训练文本编码器：</p>
+<ul>
+<li>CLIP ViT-L&#x2F;14</li>
+<li>CLIP ViT-G&#x2F;14</li>
+<li>T5-XXL</li>
+</ul>
+<p>CLIP 提供图文对齐的语义表示，T5 提供更丰富的自然语言特征</p>
+<p>两个 CLIP 对同一个 Prompt 进行编码：</p>
+<div class="mathjax-display">
+$$
+C_L \in \mathbb{R}^{77×768} \qquad 
+C_G \in \mathbb{R}^{77×1280}
+$$
+</div>
+由于它们使用各自的 Tokenizer，但在 SD3 中对应相同的文本序列位置，因此可以沿着特征维度拼接
+<div class="mathjax-display">
+$$
+C_{CLIP} \in \mathbb{R}^{77×2048}
+$$
+</div>
+T5 输出
+<div class="mathjax-display">
+$$
+C_{T5}\in \mathbb{R} ^{256\times 4096}
+$$
+</div>
+为了统一特征维度，SD3 的实现会对 CLIP 特征进行零填充，使其达到 4096 维，然后沿着 Token 序列维度进行拼接
+<div class="mathjax-display">
+$$
+C \in \mathbb{R} ^{333\times 4096}
+$$
+</div>
+因此最终文本序列不是三个编码器输出简单相加，而是经过维度对齐后进行拼接
+
+<h3 id="Training-Objective"><a href="#Training-Objective" class="headerlink" title="Training Objective"></a>Training Objective</h3><p>除了 MMDiT 架构，SD3 还将生成建模方式从传统 DDPM 扩展到 Rectified Flow</p>
+<p>DDPM 主要学习预测加入数据中的噪声，而 Rectified Flow 学习的是从噪声分布到数据分布的速度场，具体见Flow Matching</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1222747289.html">https://yhblogs.cn/posts/1222747289.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a><a class="pagination-related no-desc" href="/posts/1716427693.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E6%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.</span> <span class="toc-text">视觉潜空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VAE"><span class="toc-number">1.1.</span> <span class="toc-text">VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%8F%82%E6%95%B0%E5%8C%96"><span class="toc-number">1.1.2.</span> <span class="toc-text">重参数化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss-Function%EF%BC%88ELBO%EF%BC%89"><span class="toc-number">1.1.3.</span> <span class="toc-text">Loss Function（ELBO）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQ-VAE"><span class="toc-number">1.2.</span> <span class="toc-text">VQ-VAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector-Quantization%EF%BC%88%E5%90%91%E9%87%8F%E9%87%8F%E5%8C%96%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">Vector Quantization（向量量化）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Straight-Through-Estimator%EF%BC%88%E7%9B%B4%E9%80%9A%E6%A2%AF%E5%BA%A6%E4%BC%B0%E8%AE%A1%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">Straight-Through Estimator（直通梯度估计）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss-Function"><span class="toc-number">1.2.3.</span> <span class="toc-text">Loss Function</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VQGAN"><span class="toc-number">1.3.</span> <span class="toc-text">VQGAN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Perceptual-Compression%EF%BC%88%E6%84%9F%E7%9F%A5%E5%8E%8B%E7%BC%A9%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">Perceptual Compression（感知压缩）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss-Function-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">Loss Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer-%E5%BB%BA%E6%A8%A1"><span class="toc-number">1.3.3.</span> <span class="toc-text">Transformer 建模</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">经典扩散模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#U-Net"><span class="toc-number">2.1.</span> <span class="toc-text">U-Net</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">2.1.1.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder-Decoder"><span class="toc-number">2.1.2.</span> <span class="toc-text">Encoder-Decoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Skip-Connection"><span class="toc-number">2.1.3.</span> <span class="toc-text">Skip Connection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.4.</span> <span class="toc-text">在扩散模型中的应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDPM"><span class="toc-number">2.2.</span> <span class="toc-text">DDPM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-Process"><span class="toc-number">2.2.1.</span> <span class="toc-text">Forward Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Process"><span class="toc-number">2.2.2.</span> <span class="toc-text">Reverse Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Noise-Prediction"><span class="toc-number">2.2.3.</span> <span class="toc-text">Noise Prediction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Training-Sampling"><span class="toc-number">2.2.4.</span> <span class="toc-text">Training &amp; Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#U-Net-Architecture"><span class="toc-number">2.2.5.</span> <span class="toc-text">U-Net Architecture</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Improved-DDPM"><span class="toc-number">2.3.</span> <span class="toc-text">Improved DDPM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Learned-Variance"><span class="toc-number">2.3.1.</span> <span class="toc-text">Learned Variance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cosine-Noise-Schedule"><span class="toc-number">2.3.2.</span> <span class="toc-text">Cosine Noise Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hybrid-Loss"><span class="toc-number">2.3.3.</span> <span class="toc-text">Hybrid Loss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Importance-Sampling"><span class="toc-number">2.3.4.</span> <span class="toc-text">Importance Sampling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDIM"><span class="toc-number">2.4.</span> <span class="toc-text">DDIM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Non-Markovian-Diffusion"><span class="toc-number">2.4.1.</span> <span class="toc-text">Non-Markovian Diffusion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Process-1"><span class="toc-number">2.4.2.</span> <span class="toc-text">Reverse Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%87%87%E6%A0%B7"><span class="toc-number">2.4.3.</span> <span class="toc-text">确定性采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E9%87%87%E6%A0%B7"><span class="toc-number">2.4.4.</span> <span class="toc-text">加速采样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Score-SDE"><span class="toc-number">2.5.</span> <span class="toc-text">Score SDE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SMLD"><span class="toc-number">2.5.1.</span> <span class="toc-text">SMLD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Score-Function"><span class="toc-number">2.5.2.</span> <span class="toc-text">Score Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-SDE"><span class="toc-number">2.5.3.</span> <span class="toc-text">Forward SDE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-SDE"><span class="toc-number">2.5.4.</span> <span class="toc-text">Reverse SDE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Probability-Flow-ODE%EF%BC%88%E6%A6%82%E7%8E%87%E6%B5%81%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%EF%BC%89"><span class="toc-number">2.5.5.</span> <span class="toc-text">Probability Flow ODE（概率流常微分方程）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E6%A1%86%E6%9E%B6"><span class="toc-number">2.5.6.</span> <span class="toc-text">统一框架</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%94%9F%E6%88%90%E4%B8%8E%E6%BD%9C%E7%A9%BA%E9%97%B4%E6%89%A9%E6%95%A3"><span class="toc-number">3.</span> <span class="toc-text">条件生成与潜空间扩散</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CFG"><span class="toc-number">3.1.</span> <span class="toc-text">CFG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Classifier-Guidance%EF%BC%88%E5%88%86%E7%B1%BB%E5%99%A8%E5%BC%95%E5%AF%BC%EF%BC%89"><span class="toc-number">3.1.1.</span> <span class="toc-text">Classifier Guidance（分类器引导）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Classifier-Free-Training%EF%BC%88%E6%97%A0%E5%88%86%E7%B1%BB%E5%99%A8%E8%AE%AD%E7%BB%83%EF%BC%89"><span class="toc-number">3.1.2.</span> <span class="toc-text">Classifier-Free Training（无分类器训练）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Guidance-Sampling%EF%BC%88%E5%BC%95%E5%AF%BC%E9%87%87%E6%A0%B7%EF%BC%89"><span class="toc-number">3.1.3.</span> <span class="toc-text">Guidance Sampling（引导采样）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Guidance-Scale%EF%BC%88%E5%BC%95%E5%AF%BC%E5%BC%BA%E5%BA%A6%EF%BC%89"><span class="toc-number">3.1.4.</span> <span class="toc-text">Guidance Scale（引导强度）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LDM%EF%BC%88Latent-Diffusion-Models%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">LDM（Latent Diffusion Models）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Perceptual-Compression%EF%BC%88%E6%84%9F%E7%9F%A5%E5%8E%8B%E7%BC%A9%EF%BC%89-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">Perceptual Compression（感知压缩）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Latent-Diffusion%EF%BC%88%E6%BD%9C%E7%A9%BA%E9%97%B4%E6%89%A9%E6%95%A3%EF%BC%89"><span class="toc-number">3.2.2.</span> <span class="toc-text">Latent Diffusion（潜空间扩散）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cross-Attention%EF%BC%88%E6%9D%A1%E4%BB%B6%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="toc-number">3.2.3.</span> <span class="toc-text">Cross-Attention（条件注入）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Training-Sampling-1"><span class="toc-number">3.2.4.</span> <span class="toc-text">Training &amp; Sampling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stable-Diffusion"><span class="toc-number">3.3.</span> <span class="toc-text">Stable Diffusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%8C%83%E5%BC%8F%E6%BC%94%E8%BF%9B"><span class="toc-number">4.</span> <span class="toc-text">生成范式演进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flow-Matching"><span class="toc-number">4.1.</span> <span class="toc-text">Flow Matching</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flow-Matching-1"><span class="toc-number">4.1.1.</span> <span class="toc-text">Flow Matching</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conditional-Flow-Matching"><span class="toc-number">4.1.2.</span> <span class="toc-text">Conditional Flow Matching</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Probability-Path"><span class="toc-number">4.1.3.</span> <span class="toc-text">Probability Path</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sampling"><span class="toc-number">4.1.4.</span> <span class="toc-text">Sampling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rectified-Flow"><span class="toc-number">4.2.</span> <span class="toc-text">Rectified Flow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rectified-Flow-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">Rectified Flow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rectification-Reflow%EF%BC%88%E8%BD%A8%E8%BF%B9%E6%95%B4%E6%B5%81%EF%BC%89"><span class="toc-number">4.2.2.</span> <span class="toc-text">Rectification &amp; Reflow（轨迹整流）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sampling-1"><span class="toc-number">4.2.3.</span> <span class="toc-text">Sampling</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E6%89%A9%E6%95%A3%E6%9E%B6%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">现代扩散架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DiT%EF%BC%88Diffusion-Transformer%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">DiT（Diffusion Transformer）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84-1"><span class="toc-number">5.1.1.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Patchify"><span class="toc-number">5.1.2.</span> <span class="toc-text">Patchify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conditioning%EF%BC%88%E6%9D%A1%E4%BB%B6%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="toc-number">5.1.3.</span> <span class="toc-text">Conditioning（条件注入）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scaling"><span class="toc-number">5.1.4.</span> <span class="toc-text">Scaling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PixArt-alpha"><span class="toc-number">5.2.</span> <span class="toc-text">PixArt-$\alpha$</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84-2"><span class="toc-number">5.2.1.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Efficient-T2I-Transformer"><span class="toc-number">5.2.2.</span> <span class="toc-text">Efficient T2I Transformer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Training-Strategy-Decomposition"><span class="toc-number">5.2.3.</span> <span class="toc-text">Training Strategy Decomposition</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MMDIT"><span class="toc-number">5.3.</span> <span class="toc-text">MMDIT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E5%8A%A8%E6%9C%BA"><span class="toc-number">5.3.1.</span> <span class="toc-text">研究动机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MMDiT-Architecture"><span class="toc-number">5.3.2.</span> <span class="toc-text">MMDiT Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Joint-Attention"><span class="toc-number">5.3.3.</span> <span class="toc-text">Joint Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input"><span class="toc-number">5.3.4.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Training-Objective"><span class="toc-number">5.3.5.</span> <span class="toc-text">Training Objective</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
