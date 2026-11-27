@@ -1,24 +1,24 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大语言模型架构与注意力 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="TokenizerTokenizer 的作用是：将原始文本转换为模型可以处理的离散 Token ID 序列，并在生成后将 Token ID 重新解码为文本 常见切分方式：  Word-level Character-level Subword-level Byte-level  目前大多数大语言模型采用子词切分 Word-level Tokenization将文本按空格和标点符号分割成单词 英文中">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>大语言模型架构 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="注意力机制的演进Attention基本原理 [1706.03762] Attention Is All You Need  Query、Key、Value对于输入序列  $$ X \in \mathbb{R}^{T\times d_{\mathrm{model}}} $$  通过三个不同的线性投影生成 Query、Key 和 Value：  $$ Q&#x3D;XW_Q,\qquad K&#x3D;XW_K,\qqu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大语言模型架构与注意力">
+<meta property="og:title" content="大语言模型架构">
 <meta property="og:url" content="https://yhblogs.cn/posts/1812287226.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="TokenizerTokenizer 的作用是：将原始文本转换为模型可以处理的离散 Token ID 序列，并在生成后将 Token ID 重新解码为文本 常见切分方式：  Word-level Character-level Subword-level Byte-level  目前大多数大语言模型采用子词切分 Word-level Tokenization将文本按空格和标点符号分割成单词 英文中">
+<meta property="og:description" content="注意力机制的演进Attention基本原理 [1706.03762] Attention Is All You Need  Query、Key、Value对于输入序列  $$ X \in \mathbb{R}^{T\times d_{\mathrm{model}}} $$  通过三个不同的线性投影生成 Query、Key 和 Value：  $$ Q&#x3D;XW_Q,\qquad K&#x3D;XW_K,\qqu">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp">
-<meta property="article:published_time" content="2026-07-16T13:57:57.000Z">
-<meta property="article:modified_time" content="2026-11-20T14:24:54.210Z">
+<meta property="article:published_time" content="2026-11-16T13:57:57.000Z">
+<meta property="article:modified_time" content="2026-11-27T12:57:04.973Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🍭AI">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "大语言模型架构与注意力",
+  "headline": "大语言模型架构",
   "url": "https://yhblogs.cn/posts/1812287226.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp",
-  "datePublished": "2026-07-16T13:57:57.000Z",
-  "dateModified": "2026-11-20T14:24:54.210Z",
+  "datePublished": "2026-11-16T13:57:57.000Z",
+  "dateModified": "2026-11-27T12:57:04.973Z",
   "author": [
     {
       "@type": "Person",
@@ -155,91 +155,879 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '大语言模型架构与注意力',
+  title: '大语言模型架构',
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-m9k578_1280x720.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">大语言模型架构与注意力</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">大语言模型架构与注意力</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-07-16T13:57:57.000Z" title="发表于 2026-07-16 21:57:57">2026-07-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="Tokenizer"><a href="#Tokenizer" class="headerlink" title="Tokenizer"></a>Tokenizer</h1><p>Tokenizer 的作用是：将原始文本转换为模型可以处理的离散 Token ID 序列，并在生成后将 Token ID 重新解码为文本</p>
-<p>常见切分方式：</p>
-<ul>
-<li>Word-level</li>
-<li>Character-level</li>
-<li>Subword-level</li>
-<li>Byte-level</li>
-</ul>
-<p>目前大多数大语言模型采用子词切分</p>
-<h2 id="Word-level-Tokenization"><a href="#Word-level-Tokenization" class="headerlink" title="Word-level Tokenization"></a>Word-level Tokenization</h2><p>将文本按空格和标点符号分割成单词</p>
-<p>英文中可以近似按照空格和标点切分，但中文、日文等语言通常需要额外的分词算法</p>
-<ul>
-<li>优点：简单直接；</li>
-<li>缺点：词表通常较大，单词形态变化会占用不同词表项，遇到词表外单词时只能映射为 <code>[UNK]</code></li>
-</ul>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I love machine learning</span><br><span class="line">[&quot;I&quot;, &quot;love&quot;, &quot;machine&quot;, &quot;learning&quot;]</span><br></pre></td></tr></table></figure>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-m9k578_1280x720.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">大语言模型架构</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">大语言模型架构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-11-16T13:57:57.000Z" title="发表于 2026-11-16 21:57:57">2026-11-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="注意力机制的演进"><a href="#注意力机制的演进" class="headerlink" title="注意力机制的演进"></a>注意力机制的演进</h1><h2 id="Attention基本原理"><a href="#Attention基本原理" class="headerlink" title="Attention基本原理"></a>Attention基本原理</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">1706.03762] Attention Is All You Need</a></p>
+</blockquote>
+<h3 id="Query、Key、Value"><a href="#Query、Key、Value" class="headerlink" title="Query、Key、Value"></a>Query、Key、Value</h3><p>对于输入序列</p>
+<div class="mathjax-display">
+$$
+X \in \mathbb{R}^{T\times d_{\mathrm{model}}}
+$$
+</div>
+通过三个不同的线性投影生成 Query、Key 和 Value：
+<div class="mathjax-display">
+$$
+Q=XW_Q,\qquad K=XW_K,\qquad V=XW_V
+$$
+</div>
+其中：
 
-<h2 id="Character-level-Tokenization"><a href="#Character-level-Tokenization" class="headerlink" title="Character-level Tokenization"></a>Character-level Tokenization</h2><p>将每个字符作为一个 Token</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line">[&quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]</span><br></pre></td></tr></table></figure>
-
-<p>优点：</p>
 <ul>
-<li>词表很小；</li>
-<li>几乎不会出现未知 Token；</li>
-<li>对拼写错误、罕见单词较鲁棒。</li>
+<li><strong>Query</strong>：当前 Token 用于查询其他 Token 的特征</li>
+<li><strong>Key</strong>：每个 Token 提供用于匹配的特征</li>
+<li><strong>Value</strong>：每个 Token 实际提供的内容信息</li>
 </ul>
-<p>缺点：</p>
-<ul>
-<li>Token 序列明显变长；</li>
-<li>增加模型计算复杂度和训练时间。</li>
-</ul>
-<h2 id="Subword-Tokenization"><a href="#Subword-Tokenization" class="headerlink" title="Subword Tokenization"></a>Subword Tokenization</h2><p>现代 LLM 最常使用的方案</p>
-<ul>
-<li>高频词或高频片段保留为一个 Token</li>
-<li>低频词拆成多个较小的 Token</li>
-</ul>
-<p>常见方法包括 BPE、WordPiece 和 Unigram</p>
-<h3 id="BPE"><a href="#BPE" class="headerlink" title="BPE"></a>BPE</h3><p>BPE：Byte Pair Encoding</p>
-<p>核心思想：从较小的基本单位开始，不断合并训练语料中最常出现的相邻 Token Pair</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Initial Units</span><br><span class="line">    ↓</span><br><span class="line">统计相邻 Pair Frequency</span><br><span class="line">    ↓</span><br><span class="line">选择最高频 Pair</span><br><span class="line">    ↓</span><br><span class="line">Merge</span><br><span class="line">    ↓</span><br><span class="line">加入 Vocabulary</span><br><span class="line">    ↓</span><br><span class="line">重复</span><br></pre></td></tr></table></figure>
+<p>可以将 Attention 理解为：</p>
+<p><strong>Query 与所有 Key 计算匹配程度，再根据匹配程度对对应的 Value 进行加权聚合</strong></p>
+<h3 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h3><p>Attention 的计算主要分为三个步骤：</p>
+<p><strong>1. 计算 Attention Score</strong></p>
+<p>通过 Query 和 Key 的点积衡量不同 Token 之间的匹配程度：</p>
+<div class="mathjax-display">
+$$
+S=\frac{QK^\top}{\sqrt{d_k}}
+$$
+</div>
 
-<p>直到达到指定的 Vocabulary Size</p>
-<h3 id="WordPiece"><a href="#WordPiece" class="headerlink" title="WordPiece"></a>WordPiece</h3><p>和 BPE 很像，核心区别在于：</p>
+<blockquote>
+<p>当 Query 和 Key 的维度增大时，点积的数值方差通常也会增大，使 Softmax 更容易进入饱和区域，导致梯度变小</p>
+<p>通过除以 $\sqrt{d_k}$ 对点积进行缩放，可以稳定 Attention Score 的数值范围，改善训练稳定性</p>
+</blockquote>
+<p><strong>2. 计算 Attention Weight</strong></p>
+<p>对 Attention Score 进行 Softmax，得到归一化的注意力权重：</p>
+<div class="mathjax-display">
+$$
+A=\operatorname{Softmax}(S)
+$$
+</div>
+**3. 加权聚合 Value**
+
+<p>根据 Attention Weight 对所有 Value 加权求和：</p>
+<div class="mathjax-display">
+$$
+O=AV
+$$
+</div>
+得到融合上下文信息后的 Token 表示
+
+<p>完整的 Scaled Dot-Product Attention：</p>
+<div class="mathjax-display">
+$$
+\operatorname{Attention}(Q,K,V)=
+\operatorname{Softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$
+</div>
+
+<h3 id="Multi-Head-Attention（MHA）"><a href="#Multi-Head-Attention（MHA）" class="headerlink" title="Multi-Head Attention（MHA）"></a>Multi-Head Attention（MHA）</h3><p>单个 Attention Head 只能通过一组 Q、K、V 投影学习信息交互关系</p>
+<p>Multi-Head Attention 将输入投影到多个不同的子空间，分别执行 Attention，再将各个 Head 的结果拼接起来</p>
+<p>将所有 Head 的输出拼接，并通过线性投影得到最终结果：</p>
+<div class="mathjax-display">
+$$
+\operatorname{MHA}(Q,K,V)=
+\operatorname{Concat}(\operatorname{head}_1,\ldots,\operatorname{head}_h)W_O
+$$
+</div>
+不同 Attention Head 可以在不同的投影子空间中学习信息交互关系，从而增强模型对不同上下文特征的表达能力
+
+<h3 id="Causal-Mask"><a href="#Causal-Mask" class="headerlink" title="Causal Mask"></a>Causal Mask</h3><p>在自回归语言模型中，当前 Token 只能访问当前位置及之前的 Token，不能访问未来 Token</p>
+<p>因此需要引入 <strong>Causal Mask（因果掩码）</strong>，将 Mask 加入 Attention Score，在 Softmax 之前屏蔽未来位置：</p>
+<div class="mathjax-display">
+$$
+\operatorname{Attention}(Q,K,V)=
+\operatorname{Softmax}\left(
+\frac{QK^\top}{\sqrt{d_k}}+M
+\right)V
+$$
+</div>
+由于被屏蔽的位置对应 $-\infty$，经过 Softmax 后其注意力权重为 0
+
+<h3 id="Self-Attention-与-Cross-Attention"><a href="#Self-Attention-与-Cross-Attention" class="headerlink" title="Self-Attention 与 Cross-Attention"></a>Self-Attention 与 Cross-Attention</h3><p>两者主要区别在于 Query、Key、Value 的来源：</p>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>Query 来源</th>
+<th>Key &#x2F; Value 来源</th>
+<th>主要作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Self-Attention</td>
+<td>当前序列</td>
+<td>当前序列</td>
+<td>序列内部信息交互</td>
+</tr>
+<tr>
+<td>Cross-Attention</td>
+<td>当前序列</td>
+<td>另一序列</td>
+<td>不同序列之间的信息交互</td>
+</tr>
+</tbody></table>
+<p>Self-Attention 中，Q、K、V 都由同一个输入序列投影得到</p>
+<p>Cross-Attention 中，Query 通常来自 Decoder，而 Key 和 Value 来自 Encoder 的输出</p>
+<h2 id="位置编码"><a href="#位置编码" class="headerlink" title="位置编码"></a>位置编码</h2><p>Self-Attention 本身主要根据 Token 内容计算相关性，并不直接包含 Token 的位置信息</p>
+<p>虽然包含相同的 Token，但顺序不同，语义也不同</p>
+<p>因此，需要向模型引入位置信息，使其能够区分不同 Token 在序列中的位置</p>
+<p>常见的位置编码方式：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>核心思想</th>
+<th>代表方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>绝对位置编码</td>
+<td>为每个位置分配独立的位置表示</td>
+<td>Sinusoidal Encoding<br />Learned Position Embedding</td>
+</tr>
+<tr>
+<td>相对位置编码</td>
+<td>显式建模 Token 之间的相对距离</td>
+<td>Relative Position Bias</td>
+</tr>
+<tr>
+<td>旋转位置编码</td>
+<td>根据位置旋转 Query 和 Key</td>
+<td>RoPE</td>
+</tr>
+</tbody></table>
+<h3 id="RoPE"><a href="#RoPE" class="headerlink" title="RoPE"></a>RoPE</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.09864">2104.09864] RoFormer: Enhanced Transformer with Rotary Position Embedding</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 根据 Token 的位置对 Query 和 Key 进行旋转，使 Attention 内积自然包含相对位置信息，从而让模型感知 Token 的顺序和距离关系</p>
+<p>首先考虑二维向量，对于位置为 $m$ 的 Token，定义旋转矩阵：</p>
+<div class="mathjax-display">
+$$
+R_{m,\theta}=
+\begin{bmatrix}
+\cos(m\theta)&amp;-\sin(m\theta)\\
+\sin(m\theta)&amp;\cos(m\theta)
+\end{bmatrix}
+$$
+</div>
+对 Query 和 Key 分别进行旋转：
+<div class="mathjax-display">
+$$
+\widetilde q_m=R_{m,\theta}q_m
+\qquad
+\widetilde k_n=R_{n,\theta}k_n
+$$
+</div>
+原始 Attention 使用 Query 和 Key 的内积计算相关性，经过 RoPE 旋转后：
+<div class="mathjax-display">
+$$
+\begin{aligned}
+\widetilde q_m^\top\widetilde k_n
+&amp;=(R_mq_m)^\top(R_nk_n)\\
+&amp;=q_m^\top R_m^\top R_nk_n\\
+&amp;=q_m^\top R_{n-m}k_n
+\end{aligned}
+$$
+</div>
+利用旋转矩阵的性质：
+<div class="mathjax-display">
+$$
+R_m^\top R_n=R_{n-m}
+$$
+</div>
+可以发现，旋转后的 Attention 内积不仅与 Query 和 Key 的内容有关，还与两个 Token 之间的相对位置差 $n-m$ 有关
+
+<p>对于多维的情况，需要将相邻维度两两分组，每两个维度构成一个二维旋转平面</p>
+<div class="mathjax-display">
+$$
+(q_0,q_1),\quad
+(q_2,q_3),\quad
+\ldots,\quad
+(q_{d_h-2},q_{d_h-1})
+$$
+</div>
+不同维度组使用不同的旋转频率：
+<div class="mathjax-display">
+$$
+\theta_i=
+10000^{-\frac{2i}{d_h}},
+\qquad
+i=0,1,\ldots,\frac{d_h}{2}-1
+$$
+</div>
+不同频率承担不同尺度的位置表示：
+
 <ul>
-<li>BPE 主要根据 Pair Frequency 决定合并，</li>
-<li>WordPiece 更倾向选择能够提高训练语料语言建模效果的 Subword 合并</li>
+<li><strong>高频维度</strong>：相邻位置之间相位变化较明显，提供更细粒度的位置分辨率</li>
+<li><strong>低频维度</strong>：相位变化较慢，更适合表达较长距离的位置关系</li>
 </ul>
-<p>例如：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">playing</span><br></pre></td></tr></table></figure>
+<p>可以类比时钟：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">高频 → 秒针</span><br><span class="line">中频 → 分针</span><br><span class="line">低频 → 时针</span><br></pre></td></tr></table></figure>
 
-<p>可能被切成：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">play</span><br><span class="line">##ing</span><br></pre></td></tr></table></figure>
-
-<p>其中 <code>##</code>表示当前 Subword 位于一个单词内部，而不是新单词开头</p>
-<h3 id="Unigram"><a href="#Unigram" class="headerlink" title="Unigram"></a>Unigram</h3><p>和 BPE 的思路相反</p>
-<p>从较大的候选 Vocabulary 开始，不断删除不重要 Token</p>
-<p>Unigram 会根据 Token 概率选择概率较高的切分</p>
+<p>通过不同频率的组合，使模型能够同时感知不同尺度的位置关系</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Attention 内积自然包含相对位置信息</td>
+<td>超出训练长度时外推性能可能下降</td>
+</tr>
+<tr>
+<td>不需要额外学习独立的位置 Embedding</td>
+<td>长序列下可能出现相位混叠</td>
+</tr>
+<tr>
+<td>只需要旋转 Q、K，计算简单</td>
+<td>长上下文需要额外的位置频率调整</td>
+</tr>
+<tr>
+<td>保持旋转部分的欧氏范数</td>
+<td>与部分低秩 KV 压缩结构需要进行特殊设计</td>
+</tr>
+</tbody></table>
+<h2 id="KV-Cache-优化"><a href="#KV-Cache-优化" class="headerlink" title="KV Cache 优化"></a>KV Cache 优化</h2><p>MHA 中，每个 Query Head 都拥有独立的 Key 和 Value</p>
+<p>在自回归推理过程中，需要为所有 KV Head 保存历史信息。随着 Attention Head 数量增加，KV Cache 的存储和读取开销也会增加</p>
+<p>因此，后续出现了通过多个 Query Head 共享 KV Head 的设计，以减少 KV Cache</p>
 <table>
 <thead>
 <tr>
 <th>方法</th>
-<th>核心思想</th>
-<th>典型特点</th>
+<th>代表性模型</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>BPE</td>
-<td>反复合并高频 Pair</td>
-<td>简单、常见</td>
+<td>MQA</td>
+<td>PaLM</td>
 </tr>
 <tr>
-<td>WordPiece</td>
-<td>根据训练目标选择 Subword</td>
-<td>BERT 中经典</td>
+<td>GQA</td>
+<td>Llama</td>
 </tr>
 <tr>
-<td>Unigram</td>
-<td>从大词表逐步删除 Token</td>
-<td>可以考虑多种切分方案</td>
+<td>MLA</td>
+<td>Deepseek-V2</td>
 </tr>
 </tbody></table>
+<h4 id="Multi-Query-Attention（MQA）"><a href="#Multi-Query-Attention（MQA）" class="headerlink" title="Multi-Query Attention（MQA）"></a>Multi-Query Attention（MQA）</h4><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.02150">1911.02150] Fast Transformer Decoding: One Write-Head is All You Need</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 保留多个独立的 Query Head，但让所有 Query Head 共享同一组 Key 和 Value</p>
+<p>保留多个 Query Head，但所有 Query Head 共享同一组 Key 和 Value</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Q1 ─┐</span><br><span class="line">Q2 ─┤</span><br><span class="line">Q3 ─┤</span><br><span class="line">Q4 ─┼── K1, V1</span><br><span class="line">Q5 ─┤</span><br><span class="line">Q6 ─┤</span><br><span class="line">Q7 ─┤</span><br><span class="line">Q8 ─┘</span><br></pre></td></tr></table></figure>
+
+<p>对于第 $i$ 个 Query Head，其 Attention 计算为：</p>
+<div class="mathjax-display">
+$$
+O_i=
+\operatorname{Softmax}
+\left(
+\frac{Q_iK^\top}{\sqrt{d_h}}
+\right)V
+$$
+</div>
+MQA 可以显著减少 KV Cache 的存储量和读取开销，但所有 Query Head 共享同一组 KV，也可能限制不同 Head 对信息的独立表达能力
+
+<h4 id="Grouped-Query-Attention（GQA）"><a href="#Grouped-Query-Attention（GQA）" class="headerlink" title="Grouped-Query Attention（GQA）"></a>Grouped-Query Attention（GQA）</h4><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.13245">2305.13245] GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints</a></p>
+</blockquote>
+<p>GQA 在 MHA 和 MQA 之间进行折中</p>
+<p>将多个 Query Head 划分为若干组，每组共享一组 Key 和 Value</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Q1 ─┐</span><br><span class="line">Q2 ─┤</span><br><span class="line">Q3 ─┼── K1, V1</span><br><span class="line">Q4 ─┘</span><br><span class="line"></span><br><span class="line">Q5 ─┐</span><br><span class="line">Q6 ─┤</span><br><span class="line">Q7 ─┼── K2, V2</span><br><span class="line">Q8 ─┘</span><br></pre></td></tr></table></figure>
+
+<p>那么每组 Query Head 的数量为：</p>
+<div class="mathjax-display">
+$$
+G=\frac{H_Q}{H_{KV}}
+$$
+</div>
+第 $i$ 个 Query Head 的计算可以表示为：
+<div class="mathjax-display">
+$$
+O_i=
+\operatorname{Softmax}
+\left(
+\frac{Q_iK_{g(i)}^\top}{\sqrt{d_h}}
+\right)V_{g(i)}
+$$
+</div>
+GQA 可以理解成 MHA 与 MQA 的折中：
+
+<ul>
+<li>MHA：KV Head 最多，表达能力完整，但 KV Cache 最大</li>
+<li>MQA：只保留一组 KV，缓存最小，但共享程度最高</li>
+<li>GQA：多个 Query Head 分组共享 KV，在表达能力与缓存开销之间折中</li>
+</ul>
+<h4 id="Multi-Head-Latent-Attention（MLA）"><a href="#Multi-Head-Latent-Attention（MLA）" class="headerlink" title="Multi-Head Latent Attention（MLA）"></a>Multi-Head Latent Attention（MLA）</h4><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.04434">2405.04434] DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 对 Key 和 Value 进行低秩联合压缩，将原本多个 Attention Head 的 KV 表示映射到一个共享的低维 Latent Vector，在推理时只需要缓存压缩后的潜在向量，从而进一步降低 KV Cache 开销</p>
+<h5 id="Low-Rank-KV-Compression"><a href="#Low-Rank-KV-Compression" class="headerlink" title="Low-Rank KV Compression"></a>Low-Rank KV Compression</h5><p>MQA 和 GQA 通过减少 KV Head 数量降低缓存开销，但仍然需要保存每个 KV Head 对应的完整 Key 和 Value</p>
+<p>MLA 则采用不同思路：不再直接保存完整的 K、V，而是将它们共同压缩到一个低维潜在空间，再通过线性投影恢复对应的 K、V 表示</p>
+<p><strong>1. KV Down-Projection</strong></p>
+<p>首先，将输入隐藏状态映射到一个低维潜在向量：</p>
+<div class="mathjax-display">
+$$
+\mathbf{c}_t^{KV}=W^{DKV}\mathbf{h}_t
+$$
+</div>
+其中，$\mathbf{c}_t^{KV}$ 是 Key 和 Value 共享的压缩表示，其维度 $d_c$ 远小于原始多头 KV 的总维度
+
+<p><strong>2. KV Up-Projection</strong></p>
+<p>通过两个独立的线性投影，从共享的 Latent Vector 恢复 Key 和 Value：</p>
+<div class="mathjax-display">
+$$
+\mathbf{k}_t^C=W^{UK}\mathbf{c}_t^{KV}\\
+
+<p>\mathbf{v}_t^C&#x3D;W^{UV}\mathbf{c}_t^{KV}
+$$</p>
+</div>
+推理时只需要缓存 $\mathbf{c}_t^{KV}$，不需要保存完整的 K、V
+
+<h5 id="Query-Low-Rank-Compression"><a href="#Query-Low-Rank-Compression" class="headerlink" title="Query Low-Rank Compression"></a>Query Low-Rank Compression</h5><p>除了 KV 压缩，MLA 还对 Query 进行低秩压缩：</p>
+<div class="mathjax-display">
+$$
+\mathbf{c}_t^Q=W^{DQ}\mathbf{h}_t\\ \mathbf{q}_t^C=W^{UQ}\mathbf{c}_t^Q
+$$
+</div>
+Query 同样通过 Down-Projection 和 Up-Projection 完成低秩映射
+
+<p><strong>主要作用：</strong> 减少训练过程中的激活显存（Activation Memory），但 Query 压缩本身并不减少推理时的 KV Cache</p>
+<h5 id="Decoupled-RoPE"><a href="#Decoupled-RoPE" class="headerlink" title="Decoupled RoPE"></a>Decoupled RoPE</h5><p>MLA 引入低秩 KV 压缩后，会遇到一个问题：<strong>RoPE 与低秩压缩之间存在结构冲突</strong></p>
+<p>RoPE 需要对 Key 进行位置相关的旋转。如果直接对压缩恢复后的 Key 应用 RoPE：</p>
+<div class="mathjax-display">
+$$
+\widetilde{\mathbf{k}}_t^C
+=
+R_tW^{UK}\mathbf{c}_t^{KV}
+$$
+</div>
+位置相关的旋转矩阵位于 $W^{UK}$ 和 KV Latent 之间，导致 $W^{UK}$ 无法直接吸收到 Query 投影矩阵中，破坏矩阵吸收机制
+
+<p>为了解决这一问题，MLA 提出 <strong>Decoupled RoPE（解耦位置编码）</strong>，将 Query 和 Key 拆分为内容表示与位置表示两部分</p>
+<div class="mathjax-display">
+$$
+\mathbf{q}_{t,i}
+=
+[\mathbf{q}_{t,i}^C;\mathbf{q}_{t,i}^R]\\\mathbf{k}_{t,i}
+=
+[\mathbf{k}_{t,i}^C;\mathbf{k}_t^R]
+$$
+</div>
+其中：
+
+<ul>
+<li>$\mathbf{q}<em>{t,i}^C$、$\mathbf{k}</em>{t,i}^C$：通过低秩压缩路径生成，负责内容信息交互</li>
+<li>$\mathbf{q}_{t,i}^R$、$\mathbf{k}_t^R$：独立的位置编码分支，负责引入位置信息</li>
+</ul>
+<p>其中，Query 的位置表示按 Head 生成，而位置 Key 在所有 Head 之间共享</p>
+<p>RoPE 只作用于独立的位置编码分支：</p>
+<div class="mathjax-display">
+$$
+\mathbf{q}_{t}^{R}
+=
+\operatorname{RoPE}(W^{QR}\mathbf{c}_t^Q)
+\\
+\mathbf{k}_{t}^{R}
+=
+\operatorname{RoPE}(W^{KR}\mathbf{h}_t)
+$$
+</div>
+内容信息仍然通过低秩 Latent Vector 进行压缩，而位置信息通过独立的 RoPE 分支引入，避免位置旋转干扰 KV 压缩
+
+<h5 id="Matrix-Absorption"><a href="#Matrix-Absorption" class="headerlink" title="Matrix Absorption"></a>Matrix Absorption</h5><p>MLA 还通过矩阵吸收，避免在推理时显式恢复完整的 Key 和 Value</p>
+<p>具体而言：</p>
+<ul>
+<li><strong>Key 路径：</strong> 将 Key Up-Projection 矩阵 $W^{UK}$ 吸收到 Query 投影中，使 Query 可以直接与压缩后的 KV Latent 计算相关性</li>
+<li><strong>Value 路径：</strong> 将 Value Up-Projection 矩阵 $W^{UV}$ 与输出投影矩阵 $W^O$ 合并，使加权聚合后的 Latent Vector 可以直接映射到输出空间</li>
+</ul>
+<div class="mathjax-display">
+$$
+(\mathbf q_{t,i}^C)^\top(W_i^{UK}\mathbf c_s^{KV})
+=
+((W_i^{UK})^\top\mathbf q_{t,i}^C)^\top\mathbf c_s^{KV}
+$$
+</div>
+
+<blockquote>
+<p>$s$  为历史位置</p>
+</blockquote>
+<p>因此，推理过程中不需要显式构造完整的 K、V，就可以完成 Attention 计算</p>
+<p>最终，MLA 在推理时主要缓存：</p>
+<ul>
+<li>KV Latent：$\mathbf{c}_t^{KV}$</li>
+<li>共享的位置 Key：$\mathbf{k}_t^R$</li>
+</ul>
+<h2 id="Sparse-Attention（稀疏注意力）"><a href="#Sparse-Attention（稀疏注意力）" class="headerlink" title="Sparse Attention（稀疏注意力）"></a>Sparse Attention（稀疏注意力）</h2><p>标准 Self-Attention 中，每个 Query 都需要与所有历史 Key 计算相关性，随着上下文长度增加，计算开销呈二次增长</p>
+<p>但在实际场景中，并不是所有历史 Token 都对当前 Token 的信息预测同样重要</p>
+<p>因此，可以通过限制 Attention 的计算范围，只选择部分 Token 参与注意力计算</p>
+<p>对于位置 $t$ 的 Query，定义其选择的历史 Token 集合为：</p>
+<div class="mathjax-display">
+$$
+\mathcal{S}_t\subseteq\{1,2,\ldots,t\}
+$$
+</div>
+当每个 Query 只选择固定数量 $k$ 的 Token 时，Attention 的计算复杂度可以由：
+<div class="mathjax-display">
+$$
+O(L^2d)\rightarrow O(Lkd)
+$$
+</div>
+
+<h3 id="Fixed-Sparse-Pattern"><a href="#Fixed-Sparse-Pattern" class="headerlink" title="Fixed Sparse Pattern"></a>Fixed Sparse Pattern</h3><p>提前规定哪些 Token 之间可以进行信息交互，不需要额外的动态选择模块</p>
+<p><strong>1.Sparse Transformer</strong></p>
+<blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1904.10509">1904.10509] Generating Long Sequences with Sparse Transformers</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 将完整 Attention 矩阵分解为多个具有稀疏连接模式的 Attention 矩阵，通过不同稀疏模式的组合，在减少计算量的同时保留远距离信息交互能力</p>
+<p>主要提出两种稀疏模式：</p>
+<ul>
+<li><strong>Strided Attention：</strong>  结合局部连续连接与固定步长的跨位置连接，使 Token 同时捕获局部信息和远距离信息，适合图像等具有规则空间结构的数据</li>
+<li><strong>Fixed Attention：</strong> 将序列划分为多个 Block，每个 Block 内进行局部 Attention，同时设置固定的汇聚位置，负责跨 Block 的信息传递，更适合文本等缺乏周期结构的数据</li>
+</ul>
+<iframe srcdoc="&lt;!doctype html&gt;
+&lt;html lang&#x3D;&quot;zh-CN&quot;&gt;
+&lt;head&gt;&lt;base href&#x3D;&quot;&#x2F;demos&#x2F;&quot;&gt;
+  &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;
+  &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1&quot;&gt;
+  &lt;title&gt;Strided 与 Fixed Attention&lt;&#x2F;title&gt;
+&lt;style&gt;
+  body { margin: 0; }
+  .sparse-attention-demo {
+    --attention-border: #dbe3ee;
+    box-sizing: border-box;
+    margin: 0;
+    padding: clamp(8px, 2vw, 16px);
+    border: 1px solid var(--attention-border);
+    border-radius: 12px;
+    color: #202a3b;
+    background: #fafbfe;
+    font: 14px&#x2F;1.4 system-ui, sans-serif;
+  }
+  .sparse-attention-demo *, .sparse-attention-demo *::before { box-sizing: border-box; }
+  .sparse-attention-demo .controls, .sparse-attention-demo .stepper { display: flex; align-items: center; gap: 6px; }
+  .sparse-attention-demo .controls { justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; }
+  .sparse-attention-demo .controls label { font-weight: 650; }
+  .sparse-attention-demo output { min-width: 54px; color: #514096; text-align: center; font-variant-numeric: tabular-nums; }
+  .sparse-attention-demo button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #cbd4e2;
+    border-radius: 6px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+    font-size: 17px;
+  }
+  .sparse-attention-demo button:disabled { opacity: .4; cursor: default; }
+  .sparse-attention-demo input[type&#x3D;&quot;range&quot;] { width: 100%; margin: 0; accent-color: #6551b3; cursor: pointer; }
+  .sparse-attention-demo .panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(6px, 2vw, 14px); }
+  .sparse-attention-demo .panel { min-width: 0; padding: clamp(6px, 2vw, 12px); border: 1px solid var(--attention-border); border-radius: 9px; background: #fff; }
+  .sparse-attention-demo .panel-title { margin-bottom: 8px; font-size: clamp(11px, 3.3vw, 14px); font-weight: 700; text-align: center; }
+  .sparse-attention-demo .token-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(3px, 1vw, 6px);
+    width: min(100%, 198px);
+    margin: 0 auto;
+  }
+  .sparse-attention-demo .token, .sparse-attention-demo .swatch { border: 1px solid #dce3ec; background: #eef2f6; }
+  .sparse-attention-demo .token {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1.16;
+    border-radius: 5px;
+    font-size: clamp(11px, 3vw, 14px);
+    font-variant-numeric: tabular-nums;
+  }
+  .sparse-attention-demo .local { background: #b7d4fa; border-color: #8bb7f0; color: #204c89; }
+  .sparse-attention-demo .remote { background: #ffdb91; border-color: #e8b75d; color: #754700; }
+  .sparse-attention-demo .current { background: #cab8fa; border-color: #7555c3; color: #443075; font-weight: 750; }
+  .sparse-attention-demo .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; margin-top: 10px; font-size: 12px; }
+  .sparse-attention-demo .legend span { display: inline-flex; align-items: center; gap: 4px; }
+  .sparse-attention-demo .swatch { width: 12px; height: 12px; border-radius: 3px; }
+&lt;&#x2F;style&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+&lt;section class&#x3D;&quot;sparse-attention-demo&quot; aria-label&#x3D;&quot;Strided Attention 与 Fixed Attention 交互示意&quot;&gt;
+  &lt;div class&#x3D;&quot;controls&quot;&gt;
+    &lt;label for&#x3D;&quot;sparse-attention-query&quot;&gt;Query 位置&lt;&#x2F;label&gt;
+    &lt;div class&#x3D;&quot;stepper&quot;&gt;
+      &lt;button type&#x3D;&quot;button&quot; aria-label&#x3D;&quot;上一个 Query&quot;&gt;−&lt;&#x2F;button&gt;
+      &lt;output for&#x3D;&quot;sparse-attention-query&quot;&gt;Q &#x3D; 14&lt;&#x2F;output&gt;
+      &lt;button type&#x3D;&quot;button&quot; aria-label&#x3D;&quot;下一个 Query&quot;&gt;+&lt;&#x2F;button&gt;
+    &lt;&#x2F;div&gt;
+    &lt;input id&#x3D;&quot;sparse-attention-query&quot; type&#x3D;&quot;range&quot; min&#x3D;&quot;0&quot; max&#x3D;&quot;15&quot; step&#x3D;&quot;1&quot; value&#x3D;&quot;14&quot;&gt;
+  &lt;&#x2F;div&gt;
+  &lt;div class&#x3D;&quot;panels&quot;&gt;
+    &lt;div class&#x3D;&quot;panel&quot; role&#x3D;&quot;group&quot; aria-labelledby&#x3D;&quot;sparse-attention-strided&quot;&gt;
+      &lt;div class&#x3D;&quot;panel-title&quot; id&#x3D;&quot;sparse-attention-strided&quot;&gt;Strided Attention&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;token-grid&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;panel&quot; role&#x3D;&quot;group&quot; aria-labelledby&#x3D;&quot;sparse-attention-fixed&quot;&gt;
+      &lt;div class&#x3D;&quot;panel-title&quot; id&#x3D;&quot;sparse-attention-fixed&quot;&gt;Fixed Attention&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;token-grid&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+  &lt;&#x2F;div&gt;
+  &lt;div class&#x3D;&quot;legend&quot; aria-label&#x3D;&quot;颜色图例&quot;&gt;
+    &lt;span&gt;&lt;i class&#x3D;&quot;swatch current&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;&#x2F;i&gt;当前 Query&lt;&#x2F;span&gt;
+    &lt;span&gt;&lt;i class&#x3D;&quot;swatch local&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;&#x2F;i&gt;局部连接&lt;&#x2F;span&gt;
+    &lt;span&gt;&lt;i class&#x3D;&quot;swatch remote&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;&#x2F;i&gt;跨位置连接&lt;&#x2F;span&gt;
+    &lt;span&gt;&lt;i class&#x3D;&quot;swatch&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;&#x2F;i&gt;未直接关注&lt;&#x2F;span&gt;
+  &lt;&#x2F;div&gt;
+  &lt;noscript&gt;启用 JavaScript 后可查看交互示意。&lt;&#x2F;noscript&gt;
+&lt;&#x2F;section&gt;
+&lt;script&gt;
+function initSparseAttentionDemo(demo) {
+  const size &#x3D; 16;
+  const block &#x3D; 4;
+  const slider &#x3D; demo.querySelector(&#39;input[type&#x3D;&quot;range&quot;]&#39;);
+  const display &#x3D; demo.querySelector(&#39;output&#39;);
+  const [prev, next] &#x3D; demo.querySelectorAll(&#39;button&#39;);
+
+  function makeGrid(grid) {
+    return Array.from({ length: size }, (_, index) &#x3D;&gt; {
+      const token &#x3D; document.createElement(&#39;div&#39;);
+      token.className &#x3D; &#39;token&#39;;
+      token.setAttribute(&#39;role&#39;, &#39;img&#39;);
+      token.textContent &#x3D; index;
+      grid.appendChild(token);
+      return token;
+    });
+  }
+
+  const [stridedCells, fixedCells] &#x3D; Array.from(demo.querySelectorAll(&#39;.token-grid&#39;), makeGrid);
+
+  function paint(cells, query, isLocal, isRemote) {
+    cells.forEach((cell, index) &#x3D;&gt; {
+      const local &#x3D; isLocal(index);
+      const remote &#x3D; isRemote(index);
+      const current &#x3D; index &#x3D;&#x3D;&#x3D; query;
+      cell.classList.toggle(&#39;local&#39;, local);
+      cell.classList.toggle(&#39;remote&#39;, remote);
+      cell.classList.toggle(&#39;current&#39;, current);
+
+      const connection &#x3D; current ? &#39;当前 Query&#39; : remote ? &#39;跨位置连接&#39; : local ? &#39;局部连接&#39; : &#39;未直接关注&#39;;
+      const label &#x3D; &#96;Token ${index}，${connection}&#96;;
+      cell.setAttribute(&#39;aria-label&#39;, label);
+      cell.title &#x3D; label;
+    });
+  }
+
+  function render() {
+    const query &#x3D; Number(slider.value);
+    const blockStart &#x3D; query - query % block;
+    paint(stridedCells, query,
+      (index) &#x3D;&gt; index &lt;&#x3D; query &amp;&amp; query - index &lt;&#x3D; block,
+      (index) &#x3D;&gt; index &lt;&#x3D; query &amp;&amp; (query - index) % block &#x3D;&#x3D;&#x3D; 0);
+    paint(fixedCells, query,
+      (index) &#x3D;&gt; index &lt;&#x3D; query &amp;&amp; index &gt;&#x3D; blockStart,
+      (index) &#x3D;&gt; index &lt;&#x3D; query &amp;&amp; index % block &#x3D;&#x3D;&#x3D; block - 1);
+
+    display.value &#x3D; &#96;Q &#x3D; ${query}&#96;;
+    prev.disabled &#x3D; query &#x3D;&#x3D;&#x3D; 0;
+    next.disabled &#x3D; query &#x3D;&#x3D;&#x3D; size - 1;
+  }
+
+  slider.addEventListener(&#39;input&#39;, render);
+  prev.addEventListener(&#39;click&#39;, () &#x3D;&gt; { slider.stepDown(); render(); });
+  next.addEventListener(&#39;click&#39;, () &#x3D;&gt; { slider.stepUp(); render(); });
+  render();
+}
+initSparseAttentionDemo(document.querySelector(&quot;.sparse-attention-demo&quot;));
+&lt;&#x2F;script&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+" title="Strided Attention 与 Fixed Attention 交互示意" class="html-demo" loading="lazy" height="360" style="display:block;width:100%;border:0"></iframe><script>(function autoSizeDemo(frame) {
+  let observer;
+
+  function observeDocument() {
+    observer?.disconnect();
+    const doc = frame.contentDocument;
+    if (doc?.URL !== 'about:srcdoc' || !doc.body) return;
+
+    const { body, documentElement } = doc;
+    function resize() {
+      const bounds = body.getBoundingClientRect();
+      const top = bounds.top - documentElement.getBoundingClientRect().top;
+      const bottomMargin = parseFloat(doc.defaultView.getComputedStyle(body).marginBottom) || 0;
+      const height = Math.ceil(top + Math.max(bounds.height, body.scrollHeight) + bottomMargin);
+      if (height > 0 && height !== Number(frame.height)) frame.height = height;
+    }
+
+    resize();
+    if (typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(resize);
+      observer.observe(body, { box: 'border-box' });
+    }
+  }
+
+  frame.addEventListener('load', observeDocument);
+  if (frame.contentDocument?.readyState === 'complete') observeDocument();
+})(document.currentScript.previousElementSibling);</script>
+
+<p>其计算复杂度可以降低至 $O(L\sqrt{L})$</p>
+<p><strong>2. Sliding Window Attention</strong></p>
+<blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.05150">2004.05150] Longformer: The Long-Document Transformer</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 将每个 Token 的注意力范围限制在固定窗口内，减少计算量，并通过稀疏的远距离连接弥补局部注意力的不足</p>
+<p>主要包含三种机制：</p>
+<ul>
+<li><strong>Local Window Attention：</strong> 关注固定窗口内的局部 Token</li>
+<li><strong>Dilated Attention：</strong> 在窗口中引入间隔采样，扩大信息交互范围</li>
+<li><strong>Global Attention：</strong> 指定少量全局 Token，使其能够与整个序列交互</li>
+</ul>
+<p>当窗口大小和全局 Token 数量固定时，计算复杂度可以随序列长度近似线性增长</p>
+<p><strong>代表模型：</strong> Mistral 7B 将 Sliding Window Attention 与 GQA 结合，每个 Token 只关注前面固定窗口内的历史信息</p>
+<blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.06825">2310.06825] Mistral 7B</a></p>
+</blockquote>
+<iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang&#x3D;&quot;zh-CN&quot;&gt;
+&lt;head&gt;&lt;base href&#x3D;&quot;&#x2F;demos&#x2F;&quot;&gt;
+  &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
+  &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;
+  &lt;meta name&#x3D;&quot;color-scheme&quot; content&#x3D;&quot;light&quot;&gt;
+  &lt;title&gt;Sliding Window Attention · 交互式示意图&lt;&#x2F;title&gt;
+  &lt;style&gt;
+    :root {
+      --ink:#1d2940; --sub:#56647a; --muted:#8290a4; --line:#e2e8f0;
+      --blue:#4b70d5; --orange:#e68c4d; --violet:#9671ce;
+      --empty:#edf1f6; --panel:#fff; --surface:#f7f9fc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--surface); color:var(--ink); font-family:Inter,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,&quot;Microsoft YaHei&quot;,sans-serif; }
+    .wrap { max-width:920px; margin:0 auto; }
+    .controls { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; background:#fff; border:1px solid var(--line); padding:10px 14px; border-radius:12px; margin-bottom:12px; }
+    .control-label { display:block; font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.35px; margin-bottom:8px; }
+    .q-buttons { display:flex; gap:8px; align-items:center; }
+    .step { width:34px; height:34px; border:1px solid #dbe3ef; border-radius:8px; background:#f8fafc; font-size:20px; color:var(--ink); cursor:pointer; }
+    .step:hover { background:#eaf0fb; }
+    .q-value { min-width:76px; text-align:center; font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; }
+    input[type&#x3D;range] { width:175px; max-width:42vw; accent-color:var(--blue); cursor:pointer; }
+    .radius-val { font-size:13px; font-weight:700; color:var(--blue); margin-left:8px; }
+    .legend { display:flex; align-items:center; flex-wrap:wrap; gap:6px 14px; padding:0 3px 12px; color:var(--sub); font-size:12px; }
+    .key { display:inline-flex; align-items:center; gap:7px; }
+    .square { display:inline-block; width:12px; height:12px; border-radius:3px; }
+    .square.blue { background:var(--blue); }.square.orange { border:1px solid var(--orange); }.square.violet { background:var(--violet); }.square.empty { background:var(--empty); border:1px solid #dce3ec; }
+    .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .card { min-width:0; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:12px clamp(8px,2vw,16px); }
+    h2 { font-size:17px; font-weight:760; margin:0; }
+    .caption { color:var(--sub); font-size:12px; line-height:1.5; margin:4px 0 10px; }
+    .matrix { display:grid; grid-template-columns:16px repeat(12,minmax(0,1fr)); grid-template-rows:22px; gap:3px; width:min(100%, 304px); margin:0 auto; }
+    .matrix-rows { display:contents; }
+    .axis-label { display:grid; place-items:center; font:10px&#x2F;1 ui-monospace,Consolas,monospace; color:#7e8ba0; }
+    .axis-label.current { color:#c26427; font-weight:900; }
+    .global-toggle { min-width:0; padding:0; border:1px solid #dbe3ef; border-radius:3px; background:#f8fafc; color:var(--sub); cursor:pointer; }
+    .global-toggle[aria-pressed&#x3D;&quot;true&quot;] { background:#eee6fa; border-color:var(--violet); color:#69429d; font-weight:800; }
+    .cell { min-width:0; aspect-ratio:1; border:0; padding:0; border-radius:3px; background:var(--empty); cursor:pointer; position:relative; transition:background .12s ease,transform .12s ease; }
+    .cell.filled { background:var(--blue); }
+    .cell.global.filled { background:var(--violet); }
+    .cell.row { outline:1px solid var(--orange); z-index:1; }
+    .cell:hover { transform:scale(1.13); z-index:2; box-shadow:0 2px 7px #26395625; }
+    .tokens { width:100%; margin-top:10px; border-top:1px dashed #e6ebf2; padding-top:8px; }
+    .token-title { color:var(--muted); font-size:10px; margin:0 0 7px; font-weight:700; }
+    .token-strip { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:4px; }
+    .token { min-width:0; aspect-ratio:1; display:grid; place-items:center; font:11px&#x2F;1 ui-monospace,Consolas,monospace; border-radius:5px; border:1px solid #dfe6ef; color:#94a0b1; background:#f6f8fb; position:relative; }
+    .token.on { background:#e5ecff; border-color:#bdcdf4; color:#3b5ead; font-weight:750; }
+    .token.on.special { background:#eee6fa; border-color:#ceb9ee; color:#7e58b6; }
+    .token.query { outline:2px solid var(--orange); outline-offset:1px; z-index:1; }
+    @media (max-width:540px) { .cards { grid-template-columns:1fr; } .matrix { gap:2px; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } }
+  &lt;&#x2F;style&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+  &lt;main class&#x3D;&quot;wrap&quot; aria-label&#x3D;&quot;Sliding Window Attention 交互示意&quot;&gt;
+    &lt;div class&#x3D;&quot;controls&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;控制示意图&quot;&gt;
+      &lt;div&gt;
+        &lt;span class&#x3D;&quot;control-label&quot;&gt;Query 位置&lt;&#x2F;span&gt;
+        &lt;div class&#x3D;&quot;q-buttons&quot;&gt;
+          &lt;button class&#x3D;&quot;step&quot; id&#x3D;&quot;prev&quot; type&#x3D;&quot;button&quot; aria-label&#x3D;&quot;上一个位置&quot;&gt;−&lt;&#x2F;button&gt;
+          &lt;output class&#x3D;&quot;q-value&quot; id&#x3D;&quot;query-value&quot;&gt;Q &#x3D; T7&lt;&#x2F;output&gt;
+          &lt;button class&#x3D;&quot;step&quot; id&#x3D;&quot;next&quot; type&#x3D;&quot;button&quot; aria-label&#x3D;&quot;下一个位置&quot;&gt;+&lt;&#x2F;button&gt;
+        &lt;&#x2F;div&gt;
+      &lt;&#x2F;div&gt;
+      &lt;div&gt;
+        &lt;label class&#x3D;&quot;control-label&quot; for&#x3D;&quot;radius&quot;&gt;窗口参数&lt;&#x2F;label&gt;
+        &lt;input id&#x3D;&quot;radius&quot; type&#x3D;&quot;range&quot; min&#x3D;&quot;1&quot; max&#x3D;&quot;4&quot; step&#x3D;&quot;1&quot; value&#x3D;&quot;2&quot;&gt;
+        &lt;output class&#x3D;&quot;radius-val&quot; id&#x3D;&quot;radius-value&quot; for&#x3D;&quot;radius&quot;&gt;r &#x3D; 2&lt;&#x2F;output&gt;
+      &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+
+    &lt;div class&#x3D;&quot;legend&quot; aria-label&#x3D;&quot;图例&quot;&gt;
+      &lt;span class&#x3D;&quot;key&quot;&gt;&lt;i class&#x3D;&quot;square blue&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;&#x2F;i&gt;窗口连接&lt;&#x2F;span&gt;
+      &lt;span class&#x3D;&quot;key&quot;&gt;&lt;i class&#x3D;&quot;square violet&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;&#x2F;i&gt;全局连接&lt;&#x2F;span&gt;
+      &lt;span class&#x3D;&quot;key&quot;&gt;&lt;i class&#x3D;&quot;square empty&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;&#x2F;i&gt;不可见&lt;&#x2F;span&gt;
+      &lt;span class&#x3D;&quot;key&quot;&gt;&lt;i class&#x3D;&quot;square orange&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;&#x2F;i&gt;当前 Query 行&lt;&#x2F;span&gt;
+      &lt;span class&#x3D;&quot;key&quot;&gt;行是 Query，列是 Key。点击矩阵切换 Query。&lt;&#x2F;span&gt;
+    &lt;&#x2F;div&gt;
+
+    &lt;section class&#x3D;&quot;cards&quot; id&#x3D;&quot;cards&quot;&gt;
+      &lt;article class&#x3D;&quot;card&quot; data-mode&#x3D;&quot;local&quot;&gt;
+        &lt;h2&gt;Local Window&lt;&#x2F;h2&gt;
+        &lt;p class&#x3D;&quot;caption&quot;&gt;自身与左右各 r 个 Token&lt;&#x2F;p&gt;
+        &lt;div class&#x3D;&quot;matrix&quot; aria-label&#x3D;&quot;Local Window 注意力矩阵&quot;&gt;&lt;&#x2F;div&gt;
+        &lt;div class&#x3D;&quot;tokens&quot;&gt;&lt;div class&#x3D;&quot;token-title&quot;&gt;&lt;&#x2F;div&gt;&lt;div class&#x3D;&quot;token-strip&quot;&gt;&lt;&#x2F;div&gt;&lt;&#x2F;div&gt;
+      &lt;&#x2F;article&gt;
+      &lt;article class&#x3D;&quot;card&quot; data-mode&#x3D;&quot;dilated&quot;&gt;
+        &lt;h2&gt;Dilated Window&lt;&#x2F;h2&gt;
+        &lt;p class&#x3D;&quot;caption&quot;&gt;含自身，左右各取 r 个，步长 2&lt;&#x2F;p&gt;
+        &lt;div class&#x3D;&quot;matrix&quot; aria-label&#x3D;&quot;Dilated Attention 注意力矩阵&quot;&gt;&lt;&#x2F;div&gt;
+        &lt;div class&#x3D;&quot;tokens&quot;&gt;&lt;div class&#x3D;&quot;token-title&quot;&gt;&lt;&#x2F;div&gt;&lt;div class&#x3D;&quot;token-strip&quot;&gt;&lt;&#x2F;div&gt;&lt;&#x2F;div&gt;
+      &lt;&#x2F;article&gt;
+      &lt;article class&#x3D;&quot;card&quot; data-mode&#x3D;&quot;global&quot;&gt;
+        &lt;h2&gt;Local + Global&lt;&#x2F;h2&gt;
+        &lt;p class&#x3D;&quot;caption&quot;&gt;点列号切换全局 Token，可多选&lt;&#x2F;p&gt;
+        &lt;div class&#x3D;&quot;matrix&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;局部加全局注意力矩阵&quot;&gt;&lt;&#x2F;div&gt;
+        &lt;div class&#x3D;&quot;tokens&quot;&gt;&lt;div class&#x3D;&quot;token-title&quot;&gt;&lt;&#x2F;div&gt;&lt;div class&#x3D;&quot;token-strip&quot;&gt;&lt;&#x2F;div&gt;&lt;&#x2F;div&gt;
+      &lt;&#x2F;article&gt;
+      &lt;article class&#x3D;&quot;card&quot; data-mode&#x3D;&quot;causal&quot;&gt;
+        &lt;h2&gt;Causal Sliding Window&lt;&#x2F;h2&gt;
+        &lt;p class&#x3D;&quot;caption&quot;&gt;自身与前 r 个 Token&lt;&#x2F;p&gt;
+        &lt;div class&#x3D;&quot;matrix&quot; aria-label&#x3D;&quot;Causal Sliding Window 注意力矩阵&quot;&gt;&lt;&#x2F;div&gt;
+        &lt;div class&#x3D;&quot;tokens&quot;&gt;&lt;div class&#x3D;&quot;token-title&quot;&gt;&lt;&#x2F;div&gt;&lt;div class&#x3D;&quot;token-strip&quot;&gt;&lt;&#x2F;div&gt;&lt;&#x2F;div&gt;
+      &lt;&#x2F;article&gt;
+    &lt;&#x2F;section&gt;
+  &lt;&#x2F;main&gt;
+
+  &lt;script&gt;
+    (() &#x3D;&gt; {
+      &#39;use strict&#39;;
+      const N &#x3D; 12;
+      const globalTokens &#x3D; new Set([5]);
+      let current &#x3D; 7;
+      let radius &#x3D; 2;
+
+      function isGlobalConnection(query, key) {
+        return globalTokens.has(query) || globalTokens.has(key);
+      }
+
+      const modes &#x3D; {
+        local(i,j) { return Math.abs(i-j) &lt;&#x3D; radius; },
+        dilated(i,j) { return Math.abs(i-j) &lt;&#x3D; radius*2 &amp;&amp; Math.abs(i-j)%2 &#x3D;&#x3D;&#x3D; 0; },
+        global(i,j) { return Math.abs(i-j) &lt;&#x3D; radius || isGlobalConnection(i,j); },
+        causal(i,j) { return j &lt;&#x3D; i &amp;&amp; i-j &lt;&#x3D; radius; }
+      };
+      const queryValue &#x3D; document.getElementById(&#39;query-value&#39;);
+      const radiusValue &#x3D; document.getElementById(&#39;radius-value&#39;);
+      const range &#x3D; document.getElementById(&#39;radius&#39;);
+
+      const cards &#x3D; Array.from(document.querySelectorAll(&#39;.card&#39;), card &#x3D;&gt; {
+        const mode &#x3D; card.dataset.mode;
+        const matrix &#x3D; card.querySelector(&#39;.matrix&#39;);
+        const rows &#x3D; document.createElement(&#39;div&#39;);
+        rows.className &#x3D; &#39;matrix-rows&#39;;
+
+        const corner &#x3D; document.createElement(&#39;span&#39;);
+        corner.className &#x3D; &#39;axis-label&#39;;
+        corner.textContent &#x3D; &#39;Q↓&#39;;
+        matrix.appendChild(corner);
+        for (let key &#x3D; 0; key &lt; N; key++) {
+          const label &#x3D; document.createElement(mode &#x3D;&#x3D;&#x3D; &#39;global&#39; ? &#39;button&#39; : &#39;span&#39;);
+          label.className &#x3D; &#39;axis-label&#39;;
+          label.textContent &#x3D; key;
+          if (mode &#x3D;&#x3D;&#x3D; &#39;global&#39;) {
+            label.type &#x3D; &#39;button&#39;;
+            label.classList.add(&#39;global-toggle&#39;);
+            label.setAttribute(&#39;aria-label&#39;, &#96;全局 Token T${key}&#96;);
+            label.setAttribute(&#39;aria-pressed&#39;, String(globalTokens.has(key)));
+            label.addEventListener(&#39;click&#39;, () &#x3D;&gt; {
+              if (!globalTokens.delete(key)) globalTokens.add(key);
+              label.setAttribute(&#39;aria-pressed&#39;, String(globalTokens.has(key)));
+              render();
+            });
+          }
+          matrix.appendChild(label);
+        }
+        matrix.appendChild(rows);
+        return { mode, rows, strip: card.querySelector(&#39;.token-strip&#39;), tokenTitle: card.querySelector(&#39;.token-title&#39;) };
+      });
+
+      function render() {
+        queryValue.textContent &#x3D; &#96;Q &#x3D; T${current}&#96;;
+        radiusValue.textContent &#x3D; &#96;r &#x3D; ${radius}&#96;;
+        for (const { mode, rows, strip, tokenTitle } of cards) {
+          const match &#x3D; modes[mode];
+          rows.replaceChildren();
+          strip.replaceChildren();
+
+          for (let i&#x3D;0;i&lt;N;i++) {
+            const label &#x3D; document.createElement(&#39;span&#39;);
+            label.className &#x3D; &#39;axis-label&#39; + (i&#x3D;&#x3D;&#x3D;current?&#39; current&#39;:&#39;&#39;);
+            label.textContent &#x3D; i;
+            rows.appendChild(label);
+            for (let j&#x3D;0;j&lt;N;j++) {
+              const on &#x3D; match(i,j);
+              const special &#x3D; mode&#x3D;&#x3D;&#x3D;&#39;global&#39; &amp;&amp; isGlobalConnection(i,j);
+              const cell &#x3D; document.createElement(&#39;button&#39;);
+              cell.type &#x3D; &#39;button&#39;;
+              cell.className &#x3D; &#39;cell&#39; + (on?&#39; filled&#39;:&#39;&#39;) + (special?&#39; global&#39;:&#39;&#39;) + (i&#x3D;&#x3D;&#x3D;current?&#39; row&#39;:&#39;&#39;);
+              cell.setAttribute(&#39;aria-label&#39;, &#96;Query T${i} 对 Key T${j}：${on?&#39;可访问&#39;:&#39;不可访问&#39;}；点击选择 Query T${i}&#96;);
+              cell.setAttribute(&#39;aria-pressed&#39;, i&#x3D;&#x3D;&#x3D;current?&#39;true&#39;:&#39;false&#39;);
+              cell.title &#x3D; &#96;Q&#x3D;T${i}, K&#x3D;T${j} · ${on?&#39;可关注&#39;:&#39;不可关注&#39;}&#96;;
+              cell.addEventListener(&#39;click&#39;, () &#x3D;&gt; { current&#x3D;i; render(); });
+              rows.appendChild(cell);
+            }
+          }
+          let count&#x3D;0;
+          for (let j&#x3D;0;j&lt;N;j++) {
+            const on&#x3D;match(current,j);
+            if (on) count++;
+            const token&#x3D;document.createElement(&#39;span&#39;);
+            const special &#x3D; mode&#x3D;&#x3D;&#x3D;&#39;global&#39; &amp;&amp; isGlobalConnection(current,j);
+            token.className&#x3D;&#39;token&#39; + (on?&#39; on&#39;:&#39;&#39;) + (special?&#39; special&#39;:&#39;&#39;) + (j&#x3D;&#x3D;&#x3D;current?&#39; query&#39;:&#39;&#39;);
+            token.textContent&#x3D;j;
+            token.title&#x3D;&#96;T${j}${j&#x3D;&#x3D;&#x3D;current?&#39;（当前 Query）&#39;:&#39;&#39;}${special?&#39;（全局连接）&#39;:&#39;&#39;}&#96;;
+            strip.appendChild(token);
+          }
+          tokenTitle.textContent &#x3D; &#96;可见 Key · ${count}&#96;;
+        }
+      }
+      document.getElementById(&#39;prev&#39;).addEventListener(&#39;click&#39;,()&#x3D;&gt;{current&#x3D;(current-1+N)%N;render();});
+      document.getElementById(&#39;next&#39;).addEventListener(&#39;click&#39;,()&#x3D;&gt;{current&#x3D;(current+1)%N;render();});
+      range.addEventListener(&#39;input&#39;,e&#x3D;&gt;{radius&#x3D;Number(e.target.value);render();});
+      render();
+    })();
+  &lt;&#x2F;script&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+" title="Sliding Window Attention 交互示意" class="html-demo" loading="lazy" height="360" style="display:block;width:100%;border:0"></iframe><script>(function autoSizeDemo(frame) {
+  let observer;
+
+  function observeDocument() {
+    observer?.disconnect();
+    const doc = frame.contentDocument;
+    if (doc?.URL !== 'about:srcdoc' || !doc.body) return;
+
+    const { body, documentElement } = doc;
+    function resize() {
+      const bounds = body.getBoundingClientRect();
+      const top = bounds.top - documentElement.getBoundingClientRect().top;
+      const bottomMargin = parseFloat(doc.defaultView.getComputedStyle(body).marginBottom) || 0;
+      const height = Math.ceil(top + Math.max(bounds.height, body.scrollHeight) + bottomMargin);
+      if (height > 0 && height !== Number(frame.height)) frame.height = height;
+    }
+
+    resize();
+    if (typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(resize);
+      observer.observe(body, { box: 'border-box' });
+    }
+  }
+
+  frame.addEventListener('load', observeDocument);
+  if (frame.contentDocument?.readyState === 'complete') observeDocument();
+})(document.currentScript.previousElementSibling);</script>
+
+<p><strong>3. Block Sparse Attention（块稀疏注意力）</strong></p>
+<blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2007.14062">2007.14062] Big Bird: Transformers for Longer Sequences</a></p>
+</blockquote>
 <h1 id="现代大模型核心组件"><a href="#现代大模型核心组件" class="headerlink" title="现代大模型核心组件"></a>现代大模型核心组件</h1><p>现代大模型通常会在原始 Transformer 上采用一组工程化改进</p>
 <table>
 <thead>
@@ -394,476 +1182,6 @@ $$
 DeepSeekMoE 将这种设计称为 Shared Expert Isolation，共享专家隔离
 
 <p>MoE 的主要训练问题是：路由不均衡，热门专家可能过载，而冷门专家得不到充分训练</p>
-<h2 id="旋转位置编码-RoPE"><a href="#旋转位置编码-RoPE" class="headerlink" title="旋转位置编码 RoPE"></a>旋转位置编码 RoPE</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.09864">2104.09864] RoFormer: Enhanced Transformer with Rotary Position Embedding</a></p>
-</blockquote>
-<p>位置编码的目标是让 Attention 感知 Token 顺序和位置关系</p>
-<p>RoPE 不把位置向量直接加到 Token 表示上，而是根据 Token 的位置，对 Query 和 Key 的二维子空间进行旋转</p>
-<p>假设 Query 中有两个维度，RoPE 根据位置 $m$，将它旋转 $m\theta$</p>
-<div class="mathjax-display">
-$$
-R_{m,\theta}=\begin{bmatrix}\cos(m\theta)&amp;-\sin(m\theta)\\\sin(m\theta)&amp;\cos(m\theta)\end{bmatrix}
-$$
-</div>
-旋转后的 Query：
-<div class="mathjax-display">
-$$
-\widetilde q_m
-=
-R_{m,\theta}q_m
-$$
-</div>
-位置 $n$ 的 Key：
-<div class="mathjax-display">
-$$
-\widetilde k_n
-=
-R_{n,\theta}k_n
-$$
-</div>
-二维旋转矩阵是正交矩阵，因此 RoPE 改变向量方向和相位，但不改变其欧氏范数
-
-<p>利用：</p>
-<div class="mathjax-display">
-$$
-R_m^\top R_n
-=
-R_{n-m}
-$$
-</div>
-得到：
-<div class="mathjax-display">
-$$
-\boxed{\widetilde q_m^\top
-\widetilde k_n
-=
-q_m^\top
-R_{n-m}
-k_n}
-$$
-</div>
-这意味着 RoPE  之后的 Attention 内积自然包含相对位置  $n-m$
-
-<p>实际 Query &#x2F; Key 是 $d_h$ 维，RoPE 会把相邻维度两两分组</p>
-<div class="mathjax-display">
-$$
-(q_0,q_1),
-\quad
-(q_2,q_3),
-\quad
-\dots,
-\quad
-(q_{d_h-2},q_{d_h-1})
-$$
-</div>
-
-<blockquote>
-<p>省略了位置下标，其实应该是 $(q_{m,2i},q_{m,2i+1})$</p>
-</blockquote>
-<p>第 $i$ 个二维分组的常见频率：</p>
-<div class="mathjax-display">
-$$
-\theta_i
-=
-10000^{-\frac{2i}{d_h}},
-\qquad
-i=0,1,\dots,\frac{d_h}{2}-1
-$$
-</div>
-不同频率承担不同尺度的位置表示：
-
-<ul>
-<li>高频维度：相邻位置相位变化明显，提供较细的位置分辨率；</li>
-<li>低频维度：相位变化较慢，更适合表达较长距离关系。</li>
-</ul>
-<p>可以类比：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">高频 → 秒针</span><br><span class="line">中频 → 分针</span><br><span class="line">低频 → 时针</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>优点</th>
-<th>局限</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Attention 分数自然包含相对位置关系</td>
-<td><span style = "color:#A678D1">超出训练长度时外推性能下降</span></td>
-</tr>
-<tr>
-<td>不引入额外可学习位置参数</td>
-<td>不同位置可能产生相似的组合相位</td>
-</tr>
-<tr>
-<td>只需旋转 Q、K，计算简单</td>
-<td>长序列下可能出现相位混叠</td>
-</tr>
-<tr>
-<td>保持旋转部分的欧氏范数</td>
-<td>更偏向相对位置表示</td>
-</tr>
-<tr>
-<td>兼容 MHA、MQA、GQA 等标准点积注意力</td>
-<td>与 MLA 的低秩矩阵吸收存在结构冲突</td>
-</tr>
-</tbody></table>
-<h1 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h1><p>不同注意力结构的核心区别之一，是如何保存和访问历史信息</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>历史信息组织方式</th>
-<th>缓存特点</th>
-<th>核心目标</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>MHA</td>
-<td>每个 Query 头独立使用 K&#x2F;V</td>
-<td>最大</td>
-<td>保留完整多头表达能力</td>
-</tr>
-<tr>
-<td>MQA</td>
-<td>所有 Query 头共享一组 K&#x2F;V</td>
-<td>最小</td>
-<td>最大程度降低 KV Cache</td>
-</tr>
-<tr>
-<td>GQA</td>
-<td>每组 Query 头共享一组 K&#x2F;V</td>
-<td>中等</td>
-<td>折中表达能力与缓存</td>
-</tr>
-<tr>
-<td>MLA</td>
-<td>每个 token 保存压缩 KV 潜变量</td>
-<td>显著小于 MHA</td>
-<td>低秩压缩并保留多头表达</td>
-</tr>
-<tr>
-<td>线性注意力</td>
-<td>全部历史压缩为固定状态</td>
-<td>不随序列长度增长</td>
-<td>同时降低计算量和缓存量</td>
-</tr>
-</tbody></table>
-<p>可以把结构优化大致分成两条路线：</p>
-<table>
-<thead>
-<tr>
-<th align="left">模型结构路线</th>
-<th align="left">代表方法</th>
-<th align="left">主要目标</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Token KV 压缩</td>
-<td align="left">MQA、GQA、MLA</td>
-<td align="left">保留 Softmax 检索并减少 KV Cache</td>
-</tr>
-<tr>
-<td align="left">固定状态压缩</td>
-<td align="left">线性注意力、GLA</td>
-<td align="left">同时降低序列计算量和缓存量</td>
-</tr>
-</tbody></table>
-<p>FlashAttention 属于计算实现优化，主要减少中间张量存储和 HBM IO</p>
-<h2 id="标准多头注意力-MHA"><a href="#标准多头注意力-MHA" class="headerlink" title="标准多头注意力 MHA"></a>标准多头注意力 MHA</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">1706.03762] Attention Is All You Need</a></p>
-</blockquote>
-<p>标准 MHA 对第 $t$ 个 Token 的 Query、Key、Value 拆分为多个 Head：</p>
-<div class="mathjax-display">
-$$
-q_t=[q_{t,1};\ldots;q_{t,n_h}],\qquad k_t=[k_{t,1};\ldots;k_{t,n_h}],\qquad v_t=[v_{t,1};\ldots;v_{t,n_h}]
-$$
-</div>
-每个 Head 独立执行：
-<div class="mathjax-display">
-$$
-o_{t,i}=\sum_{j=1}^{t}\operatorname{softmax}_j\left(\frac{q_{t,i}^{\top}k_{j,i}}{\sqrt{d_h}}\right)v_{j,i}
-$$
-</div>
-自回归生成时，每生成一个新 Token，都需要让当前 Query 与全部历史 Key 计算相似度，并读取相应的 Value
-
-<p>因此所有历史 Token 的 $(K,V)$ 都必须保存在 KV Cache 中</p>
-<p>如果：</p>
-<ul>
-<li>Transformer 层数为 $L$</li>
-<li>Context Length 为 $T$</li>
-<li>KV Head 数为 $H_{KV}$</li>
-<li>Head Dimension 为 $d_h$</li>
-<li>每个元素占 $b$ Bytes</li>
-</ul>
-<p>单条 Sequence 的 KV Cache 约为：</p>
-<div class="mathjax-display">
-$$
-M_{\mathrm{KV}}=2LTH_{KV}d_hb
-$$
-</div>
-前面的 $2$ 表示 Key 和 Value
-
-<p>因此长上下文、大 Batch 推理时，KV Cache 会占用大量显存和显存带宽</p>
-<h2 id="MQA"><a href="#MQA" class="headerlink" title="MQA"></a>MQA</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.02150">1911.02150] Fast Transformer Decoding: One Write-Head is All You Need</a></p>
-</blockquote>
-<p>保留多个 Query Head，但所有 Query Head 共享同一组 Key 和 Value</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Q1 ─┐</span><br><span class="line">Q2 ─┤</span><br><span class="line">Q3 ─┤</span><br><span class="line">Q4 ─┤</span><br><span class="line">Q5 ─┤──&gt; K1, V1</span><br><span class="line">Q6 ─┤</span><br><span class="line">Q7 ─┤</span><br><span class="line">Q8 ─┘</span><br></pre></td></tr></table></figure>
-
-<p>显著减少自回归推理时 KV Cache 的大小和 HBM 访存，从而提高 Decode 吞吐</p>
-<p>假设：</p>
-<ul>
-<li>Batch Size：$B$</li>
-<li>Sequence Length：$L$</li>
-<li>Attention Heads：$H$</li>
-<li>Head Dimension：$d_h$</li>
-</ul>
-<p>MHA 中  KV Cache大小为</p>
-<div class="mathjax-display">
-$$
-2BLHd_h
-$$
-</div>
-MQA 只有 1 个 KV Head
-<div class="mathjax-display">
-$$
-2BLd_h
-$$
-</div>
-但共享程度较高，也可能限制不同注意力头表达不同类型的信息
-
-<h2 id="GQA"><a href="#GQA" class="headerlink" title="GQA"></a>GQA</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.13245">2305.13245] GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints</a></p>
-</blockquote>
-<p>GQA不改变注意力本身公式，但 Query Head 数量和 Key &#x2F; Value Head 数量不再要求相同</p>
-<p>多个 Query Head 被划分成若干组，每组共享一个 Key Head 和一个 Value Head。</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">MHA</span><br><span class="line">Q1 → K1,V1</span><br><span class="line">Q2 → K2,V2</span><br><span class="line">Q3 → K3,V3</span><br><span class="line">Q4 → K4,V4</span><br><span class="line"></span><br><span class="line">MQA</span><br><span class="line">Q1 ─┐</span><br><span class="line">Q2 ─┤</span><br><span class="line">Q3 ─┤→ K1,V1</span><br><span class="line">Q4 ─┘</span><br><span class="line"></span><br><span class="line">GQA</span><br><span class="line">Q1 ─┐</span><br><span class="line">Q2 ─┤→ K1,V1</span><br><span class="line">Q3 ─┐</span><br><span class="line">Q4 ─┤→ K2,V2</span><br></pre></td></tr></table></figure>
-
-<p>每个 KV Head 对应的 Query Head 数量：</p>
-<div class="mathjax-display">
-$$
-G=\frac{H_Q}{H_{KV}}
-$$
-</div>
-GQA 可以理解成 MHA 与 MQA 的折中：
-
-<ul>
-<li>MHA：KV Head 最多，表达能力完整，但 KV Cache 最大；</li>
-<li>MQA：只保留一组 KV，缓存最小，但共享程度最高；</li>
-<li>GQA：多个 Query Head 分组共享 KV，在表达能力与缓存开销之间折中。</li>
-</ul>
-<h2 id="多头潜在注意力-MLA"><a href="#多头潜在注意力-MLA" class="headerlink" title="多头潜在注意力 MLA"></a>多头潜在注意力 MLA</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.04434">2405.04434] DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model</a></p>
-</blockquote>
-<p>核心思路：不直接缓存完整的 Multi-Head Key &#x2F; Value，先把隐藏状态压缩到一个低维的共享 KV Latent，再在计算 Attention 时恢复需要的 Key 和 Value</p>
-<blockquote>
-<p>类似 LDM 的思路，将高维表示压缩到低维潜在空间，在保留任务所需信息的前提下降低计算或存储成本</p>
-</blockquote>
-<h3 id="KV-低秩压缩"><a href="#KV-低秩压缩" class="headerlink" title="KV 低秩压缩"></a>KV 低秩压缩</h3><p> 对于第 $t$ 个 Token 的隐藏状态</p>
-<div class="mathjax-display">
-$$
-h_t\in\mathbb R^d
-$$
-</div>
-会直接通过两个大的线性投影得到 Key 和 Value
-<div class="mathjax-display">
-$$
-k_t=W_Kh_t,\qquad v_t=W_Vh_t
-$$
-</div>
-其中
-<div class="mathjax-display">
-$$
-W_K,W_V\in\mathbb R^{n_hd_h\times d}
-$$
-</div>
-MLA 先通过一个 Down Projection
-<div class="mathjax-display">
-$$
-c_t^{KV}
-=
-W^{DKV}h_t \in\mathbb R^{d_c}\qquad 
-W^{DKV}\in\mathbb R^{d_c\times d}
-$$
-</div>
-得到的 $c_t^{KV}$ 称为 KV Latent
-
-<p>然后分别通过两个 Up Projection 恢复 Content Key 和 Content Value</p>
-<div class="mathjax-display">
-$$
-k_t^C=W^{UK}c_t^{KV},
-\qquad
-v_t^C=W^{UV}c_t^{KV}
-\qquad W^{UK},W^{UV}
-\in
-\mathbb R^{n_hd_h\times d_c}
-$$
-</div>
-整体过程
-
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">          h_t</span><br><span class="line">           │</span><br><span class="line">         W_DKV</span><br><span class="line">           │</span><br><span class="line">           ▼</span><br><span class="line">        c_t^KV</span><br><span class="line">       KV Latent</span><br><span class="line">       /       \</span><br><span class="line">    W_UK       W_UV</span><br><span class="line">      ↓           ↓</span><br><span class="line">Content Key   Content Value</span><br></pre></td></tr></table></figure>
-
-<p>可以将它理解为对原来的 $K&#x2F;V$ 投影进行低秩分解：</p>
-<div class="mathjax-display">
-$$
-W_K=W^{UK}W^{DKV},
-\qquad
-W_V=W^{UV}W^{DKV}
-$$
-</div>
-
-<div class="mathjax-display">
-$$
-\operatorname{rank}
-\left(
-W^{UK}W^{DKV}
-\right)
-\le d_c
-$$
-</div>
-
-<p>利用一个低维 Bottleneck代替原来的直接高维映射</p>
-<blockquote>
-<p>这与 LoRA 在数学思路上非常类似，都利用低维 Bottleneck，将一个大的矩阵映射表示成两个小矩阵的乘积</p>
-</blockquote>
-<h3 id="Query-低秩压缩"><a href="#Query-低秩压缩" class="headerlink" title="Query 低秩压缩"></a>Query 低秩压缩</h3><p>KV 压缩是 MLA 降低 KV Cache 的核心</p>
-<p>Query 并不必须压缩，因为 Query 只在当前计算步骤使用，不需要作为历史缓存长期保存</p>
-<p>DeepSeek-V2 进一步对 Query 投影进行低秩分解</p>
-<div class="mathjax-display">
-$$
-c_t^Q=W^{DQ}h_t \qquad W^{DQ}
-\in
-\mathbb R^{d_c'\times d}
-$$
-</div>
-从 Query 潜变量生成 Content Query：
-<div class="mathjax-display">
-$$
-q_t^C=W^{UQ}c_t^Q \qquad W^{UQ}
-\in
-\mathbb R^{n_hd_h\times d_c'}
-$$
-</div>
-投影完成后切分多个 Head：
-<div class="mathjax-display">
-$$
-q_t^C
-=
-\left[
-q_{t,1}^C;
-\ldots;
-q_{t,n_h}^C
-\right]
-$$
-</div>
-
-<h3 id="解耦-RoPE"><a href="#解耦-RoPE" class="headerlink" title="解耦 RoPE"></a>解耦 RoPE</h3><p>Content Key 的 Up Projection 可以通过矩阵结合律吸收到 Query 一侧</p>
-<div class="mathjax-display">
-$$
-(q_{t,i}^C)^\top W_i^{UK}c_j^{KV}
-=
-\left((W_i^{UK})^\top q_{t,i}^C\right)^\top c_j^{KV}
-$$
-</div>
-因此推理时可以直接让 Query 与缓存的低维  $c_j^{KV}$ 计算，而不需要为所有历史 Token 显式恢复完整 Key
-
-<p>但如果直接对恢复后的 Content Key 应用 RoPE</p>
-<p>那么 Attention 中会出现</p>
-<div class="mathjax-display">
-$$
-q_t^\top R_jW^{UK}c_j^{KV}
-$$
-</div>
-$R_j$ 是与第 $j$ 个 Token 的位置有关的 RoPE 旋转矩阵
-
-<p>问题在于由于 $R_j$ 随位置变化，无法简单将 $W^{UK}$ 吸收到 Query 一侧</p>
-<p>这样就会破坏 MLA 只缓存低维 KV Latent 的优势</p>
-<p>MLA 将 Query 和 Key 拆分为：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Query</span><br><span class="line">├── Content Query</span><br><span class="line">└── RoPE Query</span><br><span class="line"></span><br><span class="line">Key</span><br><span class="line">├── Content Key</span><br><span class="line">└── RoPE Key</span><br></pre></td></tr></table></figure>
-
-<p><strong>Content 部分负责语义匹配，RoPE 部分单独负责位置信息</strong></p>
-<h4 id="Content-部分"><a href="#Content-部分" class="headerlink" title="Content 部分"></a>Content 部分</h4><div class="mathjax-display">
-$$
-q_t^C=W^{UQ}c_t^Q\qquad k_t^C=W^{UK}c_t^{KV}
-$$
-</div>
-
-<p>并进一步按照 Attention Head 切分</p>
-<div class="mathjax-display">
-$$
-[q_{t,1}^C;\ldots;q_{t,n_h}^C]\qquad [k_{t,1}^C;\ldots;k_{t,n_h}^C]
-$$
-</div>
-Content 部分不直接应用 RoPE，因此仍然可以进行矩阵吸收
-
-<h4 id="RoPE-部分"><a href="#RoPE-部分" class="headerlink" title="RoPE 部分"></a>RoPE 部分</h4><p>位置 Query 单独生成</p>
-<div class="mathjax-display">
-$$
-q_t^R
-=
-\operatorname{RoPE}_t
-\left(
-W^{QR}c_t^Q
-\right)
-$$
-</div>
-并按照多个 Attention Head 得到对应的位置 Query
-<div class="mathjax-display">
-$$
-[q_{t,1}^R;\ldots;q_{t,n_h}^R]
-$$
-</div>
-位置 Key 则直接从隐藏状态生成
-<div class="mathjax-display">
-$$
-k_t^R
-=
-\operatorname{RoPE}_t
-\left(
-W^{KR}h_t
-\right)
-$$
-</div>
-其中 $k_t^R$ 可以在多个 Attention Head 之间共享
-
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">                    h_t</span><br><span class="line">                 /       \</span><br><span class="line">                /         \</span><br><span class="line">             W_DQ         W_DKV</span><br><span class="line">               ↓             ↓</span><br><span class="line">             c_t^Q         c_t^KV</span><br><span class="line">            /     \         /   \</span><br><span class="line">         W_UQ    W_QR    W_UK  W_UV</span><br><span class="line">           ↓       ↓       ↓      ↓</span><br><span class="line">          Q^C     RoPE    K^C    V^C</span><br><span class="line">                   ↓</span><br><span class="line">                  Q^R</span><br><span class="line"></span><br><span class="line">h_t</span><br><span class="line"> ↓</span><br><span class="line">W_KR</span><br><span class="line"> ↓</span><br><span class="line">RoPE</span><br><span class="line"> ↓</span><br><span class="line">K^R</span><br></pre></td></tr></table></figure>
-
-<p>第 $i$ 个注意力头实际使用：</p>
-<div class="mathjax-display">
-$$
-q_{t,i}
-=
-\left[
-q_{t,i}^C;
-q_{t,i}^R
-\right],
-\qquad
-k_{j,i}
-=
-\left[
-k_{j,i}^C;
-k_j^R
-\right]
-$$
-</div>
-内积可以自然拆成两项
-<div class="mathjax-display">
-$$
-\boxed{
-q_{t,i}^{\top}k_{j,i}
-=
-\left(q_{t,i}^C\right)^\top k_{j,i}^C
-+
-\left(q_{t,i}^R\right)^\top k_j^R
-}
-$$
-</div>
-两项分别承担：
-
-<ul>
-<li>Content Matching</li>
-<li>Position Matching</li>
-</ul>
 <h2 id="线性注意力"><a href="#线性注意力" class="headerlink" title="线性注意力"></a>线性注意力</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.16236">2006.16236] Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention</a></p>
 </blockquote>
@@ -1087,7 +1405,7 @@ k_tv_t^\top
 $$
 </div>
 因此：GLA 仍然是一个具有矩阵隐藏状态的 RNN，只是其状态转移由当前输入动态控制
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1812287226.html">https://yhblogs.cn/posts/1812287226.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related  no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Swift框架</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1222747289.html" title="扩散模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-31</div><div class="info-item-2">扩散模型</div></div></div></a><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1716427693.html" title="transformer"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-3qwre9_1280x720.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-03</div><div class="info-item-2">transformer</div></div></div></a><a class="pagination-related no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-13</div><div class="info-item-2">视觉表征与多模态</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Tokenizer"><span class="toc-number">1.</span> <span class="toc-text">Tokenizer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Word-level-Tokenization"><span class="toc-number">1.1.</span> <span class="toc-text">Word-level Tokenization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Character-level-Tokenization"><span class="toc-number">1.2.</span> <span class="toc-text">Character-level Tokenization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Subword-Tokenization"><span class="toc-number">1.3.</span> <span class="toc-text">Subword Tokenization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BPE"><span class="toc-number">1.3.1.</span> <span class="toc-text">BPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WordPiece"><span class="toc-number">1.3.2.</span> <span class="toc-text">WordPiece</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unigram"><span class="toc-number">1.3.3.</span> <span class="toc-text">Unigram</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">现代大模型核心组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RMSNorm"><span class="toc-number">2.1.</span> <span class="toc-text">RMSNorm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SwiGLU"><span class="toc-number">2.2.</span> <span class="toc-text">SwiGLU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E7%BB%93%E6%9E%84-MoE"><span class="toc-number">2.3.</span> <span class="toc-text">混合专家结构 MoE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81-RoPE"><span class="toc-number">2.4.</span> <span class="toc-text">旋转位置编码 RoPE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">注意力机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B-MHA"><span class="toc-number">3.1.</span> <span class="toc-text">标准多头注意力 MHA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MQA"><span class="toc-number">3.2.</span> <span class="toc-text">MQA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GQA"><span class="toc-number">3.3.</span> <span class="toc-text">GQA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%A4%B4%E6%BD%9C%E5%9C%A8%E6%B3%A8%E6%84%8F%E5%8A%9B-MLA"><span class="toc-number">3.4.</span> <span class="toc-text">多头潜在注意力 MLA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#KV-%E4%BD%8E%E7%A7%A9%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.4.1.</span> <span class="toc-text">KV 低秩压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Query-%E4%BD%8E%E7%A7%A9%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.4.2.</span> <span class="toc-text">Query 低秩压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E8%80%A6-RoPE"><span class="toc-number">3.4.3.</span> <span class="toc-text">解耦 RoPE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Content-%E9%83%A8%E5%88%86"><span class="toc-number">3.4.3.1.</span> <span class="toc-text">Content 部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RoPE-%E9%83%A8%E5%88%86"><span class="toc-number">3.4.3.2.</span> <span class="toc-text">RoPE 部分</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="toc-number">3.5.</span> <span class="toc-text">线性注意力</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E5%8F%98%E8%AE%A1%E7%AE%97%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.5.1.</span> <span class="toc-text">改变计算顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%9B%B4%E6%96%B0"><span class="toc-number">3.5.2.</span> <span class="toc-text">递归更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E6%98%A0%E5%B0%84"><span class="toc-number">3.5.3.</span> <span class="toc-text">特征映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GLA"><span class="toc-number">3.6.</span> <span class="toc-text">GLA</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/1812287226.html">https://yhblogs.cn/posts/1812287226.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/posts/1222747289.html" title="扩散模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">扩散模型</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/3897182270.html" title="视觉表征与多模态"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-13</div><div class="info-item-2">视觉表征与多模态</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a><a class="pagination-related no-desc" href="/posts/1222747289.html" title="扩散模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-31</div><div class="info-item-2">扩散模型</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E7%9A%84%E6%BC%94%E8%BF%9B"><span class="toc-number">1.</span> <span class="toc-text">注意力机制的演进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Attention%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">Attention基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Query%E3%80%81Key%E3%80%81Value"><span class="toc-number">1.1.1.</span> <span class="toc-text">Query、Key、Value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scaled-Dot-Product-Attention"><span class="toc-number">1.1.2.</span> <span class="toc-text">Scaled Dot-Product Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multi-Head-Attention%EF%BC%88MHA%EF%BC%89"><span class="toc-number">1.1.3.</span> <span class="toc-text">Multi-Head Attention（MHA）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Causal-Mask"><span class="toc-number">1.1.4.</span> <span class="toc-text">Causal Mask</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Self-Attention-%E4%B8%8E-Cross-Attention"><span class="toc-number">1.1.5.</span> <span class="toc-text">Self-Attention 与 Cross-Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="toc-number">1.2.</span> <span class="toc-text">位置编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RoPE"><span class="toc-number">1.2.1.</span> <span class="toc-text">RoPE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KV-Cache-%E4%BC%98%E5%8C%96"><span class="toc-number">1.3.</span> <span class="toc-text">KV Cache 优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Multi-Query-Attention%EF%BC%88MQA%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">Multi-Query Attention（MQA）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Grouped-Query-Attention%EF%BC%88GQA%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">Grouped-Query Attention（GQA）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Multi-Head-Latent-Attention%EF%BC%88MLA%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">Multi-Head Latent Attention（MLA）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Low-Rank-KV-Compression"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">Low-Rank KV Compression</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Query-Low-Rank-Compression"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">Query Low-Rank Compression</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Decoupled-RoPE"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">Decoupled RoPE</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Matrix-Absorption"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">Matrix Absorption</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sparse-Attention%EF%BC%88%E7%A8%80%E7%96%8F%E6%B3%A8%E6%84%8F%E5%8A%9B%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">Sparse Attention（稀疏注意力）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fixed-Sparse-Pattern"><span class="toc-number">1.4.1.</span> <span class="toc-text">Fixed Sparse Pattern</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">现代大模型核心组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RMSNorm"><span class="toc-number">2.1.</span> <span class="toc-text">RMSNorm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SwiGLU"><span class="toc-number">2.2.</span> <span class="toc-text">SwiGLU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E7%BB%93%E6%9E%84-MoE"><span class="toc-number">2.3.</span> <span class="toc-text">混合专家结构 MoE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="toc-number">2.4.</span> <span class="toc-text">线性注意力</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E5%8F%98%E8%AE%A1%E7%AE%97%E9%A1%BA%E5%BA%8F"><span class="toc-number">2.4.1.</span> <span class="toc-text">改变计算顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%9B%B4%E6%96%B0"><span class="toc-number">2.4.2.</span> <span class="toc-text">递归更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E6%98%A0%E5%B0%84"><span class="toc-number">2.4.3.</span> <span class="toc-text">特征映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GLA"><span class="toc-number">2.5.</span> <span class="toc-text">GLA</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {

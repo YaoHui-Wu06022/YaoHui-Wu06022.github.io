@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>视觉表征与多模态 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="视觉 Backbone [1512.03385] Deep Residual Learning for Image Recognition  ResNet 通过残差连接改善深层网络的优化问题，使网络能够在增加深度的同时持续获得性能提升，成为后续视觉 Backbone 的重要基础 VIT [2010.11929] An Image is Worth 16x16 Words: Transformers">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>视觉表征与多模态 | がんばろう</title><meta name="author" content="今天睡够了吗"><meta name="copyright" content="今天睡够了吗"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="视觉 BackboneResnet [1512.03385] Deep Residual Learning for Image Recognition  核心思想： 通过引入 Residual Learning（残差学习）和 Shortcut Connection（快捷连接），将网络原本需要学习的完整映射转换为残差映射，使深层网络更容易优化，从而有效解决网络深度增加带来的Degradation P">
 <meta property="og:type" content="article">
 <meta property="og:title" content="视觉表征与多模态">
 <meta property="og:url" content="https://yhblogs.cn/posts/3897182270.html">
 <meta property="og:site_name" content="がんばろう">
-<meta property="og:description" content="视觉 Backbone [1512.03385] Deep Residual Learning for Image Recognition  ResNet 通过残差连接改善深层网络的优化问题，使网络能够在增加深度的同时持续获得性能提升，成为后续视觉 Backbone 的重要基础 VIT [2010.11929] An Image is Worth 16x16 Words: Transformers">
+<meta property="og:description" content="视觉 BackboneResnet [1512.03385] Deep Residual Learning for Image Recognition  核心思想： 通过引入 Residual Learning（残差学习）和 Shortcut Connection（快捷连接），将网络原本需要学习的完整映射转换为残差映射，使深层网络更容易优化，从而有效解决网络深度增加带来的Degradation P">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp">
 <meta property="article:published_time" content="2026-08-13T02:30:57.000Z">
-<meta property="article:modified_time" content="2026-11-20T14:24:54.212Z">
+<meta property="article:modified_time" content="2026-11-27T12:57:04.976Z">
 <meta property="article:author" content="今天睡够了吗">
 <meta property="article:tag" content="🍭AI">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://yhblogs.cn/posts/3897182270.html",
   "image": "https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp",
   "datePublished": "2026-08-13T02:30:57.000Z",
-  "dateModified": "2026-11-20T14:24:54.212Z",
+  "dateModified": "2026-11-27T12:57:04.976Z",
   "author": [
     {
       "@type": "Person",
@@ -159,16 +159,83 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-m9k578_1280x720.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">视觉表征与多模态</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">视觉表征与多模态</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-13T02:30:57.000Z" title="发表于 2026-08-13 10:30:57">2026-08-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">10.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>37分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="视觉-Backbone"><a href="#视觉-Backbone" class="headerlink" title="视觉 Backbone"></a>视觉 Backbone</h1><blockquote>
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/font_3319458_ks437t3n4r.css"><link rel="stylesheet" href="/css/butterfly-legacy.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-m9k578_1280x720.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">がんばろう</span></a><a class="nav-page-title" href="/"><span class="site-name">视觉表征与多模态</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-rili"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">视觉表征与多模态</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2026-08-13T02:30:57.000Z" title="发表于 2026-08-13 10:30:57">2026-08-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">10.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>38分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="视觉-Backbone"><a href="#视觉-Backbone" class="headerlink" title="视觉 Backbone"></a>视觉 Backbone</h1><h2 id="Resnet"><a href="#Resnet" class="headerlink" title="Resnet"></a>Resnet</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1512.03385">1512.03385] Deep Residual Learning for Image Recognition</a></p>
 </blockquote>
-<p>ResNet 通过残差连接改善深层网络的优化问题，使网络能够在增加深度的同时持续获得性能提升，成为后续视觉 Backbone 的重要基础</p>
+<p><strong>核心思想：</strong> 通过引入 Residual Learning（残差学习）和 Shortcut Connection（快捷连接），将网络原本需要学习的完整映射转换为残差映射，使深层网络更容易优化，从而有效解决网络深度增加带来的Degradation Problem</p>
+<h3 id="Degradation-Problem"><a href="#Degradation-Problem" class="headerlink" title="Degradation Problem"></a>Degradation Problem</h3><p>随着 CNN 网络深度增加，理论上模型应该具有更强的特征表达能力，但实际实验发现，网络加深到一定程度后，训练误差反而可能增加</p>
+<p>这一现象称为 <strong>Degradation Problem（网络退化问题）</strong></p>
+<p>ResNet 认为，新增网络层理论上至少可以学习 Identity Mapping（恒等映射），保持原有网络的性能</p>
+<p>论文提出通过 Residual Learning 改变网络的学习目标</p>
+<h3 id="Residual-Learning"><a href="#Residual-Learning" class="headerlink" title="Residual Learning"></a>Residual Learning</h3><p>传统网络直接学习目标映射 $H(x)$</p>
+<p>ResNet 将其重新表示为：</p>
+<div class="mathjax-display">
+$$
+F(x)=H(x)-x
+$$
+</div>
+因此，原始映射可以写成：
+<div class="mathjax-display">
+$$
+H(x)=F(x)+x
+$$
+</div>
+当目标映射接近恒等映射时，网络只需要让 $F(x)$ 接近零，而不需要通过多层非线性变换直接拟合 $x$
+
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261125215622123.png" alt="image-20261125215622123" style="zoom: 33%;" />
+
+<h3 id="Shortcut-Connection"><a href="#Shortcut-Connection" class="headerlink" title="Shortcut Connection"></a>Shortcut Connection</h3><p>根据输入与输出的维度关系，Shortcut 分为两种形式：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>实现方式</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Identity Shortcut</td>
+<td>直接传递输入 $x$</td>
+<td>输入输出维度一致</td>
+</tr>
+<tr>
+<td>Projection Shortcut</td>
+<td>使用 1×1 Conv 调整维度</td>
+<td>通道数或空间尺寸发生变化</td>
+</tr>
+</tbody></table>
+<p>当维度不一致时，使用 Projection Shortcut：</p>
+<div class="mathjax-display">
+$$
+y=F(x)+W_sx
+$$
+</div>
+
+<h3 id="BasicBlock-Bottleneck"><a href="#BasicBlock-Bottleneck" class="headerlink" title="BasicBlock &amp; Bottleneck"></a>BasicBlock &amp; Bottleneck</h3><p>ResNet 根据网络深度设计了两种主要的 Residual Block：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>结构</th>
+<th>代表网络</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BasicBlock</td>
+<td>3×3 Conv → 3×3 Conv</td>
+<td>ResNet-18 &#x2F; 34</td>
+</tr>
+<tr>
+<td>Bottleneck</td>
+<td>1×1 Conv → 3×3 Conv → 1×1 Conv</td>
+<td>ResNet-50 &#x2F; 101 &#x2F; 152</td>
+</tr>
+</tbody></table>
+<p>**Bottleneck：**减少 3×3 卷积的计算开销，使网络能够在较低计算成本下扩展到更深的层数</p>
 <h2 id="VIT"><a href="#VIT" class="headerlink" title="VIT"></a>VIT</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.11929">2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a></p>
 </blockquote>
-<p><strong>核心思想</strong>：将图像划分为多个固定大小的 Patch，把每个 Patch 看作 NLP 中的一个 Token，通过 线性映射为固定维度的 Patch Embedding，再直接输入标准 Transformer Encoder，实现图像的序列建模</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Image</span><br><span class="line">↓</span><br><span class="line">Patchify</span><br><span class="line">↓</span><br><span class="line">Patch Embedding</span><br><span class="line">↓</span><br><span class="line">[CLS] + Position Embedding</span><br><span class="line">↓</span><br><span class="line">Transformer Encoder</span><br><span class="line">↓</span><br><span class="line">Classification</span><br></pre></td></tr></table></figure>
-
+<p><strong>核心思想：</strong> 将图像划分为固定大小的 Patch，并将其转换为 Token 序列，直接使用标准 Transformer Encoder 进行视觉特征提取，摆脱传统 CNN 对卷积结构的依赖</p>
 <h3 id="Patch-Embedding"><a href="#Patch-Embedding" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>将输入图像划分为互不重叠的 $P\times P$ Patch，每个 Patch 展平后通过线性层映射到固定维度 $D$</p>
 <div class="mathjax-display">
 $$
@@ -212,25 +279,48 @@ $$
 
 <h3 id="Transformer-Encoder"><a href="#Transformer-Encoder" class="headerlink" title="Transformer Encoder"></a>Transformer Encoder</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Input Image</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">        ↓ Patchify: 16×16</span><br><span class="line"></span><br><span class="line">196 Patches</span><br><span class="line">Each: [3,16,16]</span><br><span class="line"></span><br><span class="line">        ↓ Flatten</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Linear Projection</span><br><span class="line">        D = 768</span><br><span class="line"></span><br><span class="line">[B, 196, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Add CLS Token + Position Embedding</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Transformer Encoder × 12</span><br><span class="line"></span><br><span class="line">[B, 197, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Take CLS Token</span><br><span class="line"></span><br><span class="line">[B, 768]</span><br><span class="line"></span><br><span class="line">        ↓ Classification Head</span><br><span class="line"></span><br><span class="line">[B, num_classes]</span><br></pre></td></tr></table></figure>
 
-<h3 id="核心特点与局限"><a href="#核心特点与局限" class="headerlink" title="核心特点与局限"></a>核心特点与局限</h3><p><strong>特点：</strong></p>
-<ul>
-<li>将视觉任务转化为序列建模问题，直接利用 Transformer 的 Self-Attention 建模全局关系</li>
-<li>不再依赖 CNN 的局部卷积结构，可以统一处理不同 Patch 之间的信息交互</li>
-</ul>
-<p><strong>局限：</strong></p>
-<ul>
-<li>Global Self-Attention 的计算复杂度随 Token 数量呈平方增长，处理高分辨率图像时计算和显存开销较大</li>
-<li>缺少 CNN 的层次化特征结构，不利于直接适配检测、分割等需要多尺度特征的任务</li>
-</ul>
+<h3 id="CNN-vs-ViT"><a href="#CNN-vs-ViT" class="headerlink" title="CNN vs ViT"></a>CNN vs ViT</h3><p>ViT 与 CNN 的核心区别在于 <strong>Inductive Bias（归纳偏置）</strong></p>
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>CNN</th>
+<th>ViT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>特征提取</td>
+<td>Convolution</td>
+<td>Self-Attention</td>
+</tr>
+<tr>
+<td>局部性</td>
+<td>内置 Locality Bias</td>
+<td>主要依赖数据学习</td>
+</tr>
+<tr>
+<td>空间关系</td>
+<td>局部卷积与层次结构</td>
+<td>Position Embedding + Attention</td>
+</tr>
+<tr>
+<td>信息交互</td>
+<td>逐层扩大感受野</td>
+<td>全局信息交互</td>
+</tr>
+<tr>
+<td>数据需求</td>
+<td>相对较少</td>
+<td>通常需要大规模预训练</td>
+</tr>
+</tbody></table>
+<p>CNN 通过卷积结构天然引入归纳偏置，ViT 使用较少的图像特定归纳偏置，更多依赖大规模数据学习空间关系</p>
+<p>因此，ViT 在大规模数据预训练下能够展现出很强的视觉表征能力，但在数据规模较小时，通常不如具有较强视觉归纳偏置的 CNN 容易训练</p>
+<p><strong>技术贡献：</strong> ViT 证明了不依赖传统卷积结构，仅使用标准 Transformer 处理图像 Patch 序列，也能够获得具有竞争力的视觉表征，为后续纯 Transformer 视觉 Backbone 的发展奠定了基础</p>
 <h2 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.14030">2103.14030] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows</a></p>
 </blockquote>
-<p><strong>核心思想</strong>：通过三个核心设计解决VIT的问题</p>
-<ul>
-<li>Window Attention：降低全局 Self-Attention 的计算开销</li>
-<li>Shifted Window：实现跨窗口信息交互</li>
-<li>Patch Merging：构建层次化特征结构</li>
-</ul>
+<p><strong>核心思想：</strong> 通过 Window-based Self-Attention 将全局注意力限制在局部窗口内，并利用 Shifted Window 实现跨窗口信息交互，同时引入 Patch Merging 构建层次化特征表示，使 Transformer 能够以较低计算开销适配高分辨率图像和密集视觉任务</p>
 <h3 id="Patch-Embedding-1"><a href="#Patch-Embedding-1" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>Swin 保留图像的二维空间结构，而不是像 ViT 一样直接将图像作为一维序列处理</p>
 <p>原论文使用 $P&#x3D;4$，将输入图像划分为二维网格，再通过 Linear Projection 映射到特征维度</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Input</span><br><span class="line">[B, 3, 224, 224]</span><br><span class="line"></span><br><span class="line">        ↓ Patchify 4×4</span><br><span class="line"></span><br><span class="line">[B, 56, 56, 48] </span><br><span class="line"></span><br><span class="line">        ↓ Linear Projection</span><br><span class="line">           48 → 96</span><br><span class="line"></span><br><span class="line">[B, 56, 56, 96]</span><br></pre></td></tr></table></figure>
@@ -239,31 +329,77 @@ $$
 <p>每个 $4\times4\times3$ 的 Patch 被展平成一个长度为 48 的向量</p>
 </blockquote>
 <p>实现空间下采样</p>
-<h3 id="Window-Attention"><a href="#Window-Attention" class="headerlink" title="Window Attention"></a>Window Attention</h3><p>Swin 将特征图划分为多个固定大小的 Window，只在每个 Window 内部执行 Self-Attention</p>
-<p>原论文默认窗口大小为 ($7\times7$)</p>
+<h3 id="Window-based-Self-Attention"><a href="#Window-based-Self-Attention" class="headerlink" title="Window-based Self-Attention"></a>Window-based Self-Attention</h3><p>ViT 使用 Global Self-Attention，每个 Patch Token 都需要与其他所有 Token 计算注意力，计算复杂度随 Token 数量呈平方增长</p>
+<p>Swin Transformer 将图像划分为多个互不重叠的 Local Window，只在每个窗口内部执行 Self-Attention</p>
+<p>假设每个 Window 包含 $M\times M$ 个 Patch，原始特征图包含 $h\times w$ 个 Patch，则：</p>
+<ul>
+<li>Global Attention：每个 Token 与全部 $hw$ 个 Token 交互</li>
+<li>Window Attention：每个 Token 只与所在窗口的 $M^2$ 个 Token 交互</li>
+</ul>
+<p>当 Window Size 固定时，Window Attention 的计算复杂度随图像 Token 数量线性增长</p>
+<div class="mathjax-display">
+$$
+\Omega(\text{Global})=2(hw)^2C\\
+\Omega(\text{Window})=2M^2hwC
+$$
+</div>
+原论文默认窗口大小为 ($7\times7$)
+
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[B, 56, 56, 96]</span><br><span class="line"></span><br><span class="line">       ↓ Window Partition 7×7</span><br><span class="line"></span><br><span class="line">[B,8,8,7,7,96]</span><br><span class="line"></span><br><span class="line">       ↓ Window Flatten</span><br><span class="line"></span><br><span class="line">[B, 64, 49, 96]</span><br><span class="line"></span><br><span class="line">       ↓ 把 Window 合并到 Batch</span><br><span class="line"></span><br><span class="line">[B×64, 49, 96]</span><br></pre></td></tr></table></figure>
 
-<p>每张图有 64 个 window，每个 window 有 49 个 token，每个 token 是 96 维</p>
-<p>将 Window 合并到 Batch 维度后，各窗口可以独立执行 Attention，显著降低计算量</p>
-<h3 id="Shifted-Window"><a href="#Shifted-Window" class="headerlink" title="Shifted Window"></a>Shifted Window</h3><p>Window Attention 存在一个问题：不同 Window 之间无法直接进行信息交互</p>
-<p>因此，Swin 引入 Shifted Window：在下一层将窗口划分整体平移，使原本属于不同窗口的 Token 能够进入同一个窗口，从而实现跨窗口信息传递</p>
+<h3 id="Shifted-Window"><a href="#Shifted-Window" class="headerlink" title="Shifted Window"></a>Shifted Window</h3><p>仅使用 Window Attention 会产生一个问题：不同 Window 之间无法直接进行信息交互</p>
+<p>Swin Transformer 引入 Shifted Window，交替使用两种窗口划分方式：</p>
 <ul>
-<li>W-MSA：Window Multi-head Self-Attention，负责窗口内部的信息交互</li>
-<li>SW-MSA：Shifted Window Multi-head Self-Attention，负责跨窗口的信息交互</li>
+<li><strong>W-MSA：</strong> 使用常规窗口划分，在各个局部窗口内计算 Attention</li>
+<li><strong>SW-MSA：</strong> 将窗口划分整体移动，使新窗口跨越原有窗口边界，从而建立不同窗口之间的信息交互</li>
 </ul>
-<p>连续两个 Swin Block 交替使用 W-MSA 和 SW-MSA</p>
+<p>通过在相邻 Transformer Block 中交替使用 W-MSA 和 SW-MSA，模型既能保持局部注意力的计算效率，又能逐步实现跨窗口的信息融合</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">原窗口</span><br><span class="line">┌───┬───┐</span><br><span class="line">│ A │ B │</span><br><span class="line">├───┼───┤</span><br><span class="line">│ C │ D │</span><br><span class="line">└───┴───┘</span><br><span class="line"></span><br><span class="line">移动后</span><br><span class="line">┌───┬───┐</span><br><span class="line">│A/B│B/C│</span><br><span class="line">├───┼───┤</span><br><span class="line">│C/D│D/A│</span><br><span class="line">└───┴───┘</span><br></pre></td></tr></table></figure>
 
-<p>实现跨 Window 信息交流</p>
-<h3 id="Patch-Merging"><a href="#Patch-Merging" class="headerlink" title="Patch Merging"></a>Patch Merging</h3><p>为了构建类似 CNN 的层次化特征结构，Swin 引入 Patch Merging，逐层降低空间分辨率，同时增加特征维度</p>
-<p>具体过程：</p>
+<h3 id="Hierarchical-Representation"><a href="#Hierarchical-Representation" class="headerlink" title="Hierarchical Representation"></a>Hierarchical Representation</h3><p>ViT 在整个网络中保持相同的 Token 数量和特征分辨率，主要输出单一尺度的视觉特征，不利于物品检测和语义分割等需要多尺度特征的任务</p>
+<p>Swin Transformer 引入 <strong>Patch Merging</strong>，在不同 Stage 之间合并相邻的 $2\times2$ Patch：</p>
 <ol>
-<li>将相邻 $2\times2$ 的四个 Token 在 Channel 维度拼接。</li>
-<li>通过 Linear Projection 将维度从 $4C$ 降至 $2C$</li>
+<li>将相邻的 4 个 Token 特征进行拼接，通道维度由 $C$ 变为 $4C$</li>
+<li>通过 Linear Layer 将通道维度映射为 $2C$</li>
+<li>特征图的空间分辨率降低为原来的 $1&#x2F;2$</li>
 </ol>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">特征图</span><br><span class="line">x00  x01  x02  x03</span><br><span class="line">x10  x11  x12  x13</span><br><span class="line">x20  x21  x22  x23</span><br><span class="line">x30  x31  x32  x33</span><br><span class="line"></span><br><span class="line">取 2 × 2</span><br><span class="line">x00 x01</span><br><span class="line">x10 x11</span><br><span class="line"></span><br><span class="line">Concatenate 通道维度</span><br><span class="line">[x00 | x01 | x10 | x11]</span><br><span class="line">4C</span><br><span class="line">↓</span><br><span class="line">Linear Projection</span><br><span class="line">4C → 2C</span><br></pre></td></tr></table></figure>
 
-<p>最终形成多阶段特征金字塔，使模型能够提取不同空间尺度的视觉特征</p>
+<p>这种设计使浅层保留较高分辨率的细粒度特征，深层逐渐提取低分辨率的高层语义特征</p>
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>ViT</th>
+<th>Swin Transformer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Attention</td>
+<td>Global Attention</td>
+<td>Window Attention</td>
+</tr>
+<tr>
+<td>信息交互</td>
+<td>全局 Token 交互</td>
+<td>局部交互 + Shifted Window</td>
+</tr>
+<tr>
+<td>特征分辨率</td>
+<td>单一尺度</td>
+<td>层次化多尺度</td>
+</tr>
+<tr>
+<td>计算复杂度</td>
+<td>随 Token 数量平方增长</td>
+<td>固定窗口下随 Token 数量线性增长</td>
+</tr>
+<tr>
+<td>主要适用场景</td>
+<td>图像分类</td>
+<td>分类、检测、分割等视觉任务</td>
+</tr>
+</tbody></table>
 <h3 id="相对位置偏置"><a href="#相对位置偏置" class="headerlink" title="相对位置偏置"></a>相对位置偏置</h3><p>Swin 在 Attention 中引入 Relative Position Bias（相对位置偏置），将 Token 之间的相对空间位置关系加入 Attention 计算</p>
 <div class="mathjax-display">
 $$
@@ -288,7 +424,10 @@ $$
 <h2 id="ConvNeXt"><a href="#ConvNeXt" class="headerlink" title="ConvNeXt"></a>ConvNeXt</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.03545">2201.03545] A ConvNet for the 2020s</a></p>
 </blockquote>
-<p><strong>核心思想</strong>：以 ResNet 为基础，引入 Transformer 时代的设计思想，对传统 CNN 进行现代化改造，使纯 CNN 获得与 Swin Transformer 相近的性能</p>
+<p><strong>核心思想：</strong> 通过将 Vision Transformer 的设计思想引入传统 CNN，对 ResNet 进行系统性现代化改造，在不使用 Self-Attention 的情况下，构建出具有竞争力的纯卷积视觉 Backbone</p>
+<h3 id="ConvNeXt-Block"><a href="#ConvNeXt-Block" class="headerlink" title="ConvNeXt Block"></a>ConvNeXt Block</h3><p>ConvNeXt 最终形成的 Block 结构：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input Feature [B, H, W, C]</span><br><span class="line">          ↓</span><br><span class="line">  7×7 Depthwise Conv</span><br><span class="line">          ↓</span><br><span class="line">      LayerNorm</span><br><span class="line">          ↓</span><br><span class="line">    Linear: C → 4C</span><br><span class="line">          ↓</span><br><span class="line">        GELU</span><br><span class="line">          ↓</span><br><span class="line">    Linear: 4C → C</span><br><span class="line">          ↓</span><br><span class="line">    Residual Connection</span><br><span class="line">          ↓</span><br><span class="line">        Output</span><br></pre></td></tr></table></figure>
+
 <h3 id="Depthwise-Convolution"><a href="#Depthwise-Convolution" class="headerlink" title="Depthwise Convolution"></a>Depthwise Convolution</h3><p>传统卷积同时完成：</p>
 <ul>
 <li>Spatial Mixing：融合邻域空间信息</li>
@@ -299,6 +438,7 @@ $$
 <li><strong>Depthwise Conv</strong>：每个 Channel 独立进行空间卷积，提取局部空间特征</li>
 <li><strong>1 × 1 Conv</strong>：融合不同 Channel 的信息</li>
 </ul>
+<p>这种设计与 Transformer Block 中 Attention 负责 Token 之间的信息交互、MLP 负责特征维度变换的思想相似</p>
 <p>从参数量上来看：</p>
 <ul>
 <li><p>普通卷积</p>
@@ -322,28 +462,150 @@ Params=K^2C_{in}
 $$
 </div></li>
 </ul>
-<p>相比普通卷积，Depthwise Conv 参数量和计算量更低，因此 ConvNeXt 使用较大的 $7\times7$ 卷积核，在较低计算开销下扩大感受野</p>
-<h3 id="Inverted-Bottleneck"><a href="#Inverted-Bottleneck" class="headerlink" title="Inverted Bottleneck"></a>Inverted Bottleneck</h3><p>传统 ResNet Bottleneck 采用先降维、再进行空间卷积、最后升维的结构</p>
-<p>ConvNeXt 则采用类似 Transformer FFN 的 Inverted Bottleneck</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input C</span><br><span class="line">   ↓</span><br><span class="line">7×7 Depthwise Conv</span><br><span class="line">   ↓</span><br><span class="line">LayerNorm</span><br><span class="line">   ↓</span><br><span class="line">1×1 Conv / Linear</span><br><span class="line">C → 4C</span><br><span class="line">   ↓</span><br><span class="line">GELU</span><br><span class="line">   ↓</span><br><span class="line">1×1 Conv / Linear</span><br><span class="line">4C → C</span><br></pre></td></tr></table></figure>
+<p><strong>技术贡献：</strong> ConvNeXt 通过系统性实验表明，现代 CNN 可以吸收 Transformer 的许多架构设计，在不引入 Self-Attention 的情况下达到与层次化 Vision Transformer 相当甚至更好的性能，重新证明了卷积架构在现代视觉任务中的竞争力</p>
+<h1 id="自监督视觉表征"><a href="#自监督视觉表征" class="headerlink" title="自监督视觉表征"></a>自监督视觉表征</h1><h2 id="Moco"><a href="#Moco" class="headerlink" title="Moco"></a>Moco</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.05722">1911.05722] Momentum Contrast for Unsupervised Visual Representation Learning</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 将 Contrastive Learning 视为 Dictionary Look-up，通过 Queue 维护大量 Negative Samples，并使用 Momentum Encoder 保证不同 Batch 生成的特征具有一致性，从而摆脱对大 Batch Size 的依赖</p>
+<h3 id="Dictionary-as-a-Queue"><a href="#Dictionary-as-a-Queue" class="headerlink" title="Dictionary as a Queue"></a>Dictionary as a Queue</h3><ul>
+<li><strong>Query：</strong> 当前图像经过 Query Encoder 得到的特征</li>
+<li><strong>Positive Key：</strong> 同一图像的另一种增强视图经过 Key Encoder 得到的特征</li>
+<li><strong>Negative Keys：</strong> 来自其他图像的特征，存储在 Dictionary</li>
+</ul>
+<p>MoCo 使用 Queue 维护 Dictionary：</p>
+<ol>
+<li>将当前 Mini-batch 生成的 Key 加入 Queue(Enqueue)</li>
+<li>移除最早加入的 Key(Dequeue)</li>
+<li>Queue 始终保存最近若干个 Mini-batch 的特征</li>
+</ol>
+<p><strong>核心作用：</strong> 将 Dictionary Size 与 Batch Size 解耦，使模型能够在不增加当前 Batch Size 的情况下获得大量 Negative Samples</p>
+<h3 id="Momentum-Encoder"><a href="#Momentum-Encoder" class="headerlink" title="Momentum Encoder"></a>Momentum Encoder</h3><p>Queue 引入了一个问题：不同时间加入 Queue 的 Key 由不同训练阶段的 Encoder 生成</p>
+<p>如果 Encoder 参数变化过快，Dictionary 中的特征就可能缺乏一致性</p>
+<p>MoCo 引入 Momentum Encoder，使用两个 Encoder：</p>
+<ul>
+<li><strong>Query Encoder：</strong> 通过反向传播正常更新参数</li>
+<li><strong>Key Encoder：</strong> 不通过反向传播更新，而是通过 Query Encoder 的参数进行动量更新</li>
+</ul>
+<p>参数更新公式：</p>
+<div class="mathjax-display">
+$$
+\theta_k \leftarrow m\theta_k+(1-m)\theta_q
+$$
+</div>
+这种更新方式使 Key Encoder 的参数变化更加平滑，保证不同 Mini-batch 生成的 Key 具有较好的一致性
 
-<p>先升维，再进行非线性变换，最后降维，增强 Channel Mixing 能力</p>
-<h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p>采用类似 Swin Transformer 的四阶段层次化结构</p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-23_12-13-09.webp" alt="Snipaste_2026-09-23_12-13-09" style="zoom:50%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261126151319976.png" alt="image-20261126151319976" style="zoom:67%;" />
 
-<p>ConvNeXt 并没有引入 Transformer，而是通过 Depthwise Conv、Inverted Bottleneck、LayerNorm 等现代化设计，重新构建纯 CNN 架构</p>
-<p>证明传统 CNN 经过现代化改造后，依然能够达到与视觉 Transformer 相近的性能</p>
-<h1 id="自监督视觉表征"><a href="#自监督视觉表征" class="headerlink" title="自监督视觉表征"></a>自监督视觉表征</h1><h2 id="MAE"><a href="#MAE" class="headerlink" title="MAE"></a>MAE</h2><blockquote>
+<h3 id="Contrastive-Loss"><a href="#Contrastive-Loss" class="headerlink" title="Contrastive Loss"></a>Contrastive Loss</h3><p>MoCo 使用 InfoNCE Loss，将 Query 与一个 Positive Key 以及 Queue 中的 Negative Keys 进行对比：</p>
+<div class="mathjax-display">
+$$
+\mathcal{L}_q=-\log
+\frac{\exp(q\cdot k^+/\tau)}
+{\exp(q\cdot k^+/\tau)+\sum_{i=1}^{K}\exp(q\cdot k_i^-/\tau)}
+$$
+</div>
+
+<h2 id="SimCLR"><a href="#SimCLR" class="headerlink" title="SimCLR"></a>SimCLR</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.05709?utm_source=chatgpt.com">2002.05709] A Simple Framework for Contrastive Learning of Visual Representations</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 通过对同一图像进行不同的数据增强，构造正样本对，利用 Contrastive Learning 拉近正样本之间的特征距离、推远不同图像之间的特征距离，从而在没有人工标签的情况下学习视觉表征</p>
+<h3 id="Contrastive-Learning"><a href="#Contrastive-Learning" class="headerlink" title="Contrastive Learning"></a>Contrastive Learning</h3><p>SimCLR 的核心是实例判别：将同一张图像经过不同数据增强得到的两个视图视为Positive Pair，Batch 中将其他图像的增强视图作为 Negative Samples</p>
+<p>整体框架包含四个部分：</p>
+<ol>
+<li><strong>Data Augmentation：</strong> 对图像进行随机裁剪与缩放、颜色扰动和高斯模糊，生成两个相关视图</li>
+<li><strong>Encoder：</strong> 使用神经网络 $f(\cdot)$ 提取图像特征，原论文采用 ResNet</li>
+<li><strong>Projection Head：</strong> 使用 MLP $g(\cdot)$ 将特征映射到对比学习空间</li>
+<li><strong>Contrastive Loss：</strong> 通过 NT-Xent Loss 最大化 Positive Pair 之间的一致性</li>
+</ol>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261126145506147.png" alt="image-20261126145506147" style="zoom:50%;" />
+
+<p>预训练结束后，丢弃 Projection Head，只保留 Base Encoder，用于下游视觉任务</p>
+<h3 id="Data-Augmentation"><a href="#Data-Augmentation" class="headerlink" title="Data Augmentation"></a>Data Augmentation</h3><p>论文指出，数据增强组合对学习有效表征至关重要</p>
+<ul>
+<li>单独使用某一种数据增强，无法获得较好的视觉表征</li>
+<li>Random Cropping 与 Color Distortion 的组合尤为重要</li>
+<li>仅使用随机裁剪时，不同裁剪区域可能保留相似的颜色分布，模型容易利用颜色统计信息完成实例区分，而不是学习更具泛化性的视觉特征</li>
+<li>自监督对比学习通常需要比监督学习更强的数据增强</li>
+</ul>
+<h3 id="Projection-Head"><a href="#Projection-Head" class="headerlink" title="Projection Head"></a>Projection Head</h3><p>SimCLR 引入一个非线性 Projection Head，将 Encoder 输出的特征映射到对比学习空间：</p>
+<div class="mathjax-display">
+$$
+z=g(h)=W^{(2)}\sigma(W^{(1)}h)
+$$
+</div>
+**关键设计：** Contrastive Loss 作用于  $z$，而不是直接作用于 Encoder 输出的 $h$
+
+<p>训练完成后，丢弃 Projection Head，保留 Encoder 输出的 $h$ 用于下游任务，效果更佳</p>
+<p>论文指出：对比学习要求 $z$ 对数据增强保持不变，如果直接在 $h$ 上施加 Contrastive Loss，就会迫使 Encoder 输出满足数据增强不变性，可能损失对下游任务有用的信息</p>
+<p><span style = "color:#DC5A5A">Projection Head是为了将对比学习的优化约束与最终需要的视觉表征适当解耦</span></p>
+<h3 id="NT-Xent-Loss"><a href="#NT-Xent-Loss" class="headerlink" title="NT-Xent Loss"></a>NT-Xent Loss</h3><p>对于一个包含 $N$ 张图像的 Batch，每张图像经过两次独立的数据增强，最终得到 $2N$ 个视图</p>
+<p>对于任意一个 Anchor：</p>
+<ul>
+<li>1 个 Positive Sample：来自同一张原始图像的另一种增强视图</li>
+<li>$2(N-1)$ 个 Negative Samples：来自 Batch 中其他图像的增强视图</li>
+</ul>
+<p>损失函数：</p>
+<div class="mathjax-display">
+$$
+\ell_{i,j}=
+-\log
+\frac{\exp(\operatorname{sim}(z_i,z_j)/\tau)}
+{\sum_{k=1}^{2N}\mathbf{1}_{[k\neq i]}
+\exp(\operatorname{sim}(z_i,z_k)/\tau)}
+$$
+</div>
+其中：
+
+<ul>
+<li>$\operatorname{sim}$：经过 L2 Normalization 后的 Cosine Similarity</li>
+<li>$\tau$：Temperature，控制相似度分布的集中程度</li>
+</ul>
+<p><strong>核心作用：</strong> 提高 Positive Pair 的相似度，同时降低其与 Negative Samples 的相似度</p>
+<p>最终对 Batch 中所有正样本对的两个方向 $(i,j)$ 和 $(j,i)$ 计算损失</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MoCo</th>
+<th>SimCLR</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>负样本来源</td>
+<td>Queue</td>
+<td>当前 Batch</td>
+</tr>
+<tr>
+<td>Encoder</td>
+<td>Query &#x2F; Key Encoder</td>
+<td>共享 Encoder</td>
+</tr>
+<tr>
+<td>关键机制</td>
+<td>Momentum Update</td>
+<td>Projection Head</td>
+</tr>
+<tr>
+<td>损失函数</td>
+<td>InfoNCE</td>
+<td>NT-Xent</td>
+</tr>
+<tr>
+<td>主要特点</td>
+<td>大规模、一致的动态 Dictionary</td>
+<td>简洁的对比学习框架</td>
+</tr>
+</tbody></table>
+<h2 id="MAE"><a href="#MAE" class="headerlink" title="MAE"></a>MAE</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.06377">2111.06377] Masked Autoencoders Are Scalable Vision Learners</a></p>
 </blockquote>
 <p><strong>核心思想</strong>：将图像随机划分为 Patch，并 Mask 掉大部分 Patch，让模型根据剩余可见区域重建原始图像，通过重建任务学习通用视觉表征，减少对人工标注数据的依赖</p>
-<h3 id="Masking-Strategy"><a href="#Masking-Strategy" class="headerlink" title="Masking Strategy"></a>Masking Strategy</h3><p>MAE 在输入阶段随机 Mask 大部分图像 Patch：</p>
+<h3 id="Masking-Strategy"><a href="#Masking-Strategy" class="headerlink" title="Masking Strategy"></a>Masking Strategy</h3><p>MAE 将图像划分为固定大小的 Patch</p>
 <ul>
-<li>将图像划分为固定大小的 Patch。</li>
-<li>随机选择一部分 Patch 保留，其余 Patch 被 Mask。</li>
-<li>默认 Masking Ratio 为 <strong>75%</strong>，即只保留 25% 的可见 Patch。</li>
+<li><strong>Random Masking：</strong> 均匀随机采样，不放回地选择可见 Patch</li>
+<li><strong>Masking Ratio：</strong> 默认采用 75% 的 Masking Ratio，只保留 25% 的可见 Patch</li>
 </ul>
-<p>高比例 Masking 可以减少图像中的冗余信息，使模型必须利用有限的可见区域理解整体图像结构</p>
+<p>高比例 Masking 能够减少图像中的空间冗余，使模型无法简单地通过邻近 Patch 的纹理或颜色进行重建，而需要利用更大范围的上下文信息理解图像</p>
 <h3 id="Asymmetric-Encoder-Decoder"><a href="#Asymmetric-Encoder-Decoder" class="headerlink" title="Asymmetric Encoder-Decoder"></a>Asymmetric Encoder-Decoder</h3><p>MAE 最重要的设计是非对称 Encoder-Decoder 架构</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-10-31_20-14-06.webp" alt="Snipaste_2026-10-31_20-14-06" style="zoom: 50%;" />
 
@@ -359,7 +621,7 @@ $$
 <li>使用轻量级 Transformer Decoder 重建原始图像</li>
 <li>预测每个 Patch 的像素值</li>
 </ul>
-<p>核心设计： 计算量较大的 Encoder 只处理可见 Patch，而 Decoder 相对轻量，因此能够显著降低预训练成本</p>
+<p><strong>关键设计：</strong> Mask Tokens 不进入 Encoder，而是在 Encoder 之后加入 Decoder，这样计算量较大的 Encoder 只需要处理少量可见 Patch，而完整 Token 序列由轻量级 Decoder 处理</p>
 <p>论文报告，这种设计可以实现 3 倍以上的训练加速</p>
 <h3 id="Reconstruction-Loss"><a href="#Reconstruction-Loss" class="headerlink" title="Reconstruction Loss"></a>Reconstruction Loss</h3><p>MAE 直接以原始图像 Patch 的像素值作为重建目标，使用 MSE Loss，仅在被 Mask 的 Patch 上计算损失：</p>
 <div class="mathjax-display">
@@ -368,97 +630,213 @@ L=\frac{1}{|M|}\sum_{i\in M}
 |\hat{x}_i-x_i|_2^2
 $$
 </div>
-训练完成后：保留 Encoder，丢弃 Decoder
+预训练结束后，丢弃 Decoder，仅保留 Encoder 
 
-<p>下游任务直接使用 Encoder 提取视觉特征</p>
 <p>可以通过 Fine-tuning 适配图像分类、目标检测等任务</p>
-<h2 id="DINOv2"><a href="#DINOv2" class="headerlink" title="DINOv2"></a>DINOv2</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.07193">2304.07193] DINOv2: Learning Robust Visual Features without Supervision</a></p>
+<h2 id="DINO"><a href="#DINO" class="headerlink" title="DINO"></a>DINO</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.14294">2104.14294] Emerging Properties in Self-Supervised Vision Transformers</a></p>
 </blockquote>
-<p><strong>核心思想：</strong> 基于 ViT，通过 Teacher-Student 自蒸馏学习通用视觉表征，结合图像级和 Patch 级自监督目标，并利用大规模高质量数据训练，使模型具备较强的语义理解、局部特征提取和跨任务迁移能力</p>
-<h3 id="Teacher-Student-架构"><a href="#Teacher-Student-架构" class="headerlink" title="Teacher-Student 架构"></a>Teacher-Student 架构</h3><p>DINOv2 使用两个结构相同的 ViT 网络</p>
+<p><strong>核心思想：</strong> 通过 Teacher-Student Self-Distillation，让 Student 网络学习 Teacher 网络对同一图像不同视图产生的输出分布，在没有人工标签的情况下学习视觉表征</p>
+<h3 id="Self-Distillation-自蒸馏"><a href="#Self-Distillation-自蒸馏" class="headerlink" title="Self-Distillation(自蒸馏)"></a>Self-Distillation(自蒸馏)</h3><p>DINO 将知识蒸馏引入自监督学习，构建两个具有相同网络架构的模型：</p>
 <ul>
-<li><p><strong>Student Network</strong>：接收图像并通过反向传播更新参数</p>
+<li><p><strong>Student：</strong> 接收图像增强视图，通过反向传播更新参数</p>
 </li>
-<li><p><strong>Teacher Network</strong>：生成学习目标，不参与反向传播，通过 Student 参数的 EMA（Exponential Moving Average）更新</p>
-<p>Teacher 的参数更新方式：</p>
+<li><p><strong>Teacher：</strong> 接收图像增强视图，不进行反向传播，通过 Student 参数的指数移动平均（EMA）更新</p>
 <div class="mathjax-display">
 $$
 \theta_t \leftarrow m\theta_t+(1-m)\theta_s
 $$
-</div></li>
+</div>
+这种方式使 Teacher 的参数变化更加平滑，为 Student 提供相对稳定的学习目标</li>
 </ul>
-<p>训练时，Teacher 主要接收完整的 Global Views，Student 接收 Global Views 和 Local Views，并对部分输入 Patch 进行 Mask</p>
-<img src="https://storage.googleapis.com/labellerr-cdn/%20%201%20top/DINO.webp" style="zoom: 25%;" />
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261126165426194.webp" alt="image-20261126165426194" style="zoom: 50%;" />
 
-<p>随着训练推进，Teacher 的更新通常越来越平缓</p>
-<p><span style = "color:#A678D1">训练结束后通常选择 Teacher 作为最终模型</span></p>
-<h3 id="联合训练目标"><a href="#联合训练目标" class="headerlink" title="联合训练目标"></a>联合训练目标</h3><p>DINOv2 将 DINO 和 iBOT 两种自监督方法结合，同时学习图像级和 Patch 级视觉表征</p>
-<p><strong>1. DINO：Image-level Learning</strong></p>
 <blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.14294">2104.14294] Emerging Properties in Self-Supervised Vision Transformers</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=oGTasd3cliM">How AI Taught Itself to See DINOv3</a></p>
 </blockquote>
-<p>比较 Teacher 和 Student 的 CLS Token 输出</p>
+<p>两个网络均由 Backbone(VIT) 和 Projection Head 组成</p>
+<p><span style = "color:#A678D1">预训练结束后，通常保留 Teacher 的 Backbone，丢弃 Projection Head，使用 Backbone 提取的特征进行下游任务</span></p>
+<p>与 SimCLR 不同，DINO 不需要显式构造负样本，而是让 Student 预测 Teacher 输出的概率分布</p>
+<h3 id="Multi-Crop-Training"><a href="#Multi-Crop-Training" class="headerlink" title="Multi-Crop Training"></a>Multi-Crop Training</h3><p>DINO 引入多尺度裁剪策略，对同一张图像生成不同尺度的视图：</p>
 <ul>
-<li>Teacher：提取 Global View 的全局图像特征。</li>
-<li>Student：提取不同视图的图像特征。</li>
-<li>经过 Projection Head 后得到概率分布，使用 Cross-Entropy Loss 让 Student 的输出接近 Teacher</li>
+<li><strong>Global Crops：</strong> 两个较大的图像裁剪，Teacher 和 Student 均接收</li>
+<li><strong>Local Crops：</strong> 多个较小的图像裁剪，仅输入 Student</li>
 </ul>
-<p><strong>核心作用：</strong> 通过 CLS Token 学习全局图像语义</p>
-<img src="https://pub-cee141ccbabe4354b9001338920c335e.r2.dev/blog/images/DINOv3-deep-dive/dinov1.png" style="zoom: 67%;" />
-
-<p><strong>2. iBOT：Patch-level Learning</strong></p>
+<p>Teacher 只处理 Global Crops，Student 处理所有 Global 和 Local Crops</p>
+<p><strong>核心作用：</strong> 通过让 Student 的局部视图匹配 Teacher 的全局视图，建立局部到全局的语义对应关系，使模型能够从局部图像中学习全局语义信息</p>
+<h3 id="Centering-Sharpening"><a href="#Centering-Sharpening" class="headerlink" title="Centering &amp; Sharpening"></a>Centering &amp; Sharpening</h3><p>Teacher-Student 自蒸馏存在一个问题：<strong>Representation Collapse(表征坍塌)</strong>，即模型可能对不同输入都输出相同或近似的特征分布，无法学习有效表征</p>
+<p>DINO 使用 Centering 和 Sharpening 两种操作平衡 Teacher 的输出分布：</p>
+<ul>
+<li><strong>Centering：</strong> 对 Teacher 输出进行中心化，避免某一个输出维度长期占据主导地位，但可能使输出趋向均匀分布</li>
+<li><strong>Sharpening：</strong> 使用较低的 Temperature，使 Teacher 输出分布更加尖锐，避免输出过于均匀</li>
+</ul>
+<p>维护一个 Center 向量 $c$，用来记录 Teacher 在训练过程中各个输出维度的平均值(未softmax)：</p>
 <blockquote>
+<p>并没有事先预设类，只是把输出维度定的很大，让模型自己理解广义上的类</p>
+</blockquote>
+<div class="mathjax-display">
+$$
+c\leftarrow mc+(1-m)\frac{1}{B}\sum_{i=1}^{B}g_{\theta_t}(x_i)
+$$
+</div>
+
+<p>Teacher 和 Student 的输出分布分别为：</p>
+<div class="mathjax-display">
+$$
+p_t=\operatorname{Softmax}\left(\frac{g_{\theta_t}(x)-c}{\tau_t}\right)\qquad p_s=\operatorname{Softmax}\left(\frac{g_{\theta_s}(x)}{\tau_s}\right)
+$$
+</div>
+最终使用交叉熵损失，让 Student 匹配 Teacher 的输出分布：
+<div class="mathjax-display">
+$$
+\mathcal{L}_{DINO}=-\sum_k p_t(k)\log p_s(k)
+$$
+</div>
+
+<h2 id="iBOT"><a href="#iBOT" class="headerlink" title="iBOT"></a>iBOT</h2><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.07832">2111.07832] iBOT: Image BERT Pre-Training with Online Tokenizer</a></p>
 </blockquote>
-<p>这部分和 MAE 相似</p>
-<p>在 Student 输入中随机 Mask 部分 Patch，而 Teacher 看到完整图像，不进行 Mask</p>
+<p><strong>核心思想：</strong> 将掩码图像建模 转化为 Teacher-Student Self-Distillation，通过 Teacher 作为 Online Tokenizer，为 Student 提供被遮挡 Patch 的语义特征监督，同时利用 CLS Token 自蒸馏学习全局视觉语义</p>
+<h3 id="Online-Tokenizer"><a href="#Online-Tokenizer" class="headerlink" title="Online Tokenizer"></a>Online Tokenizer</h3><p>传统掩码图像建模需要使用预训练的视觉编码器生成重建目标</p>
+<p>iBOT 使用 Momentum Teacher 作为 <strong>Online Tokenizer</strong>：</p>
 <ul>
-<li>Teacher：提取完整图像的 Patch Features</li>
-<li>Student：提取特征后，取出被 Mask 位置对应的 Patch Token</li>
-<li>计算对应位置 Teacher 和 Student 输出分布之间的 Cross-Entropy Loss</li>
+<li><strong>Teacher：</strong> 输入完整图像，通过 Backbone 和 Projection Head 生成 Patch 的软概率分布，作为预测目标</li>
+<li><strong>Student：</strong> 输入经过 Masking 的图像，通过 Mask Token 对应位置预测 Teacher 的输出分布</li>
+<li><strong>EMA Update：</strong> Teacher 参数通过 Student 参数的指数移动平均更新</li>
 </ul>
-<p><strong>核心作用：</strong> 通过 Patch Token 学习局部视觉特征</p>
-<p>与 MAE 的区别：</p>
-<ul>
-<li>MAE：预测被 Mask 区域的原始像素</li>
-<li>iBOT：预测 Teacher 对应位置的特征分布</li>
-</ul>
-<h3 id="关键改进"><a href="#关键改进" class="headerlink" title="关键改进"></a>关键改进</h3><p><strong>Sinkhorn-Knopp（SK）归一化</strong></p>
-<p>Teacher 使用 Sinkhorn-Knopp 算法生成相对均衡的 Prototype 分配，Student 使用标准 Softmax 生成预测分布。</p>
-<blockquote>
-<p>有点类似MoE的目的，避免只有一个专家在用</p>
-</blockquote>
-<p>通过交替进行行、列归一化，使 Batch 内样本在不同 Prototype 之间获得相对均衡的分配，缓解特征坍塌</p>
-<p><strong>KoLeo Regularization（特征分散正则化）</strong></p>
-<p>KoLeo 基于最近邻距离约束特征分布，鼓励 Batch 内不同图像的特征在表示空间中更加均匀地分散</p>
-<p>通过增大特征与最近邻特征之间的距离，减少特征过度聚集，提升特征多样性，对图像检索等任务尤其有帮助</p>
-<p><strong>Untied Projection Heads</strong></p>
-<p>DINO 和 iBOT 分别使用独立的 Projection Head，避免图像级和 Patch 级训练目标之间产生干扰，使模型能够更好地学习不同层次的视觉表征</p>
-<img src="https://pub-cee141ccbabe4354b9001338920c335e.r2.dev/blog/images/DINOv3-deep-dive/dinov2.png" style="zoom: 67%;" />
+<h3 id="Dual-Self-Distillation"><a href="#Dual-Self-Distillation" class="headerlink" title="Dual Self-Distillation"></a>Dual Self-Distillation</h3><p>iBOT 同时使用两种自蒸馏目标：</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261126215430510.png" alt="image-20261126215430510" style="zoom:67%;" />
 
-<h1 id="视觉语言预训练（VLP）"><a href="#视觉语言预训练（VLP）" class="headerlink" title="视觉语言预训练（VLP）"></a>视觉语言预训练（VLP）</h1><h2 id="双塔式视觉语言对齐"><a href="#双塔式视觉语言对齐" class="headerlink" title="双塔式视觉语言对齐"></a>双塔式视觉语言对齐</h2><h3 id="CLIP"><a href="#CLIP" class="headerlink" title="CLIP"></a>CLIP</h3><blockquote>
+<p><strong>1. CLS-level Self-Distillation</strong></p>
+<p>延续 DINO 的设计，对不同增强视图的 CLS Token 进行交叉蒸馏：</p>
+<ul>
+<li>Teacher：输入未 Mask 的图像视图，提取 CLS Feature</li>
+<li>Student：输入对应的 Masked View，提取 CLS Feature</li>
+<li>通过交叉熵损失让 Student 匹配 Teacher 的输出分布</li>
+</ul>
+<p><strong>2. Patch-level Self-Distillation</strong></p>
+<p>将掩码图像建模转化为 Patch-level 蒸馏：</p>
+<ul>
+<li>Teacher：输入未 Mask 的图像，提取所有 Patch 特征</li>
+<li>Student：输入经过 Block-wise Masking 的图像</li>
+<li>Student 预测被 Mask 位置对应的 Teacher 特征概率分布</li>
+</ul>
+<div class="mathjax-display">
+$$
+\mathcal{L}_{MIM}
+=
+-\sum_{i=1}^{N}m_i
+P_{\theta'}^{patch}(x_i)^T
+\log P_{\theta}^{patch}(\hat{x}_i)
+$$
+</div>
+
+<p>与 MAE 不同，iBOT 不直接重建原始像素，而是预测 Teacher 提供的语义特征分布</p>
+<h2 id="DINOv2"><a href="#DINOv2" class="headerlink" title="DINOv2"></a>DINOv2</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.07193">2304.07193] DINOv2: Learning Robust Visual Features without Supervision</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 结合 DINO 的图像级自蒸馏与 iBOT 的 Patch 级自蒸馏，并引入大规模高质量数据集和 KoLeo Regularization，训练具有通用性和迁移能力的视觉基础模型</p>
+<h3 id="DINO-iBOT"><a href="#DINO-iBOT" class="headerlink" title="DINO + iBOT"></a>DINO + iBOT</h3><p>DINOv2 将两种自监督学习目标结合起来，同时学习 Image-level 和 Patch-level 的视觉表征</p>
+<p><strong>Image-level(DINO)</strong></p>
+<p>延续 DINO 的 Teacher-Student Self-Distillation，让 Student 学习 Teacher 对不同图像视图输出的 CLS Token 分布</p>
+<blockquote>
+<p>这也是为什么需要iBOT，只约束 CLS Token，模型并没有被直接要求学习每个局部 Patch 的语义表征</p>
+</blockquote>
+<p><strong>Patch-level(iBOT)</strong></p>
+<p>延续 iBOT 的 Online Tokenizer，让 Student 预测被遮挡 Patch 对应的 Teacher 特征分布</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261126165036794.webp" alt="image-20261126165036794" style="zoom:50%;" />
+
+<p>关键设计：</p>
+<ul>
+<li><p><strong>独立投影头：</strong> DINOv2 为图像级和 Patch 级任务分别设置独立的投影头，避免两种学习目标相互干扰</p>
+<blockquote>
+<p>原始 iBOT 使用共享投影头，而 DINOv2 发现独立设计在大规模训练下效果更好</p>
+</blockquote>
+</li>
+<li><p><strong>Sinkhorn-Knopp 归一化：</strong> 使用 Sinkhorn-Knopp 算法平衡 Teacher 输出的概率分布，替代原有的移动平均中心化方案，Student 仍使用 Softmax 归一化</p>
+</li>
+</ul>
+<h3 id="KoLeo-Regularization（特征分散正则化）"><a href="#KoLeo-Regularization（特征分散正则化）" class="headerlink" title="KoLeo Regularization（特征分散正则化）"></a>KoLeo Regularization（特征分散正则化）</h3><p>DINOv2 引入 KoLeo 正则化，鼓励 Batch 内的特征在特征空间中更加均匀地分布</p>
+<p>其基本思想是计算每个样本与其他样本之间的最近邻距离，通过最大化最近邻距离，促进特征分散</p>
+<p>损失函数：</p>
+<div class="mathjax-display">
+$$
+\mathcal{L}_{KoLeo}
+=
+-\frac{1}{n}\sum_{i=1}^{n}\log(d_{n,i})\qquad d_{n,i}=\min_{j\neq i}\|x_i-x_j\|_2
+$$
+</div>
+
+<ul>
+<li>Centering：调整 Teacher 输出的维度数值，避免某些输出维度长期占据主导</li>
+<li>KoLeo：约束不同样本的特征向量之间的距离，促进特征空间分散</li>
+</ul>
+<p>两者分别从输出分布和样本特征几何结构两个层面改善表征质量</p>
+<h2 id="DINOv3"><a href="#DINOv3" class="headerlink" title="DINOv3"></a>DINOv3</h2><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2508.10104">2508.10104] DINOv3</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 在 DINOv2 的自监督学习框架上进一步扩大模型规模，并引入 Gram Anchoring，解决长时间训练过程中局部视觉特征逐渐退化的问题，使模型兼具全局语义与高质量局部空间表征</p>
+<h3 id="Dense-Feature-Degradation"><a href="#Dense-Feature-Degradation" class="headerlink" title="Dense Feature Degradation"></a>Dense Feature Degradation</h3><p>DINOv3 发现，随着模型规模和训练时间增加，出现了全局特征与局部特征表现不一致的问题：</p>
+<ul>
+<li><strong>Global Features：</strong> ImageNet 分类准确率持续提升</li>
+<li><strong>Dense Features：</strong> 语义分割等密集预测任务的性能逐渐下降</li>
+</ul>
+<p>论文通过特征相似度图发现：</p>
+<ol>
+<li>随着训练进行，CLS Token 与 Patch Token 之间的余弦相似度逐渐增加</li>
+<li>不同 Patch 之间的相似度图逐渐变得嘈杂</li>
+<li>Patch 特征的空间局部性下降，难以准确区分图像中的不同区域</li>
+</ol>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261126173847233.webp" alt="image-20261126173847233" style="zoom:50%;" />
+
+<h3 id="Gram-Anchoring"><a href="#Gram-Anchoring" class="headerlink" title="Gram Anchoring"></a>Gram Anchoring</h3><p>DINOv3 引入 Gram Anchoring，通过约束 Patch Features 之间的相似性结构，维持局部特征的一致性</p>
+<p><strong>Gram Matrix：</strong> 对同一图像中不同 Patch 的特征进行两两相似度计算</p>
+<p>具体过程：</p>
+<ol>
+<li>选取训练早期具有较好局部特征的 Teacher 作为 Gram Teacher</li>
+<li>Student 和 Gram Teacher 分别提取图像的 Patch Features</li>
+<li>分别计算两组特征的 Gram Matrix</li>
+<li>通过 Loss 约束 Student 的 Gram Matrix 接近 Gram Teacher</li>
+</ol>
+<div class="mathjax-display">
+$$
+\mathcal{L}_{Gram}
+=
+\left\|
+X_S X_S^T-X_G X_G^T
+\right\|_F^2
+$$
+</div>
+
+<p>**关键设计：**Gram Anchoring 不直接约束 Student 与 Teacher 的特征向量，而是约束它们之间的相似性结构，这样 Student 的特征仍然可以继续更新，只需要保持 Patch 之间原有的空间关系</p>
+<p>在传统视觉任务，DINOv3 已经被当作通用视觉特征提取器使用</p>
+<h1 id="视觉语言预训练（VLP）"><a href="#视觉语言预训练（VLP）" class="headerlink" title="视觉语言预训练（VLP）"></a>视觉语言预训练（VLP）</h1><h2 id="双塔式图文对齐"><a href="#双塔式图文对齐" class="headerlink" title="双塔式图文对齐"></a>双塔式图文对齐</h2><h3 id="CLIP"><a href="#CLIP" class="headerlink" title="CLIP"></a>CLIP</h3><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020] Learning Transferable Visual Models From Natural Language Supervision</a></p>
 </blockquote>
-<p><strong>核心思想</strong>：利用大规模图文配对数据，同时训练 Image Encoder 和 Text Encoder，将图像与文本映射到同一个语义空间，通过对比学习使匹配的图文表示靠近、不匹配的图文表示远离，从而实现跨模态语义对齐和 Zero-shot 分类</p>
-<h4 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h4><p>CLIP 采用双编码器架构(双塔架构)：</p>
+<p><strong>核心思想：</strong> 利利用大规模图文配对数据，同时训练 Image Encoder 和 Text Encoder，将图像与文本映射到同一个语义空间，通过对比学习使匹配的图文表示靠近、不匹配的图文表示远离，从而实现跨模态语义对齐和 Zero-shot 分类</p>
+<h4 id="Natural-Language-Supervision"><a href="#Natural-Language-Supervision" class="headerlink" title="Natural Language Supervision"></a>Natural Language Supervision</h4><p>传统视觉模型主要通过人工标注的固定类别进行监督训练，模型的分类能力受到预定义类别的限制，迁移到新任务时通常需要额外的标注数据和训练</p>
+<p>CLIP 使用互联网中的自然语言图文配对数据（Image-Text Pairs）作为监督信号：</p>
+<p><strong>核心作用：</strong> 不再局限于固定的分类标签，而是利用自然语言中更加丰富的语义信息学习视觉表征，使模型能够识别训练时未见过的类别</p>
+<h4 id="Dual-Encoder-Architecture"><a href="#Dual-Encoder-Architecture" class="headerlink" title="Dual-Encoder Architecture"></a>Dual-Encoder Architecture</h4><p>CLIP 采用双编码器架构，分别提取图像和文本特征，并将两种模态映射到统一的语义空间</p>
 <ul>
-<li><strong>Image Encoder</strong>：使用 CNN（ResNet）或 ViT 提取图像特征</li>
-<li><strong>Text Encoder</strong>：使用 Transformer 提取文本特征</li>
+<li><strong>Image Encoder：</strong> 使用 CNN（ResNet）或 ViT 提取图像特征</li>
+<li><strong>Text Encoder：</strong> 使用 Transformer 提取文本特征，原论文使用最后一层 <code>[EOS]</code> Token 的输出作为文本表示</li>
+<li><strong>Projection Layer：</strong> 分别使用 Linear Projection 将两种特征映射到相同维度的共享语义空间</li>
 </ul>
-<p>两个 Encoder 分别通过 Projection Layer 将特征映射到相同维度的共享语义空间</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                 CLIP</span><br><span class="line"></span><br><span class="line">        ┌─────────────────┐</span><br><span class="line">Image → │  Image Encoder  │ → Image Embedding</span><br><span class="line">        └─────────────────┘</span><br><span class="line">                              ↘</span><br><span class="line">                          Shared Space</span><br><span class="line">                              ↗</span><br><span class="line">        ┌─────────────────┐</span><br><span class="line">Text  → │  Text Encoder   │ → Text Embedding</span><br><span class="line">        └─────────────────┘</span><br></pre></td></tr></table></figure>
-
-<h4 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h4><p>训练数据由大量匹配的 (image, text) Pair 构成</p>
-<p>一个 Batch 中</p>
+<h4 id="Contrastive-Pre-training"><a href="#Contrastive-Pre-training" class="headerlink" title="Contrastive Pre-training"></a>Contrastive Pre-training</h4><p>CLIP 的训练目标是判断 Batch 中哪些图文组合是真实匹配的</p>
+<p>对于一个包含 $N$ 组图文配对的 Batch：</p>
 <div class="mathjax-display">
 $$
 (I_1,T_1),(I_2,T_2),\ldots,(I_N,T_N)
 $$
 </div>
-可以组成 $N^2$ 个图文组合，对角线上的 $N$ 个是Positive Pair，其余均为 Negative Pair
+可以组成 $N^2$ 种图文组合：
 
-<p>分别提取图像和文本特征，并进行 L2 归一化，再计算余弦相似度：</p>
+<ul>
+<li>对角线上的 $N$ 个组合是 Positive Pairs</li>
+<li>其余 $N^2-N$ 个组合是 Negative Pairs</li>
+</ul>
+<p>分别提取图像和文本特征，经过 L2 Normalization 后计算 Cosine Similarity：</p>
 <div class="mathjax-display">
 $$
 S_{ij}=z_I^i\cdot z_T^j=\frac{z_I^i\cdot z_T^j
@@ -467,20 +845,10 @@ S_{ij}=z_I^i\cdot z_T^j=\frac{z_I^i\cdot z_T^j
 }
 $$
 </div>
-得到 Similarity Matrix
+**对比学习目标：**最大化匹配图文对的相似度，同时降低不匹配图文对的相似度
 
-<p>通过对比学习，使匹配的图文特征相似度增大，不匹配的图文特征相似度降低</p>
-<p>Similarity 在进入 Softmax 前还会经过缩放</p>
-<div class="mathjax-display">
-$$
-\ell_{ij}=\frac{S_{ij}}{\tau}
-$$
-</div>
-<span style = "color:#DC5A5A">CLIP 中的 Temperature 是可学习的，而不是固定超参数</span>
-
-<p>训练时同时优化两个方向：</p>
-<p><strong>Image → Text</strong></p>
-<p>给定一张图片 $I_i$，在 batch 中所有文本里找到与它匹配的 $T_i$：</p>
+<p>CLIP 同时优化两个方向</p>
+<p><strong>Image → Text</strong>：给定图像，在 Batch 中找到与其匹配的文本</p>
 <div class="mathjax-display">
 $$
 L_I
@@ -496,10 +864,7 @@ L_I
 }
 $$
 </div>
-每一行进行 Softmax，寻找正确的文本
-
-<p><strong>Text → Image</strong></p>
-<p>给定文本 $ T_i$，在所有图片中找到 $ I_i$：</p>
+**Text → Image**：给定文本，在 Batch 中找到与其匹配的图像
 <div class="mathjax-display">
 $$
 L_T
@@ -515,9 +880,7 @@ L_T
 }
 $$
 </div>
-每一列进行 Softmax，寻找正确的图像
-
-<p>最终</p>
+最终损失：
 <div class="mathjax-display">
 $$
 \boxed{
@@ -529,7 +892,7 @@ $$
 </div>
 
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-23_11-49-30.webp" alt="Snipaste_2026-09-23_11-49-30"></p>
-<h4 id="Zero-shot-分类"><a href="#Zero-shot-分类" class="headerlink" title="Zero-shot 分类"></a>Zero-shot 分类</h4><p>CLIP 最重要的能力是 Zero-shot 分类：不需要针对新的分类任务重新训练模型，就能够识别未见过的类别</p>
+<h4 id="Zero-shot-Classification"><a href="#Zero-shot-Classification" class="headerlink" title="Zero-shot Classification"></a>Zero-shot Classification</h4><p>CLIP 最重要的能力是 Zero-shot 分类：不需要针对新的分类任务重新训练模型，就能够识别未见过的类别</p>
 <p>具体过程：</p>
 <ol>
 <li>将类别名称构造成自然语言 Prompt，例如 <code>A photo of a dog</code></li>
@@ -538,70 +901,56 @@ $$
 <li>计算图像与各类别文本特征的相似度</li>
 <li>选择相似度最高的文本类别作为预测结果</li>
 </ol>
-<p>这些 Text Embedding 就可以看成 Classification Weight</p>
-<p><span style = "color:#DC5A5A">Text Encoder 可以理解为根据自然语言动态生成 Linear Classifier 的权重</span></p>
+<p><strong>关键设计：</strong> Text Embeddings 可以看作动态生成的 Classification Weights，Text Encoder 相当于根据自然语言描述生成分类器</p>
 <h3 id="SigLIP"><a href="#SigLIP" class="headerlink" title="SigLIP"></a>SigLIP</h3><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.15343">2303.15343] Sigmoid Loss for Language Image Pre-Training</a></p>
 </blockquote>
 <p><strong>核心思想</strong>：在 CLIP 双编码器架构的基础上，将 Softmax Contrastive Loss 替换为 Pairwise Sigmoid Loss，将图文匹配转化为独立的二分类任务，降低对 Batch 内全局归一化的依赖，提高训练效率</p>
-<h4 id="Sigmoid-Loss"><a href="#Sigmoid-Loss" class="headerlink" title="Sigmoid Loss"></a>Sigmoid Loss</h4><p>CLIP 将图文匹配看作双向 N 分类问题，而 SigLIP 将每一个 Image-Text Pair 看作独立的二分类问题</p>
-<p>对于一个 Batch：</p>
+<h4 id="Sigmoid-Loss"><a href="#Sigmoid-Loss" class="headerlink" title="Sigmoid Loss"></a>Sigmoid Loss</h4><p>CLIP 使用 Softmax Contrastive Loss，对 Batch 内的图文相似度进行归一化，分别计算 Image-to-Text 和 Text-to-Image 的匹配概率</p>
+<p>这种方式需要考虑整个 Batch 的相似度分布，分布式训练时通常需要进行跨设备特征聚合（All-Gather），增加了计算和通信开销</p>
+<p>SigLIP 将图文匹配重新定义为二分类问题</p>
+<p>对于包含 $N$ 组图文配对的 Batch，可以构建 $N\times N$ 个图文组合：</p>
+<ul>
+<li><strong>Positive Pair：</strong> 匹配的图像与文本，对应标签 $z_{ij}&#x3D;+1$</li>
+<li><strong>Negative Pair：</strong> 不匹配的图像与文本，对应标签 $z_{ij}&#x3D;-1$</li>
+</ul>
+<p>每个图文组合独立判断是否匹配，不再依赖 Softmax 对整个 Batch 进行归一化</p>
+<p>SigLIP 的损失函数：</p>
 <div class="mathjax-display">
 $$
-(I_1,T_1),(I_2,T_2),\ldots,(I_N,T_N)
+\mathcal{L}
+=
+-\frac{1}{|\mathcal{B}|}
+\sum_{i=1}^{|\mathcal{B}|}
+\sum_{j=1}^{|\mathcal{B}|}
+\log
+\frac{1}
+{1+\exp\left[-z_{ij}(t x_i^\top y_j-b)\right]}
 $$
 </div>
-同样构造 $N^2$ 个图文组合
+其中：
 
 <ul>
-<li>对角线上的 $N$ 个 Pair 是 Positive Pair，标签为 $+1$</li>
-<li>其余 Pair 是 Negative Pair，标签为 $-1$</li>
+<li>$t$：可学习的相似度缩放系数</li>
+<li>$b$：可学习的 Bias</li>
 </ul>
-<p>分别提取图像和文本特征，并进行 L2 归一化，计算相似度：</p>
-<div class="mathjax-display">
-$$
-s_{ij}=x_i^T y_j
-$$
-</div>
-引入可学习的 Logit Scale 和 Bias
-<div class="mathjax-display">
-$$
-\ell_{ij}=t x_i^T y_j+b
-$$
-</div>
-定义图文匹配标签
-<div class="mathjax-display">
-$$
-z_{ij}=
-\begin{cases}
-+1 &amp; i=j\\
--1 &amp; i\neq j
-\end{cases}
-$$
-</div>
-最终使用 Sigmoid Loss：
-<div class="mathjax-display">
-$$
-\boxed{
-L=-\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{N}
-\log\sigma(z_{ij}\ell_{ij})
-}
-$$
-</div>
-**Bias 的作用：**
-
+<p><strong>Bias 的作用：</strong></p>
 <p>一个 Batch 中负样本数量远多于正样本，训练初期容易受到负样本主导，产生较大的优化步长</p>
-<p>因此引入可学习 Bias，初始化为 $-10$，Logit Scale 初始化为 $10$，使模型初始预测更符合正负样本比例，减少训练初期的过度修正</p>
-<h4 id="Chunked-Implementation"><a href="#Chunked-Implementation" class="headerlink" title="Chunked Implementation"></a>Chunked Implementation</h4><p>由于 Sigmoid Loss 中每个 Pair 的损失可以独立计算，因此可以将 $N\times N$ 的 Similarity Matrix 拆分成多个小块（Chunk）进行计算</p>
+<p>因此引入可学习 Bias，初始化为 -10，将相似度缩放系数 $t$ 初始化为 10，使模型初始预测更符合正负样本比例，减少训练初期的过度修正</p>
+<h4 id="Efficient-Training"><a href="#Efficient-Training" class="headerlink" title="Efficient Training"></a>Efficient Training</h4><p>SigLIP 的 Pairwise Loss 还带来了训练效率上的优势：</p>
+<ul>
+<li><strong>Batch Size：</strong> 不再需要依赖全局 Softmax 归一化，可以在较小 Batch Size 下获得较好的表现，同时支持进一步扩大 Batch Size</li>
+<li><strong>Distributed Training：</strong> 使用分块计算，避免直接构建完整的全局相似度矩阵，降低显存和通信开销</li>
+</ul>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261031224041054.webp" alt="image-20261031224041054" style="zoom:67%;" />
 
-<p>不需要一次性构造完整的全局 Similarity Matrix，可以逐块计算并累积 Loss，从而降低峰值显存占用和分布式通信开销</p>
-<p>但是仍然需要考虑 Batch 内的正负样本组合，并没有消除 $N^2$ 级别的图文匹配关系</p>
+<p><span style = "color:#A678D1">但是仍然需要考虑 Batch 内的正负样本组合，并没有消除 $N^2$ 级别的图文匹配关系</span></p>
 <h3 id="SigLIP-2"><a href="#SigLIP-2" class="headerlink" title="SigLIP-2"></a>SigLIP-2</h3><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.14786">2502.14786] SigLIP 2: Multilingual Vision-Language Encoders with Improved Semantic Understanding, Localization, and Dense Features</a></p>
 </blockquote>
-<p><strong>核心思想：</strong> 在 SigLIP 双塔架构的基础上，引入图像描述、自蒸馏和 Masked Prediction 等训练目标，增强模型的全局语义理解、局部视觉表征、空间定位和多语言理解能力</p>
-<h4 id="Captioning-based-Pretraining"><a href="#Captioning-based-Pretraining" class="headerlink" title="Captioning-based Pretraining"></a>Captioning-based Pretraining</h4><p>在原有 Image Encoder 和 Text Encoder 的基础上，增加 Transformer Decoder，通过 Cross-Attention 融合视觉特征，增加三个训练任务：</p>
+<p><strong>核心思想：</strong> 在保留 SigLIP 双塔架构和 Sigmoid Loss 的基础上，引入图像描述、自蒸馏和 Masked Prediction 等训练目标，增强模型的全局语义理解、局部视觉表征、空间定位和多语言理解能力</p>
+<h4 id="Captioning-based-Pretraining"><a href="#Captioning-based-Pretraining" class="headerlink" title="Captioning-based Pretraining"></a>Captioning-based Pretraining</h4><p>SigLIP-2 在原有 Image Encoder 和 Text Encoder 的基础上，增加 Transformer Decoder，通过 Cross-Attention 融合未经过 MAP Head 池化的视觉特征</p>
+<p>借鉴 LocCa，引入三个训练任务：</p>
 <ul>
 <li><strong>Image Captioning</strong>：根据图像生成整体描述，学习图像与自然语言之间的语义关联</li>
 <li><strong>Referring Expression Prediction</strong>：根据文本描述预测对应物体的 Bounding Box</li>
@@ -609,57 +958,60 @@ $$
 </ul>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261031225607121.png" alt="image-20261031225607121" style="zoom:67%;" />
 
-<p>借鉴 LocCa，通过图像描述和区域定位任务，让视觉 Encoder 学习更丰富的局部语义和空间信息</p>
-<h4 id="多阶段训练"><a href="#多阶段训练" class="headerlink" title="多阶段训练"></a>多阶段训练</h4><p>采用两阶段训练策略：</p>
-<p><strong>Stage 1：图文对齐与生成任务</strong></p>
-<p>前 80% 的训练过程中，联合优化：</p>
+<p>通过图像描述和区域定位任务，让视觉 Encoder 学习更丰富的局部语义和空间信息</p>
+<p><span style = "color:#A678D1">训练完成后移除辅助 Decoder，仅保留 Image Encoder 和 Text Encoder</span></p>
+<h4 id="Multi-stage-Training"><a href="#Multi-stage-Training" class="headerlink" title="Multi-stage Training"></a>Multi-stage Training</h4><p>SigLIP-2 采用分阶段训练策略，在原有图文对齐目标的基础上，逐步引入生成任务和自监督目标</p>
+<p><strong>Stage 1：图文对齐与生成任务（前 80%）</strong></p>
+<p>联合优化两个目标：</p>
 <ul>
 <li>Sigmoid Loss：保留原有图文对齐能力。</li>
 <li>LocCa Decoder Loss：通过图像描述和区域定位增强视觉特征</li>
 </ul>
-<p><strong>Stage 2：引入自监督目标</strong></p>
-<p>训练达到 80% 后，额外引入两个训练目标：</p>
+<p><strong>Stage 2：引入自监督目标（最后 20%）</strong></p>
+<p>额外引入两个训练目标：</p>
 <p><strong>1. Self-Distillation</strong></p>
-<p>借鉴 DINO 系列的 Teacher-Student 自蒸馏思想：</p>
+<p>借鉴 DINO 系列的 Teacher-Student Self-Distillation：</p>
 <ul>
-<li>Teacher：接收完整的 Global View，提取全局视觉特征</li>
-<li>Student：接收 8 个 Local Views，提取局部视觉特征</li>
-<li>通过特征一致性 Loss，让 Student 的局部特征匹配 Teacher 的全局特征</li>
-<li>Teacher 参数通过 Student 参数的 EMA 更新</li>
+<li><strong>Teacher：</strong> 接收一个完整的 Global View，提取全局视觉特征</li>
+<li><strong>Student：</strong> 接收 8 个 Local Views，提取局部视觉特征</li>
+<li><strong>Training Target：</strong> 让 Student 的局部特征匹配 Teacher 的全局特征</li>
+<li><strong>EMA Update：</strong> Teacher 参数通过 Student 参数的 EMA 更新</li>
 </ul>
-<p><strong>核心作用：</strong> 增强全局与局部视觉特征之间的语义一致性</p>
+<p>建立全局与局部视觉特征之间的语义一致性</p>
 <p><strong>2. Masked Prediction</strong></p>
-<p>借鉴 MAE 的 Masked Prediction 思想，让 Student 预测被 Mask 区域对应的 Teacher Features：</p>
+<p>借鉴 iBOT 的 Masked Prediction 思想，让 Student 预测被 Mask 区域对应的 Teacher Features：</p>
 <ul>
-<li>Teacher：接收完整图像，提取所有 Patch Features</li>
-<li>Student：随机 Mask 50% 的 Patch</li>
-<li>训练目标：预测被 Mask 位置对应的 Teacher Patch Features</li>
+<li><strong>Teacher：</strong> 输入完整 Global View，提取所有 Patch Features</li>
+<li><strong>Student：</strong> 将同一 Global View 中 50% 的 Patch 替换为 Mask Tokens</li>
+<li><strong>Training Target：</strong> 预测被 Mask 位置对应的 Teacher Patch Features</li>
 </ul>
-<p><strong>核心作用：</strong> 增强 Patch-level Representation，学习更丰富的局部视觉信息</p>
-<p><span style = "color:#A678D1">训练完成后移除辅助 Decoder，仅保留 Image Encoder 和 Text Encoder</span></p>
-<h4 id="NaFlex"><a href="#NaFlex" class="headerlink" title="NaFlex"></a>NaFlex</h4><p>传统 ViT 通常需要将输入图像 Resize 到固定尺寸，可能造成图像宽高比失真和细节丢失</p>
+<p>增强 Patch-level Representation，使模型学习更丰富的局部视觉信息</p>
+<h4 id="NaFlex"><a href="#NaFlex" class="headerlink" title="NaFlex"></a>NaFlex</h4><p>SigLIP-2 还提供 NaFlex 版本，支持不同分辨率和原生宽高比</p>
 <p>NaFlex 融合了两个思路：</p>
 <ul>
-<li><p><strong>FlexiViT</strong>：支持不同的预设 Patch 序列长度，使模型能够适应不同分辨率</p>
+<li><p><strong>FlexiViT</strong>：使用单一 ViT 支持多种预设序列长度的设计</p>
 <blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.08013">2212.08013] FlexiViT: One Model for All Patch Sizes</a></p>
 </blockquote>
-<p>训练时随机选择 Patch Size，动态调整 Patch Embedding 和 Position Embedding</p>
-<p>同一套模型参数就能处理不同 Patch Size 的输入</p>
+<p>使同一套模型参数能够适应不同长度的 Patch Token 序列</p>
 </li>
-<li><p><strong>NaViT</strong>：支持原生宽高比</p>
+<li><p><strong>NaViT</strong>：尽可能保留输入图像的原始宽高比，而不是强制 Resize 为固定正方形</p>
 <blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.06304">2307.06304] Patch n&#39; Pack: NaViT, a Vision Transformer for any Aspect Ratio and Resolution</a></p>
 </blockquote>
-<p>不再强制将所有图像 Resize 到固定的正方形尺寸，而是尽可能保留图像原始宽高比，并允许不同图像产生不同数量的 Patch Token</p>
+<p>通过保持图像宽高比进行缩放，将图像划分为 Patch，并根据目标序列长度进行 Padding</p>
 </li>
 </ul>
-<p><strong>与 BLIP-2 的区别：</strong> BLIP-2 通过 Q-Former 将视觉信息提取并传递给 LLM；SigLIP-2 则利用辅助训练任务增强视觉语言 Encoder 本身的表征能力</p>
-<h2 id="跨模态对齐与融合"><a href="#跨模态对齐与融合" class="headerlink" title="跨模态对齐与融合"></a>跨模态对齐与融合</h2><h3 id="ALBEF"><a href="#ALBEF" class="headerlink" title="ALBEF"></a>ALBEF</h3><blockquote>
+<h2 id="跨模态交互与生成"><a href="#跨模态交互与生成" class="headerlink" title="跨模态交互与生成"></a>跨模态交互与生成</h2><h3 id="ALBEF"><a href="#ALBEF" class="headerlink" title="ALBEF"></a>ALBEF</h3><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2107.07651">2107.07651] Align before Fuse: Vision and Language Representation Learning with Momentum Distillation</a></p>
 </blockquote>
 <p><strong>核心思想：</strong> 先通过对比学习对齐图像和文本的全局语义特征，再通过 Cross-Attention 进行跨模态融合，同时引入 Momentum Distillation，利用动量模型生成软标签，缓解 Web 图文数据中的噪声问题</p>
-<h4 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h4><p>ALBEF 采用三个 Encoder 构成的架构：</p>
+<h4 id="Align-Before-Fuse"><a href="#Align-Before-Fuse" class="headerlink" title="Align Before Fuse"></a>Align Before Fuse</h4><p>ALBEF 提出 <strong>Align before Fuse</strong>，将训练过程分为两个阶段：</p>
+<ol>
+<li><strong>Align：</strong> 分别使用 Image Encoder 和 Text Encoder 提取特征，通过 Image-Text Contrastive Loss（ITC）先对齐图像与文本的全局语义表示。</li>
+<li><strong>Fuse：</strong> 将两种模态的特征输入 Multimodal Encoder，通过 Cross-Attention 建立细粒度的跨模态交互</li>
+</ol>
+<h4 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h4><p>ALBEF 采用三个 Encoder 构成的架构：</p>
 <ul>
 <li><strong>Image Encoder</strong>：使用 ViT-B&#x2F;16 提取图像 Patch Features</li>
 <li><strong>Text Encoder</strong>：使用 Transformer 提取文本 Token Features</li>
@@ -667,173 +1019,175 @@ $$
 </ul>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261119193911778.webp" alt="image-20261119193911778" style="zoom:50%;" />
 
-<p>Image Encoder 和 Text Encoder 独立提取特征，Multimodal Encoder 接收两者的输出进行跨模态交互</p>
-<p>与 CLIP 的区别：</p>
+<p>Image Encoder 和 Text Encoder 独立提取特征，Multimodal Encoder 再进行深层融合，使模型同时具备单模态表征能力和跨模态交互能力</p>
+<h4 id="Pre-training-Objectives"><a href="#Pre-training-Objectives" class="headerlink" title="Pre-training Objectives"></a>Pre-training Objectives</h4><p>ALBEF 联合优化三个训练目标：</p>
+<table>
+<thead>
+<tr>
+<th>训练目标</th>
+<th>作用位置</th>
+<th>核心作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Image-Text Contrastive（ITC）</td>
+<td>Unimodal Encoders</td>
+<td>对齐图像和文本的全局语义</td>
+</tr>
+<tr>
+<td>Image-Text Matching（ITM）</td>
+<td>Multimodal Encoder</td>
+<td>判断图文是否匹配</td>
+</tr>
+<tr>
+<td>Masked Language Modeling（MLM）</td>
+<td>Multimodal Encoder</td>
+<td>利用图像和文本上下文预测被 Mask 的词</td>
+</tr>
+</tbody></table>
+<p><strong>ITM</strong></p>
+<p>通过 Multimodal Encoder 融合图像和文本特征，使用融合后的 CLS Embedding 判断图文是否匹配</p>
+<p>ALBEF 引入 <strong>Hard Negative Mining（困难负样本挖掘）</strong>：</p>
 <ul>
-<li>CLIP：通过双塔结构进行图文对齐，不进行深层跨模态特征交互</li>
-<li>ALBEF：先通过双塔结构对齐图文特征，再通过 Multimodal Encoder 进行融合</li>
+<li>利用 ITC 计算图像与文本之间的相似度</li>
+<li>从 Batch 中按照相似度分布采样负样本</li>
+<li>优先采样语义相似但实际不匹配的图文组合</li>
 </ul>
-<h4 id="Align-Before-Fuse"><a href="#Align-Before-Fuse" class="headerlink" title="Align Before Fuse"></a>Align Before Fuse</h4><p>ALBEF 最重要的设计是先对齐、再融合</p>
-<p><strong>第一步：Alignment</strong></p>
-<p>使用 Image Encoder 和 Text Encoder 分别提取图像和文本的全局特征，通过 Image-Text Contrastive Loss（ITC）将匹配的图文特征拉近，不匹配的特征推远</p>
-<p><strong>第二步：Fusion</strong></p>
-<p>将两个 Encoder 输出的 Token Features 输入 Multimodal Encoder，通过 Cross-Attention 实现跨模态信息交互</p>
-<p>先完成全局语义对齐，可以降低不同模态之间的特征差异，使后续 Cross-Attention 更容易学习细粒度的跨模态关系</p>
-<h4 id="联合训练目标-1"><a href="#联合训练目标-1" class="headerlink" title="联合训练目标"></a>联合训练目标</h4><p>ALBEF 联合优化三个训练目标：</p>
+<p><strong>MLM</strong></p>
+<p>随机 Mask 15% 的文本 Token，将图像特征和剩余文本输入 Multimodal Encoder，预测被 Mask 的 Token</p>
+<p>与传统 BERT 不同，ALBEF 可以利用图像信息辅助文本预测，使语言表征具备视觉语义基础</p>
+<h4 id="Momentum-Distillation"><a href="#Momentum-Distillation" class="headerlink" title="Momentum Distillation"></a>Momentum Distillation</h4><p>Web 图文数据通常存在噪声：</p>
+<ul>
+<li>图像和文本可能只有部分语义相关</li>
+<li>文本可能遗漏图像中的部分物体或属性</li>
+<li>对于被 Mask 的词，可能存在多个同样合理的描述</li>
+</ul>
+<p>传统训练使用 One-hot Hard Labels，将唯一标注答案作为正确目标，会惩罚其他合理的预测结果</p>
+<p>ALBEF 参考DINO引入 Momentum Distillation，利用 Momentum Model 生成 Soft Targets</p>
+<ul>
+<li><strong>Momentum Model：</strong> 由 Image Encoder、Text Encoder 和 Multimodal Encoder 的 EMA 参数构成</li>
+<li><strong>Pseudo Targets：</strong> 使用 Momentum Model 生成预测概率分布，作为额外监督信号</li>
+<li><strong>Student：</strong> 同时学习原始标注和 Momentum Model 提供的软标签</li>
+</ul>
+<p>允许模型学习标注之外的合理语义信息，降低噪声图文数据对模型训练的负面影响</p>
+<h3 id="BLIP"><a href="#BLIP" class="headerlink" title="BLIP"></a>BLIP</h3><blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.12086">2201.12086] BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation</a></p>
+</blockquote>
+<p><strong>核心思想：</strong> 在 ALBEF 的图文对齐与跨模态融合基础上，引入统一的 Encoder-Decoder 架构和 CapFilt 数据自举机制，使模型同时具备视觉语言理解与生成能力，并通过自动生成和筛选文本缓解 Web 图文数据中的噪声问题</p>
+<h4 id="MED-Architecture"><a href="#MED-Architecture" class="headerlink" title="MED Architecture"></a>MED Architecture</h4><p>ALBEF 主要采用 Encoder-based 架构，虽然能够进行跨模态理解，但不便于直接迁移到文本生成任务</p>
+<p>BLIP 提出 <strong>Multimodal Mixture of Encoder-Decoder（MED）</strong>，使同一套模型能够根据不同任务切换为三种工作模式：</p>
+<p><strong>1. Unimodal Encoder（单模态编码器）</strong></p>
+<p>分别使用 Image Encoder 和 Text Encoder 提取图像与文本特征，不进行跨模态交互</p>
+<ul>
+<li>使用 CLS Token 提取全局特征</li>
+<li>通过 ITC Loss 对齐图像与文本的语义空间</li>
+</ul>
+<p><strong>2. Image-grounded Text Encoder（图像条件文本编码器）</strong></p>
+<p>在 Text Encoder 的每个 Transformer Block 中增加 Cross-Attention Layer：</p>
+<ul>
+<li>Self-Attention：建模文本 Token 之间的关系</li>
+<li>Cross-Attention：以文本特征作为 Query，以图像特征作为 Key 和 Value</li>
+<li>使用额外的 <code>[Encode]</code> Token，其输出用于图文匹配</li>
+</ul>
+<p><strong>核心作用：</strong> 融合图像与文本信息，学习细粒度的跨模态特征，用于 ITM 任务</p>
+<p><strong>3. Image-grounded Text Decoder（图像条件文本解码器）</strong></p>
+<p>在 Image-grounded Text Encoder 的基础上，将双向 Self-Attention 替换为 Causal Self-Attention：</p>
+<ul>
+<li>使用 Causal Mask，使每个 Token 只能关注当前位置之前的 Token</li>
+<li>保留 Cross-Attention，使文本生成能够利用图像特征</li>
+<li>使用 <code>[Decode]</code> Token 标记生成任务的开始</li>
+</ul>
+<p><strong>核心作用：</strong> 根据图像特征自回归生成文本，用于 Image Captioning 等生成任务</p>
+<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-29_22-21-22.webp" alt="Snipaste_2026-09-29_22-21-22" style="zoom: 50%;" />
+
+<p><strong>关键设计：</strong> Text Encoder 和 Text Decoder 共享除 Self-Attention 之外的所有参数，包括 Embedding、Cross-Attention 和 FFN，从而减少参数量，同时兼顾理解与生成能力</p>
+<h4 id="Pre-training-Objectives-1"><a href="#Pre-training-Objectives-1" class="headerlink" title="Pre-training Objectives"></a>Pre-training Objectives</h4><p>BLIP 联合优化三个训练目标，其中 ITC 和 ITM 主要用于视觉语言理解，LM 用于文本生成</p>
 <table>
 <thead>
 <tr>
 <th>Loss</th>
+<th>对应模式</th>
 <th>核心作用</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>ITC</td>
-<td>图文全局语义对齐，类似 CLIP</td>
-</tr>
-<tr>
-<td>MLM</td>
-<td>根据图像和上下文预测被 Mask 的文本 Token</td>
+<td>Unimodal Encoder</td>
+<td>对齐图像与文本的全局语义</td>
 </tr>
 <tr>
 <td>ITM</td>
-<td>判断图像与文本是否匹配，学习细粒度跨模态关系</td>
-</tr>
-</tbody></table>
-<p><strong>MLM（Masked Language Modeling）</strong></p>
-<p>随机 Mask 15% 的文本 Token，将图像特征和剩余文本输入 Multimodal Encoder，预测被 Mask 的 Token</p>
-<p>通过视觉信息辅助文本预测，让模型学习图像与文本之间的细粒度语义关联</p>
-<p><strong>ITM（Image-Text Matching）</strong></p>
-<p>判断输入的图像和文本是否匹配，使用 Multimodal Encoder 输出的 CLS Token 作为联合特征，通过 FC Layer 和 Softmax 完成二分类</p>
-<p>ALBEF 使用 Online Hard Negative Mining：</p>
-<p>根据 ITC 计算的图文相似度，从 Batch 中采样语义相似但实际不匹配的图文 Pair，让模型学习更加细粒度的跨模态差异</p>
-<p>最终联合训练目标：</p>
-<div class="mathjax-display">
-$$
-\mathcal{L}
-=
-\mathcal{L}_{ITC}
-+
-\mathcal{L}_{MLM}
-+
-\mathcal{L}_{ITM}
-$$
-</div>
-
-<h4 id="Momentum-Distillation"><a href="#Momentum-Distillation" class="headerlink" title="Momentum Distillation"></a>Momentum Distillation</h4><p>Web 图文数据通常存在噪声：</p>
-<ul>
-<li>一张图片可能包含文本没有描述的物体。</li>
-<li>文本可能包含与图片无关的信息。</li>
-<li>同一张图片可能存在多个合理的文本描述。</li>
-</ul>
-<p>传统训练使用 One-hot Label，将标注之外的预测全部视为错误，容易受到噪声标注的影响</p>
-<p>因此 ALBEF 引入 Momentum Distillation（MoD），利用动量模型生成 Soft Targets，为 Student 提供额外监督</p>
-<p>参考DINOv2的Teacher-Student 架构</p>
-<p>维护两个模型：</p>
-<ul>
-<li><strong>Student</strong>：正常参与反向传播，更新模型参数</li>
-<li><strong>Teacher</strong>：不参与反向传播，通过 Student 参数的 EMA 更新</li>
-</ul>
-<p>Teacher 根据当前图文输入生成概率分布，作为 Student 的软标签</p>
-<p>Student 同时学习原始标注和 Teacher 生成的 Soft Targets</p>
-<p>允许模型学习标注之外的合理语义信息，降低噪声图文数据对模型训练的负面影响</p>
-<h2 id="跨模态交互与生成"><a href="#跨模态交互与生成" class="headerlink" title="跨模态交互与生成"></a>跨模态交互与生成</h2><h3 id="BLIP"><a href="#BLIP" class="headerlink" title="BLIP"></a>BLIP</h3><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.12086">2201.12086] BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation</a></p>
-</blockquote>
-<p><strong>核心思想：</strong> 在视觉语言预训练中，通过 MED 统一图文理解与文本生成，并利用 CapFilt 自动生成和过滤图文描述，改善 Web 图文数据的质量</p>
-<h4 id="MED-Multimodal-Mixture-of-Encoder-Decoder"><a href="#MED-Multimodal-Mixture-of-Encoder-Decoder" class="headerlink" title="MED(Multimodal Mixture of Encoder-Decoder)"></a>MED(Multimodal Mixture of Encoder-Decoder)</h4><p>传统视觉语言模型通常存在两种设计：</p>
-<ul>
-<li><strong>Encoder-based</strong>：擅长图文检索、匹配等理解任务，但不擅长文本生成</li>
-<li><strong>Encoder-Decoder</strong>：擅长文本生成，但图文理解和检索能力相对受限</li>
-</ul>
-<p>BLIP 提出 MED，让同一个预训练框架支持三种模式：</p>
-<table>
-<thead>
-<tr>
-<th>模式</th>
-<th>主要结构</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Unimodal Encoder</td>
-<td>Image Encoder + Text Encoder</td>
-<td>独立提取图文特征</td>
-</tr>
-<tr>
 <td>Image-grounded Text Encoder</td>
-<td>Text Encoder + Cross-Attention</td>
-<td>融合图文特征，判断是否匹配</td>
+<td>判断图文是否匹配</td>
 </tr>
 <tr>
+<td>LM</td>
 <td>Image-grounded Text Decoder</td>
-<td>Text Decoder + Cross-Attention</td>
-<td>基于图像自回归生成文本</td>
+<td>根据图像自回归生成文本</td>
 </tr>
 </tbody></table>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-29_22-21-22.webp" alt="Snipaste_2026-09-29_22-21-22" style="zoom: 50%;" />
-
-<p><strong>核心模块：</strong></p>
+<p>其中 ITC 和 ITM 延续 ALBEF 的设计</p>
+<p>与 ALBEF 使用 MLM 不同，BLIP 使用自回归语言建模，使模型能够直接学习图像条件下的文本生成能力</p>
+<h4 id="CapFilt（Captioning-and-Filtering）"><a href="#CapFilt（Captioning-and-Filtering）" class="headerlink" title="CapFilt（Captioning and Filtering）"></a>CapFilt（Captioning and Filtering）</h4><p>BLIP 另一个重要创新是 CapFilt，解决 Web 图文数据存在大量噪声的问题</p>
+<p>BLIP 利用预训练好的 MED 模型，进一步微调出两个模块：</p>
+<p><strong>1. Captioner（图像描述生成器）</strong></p>
 <ul>
-<li>Image Encoder：使用 ViT 提取图像 Patch Features</li>
-<li>Text Encoder：使用双向 Self-Attention 获取文本表示，并通过 Cross-Attention 融合图像特征</li>
-<li>Text Decoder：使用 Causal Self-Attention，根据图像特征逐 Token 生成文本</li>
+<li>基于 Image-grounded Text Decoder</li>
+<li>使用人工标注的图文数据进行微调</li>
+<li>输入 Web Image，生成 Synthetic Captions</li>
 </ul>
-<p>Text Encoder 和 Text Decoder 共享除 Self-Attention 外的参数，包括 Embedding、Cross-Attention 和 FFN</p>
-<p>原因是理解任务需要双向上下文，而生成任务需要因果掩码，两者对 Self-Attention 的要求不同</p>
-<h4 id="训练目标"><a href="#训练目标" class="headerlink" title="训练目标"></a>训练目标</h4><p>BLIP 联合优化两个理解任务目标和一个生成任务目标</p>
-<p>三个目标分别对应 MED 的不同工作模式：</p>
+<p>为原始图像补充更加准确、丰富的文本描述</p>
+<p><strong>2. Filter（图文筛选器）</strong></p>
 <ul>
-<li>ITC：使用 Unimodal Encoder，通过对比学习对齐图像与文本特征</li>
-<li>ITM：使用 Image-grounded Text Encoder，通过 Cross-Attention 融合图文特征，判断图文是否匹配</li>
-<li>LM：使用 Image-grounded Text Decoder，根据视觉特征预测下一个 Token，生成图像描述</li>
+<li>基于 Image-grounded Text Encoder</li>
+<li>使用 ITC 和 ITM 目标进行微调</li>
+<li>判断原始 Web Text 和 Synthetic Captions 是否与图像匹配</li>
+<li>使用 ITM Head 过滤不匹配的图文组合</li>
 </ul>
-<p>通过三个目标联合训练，使模型同时具备图文对齐、跨模态理解和文本生成能力</p>
-<h4 id="CapFilt（Captioning-and-Filtering）"><a href="#CapFilt（Captioning-and-Filtering）" class="headerlink" title="CapFilt（Captioning and Filtering）"></a>CapFilt（Captioning and Filtering）</h4><p>BLIP 不完全依赖原始 Web Text，因为其中存在较多与图像内容不匹配的噪声文本</p>
-<p>因此提出 CapFilt，通过 Captioner 生成描述，再利用 Filter 筛选高质量图文数据</p>
+<p>去除原始文本和合成文本中的噪声，保留与图像内容一致的描述</p>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-09-29_23-12-09.webp" alt="Snipaste_2026-09-29_23-12-09" style="zoom:67%;" />
 
-<p><strong>两个核心模块：</strong></p>
-<ul>
-<li>Captioner：由 Image-grounded Text Decoder 初始化，根据图像生成新的文本描述</li>
-<li>Filter：由 Image-grounded Text Encoder 初始化，通过 ITC 和 ITM 判断图文是否匹配</li>
-</ul>
-<p>具体过程：</p>
-<ol>
-<li>Pretraining：利用原始 Web 图文数据和人工标注数据预训练 MED</li>
-<li>Captioner &amp; Filter：利用 COCO 人工标注数据微调两个模块</li>
-<li>Data Bootstrapping：<ul>
-<li>Captioner 为原始 Web 图片生成 Synthetic Captions</li>
-<li>Filter 分别判断原始 Web Text 和生成描述是否与图像匹配</li>
-<li>过滤低质量图文对，保留高质量的原始描述和生成描述</li>
-<li>将筛选后的 Web 图文数据与人工标注数据合并，重新预训练 MED</li>
-</ul>
-</li>
-</ol>
 <p><span style = "color:#DC5A5A">核心思想：利用模型自身的能力改善训练数据，再利用改善后的数据提升模型能力</span></p>
 <h3 id="BLIP-2"><a href="#BLIP-2" class="headerlink" title="BLIP-2"></a>BLIP-2</h3><blockquote>
 <p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2301.12597">2301.12597] BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models</a></p>
 </blockquote>
-<p><strong>核心思想：</strong> 利用预训练的视觉编码器和大语言模型，通过轻量级 Q-Former 连接两个模态，并采用两阶段训练实现视觉特征与语言模型的高效对齐</p>
-<h4 id="Q-Former"><a href="#Q-Former" class="headerlink" title="Q-Former"></a>Q-Former</h4><p>BLIP-2 希望直接利用已经训练好的单模态模型：</p>
+<p><strong>核心思想：</strong> 冻结预训练好的 Image Encoder 和 Large Language Model（LLM），引入轻量级 Querying Transformer（Q-Former）作为两者之间的连接模块，通过两阶段预训练逐步实现视觉特征提取与语言空间对齐，降低多模态大模型的训练成本</p>
+<h4 id="Q-Former-Architecture"><a href="#Q-Former-Architecture" class="headerlink" title="Q-Former Architecture"></a>Q-Former Architecture</h4><p>BLIP-2 最重要的创新是 Q-Former，用于连接冻结的视觉编码器和语言模型</p>
+<p>传统方法通常直接将视觉特征输入 LLM，但两种模态的特征空间存在差异，直接连接难以实现有效的跨模态对齐</p>
+<p>Q-Former 引入一组可学习的 Query Tokens，从 Image Encoder 提取与语言任务相关的视觉信息，并将其传递给 LLM</p>
+<p>整体结构：</p>
 <ul>
-<li><strong>Image Encoder</strong>：预训练视觉编码器，提供高质量视觉特征</li>
-<li><strong>LLM</strong>：预训练大语言模型，提供语言理解与生成能力</li>
+<li><strong>Image Encoder：</strong> 使用预训练的 ViT 提取图像特征，参数保持冻结</li>
+<li><strong>Q-Former：</strong> 通过 Learnable Queries 提取视觉信息，并与文本进行交互</li>
+<li><strong>LLM：</strong> 使用预训练语言模型生成文本，参数保持冻结</li>
 </ul>
-<p>由于两个模型分别在不同模态上训练，特征空间并不天然对齐，因此引入 Q-Former 作为中间连接模块</p>
-<p>Q-Former 引入 <strong>32 个可学习的 Query</strong>，通过 Cross-Attention 与冻结视觉编码器的输出交互，主动提取与语言任务相关的视觉信息</p>
+<h4 id="Learnable-Queries"><a href="#Learnable-Queries" class="headerlink" title="Learnable Queries"></a>Learnable Queries</h4><p>Q-Former 使用一组可学习的 Query Embeddings 作为输入：</p>
 <p><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-10-11_21-32-40.webp" alt="Snipaste_2026-10-11_21-32-40"></p>
 <p>每个 Query 随着训练进行，会学习如何从视觉特征中提取对图文任务有用的信息</p>
-<p>论文给出的 ViT-L&#x2F;14 视觉特征形状是 <code>257 × 1024</code>，而 Q-Former 输出为 <code>32 × 768</code></p>
-<p><span style = "color:#DC5A5A">Q-Former 起到 Information Bottleneck 的作用，将较长的视觉特征序列压缩成固定数量的 Query Features，过滤冗余视觉信息</span></p>
+<p>原论文使用 32 个 Query Tokens，每个维度为 768，最终得到：</p>
+<div class="mathjax-display">
+$$
+Z\in\mathbb{R}^{32\times768}
+$$
+</div>
+相比直接使用 ViT 输出的全部 Patch Features，Q-Former 只输出固定数量的 Query Features
+
+<p><span style = "color:#DC5A5A">Q-Former 形成 Information Bottleneck的作用，从大量视觉特征中提取与文本语义最相关的信息，减少冗余视觉信息，同时使输出长度不再依赖输入图像的分辨率</span></p>
 <p>与 BLIP 的区别：</p>
 <ul>
 <li>BLIP：主要通过 Text Token 的 Cross-Attention 读取视觉特征</li>
 <li>BLIP-2：引入可学习 Query，主动从视觉特征中提取信息</li>
 </ul>
-<h4 id="两阶段预训练"><a href="#两阶段预训练" class="headerlink" title="两阶段预训练"></a>两阶段预训练</h4><p><strong>第一阶段</strong>：Vision-Language Representation Learning</p>
-<p>冻结 Image Encoder，训练 Q-Former，使 Query 能够提取与文本语义相关的视觉特征</p>
-<p>借鉴 BLIP，联合使用三个训练目标：</p>
+<h4 id="Shared-Transformer"><a href="#Shared-Transformer" class="headerlink" title="Shared Transformer"></a>Shared Transformer</h4><p>Q-Former 由两个共享 Self-Attention 层的 Transformer 子模块构成：</p>
+<ul>
+<li><strong>Image Transformer：</strong> 接收 Learnable Queries，通过 Cross-Attention 与冻结的 Image Encoder 特征交互</li>
+<li><strong>Text Transformer：</strong> 接收文本 Token，可以作为 Text Encoder 或 Text Decoder 使用</li>
+</ul>
+<p>Cross-Attention 每隔一个 Transformer Block 插入一次，使 Query Tokens 能够逐层提取视觉信息</p>
+<h4 id="Two-stage-Pre-training"><a href="#Two-stage-Pre-training" class="headerlink" title="Two-stage Pre-training"></a>Two-stage Pre-training</h4><p>BLIP-2 采用两阶段预训练，逐步完成视觉特征提取和视觉到语言的对齐</p>
+<p><strong>Stage 1：Vision-Language Representation Learning</strong></p>
+<p>将 Q-Former 连接到冻结的 Image Encoder，通过图文配对数据训练 Q-Former，使 Query Tokens 学习提取与文本语义相关的视觉特征</p>
+<p>延续 BLIP 的三个预训练目标：</p>
 <table>
 <thead>
 <tr>
@@ -843,374 +1197,61 @@ $$
 </thead>
 <tbody><tr>
 <td>ITC</td>
-<td>图文全局特征对齐</td>
+<td>对齐图像与文本的全局语义</td>
 </tr>
 <tr>
 <td>ITM</td>
-<td>判断图文是否匹配，学习细粒度跨模态关系</td>
+<td>学习图像与文本的细粒度匹配</td>
 </tr>
 <tr>
 <td>ITG</td>
-<td>根据图像特征自回归生成文本</td>
+<td>根据图像生成文本</td>
 </tr>
 </tbody></table>
 <p>三个任务通过不同的 Self-Attention Mask 控制 Query 和 Text Token 之间的信息交互</p>
-<p><strong>第二阶段</strong>：Vision-to-Language Generative Learning</p>
-<p>将预训练好的 Q-Former 接入冻结的 LLM，使视觉特征能够被语言模型理解并用于文本生成</p>
+<p><strong>Stage 2：Vision-to-Language Generative Learning</strong></p>
+<p>将 Q-Former 输出的 Query Features 映射到 LLM 的词向量空间，使冻结的 LLM 能够理解视觉信息</p>
 <p>具体过程：</p>
 <ol>
 <li>Q-Former 提取 32 个 Query Features</li>
 <li>通过 FC Layer 将特征映射到 LLM 的词嵌入维度</li>
 <li>将投影后的视觉特征作为 Soft Visual Prompts，拼接到文本 Embedding 前面</li>
-<li>使用文本生成 Loss 训练 Q-Former 和投影层，Image Encoder 与 LLM 保持冻结</li>
+<li>冻结 LLM，根据视觉特征和文本 Prompt 生成目标文本</li>
 </ol>
 <img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-10-11_21-41-20.webp" alt="Snipaste_2026-10-11_21-41-20" style="zoom:67%;" />
 
-<p>这里的两种模式其实是针对两种不同架构的LLM</p>
-<p><span style = "color:#A678D1">BLIP-2 的核心：冻结预训练的视觉编码器和 LLM，仅训练 Q-Former 等轻量级跨模态连接模块，实现视觉信息向语言模型的迁移，同时保留两个单模态模型原有的能力</span></p>
-<h1 id="多模态大模型"><a href="#多模态大模型" class="headerlink" title="多模态大模型"></a>多模态大模型</h1><h2 id="LLaVA"><a href="#LLaVA" class="headerlink" title="LLaVA"></a>LLaVA</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.08485">2304.08485] Visual Instruction Tuning</a></p>
-</blockquote>
-<p><strong>核心思想：</strong> 通过简单的视觉投影层连接预训练视觉编码器与 LLM，并利用多模态指令微调，使大语言模型能够根据图像和用户指令生成回答</p>
-<h3 id="模型架构-1"><a href="#模型架构-1" class="headerlink" title="模型架构"></a>模型架构</h3><p>与 BLIP-2 相比，LLaVA 采用相对简单的视觉连接结构，包含三个核心模块：</p>
-<ul>
-<li><strong>Vision Encoder</strong>：使用预训练的 CLIP ViT-L&#x2F;14，提取图像 Patch Features</li>
-<li><strong>Projection Layer</strong>：使用 Linear Projection，将视觉特征映射到 LLM 的词嵌入维度</li>
-<li><strong>LLM</strong>：接收视觉特征和文本指令，自回归生成回答</li>
-</ul>
-<p>与 BLIP-2 的区别：</p>
-<ul>
-<li>BLIP-2：通过 Q-Former 和 Cross-Attention 主动提取、压缩视觉信息</li>
-<li>LLaVA：直接保留视觉 Patch Features，通过线性映射接入 LLM</li>
-</ul>
-<h3 id="多模态指令数据构建"><a href="#多模态指令数据构建" class="headerlink" title="多模态指令数据构建"></a>多模态指令数据构建</h3><p>普通图文数据通常只有 Image-Text Pair：<code>Image → Caption</code></p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Image: 一辆停在车库里的 SUV</span><br><span class="line"></span><br><span class="line">Caption:</span><br><span class="line">A black SUV parked in a garage.</span><br></pre></td></tr></table></figure>
-
-<p>但这种数据主要提供图像描述，无法充分训练模型理解不同用户指令并组织回答。</p>
-<p>LLaVA 将训练形式扩展为：<code>Image + Instruction → Response</code></p>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/Snipaste_2026-10-11_21-59-33.webp" alt="Snipaste_2026-10-11_21-59-33" style="zoom:80%;" />
-
-<p>使模型能够学习：</p>
-<ul>
-<li>图像内容描述</li>
-<li>根据问题理解图像</li>
-<li>结合视觉信息进行推理</li>
-</ul>
-<h3 id="两阶段训练"><a href="#两阶段训练" class="headerlink" title="两阶段训练"></a>两阶段训练</h3><p>LLaVA 采用两阶段训练，分别完成视觉特征对齐和视觉指令微调</p>
-<p><strong>第一阶段：Feature Alignment（特征对齐）</strong></p>
-<p>在冻结 Vision Encoder 和 LLM 的情况下，仅训练 Linear Projection，使视觉特征映射到 LLM 的词嵌入空间</p>
-<p>原论文将这个阶段理解为训练一个与冻结 LLM 兼容的 Visual Tokenizer</p>
-<p><strong>第二阶段：Visual Instruction Tuning（视觉指令微调）</strong></p>
-<p>不仅要让 LLM 接收视觉信息，还要让它根据不同用户指令利用这些视觉信息</p>
-<p>与第一阶段不同：</p>
-<ul>
-<li>Vision Encoder：保持冻结</li>
-<li>Projection Layer：继续训练</li>
-<li>LLM：解冻并参与训练</li>
-</ul>
-<h2 id="Qwen2-VL"><a href="#Qwen2-VL" class="headerlink" title="Qwen2-VL"></a>Qwen2-VL</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2409.12191">2409.12191] Qwen2-VL: Enhancing Vision-Language Model&#39;s Perception of the World at Any Resolution</a></p>
-</blockquote>
-<p><strong>核心思想：</strong> 通过动态分辨率、M-RoPE 和图像视频统一建模，增强模型对不同尺度图像及视频时空信息的感知能力</p>
-<h3 id="模型架构-2"><a href="#模型架构-2" class="headerlink" title="模型架构"></a>模型架构</h3><p>Qwen2-VL 延续 Vision Encoder + Connector + LLM 的基本架构：</p>
-<ul>
-<li><strong>Vision Encoder</strong>：使用 ViT 提取图像和视频的视觉特征</li>
-<li><strong>MLP Connector</strong>：将相邻的 2×2 Visual Tokens 合并，并映射到 LLM 的特征维度</li>
-<li><strong>LLM</strong>：使用 Qwen2 作为语言模型，接收视觉 Token 和文本 Token，进行统一的多模态建模</li>
-</ul>
-<h3 id="Naive-Dynamic-Resolution"><a href="#Naive-Dynamic-Resolution" class="headerlink" title="Naive Dynamic Resolution"></a>Naive Dynamic Resolution</h3><p>传统视觉模型通常将输入图像 Resize 到固定分辨率，容易造成高分辨率图像的细节丢失和宽高比失真</p>
-<p>Qwen2-VL 引入 Naive Dynamic Resolution，根据输入图像的分辨率和宽高比，动态生成不同数量的 Visual Tokens</p>
-<p>主要设计：</p>
-<ol>
-<li><p>移除 ViT 原有的绝对位置编码，引入 2D-RoPE，表示图像 Patch 的二维空间位置</p>
-</li>
-<li><p>根据图像分辨率动态生成不同数量的 Patch Tokens</p>
-</li>
-<li><p>使用 MLP 将相邻 2×2 Visual Tokens 合并为一个 Token，降低视觉序列长度</p>
-</li>
-</ol>
-<p>以 224×224 图像为例（Patch Size &#x3D; 14）：</p>
-<ul>
-<li>Patchify：产生 16×16 &#x3D; 256 个 Patch Tokens</li>
-<li>2×2 Merge：得到 8×8 &#x3D; 64 个 Visual Tokens</li>
-<li>加上 <code>&lt;|vision_start|&gt;</code> 和 <code>&lt;|vision_end|&gt;</code>，共 66 个 Token</li>
-</ul>
-<p><strong>核心：</strong> 保留图像原始宽高比，根据分辨率动态调整视觉 Token 数量，在视觉细节与计算开销之间取得平衡</p>
-<h3 id="M-RoPE"><a href="#M-RoPE" class="headerlink" title="M-RoPE"></a>M-RoPE</h3><p>传统 RoPE 主要表示一维序列位置，难以直接描述图像和视频的空间、时间关系</p>
-<p>Qwen2-VL 将位置编码拆分为三个维度：</p>
-<ul>
-<li>Temporal：时间维度 $T$</li>
-<li>Height：高度维度 $H$</li>
-<li>Width：宽度维度 $W$</li>
-</ul>
-<p>不同模态的位置编码方式：</p>
+<p>根据 LLM 的架构，采用不同的训练方式</p>
 <table>
 <thead>
 <tr>
-<th>模态</th>
-<th>位置编码方式</th>
+<th>模块</th>
+<th>Stage 1</th>
+<th>Stage 2</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Text</td>
-<td>三个维度使用相同的位置 ID，等价于 1D-RoPE</td>
+<td>Image Encoder</td>
+<td>冻结</td>
+<td>冻结</td>
 </tr>
 <tr>
-<td>Image</td>
-<td>T 固定，H、W 分别表示 Patch 的二维位置</td>
+<td>Q-Former</td>
+<td>训练</td>
+<td>继续训练</td>
 </tr>
 <tr>
-<td>Video</td>
-<td>T 随 Frame 变化，H、W 表示帧内空间位置</td>
+<td>FC Projection Layer</td>
+<td>不涉及</td>
+<td>训练</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td>不参与</td>
+<td>冻结</td>
 </tr>
 </tbody></table>
-<p>这样可以在统一的序列中表示文本、图像和视频的位置信息</p>
-<p><span style = "color:#A678D1">当模型输入包含多种模态时，每个模态的位置编号从前一个模态的最大位置 ID 加 1 开始</span></p>
-<h3 id="图像视频的统一建模"><a href="#图像视频的统一建模" class="headerlink" title="图像视频的统一建模"></a>图像视频的统一建模</h3><p>将图像和视频放在统一的视觉处理框架中进行训练，使模型同时学习静态视觉理解与动态视频理解</p>
-<ul>
-<li><strong>Video</strong>：引入深度为 2 的 3D Convolution，将相邻两帧的对应空间区域编码为时空 Patch，减少视频 Token 数量</li>
-<li><strong>Image</strong>：将静态图像视为两张相同的帧，使用相同的处理方式</li>
-</ul>
-<p>视频按照 2 FPS 采样，并动态调整分辨率，将单个视频的视觉 Token 数量限制在 16384 以内</p>
-<h3 id="三阶段训练"><a href="#三阶段训练" class="headerlink" title="三阶段训练"></a>三阶段训练</h3><p>Qwen2-VL 采用三阶段训练策略：</p>
-<table>
-<thead>
-<tr>
-<th>阶段</th>
-<th>Vision Encoder</th>
-<th>LLM</th>
-<th>训练目标</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Stage 1</td>
-<td>训练</td>
-<td>冻结</td>
-<td>视觉语义学习</td>
-</tr>
-<tr>
-<td>Stage 2</td>
-<td>训练</td>
-<td>训练</td>
-<td>多模态联合学习</td>
-</tr>
-<tr>
-<td>Stage 3</td>
-<td>冻结</td>
-<td>训练</td>
-<td>多模态指令微调</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>Stage 1</strong>：使用大规模 Image-Text Pairs 训练 ViT，学习视觉语义与文本之间的关联</li>
-<li><strong>Stage 2</strong>：解冻全部参数，使用图文、视频、VQA 等混合数据进行多模态预训练</li>
-<li><strong>Stage 3</strong>：冻结 ViT，使用多模态指令数据微调 LLM，增强指令理解与生成能力</li>
-</ul>
-<h3 id="Visual-Grounding"><a href="#Visual-Grounding" class="headerlink" title="Visual Grounding"></a>Visual Grounding</h3><p>通过特殊 Token 将文本描述与图像中的具体区域关联起来：</p>
-<table>
-<thead>
-<tr>
-<th>标记</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&#96;&lt;</td>
-<td>vision_start</td>
-</tr>
-<tr>
-<td>&#96;&lt;</td>
-<td>im_start</td>
-</tr>
-<tr>
-<td>&#96;&lt;</td>
-<td>object_ref_start</td>
-</tr>
-<tr>
-<td>&#96;&lt;</td>
-<td>box_start</td>
-</tr>
-</tbody></table>
-<p>Bounding Box 坐标归一化到 <code>[0, 1000)</code>，并作为文本序列的一部分进行预测</p>
-<p>使模型不仅能够描述图像中的物体，还能够输出对应物体的位置</p>
-<h2 id="Qwen2-5-VL"><a href="#Qwen2-5-VL" class="headerlink" title="Qwen2.5-VL"></a>Qwen2.5-VL</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.13923">2502.13923] Qwen2.5-VL Technical Report</a></p>
-</blockquote>
-<p><strong>核心思想：</strong> 在 Qwen2-VL 的基础上，重新设计 Vision Encoder，引入 Window Attention、Dynamic FPS Sampling 和绝对时间对齐的 M-RoPE，提升高分辨率图像处理效率、视频时空理解和细粒度视觉定位能力，并通过多阶段预训练与后训练增强多模态推理能力</p>
-<h3 id="模型架构-3"><a href="#模型架构-3" class="headerlink" title="模型架构"></a>模型架构</h3><p>整体由三个模块组成：</p>
-<ul>
-<li><strong>Vision Encoder</strong>：使用重新设计的 ViT，提取图像和视频特征。</li>
-<li><strong>Vision-Language Merger</strong>：将相邻的 2×2 Patch Features 拼接，通过两层 MLP 映射到 LLM 的特征维度</li>
-<li><strong>LLM</strong>：使用预训练的 Qwen2.5 作为语言模型，接收视觉 Token 和文本 Token</li>
-</ul>
-<img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/image-20261119211708954.webp" alt="image-20261119211708954" style="zoom:50%;" />
-
-<h3 id="Fast-and-Efficient-Vision-Encoder"><a href="#Fast-and-Efficient-Vision-Encoder" class="headerlink" title="Fast and Efficient Vision Encoder"></a>Fast and Efficient Vision Encoder</h3><p>Qwen2-VL 使用全局 Self-Attention 处理视觉 Token，高分辨率输入会带来较大的计算开销</p>
-<p>Qwen2.5-VL 引入 <strong>Window Attention</strong>，重新设计 ViT：</p>
-<ul>
-<li>大部分 Transformer Layer 使用 Window Attention，只在局部窗口内进行 Attention</li>
-<li>仅保留 4 个 Full Attention Layer，分别位于第 7、15、23、31 层</li>
-<li>Window Size 为 112×112，对应 8×8 个 Patch</li>
-<li>引入 2D-RoPE 表示 Patch 的二维空间位置</li>
-<li>使用 RMSNorm 和 SwiGLU，使 Vision Encoder 的结构更加接近 LLM</li>
-</ul>
-<p>通过局部窗口计算降低 Attention 开销，同时保留少量全局信息交互</p>
-<h3 id="Dynamic-Resolution-FPS-Sampling"><a href="#Dynamic-Resolution-FPS-Sampling" class="headerlink" title="Dynamic Resolution &amp; FPS Sampling"></a>Dynamic Resolution &amp; FPS Sampling</h3><p>Qwen2.5-VL 将动态分辨率的思想进一步扩展到视频时间维度</p>
-<p><strong>1. Dynamic Resolution</strong></p>
-<ul>
-<li>保留图像原始宽高比</li>
-<li>根据输入分辨率动态生成不同数量的 Visual Tokens</li>
-<li>使用图像实际尺寸表示 Bounding Box 和 Point 坐标，而不是统一归一化到固定范围</li>
-</ul>
-<p><strong>2. Dynamic FPS Sampling</strong></p>
-<p>针对不同视频具有不同帧率的问题，在训练过程中动态调整视频采样 FPS，使模型能够适应不同时间采样密度的视频输入</p>
-<p>使用 3D Patch Partitioning，将相邻两帧组合为时空 Patch，减少视频 Token 数量</p>
-<h3 id="M-RoPE-Aligned-to-Absolute-Time"><a href="#M-RoPE-Aligned-to-Absolute-Time" class="headerlink" title="M-RoPE Aligned to Absolute Time"></a>M-RoPE Aligned to Absolute Time</h3><p>Qwen2.5-VL 在 Qwen2-VL 的 M-RoPE 基础上，进一步改进时间维度的位置编码</p>
-<p>原始 Qwen2-VL 的 Temporal ID 主要根据视频帧序号递增，没有直接表示真实时间间隔</p>
-<p>Qwen2.5-VL 将 Temporal ID 与视频的绝对时间戳对齐：</p>
-<ul>
-<li>Temporal：根据视频帧对应的实际时间戳分配位置 ID</li>
-<li>Height：表示图像 Patch 的垂直位置</li>
-<li>Width：表示图像 Patch 的水平位置</li>
-</ul>
-<p>通过不同 Temporal ID 之间的间隔，模型能够感知视频中的实际时间间隔和事件发生速度</p>
-<p><strong>核心改进：</strong> 从基于帧序号的位置编码，扩展为基于绝对时间的位置编码，使模型能够更准确地理解视频时序关系，并定位具体事件发生的时间</p>
-<h3 id="Pre-training"><a href="#Pre-training" class="headerlink" title="Pre-training"></a>Pre-training</h3><p>Qwen2.5-VL 将预训练分为三个阶段：</p>
-<table>
-<thead>
-<tr>
-<th>阶段</th>
-<th>Vision Encoder</th>
-<th>LLM</th>
-<th>主要目标</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Stage 1</td>
-<td>训练</td>
-<td>冻结</td>
-<td>视觉预训练</td>
-</tr>
-<tr>
-<td>Stage 2</td>
-<td>训练</td>
-<td>训练</td>
-<td>多模态联合预训练</td>
-</tr>
-<tr>
-<td>Stage 3</td>
-<td>训练</td>
-<td>训练</td>
-<td>长上下文预训练</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>Stage 1</strong>：使用图像描述、视觉知识和 OCR 数据训练 ViT，学习视觉语义与文本之间的关联</li>
-<li><strong>Stage 2</strong>：解冻全部参数，使用图文、视频、VQA、Grounding、Agent 等混合数据进行多模态预训练</li>
-<li><strong>Stage 3</strong>：增加长视频、长文档和长序列数据，将训练序列长度扩展到 32768，增强长上下文理解能力</li>
-</ul>
-<p>三个阶段分别使用约 1.5T、2T 和 0.6T Tokens，总计约 4.1T Tokens</p>
-<h3 id="Post-training"><a href="#Post-training" class="headerlink" title="Post-training"></a>Post-training</h3><p>预训练完成后，进一步通过 SFT 和 DPO 增强模型的指令遵循与偏好对齐能力</p>
-<table>
-<thead>
-<tr>
-<th>阶段</th>
-<th>Vision Encoder</th>
-<th>LLM</th>
-<th>训练目标</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SFT</td>
-<td>冻结</td>
-<td>训练</td>
-<td>多模态指令微调</td>
-</tr>
-<tr>
-<td>DPO</td>
-<td>冻结</td>
-<td>训练</td>
-<td>人类偏好对齐</td>
-</tr>
-</tbody></table>
-<p> SFT 让模型学会执行多模态指令，DPO 进一步优化模型的回答质量和行为表现</p>
-<h2 id="Qwen3-VL"><a href="#Qwen3-VL" class="headerlink" title="Qwen3-VL"></a>Qwen3-VL</h2><blockquote>
-<p>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2511.21631">2511.21631] Qwen3-VL Technical Report</a></p>
-</blockquote>
-<p><strong>核心思想：</strong> 在 Qwen2.5-VL 的基础上，引入 Interleaved M-RoPE、DeepStack 和文本时间戳等设计，增强多模态空间与时间建模能力、视觉语言特征融合和长上下文理解能力，并通过多阶段预训练与强化学习提升多模态推理能力</p>
-<h3 id="模型架构-4"><a href="#模型架构-4" class="headerlink" title="模型架构"></a>模型架构</h3><p>整体延续三模块架构：</p>
-<ul>
-<li><strong>Vision Encoder</strong>：采用 SigLIP-2 架构，提取图像和视频视觉特征</li>
-<li><strong>Vision-Language Merger</strong>：使用两层 MLP，将相邻 2×2 Visual Features 合并并映射到 LLM 的特征维度</li>
-<li><strong>LLM</strong>：使用 Qwen3 作为语言模型，接收文本和视觉 Token。</li>
-</ul>
-<h3 id="Interleaved-M-RoPE"><a href="#Interleaved-M-RoPE" class="headerlink" title="Interleaved M-RoPE"></a>Interleaved M-RoPE</h3><p>Qwen2.5-VL 使用 M-RoPE，将位置编码维度划分为 Temporal、Height、Width 三个部分</p>
-<p>但这种划分会导致不同维度对应的 RoPE 频率分布不均衡，影响长视频的位置建模能力</p>
-<blockquote>
-<p><strong>时间维度 T 只能使用高频，而宽度维度 W 只能使用低频</strong></p>
-</blockquote>
-<p>Qwen3-VL 引入 <strong>Interleaved M-RoPE</strong>：</p>
-<ul>
-<li>将 T、H、W 三个维度交错分布在不同的 RoPE 频率维度中</li>
-<li>使三个维度均匀覆盖高频和低频位置编码</li>
-<li>改善不同空间与时间维度的位置表达能力</li>
-</ul>
-<h3 id="DeepStack"><a href="#DeepStack" class="headerlink" title="DeepStack"></a>DeepStack</h3><p>传统视觉语言模型通常通过 Vision-Language Merger 将视觉特征映射到 LLM 的输入空间，再由 LLM 逐层处理视觉信息。</p>
-<p>Qwen3-VL 引入 <strong>DeepStack</strong>，将 Vision Encoder 不同层级的视觉特征注入 LLM 的多个层级</p>
-<p>具体过程：</p>
-<ol>
-<li>从 Vision Encoder 的三个不同层级提取 Visual Features</li>
-<li>使用专门的 Merger 将不同层级的特征映射到 LLM 的 Hidden Dimension</li>
-<li>将这些视觉特征通过残差连接，分别注入 LLM 前三个 Transformer Layer</li>
-</ol>
-<p>不同层级的 Vision Features 包含不同层次的视觉信息：</p>
-<ul>
-<li>浅层特征：包含更多局部细节。</li>
-<li>深层特征：包含更加丰富的语义信息。</li>
-</ul>
-<p><strong>核心作用：</strong> 不再只依赖单一层级的视觉特征，而是将多层次视觉信息直接融入 LLM 的不同层级，增强视觉语言对齐和细粒度视觉理解，同时不增加输入序列长度。</p>
-<h3 id="Video-Timestamp"><a href="#Video-Timestamp" class="headerlink" title="Video Timestamp"></a>Video Timestamp</h3><p>Qwen2.5-VL 使用与绝对时间对齐的 M-RoPE 表示视频时间信息，但存在两个问题：</p>
-<ul>
-<li>长视频的 Temporal ID 可能变得非常大且稀疏，不利于长时间跨度的建模。</li>
-<li>需要大量不同 FPS 的视频训练数据，增加数据构建成本</li>
-</ul>
-<p>Qwen3-VL 改用 <strong>Text-based Timestamp</strong>：</p>
-<ul>
-<li>在视频对应的每组视觉 Token 前添加文本时间戳</li>
-<li>例如：<code>&lt;3.0 seconds&gt;</code>。</li>
-<li>同时使用秒数和 HMS（时:分:秒）两种时间格式进行训练</li>
-</ul>
-<p><strong>核心作用：</strong> 直接通过文本表示视频帧的时间位置，使模型能够理解事件发生的具体时间，增强 Video Grounding 和 Dense Video Captioning 能力</p>
-<h3 id="Pre-training-1"><a href="#Pre-training-1" class="headerlink" title="Pre-training"></a>Pre-training</h3><p>Qwen3-VL 将预训练划分为四个阶段，逐步完成视觉语言对齐、多模态学习和长上下文适配</p>
-<ul>
-<li><strong>Stage 0：Vision-Language Alignment</strong>：冻结 Vision Encoder 和 LLM，仅训练 Merger，使视觉特征能够映射到 LLM 的特征空间</li>
-<li><strong>Stage 1：Multimodal Pre-training</strong>：解冻全部参数，使用图文交错数据、VQA、Grounding、视频和文本数据进行联合训练</li>
-<li><strong>Stage 2：Long-Context Pre-training</strong>：将序列长度扩展到 32K，增加长视频和 Agent 相关数据</li>
-<li><strong>Stage 3：Ultra-Long-Context Adaptation</strong>：将序列长度扩展到 256K，增强长文档和长视频理解能力</li>
-</ul>
-<p>另外，为了避免多模态数据训练影响 LLM 原有的文本能力，引入 Square-root Reweighting，平衡文本数据与多模态数据的训练贡献</p>
-<h3 id="Post-training-1"><a href="#Post-training-1" class="headerlink" title="Post-training"></a>Post-training</h3><p>Qwen3-VL 的后训练主要分为三个阶段：</p>
-<p><strong>1. Supervised Fine-Tuning（SFT）</strong></p>
-<p>通过监督微调学习多模态指令遵循和复杂推理能力</p>
-<ul>
-<li>使用普通指令数据训练 Non-thinking 模型</li>
-<li>使用 Long Chain-of-Thought（CoT）数据训练 Thinking 模型</li>
-<li>从 32K 上下文逐步扩展到 256K</li>
-</ul>
-<p><strong>2. Strong-to-Weak Distillation</strong>(蒸馏)</p>
-<p>利用更强的 Teacher Model 向较小的 Student Model 迁移知识，增强推理能力</p>
-<p>分为两个阶段：</p>
-<ul>
-<li><strong>Off-policy Distillation</strong>：利用 Teacher 生成的回答训练 Student</li>
-<li><strong>On-policy Distillation</strong>：Student 自己生成回答，再通过 KL Divergence 对齐 Teacher 和 Student 的预测分布</li>
-</ul>
-<p><strong>3. Reinforcement Learning（RL）</strong></p>
-<p>通过强化学习进一步提升模型的推理能力和任务执行能力，分为：</p>
-<ul>
-<li><strong>Reasoning RL</strong>：针对数学、代码、逻辑推理、视觉定位等任务，利用可验证奖励优化模型</li>
-<li><strong>General RL</strong>：针对 VQA、OCR、文档理解、指令遵循等任务，结合规则奖励和模型奖励，改善回答质量与行为表现</li>
-</ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/3897182270.html">https://yhblogs.cn/posts/3897182270.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related  no-desc" href="/posts/3948618638.html" title="无线网络仿真技术"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">无线网络仿真技术</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1812287226.html" title="大语言模型架构与注意力"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-og61yl_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-16</div><div class="info-item-2">大语言模型架构与注意力</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a><a class="pagination-related no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related no-desc" href="/posts/1222747289.html" title="扩散模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-31</div><div class="info-item-2">扩散模型</div></div></div></a><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89-Backbone"><span class="toc-number">1.</span> <span class="toc-text">视觉 Backbone</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VIT"><span class="toc-number">1.1.</span> <span class="toc-text">VIT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding"><span class="toc-number">1.1.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Position-Embedding"><span class="toc-number">1.1.2.</span> <span class="toc-text">Position Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer-Encoder"><span class="toc-number">1.1.3.</span> <span class="toc-text">Transformer Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9%E4%B8%8E%E5%B1%80%E9%99%90"><span class="toc-number">1.1.4.</span> <span class="toc-text">核心特点与局限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swin-Transformer"><span class="toc-number">1.2.</span> <span class="toc-text">Swin Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window-Attention"><span class="toc-number">1.2.2.</span> <span class="toc-text">Window Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shifted-Window"><span class="toc-number">1.2.3.</span> <span class="toc-text">Shifted Window</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Merging"><span class="toc-number">1.2.4.</span> <span class="toc-text">Patch Merging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E5%81%8F%E7%BD%AE"><span class="toc-number">1.2.5.</span> <span class="toc-text">相对位置偏置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConvNeXt"><span class="toc-number">1.3.</span> <span class="toc-text">ConvNeXt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Depthwise-Convolution"><span class="toc-number">1.3.1.</span> <span class="toc-text">Depthwise Convolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inverted-Bottleneck"><span class="toc-number">1.3.2.</span> <span class="toc-text">Inverted Bottleneck</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.3.</span> <span class="toc-text">网络结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E7%9B%91%E7%9D%A3%E8%A7%86%E8%A7%89%E8%A1%A8%E5%BE%81"><span class="toc-number">2.</span> <span class="toc-text">自监督视觉表征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MAE"><span class="toc-number">2.1.</span> <span class="toc-text">MAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Masking-Strategy"><span class="toc-number">2.1.1.</span> <span class="toc-text">Masking Strategy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Asymmetric-Encoder-Decoder"><span class="toc-number">2.1.2.</span> <span class="toc-text">Asymmetric Encoder-Decoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reconstruction-Loss"><span class="toc-number">2.1.3.</span> <span class="toc-text">Reconstruction Loss</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DINOv2"><span class="toc-number">2.2.</span> <span class="toc-text">DINOv2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Teacher-Student-%E6%9E%B6%E6%9E%84"><span class="toc-number">2.2.1.</span> <span class="toc-text">Teacher-Student 架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E5%90%88%E8%AE%AD%E7%BB%83%E7%9B%AE%E6%A0%87"><span class="toc-number">2.2.2.</span> <span class="toc-text">联合训练目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%94%B9%E8%BF%9B"><span class="toc-number">2.2.3.</span> <span class="toc-text">关键改进</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E9%A2%84%E8%AE%AD%E7%BB%83%EF%BC%88VLP%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">视觉语言预训练（VLP）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%A1%94%E5%BC%8F%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E5%AF%B9%E9%BD%90"><span class="toc-number">3.1.</span> <span class="toc-text">双塔式视觉语言对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CLIP"><span class="toc-number">3.1.1.</span> <span class="toc-text">CLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-number">3.1.1.1.</span> <span class="toc-text">模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.1.1.2.</span> <span class="toc-text">对比学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Zero-shot-%E5%88%86%E7%B1%BB"><span class="toc-number">3.1.1.3.</span> <span class="toc-text">Zero-shot 分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SigLIP"><span class="toc-number">3.1.2.</span> <span class="toc-text">SigLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Sigmoid-Loss"><span class="toc-number">3.1.2.1.</span> <span class="toc-text">Sigmoid Loss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chunked-Implementation"><span class="toc-number">3.1.2.2.</span> <span class="toc-text">Chunked Implementation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SigLIP-2"><span class="toc-number">3.1.3.</span> <span class="toc-text">SigLIP-2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Captioning-based-Pretraining"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">Captioning-based Pretraining</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E9%98%B6%E6%AE%B5%E8%AE%AD%E7%BB%83"><span class="toc-number">3.1.3.2.</span> <span class="toc-text">多阶段训练</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NaFlex"><span class="toc-number">3.1.3.3.</span> <span class="toc-text">NaFlex</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E6%A8%A1%E6%80%81%E5%AF%B9%E9%BD%90%E4%B8%8E%E8%9E%8D%E5%90%88"><span class="toc-number">3.2.</span> <span class="toc-text">跨模态对齐与融合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ALBEF"><span class="toc-number">3.2.1.</span> <span class="toc-text">ALBEF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Align-Before-Fuse"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">Align Before Fuse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%94%E5%90%88%E8%AE%AD%E7%BB%83%E7%9B%AE%E6%A0%87-1"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">联合训练目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Momentum-Distillation"><span class="toc-number">3.2.1.4.</span> <span class="toc-text">Momentum Distillation</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E6%A8%A1%E6%80%81%E4%BA%A4%E4%BA%92%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">3.3.</span> <span class="toc-text">跨模态交互与生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BLIP"><span class="toc-number">3.3.1.</span> <span class="toc-text">BLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MED-Multimodal-Mixture-of-Encoder-Decoder"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">MED(Multimodal Mixture of Encoder-Decoder)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E7%9B%AE%E6%A0%87"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">训练目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CapFilt%EF%BC%88Captioning-and-Filtering%EF%BC%89"><span class="toc-number">3.3.1.3.</span> <span class="toc-text">CapFilt（Captioning and Filtering）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BLIP-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">BLIP-2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Q-Former"><span class="toc-number">3.3.2.1.</span> <span class="toc-text">Q-Former</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="toc-number">3.3.2.2.</span> <span class="toc-text">两阶段预训练</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">多模态大模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LLaVA"><span class="toc-number">4.1.</span> <span class="toc-text">LLaVA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84-1"><span class="toc-number">4.1.1.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE%E6%9E%84%E5%BB%BA"><span class="toc-number">4.1.2.</span> <span class="toc-text">多模态指令数据构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E8%AE%AD%E7%BB%83"><span class="toc-number">4.1.3.</span> <span class="toc-text">两阶段训练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qwen2-VL"><span class="toc-number">4.2.</span> <span class="toc-text">Qwen2-VL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84-2"><span class="toc-number">4.2.1.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Naive-Dynamic-Resolution"><span class="toc-number">4.2.2.</span> <span class="toc-text">Naive Dynamic Resolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#M-RoPE"><span class="toc-number">4.2.3.</span> <span class="toc-text">M-RoPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%E7%9A%84%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1"><span class="toc-number">4.2.4.</span> <span class="toc-text">图像视频的统一建模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E9%98%B6%E6%AE%B5%E8%AE%AD%E7%BB%83"><span class="toc-number">4.2.5.</span> <span class="toc-text">三阶段训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Visual-Grounding"><span class="toc-number">4.2.6.</span> <span class="toc-text">Visual Grounding</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qwen2-5-VL"><span class="toc-number">4.3.</span> <span class="toc-text">Qwen2.5-VL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84-3"><span class="toc-number">4.3.1.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fast-and-Efficient-Vision-Encoder"><span class="toc-number">4.3.2.</span> <span class="toc-text">Fast and Efficient Vision Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dynamic-Resolution-FPS-Sampling"><span class="toc-number">4.3.3.</span> <span class="toc-text">Dynamic Resolution &amp; FPS Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#M-RoPE-Aligned-to-Absolute-Time"><span class="toc-number">4.3.4.</span> <span class="toc-text">M-RoPE Aligned to Absolute Time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pre-training"><span class="toc-number">4.3.5.</span> <span class="toc-text">Pre-training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Post-training"><span class="toc-number">4.3.6.</span> <span class="toc-text">Post-training</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qwen3-VL"><span class="toc-number">4.4.</span> <span class="toc-text">Qwen3-VL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84-4"><span class="toc-number">4.4.1.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Interleaved-M-RoPE"><span class="toc-number">4.4.2.</span> <span class="toc-text">Interleaved M-RoPE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepStack"><span class="toc-number">4.4.3.</span> <span class="toc-text">DeepStack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Video-Timestamp"><span class="toc-number">4.4.4.</span> <span class="toc-text">Video Timestamp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pre-training-1"><span class="toc-number">4.4.5.</span> <span class="toc-text">Pre-training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Post-training-1"><span class="toc-number">4.4.6.</span> <span class="toc-text">Post-training</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+<p><strong>技术贡献：</strong> BLIP-2 提出 Q-Former 作为视觉编码器与 LLM 之间的信息瓶颈，通过两阶段预训练分别完成视觉特征提取和语言空间对齐，在冻结大型单模态模型的情况下实现高效的多模态学习，为后续视觉语言大模型采用预训练视觉编码器与 LLM 组合的架构提供了重要思路</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yhblogs.cn">今天睡够了吗</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yhblogs.cn/posts/3897182270.html">https://yhblogs.cn/posts/3897182270.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yhblogs.cn" target="_blank">がんばろう</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%F0%9F%8D%ADAI/">🍭AI</a></div><div class="post-share"><div class="social-share" data-image="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-5ymj95_1280x720_50kb.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related  no-desc" href="/posts/3948618638.html" title="无线网络仿真技术"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-lyje9y_1280x720_50kb.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">无线网络仿真技术</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/posts/108777184.html" title="RAG 与知识检索系统"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-k8d851_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-09</div><div class="info-item-2">RAG 与知识检索系统</div></div></div></a><a class="pagination-related no-desc" href="/posts/1172980914.html" title="Swift框架"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-xedleo_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-15</div><div class="info-item-2">Swift框架</div></div></div></a><a class="pagination-related no-desc" href="/posts/1222747289.html" title="扩散模型"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-yqkl97_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-31</div><div class="info-item-2">扩散模型</div></div></div></a><a class="pagination-related no-desc" href="/posts/3007212310.html" title="Everything is a Plugin"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-qro975_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-18</div><div class="info-item-2">Everything is a Plugin</div></div></div></a><a class="pagination-related no-desc" href="/posts/1890408756.html" title="RSI 自演进"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-rq6yqm_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-07</div><div class="info-item-2">RSI 自演进</div></div></div></a><a class="pagination-related no-desc" href="/posts/3761140292.html" title="大语言模型训练与推理"><img class="cover" src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/wallhaven-ogjjx9_1280x720_50kb.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-02</div><div class="info-item-2">大语言模型训练与推理</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/b_2a1aef95f351a5f7ef72eb81e6838fd6.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">今天睡够了吗</div><div class="author-info-description">相遇是最小单位的奇迹</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549233.webp" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://wuyaohui06022.oss-cn-chengdu.aliyuncs.com/blogwebp/202206071549234.webp" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://space.bilibili.com/277953459?spm_id_from=333.1007.0.0" target="_blank" title="bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/YaoHui-Wu06022" target="_blank" title="Github"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">保持理智，相信明天 <div class="twopeople"><div class="container"><canvas class="illo" width="800" height="800"></canvas></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89-Backbone"><span class="toc-number">1.</span> <span class="toc-text">视觉 Backbone</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Resnet"><span class="toc-number">1.1.</span> <span class="toc-text">Resnet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Degradation-Problem"><span class="toc-number">1.1.1.</span> <span class="toc-text">Degradation Problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Residual-Learning"><span class="toc-number">1.1.2.</span> <span class="toc-text">Residual Learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shortcut-Connection"><span class="toc-number">1.1.3.</span> <span class="toc-text">Shortcut Connection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BasicBlock-Bottleneck"><span class="toc-number">1.1.4.</span> <span class="toc-text">BasicBlock &amp; Bottleneck</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VIT"><span class="toc-number">1.2.</span> <span class="toc-text">VIT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding"><span class="toc-number">1.2.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Position-Embedding"><span class="toc-number">1.2.2.</span> <span class="toc-text">Position Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer-Encoder"><span class="toc-number">1.2.3.</span> <span class="toc-text">Transformer Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CNN-vs-ViT"><span class="toc-number">1.2.4.</span> <span class="toc-text">CNN vs ViT</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swin-Transformer"><span class="toc-number">1.3.</span> <span class="toc-text">Swin Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Patch-Embedding-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Patch Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window-based-Self-Attention"><span class="toc-number">1.3.2.</span> <span class="toc-text">Window-based Self-Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shifted-Window"><span class="toc-number">1.3.3.</span> <span class="toc-text">Shifted Window</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hierarchical-Representation"><span class="toc-number">1.3.4.</span> <span class="toc-text">Hierarchical Representation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E5%81%8F%E7%BD%AE"><span class="toc-number">1.3.5.</span> <span class="toc-text">相对位置偏置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConvNeXt"><span class="toc-number">1.4.</span> <span class="toc-text">ConvNeXt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ConvNeXt-Block"><span class="toc-number">1.4.1.</span> <span class="toc-text">ConvNeXt Block</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depthwise-Convolution"><span class="toc-number">1.4.2.</span> <span class="toc-text">Depthwise Convolution</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E7%9B%91%E7%9D%A3%E8%A7%86%E8%A7%89%E8%A1%A8%E5%BE%81"><span class="toc-number">2.</span> <span class="toc-text">自监督视觉表征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Moco"><span class="toc-number">2.1.</span> <span class="toc-text">Moco</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dictionary-as-a-Queue"><span class="toc-number">2.1.1.</span> <span class="toc-text">Dictionary as a Queue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Momentum-Encoder"><span class="toc-number">2.1.2.</span> <span class="toc-text">Momentum Encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contrastive-Loss"><span class="toc-number">2.1.3.</span> <span class="toc-text">Contrastive Loss</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SimCLR"><span class="toc-number">2.2.</span> <span class="toc-text">SimCLR</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Contrastive-Learning"><span class="toc-number">2.2.1.</span> <span class="toc-text">Contrastive Learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Augmentation"><span class="toc-number">2.2.2.</span> <span class="toc-text">Data Augmentation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Projection-Head"><span class="toc-number">2.2.3.</span> <span class="toc-text">Projection Head</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NT-Xent-Loss"><span class="toc-number">2.2.4.</span> <span class="toc-text">NT-Xent Loss</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MAE"><span class="toc-number">2.3.</span> <span class="toc-text">MAE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Masking-Strategy"><span class="toc-number">2.3.1.</span> <span class="toc-text">Masking Strategy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Asymmetric-Encoder-Decoder"><span class="toc-number">2.3.2.</span> <span class="toc-text">Asymmetric Encoder-Decoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reconstruction-Loss"><span class="toc-number">2.3.3.</span> <span class="toc-text">Reconstruction Loss</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DINO"><span class="toc-number">2.4.</span> <span class="toc-text">DINO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Self-Distillation-%E8%87%AA%E8%92%B8%E9%A6%8F"><span class="toc-number">2.4.1.</span> <span class="toc-text">Self-Distillation(自蒸馏)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multi-Crop-Training"><span class="toc-number">2.4.2.</span> <span class="toc-text">Multi-Crop Training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Centering-Sharpening"><span class="toc-number">2.4.3.</span> <span class="toc-text">Centering &amp; Sharpening</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iBOT"><span class="toc-number">2.5.</span> <span class="toc-text">iBOT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Online-Tokenizer"><span class="toc-number">2.5.1.</span> <span class="toc-text">Online Tokenizer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dual-Self-Distillation"><span class="toc-number">2.5.2.</span> <span class="toc-text">Dual Self-Distillation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DINOv2"><span class="toc-number">2.6.</span> <span class="toc-text">DINOv2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DINO-iBOT"><span class="toc-number">2.6.1.</span> <span class="toc-text">DINO + iBOT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KoLeo-Regularization%EF%BC%88%E7%89%B9%E5%BE%81%E5%88%86%E6%95%A3%E6%AD%A3%E5%88%99%E5%8C%96%EF%BC%89"><span class="toc-number">2.6.2.</span> <span class="toc-text">KoLeo Regularization（特征分散正则化）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DINOv3"><span class="toc-number">2.7.</span> <span class="toc-text">DINOv3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dense-Feature-Degradation"><span class="toc-number">2.7.1.</span> <span class="toc-text">Dense Feature Degradation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gram-Anchoring"><span class="toc-number">2.7.2.</span> <span class="toc-text">Gram Anchoring</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E9%A2%84%E8%AE%AD%E7%BB%83%EF%BC%88VLP%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">视觉语言预训练（VLP）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%A1%94%E5%BC%8F%E5%9B%BE%E6%96%87%E5%AF%B9%E9%BD%90"><span class="toc-number">3.1.</span> <span class="toc-text">双塔式图文对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CLIP"><span class="toc-number">3.1.1.</span> <span class="toc-text">CLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Natural-Language-Supervision"><span class="toc-number">3.1.1.1.</span> <span class="toc-text">Natural Language Supervision</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dual-Encoder-Architecture"><span class="toc-number">3.1.1.2.</span> <span class="toc-text">Dual-Encoder Architecture</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Contrastive-Pre-training"><span class="toc-number">3.1.1.3.</span> <span class="toc-text">Contrastive Pre-training</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Zero-shot-Classification"><span class="toc-number">3.1.1.4.</span> <span class="toc-text">Zero-shot Classification</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SigLIP"><span class="toc-number">3.1.2.</span> <span class="toc-text">SigLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Sigmoid-Loss"><span class="toc-number">3.1.2.1.</span> <span class="toc-text">Sigmoid Loss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Efficient-Training"><span class="toc-number">3.1.2.2.</span> <span class="toc-text">Efficient Training</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SigLIP-2"><span class="toc-number">3.1.3.</span> <span class="toc-text">SigLIP-2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Captioning-based-Pretraining"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">Captioning-based Pretraining</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Multi-stage-Training"><span class="toc-number">3.1.3.2.</span> <span class="toc-text">Multi-stage Training</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NaFlex"><span class="toc-number">3.1.3.3.</span> <span class="toc-text">NaFlex</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E6%A8%A1%E6%80%81%E4%BA%A4%E4%BA%92%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">3.2.</span> <span class="toc-text">跨模态交互与生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ALBEF"><span class="toc-number">3.2.1.</span> <span class="toc-text">ALBEF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Align-Before-Fuse"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">Align Before Fuse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Model-Architecture"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">Model Architecture</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pre-training-Objectives"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">Pre-training Objectives</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Momentum-Distillation"><span class="toc-number">3.2.1.4.</span> <span class="toc-text">Momentum Distillation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BLIP"><span class="toc-number">3.2.2.</span> <span class="toc-text">BLIP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MED-Architecture"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">MED Architecture</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pre-training-Objectives-1"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">Pre-training Objectives</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CapFilt%EF%BC%88Captioning-and-Filtering%EF%BC%89"><span class="toc-number">3.2.2.3.</span> <span class="toc-text">CapFilt（Captioning and Filtering）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BLIP-2"><span class="toc-number">3.2.3.</span> <span class="toc-text">BLIP-2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Q-Former-Architecture"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">Q-Former Architecture</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Learnable-Queries"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">Learnable Queries</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Shared-Transformer"><span class="toc-number">3.2.3.3.</span> <span class="toc-text">Shared Transformer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Two-stage-Pre-training"><span class="toc-number">3.2.3.4.</span> <span class="toc-text">Two-stage Pre-training</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By 今天睡够了吗</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">You must always have faith in who you are！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
